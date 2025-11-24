@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Valley Clean Team - Luxury Home & Office Cleaning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #333333;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+        
+        .gold-gradient {
+            background: linear-gradient(135deg, #FFA985 0%, #FF8C61 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #FFA985;
+        }
+        
+        .section-divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #FFA985 0%, #FFC67D 100%);
+            margin: 0 auto 2rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+            color: #333333;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+        
+        .testimonial-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 40;
+            animation: pulse-subtle 2s infinite;
+        }
+        
+        @keyframes pulse-subtle {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .sticky-cta {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    
+    <!-- Sticky Call Button (Mobile Only) -->
+    <a href="tel:2568261100" class="sticky-cta btn-primary w-16 h-16 rounded-full flex items-center justify-center shadow-2xl">
+        <i class="fas fa-phone text-2xl"></i>
+    </a>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="The Valley Clean Team Logo" class="h-16">
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-[#FFA985] transition">Home</a>
+                    <a href="index.html#services" class="text-gray-700 hover:text-[#FFA985] transition">Services</a>
+                    <a href="index.html#locations" class="text-gray-700 hover:text-[#FFA985] transition">Locations</a>
+                    <a href="blog.html" class="text-gray-700 hover:text-[#FFA985] transition">Blog</a>
+                    <a href="index.html#about" class="text-gray-700 hover:text-[#FFA985] transition">About</a>
+                    <a href="contact.html" class="text-gray-700 hover:text-[#FFA985] transition">Contact</a>
+                </div>
+                <a href="tel:256-826-1100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] hover:from-[#FF8C61] hover:to-[#FFB366] text-white px-6 py-3 rounded-full font-semibold transition shadow-lg">
+                    256-826-1100
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                <!-- Left Column - Headline & Contact -->
+                <div class="text-center lg:text-left">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-[#333333]">
+                        Luxury Cleaning Services in <span class="gold-gradient">Alabama & Tennessee</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-700 mb-6">
+                        Our luxury concierge model matches homes with vetted, insured cleaners who meet strict white glove standards.
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8">
+                        The Valley Clean Team takes care of your home while you focus on what matters. Our professional team ensures a spotless space, tailored to your needs.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
+                        <a href="tel:2568261100" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+                            <i class="fas fa-phone text-[#FFA985] mr-2 text-xl"></i>
+                            <span class="font-semibold">256-826-1100</span>
+                        </a>
+                        <a href="/cdn-cgi/l/email-protection#066f68606946726e6370676a6a637f656a6367687263676b2865696b" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+                            <i class="fas fa-envelope text-[#FFA985] mr-2 text-xl"></i>
+                            <span class="font-semibold">Email Us</span>
+                        </a>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4">⚡ Most quotes replied to within 2 hours</p>
+                </div>
+                
+                <!-- Right Column - Quick Quote Form -->
+                <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+                    <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+                    <p class="text-gray-600 mb-6 text-center">Fill out in 60 seconds</p>
+                    <form>
+                        <div class="mb-4">
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="tel" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+                        </div>
+                        <div class="mb-4">
+                            <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                                <option value="">Select Service Type *</option>
+                                <option>Deep Cleaning</option>
+                                <option>Regular Cleaning</option>
+                                <option>Move In/Out Cleaning</option>
+                                <option>Post-Construction Cleaning</option>
+                                <option>Commercial/Office Cleaning</option>
+                                <option>Event Cleaning</option>
+                                <option>Green Cleaning</option>
+                                <option>Airbnb Cleaning</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Zip Code">
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+                            Get My Free Quote Now
+                        </button>
+                        <p class="text-center text-xs text-gray-500 mt-3">
+                            <i class="fas fa-lock mr-1"></i> 100% Secure. We respect your privacy.
+                        </p>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="stat-number">3+</div>
+                    <p class="text-gray-600 text-lg">Years Serving</p>
+                </div>
+                <div class="text-center">
+                    <div class="stat-number">1047+</div>
+                    <p class="text-gray-600 text-lg">Cleanings Completed</p>
+                </div>
+                <div class="text-center">
+                    <div class="stat-number">130+</div>
+                    <p class="text-gray-600 text-lg">5-Star Reviews</p>
+                </div>
+                <div class="text-center">
+                    <div class="stat-number">
+                        <i class="fas fa-flag-usa text-[#FFA985]"></i>
+                    </div>
+                    <p class="text-gray-600 text-lg">Veteran Owned</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="container mx-auto px-6 mb-20">
+        <div class="text-center">
+            <i class="fas fa-star text-[#FFA985] text-3xl mb-4"></i>
+            <h3 class="text-2xl md:text-3xl font-semibold text-[#333333] mb-6">
+                Why Settle for Less? Discover the Luxury of a Spotless Environment Today!
+            </h3>
+            <a href="contact.html" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold inline-block">
+                Schedule Your Cleaning
+            </a>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Services</h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600">Discover Our Premium Cleaning Services Tailored for Every Need</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp" alt="Deep Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
+                        <p class="text-gray-600">A thorough, top-to-bottom clean for those hard-to-reach areas, restoring your home's sparkle.</p>
+                    </div>
+                </div>
+                
+                <!-- Service Card 2 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp" alt="Regular Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular Cleaning</h3>
+                        <p class="text-gray-600">Comprehensive cleaning to ensure your home remains pristine, fresh and ready to enjoy.</p>
+                    </div>
+                </div>
+                
+                <!-- Service Card 3 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg" alt="Move In/Out Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out Cleaning</h3>
+                        <p class="text-gray-600">Move stress-free with our meticulous cleaning services tailored for new or vacated spaces.</p>
+                    </div>
+                </div>
+                
+                <!-- Service Card 4 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e7465408c65fe8150cac.jpg" alt="Green Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Green Cleaning</h3>
+                        <p class="text-gray-600">Eco-friendly cleaning using safe, sustainable products for a healthier home and environment.</p>
+                    </div>
+                </div>
+                
+                <!-- Service Card 5 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e69af8fa3b6226330f2d.jpg" alt="Airbnb Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb Cleaning</h3>
+                        <p class="text-gray-600">Impress your guests with a sparkling clean space, ready for a 5-star review every time.</p>
+                    </div>
+                </div>
+                
+                <!-- Service Card 6 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp" alt="Post-Construction Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction Cleaning</h3>
+                        <p class="text-gray-600">Transform your newly built or renovated space from construction zone to move-in ready with our thorough post-construction cleaning.</p>
+                    </div>
+                </div>
+                
+                <!-- Service Card 7 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp" alt="Commercial/Office Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Commercial/Office Cleaning</h3>
+                        <p class="text-gray-600">Ensure your workspace remains spotless and professional with our detailed commercial and office cleaning services.</p>
+                    </div>
+                </div>
+                
+                <!-- Service Card 8 -->
+                <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029a460c03aa0a6bcb1.webp" alt="Event Cleaning Service" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-[#333333]">Event Cleaning</h3>
+                        <p class="text-gray-600">Before, during, or after - we ensure your event space is immaculate for your guests and attendees.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Work Gallery -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    See Our <span class="text-[#FFA985]">Deep Cleaning</span> Results
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600">Quality you can see and trust</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp" alt="Deep Cleaning Kitchen" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a47e103023b5d59be.jpg" alt="Deep Cleaning Bathroom" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080291f786ee61bc0b0ef.webp" alt="Deep Cleaning Living Space" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080291f786e4839c0b0fa.webp" alt="Deep Cleaning Detail" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300">
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="contact.html" class="btn-primary px-10 py-4 rounded-full text-xl font-semibold inline-block shadow-lg">
+                    Book Your Deep Clean Today
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas Section -->
+    <section id="locations" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    Areas We <span class="gold-gradient">Proudly Serve</span>
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600">Professional cleaning services across Alabama & Tennessee</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Birmingham -->
+                <a href="birmingham-cleaning.html" class="service-card bg-white rounded-2xl p-8 shadow-md border-2 border-gray-200 hover:border-[#FFA985] group">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-[#333333] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#333333] group-hover:text-[#FFA985] transition">Birmingham</h3>
+                            <p class="text-gray-600">Jefferson County</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Serving Mountain Brook, Homewood, Vestavia Hills, Hoover, and 15+ more neighborhoods
+                    </p>
+                    <div class="flex items-center text-[#FFA985] font-semibold">
+                        View Birmingham Services
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </a>
+                
+                <!-- Huntsville -->
+                <a href="huntsville-cleaning.html" class="service-card bg-white rounded-2xl p-8 shadow-md border-2 border-gray-200 hover:border-[#FFA985] group">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-[#333333] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#333333] group-hover:text-[#FFA985] transition">Huntsville</h3>
+                            <p class="text-gray-600">Madison County</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Serving Hampton Cove, Madison, Downtown, near Redstone Arsenal & UAH, and 15+ more areas
+                    </p>
+                    <div class="flex items-center text-[#FFA985] font-semibold">
+                        View Huntsville Services
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </a>
+                
+                <!-- Madison -->
+                <a href="madison-cleaning.html" class="service-card bg-white rounded-2xl p-8 shadow-md border-2 border-gray-200 hover:border-[#FFA985] group">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-[#333333] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#333333] group-hover:text-[#FFA985] transition">Madison</h3>
+                            <p class="text-gray-600">Madison County, AL</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Serving Madison Station, Hughes Road, County Line Road, and all Madison neighborhoods
+                    </p>
+                    <div class="flex items-center text-[#FFA985] font-semibold">
+                        View Madison Services
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </a>
+                
+                <!-- Muscle Shoals Area -->
+                <a href="muscle-shoals-cleaning.html" class="service-card bg-white rounded-2xl p-8 shadow-md border-2 border-gray-200 hover:border-[#FFA985] group">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-[#333333] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#333333] group-hover:text-[#FFA985] transition">The Shoals</h3>
+                            <p class="text-gray-600">4 Cities, AL</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Serving Florence, Muscle Shoals, Sheffield, Tuscumbia - complete Shoals area coverage
+                    </p>
+                    <div class="flex items-center text-[#FFA985] font-semibold">
+                        View Shoals Services
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </a>
+                
+                <!-- West Nashville -->
+                <a href="west-nashville-cleaning.html" class="service-card bg-white rounded-2xl p-8 shadow-md border-2 border-gray-200 hover:border-[#FFA985] group">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-[#333333] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#333333] group-hover:text-[#FFA985] transition">West Nashville</h3>
+                            <p class="text-gray-600">Tennessee</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Serving Belle Meade, Sylvan Park, The Nations, West Meade, and all West Nashville
+                    </p>
+                    <div class="flex items-center text-[#FFA985] font-semibold">
+                        View Nashville Services
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </a>
+                
+                <!-- Coming Soon Template -->
+                <div class="bg-gradient-to-br from-gray-100 to-white rounded-2xl p-8 shadow-md border-2 border-gray-200">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-gray-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-600">More Cities</h3>
+                            <p class="text-gray-500">Coming Soon</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Expanding to Montgomery, Mobile, Tuscaloosa, and more cities
+                    </p>
+                    <div class="flex items-center text-gray-500 font-semibold">
+                        <a href="contact.html" class="text-[#FFA985] hover:underline">Request Your Area</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-gray-600 text-lg mb-4">
+                    <i class="fas fa-phone text-[#FFA985] mr-2"></i>
+                    Don't see your city? Call us at <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Booking Section -->
+    <section id="contact" class="py-20 px-6">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Ready to Book?</h2>
+                    <div class="section-divider ml-0"></div>
+                    <p class="text-xl text-gray-600 mb-6">Choose Your Preferred Way to Connect</p>
+                    
+                    <!-- Contact Options -->
+                    <div class="space-y-4 mb-8 bg-white rounded-xl p-6 border border-gray-200">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-[#333333] text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-[#333333] mb-1">Call Us Now</h4>
+                                <a href="tel:2568261100" class="text-[#FFA985] text-xl font-bold hover:underline">256-826-1100</a>
+                                <p class="text-sm text-gray-600 mt-1">Available Mon-Sat, 8am-6pm</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-[#333333] text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-[#333333] mb-1">Email Us</h4>
+                                <a href="/cdn-cgi/l/email-protection#dab3b4bcb59aaeb2bfacbbb6b6bfa3b9b6bfbbb4aebfbbb7f4b9b5b7" class="text-[#FFA985] text-lg font-semibold hover:underline"><span class="__cf_email__" data-cfemail="8ee7e0e8e1cefae6ebf8efe2e2ebf7ede2ebefe0faebefe3a0ede1e3">[email&#160;protected]</span></a>
+                                <p class="text-sm text-gray-600 mt-1">We'll respond within 2 hours</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-calendar-check text-[#333333] text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-[#333333] mb-1">Book Online</h4>
+                                <p class="text-gray-600">Fill out the form in 2 minutes →</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-md">
+                    <form>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="your@email.com">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 mb-2">Phone</label>
+                            <input type="tel" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="256-826-1100">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 mb-2">Service Type</label>
+                            <select class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+                                <option>Select a Service</option>
+                                <option>Deep Cleaning</option>
+                                <option>Regular Cleaning</option>
+                                <option>Move In/Out Cleaning</option>
+                                <option>Post-Construction Cleaning</option>
+                                <option>Commercial/Office Cleaning</option>
+                                <option>Event Cleaning</option>
+                                <option>Green Cleaning</option>
+                                <option>Airbnb Cleaning</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 mb-2">Preferred Date</label>
+                            <input type="date" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 mb-2">Additional Details</label>
+                            <textarea class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" rows="4" placeholder="Tell us more about your cleaning needs..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+                            Get My Free Quote Now
+                        </button>
+                        <p class="text-center text-sm text-gray-500 mt-3">
+                            <i class="fas fa-lock mr-1"></i> Your information is secure. We'll respond within 2 hours.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-gray-200 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="The Valley Clean Team Logo" class="h-16">
+                    </div>
+                    <p class="text-gray-600">Luxury cleaning services for your home and office.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-[#333333]">Services</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="index.html#services" class="hover:text-[#FFA985] transition">Deep Cleaning</a></li>
+                        <li><a href="index.html#services" class="hover:text-[#FFA985] transition">Regular Cleaning</a></li>
+                        <li><a href="index.html#services" class="hover:text-[#FFA985] transition">Move In/Out</a></li>
+                        <li><a href="index.html#services" class="hover:text-[#FFA985] transition">Office Cleaning</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-[#333333]">Service Areas</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="birmingham-cleaning.html" class="hover:text-[#FFA985] transition">Birmingham, AL</a></li>
+                        <li><a href="huntsville-cleaning.html" class="hover:text-[#FFA985] transition">Huntsville, AL</a></li>
+                        <li><a href="madison-cleaning.html" class="hover:text-[#FFA985] transition">Madison, AL</a></li>
+                        <li><a href="muscle-shoals-cleaning.html" class="hover:text-[#FFA985] transition">Muscle Shoals, AL</a></li>
+                        <li><a href="west-nashville-cleaning.html" class="hover:text-[#FFA985] transition">West Nashville, TN</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4 text-[#333333]">Contact</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>
+                            <a href="tel:2568261100" class="hover:text-[#FFA985] transition">
+                                <i class="fas fa-phone text-[#FFA985]"></i> 256-826-1100
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/cdn-cgi/l/email-protection#60090e060f2014080516010c0c0519030c05010e1405010d4e030f0d" class="hover:text-[#FFA985] transition">
+                                <i class="fas fa-envelope text-[#FFA985]"></i> <span class="__cf_email__" data-cfemail="ed84838b82ad9985889b8c818188948e81888c8399888c80c38e8280">[email&#160;protected]</span>
+                            </a>
+                        </li>
+                        <li><i class="fas fa-map-marker-alt text-[#FFA985]"></i> Alabama & Tennessee</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class=
