@@ -1,0 +1,154 @@
+---
+interface Props {
+  type?: 'organization' | 'local' | 'service';
+  city?: string;
+  state?: string;
+}
+
+const { type = 'organization', city, state } = Astro.props;
+
+const baseSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://thevalleycleanteam.com/#organization",
+  "name": "The Valley Clean Team",
+  "alternateName": "TVCT",
+  "description": "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, insured, and bonded with 130+ 5-star reviews.",
+  "url": "https://thevalleycleanteam.com",
+  "telephone": "+1-256-826-1100",
+  "email": "info@thevalleycleanteam.com",
+  "logo": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "priceRange": "$$",
+  "currenciesAccepted": "USD",
+  "paymentAccepted": "Cash, Credit Card, Debit Card",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Birmingham",
+      "containedInPlace": { "@type": "State", "name": "Alabama" }
+    },
+    {
+      "@type": "City",
+      "name": "Huntsville",
+      "containedInPlace": { "@type": "State", "name": "Alabama" }
+    },
+    {
+      "@type": "City",
+      "name": "Madison",
+      "containedInPlace": { "@type": "State", "name": "Alabama" }
+    },
+    {
+      "@type": "City",
+      "name": "Muscle Shoals",
+      "containedInPlace": { "@type": "State", "name": "Alabama" }
+    },
+    {
+      "@type": "City",
+      "name": "Florence",
+      "containedInPlace": { "@type": "State", "name": "Alabama" }
+    },
+    {
+      "@type": "City",
+      "name": "Nashville",
+      "containedInPlace": { "@type": "State", "name": "Tennessee" }
+    }
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "00:00",
+      "closes": "00:00",
+      "description": "By appointment only"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "130",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Cleaning Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Deep Cleaning",
+          "description": "Thorough top-to-bottom cleaning for homes"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Regular Cleaning",
+          "description": "Weekly or bi-weekly maintenance cleaning"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Move In/Out Cleaning",
+          "description": "Complete cleaning for relocating homes"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Commercial/Office Cleaning",
+          "description": "Professional cleaning for businesses"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Airbnb/Vacation Rental Cleaning",
+          "description": "Fast turnaround cleaning for short-term rentals"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Post-Construction Cleaning",
+          "description": "Detailed cleaning after renovations"
+        }
+      }
+    ]
+  },
+  "sameAs": [
+    "https://www.facebook.com/thevalleycleanteam",
+    "https://www.instagram.com/thevalleycleanteam"
+  ]
+};
+
+const localSchema = city ? {
+  ...baseSchema,
+  "@type": "HouseCleaning",
+  "name": `The Valley Clean Team - ${city}, ${state}`,
+  "description": `Professional cleaning services in ${city}, ${state}. Veteran-owned, insured, bonded. Same-day service available.`,
+  "areaServed": {
+    "@type": "City",
+    "name": city,
+    "containedInPlace": { "@type": "State", "name": state }
+  }
+} : baseSchema;
+
+const schemaToUse = type === 'local' && city ? localSchema : baseSchema;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schemaToUse)} />

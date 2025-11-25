@@ -1,11 +1,13 @@
 ---
-import { SpeedInsights } from '@vercel/speed-insights/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
 
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, insured, bonded. 130+ 5-star reviews. Same-day service available." } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -16,6 +18,15 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="cleaning service, house cleaning, maid service, deep cleaning, move in cleaning, move out cleaning, Huntsville AL, Birmingham AL, Nashville TN, Madison AL, Muscle Shoals, veteran owned, insured, bonded" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://thevalleycleanteam.com" />
+    <SchemaMarkup type="organization" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');

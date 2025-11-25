@@ -1,0 +1,85 @@
+---
+interface Props {
+  variant?: 'full' | 'compact' | 'inline';
+  showGuarantee?: boolean;
+}
+
+const { variant = 'full', showGuarantee = true } = Astro.props;
+---
+
+{variant === 'full' && (
+  <div class="trust-badges py-6 px-4 bg-white rounded-2xl border border-gray-200 shadow-sm">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <div class="trust-badge">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+          <i class="fas fa-shield-alt text-white text-xl"></i>
+        </div>
+        <h4 class="font-bold text-[#333333] text-sm mb-1">Fully Insured</h4>
+        <p class="text-xs text-gray-600">$2M Liability Coverage</p>
+      </div>
+
+      <div class="trust-badge">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+          <i class="fas fa-user-check text-white text-xl"></i>
+        </div>
+        <h4 class="font-bold text-[#333333] text-sm mb-1">Background Checked</h4>
+        <p class="text-xs text-gray-600">Vetted & Trusted Staff</p>
+      </div>
+
+      <div class="trust-badge">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+          <i class="fas fa-medal text-white text-xl"></i>
+        </div>
+        <h4 class="font-bold text-[#333333] text-sm mb-1">Veteran Owned</h4>
+        <p class="text-xs text-gray-600">Proudly American</p>
+      </div>
+
+      <div class="trust-badge">
+        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+          <i class="fas fa-redo text-white text-xl"></i>
+        </div>
+        <h4 class="font-bold text-[#333333] text-sm mb-1">100% Satisfaction</h4>
+        <p class="text-xs text-gray-600">Guaranteed or Re-Clean Free</p>
+      </div>
+    </div>
+
+    {showGuarantee && (
+      <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+        <p class="text-gray-700 font-medium">
+          <i class="fas fa-check-circle text-green-500 mr-2"></i>
+          <span class="text-[#333333] font-bold">Our Promise:</span> If you're not 100% satisfied, we'll re-clean for FREE
+        </p>
+      </div>
+    )}
+  </div>
+)}
+
+{variant === 'compact' && (
+  <div class="trust-badges-compact flex flex-wrap justify-center gap-4 py-4">
+    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+      <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+      <span class="text-sm font-medium text-[#333333]">Insured & Bonded</span>
+    </div>
+    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+      <i class="fas fa-user-check text-[#FFA985] mr-2"></i>
+      <span class="text-sm font-medium text-[#333333]">Background Checked</span>
+    </div>
+    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+      <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+      <span class="text-sm font-medium text-[#333333]">Veteran Owned</span>
+    </div>
+    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+      <i class="fas fa-redo text-[#FFA985] mr-2"></i>
+      <span class="text-sm font-medium text-[#333333]">Satisfaction Guaranteed</span>
+    </div>
+  </div>
+)}
+
+{variant === 'inline' && (
+  <div class="trust-badges-inline flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-600">
+    <span><i class="fas fa-shield-alt text-[#FFA985] mr-1"></i> Insured</span>
+    <span><i class="fas fa-user-check text-[#FFA985] mr-1"></i> Background Checked</span>
+    <span><i class="fas fa-medal text-[#FFA985] mr-1"></i> Veteran Owned</span>
+    <span><i class="fas fa-redo text-[#FFA985] mr-1"></i> Satisfaction Guaranteed</span>
+  </div>
+)}

@@ -1,0 +1,564 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+---
+
+<BaseLayout title="Pricing - Transparent Cleaning Service Rates | The Valley Clean Team">
+  <SchemaMarkup type="organization" />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-12 px-6">
+    <div class="container mx-auto text-center">
+      <div class="inline-block bg-gradient-to-r from-green-100 to-green-50 px-4 py-2 rounded-full mb-4">
+        <span class="text-green-700 font-semibold">
+          <i class="fas fa-tag mr-2"></i>Transparent Pricing - No Hidden Fees
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#333333]">
+        Simple, <span class="gold-gradient">Honest Pricing</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+        Unlike other cleaning services, we believe in transparent pricing. Get an instant estimate below or call us for a custom quote.
+      </p>
+      <TrustBadges variant="inline" />
+    </div>
+  </section>
+
+  <!-- Pricing Calculator -->
+  <section class="py-12 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#FFA985]/20">
+        <h2 class="text-3xl font-bold text-center mb-2 text-[#333333]">
+          <i class="fas fa-calculator text-[#FFA985] mr-3"></i>Instant Price Estimate
+        </h2>
+        <p class="text-center text-gray-600 mb-8">Get a ballpark estimate in seconds</p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Home Size (sq ft)</label>
+            <select id="homeSize" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+              <option value="1000">Under 1,000 sq ft</option>
+              <option value="1500">1,000 - 1,500 sq ft</option>
+              <option value="2000" selected>1,500 - 2,000 sq ft</option>
+              <option value="2500">2,000 - 2,500 sq ft</option>
+              <option value="3000">2,500 - 3,000 sq ft</option>
+              <option value="3500">3,000 - 3,500 sq ft</option>
+              <option value="4000">3,500+ sq ft</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Number of Bedrooms</label>
+            <select id="bedrooms" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+              <option value="1">1 Bedroom</option>
+              <option value="2">2 Bedrooms</option>
+              <option value="3" selected>3 Bedrooms</option>
+              <option value="4">4 Bedrooms</option>
+              <option value="5">5+ Bedrooms</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Number of Bathrooms</label>
+            <select id="bathrooms" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+              <option value="1">1 Bathroom</option>
+              <option value="2" selected>2 Bathrooms</option>
+              <option value="3">3 Bathrooms</option>
+              <option value="4">4+ Bathrooms</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Service Type</label>
+            <select id="serviceType" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+              <option value="regular">Regular Cleaning</option>
+              <option value="deep" selected>Deep Cleaning</option>
+              <option value="moveinout">Move In/Out Cleaning</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 text-center mb-6">
+          <p class="text-gray-600 mb-2">Your Estimated Price Range</p>
+          <div class="text-5xl font-bold text-[#333333]" id="priceEstimate">$175 - $250</div>
+          <p class="text-sm text-gray-500 mt-2">*Final price may vary based on home condition</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+            <i class="fas fa-phone mr-2"></i>Call for Exact Quote
+          </a>
+          <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold text-center border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition">
+            <i class="fas fa-calendar mr-2"></i>Book Online
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Tiers -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Our Cleaning Packages</h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Choose the service that fits your needs</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <!-- Regular Cleaning -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition-all hover:shadow-xl">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gray-100 flex items-center justify-center mb-4">
+              <i class="fas fa-home text-[#FFA985] text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-[#333333]">Regular Cleaning</h3>
+            <p class="text-gray-600 mt-2">Weekly or Bi-Weekly</p>
+          </div>
+          <div class="text-center mb-6">
+            <span class="text-gray-500 text-lg">Starting at</span>
+            <div class="text-4xl font-bold text-[#333333]">$99</div>
+            <span class="text-gray-500">per visit</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">All rooms dusted & vacuumed</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Kitchen surfaces cleaned</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Bathrooms sanitized</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Floors mopped</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Trash emptied</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Beds made</span>
+            </li>
+          </ul>
+          <a href="/contact" class="block w-full btn-primary py-3 rounded-full text-center font-semibold">
+            Get Quote
+          </a>
+        </div>
+
+        <!-- Deep Cleaning - Featured -->
+        <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#FFA985] relative transform md:-translate-y-4">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+              MOST POPULAR
+            </span>
+          </div>
+          <div class="text-center mb-6 mt-4">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class="fas fa-sparkles text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-[#333333]">Deep Cleaning</h3>
+            <p class="text-gray-600 mt-2">One-Time or Seasonal</p>
+          </div>
+          <div class="text-center mb-6">
+            <span class="text-gray-500 text-lg">Starting at</span>
+            <div class="text-4xl font-bold text-[#FFA985]">$175</div>
+            <span class="text-gray-500">per visit</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Everything in Regular</strong>, plus:</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Inside appliances cleaned</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Baseboards & door frames</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Light fixtures & ceiling fans</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Window sills & blinds</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Cabinet fronts wiped</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Behind furniture cleaning</span>
+            </li>
+          </ul>
+          <a href="/contact" class="block w-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white py-3 rounded-full text-center font-semibold shadow-lg hover:shadow-xl transition">
+            Get Quote
+          </a>
+        </div>
+
+        <!-- Move In/Out -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition-all hover:shadow-xl">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gray-100 flex items-center justify-center mb-4">
+              <i class="fas fa-truck-moving text-[#FFA985] text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-[#333333]">Move In/Out</h3>
+            <p class="text-gray-600 mt-2">Get Your Deposit Back</p>
+          </div>
+          <div class="text-center mb-6">
+            <span class="text-gray-500 text-lg">Starting at</span>
+            <div class="text-4xl font-bold text-[#333333]">$225</div>
+            <span class="text-gray-500">per visit</span>
+          </div>
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Everything in Deep</strong>, plus:</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Inside all cabinets & drawers</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Inside closets cleaned</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Oven & fridge deep clean</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">All switch plates & outlets</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span class="text-gray-700">Garage sweep (if applicable)</span>
+            </li>
+          </ul>
+          <a href="/contact" class="block w-full btn-primary py-3 rounded-full text-center font-semibold">
+            Get Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Services -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Add-On Services</h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Customize your clean with these extras</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-couch text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Inside Fridge</h4>
+          <p class="text-2xl font-bold text-[#333333]">+$35</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-fire text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Inside Oven</h4>
+          <p class="text-2xl font-bold text-[#333333]">+$35</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-warehouse text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Garage Sweep</h4>
+          <p class="text-2xl font-bold text-[#333333]">+$50</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-window-maximize text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Interior Windows</h4>
+          <p class="text-2xl font-bold text-[#333333]">+$5/window</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-box text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Inside Cabinets</h4>
+          <p class="text-2xl font-bold text-[#333333]">+$75</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-tshirt text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Laundry Service</h4>
+          <p class="text-2xl font-bold text-[#333333]">+$25/load</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-bed text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Change Linens</h4>
+          <p class="text-2xl font-bold text-[#333333]">+$15/bed</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center">
+          <i class="fas fa-leaf text-[#FFA985] text-3xl mb-4"></i>
+          <h4 class="font-bold text-[#333333] mb-2">Green Products</h4>
+          <p class="text-2xl font-bold text-[#333333]">FREE</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commercial Pricing -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="bg-gradient-to-br from-[#333333] to-[#1a1a2e] rounded-2xl p-8 md:p-12 text-white text-center">
+        <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-6">
+          <i class="fas fa-building text-[#333333] text-3xl"></i>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Commercial & Office Cleaning</h2>
+        <p class="text-xl text-gray-300 mb-6">Custom pricing based on your business needs</p>
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-white/10 rounded-xl p-4">
+            <h4 class="font-bold text-[#FFA985]">Small Office</h4>
+            <p class="text-sm text-gray-300">Under 2,000 sq ft</p>
+            <p class="text-2xl font-bold mt-2">From $150</p>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4">
+            <h4 class="font-bold text-[#FFA985]">Medium Office</h4>
+            <p class="text-sm text-gray-300">2,000-5,000 sq ft</p>
+            <p class="text-2xl font-bold mt-2">From $300</p>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4">
+            <h4 class="font-bold text-[#FFA985]">Large Office</h4>
+            <p class="text-sm text-gray-300">5,000+ sq ft</p>
+            <p class="text-2xl font-bold mt-2">Custom Quote</p>
+          </div>
+        </div>
+        <a href="tel:2568261100" class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition">
+          <i class="fas fa-phone mr-2"></i>Call for Commercial Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Airbnb/Vacation Rental -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Airbnb & Vacation Rental Hosts</h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Fast turnaround to keep your guests happy</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-[#FFA985]/20">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-[#333333] mb-4">Same-Day Turnover Available</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                <span class="text-gray-700">Guest-ready cleaning in 2-4 hours</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                <span class="text-gray-700">Fresh linens & towels setup</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                <span class="text-gray-700">Restock essentials checklist</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                <span class="text-gray-700">Photo documentation available</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                <span class="text-gray-700">Priority scheduling for hosts</span>
+              </li>
+            </ul>
+          </div>
+          <div class="text-center bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6">
+            <p class="text-gray-600 mb-2">Turnover Cleaning</p>
+            <div class="text-4xl font-bold text-[#333333] mb-2">From $125</div>
+            <p class="text-sm text-gray-500 mb-4">Based on property size</p>
+            <a href="/contact" class="btn-primary px-6 py-3 rounded-full font-semibold inline-block">
+              Partner With Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <TrustBadges variant="full" />
+    </div>
+  </section>
+
+  <!-- Price Match -->
+  <section class="py-12 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
+        <i class="fas fa-tag mr-3"></i>Price Match Guarantee
+      </h2>
+      <p class="text-xl text-[#333333]/80 max-w-2xl mx-auto">
+        Found a lower price from a licensed, insured competitor? Show us the quote and we'll match it!
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Pricing FAQs</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333]">How is pricing determined?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">
+              Pricing is based on home size (square footage), number of bedrooms and bathrooms, type of service requested, and current condition of the home. We provide exact quotes after understanding your specific needs.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333]">Do you charge extra for pets?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">
+              We love pets! There's no extra charge for homes with pets. However, if there's excessive pet hair or accidents that require extra attention, we may adjust the quote accordingly.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333]">Do you offer discounts for recurring service?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">
+              Yes! Weekly customers receive up to 20% off, bi-weekly customers receive up to 15% off, and monthly customers receive up to 10% off regular prices.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333]">What payment methods do you accept?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">
+              We accept all major credit cards, debit cards, cash, Venmo, Zelle, and checks. Payment is due upon completion of service.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333]">Is there a cancellation fee?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">
+              We understand life happens. Cancellations made 24+ hours in advance have no fee. Cancellations within 24 hours may incur a $50 fee. No-shows without notice will be charged the full service amount.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto text-center max-w-3xl">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">Ready for a Spotless Home?</h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Get your free, no-obligation quote today. Most quotes replied to within 2 hours!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg">
+          <i class="fas fa-phone mr-2"></i>256-826-1100
+        </a>
+        <a href="/contact" class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+          <i class="fas fa-calendar mr-2"></i>Book Online
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Price Calculator
+  const homeSize = document.getElementById('homeSize');
+  const bedrooms = document.getElementById('bedrooms');
+  const bathrooms = document.getElementById('bathrooms');
+  const serviceType = document.getElementById('serviceType');
+  const priceEstimate = document.getElementById('priceEstimate');
+
+  function calculatePrice() {
+    const size = parseInt(homeSize.value);
+    const beds = parseInt(bedrooms.value);
+    const baths = parseInt(bathrooms.value);
+    const service = serviceType.value;
+
+    // Base prices
+    let baseMin = 99;
+    let baseMax = 150;
+
+    // Adjust for service type
+    if (service === 'deep') {
+      baseMin = 175;
+      baseMax = 250;
+    } else if (service === 'moveinout') {
+      baseMin = 225;
+      baseMax = 350;
+    }
+
+    // Adjust for size
+    const sizeMultiplier = size / 2000;
+    baseMin = Math.round(baseMin * sizeMultiplier);
+    baseMax = Math.round(baseMax * sizeMultiplier);
+
+    // Adjust for bedrooms
+    baseMin += (beds - 2) * 15;
+    baseMax += (beds - 2) * 25;
+
+    // Adjust for bathrooms
+    baseMin += (baths - 2) * 20;
+    baseMax += (baths - 2) * 30;
+
+    // Ensure minimums
+    if (service === 'regular') {
+      baseMin = Math.max(baseMin, 99);
+      baseMax = Math.max(baseMax, 150);
+    } else if (service === 'deep') {
+      baseMin = Math.max(baseMin, 175);
+      baseMax = Math.max(baseMax, 250);
+    } else {
+      baseMin = Math.max(baseMin, 225);
+      baseMax = Math.max(baseMax, 350);
+    }
+
+    priceEstimate.textContent = `$${baseMin} - $${baseMax}`;
+  }
+
+  homeSize.addEventListener('change', calculatePrice);
+  bedrooms.addEventListener('change', calculatePrice);
+  bathrooms.addEventListener('change', calculatePrice);
+  serviceType.addEventListener('change', calculatePrice);
+</script>
