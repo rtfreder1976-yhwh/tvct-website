@@ -3,9 +3,11 @@ interface Props {
   type?: 'organization' | 'local' | 'service';
   city?: string;
   state?: string;
+  serviceName?: string;
+  servicePrice?: string;
 }
 
-const { type = 'organization', city, state } = Astro.props;
+const { type = 'organization', city, state, serviceName, servicePrice } = Astro.props;
 
 const baseSchema = {
   "@context": "https://schema.org",
@@ -148,7 +150,34 @@ const localSchema = city ? {
   }
 } : baseSchema;
 
+// Service schema for specific service pages
+const serviceSchema = serviceName ? {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": serviceName,
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+1-256-826-1100",
+    "url": "https://thevalleycleanteam.com"
+  },
+  "areaServed": city ? {
+    "@type": "City",
+    "name": city,
+    "containedInPlace": { "@type": "State", "name": state }
+  } : baseSchema.areaServed,
+  "offers": servicePrice ? {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": servicePrice.replace(/[^0-9]/g, ''),
+      "priceCurrency": "USD"
+    }
+  } : undefined
+} : null;
+
 const schemaToUse = type === 'local' && city ? localSchema : baseSchema;
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schemaToUse)} />
+{serviceSchema && <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />}

@@ -1,0 +1,308 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  service: string;
+  serviceSlug: string;
+  city: string;
+  state: string;
+  citySlug: string;
+  serviceDescription: string;
+  benefits: string[];
+  includes: string[];
+  price: string;
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+}
+
+const { title, description, service, serviceSlug, city, state, citySlug, serviceDescription, benefits, includes, price, faqs } = Astro.props;
+
+// Schema for Service
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": service,
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": city,
+      "addressRegion": state,
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": city,
+    "containedInPlace": {
+      "@type": "State",
+      "name": state
+    }
+  },
+  "description": serviceDescription,
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": price.replace(/[^0-9]/g, ''),
+      "priceCurrency": "USD",
+      "unitText": "per service"
+    }
+  }
+};
+
+// FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-map-marker-alt mr-2"></i>Serving {city}, {state}
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            {service} in <span class="gold-gradient">{city}, {state}</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">{serviceDescription}</p>
+
+          <div class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 mb-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-600 text-sm">Starting at</p>
+                <p class="text-4xl font-bold text-[#333333]">{price}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-green-600 font-semibold"><i class="fas fa-check-circle mr-1"></i> Free Quotes</p>
+                <p class="text-green-600 font-semibold"><i class="fas fa-check-circle mr-1"></i> Same-Day Available</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition">
+              <i class="fas fa-calendar mr-2"></i>Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">{service} in {city}</p>
+          <form>
+            <div class="mb-4">
+              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder={`${city} Address/Zip Code`} required>
+            </div>
+            <input type="hidden" name="service" value={service}>
+            <input type="hidden" name="city" value={city}>
+            <button type="submit" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Get My Free {service} Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-clock mr-1"></i> Response within 2 hours
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-6 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="flex flex-wrap justify-center gap-6 text-sm">
+        <span class="flex items-center"><i class="fas fa-shield-alt text-[#FFA985] mr-2"></i> Fully Insured</span>
+        <span class="flex items-center"><i class="fas fa-user-check text-[#FFA985] mr-2"></i> Background Checked</span>
+        <span class="flex items-center"><i class="fas fa-medal text-[#FFA985] mr-2"></i> Veteran Owned</span>
+        <span class="flex items-center"><i class="fas fa-star text-[#FFA985] mr-2"></i> 130+ 5-Star Reviews</span>
+        <span class="flex items-center"><i class="fas fa-redo text-[#FFA985] mr-2"></i> Satisfaction Guaranteed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What's Included in Our {city} {service}
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Comprehensive cleaning tailored to {city} homes</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>Service Includes
+          </h3>
+          <ul class="space-y-4">
+            {includes.map((item) => (
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            <i class="fas fa-star text-[#FFA985] mr-2"></i>Why {city} Chooses Us
+          </h3>
+          <ul class="space-y-4">
+            {benefits.map((benefit) => (
+              <li class="flex items-start">
+                <i class="fas fa-star text-[#FFA985] mr-3 mt-1"></i>
+                <span class="text-gray-700">{benefit}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#FFA985]">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div class="text-center md:text-left">
+            <h3 class="text-3xl font-bold text-[#333333] mb-2">{service} in {city}</h3>
+            <p class="text-gray-600 mb-4">Professional service with transparent pricing</p>
+            <div class="text-5xl font-bold text-[#FFA985] mb-2">{price}</div>
+            <p class="text-gray-500">Starting price • Exact quote provided</p>
+          </div>
+          <div class="space-y-3">
+            <a href="tel:2568261100" class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call for Instant Quote
+            </a>
+            <a href="/contact" class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+              <i class="fas fa-calendar mr-2"></i>Schedule Online
+            </a>
+            <p class="text-center text-sm text-gray-500">
+              <i class="fas fa-tag mr-1"></i> Recurring service discounts available
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          {service} FAQs for {city}
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions about {service.toLowerCase()} in {city}</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Services -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-[#333333] mb-4">Other {city} Cleaning Services</h2>
+        <p class="text-gray-600">Explore our full range of professional cleaning solutions</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href={`/${citySlug}-cleaning`} class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-home text-[#FFA985] text-3xl mb-3"></i>
+          <h4 class="font-bold text-[#333333] group-hover:text-[#FFA985]">All {city} Services</h4>
+        </a>
+        <a href="/services" class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-list text-[#FFA985] text-3xl mb-3"></i>
+          <h4 class="font-bold text-[#333333] group-hover:text-[#FFA985]">View All Services</h4>
+        </a>
+        <a href="/pricing" class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-tag text-[#FFA985] text-3xl mb-3"></i>
+          <h4 class="font-bold text-[#333333] group-hover:text-[#FFA985]">Full Pricing</h4>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for {service} in {city}?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Get your free quote today. Most responses within 2 hours!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg">
+          <i class="fas fa-phone mr-2"></i>256-826-1100
+        </a>
+        <a href="/contact" class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+          <i class="fas fa-calendar mr-2"></i>Book Online
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

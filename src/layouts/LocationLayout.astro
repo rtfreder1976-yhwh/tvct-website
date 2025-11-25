@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
 
 interface Props {
   title: string;
@@ -18,12 +19,65 @@ interface Props {
     area: string;
     text: string;
   }>;
+  neighborhoods?: string[];
 }
 
-const { title, description, city, state, region, tagline, heroDescription, features, testimonials } = Astro.props;
+const { title, description, city, state, region, tagline, heroDescription, features, testimonials, neighborhoods = [] } = Astro.props;
+
+// Generate city-specific FAQs
+const faqs = [
+  {
+    question: `How much does house cleaning cost in ${city}?`,
+    answer: `House cleaning in ${city} typically ranges from $99-$350+ depending on your home size and service type. Regular cleaning starts at $99, deep cleaning starts at $175, and move-in/out cleaning starts at $225. We provide free, no-obligation quotes tailored to your specific needs. Call 256-826-1100 for an instant estimate.`
+  },
+  {
+    question: `Do you offer same-day cleaning service in ${city}?`,
+    answer: `Yes! We offer same-day cleaning service in ${city} and throughout ${region} based on availability. For same-day requests, we recommend calling us directly at 256-826-1100 as early as possible. We'll do our best to accommodate urgent cleaning needs.`
+  },
+  {
+    question: `Are your ${city} cleaners background checked and insured?`,
+    answer: `Absolutely. Every member of The Valley Clean Team is thoroughly background checked, professionally trained, and fully insured with $2 million in liability coverage. We're also bonded for your complete peace of mind. As a veteran-owned business, we hold ourselves to the highest standards.`
+  },
+  {
+    question: `What areas of ${city} do you serve?`,
+    answer: `We serve all of ${city} and the surrounding ${region} area. This includes all neighborhoods, subdivisions, and communities. If you're unsure if we cover your specific location, give us a call at 256-826-1100 - we likely do!`
+  },
+  {
+    question: `Do you bring your own cleaning supplies to ${city} homes?`,
+    answer: `Yes, we bring all necessary cleaning supplies and equipment to every job. We use professional-grade, eco-friendly products that are safe for children, pets, and the environment. If you have specific product preferences or allergies, just let us know and we'll accommodate your needs.`
+  },
+  {
+    question: `How do I book a cleaning service in ${city}?`,
+    answer: `Booking is easy! You can call us directly at 256-826-1100 for immediate assistance, or fill out our online quote form. Most quotes are replied to within 2 hours. We offer flexible scheduling including weekends and can often accommodate last-minute requests.`
+  },
+  {
+    question: `Do you offer recurring cleaning services in ${city}?`,
+    answer: `Yes! We offer weekly, bi-weekly, and monthly recurring cleaning services in ${city}. Recurring customers enjoy discounted rates: up to 20% off for weekly service, 15% off for bi-weekly, and 10% off for monthly cleanings. It's the best way to keep your home consistently clean.`
+  },
+  {
+    question: `What's included in a deep cleaning in ${city}?`,
+    answer: `Our ${city} deep cleaning service includes everything in a regular cleaning PLUS: inside appliances, baseboards and door frames, light fixtures and ceiling fans, window sills and blinds, cabinet fronts, and behind furniture cleaning. It's perfect for first-time customers, seasonal cleaning, or homes that need extra attention.`
+  }
+];
+
+// Schema for FAQPage
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="local" city={city} state={state} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <Navigation />
 
   <!-- Hero Section -->
@@ -122,6 +176,43 @@ const { title, description, city, state, region, tagline, heroDescription, featu
           <div class="text-4xl font-bold text-[#FFA985] mb-2">130+</div>
           <p class="text-gray-600">5-Star Reviews</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Quick View -->
+  <section class="py-12 px-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10">
+    <div class="container mx-auto">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-[#333333] mb-2">{city} Cleaning Prices</h2>
+        <p class="text-gray-600">Transparent pricing - no hidden fees</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <i class="fas fa-home text-[#FFA985] text-2xl mb-3"></i>
+          <h4 class="font-bold text-[#333333]">Regular Cleaning</h4>
+          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $99</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center border-2 border-[#FFA985]">
+          <i class="fas fa-sparkles text-[#FFA985] text-2xl mb-3"></i>
+          <h4 class="font-bold text-[#333333]">Deep Cleaning</h4>
+          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $175</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <i class="fas fa-truck-moving text-[#FFA985] text-2xl mb-3"></i>
+          <h4 class="font-bold text-[#333333]">Move In/Out</h4>
+          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $225</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <i class="fas fa-key text-[#FFA985] text-2xl mb-3"></i>
+          <h4 class="font-bold text-[#333333]">Airbnb Turnover</h4>
+          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $125</p>
+        </div>
+      </div>
+      <div class="text-center mt-6">
+        <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline">
+          View Full Pricing Details <i class="fas fa-arrow-right ml-1"></i>
+        </a>
       </div>
     </div>
   </section>
@@ -233,10 +324,10 @@ const { title, description, city, state, region, tagline, heroDescription, featu
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-leaf text-[#333333] text-2xl"></i>
+            <i class="fas fa-medal text-[#333333] text-2xl"></i>
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Eco-Friendly</h3>
-          <p class="text-gray-600">Eco-friendly cleaning using safe, non-toxic products perfect for families and pets.</p>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Veteran Owned</h3>
+          <p class="text-gray-600">Military precision and dedication in every clean. Proudly serving our community with excellence.</p>
         </div>
 
         <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
@@ -244,7 +335,7 @@ const { title, description, city, state, region, tagline, heroDescription, featu
             <i class="fas fa-shield-alt text-[#333333] text-2xl"></i>
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Insured & Bonded</h3>
-          <p class="text-gray-600">Fully licensed, insured, and bonded for your peace of mind.</p>
+          <p class="text-gray-600">Fully licensed, insured with $2M coverage, and bonded for your complete peace of mind.</p>
         </div>
 
         <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
@@ -252,7 +343,7 @@ const { title, description, city, state, region, tagline, heroDescription, featu
             <i class="fas fa-clock text-[#333333] text-2xl"></i>
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Same-Day Available</h3>
-          <p class="text-gray-600">Need cleaning today? We offer same-day service for {city} residents.</p>
+          <p class="text-gray-600">Need cleaning today? We offer same-day service for {city} residents based on availability.</p>
         </div>
 
         <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
@@ -260,15 +351,15 @@ const { title, description, city, state, region, tagline, heroDescription, featu
             <i class="fas fa-star text-[#333333] text-2xl"></i>
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">5-Star Rated</h3>
-          <p class="text-gray-600">130+ verified 5-star reviews from satisfied customers.</p>
+          <p class="text-gray-600">130+ verified 5-star reviews from satisfied customers across all our service areas.</p>
         </div>
 
         <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-broom text-[#333333] text-2xl"></i>
+            <i class="fas fa-leaf text-[#333333] text-2xl"></i>
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Professional Team</h3>
-          <p class="text-gray-600">Experienced, background-checked cleaners who care about your home.</p>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Eco-Friendly</h3>
+          <p class="text-gray-600">Green cleaning options using safe, non-toxic products. Perfect for families and pets.</p>
         </div>
 
         <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
@@ -276,7 +367,7 @@ const { title, description, city, state, region, tagline, heroDescription, featu
             <i class="fas fa-redo text-[#333333] text-2xl"></i>
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Satisfaction Guarantee</h3>
-          <p class="text-gray-600">Not satisfied? We'll re-clean for free, no questions asked.</p>
+          <p class="text-gray-600">Not satisfied? We'll re-clean for free, no questions asked. That's our promise to you.</p>
         </div>
       </div>
     </div>
@@ -319,6 +410,33 @@ const { title, description, city, state, region, tagline, heroDescription, featu
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          {city} Cleaning Service FAQs
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions about our {city} cleaning services</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Contact/Final CTA -->
   <section id="contact" class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
     <div class="container mx-auto max-w-4xl text-center">
@@ -342,7 +460,7 @@ const { title, description, city, state, region, tagline, heroDescription, featu
             <h4 class="font-bold text-[#333333] mb-2">
               <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>Service Area
             </h4>
-            <p class="text-gray-600">All of {city} and surrounding areas</p>
+            <p class="text-gray-600">All of {city} and surrounding {region}</p>
           </div>
           <div>
             <h4 class="font-bold text-[#333333] mb-2">
