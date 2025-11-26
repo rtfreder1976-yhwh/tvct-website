@@ -94,54 +94,122 @@ const faqSchema = {
   }))
 };
 
-// Checklist items organized by room
-const checklist = {
-  allRooms: [
-    "Remove cobwebs from corners and ceilings",
-    "Empty all trash cans and replace liners",
-    "Sweep and vacuum all floors",
-    "Mop all hard floors",
-    "Dust all shelves and surfaces",
-    "Dust blinds, windows, and window sills",
-    "Wet wipe windows and blinds",
-    "Wipe and clean all mirrors",
-    "Wipe and clean light switches",
-    "Clean all glass surfaces",
-    "Hand detail baseboards",
-    "Dust reachable ceiling fans and vents",
-    "Dust all furniture and lamps",
-    "Dust doors and door frames",
-    "Vacuum all area rugs"
-  ],
-  bathrooms: [
-    "Deep clean shower/tub (scrub grout and tiles)",
-    "Clean and sanitize sink",
-    "Clean and sanitize toilet and toilet area",
-    "Polish all faucets and fixtures",
-    "Clean vanity and countertops",
-    "Dust ledges and shelving",
-    "Wipe down exterior of vanity doors",
-    "Clean mirrors streak-free",
-    "Disinfect all high-touch surfaces"
-  ],
-  bedrooms: [
-    "Make beds and change sheets (linens provided by you)",
-    "Vacuum rugs and carpets",
-    "Dust all furniture and nightstands",
-    "Clean exterior of dressers and drawers",
-    "Dust doors and door frames",
-    "Vacuum under beds (if accessible)"
-  ],
-  kitchen: [
-    "Clean exterior of all cabinets and drawers",
-    "Wipe down all countertops",
-    "Clean and sanitize sink",
-    "Clean exterior of appliances",
-    "Wipe down backsplash",
-    "Clean microwave inside and out",
-    "Degrease stovetop and range hood"
-  ]
-};
+// Comprehensive checklist data organized by room
+const checklistData = [
+  {
+    section: "All Rooms",
+    icon: "fa-home",
+    tasks: [
+      "Remove cobwebs",
+      "Empty trash",
+      "Sweep/vacuum floors (carpet + hard surfaces)",
+      "Mop floors (hard surfaces)",
+      "Dust shelves",
+      "Dust blinds, windows, window sills",
+      "Wipe & clean mirrors",
+      "Wipe & clean light switches",
+      "Clean glass surfaces",
+      "Dust baseboards",
+      "Dust reachable ceiling fans & vents",
+      "Dust furniture/lamps"
+    ]
+  },
+  {
+    section: "Kitchen",
+    icon: "fa-kitchen-set",
+    tasks: [
+      "Inside/outside of microwave oven",
+      "Clean backsplash",
+      "Exterior of trash can",
+      "Outside of stove hood",
+      "Clean stovetop",
+      "Countertops",
+      "Clean sink & chrome",
+      "Exterior of cabinets & drawers",
+      "Pantry floor & door",
+      "Top of refrigerator",
+      "Tables and chairs",
+      "Outside of appliances"
+    ]
+  },
+  {
+    section: "Bathrooms",
+    icon: "fa-bath",
+    tasks: [
+      "Clean shower",
+      "Clean tub",
+      "Polish faucets",
+      "Clean sinks",
+      "Clean toilet and toilet area",
+      "Clean counters",
+      "Dust ledges",
+      "Exterior of cabinets and drawers",
+      "Dust doors & door frames",
+      "Vacuum rugs"
+    ]
+  },
+  {
+    section: "Bedrooms",
+    icon: "fa-bed",
+    tasks: [
+      "Make beds (change linen if available)",
+      "Vacuum rugs",
+      "Exterior of cabinets and drawers",
+      "Dust ledges",
+      "Dust doors & door frames"
+    ]
+  },
+  {
+    section: "Laundry Room",
+    icon: "fa-shirt",
+    tasks: [
+      "Dust and wipe outside of washer & dryer",
+      "Clean sinks",
+      "Vacuum rugs",
+      "Countertops",
+      "Dust ledges",
+      "Dust doors & door frames"
+    ]
+  },
+  {
+    section: "Dining Room",
+    icon: "fa-utensils",
+    tasks: [
+      "Dust ledges",
+      "Tables & chairs",
+      "Dust doors & door frames"
+    ]
+  },
+  {
+    section: "Living Room",
+    icon: "fa-couch",
+    tasks: [
+      "Dust ledges",
+      "Exterior of cabinets & drawers",
+      "Dust doors & door frames"
+    ]
+  },
+  {
+    section: "Office",
+    icon: "fa-briefcase",
+    tasks: [
+      "Dust ledges",
+      "Vacuum rugs",
+      "Exterior of cabinets & drawers",
+      "Dust doors & door frames"
+    ]
+  }
+];
+
+// Extra/Add-on services
+const extraServices = [
+  "Wash dishes",
+  "Wet wipe windows & blinds",
+  "Clean inside of oven",
+  "Clean inside of refrigerator",
+  "Clean interior of kitchen cabinets",
+  "Hand detail baseboards"
+];
 
 const commonProblems = [
   {
@@ -348,96 +416,51 @@ const serviceAreas = [
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Our deep cleaning service is comprehensive and thorough. Here's everything we tackle in your home.
+          Our deep cleaning service is comprehensive and thorough. Here's everything we tackle in your home - room by room.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- All Rooms -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-home text-white text-xl"></i>
+      <!-- Room-by-Room Checklist Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {checklistData.map(room => (
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${room.icon} text-white text-xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">{room.section}</h3>
+            <ul class="space-y-2">
+              {room.tasks.map(task => (
+                <li class="flex items-start text-gray-600 text-sm">
+                  <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <h3 class="text-xl font-bold mb-4 text-[#333333]">All Rooms</h3>
-          <ul class="space-y-2">
-            {checklist.allRooms.map(item => (
-              <li class="flex items-start text-gray-600 text-sm">
-                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        ))}
+      </div>
 
-        <!-- Bathrooms -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-bath text-white text-xl"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-4 text-[#333333]">Bathrooms</h3>
-          <ul class="space-y-2">
-            {checklist.bathrooms.map(item => (
-              <li class="flex items-start text-gray-600 text-sm">
-                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- Bedrooms -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-bed text-white text-xl"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-4 text-[#333333]">Bedrooms</h3>
-          <ul class="space-y-2">
-            {checklist.bedrooms.map(item => (
-              <li class="flex items-start text-gray-600 text-sm">
-                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- Kitchen -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-kitchen-set text-white text-xl"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-4 text-[#333333]">Kitchen</h3>
-          <ul class="space-y-2">
-            {checklist.kitchen.map(item => (
-              <li class="flex items-start text-gray-600 text-sm">
-                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <!-- Task Count Summary -->
+      <div class="mt-8 text-center">
+        <p class="text-gray-600">
+          <span class="font-bold text-[#FFA985] text-2xl">{checklistData.reduce((acc, room) => acc + room.tasks.length, 0)}+</span>
+          <span class="text-lg"> cleaning tasks across </span>
+          <span class="font-bold text-[#FFA985] text-2xl">{checklistData.length}</span>
+          <span class="text-lg"> room types</span>
+        </p>
       </div>
 
       <!-- Add-on Services -->
       <div class="mt-12 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-        <h3 class="text-2xl font-bold text-[#333333] mb-4 text-center">Available Add-On Services</h3>
-        <div class="grid md:grid-cols-4 gap-4">
-          <div class="bg-white rounded-xl p-4 text-center">
-            <i class="fas fa-snowflake text-[#FFA985] text-2xl mb-2"></i>
-            <p class="font-semibold text-[#333333]">Inside Refrigerator</p>
-          </div>
-          <div class="bg-white rounded-xl p-4 text-center">
-            <i class="fas fa-fire-burner text-[#FFA985] text-2xl mb-2"></i>
-            <p class="font-semibold text-[#333333]">Inside Oven</p>
-          </div>
-          <div class="bg-white rounded-xl p-4 text-center">
-            <i class="fas fa-box-open text-[#FFA985] text-2xl mb-2"></i>
-            <p class="font-semibold text-[#333333]">Inside Cabinets</p>
-          </div>
-          <div class="bg-white rounded-xl p-4 text-center">
-            <i class="fas fa-shirt text-[#FFA985] text-2xl mb-2"></i>
-            <p class="font-semibold text-[#333333]">Laundry Service</p>
-          </div>
+        <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Available Add-On Services</h3>
+        <p class="text-gray-600 text-center mb-6">Extra services available upon request for an additional fee</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {extraServices.map(service => (
+            <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+              <i class="fas fa-plus-circle text-[#FFA985] text-xl mb-2"></i>
+              <p class="font-medium text-[#333333] text-sm">{service}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
