@@ -1,0 +1,332 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+
+const faqs = [
+  {
+    question: "Can I really get same-day cleaning in Athens?",
+    answer: "Yes! We offer same-day cleaning service in Athens and Limestone County based on availability. For the best chance, call 256-826-1100 as early as possible - ideally before 10 AM. We prioritize urgent requests and will do everything we can to help."
+  },
+  {
+    question: "Is there an extra charge for same-day cleaning?",
+    answer: "No rush fees or emergency charges - ever. Same-day cleaning in Athens is priced the same as our regular services. We believe urgent needs shouldn't come with penalty pricing."
+  },
+  {
+    question: "How quickly can you arrive in Athens?",
+    answer: "Depending on availability and your location in Limestone County, we can often arrive within 2-4 hours. Morning calls typically have the best availability for same-day service."
+  },
+  {
+    question: "What if I need cleaning for unexpected guests?",
+    answer: "Call us immediately at 256-826-1100! Unexpected guests are one of the most common reasons for same-day requests. We understand the importance of having a clean, welcoming home and will get you guest-ready quickly."
+  },
+  {
+    question: "Do you offer same-day cleaning for home showings?",
+    answer: "Yes! We work with Athens area realtors and homeowners to prepare properties for showings on short notice. A clean, polished home makes a significant difference in buyer impressions."
+  },
+  {
+    question: "What areas do you cover for same-day service?",
+    answer: "We offer same-day service throughout Athens and Limestone County including downtown Athens, East Athens, West Athens, Tanner, Elkmont, Ardmore, Belle Mina, and surrounding areas."
+  },
+  {
+    question: "What types of cleaning can you do same-day?",
+    answer: "We can perform any type of cleaning same-day: regular cleaning, deep cleaning, move-out cleaning, party cleanup, pre-event preparation, or post-construction cleaning. Just tell us what you need."
+  },
+  {
+    question: "What if same-day isn't available?",
+    answer: "If we can't accommodate same-day, we'll offer the next available slot - often next-day service. We prioritize urgent Athens requests and will find a solution that works for you."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Same Day Cleaning Service in Athens, AL | Emergency House Cleaning"
+  description="Need cleaning TODAY in Athens, Alabama? Same-day house cleaning for Limestone County. No rush fees! Call now: 256-826-1100"
+>
+  <SchemaMarkup type="local" city="Athens" state="Alabama" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Urgent Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-red-50 to-orange-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-red-100 px-4 py-2 rounded-full mb-4 animate-pulse">
+            <span class="text-red-700 font-semibold">
+              <i class="fas fa-bolt mr-2"></i>Same-Day Service Available
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Need Cleaning <span class="text-red-600">TODAY</span> in Athens?
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Unexpected guests? Last-minute showing? Family coming to town? Don't stress - our same-day cleaning service gets your Athens or Limestone County home spotless fast. No rush fees, no emergency charges.
+          </p>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-red-200 mb-6">
+            <div class="flex items-center justify-center space-x-4">
+              <div class="text-center">
+                <i class="fas fa-clock text-red-600 text-3xl mb-2"></i>
+                <p class="font-bold text-[#333333]">2-4 Hour</p>
+                <p class="text-sm text-gray-600">Response</p>
+              </div>
+              <div class="w-px h-16 bg-gray-300"></div>
+              <div class="text-center">
+                <i class="fas fa-tag text-green-600 text-3xl mb-2"></i>
+                <p class="font-bold text-[#333333]">No Rush</p>
+                <p class="text-sm text-gray-600">Fees</p>
+              </div>
+              <div class="w-px h-16 bg-gray-300"></div>
+              <div class="text-center">
+                <i class="fas fa-heart text-[#FFA985] text-3xl mb-2"></i>
+                <p class="font-bold text-[#333333]">Local</p>
+                <p class="text-sm text-gray-600">& Trusted</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="tel:2568261100" class="bg-red-600 hover:bg-red-700 text-white px-8 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105 inline-block">
+            <i class="fas fa-phone mr-2"></i>CALL NOW: 256-826-1100
+          </a>
+          <p class="text-sm text-gray-600 mt-4">
+            <i class="fas fa-info-circle mr-1"></i> Call before 10 AM for best same-day availability
+          </p>
+        </div>
+
+        <!-- Urgent Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-red-200">
+          <div class="text-center mb-6">
+            <span class="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-bolt mr-1"></i> URGENT REQUEST
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Need Cleaning Today?</h3>
+          <p class="text-gray-600 mb-6 text-center">Athens & Limestone County's fastest response</p>
+          <form>
+            <div class="mb-4">
+              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500" required>
+                <option value="">Your Area *</option>
+                <option>Downtown Athens</option>
+                <option>East Athens</option>
+                <option>West Athens</option>
+                <option>Tanner</option>
+                <option>Elkmont</option>
+                <option>Ardmore</option>
+                <option>Belle Mina</option>
+                <option>Other Limestone County</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500" required>
+                <option value="">Why do you need cleaning today? *</option>
+                <option>Unexpected guests coming</option>
+                <option>Home showing/open house</option>
+                <option>Family visiting</option>
+                <option>Hosting event</option>
+                <option>Post-party cleanup</option>
+                <option>Just need it done ASAP</option>
+                <option>Other urgent reason</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500" required>
+                <option value="">When do you need us? *</option>
+                <option>As soon as possible!</option>
+                <option>Within 2 hours</option>
+                <option>This afternoon</option>
+                <option>This evening</option>
+              </select>
+            </div>
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition">
+              <i class="fas fa-bolt mr-2"></i>Request Same-Day Service
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-phone mr-1"></i> For fastest response, call 256-826-1100
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Urgent Situations -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          We Handle Athens' Urgent Cleaning Needs
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Whatever the situation, we're here to help - fast</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4">
+            <i class="fas fa-users text-red-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Unexpected Guests</h3>
+          <p class="text-gray-600">Family calling? Friends stopping by? We'll get your Athens home guest-ready in hours.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+            <i class="fas fa-home text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Home Showing</h3>
+          <p class="text-gray-600">Realtor called with short notice? We'll make your property shine for potential buyers.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+            <i class="fas fa-heart text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Family Visiting</h3>
+          <p class="text-gray-600">Parents or in-laws coming? We'll ensure your home makes the right impression.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+            <i class="fas fa-birthday-cake text-orange-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Hosting an Event</h3>
+          <p class="text-gray-600">Birthday party? Holiday dinner? We'll get your home ready for celebration.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+            <i class="fas fa-truck-moving text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Moving Day</h3>
+          <p class="text-gray-600">Closing today? We'll ensure your new home is spotless before you move in.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+            <i class="fas fa-broom text-yellow-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Post-Event Cleanup</h3>
+          <p class="text-gray-600">Great party, big mess? We'll restore your home to pristine condition.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- No Rush Fees -->
+  <section class="py-12 px-6 bg-gradient-to-r from-green-500 to-green-600">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        <i class="fas fa-tag mr-3"></i>No Rush Fees. No Emergency Charges. Same Quality.
+      </h2>
+      <p class="text-xl text-white/90 max-w-2xl mx-auto">
+        Urgent needs shouldn't mean premium pricing. Same-day cleaning is priced identically to our regular services.
+      </p>
+    </div>
+  </section>
+
+  <!-- Athens Areas -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Same-Day Service Throughout Limestone County
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Downtown Athens</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">East Athens</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">West Athens</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Tanner</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Elkmont</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Ardmore</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Belle Mina</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Mooresville</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Same-Day Cleaning FAQs
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-red-50 to-orange-50">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Don't Wait - Call Now!
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Every minute counts. The earlier you call, the better your chances for same-day service.
+      </p>
+      <a href="tel:2568261100" class="bg-red-600 hover:bg-red-700 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-600 mt-6">
+        <i class="fas fa-clock mr-2"></i>Available 7 days a week | Same-day based on availability
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
