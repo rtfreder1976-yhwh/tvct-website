@@ -5,70 +5,213 @@ interface Props {
   state?: string;
   serviceName?: string;
   servicePrice?: string;
+  serviceDescription?: string;
 }
 
-const { type = 'organization', city, state, serviceName, servicePrice } = Astro.props;
+const { type = 'organization', city, state, serviceName, servicePrice, serviceDescription } = Astro.props;
 
-const baseSchema = {
+// Complete Service Catalog
+const serviceCatalog = [
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#deep-cleaning",
+      "name": "Deep Cleaning",
+      "description": "Comprehensive top-to-bottom deep cleaning service including baseboards, light fixtures, inside cabinets, and detailed attention to every surface.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Deep Cleaning Options",
+        "itemListElement": [
+          { "@type": "Offer", "name": "Standard Deep Clean", "price": "199", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Premium Deep Clean", "price": "299", "priceCurrency": "USD" }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#regular-cleaning",
+      "name": "Regular House Cleaning",
+      "description": "Weekly, biweekly, or monthly recurring house cleaning service with consistent teams and up to 20% savings.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Recurring Cleaning Frequencies",
+        "itemListElement": [
+          { "@type": "Offer", "name": "Weekly Cleaning", "price": "99", "priceCurrency": "USD", "description": "20% discount" },
+          { "@type": "Offer", "name": "Biweekly Cleaning", "price": "119", "priceCurrency": "USD", "description": "15% discount" },
+          { "@type": "Offer", "name": "Monthly Cleaning", "price": "139", "priceCurrency": "USD", "description": "10% discount" }
+        ]
+      }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#move-cleaning",
+      "name": "Move In/Out Cleaning",
+      "description": "Complete move out and move in cleaning service to help you get your deposit back or start fresh in your new home.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" },
+      "offers": {
+        "@type": "Offer",
+        "price": "199",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2025-12-31"
+      }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#office-cleaning",
+      "name": "Commercial & Office Cleaning",
+      "description": "Professional cleaning services for offices, retail spaces, and commercial properties with flexible scheduling.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#airbnb-cleaning",
+      "name": "Airbnb & Vacation Rental Cleaning",
+      "description": "Fast turnaround cleaning for short-term rentals with guest-ready presentation and linen services available.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#post-construction",
+      "name": "Post-Construction Cleaning",
+      "description": "Detailed cleaning after new construction or renovation projects. Dust removal, window cleaning, and move-in ready preparation.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" },
+      "offers": {
+        "@type": "Offer",
+        "price": "300",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2025-12-31"
+      }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#same-day-cleaning",
+      "name": "Same-Day Emergency Cleaning",
+      "description": "Urgent same-day cleaning service with no rush fees. Available for unexpected guests, home showings, and emergencies.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#senior-cleaning",
+      "name": "Senior & Elderly Cleaning Services",
+      "description": "Compassionate cleaning services for seniors, elderly, disabled, and post-surgery recovery with patient, consistent teams.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
+      "areaServed": { "@type": "State", "name": "Alabama" }
+    }
+  }
+];
+
+// Areas served with full details
+const areasServed = [
+  { "@type": "City", "name": "Huntsville", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Madison", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Athens", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Birmingham", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Mountain Brook", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Muscle Shoals", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Florence", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Sheffield", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Tuscumbia", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Decatur", "containedInPlace": { "@type": "State", "name": "Alabama" } },
+  { "@type": "City", "name": "Nashville", "containedInPlace": { "@type": "State", "name": "Tennessee" } },
+  { "@type": "City", "name": "Belle Meade", "containedInPlace": { "@type": "State", "name": "Tennessee" } },
+  { "@type": "City", "name": "Green Hills", "containedInPlace": { "@type": "State", "name": "Tennessee" } },
+  { "@type": "AdministrativeArea", "name": "Limestone County", "containedInPlace": { "@type": "State", "name": "Alabama" } }
+];
+
+// Main organization schema
+const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "HouseCleaning", "ProfessionalService"],
   "@id": "https://thevalleycleanteam.com/#organization",
   "name": "The Valley Clean Team",
-  "alternateName": "TVCT",
-  "description": "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, insured, and bonded with 130+ 5-star reviews.",
+  "alternateName": ["TVCT", "Valley Clean Team"],
+  "description": "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, fully insured with $2M liability coverage, and bonded with 130+ 5-star reviews.",
   "url": "https://thevalleycleanteam.com",
   "telephone": "+1-256-826-1100",
   "email": "info@thevalleycleanteam.com",
-  "logo": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-  "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "width": "512",
+    "height": "512"
+  },
+  "image": [
+    "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+  ],
   "priceRange": "$$",
   "currenciesAccepted": "USD",
-  "paymentAccepted": "Cash, Credit Card, Debit Card",
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Birmingham",
-      "containedInPlace": { "@type": "State", "name": "Alabama" }
+  "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "Check"],
+  "areaServed": areasServed,
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "34.7304",
+      "longitude": "-86.5861"
     },
-    {
-      "@type": "City",
-      "name": "Huntsville",
-      "containedInPlace": { "@type": "State", "name": "Alabama" }
-    },
-    {
-      "@type": "City",
-      "name": "Madison",
-      "containedInPlace": { "@type": "State", "name": "Alabama" }
-    },
-    {
-      "@type": "City",
-      "name": "Muscle Shoals",
-      "containedInPlace": { "@type": "State", "name": "Alabama" }
-    },
-    {
-      "@type": "City",
-      "name": "Florence",
-      "containedInPlace": { "@type": "State", "name": "Alabama" }
-    },
-    {
-      "@type": "City",
-      "name": "Nashville",
-      "containedInPlace": { "@type": "State", "name": "Tennessee" }
-    }
-  ],
+    "geoRadius": "150 mi"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "34.7304",
+    "longitude": "-86.5861"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Huntsville",
+    "addressRegion": "AL",
+    "addressCountry": "US"
+  },
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "07:00",
+      "closes": "19:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
       "opens": "08:00",
-      "closes": "18:00"
+      "closes": "17:00"
     },
     {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": "Sunday",
-      "opens": "00:00",
-      "closes": "00:00",
-      "description": "By appointment only"
+      "opens": "09:00",
+      "closes": "15:00",
+      "description": "By appointment"
     }
   ],
   "aggregateRating": {
@@ -78,85 +221,149 @@ const baseSchema = {
     "bestRating": "5",
     "worstRating": "1"
   },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Verified Customer"
+      },
+      "reviewBody": "The Valley Clean Team exceeded our expectations. Professional, thorough, and trustworthy. Our home has never looked better!"
+    }
+  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Cleaning Services",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Deep Cleaning",
-          "description": "Thorough top-to-bottom cleaning for homes"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Regular Cleaning",
-          "description": "Weekly or bi-weekly maintenance cleaning"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Move In/Out Cleaning",
-          "description": "Complete cleaning for relocating homes"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Commercial/Office Cleaning",
-          "description": "Professional cleaning for businesses"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Airbnb/Vacation Rental Cleaning",
-          "description": "Fast turnaround cleaning for short-term rentals"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Post-Construction Cleaning",
-          "description": "Detailed cleaning after renovations"
-        }
-      }
-    ]
+    "name": "Professional Cleaning Services",
+    "itemListElement": serviceCatalog
   },
+  "knowsAbout": [
+    "House Cleaning",
+    "Deep Cleaning",
+    "Move Out Cleaning",
+    "Move In Cleaning",
+    "Office Cleaning",
+    "Commercial Cleaning",
+    "Airbnb Cleaning",
+    "Vacation Rental Cleaning",
+    "Post Construction Cleaning",
+    "Senior Cleaning Services",
+    "Same Day Cleaning"
+  ],
+  "slogan": "Your Home, Our Priority",
+  "foundingDate": "2020",
+  "founder": {
+    "@type": "Person",
+    "name": "The Valley Clean Team Founder",
+    "jobTitle": "Owner"
+  },
+  "numberOfEmployees": {
+    "@type": "QuantitativeValue",
+    "minValue": "10",
+    "maxValue": "25"
+  },
+  "isicV4": "9601",
+  "naics": "561720",
   "sameAs": [
     "https://www.facebook.com/thevalleycleanteam",
-    "https://www.instagram.com/thevalleycleanteam"
+    "https://www.instagram.com/thevalleycleanteam",
+    "https://www.google.com/maps/place/The+Valley+Clean+Team"
+  ],
+  "potentialAction": [
+    {
+      "@type": "ReserveAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://thevalleycleanteam.com/contact",
+        "actionPlatform": [
+          "http://schema.org/DesktopWebPlatform",
+          "http://schema.org/MobileWebPlatform"
+        ]
+      },
+      "result": {
+        "@type": "Reservation",
+        "name": "Cleaning Service Booking"
+      }
+    },
+    {
+      "@type": "CommunicateAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "tel:+1-256-826-1100",
+        "actionPlatform": "http://schema.org/MobileWebPlatform"
+      }
+    }
   ]
 };
 
+// Local business schema for city-specific pages
 const localSchema = city ? {
-  ...baseSchema,
+  "@context": "https://schema.org",
   "@type": "HouseCleaning",
+  "@id": `https://thevalleycleanteam.com/${city.toLowerCase().replace(/\s+/g, '-')}-cleaning/#localbusiness`,
   "name": `The Valley Clean Team - ${city}, ${state}`,
-  "description": `Professional cleaning services in ${city}, ${state}. Veteran-owned, insured, bonded. Same-day service available.`,
+  "description": `Professional house cleaning services in ${city}, ${state}. Veteran-owned, fully insured, bonded. Weekly, biweekly, deep cleaning, move out cleaning, and same-day service available.`,
+  "url": `https://thevalleycleanteam.com/${city.toLowerCase().replace(/\s+/g, '-')}-cleaning`,
+  "telephone": "+1-256-826-1100",
+  "email": "info@thevalleycleanteam.com",
+  "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "priceRange": "$$",
   "areaServed": {
     "@type": "City",
     "name": city,
     "containedInPlace": { "@type": "State", "name": state }
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": city,
+    "addressRegion": state === "Alabama" ? "AL" : "TN",
+    "addressCountry": "US"
+  },
+  "parentOrganization": {
+    "@id": "https://thevalleycleanteam.com/#organization"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "130",
+    "bestRating": "5"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "07:00",
+      "closes": "19:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": `Cleaning Services in ${city}`,
+    "itemListElement": serviceCatalog.slice(0, 6)
   }
-} : baseSchema;
+} : null;
 
 // Service schema for specific service pages
 const serviceSchema = serviceName ? {
   "@context": "https://schema.org",
   "@type": "Service",
+  "@id": `https://thevalleycleanteam.com/#${serviceName.toLowerCase().replace(/\s+/g, '-')}`,
+  "name": serviceName,
+  "description": serviceDescription || `Professional ${serviceName.toLowerCase()} service in ${city || 'Alabama and Tennessee'}. Veteran-owned, fully insured, satisfaction guaranteed.`,
   "serviceType": serviceName,
   "provider": {
     "@type": "LocalBusiness",
+    "@id": "https://thevalleycleanteam.com/#organization",
     "name": "The Valley Clean Team",
     "telephone": "+1-256-826-1100",
     "url": "https://thevalleycleanteam.com"
@@ -165,19 +372,29 @@ const serviceSchema = serviceName ? {
     "@type": "City",
     "name": city,
     "containedInPlace": { "@type": "State", "name": state }
-  } : baseSchema.areaServed,
+  } : areasServed,
   "offers": servicePrice ? {
     "@type": "Offer",
     "priceSpecification": {
       "@type": "PriceSpecification",
       "price": servicePrice.replace(/[^0-9]/g, ''),
-      "priceCurrency": "USD"
-    }
-  } : undefined
+      "priceCurrency": "USD",
+      "minPrice": servicePrice.replace(/[^0-9]/g, '')
+    },
+    "priceValidUntil": "2025-12-31",
+    "availability": "https://schema.org/InStock"
+  } : undefined,
+  "termsOfService": "https://thevalleycleanteam.com/terms",
+  "serviceOutput": {
+    "@type": "Thing",
+    "name": "Clean Home or Office"
+  }
 } : null;
 
-const schemaToUse = type === 'local' && city ? localSchema : baseSchema;
+// Determine which schema to output
+const schemaToUse = type === 'local' && city ? localSchema : organizationSchema;
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schemaToUse)} />
 {serviceSchema && <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />}
+{type === 'local' && city && <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />}

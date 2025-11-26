@@ -5,9 +5,29 @@ import SchemaMarkup from '../components/SchemaMarkup.astro';
 interface Props {
   title: string;
   description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  noindex?: boolean;
 }
 
-const { title, description = "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, insured, bonded. 130+ 5-star reviews. Same-day service available." } = Astro.props;
+const {
+  title,
+  description = "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, insured, bonded. 130+ 5-star reviews. Same-day service available.",
+  canonicalUrl,
+  ogImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  noindex = false
+} = Astro.props;
+
+// Generate canonical URL from current page if not provided
+const siteUrl = "https://thevalleycleanteam.com";
+const currentPath = Astro.url.pathname;
+const canonical = canonicalUrl || `${siteUrl}${currentPath === '/' ? '' : currentPath.replace(/\/$/, '')}`;
+
+// Ensure title has brand name
+const fullTitle = title.includes('Valley Clean Team') ? title : `${title} | The Valley Clean Team`;
+
+// Truncate description if too long (max 160 chars for SEO)
+const metaDescription = description.length > 160 ? description.substring(0, 157) + '...' : description;
 ---
 
 <!DOCTYPE html>
@@ -16,102 +36,173 @@ const { title, description = "Professional luxury cleaning services for homes an
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content="cleaning service, house cleaning, maid service, deep cleaning, move in cleaning, move out cleaning, Huntsville AL, Birmingham AL, Nashville TN, Madison AL, Muscle Shoals, veteran owned, insured, bonded" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content={metaDescription} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonical} />
+
+    <!-- Keywords (less important for SEO now, but still useful) -->
+    <meta name="keywords" content="cleaning service, house cleaning, maid service, deep cleaning, move in cleaning, move out cleaning, weekly cleaning, recurring maid service, same day cleaning, Huntsville AL, Birmingham AL, Nashville TN, Madison AL, Athens AL, Mountain Brook, Muscle Shoals, veteran owned, insured, bonded" />
+
+    <!-- Geographic Meta Tags -->
+    <meta name="geo.region" content="US-AL" />
+    <meta name="geo.placename" content="Huntsville, Alabama" />
+    <meta name="geo.position" content="34.7304;-86.5861" />
+    <meta name="ICBM" content="34.7304, -86.5861" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="The Valley Clean Team" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="canonical" href="https://thevalleycleanteam.com" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="author" content="The Valley Clean Team" />
+    <meta name="publisher" content="The Valley Clean Team" />
+    <meta name="copyright" content="The Valley Clean Team" />
+    <meta name="theme-color" content="#FFA985" />
+    <meta name="msapplication-TileColor" content="#FFA985" />
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+    <!-- Schema Markup -->
     <SchemaMarkup type="organization" />
+
+    <!-- External Resources -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-      
+
       body {
         font-family: 'Inter', sans-serif;
         color: #333333;
       }
-      
+
       h1, h2, h3 {
         font-family: 'Playfair Display', serif;
       }
-      
+
       .gradient-bg {
         background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
       }
-      
+
       .gold-gradient {
         background: linear-gradient(135deg, #FFA985 0%, #FF8C61 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
-      
+
+      .cta-gradient {
+        background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+      }
+
       .service-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
-      
+
       .service-card:hover {
         transform: translateY(-10px);
         box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
       }
-      
+
       .stat-number {
         font-size: 3.5rem;
         font-weight: 700;
         color: #FFA985;
       }
-      
+
       .section-divider {
         width: 80px;
         height: 4px;
         background: linear-gradient(90deg, #FFA985 0%, #FFC67D 100%);
         margin: 0 auto 2rem;
       }
-      
+
       .btn-primary {
         background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
         color: #333333;
+        padding: 1rem 2rem;
+        border-radius: 9999px;
+        font-weight: 600;
         transition: all 0.3s ease;
+        display: inline-block;
       }
-      
+
       .btn-primary:hover {
         transform: scale(1.05);
         box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
       }
-      
+
+      .btn-secondary {
+        border: 2px solid #FFA985;
+        color: #FFA985;
+        padding: 1rem 2rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .btn-secondary:hover {
+        background: #FFA985;
+        color: #333333;
+      }
+
       .testimonial-card {
         background: #ffffff;
         border: 1px solid #e5e7eb;
         box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
       }
-      
+
       .faq-item {
         border-bottom: 1px solid #e5e7eb;
       }
-      
+
       .faq-answer {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
       }
-      
+
       .faq-item.active .faq-answer {
         max-height: 500px;
       }
-      
+
       .faq-item.active .faq-icon {
         transform: rotate(180deg);
       }
-      
+
       .faq-icon {
         transition: transform 0.3s ease;
       }
-      
+
       .sticky-cta {
         position: fixed;
         bottom: 20px;
@@ -119,7 +210,7 @@ const { title, description = "Professional luxury cleaning services for homes an
         z-index: 40;
         animation: pulse-subtle 2s infinite;
       }
-      
+
       @keyframes pulse-subtle {
         0%, 100% {
           transform: scale(1);
@@ -128,7 +219,7 @@ const { title, description = "Professional luxury cleaning services for homes an
           transform: scale(1.05);
         }
       }
-      
+
       @media (min-width: 768px) {
         .sticky-cta {
           display: none;
@@ -220,4 +311,3 @@ const { title, description = "Professional luxury cleaning services for homes an
     <SpeedInsights />
   </body>
 </html>
-
