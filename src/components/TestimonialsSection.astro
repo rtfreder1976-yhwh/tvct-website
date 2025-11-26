@@ -1,0 +1,135 @@
+---
+// Customer Testimonials Section with rotating reviews
+const testimonials = [
+  {
+    name: "Amanda T.",
+    location: "Hampton Cove, Huntsville",
+    rating: 5,
+    text: "As a military family, we move often. The Valley Clean Team made our move-in cleaning seamless. The attention to detail was incredible - every cabinet, every corner was spotless. Highly recommend to anyone in Huntsville!",
+    service: "Move-In Cleaning",
+    date: "November 2024"
+  },
+  {
+    name: "David K.",
+    location: "Downtown Huntsville",
+    rating: 5,
+    text: "Professional, punctual, and thorough. They've been cleaning my downtown condo for 6 months now and I couldn't be happier. The same team comes every time, which I really appreciate.",
+    service: "Weekly Cleaning",
+    date: "October 2024"
+  },
+  {
+    name: "Lisa P.",
+    location: "Research Park, Huntsville",
+    rating: 5,
+    text: "Great service at a fair price. They understand the needs of busy professionals working in the Rocket City. My house is always sparkling when I get home. A+ experience!",
+    service: "Bi-Weekly Cleaning",
+    date: "November 2024"
+  },
+  {
+    name: "Michelle R.",
+    location: "Florence, AL",
+    rating: 5,
+    text: "Best cleaning service in the Shoals! They're thorough, reliable, and my home has never looked better. The deep cleaning they did exceeded all my expectations.",
+    service: "Deep Cleaning",
+    date: "October 2024"
+  },
+  {
+    name: "James W.",
+    location: "Mountain Brook, Birmingham",
+    rating: 5,
+    text: "We have a large home with delicate surfaces and antiques. The Valley Clean Team handles everything with such care. Their attention to detail is unmatched in Birmingham.",
+    service: "Luxury Home Cleaning",
+    date: "November 2024"
+  },
+  {
+    name: "Sarah M.",
+    location: "Nashville, TN",
+    rating: 5,
+    text: "I manage several Airbnb properties and The Valley Clean Team is my go-to for turnovers. They're fast, thorough, and my guests always comment on how clean the units are.",
+    service: "Airbnb Cleaning",
+    date: "October 2024"
+  },
+  {
+    name: "Robert H.",
+    location: "Madison, AL",
+    rating: 5,
+    text: "After our kitchen renovation, the construction dust was everywhere. They did an amazing post-construction clean - you'd never know there was work done. Worth every penny!",
+    service: "Post-Construction",
+    date: "September 2024"
+  },
+  {
+    name: "Jennifer C.",
+    location: "Athens, AL",
+    rating: 5,
+    text: "Moving out of our rental was stressful, but The Valley Clean Team made it easy. They cleaned everything to landlord standards and we got our full deposit back!",
+    service: "Move-Out Cleaning",
+    date: "November 2024"
+  }
+];
+---
+
+<section class="py-20 px-6 bg-white">
+  <div class="container mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+        What Our Customers Say
+      </h2>
+      <div class="section-divider"></div>
+      <p class="text-xl text-gray-600">Real reviews from real customers across Alabama & Tennessee</p>
+      <div class="flex items-center justify-center gap-2 mt-4">
+        <div class="flex text-[#FFA985]">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <span class="font-bold text-[#333333]">5.0</span>
+        <span class="text-gray-600">average from 130+ reviews</span>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {testimonials.slice(0, 8).map((testimonial) => (
+        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-lg">
+              {testimonial.name.charAt(0)}
+            </div>
+            <div class="ml-3">
+              <h4 class="font-bold text-[#333333]">{testimonial.name}</h4>
+              <p class="text-xs text-gray-500">{testimonial.location}</p>
+            </div>
+          </div>
+          <div class="flex text-[#FFA985] text-sm mb-3">
+            {[...Array(testimonial.rating)].map(() => (
+              <i class="fas fa-star"></i>
+            ))}
+          </div>
+          <p class="text-gray-700 text-sm mb-4 line-clamp-4">"{testimonial.text}"</p>
+          <div class="flex items-center justify-between text-xs text-gray-500">
+            <span class="bg-[#FFA985]/10 text-[#FFA985] px-2 py-1 rounded-full">{testimonial.service}</span>
+            <span>{testimonial.date}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="https://g.page/r/thevalleycleanteam/review" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+        <i class="fab fa-google mr-2"></i>
+        Read More Reviews on Google
+        <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

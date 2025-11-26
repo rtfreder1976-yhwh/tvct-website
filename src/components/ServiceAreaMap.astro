@@ -1,0 +1,186 @@
+---
+// Service Area Map Section
+const serviceAreas = {
+  alabama: {
+    state: "Alabama",
+    cities: [
+      { name: "Huntsville", link: "/huntsville-cleaning", featured: true },
+      { name: "Madison", link: "/madison-cleaning", featured: true },
+      { name: "Athens", link: "/athens-cleaning", featured: false },
+      { name: "Birmingham", link: "/birmingham-cleaning", featured: true },
+      { name: "Mountain Brook", link: "/mountain-brook-cleaning", featured: true },
+      { name: "Florence", link: "/florence-cleaning", featured: false },
+      { name: "Muscle Shoals", link: "/muscle-shoals-cleaning", featured: false },
+      { name: "Sheffield", link: "/sheffield-cleaning", featured: false },
+      { name: "Tuscumbia", link: "/tuscumbia-cleaning", featured: false },
+      { name: "Decatur", link: "/contact", featured: false },
+      { name: "Hartselle", link: "/contact", featured: false }
+    ]
+  },
+  tennessee: {
+    state: "Tennessee",
+    cities: [
+      { name: "Nashville", link: "/nashville-cleaning", featured: true },
+      { name: "West Nashville", link: "/west-nashville-cleaning", featured: false },
+      { name: "Belle Meade", link: "/belle-meade-house-cleaning", featured: true },
+      { name: "Green Hills", link: "/green-hills-house-cleaning", featured: false },
+      { name: "Brentwood", link: "/contact", featured: false },
+      { name: "Franklin", link: "/contact", featured: false }
+    ]
+  }
+};
+
+const neighborhoods = {
+  huntsville: ["Hampton Cove", "Jones Valley", "Monte Sano", "Five Points", "Research Park", "Twickenham", "Big Cove"],
+  nashville: ["Belle Meade", "Green Hills", "Sylvan Park", "The Nations", "12 South", "East Nashville", "Germantown"],
+  birmingham: ["Mountain Brook", "Crestline", "English Village", "Homewood", "Vestavia Hills", "Over the Mountain"]
+};
+---
+
+<section class="py-20 px-6 bg-white">
+  <div class="container mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+        Service Areas
+      </h2>
+      <div class="section-divider"></div>
+      <p class="text-xl text-gray-600">Proudly serving communities across Alabama & Tennessee</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      <!-- Map Placeholder -->
+      <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-8 relative overflow-hidden min-h-[400px]">
+        <!-- Stylized Map Background -->
+        <div class="absolute inset-0 opacity-10">
+          <svg viewBox="0 0 400 300" class="w-full h-full">
+            <path d="M50,150 Q100,50 200,100 T350,150 Q300,250 200,200 T50,150" fill="none" stroke="#FFA985" stroke-width="2"/>
+            <circle cx="120" cy="120" r="8" fill="#FFA985"/>
+            <circle cx="280" cy="100" r="8" fill="#FFA985"/>
+            <circle cx="200" cy="180" r="8" fill="#FFA985"/>
+            <circle cx="150" cy="200" r="6" fill="#FFA985"/>
+            <circle cx="250" cy="160" r="6" fill="#FFA985"/>
+          </svg>
+        </div>
+
+        <div class="relative z-10">
+          <div class="flex items-center justify-center mb-6">
+            <i class="fas fa-map-marked-alt text-[#FFA985] text-5xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-center text-[#333333] mb-4">Covering 2 States</h3>
+
+          <div class="grid grid-cols-2 gap-4 text-center">
+            <div class="bg-white/80 backdrop-blur rounded-xl p-4">
+              <p class="text-3xl font-bold text-[#FFA985]">11+</p>
+              <p class="text-sm text-gray-600">Alabama Cities</p>
+            </div>
+            <div class="bg-white/80 backdrop-blur rounded-xl p-4">
+              <p class="text-3xl font-bold text-[#FFA985]">6+</p>
+              <p class="text-sm text-gray-600">Tennessee Cities</p>
+            </div>
+          </div>
+
+          <div class="mt-6 bg-white/80 backdrop-blur rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-[#333333]">50+ Neighborhoods</p>
+            <p class="text-sm text-gray-600">Served across both states</p>
+          </div>
+
+          <div class="mt-6 text-center">
+            <a href="/locations" class="text-[#FFA985] font-semibold hover:underline">
+              View All Locations <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cities List -->
+      <div>
+        <!-- Alabama -->
+        <div class="mb-8">
+          <h3 class="text-2xl font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-3"></i>
+            Alabama
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {serviceAreas.alabama.cities.map((city) => (
+              <a
+                href={city.link}
+                class={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                  city.featured
+                    ? 'bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white shadow-md hover:shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {city.name}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Tennessee -->
+        <div class="mb-8">
+          <h3 class="text-2xl font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-3"></i>
+            Tennessee
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {serviceAreas.tennessee.cities.map((city) => (
+              <a
+                href={city.link}
+                class={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                  city.featured
+                    ? 'bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white shadow-md hover:shadow-lg'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {city.name}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Popular Neighborhoods -->
+        <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <h4 class="font-bold text-[#333333] mb-4">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>
+            Popular Neighborhoods
+          </h4>
+          <div class="space-y-3">
+            <div>
+              <p class="text-xs text-gray-500 mb-1">Huntsville Area</p>
+              <div class="flex flex-wrap gap-1">
+                {neighborhoods.huntsville.map((n) => (
+                  <span class="text-xs bg-white px-2 py-1 rounded border border-gray-200">{n}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-1">Nashville Area</p>
+              <div class="flex flex-wrap gap-1">
+                {neighborhoods.nashville.map((n) => (
+                  <span class="text-xs bg-white px-2 py-1 rounded border border-gray-200">{n}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 mb-1">Birmingham Area</p>
+              <div class="flex flex-wrap gap-1">
+                {neighborhoods.birmingham.map((n) => (
+                  <span class="text-xs bg-white px-2 py-1 rounded border border-gray-200">{n}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Not in our area? -->
+    <div class="mt-12 text-center bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 max-w-2xl mx-auto border border-[#FFA985]/20">
+      <h3 class="text-xl font-bold text-[#333333] mb-2">Don't see your area?</h3>
+      <p class="text-gray-600 mb-4">We're always expanding! Give us a call to check if we service your location.</p>
+      <a href="tel:2568261100" class="btn-primary px-6 py-3 rounded-full font-semibold inline-block">
+        <i class="fas fa-phone mr-2"></i>256-826-1100
+      </a>
+    </div>
+  </div>
+</section>
