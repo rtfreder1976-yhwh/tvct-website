@@ -1,0 +1,778 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+
+const title = "Post-Construction Cleaning Services | New Build & Renovation Cleanup";
+const description = "Professional post-construction cleaning for new builds, renovations, and remodels. We remove construction dust, debris, and residue to make your space move-in ready. Serving Alabama & Tennessee.";
+
+// Service schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Post-Construction Cleaning Service",
+  "description": "Professional post-construction and renovation cleaning service. Removes construction dust, debris, paint splatters, adhesive residue, and makes new builds or remodeled spaces move-in ready.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "info@thevalleycleanteam.com"
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "serviceType": "Post-Construction Cleaning",
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "300",
+      "priceCurrency": "USD",
+      "minPrice": "300"
+    },
+    "availability": "https://schema.org/InStock"
+  }
+};
+
+// FAQ Schema
+const faqs = [
+  {
+    question: "What is post-construction cleaning?",
+    answer: "Post-construction cleaning is a specialized deep cleaning service performed after construction, renovation, or remodeling work is completed. It removes construction dust, debris, paint splatters, adhesive residue, and other materials left behind by contractors. The goal is to make the space safe, clean, and move-in ready."
+  },
+  {
+    question: "How much does post-construction cleaning cost?",
+    answer: "Post-construction cleaning typically starts at $300 for smaller projects. Pricing depends on the size of the space, type of construction (new build vs. renovation), amount of debris, and specific cleaning requirements. We provide custom quotes after understanding your project's scope. Most residential post-construction cleans range from $300-$800."
+  },
+  {
+    question: "When should I schedule post-construction cleaning?",
+    answer: "Schedule post-construction cleaning after all construction work is complete, including painting, flooring, and fixture installation. The space should be free of workers and major debris should be removed by the construction crew. We handle the fine dust, residue, and detail cleaning that makes the space truly move-in ready."
+  },
+  {
+    question: "How long does post-construction cleaning take?",
+    answer: "Post-construction cleaning typically takes 4-10 hours depending on the size of the space and extent of construction. A single-room renovation might take 3-4 hours, while a full new home build can take 8-12 hours or may require multiple visits. We'll provide a time estimate based on your specific project."
+  },
+  {
+    question: "Do you remove construction debris and trash?",
+    answer: "We remove light debris, dust, and small construction waste. Large debris, lumber scraps, and major trash removal should be handled by your construction crew before we arrive. We focus on the detailed cleaning - dust, residue, and making surfaces spotless - rather than hauling away construction materials."
+  },
+  {
+    question: "Can you remove paint splatters and adhesive residue?",
+    answer: "Yes! We're experienced in removing paint overspray, dried paint splatters, sticker residue, adhesive marks, caulk residue, and grout haze. We use appropriate techniques and products for each surface type to remove these without causing damage."
+  },
+  {
+    question: "Do you clean windows after construction?",
+    answer: "Yes, window cleaning is included in our post-construction service. We remove construction film, dust, paint splatters, and sticker residue from all windows, leaving them streak-free. We also clean window tracks, sills, and frames which often collect significant dust during construction."
+  },
+  {
+    question: "Is post-construction dust harmful?",
+    answer: "Yes, construction dust can contain harmful particles including silica, drywall dust, wood particles, and other irritants. This dust gets everywhere - in cabinets, HVAC systems, and on every surface. Professional post-construction cleaning ensures thorough removal of these particles, making the space safe to occupy."
+  },
+  {
+    question: "Do you clean inside cabinets and closets after construction?",
+    answer: "Absolutely. Construction dust penetrates everywhere, including inside cabinets, closets, drawers, and storage spaces. We clean all interior surfaces to ensure no dust is left behind when you move in your belongings."
+  },
+  {
+    question: "Can you clean after a small renovation or just one room?",
+    answer: "Yes! We clean after projects of all sizes - from single bathroom remodels to full home builds. Even small renovations create significant dust that spreads throughout the home. We can focus on the renovated area or include adjacent spaces affected by construction dust."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Post-construction specific checklist
+const checklistData = [
+  {
+    section: "Dust & Debris Removal",
+    icon: "fa-broom",
+    tasks: [
+      "Remove all construction dust from surfaces",
+      "Vacuum and clean all flooring",
+      "Clean air vents and returns (remove dust buildup)",
+      "Wipe down all walls (remove dust film)",
+      "Clean all ceiling fans and light fixtures",
+      "Remove dust from window blinds and treatments",
+      "Detail clean all baseboards",
+      "Clean door frames and doors",
+      "Vacuum/clean all closets and storage areas"
+    ]
+  },
+  {
+    section: "Windows & Glass",
+    icon: "fa-window-maximize",
+    tasks: [
+      "Remove protective film from windows",
+      "Clean all interior window glass",
+      "Remove paint splatters from glass",
+      "Clean window tracks and sills",
+      "Remove sticker residue from glass",
+      "Clean all mirrors",
+      "Clean glass doors and shower enclosures",
+      "Clean skylights (if accessible)"
+    ]
+  },
+  {
+    section: "Kitchen",
+    icon: "fa-kitchen-set",
+    tasks: [
+      "Clean inside all cabinets and drawers",
+      "Remove dust from cabinet tops",
+      "Clean all appliances (inside and out)",
+      "Remove protective film from appliances",
+      "Clean and polish countertops",
+      "Clean sink and polish fixtures",
+      "Degrease range hood and vents",
+      "Clean backsplash and tile grout",
+      "Remove adhesive residue from surfaces"
+    ]
+  },
+  {
+    section: "Bathrooms",
+    icon: "fa-bath",
+    tasks: [
+      "Clean and sanitize all fixtures",
+      "Remove grout haze from tile",
+      "Clean inside all cabinets",
+      "Polish all faucets and hardware",
+      "Clean toilets thoroughly",
+      "Clean shower/tub (remove construction residue)",
+      "Clean mirrors and glass",
+      "Remove caulk residue",
+      "Clean exhaust fans"
+    ]
+  },
+  {
+    section: "Surfaces & Details",
+    icon: "fa-spray-can-sparkles",
+    tasks: [
+      "Remove paint splatters from all surfaces",
+      "Clean all light switches and outlets",
+      "Remove sticker residue from fixtures",
+      "Clean all hardware (handles, knobs)",
+      "Wipe down all shelving",
+      "Clean fireplace exterior (if applicable)",
+      "Detail clean stair railings",
+      "Clean garage entry areas"
+    ]
+  },
+  {
+    section: "Floors",
+    icon: "fa-broom",
+    tasks: [
+      "Sweep and vacuum all floors",
+      "Mop hard surface floors",
+      "Remove adhesive/grout from floors",
+      "Clean tile grout lines",
+      "Vacuum all carpeted areas",
+      "Clean floor registers and vents",
+      "Detail clean corners and edges",
+      "Clean under appliances (if accessible)"
+    ]
+  }
+];
+
+// Extra services for post-construction
+const extraServices = [
+  { name: "Exterior window cleaning", icon: "fa-window-restore" },
+  { name: "Pressure washing", icon: "fa-spray-can-sparkles" },
+  { name: "Carpet deep cleaning", icon: "fa-wind" },
+  { name: "Garage cleaning", icon: "fa-warehouse" },
+  { name: "Air duct cleaning", icon: "fa-fan" },
+  { name: "Exterior debris removal", icon: "fa-truck-pickup" }
+];
+
+const commonProblems = [
+  {
+    icon: "fa-cloud-meatball",
+    problem: "Fine Construction Dust Everywhere",
+    solution: "Construction dust is microscopic and settles on every surface, inside cabinets, and even in your HVAC system. Our systematic cleaning removes dust from every nook and cranny, not just visible surfaces."
+  },
+  {
+    icon: "fa-paint-roller",
+    problem: "Paint Splatters & Overspray",
+    solution: "Painters aren't always perfect. We safely remove dried paint splatters from floors, windows, fixtures, and hardware without damaging the underlying surfaces."
+  },
+  {
+    icon: "fa-tape",
+    problem: "Sticker & Adhesive Residue",
+    solution: "New appliances, windows, and fixtures come covered in protective film and stickers. We remove all film and sticky residue, leaving surfaces clean and residue-free."
+  },
+  {
+    icon: "fa-border-all",
+    problem: "Grout Haze on Tile",
+    solution: "Freshly grouted tile often has a cloudy haze that's difficult to remove. We use proper techniques to remove grout haze and reveal the true beauty of your new tile."
+  },
+  {
+    icon: "fa-wind",
+    problem: "Dust in HVAC System",
+    solution: "Construction dust gets sucked into your HVAC system and vents. We clean all accessible vents and returns to prevent dust from circulating throughout your new space."
+  },
+  {
+    icon: "fa-box-open",
+    problem: "Cabinets Full of Dust",
+    solution: "Even with cabinet doors closed, fine dust penetrates inside. We clean every shelf, drawer, and interior surface so your belongings stay clean when you unpack."
+  }
+];
+
+const processSteps = [
+  {
+    number: 1,
+    title: "Project Consultation",
+    description: "Tell us about your construction project - new build, renovation, or remodel. We'll provide a quote based on square footage, project type, and your timeline needs.",
+    icon: "fa-comments"
+  },
+  {
+    number: 2,
+    title: "Debris Assessment",
+    description: "When we arrive, we assess the space to plan our approach. We identify areas with heavy dust, paint splatters, adhesive residue, and other construction remnants.",
+    icon: "fa-clipboard-list"
+  },
+  {
+    number: 3,
+    title: "Rough Clean",
+    description: "We start by removing the heavy stuff - sweeping debris, vacuuming thick dust layers, and clearing surfaces. This prepares the space for detailed cleaning.",
+    icon: "fa-broom"
+  },
+  {
+    number: 4,
+    title: "Detail Cleaning",
+    description: "The thorough phase - wiping all surfaces, cleaning inside cabinets, removing paint splatters, cleaning windows, and addressing every detail that makes a space truly clean.",
+    icon: "fa-magnifying-glass"
+  },
+  {
+    number: 5,
+    title: "Final Polish",
+    description: "Fixtures are polished, floors get a final clean, and every surface is inspected. We remove any remaining dust and ensure everything sparkles.",
+    icon: "fa-sparkles"
+  },
+  {
+    number: 6,
+    title: "Final Quality Check",
+    description: "We do a complete walk-through to ensure every area meets our standards. Your space will be clean, safe, and ready for move-in or final staging.",
+    icon: "fa-check-double"
+  }
+];
+
+const serviceAreas = [
+  { name: "Huntsville", link: "/huntsville-cleaning" },
+  { name: "Madison", link: "/madison-cleaning" },
+  { name: "Athens", link: "/athens-cleaning" },
+  { name: "Birmingham", link: "/birmingham-cleaning" },
+  { name: "Mountain Brook", link: "/mountain-brook-cleaning" },
+  { name: "Muscle Shoals", link: "/muscle-shoals-cleaning" },
+  { name: "Florence", link: "/florence-cleaning" },
+  { name: "Nashville", link: "/nashville-cleaning" },
+  { name: "West Nashville", link: "/west-nashville-cleaning" }
+];
+
+const projectTypes = [
+  { type: "New Home Builds", icon: "fa-house-chimney", description: "Complete cleaning for newly constructed homes" },
+  { type: "Kitchen Remodels", icon: "fa-kitchen-set", description: "Post-renovation cleaning for kitchen updates" },
+  { type: "Bathroom Renovations", icon: "fa-bath", description: "Detailed cleaning after bathroom remodels" },
+  { type: "Room Additions", icon: "fa-plus", description: "Cleaning for new additions to existing homes" },
+  { type: "Commercial Build-Outs", icon: "fa-building", description: "Office, retail, and commercial space cleaning" },
+  { type: "Basement Finishing", icon: "fa-stairs", description: "Post-construction cleaning for finished basements" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-hard-hat mr-2"></i>Construction Complete? We're Next.
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Post-Construction <span class="gold-gradient">Cleaning Services</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Your construction project is finished, but the dust, debris, and residue remain. Our specialized post-construction cleaning removes every trace of construction work - making your new or renovated space truly move-in ready.
+          </p>
+
+          <!-- Key Benefits -->
+          <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>New Builds & Renovations</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Paint & Adhesive Removal</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Inside Cabinets & Vents</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Move-In Ready Results</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">Post-Construction Pricing</h3>
+            <p class="text-gray-600">Custom quotes based on project scope</p>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Single Room/Bathroom</h4>
+                <p class="text-sm text-gray-600">Small renovation projects</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$150+</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]">
+              <div>
+                <h4 class="font-bold text-[#333333]">Full Home Renovation</h4>
+                <p class="text-sm text-gray-600">Kitchen, bath, or multi-room</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$300-$500</span>
+                <p class="text-xs text-gray-600">Most Common</p>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">New Home Build</h4>
+                <p class="text-sm text-gray-600">Complete new construction</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$500-$1000+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
+            <p class="text-yellow-800 text-sm text-center">
+              <i class="fas fa-info-circle mr-2"></i>
+              <strong>Pricing varies</strong> based on square footage, construction type, and debris level
+            </p>
+          </div>
+
+          <a href="/contact" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            Get Your Custom Quote
+          </a>
+          <p class="text-center text-xs text-gray-500 mt-3">
+            <i class="fas fa-clock mr-1"></i> Response within 2 hours
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Types We Clean -->
+  <section class="py-12 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-bold text-center text-[#333333] mb-8">Projects We Clean</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {projectTypes.map(project => (
+          <div class="bg-white rounded-xl p-4 text-center shadow-md border border-gray-200 hover:border-[#FFA985] transition-colors">
+            <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+              <i class={`fas ${project.icon} text-white`}></i>
+            </div>
+            <h4 class="font-bold text-[#333333] text-sm mb-1">{project.type}</h4>
+            <p class="text-xs text-gray-600">{project.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="py-8 px-6">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- What's Included Section -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What's <span class="gold-gradient">Included</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Post-construction cleaning requires specialized techniques. We address every type of construction residue to make your space truly clean.
+        </p>
+      </div>
+
+      <!-- Checklist Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {checklistData.map(room => (
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${room.icon} text-white text-xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">{room.section}</h3>
+            <ul class="space-y-2">
+              {room.tasks.map(task => (
+                <li class="flex items-start text-gray-600 text-sm">
+                  <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Task Count Summary -->
+      <div class="mt-8 text-center">
+        <p class="text-gray-600">
+          <span class="font-bold text-[#FFA985] text-2xl">{checklistData.reduce((acc, room) => acc + room.tasks.length, 0)}+</span>
+          <span class="text-lg"> specialized cleaning tasks to make your space </span>
+          <span class="font-bold text-[#FFA985]">move-in ready</span>
+        </p>
+      </div>
+
+      <!-- Extra Services -->
+      <div class="mt-12 bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+        <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Available Add-On Services</h3>
+        <p class="text-gray-600 text-center mb-6">Complete your project with these extras</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {extraServices.map(service => (
+            <div class="bg-gray-50 rounded-xl p-4 text-center hover:bg-[#FFA985]/10 transition-colors">
+              <i class={`fas ${service.icon} text-[#FFA985] text-xl mb-2`}></i>
+              <p class="font-medium text-[#333333] text-sm">{service.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problems We Solve -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Construction leaves behind more than just the finished project
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {commonProblems.map(item => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${item.icon} text-white text-2xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+            <p class="text-gray-600">{item.solution}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Process -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Our Post-Construction <span class="gold-gradient">Process</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          A systematic approach designed to tackle construction mess effectively
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {processSteps.map(step => (
+          <div class="relative bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+            <div class="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              {step.number}
+            </div>
+            <div class="ml-4">
+              <div class="flex items-center mb-4">
+                <i class={`fas ${step.icon} text-[#FFA985] text-2xl mr-3`}></i>
+                <h3 class="text-xl font-bold text-[#333333]">{step.title}</h3>
+              </div>
+              <p class="text-gray-600">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Choose <span class="gold-gradient">The Valley Clean Team</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Trusted by contractors, builders, and homeowners across Alabama and Tennessee
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-medal text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Veteran Owned</h3>
+          <p class="text-gray-600">Military precision and attention to detail. We understand that construction cleanup requires systematic, thorough work.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-hard-hat text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Construction Experience</h3>
+          <p class="text-gray-600">We understand construction sites. We know what contractors leave behind and exactly how to clean it up properly.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-shield-alt text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Fully Insured</h3>
+          <p class="text-gray-600">$2 million liability coverage protects your new construction or renovation investment during our cleaning process.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-redo text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Satisfaction Guaranteed</h3>
+          <p class="text-gray-600">Not satisfied? We'll re-clean for free. Your space will be move-in ready or we'll make it right.</p>
+        </div>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center">
+          <div class="w-14 h-14 flex-shrink-0 rounded-full bg-green-100 flex items-center justify-center mr-4">
+            <i class="fas fa-handshake text-green-600 text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333]">Contractor Partnerships</h4>
+            <p class="text-sm text-gray-600">We work with builders on their timelines</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center">
+          <div class="w-14 h-14 flex-shrink-0 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+            <i class="fas fa-tools text-blue-600 text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333]">Specialized Equipment</h4>
+            <p class="text-sm text-gray-600">Professional tools for construction debris</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center">
+          <div class="w-14 h-14 flex-shrink-0 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+            <i class="fas fa-star text-purple-600 text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333]">130+ 5-Star Reviews</h4>
+            <p class="text-sm text-gray-600">Trusted by homeowners and contractors</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Availability -->
+  <section class="py-16 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <div class="flex items-center mb-4">
+            <i class="fas fa-calendar-check text-white text-3xl mr-4"></i>
+            <h2 class="text-3xl md:text-4xl font-bold text-white">
+              Project Finishing Soon?
+            </h2>
+          </div>
+          <p class="text-white/90 text-lg mb-6">
+            Construction timelines shift. Closing date moved up? Need to pass inspection? We offer flexible scheduling to meet your construction deadlines. Call us as early as possible to secure your post-construction cleaning date.
+          </p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Flexible scheduling for project timelines
+            </li>
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Rush service available when needed
+            </li>
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Weekend appointments available
+            </li>
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Coordinate with your contractor
+            </li>
+          </ul>
+        </div>
+        <div class="text-center">
+          <div class="bg-white rounded-2xl p-8 shadow-xl">
+            <p class="text-gray-600 mb-2">Call to Schedule Your Clean</p>
+            <a href="tel:2568261100" class="text-4xl md:text-5xl font-bold text-[#FFA985] hover:text-[#FF8C61] transition block mb-4">
+              256-826-1100
+            </a>
+            <p class="text-gray-600 text-sm">Available Mon-Sat, 8am-6pm</p>
+            <p class="text-gray-600 text-sm">Sunday by appointment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Post-Construction <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Professional post-construction cleaning across Alabama and Tennessee
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto mb-8">
+        {serviceAreas.map(area => (
+          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mb-2"></i>
+            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="bg-gray-50 rounded-2xl p-8 max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-bold text-[#333333] mb-4 flex items-center">
+              <i class="fas fa-map text-[#FFA985] mr-2"></i>
+              Alabama Service Areas
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Huntsville, Madison, Athens, Decatur, Hampton Cove, Jones Valley, Birmingham, Mountain Brook, Homewood, Vestavia Hills, Hoover, Muscle Shoals, Florence, Sheffield, Tuscumbia, and surrounding areas.
+            </p>
+          </div>
+          <div>
+            <h3 class="font-bold text-[#333333] mb-4 flex items-center">
+              <i class="fas fa-map text-[#FFA985] mr-2"></i>
+              Tennessee Service Areas
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Nashville, West Nashville, Belle Meade, Green Hills, Sylvan Park, The Nations, West Meade, and surrounding areas.
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 text-center">
+          <p class="text-gray-600">
+            <i class="fas fa-phone text-[#FFA985] mr-2"></i>
+            Don't see your area? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> - we may still serve you!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Post-Construction <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions about our post-construction cleaning service</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready to See Your <span class="gold-gradient">New Space Shine</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Let us handle the construction mess so you can enjoy your beautiful new or renovated space
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+          <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+          <i class="fas fa-envelope mr-2"></i>Get Free Quote
+        </a>
+      </div>
+      <p class="text-gray-600">
+        <i class="fas fa-clock text-[#FFA985] mr-2"></i>
+        Most quotes replied to within 2 hours
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
