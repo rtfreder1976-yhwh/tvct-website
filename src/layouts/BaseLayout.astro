@@ -35,10 +35,27 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Preconnect to critical third-party origins (improves LCP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://storage.googleapis.com" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+    <!-- DNS Prefetch for additional resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://storage.googleapis.com" />
+
+    <!-- Preload critical resources (improves LCP) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" />
+    <link rel="preload" href="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" as="image" type="image/png" />
+
+    <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
     <meta name="generator" content={Astro.generator} />
 
     <!-- Primary Meta Tags -->
@@ -51,7 +68,7 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <!-- Canonical URL -->
     <link rel="canonical" href={canonical} />
 
-    <!-- Keywords (less important for SEO now, but still useful) -->
+    <!-- Keywords -->
     <meta name="keywords" content="cleaning service, house cleaning, maid service, deep cleaning, move in cleaning, move out cleaning, weekly cleaning, recurring maid service, same day cleaning, Huntsville AL, Birmingham AL, Nashville TN, Madison AL, Athens AL, Mountain Brook, Muscle Shoals, veteran owned, insured, bonded" />
 
     <!-- Geographic Meta Tags -->
@@ -85,33 +102,107 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <meta name="theme-color" content="#FFA985" />
     <meta name="msapplication-TileColor" content="#FFA985" />
 
-    <!-- Preconnect to external resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <!-- Mobile optimization -->
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
     <!-- Schema Markup -->
     <SchemaMarkup type="organization" />
 
-    <!-- External Resources -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Critical CSS - Inlined for fastest FCP/LCP -->
+    <style is:inline>
+      /* Critical CSS - Above the fold styles */
+      *,*::before,*::after{box-sizing:border-box}
+      body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;color:#333;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+      h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0 0 1rem;line-height:1.2}
+      img{max-width:100%;height:auto;display:block}
+      a{color:inherit;text-decoration:none}
+      .gradient-bg{background:linear-gradient(135deg,#fff 0%,#f8f9fa 100%);min-height:100vh}
 
+      /* Navigation critical styles */
+      nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .3s ease}
+      .nav-scrolled{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+
+      /* Hero section critical styles */
+      .pt-32{padding-top:8rem}
+      .pb-20{padding-bottom:5rem}
+      .px-6{padding-left:1.5rem;padding-right:1.5rem}
+      .container{width:100%;max-width:1280px;margin:0 auto}
+      .text-center{text-align:center}
+      .text-4xl{font-size:2.25rem;line-height:2.5rem}
+      .text-xl{font-size:1.25rem;line-height:1.75rem}
+      .font-bold{font-weight:700}
+      .mb-4{margin-bottom:1rem}
+      .mb-6{margin-bottom:1.5rem}
+
+      /* Button critical styles */
+      .btn-primary{background:linear-gradient(135deg,#FFA985 0%,#FFC67D 100%);color:#333;padding:1rem 2rem;border-radius:9999px;font-weight:600;display:inline-block;transition:transform .3s,box-shadow .3s}
+      .btn-primary:hover{transform:scale(1.05);box-shadow:0 10px 25px rgba(212,175,55,.3)}
+
+      /* Grid system */
+      .grid{display:grid;gap:1.5rem}
+      @media(min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}}
+      @media(min-width:1024px){.lg\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}}
+
+      /* Flexbox utilities */
+      .flex{display:flex}
+      .items-center{align-items:center}
+      .justify-between{justify-content:space-between}
+      .justify-center{justify-content:center}
+      .space-x-4>*+*{margin-left:1rem}
+      .gap-4{gap:1rem}
+      .gap-8{gap:2rem}
+
+      /* Colors */
+      .text-white{color:#fff}
+      .text-gray-600{color:#4b5563}
+      .text-gray-700{color:#374151}
+      .bg-white{background-color:#fff}
+
+      /* Spacing */
+      .p-6{padding:1.5rem}
+      .p-8{padding:2rem}
+      .py-20{padding-top:5rem;padding-bottom:5rem}
+
+      /* Border radius */
+      .rounded-lg{border-radius:.5rem}
+      .rounded-xl{border-radius:.75rem}
+      .rounded-2xl{border-radius:1rem}
+      .rounded-full{border-radius:9999px}
+
+      /* Shadows */
+      .shadow-lg{box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05)}
+      .shadow-xl{box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)}
+
+      /* Section divider */
+      .section-divider{width:80px;height:4px;background:linear-gradient(90deg,#FFA985 0%,#FFC67D 100%);margin:0 auto 2rem}
+
+      /* Hide on mobile/desktop */
+      .hidden{display:none}
+      @media(min-width:768px){.md\:flex{display:flex}.md\:hidden{display:none}}
+      @media(min-width:1024px){.lg\:text-left{text-align:left}.lg\:text-6xl{font-size:3.75rem;line-height:1}}
+
+      /* Prevent layout shift for images */
+      img{aspect-ratio:attr(width)/attr(height)}
+
+      /* Font display swap to prevent FOIT */
+      @font-face{font-family:'Inter';font-display:swap}
+      @font-face{font-family:'Playfair Display';font-display:swap}
+    </style>
+
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /></noscript>
+
+    <!-- Google Fonts loaded asynchronously -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+
+    <!-- Non-critical styles -->
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
-      body {
-        font-family: 'Inter', sans-serif;
-        color: #333333;
-      }
-
-      h1, h2, h3 {
-        font-family: 'Playfair Display', serif;
-      }
-
-      .gradient-bg {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-      }
-
+      /* Extended styles - loaded after critical CSS */
       .gold-gradient {
         background: linear-gradient(135deg, #FFA985 0%, #FF8C61 100%);
         -webkit-background-clip: text;
@@ -125,6 +216,7 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
 
       .service-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform;
       }
 
       .service-card:hover {
@@ -136,28 +228,6 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
         font-size: 3.5rem;
         font-weight: 700;
         color: #FFA985;
-      }
-
-      .section-divider {
-        width: 80px;
-        height: 4px;
-        background: linear-gradient(90deg, #FFA985 0%, #FFC67D 100%);
-        margin: 0 auto 2rem;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
-        color: #333333;
-        padding: 1rem 2rem;
-        border-radius: 9999px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: inline-block;
-      }
-
-      .btn-primary:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
       }
 
       .btn-secondary {
@@ -212,18 +282,12 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
       }
 
       @keyframes pulse-subtle {
-        0%, 100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
       }
 
       @media (min-width: 768px) {
-        .sticky-cta {
-          display: none;
-        }
+        .sticky-cta { display: none; }
       }
 
       .contact-card {
@@ -304,10 +368,82 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
         padding: 1.5rem;
         margin-bottom: 1.5rem;
       }
+
+      /* Reduce motion for users who prefer it */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* Touch-friendly tap targets for mobile */
+      @media (max-width: 768px) {
+        a, button {
+          min-height: 44px;
+          min-width: 44px;
+        }
+
+        /* Optimize text rendering on mobile */
+        body {
+          text-rendering: optimizeSpeed;
+        }
+
+        /* Improve mobile scroll performance */
+        html {
+          scroll-behavior: auto; /* Disable smooth scroll on mobile for better performance */
+        }
+
+        /* Reduce padding on mobile for better viewport usage */
+        .container {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        /* Optimize grid gap on mobile */
+        .gap-8 {
+          gap: 1.5rem;
+        }
+
+        /* Faster transitions on mobile */
+        .service-card, .btn-primary, .btn-secondary {
+          transition-duration: 0.15s;
+        }
+      }
+
+      /* Optimize paint performance */
+      .will-change-transform {
+        will-change: transform;
+      }
+
+      /* Content visibility for below-fold sections */
+      .content-visibility-auto {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 500px;
+      }
     </style>
   </head>
   <body class="gradient-bg">
     <slot />
     <SpeedInsights />
+
+    <!-- Defer non-critical JavaScript -->
+    <script is:inline>
+      // Minimal JS for navigation scroll effect
+      (function() {
+        var nav = document.querySelector('nav');
+        if (nav) {
+          var scrollHandler = function() {
+            if (window.scrollY > 50) {
+              nav.classList.add('nav-scrolled');
+            } else {
+              nav.classList.remove('nav-scrolled');
+            }
+          };
+          window.addEventListener('scroll', scrollHandler, { passive: true });
+        }
+      })();
+    </script>
   </body>
 </html>

@@ -1,0 +1,43 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
+  sizes?: string;
+}
+
+const {
+  src,
+  alt,
+  class: className = '',
+  width,
+  height,
+  loading = 'lazy',
+  fetchpriority = 'auto',
+  decoding = 'async',
+  sizes = '100vw'
+} = Astro.props;
+
+// Generate srcset for responsive images if it's from our storage
+const isExternalImage = src.startsWith('http');
+
+// For external images, we'll use the original URL
+// For local images, we could generate WebP versions (future enhancement)
+---
+
+<img
+  src={src}
+  alt={alt}
+  class={className}
+  width={width}
+  height={height}
+  loading={loading}
+  fetchpriority={fetchpriority}
+  decoding={decoding}
+  sizes={sizes}
+/>
