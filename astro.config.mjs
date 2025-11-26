@@ -15,6 +15,7 @@ export default defineConfig({
       customPages: [
         'https://thevalleycleanteam.com/',
         'https://thevalleycleanteam.com/services',
+        'https://thevalleycleanteam.com/deep-cleaning',
         'https://thevalleycleanteam.com/pricing',
         'https://thevalleycleanteam.com/contact',
         'https://thevalleycleanteam.com/locations',
@@ -29,7 +30,7 @@ export default defineConfig({
         }
 
         // Main service pages - very high priority
-        if (url.includes('/services') || url.includes('/pricing') || url.includes('/contact')) {
+        if (url.includes('/services') || url.includes('/pricing') || url.includes('/contact') || url.endsWith('/deep-cleaning') || url.endsWith('/deep-cleaning/')) {
           return { ...item, priority: 0.9, changefreq: 'weekly' };
         }
 

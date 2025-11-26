@@ -1,0 +1,738 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+
+const title = "Deep Cleaning Services | Professional Top-to-Bottom Home Cleaning";
+const description = "Our comprehensive deep cleaning service covers every corner of your home. Baseboards, ceiling fans, inside cabinets, windows, and more. Veteran-owned, insured, same-day available. Serving Alabama & Tennessee.";
+
+// Service schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Deep Cleaning Service",
+  "description": "Comprehensive top-to-bottom deep cleaning service for homes. Includes detailed cleaning of all rooms, baseboards, ceiling fans, windows, cabinets, and hard-to-reach areas.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "info@thevalleycleanteam.com"
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "serviceType": "Deep Cleaning",
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "175",
+      "priceCurrency": "USD",
+      "minPrice": "175"
+    },
+    "availability": "https://schema.org/InStock"
+  }
+};
+
+// FAQ Schema
+const faqs = [
+  {
+    question: "How long does a deep cleaning take?",
+    answer: "A typical deep cleaning takes 3-6 hours depending on your home's size and condition. A 2,000 sq ft home usually takes 4-5 hours. Larger homes or homes that haven't been professionally cleaned in a while may take longer. We'll provide a time estimate when you book."
+  },
+  {
+    question: "How much does deep cleaning cost?",
+    answer: "Deep cleaning starts at $175 for smaller homes. Average pricing is $250-$400 for a typical 3-bedroom home. Factors that affect pricing include home size, number of bathrooms, current condition, and any special requests. We provide free, no-obligation quotes tailored to your specific needs."
+  },
+  {
+    question: "What's the difference between deep cleaning and regular cleaning?",
+    answer: "Regular cleaning maintains cleanliness with surface-level tasks like vacuuming, mopping, and wiping counters. Deep cleaning is a comprehensive, top-to-bottom clean that tackles built-up grime, neglected areas, and hard-to-reach spots like inside cabinets, behind appliances, baseboards, ceiling fans, and window tracks. We recommend a deep clean first, then regular maintenance cleanings."
+  },
+  {
+    question: "How often should I get a deep cleaning?",
+    answer: "We recommend a deep cleaning every 3-6 months, depending on your household. Homes with pets, children, or allergy sufferers benefit from quarterly deep cleans. Many clients start with a deep clean and then switch to weekly or bi-weekly regular cleanings to maintain that fresh feeling."
+  },
+  {
+    question: "Do I need to be home during the deep cleaning?",
+    answer: "No, you don't need to be home. Many clients provide a key, garage code, or smart lock access. We're fully insured and bonded, and all team members are background checked. If you prefer to be home, that's perfectly fine too!"
+  },
+  {
+    question: "Do you bring your own supplies and equipment?",
+    answer: "Yes! We bring all professional-grade cleaning supplies and equipment. Our products are effective yet safe for families and pets. If you have specific product preferences, allergies, or want us to use your own supplies, just let us know and we'll accommodate your needs."
+  },
+  {
+    question: "Can you do a deep clean the same day?",
+    answer: "Yes! We offer same-day deep cleaning service based on availability. For same-day requests, call us directly at 256-826-1100 as early as possible. We understand emergencies happen and do our best to accommodate urgent cleaning needs."
+  },
+  {
+    question: "What if I'm not satisfied with the deep cleaning?",
+    answer: "Your satisfaction is 100% guaranteed. If you're not completely happy with any aspect of our deep cleaning, contact us within 24 hours and we'll return to re-clean those areas at no additional charge. That's our promise to you."
+  },
+  {
+    question: "Do you clean inside the refrigerator and oven?",
+    answer: "Inside refrigerator and oven cleaning are available as add-on services. Our standard deep clean includes wiping down the exterior of all appliances. Let us know if you'd like interior appliance cleaning added to your service."
+  },
+  {
+    question: "Are your cleaners background checked?",
+    answer: "Absolutely. Every member of The Valley Clean Team undergoes a thorough background check before joining our team. We're also fully insured with $2 million in liability coverage and bonded for your complete peace of mind."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Checklist items organized by room
+const checklist = {
+  allRooms: [
+    "Remove cobwebs from corners and ceilings",
+    "Empty all trash cans and replace liners",
+    "Sweep and vacuum all floors",
+    "Mop all hard floors",
+    "Dust all shelves and surfaces",
+    "Dust blinds, windows, and window sills",
+    "Wet wipe windows and blinds",
+    "Wipe and clean all mirrors",
+    "Wipe and clean light switches",
+    "Clean all glass surfaces",
+    "Hand detail baseboards",
+    "Dust reachable ceiling fans and vents",
+    "Dust all furniture and lamps",
+    "Dust doors and door frames",
+    "Vacuum all area rugs"
+  ],
+  bathrooms: [
+    "Deep clean shower/tub (scrub grout and tiles)",
+    "Clean and sanitize sink",
+    "Clean and sanitize toilet and toilet area",
+    "Polish all faucets and fixtures",
+    "Clean vanity and countertops",
+    "Dust ledges and shelving",
+    "Wipe down exterior of vanity doors",
+    "Clean mirrors streak-free",
+    "Disinfect all high-touch surfaces"
+  ],
+  bedrooms: [
+    "Make beds and change sheets (linens provided by you)",
+    "Vacuum rugs and carpets",
+    "Dust all furniture and nightstands",
+    "Clean exterior of dressers and drawers",
+    "Dust doors and door frames",
+    "Vacuum under beds (if accessible)"
+  ],
+  kitchen: [
+    "Clean exterior of all cabinets and drawers",
+    "Wipe down all countertops",
+    "Clean and sanitize sink",
+    "Clean exterior of appliances",
+    "Wipe down backsplash",
+    "Clean microwave inside and out",
+    "Degrease stovetop and range hood"
+  ]
+};
+
+const commonProblems = [
+  {
+    icon: "fa-spider",
+    problem: "Cobwebs & Dust Buildup",
+    solution: "We eliminate cobwebs from every corner, ceiling, and hidden spot. Our thorough dusting reaches places you can't, from ceiling fans to baseboards."
+  },
+  {
+    icon: "fa-bacteria",
+    problem: "Bathroom Grime & Mildew",
+    solution: "Soap scum, hard water stains, and mildew don't stand a chance. We scrub grout, descale fixtures, and leave your bathrooms sparkling and sanitized."
+  },
+  {
+    icon: "fa-wind",
+    problem: "Dust Allergies & Poor Air Quality",
+    solution: "Built-up dust on vents, fans, and blinds circulates allergens. Our deep clean removes dust from these sources, improving your home's air quality."
+  },
+  {
+    icon: "fa-house-chimney-crack",
+    problem: "Neglected Hard-to-Reach Areas",
+    solution: "Behind toilets, under furniture, top of cabinets, inside window tracks - we clean the spots that regular cleaning misses."
+  },
+  {
+    icon: "fa-utensils",
+    problem: "Kitchen Grease & Grime",
+    solution: "Grease buildup on cabinets, range hoods, and appliances is no match for our degreasing techniques. Your kitchen will look and feel brand new."
+  },
+  {
+    icon: "fa-clock-rotate-left",
+    problem: "Haven't Cleaned in Months",
+    solution: "No judgment here! Whether it's been 6 months or 6 years, we'll transform your home back to pristine condition with our comprehensive deep clean."
+  }
+];
+
+const processSteps = [
+  {
+    number: 1,
+    title: "Initial Assessment",
+    description: "We start with a walkthrough of your home, noting areas of concern, your priorities, and any special requests. This ensures nothing is missed.",
+    icon: "fa-clipboard-list"
+  },
+  {
+    number: 2,
+    title: "Top-Down Approach",
+    description: "We clean from ceiling to floor, room by room. This means dust and debris fall down to areas we haven't cleaned yet, ensuring maximum efficiency.",
+    icon: "fa-arrow-down-long"
+  },
+  {
+    number: 3,
+    title: "Detail Work",
+    description: "Baseboards are hand-detailed, blinds are wet-wiped, light switches are sanitized, and every surface is addressed. No corner is overlooked.",
+    icon: "fa-magnifying-glass"
+  },
+  {
+    number: 4,
+    title: "Bathroom Deep Clean",
+    description: "Toilets, showers, sinks, and vanities are scrubbed, sanitized, and polished. Grout is addressed, fixtures are shined, and everything is disinfected.",
+    icon: "fa-bath"
+  },
+  {
+    number: 5,
+    title: "Kitchen Transformation",
+    description: "Appliance exteriors are cleaned, cabinets are wiped down, counters are sanitized, and the stovetop is degreased. Your kitchen will shine.",
+    icon: "fa-kitchen-set"
+  },
+  {
+    number: 6,
+    title: "Final Inspection",
+    description: "Before we leave, we do a complete walkthrough to ensure everything meets our high standards and your expectations. Your satisfaction is guaranteed.",
+    icon: "fa-check-double"
+  }
+];
+
+const serviceAreas = [
+  { name: "Huntsville", link: "/huntsville-cleaning" },
+  { name: "Madison", link: "/madison-cleaning" },
+  { name: "Athens", link: "/athens-cleaning" },
+  { name: "Birmingham", link: "/birmingham-cleaning" },
+  { name: "Mountain Brook", link: "/mountain-brook-cleaning" },
+  { name: "Muscle Shoals", link: "/muscle-shoals-cleaning" },
+  { name: "Florence", link: "/florence-cleaning" },
+  { name: "Nashville", link: "/nashville-cleaning" },
+  { name: "West Nashville", link: "/west-nashville-cleaning" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-sparkles mr-2"></i>Our Most Comprehensive Service
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Professional <span class="gold-gradient">Deep Cleaning</span> Services
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            A thorough, top-to-bottom clean that tackles every corner, crevice, and forgotten spot in your home. Our deep cleaning goes far beyond regular cleaning to restore your home to pristine condition.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Same-Day Available</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>100% Satisfaction Guaranteed</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Veteran Owned</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">Deep Cleaning Pricing</h3>
+            <p class="text-gray-600">Transparent pricing, no hidden fees</p>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Small Home</h4>
+                <p class="text-sm text-gray-600">1-2 bedrooms, 1 bath</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$175+</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]">
+              <div>
+                <h4 class="font-bold text-[#333333]">Average Home</h4>
+                <p class="text-sm text-gray-600">3 bedrooms, 2 baths</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$250-$350</span>
+                <p class="text-xs text-gray-600">Most Popular</p>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Large Home</h4>
+                <p class="text-sm text-gray-600">4+ bedrooms, 3+ baths</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$400+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+            <p class="text-green-800 text-sm text-center">
+              <i class="fas fa-tag mr-2"></i>
+              <strong>Save 15-20%</strong> when you book recurring cleaning after your deep clean!
+            </p>
+          </div>
+
+          <a href="/contact" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            Get Your Free Quote
+          </a>
+          <p class="text-center text-xs text-gray-500 mt-3">
+            <i class="fas fa-clock mr-1"></i> Response within 2 hours
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- What's Included Section -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What's <span class="gold-gradient">Included</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Our deep cleaning service is comprehensive and thorough. Here's everything we tackle in your home.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- All Rooms -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-[#333333]">All Rooms</h3>
+          <ul class="space-y-2">
+            {checklist.allRooms.map(item => (
+              <li class="flex items-start text-gray-600 text-sm">
+                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Bathrooms -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-bath text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-[#333333]">Bathrooms</h3>
+          <ul class="space-y-2">
+            {checklist.bathrooms.map(item => (
+              <li class="flex items-start text-gray-600 text-sm">
+                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Bedrooms -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-bed text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-[#333333]">Bedrooms</h3>
+          <ul class="space-y-2">
+            {checklist.bedrooms.map(item => (
+              <li class="flex items-start text-gray-600 text-sm">
+                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Kitchen -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-kitchen-set text-white text-xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-4 text-[#333333]">Kitchen</h3>
+          <ul class="space-y-2">
+            {checklist.kitchen.map(item => (
+              <li class="flex items-start text-gray-600 text-sm">
+                <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Add-on Services -->
+      <div class="mt-12 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <h3 class="text-2xl font-bold text-[#333333] mb-4 text-center">Available Add-On Services</h3>
+        <div class="grid md:grid-cols-4 gap-4">
+          <div class="bg-white rounded-xl p-4 text-center">
+            <i class="fas fa-snowflake text-[#FFA985] text-2xl mb-2"></i>
+            <p class="font-semibold text-[#333333]">Inside Refrigerator</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 text-center">
+            <i class="fas fa-fire-burner text-[#FFA985] text-2xl mb-2"></i>
+            <p class="font-semibold text-[#333333]">Inside Oven</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 text-center">
+            <i class="fas fa-box-open text-[#FFA985] text-2xl mb-2"></i>
+            <p class="font-semibold text-[#333333]">Inside Cabinets</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 text-center">
+            <i class="fas fa-shirt text-[#FFA985] text-2xl mb-2"></i>
+            <p class="font-semibold text-[#333333]">Laundry Service</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problems We Solve -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Our deep cleaning service addresses the issues that regular cleaning just can't handle
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {commonProblems.map(item => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${item.icon} text-white text-2xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+            <p class="text-gray-600">{item.solution}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Process -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Our Deep Cleaning <span class="gold-gradient">Process</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          A systematic, thorough approach that ensures nothing is missed
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {processSteps.map(step => (
+          <div class="relative bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+            <div class="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              {step.number}
+            </div>
+            <div class="ml-4">
+              <div class="flex items-center mb-4">
+                <i class={`fas ${step.icon} text-[#FFA985] text-2xl mr-3`}></i>
+                <h3 class="text-xl font-bold text-[#333333]">{step.title}</h3>
+              </div>
+              <p class="text-gray-600">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Choose <span class="gold-gradient">The Valley Clean Team</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          What sets our deep cleaning service apart from the rest
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-medal text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Veteran Owned</h3>
+          <p class="text-gray-600">Military precision and attention to detail in every clean. Proudly serving our community.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-shield-alt text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Fully Insured</h3>
+          <p class="text-gray-600">$2 million liability coverage and bonded. Your home and belongings are protected.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-user-check text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Background Checked</h3>
+          <p class="text-gray-600">Every team member is thoroughly vetted. Only trustworthy professionals in your home.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <i class="fas fa-redo text-white text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Satisfaction Guaranteed</h3>
+          <p class="text-gray-600">Not happy? We'll re-clean for free. Your satisfaction is our top priority.</p>
+        </div>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center">
+          <div class="w-14 h-14 flex-shrink-0 rounded-full bg-green-100 flex items-center justify-center mr-4">
+            <i class="fas fa-leaf text-green-600 text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333]">Eco-Friendly Options</h4>
+            <p class="text-sm text-gray-600">Safe products available for families & pets</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center">
+          <div class="w-14 h-14 flex-shrink-0 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+            <i class="fas fa-spray-can text-blue-600 text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333]">Supplies Included</h4>
+            <p class="text-sm text-gray-600">We bring all professional-grade equipment</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 flex items-center">
+          <div class="w-14 h-14 flex-shrink-0 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+            <i class="fas fa-star text-purple-600 text-xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333]">130+ 5-Star Reviews</h4>
+            <p class="text-sm text-gray-600">Trusted by hundreds of happy customers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Availability -->
+  <section class="py-16 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <div class="flex items-center mb-4">
+            <i class="fas fa-bolt text-white text-3xl mr-4"></i>
+            <h2 class="text-3xl md:text-4xl font-bold text-white">
+              Need Emergency Deep Cleaning?
+            </h2>
+          </div>
+          <p class="text-white/90 text-lg mb-6">
+            Unexpected guests? Last-minute showing? We've got you covered. Our same-day deep cleaning service is available based on availability. Call us early in the day for the best chance of same-day service.
+          </p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Same-day service available
+            </li>
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Weekend appointments
+            </li>
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Flexible scheduling
+            </li>
+            <li class="flex items-center text-white">
+              <i class="fas fa-check-circle mr-2"></i>
+              Quick response time
+            </li>
+          </ul>
+        </div>
+        <div class="text-center">
+          <div class="bg-white rounded-2xl p-8 shadow-xl">
+            <p class="text-gray-600 mb-2">Call Now for Same-Day Service</p>
+            <a href="tel:2568261100" class="text-4xl md:text-5xl font-bold text-[#FFA985] hover:text-[#FF8C61] transition block mb-4">
+              256-826-1100
+            </a>
+            <p class="text-gray-600 text-sm">Available Mon-Sat, 8am-6pm</p>
+            <p class="text-gray-600 text-sm">Sunday by appointment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Deep Cleaning <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Professional deep cleaning services across Alabama and Tennessee
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto mb-8">
+        {serviceAreas.map(area => (
+          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mb-2"></i>
+            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="bg-gray-50 rounded-2xl p-8 max-w-4xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-bold text-[#333333] mb-4 flex items-center">
+              <i class="fas fa-map text-[#FFA985] mr-2"></i>
+              Alabama Service Areas
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Huntsville, Madison, Athens, Decatur, Hampton Cove, Jones Valley, Birmingham, Mountain Brook, Homewood, Vestavia Hills, Hoover, Muscle Shoals, Florence, Sheffield, Tuscumbia, and surrounding areas.
+            </p>
+          </div>
+          <div>
+            <h3 class="font-bold text-[#333333] mb-4 flex items-center">
+              <i class="fas fa-map text-[#FFA985] mr-2"></i>
+              Tennessee Service Areas
+            </h3>
+            <p class="text-gray-600 text-sm">
+              Nashville, West Nashville, Belle Meade, Green Hills, Sylvan Park, The Nations, West Meade, and surrounding areas.
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 text-center">
+          <p class="text-gray-600">
+            <i class="fas fa-phone text-[#FFA985] mr-2"></i>
+            Don't see your area? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> - we may still serve you!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Deep Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions about our deep cleaning service</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for a <span class="gold-gradient">Spotless Home</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Book your deep cleaning today and experience the difference a truly clean home makes
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+          <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+          <i class="fas fa-envelope mr-2"></i>Get Free Quote
+        </a>
+      </div>
+      <p class="text-gray-600">
+        <i class="fas fa-clock text-[#FFA985] mr-2"></i>
+        Most quotes replied to within 2 hours
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
