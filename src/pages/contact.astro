@@ -59,54 +59,105 @@ import Footer from '../components/Footer.astro';
         <!-- Form -->
         <div>
           <h2 class="text-3xl font-bold mb-6 text-[#333333]">Send Us a Message</h2>
-          <form class="space-y-6">
+          <form id="contact-form" class="space-y-6">
             <div>
               <label class="block text-gray-700 font-semibold mb-2">Full Name *</label>
-              <input type="text" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your name" required>
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your name" required>
             </div>
 
             <div>
               <label class="block text-gray-700 font-semibold mb-2">Email Address *</label>
-              <input type="email" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="your@email.com" required>
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="your@email.com" required>
             </div>
 
             <div>
               <label class="block text-gray-700 font-semibold mb-2">Phone Number *</label>
-              <input type="tel" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="256-826-1100" required>
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="256-826-1100" required>
             </div>
 
             <div>
               <label class="block text-gray-700 font-semibold mb-2">Service Type *</label>
-              <select class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
                 <option value="">Select a service</option>
-                <option>Deep Cleaning</option>
-                <option>Regular Cleaning</option>
-                <option>Move In/Out Cleaning</option>
-                <option>Commercial/Office Cleaning</option>
-                <option>Event Cleaning</option>
-                <option>Airbnb Cleaning</option>
-                <option>Post-Construction Cleaning</option>
-                <option>Green Cleaning</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Regular Cleaning">Regular Cleaning</option>
+                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
+                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
+                <option value="Event Cleaning">Event Cleaning</option>
+                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
+                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+                <option value="Green Cleaning">Green Cleaning</option>
               </select>
             </div>
 
             <div>
               <label class="block text-gray-700 font-semibold mb-2">Your Location</label>
-              <input type="text" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="City, State">
+              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="City, State">
             </div>
 
             <div>
               <label class="block text-gray-700 font-semibold mb-2">Message</label>
-              <textarea class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Tell us about your cleaning needs..." rows="5"></textarea>
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Tell us about your cleaning needs..." rows="5"></textarea>
             </div>
 
-            <button type="submit" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+            <button type="submit" id="submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
               Send Message
             </button>
             <p class="text-center text-sm text-gray-500">
               <i class="fas fa-lock mr-1"></i> Your information is secure and will not be shared.
             </p>
+            <div id="form-message" class="hidden text-center p-4 rounded-lg"></div>
           </form>
+
+          <script>
+            document.getElementById('contact-form').addEventListener('submit', async function(e) {
+              e.preventDefault();
+
+              const submitBtn = document.getElementById('submit-btn');
+              const formMessage = document.getElementById('form-message');
+              const form = e.target;
+
+              // Disable button and show loading
+              submitBtn.disabled = true;
+              submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+
+              // Gather form data
+              const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                service: form.service.value,
+                location: form.location.value,
+                message: form.message.value,
+                source: 'Website Contact Form',
+                page_url: window.location.href
+              };
+
+              try {
+                const response = await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(formData)
+                });
+
+                // Show success message
+                formMessage.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+                formMessage.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+                form.reset();
+
+              } catch (error) {
+                // Show error message
+                formMessage.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+                formMessage.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+              }
+
+              // Reset button
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = 'Send Message';
+            });
+          </script>
         </div>
 
         <!-- Info -->
