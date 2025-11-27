@@ -1,0 +1,467 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+
+const title = "Event Cleaning Services | Pre-Event, During & Post-Event Cleanup";
+const description = "Professional event cleaning for parties, weddings, corporate events, and gatherings in Alabama & Tennessee. Pre-event prep, during-event maintenance, post-event cleanup. Veteran-owned, insured.";
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Event Cleaning Service",
+  "description": "Professional cleaning services for events including pre-event preparation, during-event maintenance, and post-event cleanup.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "info@thevalleycleanteam.com"
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "serviceType": "Event Cleaning",
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "200",
+      "priceCurrency": "USD",
+      "minPrice": "200"
+    },
+    "availability": "https://schema.org/InStock"
+  }
+};
+
+const faqs = [
+  {
+    question: "How far in advance should I book event cleaning?",
+    answer: "We recommend booking at least 1-2 weeks in advance for most events. For weddings or large corporate events, 4-6 weeks notice is ideal. However, we do accommodate last-minute requests when possible."
+  },
+  {
+    question: "Do you provide cleaning during the event?",
+    answer: "Yes! We offer during-event maintenance to keep restrooms stocked, clean up spills, empty trash, and ensure your venue stays presentable throughout your gathering."
+  },
+  {
+    question: "What's included in post-event cleanup?",
+    answer: "Complete cleanup including trash removal, floor cleaning, restroom sanitation, surface wiping, kitchen cleanup, and returning the space to its original condition."
+  },
+  {
+    question: "Can you clean my home before a party?",
+    answer: "Absolutely! Pre-event home cleaning is one of our most popular services. We deep clean so your home is guest-ready and you can focus on other preparations."
+  },
+  {
+    question: "Do you clean outdoor event spaces?",
+    answer: "Yes, we handle outdoor areas including patios, decks, and outdoor venues. This includes trash collection, surface cleaning, and general tidying."
+  },
+  {
+    question: "What events do you typically clean for?",
+    answer: "We clean for birthday parties, holiday gatherings, weddings, corporate events, graduation parties, baby showers, open houses, fundraisers, and any other gathering."
+  },
+  {
+    question: "How is event cleaning priced?",
+    answer: "Pricing depends on venue size, event type, and services needed. Pre-event cleaning starts at $200, during-event service is hourly, and post-event cleanup is based on the scope of work."
+  },
+  {
+    question: "Can you work with my venue's requirements?",
+    answer: "Yes, we coordinate with venue managers and follow their specific requirements. We've worked with many venues and understand their expectations."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const eventTypes = [
+  { icon: "fa-birthday-cake", name: "Birthday Parties", description: "Kid or adult celebrations" },
+  { icon: "fa-ring", name: "Weddings", description: "Venue prep and cleanup" },
+  { icon: "fa-briefcase", name: "Corporate Events", description: "Meetings and conferences" },
+  { icon: "fa-graduation-cap", name: "Graduations", description: "Celebrate achievements" },
+  { icon: "fa-tree", name: "Holiday Gatherings", description: "Thanksgiving, Christmas, etc." },
+  { icon: "fa-baby", name: "Baby Showers", description: "Welcome new arrivals" },
+  { icon: "fa-champagne-glasses", name: "Dinner Parties", description: "Elegant entertaining" },
+  { icon: "fa-handshake", name: "Open Houses", description: "Real estate events" }
+];
+
+const servicePhases = [
+  {
+    phase: "Pre-Event Cleaning",
+    icon: "fa-calendar-check",
+    description: "Get your space guest-ready before the festivities begin",
+    tasks: [
+      "Deep clean all rooms",
+      "Sanitize bathrooms",
+      "Polish floors and surfaces",
+      "Clean windows and mirrors",
+      "Organize and declutter",
+      "Kitchen deep clean",
+      "Outdoor area prep",
+      "Final walkthrough"
+    ],
+    timing: "1-3 days before event"
+  },
+  {
+    phase: "During-Event Service",
+    icon: "fa-broom",
+    description: "Keep your venue pristine while guests enjoy themselves",
+    tasks: [
+      "Restroom monitoring",
+      "Trash removal",
+      "Spill cleanup",
+      "Restock supplies",
+      "General tidying",
+      "Kitchen assistance",
+      "Maintain cleanliness",
+      "Discreet presence"
+    ],
+    timing: "Throughout your event"
+  },
+  {
+    phase: "Post-Event Cleanup",
+    icon: "fa-sparkles",
+    description: "Wake up to a clean space—we handle the aftermath",
+    tasks: [
+      "Complete trash removal",
+      "Dish washing",
+      "Floor cleaning",
+      "Surface sanitizing",
+      "Bathroom deep clean",
+      "Furniture reset",
+      "Outdoor cleanup",
+      "Return to pre-event condition"
+    ],
+    timing: "Same night or next morning"
+  }
+];
+
+const whyChooseUs = [
+  {
+    icon: "fa-clock",
+    title: "Flexible Scheduling",
+    description: "Early morning, late night, weekends—we work when you need us."
+  },
+  {
+    icon: "fa-users",
+    title: "Scalable Teams",
+    description: "Small gathering or large gala, we have the staff to handle it."
+  },
+  {
+    icon: "fa-eye-slash",
+    title: "Discreet Service",
+    description: "During-event cleaning that's professional and unobtrusive."
+  },
+  {
+    icon: "fa-shield-alt",
+    title: "Fully Insured",
+    description: "$2M liability coverage for your peace of mind."
+  },
+  {
+    icon: "fa-redo",
+    title: "Reliable & Punctual",
+    description: "We show up on time, every time. Your event depends on it."
+  },
+  {
+    icon: "fa-star",
+    title: "Experienced Team",
+    description: "We've cleaned hundreds of events and know what to expect."
+  }
+];
+
+const serviceAreas = [
+  { name: "Huntsville", link: "/huntsville-cleaning" },
+  { name: "Madison", link: "/madison-cleaning" },
+  { name: "Birmingham", link: "/birmingham-cleaning" },
+  { name: "Mountain Brook", link: "/mountain-brook-cleaning" },
+  { name: "Nashville", link: "/nashville-cleaning" },
+  { name: "Belle Meade", link: "/belle-meade-cleaning" },
+  { name: "Franklin", link: "/franklin-cleaning" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-champagne-glasses mr-2"></i>Before, During & After
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Professional <span class="gold-gradient">Event Cleaning</span> Services
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Host the perfect event without the cleanup stress. From pre-event preparation to post-party cleanup, we handle every phase so you can focus on your guests and enjoy the celebration.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Pre-Event Prep</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>During-Event Service</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Post-Event Cleanup</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">Event Cleaning Options</h3>
+            <p class="text-gray-600">Choose the services you need</p>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Pre-Event Cleaning</h4>
+                <p class="text-sm text-gray-600">Get guest-ready</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$200+</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]">
+              <div>
+                <h4 class="font-bold text-[#333333]">During-Event Service</h4>
+                <p class="text-sm text-gray-600">Maintain cleanliness</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">Hourly</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Post-Event Cleanup</h4>
+                <p class="text-sm text-gray-600">Complete restoration</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">$250+</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+            <p class="text-green-800 text-sm text-center">
+              <i class="fas fa-tag mr-2"></i>
+              <strong>Bundle all three</strong> for a complete event package discount
+            </p>
+          </div>
+
+          <a href="/contact" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            Plan Your Event Cleaning
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Event Types -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Events <span class="gold-gradient">We Clean</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          From intimate gatherings to large celebrations, we've got you covered
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {eventTypes.map(event => (
+          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:shadow-xl hover:border-[#FFA985] transition-all text-center">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${event.icon} text-white text-2xl`}></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2 text-[#333333]">{event.name}</h3>
+            <p class="text-gray-600 text-sm">{event.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Phases -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Complete Event <span class="gold-gradient">Cleaning Coverage</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {servicePhases.map((phase, index) => (
+          <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition-all">
+            <div class="flex items-center mb-6">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                <i class={`fas ${phase.icon} text-white text-xl`}></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-[#333333]">{phase.phase}</h3>
+                <p class="text-sm text-[#FFA985]">{phase.timing}</p>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6">{phase.description}</p>
+            <ul class="space-y-2">
+              {phase.tasks.map(task => (
+                <li class="flex items-start text-gray-600 text-sm">
+                  <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Choose Us for <span class="gold-gradient">Event Cleaning</span>?
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {whyChooseUs.map(item => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${item.icon} text-white text-2xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.title}</h3>
+            <p class="text-gray-600">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Event Cleaning <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
+        {serviceAreas.map(area => (
+          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mb-2"></i>
+            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600">
+          <i class="fas fa-phone text-[#FFA985] mr-2"></i>
+          Event at another location? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Event Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready to Plan Your <span class="gold-gradient">Event Cleaning</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Let us handle the cleaning so you can enjoy the celebration
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+          <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+          <i class="fas fa-envelope mr-2"></i>Get Free Quote
+        </a>
+      </div>
+      <p class="text-gray-600">
+        <i class="fas fa-calendar-check text-[#FFA985] mr-2"></i>
+        Book early for best availability
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

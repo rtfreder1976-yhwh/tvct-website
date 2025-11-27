@@ -1,0 +1,457 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+
+const title = "Commercial & Office Cleaning Services | Professional Business Cleaning";
+const description = "Professional commercial cleaning for offices, medical facilities, and businesses in Alabama & Tennessee. Veteran-owned, insured ($2M liability), flexible scheduling. Create a healthier workplace.";
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Commercial & Office Cleaning Service",
+  "description": "Professional commercial cleaning services for offices, medical facilities, retail spaces, and businesses of all sizes.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "info@thevalleycleanteam.com"
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "serviceType": "Commercial Cleaning",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock"
+  }
+};
+
+const faqs = [
+  {
+    question: "What types of businesses do you clean?",
+    answer: "We clean offices, medical facilities, retail stores, churches, gyms, salons, restaurants, warehouses, and more. If you have a commercial space, we can clean it."
+  },
+  {
+    question: "Do you offer after-hours cleaning?",
+    answer: "Yes! Most of our commercial clients prefer evening or weekend cleaning when their business is closed. We work around your schedule to minimize disruption."
+  },
+  {
+    question: "How often should my office be cleaned?",
+    answer: "It depends on foot traffic and business type. High-traffic offices benefit from daily cleaning. Most offices do well with 2-3 times weekly. We'll assess your needs and recommend a schedule."
+  },
+  {
+    question: "Are you insured for commercial work?",
+    answer: "Absolutely. We carry $2 million in liability insurance, and all team members are bonded and background-checked. We can provide certificates of insurance upon request."
+  },
+  {
+    question: "Can you handle medical office cleaning?",
+    answer: "Yes, we follow proper protocols for medical facility cleaning including sanitization standards, HIPAA-compliant practices, and appropriate handling of sensitive areas."
+  },
+  {
+    question: "Do you provide cleaning supplies?",
+    answer: "Yes, we bring all commercial-grade supplies and equipment. We can also use specific products if your facility requires them."
+  },
+  {
+    question: "What's included in commercial cleaning?",
+    answer: "Standard service includes trash removal, vacuuming, mopping, restroom sanitization, break room cleaning, surface dusting, and glass cleaning. We customize based on your needs."
+  },
+  {
+    question: "How do you handle security and access?",
+    answer: "We work with your security protocols. Key/code access, sign-in procedures, alarm systems—we follow your requirements and maintain strict confidentiality."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const businessTypes = [
+  { icon: "fa-building", name: "Office Buildings", description: "Daily, weekly, or custom schedules" },
+  { icon: "fa-stethoscope", name: "Medical Facilities", description: "Sanitization protocols followed" },
+  { icon: "fa-store", name: "Retail Stores", description: "Before/after hours service" },
+  { icon: "fa-church", name: "Churches", description: "Weekly or event-based cleaning" },
+  { icon: "fa-dumbbell", name: "Gyms & Studios", description: "Sanitization focused" },
+  { icon: "fa-cut", name: "Salons & Spas", description: "Health code compliant" },
+  { icon: "fa-utensils", name: "Restaurants", description: "Kitchen and dining areas" },
+  { icon: "fa-warehouse", name: "Warehouses", description: "Large space specialists" }
+];
+
+const services = [
+  {
+    section: "Daily/Regular Cleaning",
+    icon: "fa-broom",
+    tasks: [
+      "Empty all trash receptacles",
+      "Vacuum carpets and rugs",
+      "Mop hard floors",
+      "Clean and sanitize restrooms",
+      "Wipe down surfaces and desks",
+      "Clean break room and kitchen",
+      "Dust accessible surfaces",
+      "Clean glass doors and partitions"
+    ]
+  },
+  {
+    section: "Restroom Care",
+    icon: "fa-toilet",
+    tasks: [
+      "Sanitize toilets and urinals",
+      "Clean sinks and counters",
+      "Polish mirrors and fixtures",
+      "Restock paper products",
+      "Empty trash and replace liners",
+      "Mop and disinfect floors",
+      "Clean partitions and doors"
+    ]
+  },
+  {
+    section: "Deep Cleaning",
+    icon: "fa-sparkles",
+    tasks: [
+      "Carpet shampooing",
+      "Floor stripping and waxing",
+      "Window washing (interior)",
+      "High dusting (vents, lights)",
+      "Upholstery cleaning",
+      "Baseboards detailed",
+      "Light fixture cleaning"
+    ]
+  },
+  {
+    section: "Specialty Services",
+    icon: "fa-plus-circle",
+    tasks: [
+      "Post-construction cleanup",
+      "Move-in/move-out cleaning",
+      "Pressure washing",
+      "COVID-19 disinfection",
+      "Event setup/cleanup",
+      "Emergency cleaning",
+      "Seasonal deep cleans"
+    ]
+  }
+];
+
+const benefits = [
+  {
+    icon: "fa-heart",
+    title: "Healthier Workplace",
+    description: "Regular professional cleaning reduces sick days by eliminating germs and allergens from your workspace."
+  },
+  {
+    icon: "fa-handshake",
+    title: "Better First Impressions",
+    description: "A clean office speaks volumes to clients, customers, and potential employees visiting your space."
+  },
+  {
+    icon: "fa-chart-line",
+    title: "Increased Productivity",
+    description: "Studies show employees are more productive and focused in clean, organized environments."
+  },
+  {
+    icon: "fa-clock",
+    title: "Flexible Scheduling",
+    description: "After-hours, weekends, or during business hours—we work around your operations."
+  },
+  {
+    icon: "fa-shield-alt",
+    title: "Fully Insured",
+    description: "$2 million liability coverage protects your business. Certificates available on request."
+  },
+  {
+    icon: "fa-user-check",
+    title: "Vetted Staff",
+    description: "Every team member is background-checked, trained, and professional."
+  }
+];
+
+const serviceAreas = [
+  { name: "Huntsville", link: "/huntsville-cleaning" },
+  { name: "Madison", link: "/madison-cleaning" },
+  { name: "Birmingham", link: "/birmingham-cleaning" },
+  { name: "Mountain Brook", link: "/mountain-brook-cleaning" },
+  { name: "Muscle Shoals", link: "/muscle-shoals-cleaning" },
+  { name: "Nashville", link: "/nashville-cleaning" },
+  { name: "West Nashville", link: "/west-nashville-cleaning" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-building mr-2"></i>Professional Business Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            <span class="gold-gradient">Commercial</span> & Office Cleaning Services
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Create a healthier, more productive workplace with professional commercial cleaning. From small offices to large facilities, we deliver consistent, reliable service that makes your business shine.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>$2M Liability Insurance</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>After-Hours Available</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Background-Checked Staff</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+              Request Free Consultation
+            </a>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">Customized Commercial Cleaning</h3>
+            <p class="text-gray-600">Tailored solutions for your business</p>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-center p-4 bg-gray-50 rounded-xl">
+              <i class="fas fa-calendar-alt text-[#FFA985] text-2xl mr-4"></i>
+              <div>
+                <h4 class="font-bold text-[#333333]">Flexible Scheduling</h4>
+                <p class="text-sm text-gray-600">Daily, weekly, bi-weekly, or monthly</p>
+              </div>
+            </div>
+
+            <div class="flex items-center p-4 bg-gray-50 rounded-xl">
+              <i class="fas fa-moon text-[#FFA985] text-2xl mr-4"></i>
+              <div>
+                <h4 class="font-bold text-[#333333]">After-Hours Service</h4>
+                <p class="text-sm text-gray-600">Evenings and weekends available</p>
+              </div>
+            </div>
+
+            <div class="flex items-center p-4 bg-gray-50 rounded-xl">
+              <i class="fas fa-file-contract text-[#FFA985] text-2xl mr-4"></i>
+              <div>
+                <h4 class="font-bold text-[#333333]">No Long-Term Contracts</h4>
+                <p class="text-sm text-gray-600">Month-to-month service available</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+            <p class="text-green-800 text-sm text-center">
+              <i class="fas fa-certificate mr-2"></i>
+              <strong>Free consultation</strong> and customized quote for your facility
+            </p>
+          </div>
+
+          <a href="/contact" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            Get Your Free Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Business Types -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Businesses <span class="gold-gradient">We Serve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          From small offices to large commercial facilities, we have the expertise to keep your business clean
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {businessTypes.map(business => (
+          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:shadow-xl hover:border-[#FFA985] transition-all text-center">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${business.icon} text-white text-2xl`}></i>
+            </div>
+            <h3 class="text-lg font-bold mb-2 text-[#333333]">{business.name}</h3>
+            <p class="text-gray-600 text-sm">{business.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Our Commercial <span class="gold-gradient">Services</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Comprehensive cleaning solutions tailored to your business needs
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {services.map(service => (
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${service.icon} text-white text-xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">{service.section}</h3>
+            <ul class="space-y-2">
+              {service.tasks.map(task => (
+                <li class="flex items-start text-gray-600 text-sm">
+                  <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Professional <span class="gold-gradient">Commercial Cleaning</span>?
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {benefits.map(benefit => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${benefit.icon} text-white text-2xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{benefit.title}</h3>
+            <p class="text-gray-600">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Commercial Cleaning <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
+        {serviceAreas.map(area => (
+          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mb-2"></i>
+            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600">
+          <i class="fas fa-phone text-[#FFA985] mr-2"></i>
+          Facility in another area? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Commercial Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for a <span class="gold-gradient">Cleaner Workplace</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Get a free consultation and customized cleaning plan for your business
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+          <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+          <i class="fas fa-envelope mr-2"></i>Request Consultation
+        </a>
+      </div>
+      <p class="text-gray-600">
+        <i class="fas fa-clock text-[#FFA985] mr-2"></i>
+        We respond to all commercial inquiries within 24 hours
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
