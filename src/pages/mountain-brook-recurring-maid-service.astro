@@ -107,41 +107,42 @@ const faqSchema = {
         <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
           <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Start Your Recurring Service</h3>
           <p class="text-gray-600 mb-6 text-center">Mountain Brook's trusted cleaning partner</p>
-          <form>
+          <form id="recurring-form">
             <div class="mb-4">
-              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
             </div>
             <div class="mb-4">
-              <input type="tel" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
             </div>
             <div class="mb-4">
-              <input type="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+              <select name="frequency" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
                 <option value="">Preferred Frequency *</option>
-                <option value="weekly">Weekly (Save 20%)</option>
-                <option value="biweekly">Biweekly (Save 15%) - Most Popular</option>
-                <option value="monthly">Monthly (Save 10%)</option>
+                <option value="Weekly (Save 20%)">Weekly (Save 20%)</option>
+                <option value="Biweekly (Save 15%)">Biweekly (Save 15%) - Most Popular</option>
+                <option value="Monthly (Save 10%)">Monthly (Save 10%)</option>
               </select>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+              <select name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
                 <option value="">Mountain Brook Neighborhood *</option>
-                <option value="crestline">Crestline</option>
-                <option value="english-village">English Village</option>
-                <option value="mountain-brook-village">Mountain Brook Village</option>
-                <option value="cherokee-bend">Cherokee Bend</option>
-                <option value="overton">Overton</option>
-                <option value="other">Other/Nearby</option>
+                <option value="Crestline">Crestline</option>
+                <option value="English Village">English Village</option>
+                <option value="Mountain Brook Village">Mountain Brook Village</option>
+                <option value="Cherokee Bend">Cherokee Bend</option>
+                <option value="Overton">Overton</option>
+                <option value="Other/Nearby">Other/Nearby</option>
               </select>
             </div>
-            <button type="submit" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+            <button type="submit" id="recurring-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
               Get My Free Quote
             </button>
             <p class="text-center text-xs text-gray-500 mt-3">
               <i class="fas fa-lock mr-1"></i> No contracts. Cancel anytime.
             </p>
+            <div id="recurring-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
           </form>
         </div>
       </div>
@@ -364,4 +365,42 @@ const faqSchema = {
   </section>
 
   <Footer />
+
+  <script>
+    document.getElementById('recurring-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('recurring-submit-btn');
+      const messageDiv = document.getElementById('recurring-form-message');
+      const form = e.target;
+      const formData = {
+        name: form.name?.value || '',
+        phone: form.phone?.value || '',
+        email: form.email?.value || '',
+        service: 'Recurring Maid Service',
+        frequency: form.frequency?.value || '',
+        location: form.location?.value || '',
+        source: 'Mountain Brook Recurring Maid Service Page',
+        page_url: window.location.href
+      };
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      try {
+        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+        messageDiv.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Get My Free Quote';
+    });
+  </script>
 </BaseLayout>
