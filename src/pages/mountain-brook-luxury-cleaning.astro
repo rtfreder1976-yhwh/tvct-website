@@ -115,46 +115,47 @@ const faqSchema = {
           </div>
           <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Complimentary Consultation</h3>
           <p class="text-gray-600 mb-6 text-center">Let's discuss your Mountain Brook home</p>
-          <form>
+          <form id="luxury-cleaning-form">
             <div class="mb-4">
-              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
             </div>
             <div class="mb-4">
-              <input type="tel" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
             </div>
             <div class="mb-4">
-              <input type="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+              <select name="neighborhood" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
                 <option value="">Mountain Brook Neighborhood *</option>
-                <option>Crestline</option>
-                <option>English Village</option>
-                <option>Mountain Brook Village</option>
-                <option>Cherokee Bend</option>
-                <option>Overton</option>
-                <option>Other Mountain Brook</option>
+                <option value="Crestline">Crestline</option>
+                <option value="English Village">English Village</option>
+                <option value="Mountain Brook Village">Mountain Brook Village</option>
+                <option value="Cherokee Bend">Cherokee Bend</option>
+                <option value="Overton">Overton</option>
+                <option value="Other Mountain Brook">Other Mountain Brook</option>
               </select>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
                 <option value="">Approximate Home Size *</option>
-                <option>Under 3,000 sq ft</option>
-                <option>3,000 - 5,000 sq ft</option>
-                <option>5,000 - 7,500 sq ft</option>
-                <option>7,500 - 10,000 sq ft</option>
-                <option>Over 10,000 sq ft</option>
+                <option value="Under 3,000 sq ft">Under 3,000 sq ft</option>
+                <option value="3,000 - 5,000 sq ft">3,000 - 5,000 sq ft</option>
+                <option value="5,000 - 7,500 sq ft">5,000 - 7,500 sq ft</option>
+                <option value="7,500 - 10,000 sq ft">7,500 - 10,000 sq ft</option>
+                <option value="Over 10,000 sq ft">Over 10,000 sq ft</option>
               </select>
             </div>
             <div class="mb-4">
-              <textarea class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Special requirements or concerns (antiques, artwork, etc.)" rows="3"></textarea>
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Special requirements or concerns (antiques, artwork, etc.)" rows="3"></textarea>
             </div>
-            <button type="submit" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+            <button type="submit" id="luxury-cleaning-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
               <i class="fas fa-calendar-check mr-2"></i>Request Consultation
             </button>
             <p class="text-center text-xs text-gray-500 mt-3">
               <i class="fas fa-lock mr-1"></i> Your information is kept strictly confidential
             </p>
+            <div id="luxury-cleaning-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
           </form>
         </div>
       </div>
@@ -402,4 +403,43 @@ const faqSchema = {
   </section>
 
   <Footer />
+
+  <script>
+    document.getElementById('luxury-cleaning-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('luxury-cleaning-submit-btn');
+      const messageDiv = document.getElementById('luxury-cleaning-form-message');
+      const form = e.target;
+      const formData = {
+        name: form.name?.value || '',
+        phone: form.phone?.value || '',
+        email: form.email?.value || '',
+        service: 'Luxury Home Cleaning',
+        location: form.neighborhood?.value || '',
+        home_size: form.home_size?.value || '',
+        message: form.message?.value || '',
+        source: 'Mountain Brook Luxury Cleaning Page',
+        page_url: window.location.href
+      };
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      try {
+        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+        messageDiv.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Request Consultation';
+    });
+  </script>
 </BaseLayout>

@@ -119,44 +119,45 @@ const faqSchema = {
           </div>
           <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Help for Your Loved One</h3>
           <p class="text-gray-600 mb-6 text-center">Schedule compassionate cleaning care</p>
-          <form>
+          <form id="senior-cleaning-form">
             <div class="mb-4">
-              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Your Name *" required>
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Your Name *" required>
             </div>
             <div class="mb-4">
-              <input type="tel" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Phone Number *" required>
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Phone Number *" required>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" required>
+              <select name="client_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" required>
                 <option value="">Who needs cleaning help? *</option>
-                <option>Elderly parent/relative</option>
-                <option>Myself (senior)</option>
-                <option>Person with disability</option>
-                <option>Post-surgery recovery</option>
-                <option>Post-illness recovery</option>
-                <option>Other situation</option>
+                <option value="Elderly parent/relative">Elderly parent/relative</option>
+                <option value="Myself (senior)">Myself (senior)</option>
+                <option value="Person with disability">Person with disability</option>
+                <option value="Post-surgery recovery">Post-surgery recovery</option>
+                <option value="Post-illness recovery">Post-illness recovery</option>
+                <option value="Other situation">Other situation</option>
               </select>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" required>
+              <select name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" required>
                 <option value="">Location *</option>
-                <option>Athens</option>
-                <option>Tanner</option>
-                <option>Elkmont</option>
-                <option>Ardmore</option>
-                <option>Belle Mina</option>
-                <option>Other Limestone County</option>
+                <option value="Athens">Athens</option>
+                <option value="Tanner">Tanner</option>
+                <option value="Elkmont">Elkmont</option>
+                <option value="Ardmore">Ardmore</option>
+                <option value="Belle Mina">Belle Mina</option>
+                <option value="Other Limestone County">Other Limestone County</option>
               </select>
             </div>
             <div class="mb-4">
-              <textarea class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Tell us about your situation (optional)" rows="3"></textarea>
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Tell us about your situation (optional)" rows="3"></textarea>
             </div>
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition">
+            <button type="submit" id="senior-cleaning-submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition">
               <i class="fas fa-calendar-check mr-2"></i>Request Consultation
             </button>
             <p class="text-center text-xs text-gray-500 mt-3">
               <i class="fas fa-phone mr-1"></i> Or call 256-826-1100 to speak with us directly
             </p>
+            <div id="senior-cleaning-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
           </form>
         </div>
       </div>
@@ -317,4 +318,42 @@ const faqSchema = {
   </section>
 
   <Footer />
+
+  <script>
+    document.getElementById('senior-cleaning-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('senior-cleaning-submit-btn');
+      const messageDiv = document.getElementById('senior-cleaning-form-message');
+      const form = e.target;
+      const formData = {
+        name: form.name?.value || '',
+        phone: form.phone?.value || '',
+        service: 'Senior/Elderly Cleaning',
+        client_type: form.client_type?.value || '',
+        location: form.location?.value || '',
+        message: form.message?.value || '',
+        source: 'Athens Senior Cleaning Page',
+        page_url: window.location.href
+      };
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      try {
+        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+        messageDiv.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Request Consultation';
+    });
+  </script>
 </BaseLayout>

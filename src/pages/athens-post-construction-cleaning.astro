@@ -119,55 +119,56 @@ const faqSchema = {
           </div>
           <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
           <p class="text-gray-600 mb-6 text-center">Tell us about your construction project</p>
-          <form>
+          <form id="post-construction-form">
             <div class="mb-4">
-              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" placeholder="Your Name *" required>
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" placeholder="Your Name *" required>
             </div>
             <div class="mb-4">
-              <input type="tel" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" placeholder="Phone Number *" required>
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" placeholder="Phone Number *" required>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" required>
+              <select name="project_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" required>
                 <option value="">Project Type *</option>
-                <option>New Home Construction</option>
-                <option>Home Addition</option>
-                <option>Kitchen Remodel</option>
-                <option>Bathroom Renovation</option>
-                <option>Whole House Renovation</option>
-                <option>Commercial Construction</option>
-                <option>Other Project</option>
+                <option value="New Home Construction">New Home Construction</option>
+                <option value="Home Addition">Home Addition</option>
+                <option value="Kitchen Remodel">Kitchen Remodel</option>
+                <option value="Bathroom Renovation">Bathroom Renovation</option>
+                <option value="Whole House Renovation">Whole House Renovation</option>
+                <option value="Commercial Construction">Commercial Construction</option>
+                <option value="Other Project">Other Project</option>
               </select>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" required>
+              <select name="square_footage" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" required>
                 <option value="">Approximate Square Footage *</option>
-                <option>Under 1,000 sq ft</option>
-                <option>1,000 - 2,000 sq ft</option>
-                <option>2,000 - 3,000 sq ft</option>
-                <option>3,000 - 4,000 sq ft</option>
-                <option>Over 4,000 sq ft</option>
+                <option value="Under 1,000 sq ft">Under 1,000 sq ft</option>
+                <option value="1,000 - 2,000 sq ft">1,000 - 2,000 sq ft</option>
+                <option value="2,000 - 3,000 sq ft">2,000 - 3,000 sq ft</option>
+                <option value="3,000 - 4,000 sq ft">3,000 - 4,000 sq ft</option>
+                <option value="Over 4,000 sq ft">Over 4,000 sq ft</option>
               </select>
             </div>
             <div class="mb-4">
-              <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" required>
+              <select name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" required>
                 <option value="">Location *</option>
-                <option>Athens</option>
-                <option>Tanner</option>
-                <option>Elkmont</option>
-                <option>Ardmore</option>
-                <option>Belle Mina</option>
-                <option>Other Limestone County</option>
+                <option value="Athens">Athens</option>
+                <option value="Tanner">Tanner</option>
+                <option value="Elkmont">Elkmont</option>
+                <option value="Ardmore">Ardmore</option>
+                <option value="Belle Mina">Belle Mina</option>
+                <option value="Other Limestone County">Other Limestone County</option>
               </select>
             </div>
             <div class="mb-4">
-              <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" placeholder="When do you need cleaning? *" required>
+              <input type="text" name="timeline" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-amber-500" placeholder="When do you need cleaning? *" required>
             </div>
-            <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition">
+            <button type="submit" id="post-construction-submit-btn" class="bg-amber-600 hover:bg-amber-700 text-white w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition">
               <i class="fas fa-paper-plane mr-2"></i>Request Free Quote
             </button>
             <p class="text-center text-xs text-gray-500 mt-3">
               <i class="fas fa-phone mr-1"></i> Or call 256-826-1100 for immediate assistance
             </p>
+            <div id="post-construction-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
           </form>
         </div>
       </div>
@@ -332,4 +333,43 @@ const faqSchema = {
   </section>
 
   <Footer />
+
+  <script>
+    document.getElementById('post-construction-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('post-construction-submit-btn');
+      const messageDiv = document.getElementById('post-construction-form-message');
+      const form = e.target;
+      const formData = {
+        name: form.name?.value || '',
+        phone: form.phone?.value || '',
+        service: 'Post-Construction Cleaning',
+        project_type: form.project_type?.value || '',
+        square_footage: form.square_footage?.value || '',
+        location: form.location?.value || '',
+        timeline: form.timeline?.value || '',
+        source: 'Athens Post-Construction Cleaning Page',
+        page_url: window.location.href
+      };
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      try {
+        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+        messageDiv.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Request Free Quote';
+    });
+  </script>
 </BaseLayout>
