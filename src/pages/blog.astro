@@ -2,9 +2,151 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+
+// Blog posts data with actual content
+const blogPosts = [
+  {
+    slug: "new-year-fresh-start-cleaning",
+    title: "New Year Deep Clean: Start Fresh in 2025",
+    excerpt: "Ring in the new year with a spotless home. Complete guide to deep cleaning your Alabama or Tennessee home for a fresh start.",
+    date: "November 26, 2024",
+    readTime: "10 min read",
+    category: "Holiday Cleaning",
+    icon: "fa-calendar-check"
+  },
+  {
+    slug: "last-minute-holiday-cleaning",
+    title: "Last-Minute Holiday Cleaning: Emergency Guide",
+    excerpt: "Guests arriving in hours? Don't panic! This emergency cleaning guide will help you get your home guest-ready fast.",
+    date: "November 26, 2024",
+    readTime: "7 min read",
+    category: "Holiday Cleaning",
+    icon: "fa-clock"
+  },
+  {
+    slug: "thanksgiving-deep-cleaning-guide",
+    title: "Pre-Thanksgiving Deep Cleaning Guide",
+    excerpt: "Complete Thanksgiving cleaning checklist for homeowners. Learn how to prepare your home for holiday guests.",
+    date: "November 26, 2024",
+    readTime: "8 min read",
+    category: "Holiday Cleaning",
+    icon: "fa-utensils"
+  },
+  {
+    slug: "holiday-guest-room-preparation",
+    title: "Preparing Your Home for Holiday Guests",
+    excerpt: "Everything you need to know about preparing your home for overnight holiday guests. From guest rooms to bathrooms.",
+    date: "November 26, 2024",
+    readTime: "10 min read",
+    category: "Holiday Cleaning",
+    icon: "fa-bed"
+  },
+  {
+    slug: "post-holiday-cleanup-guide",
+    title: "Post-Holiday Party Cleanup Guide",
+    excerpt: "Hosted a holiday party? Learn how to efficiently clean up after Thanksgiving, Christmas, or New Year's gatherings.",
+    date: "November 26, 2024",
+    readTime: "9 min read",
+    category: "Holiday Cleaning",
+    icon: "fa-broom"
+  },
+  {
+    slug: "hidden-cost-of-dirty-house",
+    title: "The Hidden Cost of a Dirty House",
+    excerpt: "A messy home costs more than embarrassment. Discover the real financial, health, and emotional toll of living in a dirty house.",
+    date: "November 26, 2024",
+    readTime: "9 min read",
+    category: "Home Care",
+    icon: "fa-dollar-sign"
+  },
+  {
+    slug: "why-your-home-never-stays-clean",
+    title: "Why Your Home Never Stays Clean",
+    excerpt: "No matter how hard you try, the mess keeps coming back. Learn the real reasons behind the endless cleaning cycle.",
+    date: "November 26, 2024",
+    readTime: "8 min read",
+    category: "Cleaning Tips",
+    icon: "fa-redo"
+  },
+  {
+    slug: "why-youre-always-exhausted",
+    title: "Why You're Always Exhausted",
+    excerpt: "What your house has to do with your constant fatigue. The surprising connection between clutter and energy levels.",
+    date: "November 26, 2024",
+    readTime: "8 min read",
+    category: "Home Care",
+    icon: "fa-battery-quarter"
+  },
+  {
+    slug: "losing-your-security-deposit",
+    title: "Losing Your Security Deposit?",
+    excerpt: "Here's what actually happens when you skip move-out cleaning—and how to protect your money.",
+    date: "November 26, 2024",
+    readTime: "10 min read",
+    category: "Moving Tips",
+    icon: "fa-key"
+  },
+  {
+    slug: "truth-about-hiring-cleaning-service",
+    title: "The Truth About Hiring a Cleaning Service",
+    excerpt: "What cleaning companies won't tell you—and what you need to know before booking your first appointment.",
+    date: "November 26, 2024",
+    readTime: "9 min read",
+    category: "Cleaning Tips",
+    icon: "fa-user-check"
+  },
+  {
+    slug: "why-cleaning-services-disappoint",
+    title: "Why Most Cleaning Services Disappoint",
+    excerpt: "And how to find a good one. Learn the red flags to watch for and questions to ask before hiring.",
+    date: "November 26, 2024",
+    readTime: "9 min read",
+    category: "Cleaning Tips",
+    icon: "fa-search"
+  },
+  {
+    slug: "when-life-gets-too-busy",
+    title: "When Life Gets Too Busy",
+    excerpt: "The guilt-free guide to getting help. Why asking for cleaning help isn't giving up—it's being smart.",
+    date: "November 26, 2024",
+    readTime: "8 min read",
+    category: "Home Care",
+    icon: "fa-hourglass-half"
+  },
+  {
+    slug: "embarrassed-to-have-people-over",
+    title: "Embarrassed to Have People Over?",
+    excerpt: "You're not alone. How to break free from the shame spiral and reclaim your home.",
+    date: "November 26, 2024",
+    readTime: "8 min read",
+    category: "Home Care",
+    icon: "fa-users"
+  },
+  {
+    slug: "airbnb-hosts-nightmare",
+    title: "The Airbnb Host's Nightmare",
+    excerpt: "And how to avoid it. Essential cleaning strategies to protect your reviews and your rental business.",
+    date: "November 26, 2024",
+    readTime: "9 min read",
+    category: "Airbnb Tips",
+    icon: "fa-home"
+  },
+  {
+    slug: "construction-dust-destroying-home",
+    title: "Construction Dust Is Destroying Your Home",
+    excerpt: "Here's the fix. Post-construction cleaning tips to protect your health and your investment.",
+    date: "November 26, 2024",
+    readTime: "8 min read",
+    category: "Specialty Cleaning",
+    icon: "fa-hard-hat"
+  }
+];
+
+const featuredPost = blogPosts[0];
+const gridPosts = blogPosts.slice(1);
 ---
 
-<BaseLayout title="Cleaning Tips & Advice - The Valley Clean Team Blog">
+<BaseLayout title="Cleaning Tips & Advice - The Valley Clean Team Blog" description="Expert cleaning tips, home care advice, and guides from professional cleaners. Learn move-out cleaning secrets, holiday prep tips, and how to keep your home spotless.">
   <Navigation />
 
   <!-- Hero Section -->
@@ -28,26 +170,30 @@ import Footer from '../components/Footer.astro';
         <div class="lg:col-span-2">
           <!-- Featured Post -->
           <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-lg mb-12 border border-gray-200">
-            <div class="h-96 bg-gradient-to-br from-[#FFA985]/20 to-gray-100 flex items-center justify-center">
-              <i class="fas fa-sparkles text-[#FFA985] text-9xl opacity-50"></i>
-            </div>
+            <a href={`/blog/${featuredPost.slug}`} class="block">
+              <div class="h-96 bg-gradient-to-br from-[#FFA985]/20 to-gray-100 flex items-center justify-center">
+                <i class={`fas ${featuredPost.icon} text-[#FFA985] text-9xl opacity-50`}></i>
+              </div>
+            </a>
             <div class="p-8">
-              <div class="flex items-center space-x-4 mb-4">
-                <span class="category-tag">Cleaning Tips</span>
+              <div class="flex items-center space-x-4 mb-4 flex-wrap gap-y-2">
+                <span class="category-tag">{featuredPost.category}</span>
                 <span class="text-gray-500 text-sm">
-                  <i class="far fa-calendar mr-2"></i>November 15, 2024
+                  <i class="far fa-calendar mr-2"></i>{featuredPost.date}
                 </span>
                 <span class="text-gray-500 text-sm">
-                  <i class="far fa-clock mr-2"></i>5 min read
+                  <i class="far fa-clock mr-2"></i>{featuredPost.readTime}
                 </span>
               </div>
               <h2 class="text-3xl font-bold mb-4 text-[#333333]">
-                The Ultimate Guide to Spring Cleaning Your Home
+                <a href={`/blog/${featuredPost.slug}`} class="hover:text-[#FFA985] transition">
+                  {featuredPost.title}
+                </a>
               </h2>
               <p class="text-gray-600 mb-6 text-lg leading-relaxed">
-                Spring cleaning doesn't have to be overwhelming. Learn our professional techniques for deep cleaning every room in your home efficiently. We'll cover everything from organizing strategies to the best cleaning products for each surface type.
+                {featuredPost.excerpt}
               </p>
-              <a href="#" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+              <a href={`/blog/${featuredPost.slug}`} class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
                 Read Full Article
                 <i class="fas fa-arrow-right ml-2"></i>
               </a>
@@ -56,192 +202,76 @@ import Footer from '../components/Footer.astro';
 
           <!-- Blog Grid -->
           <div class="grid md:grid-cols-2 gap-8">
-            <!-- Blog Post 1 -->
-            <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
-              <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center">
-                <i class="fas fa-leaf text-[#FFA985] text-6xl"></i>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center space-x-3 mb-3">
-                  <span class="category-tag">Green Cleaning</span>
-                  <span class="text-gray-500 text-sm">Nov 12, 2024</span>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-[#333333]">
-                  10 Eco-Friendly Cleaning Products You Need
-                </h3>
-                <p class="text-gray-600 mb-4">
-                  Discover natural, environmentally-safe cleaning solutions that are tough on dirt but gentle on the planet.
-                </p>
-                <a href="#" class="text-[#FFA985] font-semibold hover:underline">
-                  Read More →
+            {gridPosts.map((post) => (
+              <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+                <a href={`/blog/${post.slug}`} class="block">
+                  <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center">
+                    <i class={`fas ${post.icon} text-[#FFA985] text-6xl`}></i>
+                  </div>
                 </a>
-              </div>
-            </article>
-
-            <!-- Blog Post 2 -->
-            <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
-              <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center">
-                <i class="fas fa-couch text-[#FFA985] text-6xl"></i>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center space-x-3 mb-3">
-                  <span class="category-tag">Home Care</span>
-                  <span class="text-gray-500 text-sm">Nov 10, 2024</span>
+                <div class="p-6">
+                  <div class="flex items-center space-x-3 mb-3 flex-wrap gap-y-2">
+                    <span class="category-tag">{post.category}</span>
+                    <span class="text-gray-500 text-sm">{post.readTime}</span>
+                  </div>
+                  <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                    <a href={`/blog/${post.slug}`} class="hover:text-[#FFA985] transition">
+                      {post.title}
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-4">
+                    {post.excerpt}
+                  </p>
+                  <a href={`/blog/${post.slug}`} class="text-[#FFA985] font-semibold hover:underline">
+                    Read More →
+                  </a>
                 </div>
-                <h3 class="text-xl font-bold mb-3 text-[#333333]">
-                  How to Deep Clean Your Upholstery
-                </h3>
-                <p class="text-gray-600 mb-4">
-                  Professional tips for removing stains and refreshing your furniture without damaging the fabric.
-                </p>
-                <a href="#" class="text-[#FFA985] font-semibold hover:underline">
-                  Read More →
-                </a>
-              </div>
-            </article>
-
-            <!-- Blog Post 3 -->
-            <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
-              <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center">
-                <i class="fas fa-sink text-[#FFA985] text-6xl"></i>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center space-x-3 mb-3">
-                  <span class="category-tag">Kitchen Tips</span>
-                  <span class="text-gray-500 text-sm">Nov 8, 2024</span>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-[#333333]">
-                  5 Kitchen Cleaning Hacks That Save Time
-                </h3>
-                <p class="text-gray-600 mb-4">
-                  Speed up your kitchen cleaning routine with these proven professional techniques and time-savers.
-                </p>
-                <a href="#" class="text-[#FFA985] font-semibold hover:underline">
-                  Read More →
-                </a>
-              </div>
-            </article>
-
-            <!-- Blog Post 4 -->
-            <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
-              <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center">
-                <i class="fas fa-bath text-[#FFA985] text-6xl"></i>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center space-x-3 mb-3">
-                  <span class="category-tag">Bathroom Care</span>
-                  <span class="text-gray-500 text-sm">Nov 5, 2024</span>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-[#333333]">
-                  The Best Way to Clean Grout and Tile
-                </h3>
-                <p class="text-gray-600 mb-4">
-                  Get your bathroom looking brand new with our step-by-step guide to deep cleaning tile and grout.
-                </p>
-                <a href="#" class="text-[#FFA985] font-semibold hover:underline">
-                  Read More →
-                </a>
-              </div>
-            </article>
-
-            <!-- Blog Post 5 -->
-            <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
-              <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center">
-                <i class="fas fa-spray-can text-[#FFA985] text-6xl"></i>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center space-x-3 mb-3">
-                  <span class="category-tag">DIY Solutions</span>
-                  <span class="text-gray-500 text-sm">Nov 3, 2024</span>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-[#333333]">
-                  DIY All-Purpose Cleaner Recipes
-                </h3>
-                <p class="text-gray-600 mb-4">
-                  Make your own effective cleaning solutions using common household ingredients you already have.
-                </p>
-                <a href="#" class="text-[#FFA985] font-semibold hover:underline">
-                  Read More →
-                </a>
-              </div>
-            </article>
-
-            <!-- Blog Post 6 -->
-            <article class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
-              <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center">
-                <i class="fas fa-home text-[#FFA985] text-6xl"></i>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center space-x-3 mb-3">
-                  <span class="category-tag">Moving Tips</span>
-                  <span class="text-gray-500 text-sm">Nov 1, 2024</span>
-                </div>
-                <h3 class="text-xl font-bold mb-3 text-[#333333]">
-                  Complete Move-Out Cleaning Checklist
-                </h3>
-                <p class="text-gray-600 mb-4">
-                  Ensure you get your security deposit back with our comprehensive move-out cleaning checklist.
-                </p>
-                <a href="#" class="text-[#FFA985] font-semibold hover:underline">
-                  Read More →
-                </a>
-              </div>
-            </article>
+              </article>
+            ))}
           </div>
         </div>
 
         <!-- Sidebar -->
         <aside class="lg:col-span-1">
-          <!-- Search Widget -->
-          <div class="sidebar-widget">
-            <h3 class="text-xl font-bold mb-4 text-[#333333]">Search Articles</h3>
-            <div class="relative">
-              <input type="text" placeholder="Search blog posts..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20">
-              <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FFA985]">
-                <i class="fas fa-search"></i>
-              </button>
-            </div>
-          </div>
-
           <!-- Categories Widget -->
           <div class="sidebar-widget">
             <h3 class="text-xl font-bold mb-4 text-[#333333]">Categories</h3>
             <ul class="space-y-3">
               <li>
-                <a href="#" class="flex items-center justify-between text-gray-700 hover:text-[#FFA985] transition">
-                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Cleaning Tips</span>
-                  <span class="text-gray-500 text-sm">12</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-700 hover:text-[#FFA985] transition">
-                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Green Cleaning</span>
-                  <span class="text-gray-500 text-sm">8</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-700 hover:text-[#FFA985] transition">
-                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Home Care</span>
-                  <span class="text-gray-500 text-sm">15</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-700 hover:text-[#FFA985] transition">
-                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Kitchen Tips</span>
-                  <span class="text-gray-500 text-sm">6</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-700 hover:text-[#FFA985] transition">
-                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Bathroom Care</span>
-                  <span class="text-gray-500 text-sm">9</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="flex items-center justify-between text-gray-700 hover:text-[#FFA985] transition">
-                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Moving Tips</span>
+                <span class="flex items-center justify-between text-gray-700">
+                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Holiday Cleaning</span>
                   <span class="text-gray-500 text-sm">5</span>
-                </a>
+                </span>
+              </li>
+              <li>
+                <span class="flex items-center justify-between text-gray-700">
+                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Home Care</span>
+                  <span class="text-gray-500 text-sm">4</span>
+                </span>
+              </li>
+              <li>
+                <span class="flex items-center justify-between text-gray-700">
+                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Cleaning Tips</span>
+                  <span class="text-gray-500 text-sm">3</span>
+                </span>
+              </li>
+              <li>
+                <span class="flex items-center justify-between text-gray-700">
+                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Moving Tips</span>
+                  <span class="text-gray-500 text-sm">1</span>
+                </span>
+              </li>
+              <li>
+                <span class="flex items-center justify-between text-gray-700">
+                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Airbnb Tips</span>
+                  <span class="text-gray-500 text-sm">1</span>
+                </span>
+              </li>
+              <li>
+                <span class="flex items-center justify-between text-gray-700">
+                  <span><i class="fas fa-folder text-[#FFA985] mr-2"></i> Specialty Cleaning</span>
+                  <span class="text-gray-500 text-sm">1</span>
+                </span>
               </li>
             </ul>
           </div>
@@ -250,37 +280,37 @@ import Footer from '../components/Footer.astro';
           <div class="sidebar-widget">
             <h3 class="text-xl font-bold mb-4 text-[#333333]">Recent Posts</h3>
             <div class="space-y-4">
-              <a href="#" class="flex items-start space-x-3 group">
+              <a href="/blog/new-year-fresh-start-cleaning" class="flex items-start space-x-3 group">
                 <div class="w-20 h-20 flex-shrink-0 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-lg flex items-center justify-center">
-                  <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+                  <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 group-hover:text-[#FFA985] transition text-sm mb-1">
-                    The Ultimate Guide to Spring Cleaning
+                    New Year Deep Clean: Start Fresh in 2025
                   </h4>
-                  <span class="text-xs text-gray-500">Nov 15, 2024</span>
+                  <span class="text-xs text-gray-500">Nov 26, 2024</span>
                 </div>
               </a>
-              <a href="#" class="flex items-start space-x-3 group">
+              <a href="/blog/last-minute-holiday-cleaning" class="flex items-start space-x-3 group">
                 <div class="w-20 h-20 flex-shrink-0 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-lg flex items-center justify-center">
-                  <i class="fas fa-leaf text-[#FFA985] text-xl"></i>
+                  <i class="fas fa-clock text-[#FFA985] text-xl"></i>
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 group-hover:text-[#FFA985] transition text-sm mb-1">
-                    10 Eco-Friendly Cleaning Products
+                    Last-Minute Holiday Cleaning Guide
                   </h4>
-                  <span class="text-xs text-gray-500">Nov 12, 2024</span>
+                  <span class="text-xs text-gray-500">Nov 26, 2024</span>
                 </div>
               </a>
-              <a href="#" class="flex items-start space-x-3 group">
+              <a href="/blog/hidden-cost-of-dirty-house" class="flex items-start space-x-3 group">
                 <div class="w-20 h-20 flex-shrink-0 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-lg flex items-center justify-center">
-                  <i class="fas fa-couch text-[#FFA985] text-xl"></i>
+                  <i class="fas fa-dollar-sign text-[#FFA985] text-xl"></i>
                 </div>
                 <div>
                   <h4 class="font-semibold text-gray-900 group-hover:text-[#FFA985] transition text-sm mb-1">
-                    Deep Clean Your Upholstery
+                    The Hidden Cost of a Dirty House
                   </h4>
-                  <span class="text-xs text-gray-500">Nov 10, 2024</span>
+                  <span class="text-xs text-gray-500">Nov 26, 2024</span>
                 </div>
               </a>
             </div>

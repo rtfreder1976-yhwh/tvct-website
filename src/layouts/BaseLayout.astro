@@ -15,7 +15,7 @@ const {
   title,
   description = "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, insured, bonded. 130+ 5-star reviews. Same-day service available.",
   canonicalUrl,
-  ogImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  ogImage = "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
   noindex = false
 } = Astro.props;
 
@@ -47,9 +47,8 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://storage.googleapis.com" />
 
-    <!-- Preload critical resources (improves LCP) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" />
-    <link rel="preload" href="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" as="image" type="image/png" />
+    <!-- Preload critical LCP image -->
+    <link rel="preload" href="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" as="image" type="image/png" fetchpriority="high" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -189,8 +188,10 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
       img{aspect-ratio:attr(width)/attr(height)}
 
       /* Font display swap to prevent FOIT */
-      @font-face{font-family:'Inter';font-display:swap}
-      @font-face{font-family:'Playfair Display';font-display:swap}
+      @font-face{font-family:'Inter';font-display:swap;src:local('Inter')}
+      @font-face{font-family:'Playfair Display';font-display:swap;src:local('Playfair Display')}
+      @font-face{font-family:'Font Awesome 6 Free';font-display:swap;src:local('Font Awesome 6 Free')}
+      @font-face{font-family:'Font Awesome 6 Brands';font-display:swap;src:local('Font Awesome 6 Brands')}
     </style>
 
     <!-- Non-critical CSS loaded asynchronously -->
@@ -432,15 +433,24 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
 
     <!-- Defer non-critical JavaScript -->
     <script is:inline>
-      // Minimal JS for navigation scroll effect
+      // Minimal JS for navigation scroll effect - optimized to avoid forced reflows
       (function() {
         var nav = document.querySelector('nav');
         if (nav) {
+          var ticking = false;
+          var lastScrollY = 0;
           var scrollHandler = function() {
-            if (window.scrollY > 50) {
-              nav.classList.add('nav-scrolled');
-            } else {
-              nav.classList.remove('nav-scrolled');
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+              requestAnimationFrame(function() {
+                if (lastScrollY > 50) {
+                  nav.classList.add('nav-scrolled');
+                } else {
+                  nav.classList.remove('nav-scrolled');
+                }
+                ticking = false;
+              });
+              ticking = true;
             }
           };
           window.addEventListener('scroll', scrollHandler, { passive: true });
