@@ -1,14 +1,37 @@
 ---
 interface Props {
-  type?: 'organization' | 'local' | 'service';
+  type?: 'organization' | 'local' | 'service' | 'article';
   city?: string;
   state?: string;
   serviceName?: string;
   servicePrice?: string;
   serviceDescription?: string;
+  // Article/BlogPosting props
+  title?: string;
+  description?: string;
+  publishDate?: string;
+  modifiedDate?: string;
+  author?: string;
+  image?: string;
 }
 
-const { type = 'organization', city, state, serviceName, servicePrice, serviceDescription } = Astro.props;
+const {
+  type = 'organization',
+  city,
+  state,
+  serviceName,
+  servicePrice,
+  serviceDescription,
+  title,
+  description,
+  publishDate,
+  modifiedDate,
+  author = 'The Valley Clean Team',
+  image
+} = Astro.props;
+
+// Get current page URL for article schema
+const canonicalURL = Astro.url.href;
 
 // Complete Service Catalog
 const serviceCatalog = [
@@ -391,10 +414,42 @@ const serviceSchema = serviceName ? {
   }
 } : null;
 
+// Article/BlogPosting schema for blog posts
+const articleSchema = type === 'article' && title ? {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": image || "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "datePublished": publishDate ? new Date(publishDate).toISOString() : new Date().toISOString(),
+  "dateModified": modifiedDate ? new Date(modifiedDate).toISOString() : (publishDate ? new Date(publishDate).toISOString() : new Date().toISOString()),
+  "author": {
+    "@type": "Organization",
+    "name": author,
+    "@id": "https://thevalleycleanteam.com/#organization"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Valley Clean Team",
+    "@id": "https://thevalleycleanteam.com/#organization",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL
+  },
+  "articleSection": "Cleaning Tips",
+  "inLanguage": "en-US"
+} : null;
+
 // Determine which schema to output
-const schemaToUse = type === 'local' && city ? localSchema : organizationSchema;
+const schemaToUse = type === 'local' && city ? localSchema : (type === 'article' ? null : organizationSchema);
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(schemaToUse)} />
+{type === 'article' && articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
+{type !== 'article' && <script type="application/ld+json" set:html={JSON.stringify(schemaToUse)} />}
 {serviceSchema && <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />}
 {type === 'local' && city && <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />}
