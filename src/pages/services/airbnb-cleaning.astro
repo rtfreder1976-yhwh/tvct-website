@@ -1,0 +1,465 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+
+const title = "Airbnb & Vacation Rental Cleaning | Fast Turnover Service";
+const description = "Professional Airbnb and vacation rental turnover cleaning in Alabama & Tennessee. Quick turnarounds, 5-star ready results. Protect your Superhost status. Veteran-owned, insured, reliable.";
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Airbnb & Vacation Rental Cleaning",
+  "description": "Professional turnover cleaning for short-term rentals, Airbnbs, and vacation properties. Fast turnaround to maximize bookings.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "info@thevalleycleanteam.com"
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "serviceType": "Airbnb Cleaning",
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "125",
+      "priceCurrency": "USD",
+      "minPrice": "125"
+    },
+    "availability": "https://schema.org/InStock"
+  }
+};
+
+const faqs = [
+  {
+    question: "How quickly can you turn over my property?",
+    answer: "Standard turnovers take 2-3 hours depending on property size. We can handle same-day turnovers with advance notice. For tight schedules, we deploy teams to complete faster."
+  },
+  {
+    question: "Do you restock supplies?",
+    answer: "Yes! We can restock toiletries, paper products, coffee, and other amenities. You provide the supplies, or we can purchase and bill you. Either way, your guests arrive to a fully stocked property."
+  },
+  {
+    question: "What if a guest leaves the property extremely dirty?",
+    answer: "We handle it. Extra-dirty properties may require additional time and cost, but we'll communicate before proceeding. We document conditions with photos when needed."
+  },
+  {
+    question: "Can you coordinate with my booking calendar?",
+    answer: "Absolutely. Many hosts give us calendar access so we can schedule turnovers automatically. No more back-and-forth messaging before every checkout."
+  },
+  {
+    question: "Do you handle laundry?",
+    answer: "Yes, we wash, dry, and make beds with fresh linens. We can work with linens on-site or coordinate with your linen service for pickup/delivery."
+  },
+  {
+    question: "What about damage or inventory issues?",
+    answer: "We photograph any damage, missing items, or issues and report immediately. This documentation helps with guest claims and Airbnb's resolution process."
+  },
+  {
+    question: "Do you clean multiple properties?",
+    answer: "We serve hosts with single properties to those managing 20+ units. Volume discounts available for multi-property accounts."
+  },
+  {
+    question: "How do I get started?",
+    answer: "Call or text 256-826-1100, or fill out our contact form. We'll discuss your property, turnover schedule, and specific requirements."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const turnoverChecklist = [
+  {
+    section: "Kitchen",
+    icon: "fa-kitchen-set",
+    tasks: [
+      "All dishes washed and put away",
+      "Refrigerator emptied and cleaned",
+      "Counters sanitized",
+      "Appliances wiped inside/out",
+      "Coffee maker cleaned and reset",
+      "Trash removed, new bags placed",
+      "Floors swept and mopped"
+    ]
+  },
+  {
+    section: "Bathrooms",
+    icon: "fa-bath",
+    tasks: [
+      "Toilets scrubbed and sanitized",
+      "Showers/tubs deep cleaned",
+      "Mirrors streak-free",
+      "Towels replaced, hotel-folded",
+      "Toiletries restocked",
+      "Hair removed from all surfaces",
+      "Floors mopped"
+    ]
+  },
+  {
+    section: "Bedrooms",
+    icon: "fa-bed",
+    tasks: [
+      "Linens changed (fresh sheets)",
+      "Beds made hotel-style",
+      "Pillows fluffed and arranged",
+      "Nightstands dusted and organized",
+      "Closets checked and tidied",
+      "Under beds inspected",
+      "Floors vacuumed"
+    ]
+  },
+  {
+    section: "Living Areas",
+    icon: "fa-couch",
+    tasks: [
+      "All surfaces dusted",
+      "Cushions fluffed and arranged",
+      "Remote controls cleaned",
+      "Windows and mirrors cleaned",
+      "Decor straightened",
+      "Floors vacuumed/mopped",
+      "Welcome materials placed"
+    ]
+  }
+];
+
+const whyChooseUs = [
+  {
+    icon: "fa-clock",
+    title: "Fast Turnovers",
+    description: "We work with your checkout/check-in schedule. Tight windows are our specialty."
+  },
+  {
+    icon: "fa-star",
+    title: "5-Star Ready",
+    description: "Every clean is inspection-ready. We know what guests notice and review."
+  },
+  {
+    icon: "fa-camera",
+    title: "Photo Documentation",
+    description: "We photograph damages and issues to protect you with Airbnb claims."
+  },
+  {
+    icon: "fa-calendar-check",
+    title: "Calendar Sync",
+    description: "Connect your booking calendar for automatic scheduling. No more coordination headaches."
+  },
+  {
+    icon: "fa-box-open",
+    title: "Restocking Service",
+    description: "Toiletries, linens, supplies—we ensure guests have everything they need."
+  },
+  {
+    icon: "fa-phone",
+    title: "Reliable Communication",
+    description: "Text or call confirmation when we're done. Never wonder about turnover status."
+  }
+];
+
+const pricingTiers = [
+  {
+    name: "All Sizes",
+    price: "From $150",
+    description: "Vacation rentals & Airbnbs",
+    time: "Based on property size"
+  }
+];
+
+const serviceAreas = [
+  { name: "Huntsville", link: "/huntsville-cleaning" },
+  { name: "Madison", link: "/madison-cleaning" },
+  { name: "Birmingham", link: "/birmingham-cleaning" },
+  { name: "Mountain Brook", link: "/mountain-brook-cleaning" },
+  { name: "Nashville", link: "/nashville-cleaning" },
+  { name: "West Nashville", link: "/west-nashville-cleaning" },
+  { name: "Belle Meade", link: "/belle-meade-cleaning" },
+  { name: "Franklin", link: "/franklin-cleaning" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-key mr-2"></i>Protect Your Superhost Status
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Professional <span class="gold-gradient">Airbnb Cleaning</span> & Turnover Service
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Fast, reliable turnover cleaning that keeps your rental 5-star ready. We handle the cleaning so you can focus on bookings. Same-day turnovers available for those tight checkout-to-check-in windows.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Same-Day Turnovers</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Linen Service Available</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Restocking Included</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">Turnover Pricing</h3>
+            <p class="text-gray-600">Competitive rates for quality results</p>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between items-center p-4 rounded-xl bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 border-2 border-[#FFA985]">
+              <div>
+                <h4 class="font-bold text-[#333333]">Airbnb Turnover</h4>
+                <p class="text-sm text-gray-600">All property sizes</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">From $150</span>
+                <p class="text-xs text-gray-600">Based on size & needs</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+            <p class="text-green-800 text-sm text-center">
+              <i class="fas fa-tag mr-2"></i>
+              <strong>Multi-property discounts</strong> available for hosts with 3+ listings
+            </p>
+          </div>
+
+          <a href="/contact" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            Schedule Your Turnover
+          </a>
+          <p class="text-center text-xs text-gray-500 mt-3">
+            <i class="fas fa-bolt mr-1"></i> Same-day service available
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Why Hosts Choose Us -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Hosts <span class="gold-gradient">Choose Us</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          We understand the vacation rental business. Your reviews depend on cleanliness—we deliver every time.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {whyChooseUs.map(item => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${item.icon} text-white text-2xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.title}</h3>
+            <p class="text-gray-600">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Turnover Checklist -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Complete Turnover <span class="gold-gradient">Checklist</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Every turnover follows our comprehensive checklist so nothing is missed
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {turnoverChecklist.map(room => (
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class={`fas ${room.icon} text-white text-xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">{room.section}</h3>
+            <ul class="space-y-2">
+              {room.tasks.map(task => (
+                <li class="flex items-start text-gray-600 text-sm">
+                  <i class="fas fa-check text-[#FFA985] mr-2 mt-1 flex-shrink-0"></i>
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- The Cost of Bad Reviews -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          The Real Cost of <span class="gold-gradient">Cleanliness Complaints</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="text-4xl font-bold text-red-500 mb-2">-30%</div>
+            <p class="text-gray-600">Average booking rate drop after 1-star cleanliness reviews</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-red-500 mb-2">$500+</div>
+            <p class="text-gray-600">Lost revenue per month from poor cleanliness ratings</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold text-red-500 mb-2">72%</div>
+            <p class="text-gray-600">Of guests say cleanliness is their #1 priority</p>
+          </div>
+        </div>
+
+        <div class="mt-8 p-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl">
+          <p class="text-center text-gray-700">
+            <strong>Protect your investment.</strong> Professional turnover cleaning isn't an expense—it's insurance for your rental income and reputation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Airbnb Cleaning <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Serving vacation rental hosts across Alabama and Tennessee
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
+        {serviceAreas.map(area => (
+          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mb-2"></i>
+            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600">
+          <i class="fas fa-phone text-[#FFA985] mr-2"></i>
+          Property in another area? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Airbnb Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Keep Your Rental <span class="gold-gradient">5-Star Ready</span>
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Partner with us for reliable, professional turnover cleaning that protects your reviews and income
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+          <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+          <i class="fas fa-envelope mr-2"></i>Get Free Quote
+        </a>
+      </div>
+      <p class="text-gray-600">
+        <i class="fas fa-clock text-[#FFA985] mr-2"></i>
+        Quick response for urgent turnover needs
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

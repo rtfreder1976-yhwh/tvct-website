@@ -1,0 +1,359 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+
+const faqs = [
+  {
+    question: "What makes your senior cleaning service different?",
+    answer: "Our senior cleaning service is designed with compassion and understanding. We take extra time, move carefully around belongings, and focus on the areas that matter most for health and safety. Our team is patient, respectful, and trained to work with elderly clients and their families."
+  },
+  {
+    question: "Can you help my elderly parent who lives alone?",
+    answer: "Absolutely. Many Athens families hire us to help aging parents maintain a clean, safe home. We provide consistent, reliable service with the same trusted team each visit. We can also communicate with family members about any concerns we notice."
+  },
+  {
+    question: "Do you offer cleaning for people recovering from surgery?",
+    answer: "Yes! Post-surgery cleaning is one of our most requested services. We help Athens residents recover in a clean environment without the strain of housework. We can focus on high-traffic areas, sanitize bathrooms, change linens, and handle whatever you need during recovery."
+  },
+  {
+    question: "How much does senior cleaning cost in Athens?",
+    answer: "Senior cleaning in Athens starts at $99 for regular visits, with pricing based on home size and service frequency. We offer discounts up to 20% for recurring service. We'll work with you to create a plan that fits your needs and budget."
+  },
+  {
+    question: "Can you accommodate mobility limitations?",
+    answer: "Yes. We're experienced working in homes where clients have walkers, wheelchairs, or limited mobility. We work around medical equipment, keep pathways clear, and take extra care not to disrupt daily routines."
+  },
+  {
+    question: "Do you clean for people with disabilities?",
+    answer: "Yes. We provide compassionate cleaning services for Athens residents with disabilities. Our team is patient, understanding, and focused on creating a clean, comfortable environment. We adapt our service to each client's specific needs and preferences."
+  },
+  {
+    question: "Will the same team clean each time?",
+    answer: "Yes! Consistency is especially important for seniors. We assign a dedicated team to your home so you always see familiar, trusted faces. They'll learn your preferences, routines, and any special requirements."
+  },
+  {
+    question: "Can family members schedule and pay for service?",
+    answer: "Absolutely. Many of our senior cleaning clients are set up by adult children who want to help their parents. We can communicate with family members, send updates, and handle billing however works best for your family."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Senior & Elderly Cleaning Services in Athens, AL | The Valley Clean Team"
+  description="Compassionate house cleaning for seniors, elderly, disabled & post-surgery recovery in Athens, Alabama. Patient, trusted teams. Serving Limestone County. Call 256-826-1100"
+>
+  <SchemaMarkup type="local" city="Athens" state="Alabama" serviceName="Senior Cleaning Services" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Compassionate Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-blue-50 to-purple-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-blue-100 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 font-semibold">
+              <i class="fas fa-heart mr-2"></i>Compassionate Care
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Senior & Elderly Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Athens</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Help your loved ones maintain a clean, safe home with compassionate cleaning services designed for seniors, those with disabilities, and anyone recovering from illness or surgery. Patient teams, consistent service, and the respect your family deserves.
+          </p>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-blue-200 mb-6">
+            <div class="flex items-center justify-center space-x-4">
+              <div class="text-center">
+                <i class="fas fa-user-friends text-blue-600 text-3xl mb-2"></i>
+                <p class="font-bold text-[#333333]">Same Team</p>
+                <p class="text-sm text-gray-600">Every Visit</p>
+              </div>
+              <div class="w-px h-16 bg-gray-300"></div>
+              <div class="text-center">
+                <i class="fas fa-heart text-purple-600 text-3xl mb-2"></i>
+                <p class="font-bold text-[#333333]">Patient &</p>
+                <p class="text-sm text-gray-600">Respectful</p>
+              </div>
+              <div class="w-px h-16 bg-gray-300"></div>
+              <div class="text-center">
+                <i class="fas fa-shield-alt text-green-600 text-3xl mb-2"></i>
+                <p class="font-bold text-[#333333]">Trusted &</p>
+                <p class="text-sm text-gray-600">Insured</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-600 hover:text-white transition text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border border-blue-200">
+          <div class="text-center mb-6">
+            <span class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-heart mr-1"></i> CARING SERVICE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Help for Your Loved One</h3>
+          <p class="text-gray-600 mb-6 text-center">Schedule compassionate cleaning care</p>
+          <form id="senior-cleaning-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <select name="client_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" required>
+                <option value="">Who needs cleaning help? *</option>
+                <option value="Elderly parent/relative">Elderly parent/relative</option>
+                <option value="Myself (senior)">Myself (senior)</option>
+                <option value="Person with disability">Person with disability</option>
+                <option value="Post-surgery recovery">Post-surgery recovery</option>
+                <option value="Post-illness recovery">Post-illness recovery</option>
+                <option value="Other situation">Other situation</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" required>
+                <option value="">Location *</option>
+                <option value="Athens">Athens</option>
+                <option value="Tanner">Tanner</option>
+                <option value="Elkmont">Elkmont</option>
+                <option value="Ardmore">Ardmore</option>
+                <option value="Belle Mina">Belle Mina</option>
+                <option value="Other Limestone County">Other Limestone County</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-blue-500" placeholder="Tell us about your situation (optional)" rows="3"></textarea>
+            </div>
+            <button type="submit" id="senior-cleaning-submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition">
+              <i class="fas fa-calendar-check mr-2"></i>Request Consultation
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-phone mr-1"></i> Or call 256-826-1100 to speak with us directly
+            </p>
+            <div id="senior-cleaning-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Help -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Compassionate Cleaning for Those Who Need It Most
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">We serve Athens families with patience, respect, and understanding</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+            <i class="fas fa-user-plus text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Seniors Living Independently</h3>
+          <p class="text-gray-600">Help your aging parent or loved one maintain their independence with regular cleaning support. We provide the help they need to stay in their home safely.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+            <i class="fas fa-procedures text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Post-Surgery Recovery</h3>
+          <p class="text-gray-600">Recovering from surgery? Let us handle the housework while you heal. We'll keep your Athens home clean without you lifting a finger.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+            <i class="fas fa-heartbeat text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Illness Recovery</h3>
+          <p class="text-gray-600">Recovering from illness is hard enough. We provide cleaning support so you can focus on getting better in a clean, healthy environment.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+            <i class="fas fa-wheelchair text-orange-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Disability Assistance</h3>
+          <p class="text-gray-600">We provide patient, understanding cleaning services for those with physical or other disabilities. Your comfort and dignity are our priority.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4">
+            <i class="fas fa-home text-red-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Aging in Place</h3>
+          <p class="text-gray-600">Help your loved one stay in their home longer. Regular cleaning support makes independent living safer and more comfortable.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+            <i class="fas fa-hands-helping text-yellow-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Family Caregiver Relief</h3>
+          <p class="text-gray-600">Are you caring for an aging parent? Let us take cleaning off your plate so you can focus on what matters most - quality time with your loved one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Families Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Athens Families Trust Us
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Same Team Always</h3>
+          <p class="text-gray-600">Familiar faces every visit. No strangers in your loved one's home.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-clock text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Patient Service</h3>
+          <p class="text-gray-600">We take our time and never rush. Your comfort matters more than speed.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-comments text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Family Communication</h3>
+          <p class="text-gray-600">We keep family members informed and address any concerns promptly.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-shield-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Fully Insured</h3>
+          <p class="text-gray-600">$2M liability coverage and background-checked team members.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Senior Cleaning Service FAQs
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-blue-500 faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-blue-600 to-purple-600">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Give Your Loved One the Help They Deserve
+      </h2>
+      <p class="text-xl text-white/90 mb-8">
+        Let us provide compassionate cleaning support for your family. Call today to discuss how we can help.
+      </p>
+      <a href="tel:2568261100" class="bg-white text-blue-600 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-heart mr-2"></i>Serving Athens & Limestone County with compassion
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('senior-cleaning-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('senior-cleaning-submit-btn');
+      const messageDiv = document.getElementById('senior-cleaning-form-message');
+      const form = e.target;
+      const formData = {
+        name: form.name?.value || '',
+        phone: form.phone?.value || '',
+        service: 'Senior/Elderly Cleaning',
+        client_type: form.client_type?.value || '',
+        location: form.location?.value || '',
+        message: form.message?.value || '',
+        source: 'Athens Senior Cleaning Page',
+        page_url: window.location.href
+      };
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      try {
+        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+        messageDiv.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Request Consultation';
+    });
+  </script>
+</BaseLayout>

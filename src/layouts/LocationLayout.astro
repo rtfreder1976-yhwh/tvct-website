@@ -24,6 +24,53 @@ interface Props {
 
 const { title, description, city, state, region, tagline, heroDescription, features, testimonials, neighborhoods = [] } = Astro.props;
 
+// Geographic data for location-specific meta tags
+const geoData: Record<string, { region: string; position: string; image: string }> = {
+  "Huntsville": {
+    region: "US-AL",
+    position: "34.7304;-86.5861",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+  },
+  "Birmingham": {
+    region: "US-AL",
+    position: "33.5186;-86.8104",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp"
+  },
+  "Nashville": {
+    region: "US-TN",
+    position: "36.1627;-86.7816",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+  },
+  "Madison": {
+    region: "US-AL",
+    position: "34.6993;-86.7483",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+  },
+  "Athens": {
+    region: "US-AL",
+    position: "34.8026;-86.9717",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+  },
+  "Mountain Brook": {
+    region: "US-AL",
+    position: "33.4940;-86.7419",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp"
+  },
+  "Muscle Shoals": {
+    region: "US-AL",
+    position: "34.7448;-87.6675",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+  },
+  "West Nashville": {
+    region: "US-TN",
+    position: "36.1489;-86.8900",
+    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+  }
+};
+
+const cityGeo = geoData[city] || { region: "US-AL", position: "34.7304;-86.5861", image: "" };
+const geoPlacename = `${city}, ${state}`;
+
 // Generate city-specific FAQs
 const faqs = [
   {
@@ -75,7 +122,14 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={cityGeo.image}
+  geoRegion={cityGeo.region}
+  geoPlacename={geoPlacename}
+  geoPosition={cityGeo.position}
+>
   <SchemaMarkup type="local" city={city} state={state} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <Navigation />
@@ -121,19 +175,19 @@ const faqSchema = {
           <p class="text-gray-600 mb-6 text-center">Serving all {city} neighborhoods</p>
           <form id="location-quote-form">
             <div class="mb-4">
-              <input type="text" name="name" aria-label="Your Name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
             </div>
             <div class="mb-4">
-              <input type="email" name="email" aria-label="Email Address" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
             </div>
             <div class="mb-4">
-              <input type="tel" name="phone" aria-label="Phone Number" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
             </div>
             <div class="mb-4">
-              <input type="text" name="location" aria-label="Address or Neighborhood" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder={`${city} Address/Neighborhood`} value={`${city}, ${state}`} required>
+              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder={`${city} Address/Neighborhood`} value={`${city}, ${state}`} required>
             </div>
             <div class="mb-4">
-              <select name="service" aria-label="Service Type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
                 <option value="">Select Service Type *</option>
                 <option value="Deep Cleaning">Deep Cleaning</option>
                 <option value="Regular Cleaning">Regular Cleaning</option>
@@ -215,6 +269,66 @@ const faqSchema = {
       <div class="text-center mt-6">
         <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline">
           View Full Pricing Details <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Available -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Services Available in {city}
+        </h2>
+        <p class="text-gray-600">All services fully available - book any service today</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <a href="/services/deep-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-sparkles text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Deep Cleaning</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+        <a href="/services/regular-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-home text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Regular Cleaning</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+        <a href="/services/move-in-out-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-truck-moving text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Move In/Out</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+        <a href="/services/post-construction-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-hammer text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Post-Construction</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-key text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Airbnb Cleaning</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-building text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Commercial</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-leaf text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Green Cleaning</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+          <i class="fas fa-calendar-alt text-[#FFA985] text-2xl mb-2 group-hover:scale-110 transition"></i>
+          <p class="font-semibold text-[#333333] text-sm">Event Cleaning</p>
+          <span class="text-xs text-green-600"><i class="fas fa-check mr-1"></i>Available</span>
+        </a>
+      </div>
+      <div class="text-center mt-8">
+        <p class="text-gray-600 mb-4">Same-day service available in {city} - call for availability</p>
+        <a href="tel:2568261100" class="btn-primary px-6 py-3 rounded-full font-semibold inline-block">
+          <i class="fas fa-phone mr-2"></i>Book {city} Service: 256-826-1100
         </a>
       </div>
     </div>
@@ -321,7 +435,7 @@ const faqSchema = {
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a47e103023b5d59be.jpg" alt="Deep Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp" alt="Deep Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
           </div>
           <div class="p-8">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
@@ -334,7 +448,7 @@ const faqSchema = {
 
         <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp" alt="Regular Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp" alt="Regular Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
           </div>
           <div class="p-8">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular Cleaning</h3>
@@ -347,7 +461,7 @@ const faqSchema = {
 
         <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg" alt="Move In/Out Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg" alt="Move In/Out Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
           </div>
           <div class="p-8">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out Cleaning</h3>
@@ -360,7 +474,7 @@ const faqSchema = {
 
         <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp" alt="Commercial/Office Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp" alt="Commercial/Office Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
           </div>
           <div class="p-8">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Commercial/Office Cleaning</h3>
@@ -373,7 +487,7 @@ const faqSchema = {
 
         <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e69af8fa3b6226330f2d.jpg" alt="Airbnb Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e69af8fa3b6226330f2d.jpg" alt="Airbnb Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
           </div>
           <div class="p-8">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb Cleaning</h3>
@@ -386,7 +500,7 @@ const faqSchema = {
 
         <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp" alt="Post-Construction Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp" alt="Post-Construction Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
           </div>
           <div class="p-8">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction Cleaning</h3>
@@ -471,7 +585,19 @@ const faqSchema = {
           What {city} Customers Say
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Real reviews from real {city} homeowners</p>
+        <div class="flex items-center justify-center gap-2 mt-4">
+          <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" class="h-6" />
+          <span class="text-xl text-gray-600">Reviews</span>
+          <span class="text-[#FFA985] font-bold">4.9</span>
+          <div class="text-[#FFA985] text-sm">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <span class="text-gray-500">(130+ reviews)</span>
+        </div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
@@ -497,8 +623,40 @@ const faqSchema = {
           </div>
         ))}
       </div>
+
+      <div class="text-center mt-8">
+        <a href="https://www.google.com/maps/place/The+Valley+Clean+Team" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+          <i class="fab fa-google mr-2"></i>See All Google Reviews <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+        </a>
+      </div>
     </div>
   </section>
+
+  <!-- Neighborhoods Section (if provided) -->
+  {neighborhoods.length > 0 && (
+    <section class="py-16 px-6">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+            {city} Neighborhoods We Serve
+          </h2>
+          <div class="section-divider"></div>
+          <p class="text-xl text-gray-600">Professional cleaning services throughout {city}</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+          {neighborhoods.map((neighborhood) => (
+            <span class="neighborhood-badge">
+              <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+              {neighborhood}
+            </span>
+          ))}
+        </div>
+        <p class="text-center text-gray-600 mt-8">
+          Don't see your neighborhood? We likely serve it too! <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call 256-826-1100</a> to confirm.
+        </p>
+      </div>
+    </section>
+  )}
 
   <!-- FAQ Section -->
   <section class="py-20 px-6 bg-gray-50">

@@ -1,0 +1,398 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+
+const faqs = [
+  {
+    question: "What recurring cleaning frequencies do you offer in Muscle Shoals?",
+    answer: "We offer weekly, biweekly (every 2 weeks), and monthly recurring maid service in Muscle Shoals and the Shoals area. Weekly cleaning keeps your home in pristine condition with 20% savings. Biweekly is our most popular option with 15% savings. Monthly works well for those who need occasional professional help with 10% savings."
+  },
+  {
+    question: "How much can I save with recurring maid service in Muscle Shoals?",
+    answer: "Muscle Shoals customers save significantly with recurring service: Weekly cleaning saves up to 20%, biweekly saves 15%, and monthly saves 10% compared to one-time cleaning rates. For example, a home that costs $150 for one-time cleaning might only be $120/visit with weekly service."
+  },
+  {
+    question: "Is there a contract for recurring maid service?",
+    answer: "No contracts ever! Our recurring maid service is completely flexible. Cancel or pause anytime with 48 hours notice. We believe in earning your business every visit through quality service, not locking you into agreements."
+  },
+  {
+    question: "Do I get the same cleaning team every time?",
+    answer: "Yes! We assign a dedicated cleaning team to your Muscle Shoals home. The same trusted professionals come each visit, learning your preferences and ensuring consistent quality. They'll know your home inside and out."
+  },
+  {
+    question: "What's included in recurring maid service?",
+    answer: "Every recurring visit includes: dusting all surfaces, vacuuming and mopping floors, kitchen cleaning (counters, sink, appliances), bathroom sanitization, bed making, mirror cleaning, trash removal, and high-touch surface disinfection. We maintain consistent quality every single visit."
+  },
+  {
+    question: "Can I customize my recurring cleaning schedule?",
+    answer: "Absolutely! We tailor each recurring service to your needs. Want extra attention in the kitchen? Need us to skip certain rooms? Have special requests for pet areas? Just let us know and we'll customize your service plan."
+  },
+  {
+    question: "How do I start recurring maid service in Muscle Shoals?",
+    answer: "Getting started is easy! Call 256-826-1100 or fill out our online form. We'll discuss your home, needs, and preferred schedule. Most clients start with a deep cleaning to establish a baseline, then begin their recurring schedule. We can often start within days."
+  },
+  {
+    question: "What areas do you serve for recurring cleaning?",
+    answer: "We serve all of the Shoals area including Muscle Shoals, Florence, Sheffield, Tuscumbia, and surrounding Colbert and Lauderdale County communities. We also serve the broader Tennessee Valley region."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Recurring Maid Service in Muscle Shoals, AL | Weekly, Biweekly, Monthly Cleaning"
+  description="Professional recurring maid service in Muscle Shoals, Florence, Sheffield & Tuscumbia. Weekly, biweekly & monthly house cleaning. Save up to 20% with scheduled service. No contracts. Free quotes!"
+>
+  <SchemaMarkup type="local" city="Muscle Shoals" state="Alabama" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-green-100 to-green-50 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 font-semibold">
+              <i class="fas fa-tag mr-2"></i>Save Up to 20% with Recurring Service
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Recurring Maid Service in <span class="gold-gradient">Muscle Shoals, AL</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Stop stressing about housework. Our recurring maid service keeps your Muscle Shoals home consistently clean on your schedule - weekly, biweekly, or monthly. Same trusted team every visit, no contracts, and significant savings.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center">
+              <p class="text-2xl font-bold text-green-600">20%</p>
+              <p class="text-sm text-gray-600">Weekly Savings</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-md border-2 border-[#FFA985] text-center">
+              <p class="text-2xl font-bold text-[#FFA985]">15%</p>
+              <p class="text-sm text-gray-600">Biweekly Savings</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center">
+              <p class="text-2xl font-bold text-blue-600">10%</p>
+              <p class="text-sm text-gray-600">Monthly Savings</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg">
+              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition">
+              <i class="fas fa-calendar mr-2"></i>Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Start Your Recurring Service</h3>
+          <p class="text-gray-600 mb-6 text-center">Get a free quote in minutes</p>
+          <form id="recurring-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="frequency" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Preferred Frequency *</option>
+                <option value="Weekly (Save 20%)">Weekly (Save 20%)</option>
+                <option value="Biweekly (Save 15%)">Biweekly (Save 15%) - Most Popular</option>
+                <option value="Monthly (Save 10%)">Monthly (Save 10%)</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="City/Zip (Muscle Shoals, Florence, etc.)" required>
+            </div>
+            <button type="submit" id="recurring-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Get My Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-lock mr-1"></i> No contracts. Cancel anytime.
+            </p>
+            <div id="recurring-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-6 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="flex flex-wrap justify-center gap-6 text-sm">
+        <span class="flex items-center"><i class="fas fa-shield-alt text-[#FFA985] mr-2"></i> Fully Insured</span>
+        <span class="flex items-center"><i class="fas fa-user-check text-[#FFA985] mr-2"></i> Background Checked</span>
+        <span class="flex items-center"><i class="fas fa-medal text-[#FFA985] mr-2"></i> Veteran Owned</span>
+        <span class="flex items-center"><i class="fas fa-file-contract text-[#FFA985] mr-2"></i> No Contracts</span>
+        <span class="flex items-center"><i class="fas fa-redo text-[#FFA985] mr-2"></i> Satisfaction Guaranteed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frequency Options -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Choose Your Cleaning Frequency
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Flexible scheduling that fits your Shoals lifestyle</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- Weekly -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-green-100 flex items-center justify-center mb-4">
+              <i class="fas fa-calendar-week text-green-600 text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-[#333333]">Weekly</h3>
+            <p class="text-gray-600 mt-2">Every week, same day</p>
+          </div>
+          <div class="text-center mb-6">
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">SAVE 20%</span>
+            <div class="text-4xl font-bold text-[#333333] mt-3">From $89</div>
+            <span class="text-gray-500">per visit</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Pristine home year-round</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Lighter cleaning each visit</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Best for busy families</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Maximum savings</li>
+          </ul>
+          <a href="/contact" class="block w-full btn-primary py-3 rounded-full text-center font-semibold">
+            Get Quote
+          </a>
+        </div>
+
+        <!-- Biweekly - Featured -->
+        <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#FFA985] relative transform md:-translate-y-4">
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg">
+              MOST POPULAR
+            </span>
+          </div>
+          <div class="text-center mb-6 mt-4">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <i class="fas fa-calendar-alt text-white text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-[#333333]">Biweekly</h3>
+            <p class="text-gray-600 mt-2">Every 2 weeks</p>
+          </div>
+          <div class="text-center mb-6">
+            <span class="bg-[#FFA985]/20 text-[#FFA985] px-3 py-1 rounded-full text-sm font-semibold">SAVE 15%</span>
+            <div class="text-4xl font-bold text-[#FFA985] mt-3">From $109</div>
+            <span class="text-gray-500">per visit</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Perfect balance of clean & budget</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Thorough cleaning each visit</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Shoals area favorite option</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Great for most households</li>
+          </ul>
+          <a href="/contact" class="block w-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white py-3 rounded-full text-center font-semibold shadow-lg">
+            Get Quote
+          </a>
+        </div>
+
+        <!-- Monthly -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition">
+          <div class="text-center mb-6">
+            <div class="w-16 h-16 mx-auto rounded-full bg-blue-100 flex items-center justify-center mb-4">
+              <i class="fas fa-calendar text-blue-600 text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-[#333333]">Monthly</h3>
+            <p class="text-gray-600 mt-2">Once per month</p>
+          </div>
+          <div class="text-center mb-6">
+            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">SAVE 10%</span>
+            <div class="text-4xl font-bold text-[#333333] mt-3">From $139</div>
+            <span class="text-gray-500">per visit</span>
+          </div>
+          <ul class="space-y-3 mb-8 text-sm">
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Monthly deep refresh</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Most budget-friendly</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Good for tidy households</li>
+            <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i> Flexible scheduling</li>
+          </ul>
+          <a href="/contact" class="block w-full btn-primary py-3 rounded-full text-center font-semibold">
+            Get Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Recurring -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Muscle Shoals Chooses Recurring Service
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-piggy-bank text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Save Money</h3>
+          <p class="text-gray-600">Up to 20% off compared to one-time cleaning rates</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-users text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Same Team</h3>
+          <p class="text-gray-600">Consistent cleaners who know your home</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-brain text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Peace of Mind</h3>
+          <p class="text-gray-600">Never stress about housework again</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-unlock text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">No Contracts</h3>
+          <p class="text-gray-600">Cancel or adjust anytime, no penalties</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-[#333333] mb-4">Shoals Areas We Serve</h2>
+        <p class="text-gray-600">Recurring maid service throughout the Quad Cities and Tennessee Valley</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3">
+        {["Muscle Shoals", "Florence", "Sheffield", "Tuscumbia", "Killen", "Rogersville", "Leighton", "Town Creek", "Russellville", "Moulton", "Colbert County", "Lauderdale County", "Franklin County", "Lawrence County", "Near Wilson Dam", "Near UNA", "Quad Cities"].map((area) => (
+          <span class="neighborhood-badge">{area}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Recurring Maid Service FAQs
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for a Consistently Clean Home?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Join Shoals families who never worry about housework. Book your recurring cleaning subscription today!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg">
+          <i class="fas fa-phone mr-2"></i>256-826-1100
+        </a>
+        <a href="/contact" class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+          <i class="fas fa-calendar mr-2"></i>Schedule Service
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('recurring-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('recurring-submit-btn');
+      const messageDiv = document.getElementById('recurring-form-message');
+      const form = e.target;
+      const formData = {
+        name: form.name?.value || '',
+        phone: form.phone?.value || '',
+        email: form.email?.value || '',
+        service: 'Recurring Maid Service',
+        frequency: form.frequency?.value || '',
+        location: form.location?.value || '',
+        source: 'Muscle Shoals Recurring Maid Service Page',
+        page_url: window.location.href
+      };
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      try {
+        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+        messageDiv.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Get My Free Quote';
+    });
+  </script>
+</BaseLayout>

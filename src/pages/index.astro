@@ -10,10 +10,15 @@ import TrustBadges from '../components/TrustBadges.astro';
 import ResponseTimeStats from '../components/ResponseTimeStats.astro';
 ---
 
-<BaseLayout title="The Valley Clean Team - Luxury Home & Office Cleaning">
+<BaseLayout
+  title="The Valley Clean Team - Luxury Home & Office Cleaning"
+  description="Professional luxury cleaning services in Alabama & Tennessee. Veteran-owned, insured, bonded. 130+ 5-star reviews. Same-day service available. Call 256-826-1100 for a free quote."
+  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+>
   <Navigation />
   
   <!-- Hero Section -->
+  <main id="main-content">
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
@@ -47,17 +52,13 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
           <p class="text-gray-600 mb-6 text-center">Fill out in 60 seconds</p>
           <form id="hero-quote-form">
             <div class="mb-4">
-              <input type="text" name="name" aria-label="Your Name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required />
+              <label for="hero-phone" class="block text-gray-700 mb-2">Phone <span class="text-[#FFA985]">*</span></label>
+              <input type="tel" id="hero-phone" name="phone" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="256-826-1100" required aria-required="true" />
             </div>
             <div class="mb-4">
-              <input type="email" name="email" aria-label="Email Address" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required />
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" aria-label="Phone Number" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required />
-            </div>
-            <div class="mb-4">
-              <select name="service" aria-label="Service Type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
+              <label for="hero-service" class="block text-gray-700 mb-2">Service Type <span class="text-[#FFA985]">*</span></label>
+              <select id="hero-service" name="service" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required aria-required="true">
+                <option value="">Select a Service</option>
                 <option value="Deep Cleaning">Deep Cleaning</option>
                 <option value="Regular Cleaning">Regular Cleaning</option>
                 <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
@@ -69,13 +70,26 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
               </select>
             </div>
             <div class="mb-4">
-              <input type="text" name="location" aria-label="Zip Code" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Zip Code" />
+              <label for="hero-name" class="block text-gray-700 mb-2">Name <span class="text-[#FFA985]">*</span></label>
+              <input type="text" id="hero-name" name="name" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name" required aria-required="true" />
+            </div>
+            <div class="mb-4">
+              <label for="hero-email" class="block text-gray-700 mb-2">Email <span class="text-gray-400 text-sm">(optional)</span></label>
+              <input type="email" id="hero-email" name="email" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="your@email.com" />
+            </div>
+            <div class="mb-4">
+              <label for="hero-date" class="block text-gray-700 mb-2">Preferred Date <span class="text-gray-400 text-sm">(optional)</span></label>
+              <input type="date" id="hero-date" name="preferred_date" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" />
+            </div>
+            <div class="mb-4">
+              <label for="hero-message" class="block text-gray-700 mb-2">Additional Details <span class="text-gray-400 text-sm">(optional)</span></label>
+              <textarea id="hero-message" name="message" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" rows="2" placeholder="Tell us about your home..."></textarea>
             </div>
             <button type="submit" id="hero-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free Quote Now
+              Get My Free Quote
             </button>
             <p class="text-center text-xs text-gray-500 mt-3">
-              <i class="fas fa-lock mr-1"></i> 100% Secure. We respect your privacy.
+              <i class="fas fa-lock mr-1"></i> Your information is secure. We'll call within 2 hours.
             </p>
             <div id="hero-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
           </form>
@@ -83,10 +97,10 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
       </div>
       
       <!-- Stats -->
-      <div class="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
         <div class="text-center">
-          <div class="stat-number">3+</div>
-          <p class="text-gray-600 text-lg">Years Serving</p>
+          <div class="stat-number">20+</div>
+          <p class="text-gray-600 text-lg">Years Cleaning</p>
         </div>
         <div class="text-center">
           <div class="stat-number">1047+</div>
@@ -95,12 +109,6 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <div class="text-center">
           <div class="stat-number">130+</div>
           <p class="text-gray-600 text-lg">5-Star Reviews</p>
-        </div>
-        <div class="text-center">
-          <div class="stat-number">
-            <i class="fas fa-flag-usa text-[#FFA985]"></i>
-          </div>
-          <p class="text-gray-600 text-lg">Veteran Owned</p>
         </div>
       </div>
     </div>
@@ -142,7 +150,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 1 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp" alt="Deep Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp" alt="Deep Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
@@ -153,7 +161,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 2 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp" alt="Regular Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp" alt="Regular Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular Cleaning</h3>
@@ -164,7 +172,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 3 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg" alt="Move In/Out Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg" alt="Move In/Out Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out Cleaning</h3>
@@ -175,7 +183,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 4 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e7465408c65fe8150cac.jpg" alt="Green Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e7465408c65fe8150cac.jpg" alt="Green Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Green Cleaning</h3>
@@ -186,7 +194,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 5 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e69af8fa3b6226330f2d.jpg" alt="Airbnb Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e69af8fa3b6226330f2d.jpg" alt="Airbnb Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb Cleaning</h3>
@@ -197,7 +205,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 6 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp" alt="Post-Construction Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp" alt="Post-Construction Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction Cleaning</h3>
@@ -208,7 +216,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 7 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp" alt="Commercial/Office Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp" alt="Commercial/Office Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Commercial/Office Cleaning</h3>
@@ -219,7 +227,7 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
         <!-- Service Card 8 -->
         <div class="service-card bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-md">
           <div class="h-64 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029a460c03aa0a6bcb1.webp" alt="Event Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
+            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029a460c03aa0a6bcb1.webp" alt="Event Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="256" />
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-bold mb-3 text-[#333333]">Event Cleaning</h3>
@@ -242,116 +250,177 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
   <!-- Response Time Stats -->
   <ResponseTimeStats />
 
-  <!-- Contact/Booking Section -->
-  <section id="contact" class="py-20 px-6 content-visibility-auto">
-    <div class="container mx-auto">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Ready to Book?</h2>
-          <div class="section-divider ml-0"></div>
-          <p class="text-xl text-gray-600 mb-6">Choose Your Preferred Way to Connect</p>
-          
-          <!-- Contact Options -->
-          <div class="space-y-4 mb-8 bg-white rounded-xl p-6 border border-gray-200">
-            <div class="flex items-start space-x-4">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-phone text-[#333333] text-lg"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-lg text-[#333333] mb-1">Call Us Now</h4>
-                <a href="tel:2568261100" class="text-[#FFA985] text-xl font-bold hover:underline">256-826-1100</a>
-                <p class="text-sm text-gray-600 mt-1">Available Mon-Fri, 9am-5pm</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start space-x-4">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-envelope text-[#333333] text-lg"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-lg text-[#333333] mb-1">Email Us</h4>
-                <a href="/cdn-cgi/l/email-protection#dab3b4bcb59aaeb2bfacbbb6b6bfa3b9b6bfbbb4aebfbbb7f4b9b5b7" class="text-[#FFA985] text-lg font-semibold hover:underline">
-                  <span class="__cf_email__" data-cfemail="8ee7e0e8e1cefae6ebf8efe2e2ebf7ede2ebefe0faebefe3a0ede1e3">[email&#160;protected]</span>
-                </a>
-                <p class="text-sm text-gray-600 mt-1">We'll respond within 2 hours</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start space-x-4">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
-                <i class="fas fa-calendar-check text-[#333333] text-lg"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-lg text-[#333333] mb-1">Book Online</h4>
-                <p class="text-gray-600">Fill out the form in 2 minutes →</p>
-              </div>
-            </div>
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Everything you need to know about our cleaning services</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">How much does house cleaning cost?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">Our pricing depends on your home's size and the service type. Regular cleaning starts at $99, deep cleaning from $175, and move-in/out cleaning from $225. We provide free, no-obligation quotes tailored to your specific needs. Call 256-826-1100 for an instant estimate.</p>
           </div>
         </div>
-        
-        <!-- Contact Form -->
-        <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-md">
-          <form id="contact-quote-form">
-            <div class="mb-6">
-              <label for="contact-name" class="block text-gray-700 mb-2">Name</label>
-              <input type="text" id="contact-name" name="name" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name" required />
-            </div>
-            <div class="mb-6">
-              <label for="contact-email" class="block text-gray-700 mb-2">Email</label>
-              <input type="email" id="contact-email" name="email" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="your@email.com" required />
-            </div>
-            <div class="mb-6">
-              <label for="contact-phone" class="block text-gray-700 mb-2">Phone</label>
-              <input type="tel" id="contact-phone" name="phone" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="256-826-1100" required />
-            </div>
-            <div class="mb-6">
-              <label for="contact-service" class="block text-gray-700 mb-2">Service Type</label>
-              <select id="contact-service" name="service" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select a Service</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
-                <option value="Event Cleaning">Event Cleaning</option>
-                <option value="Green Cleaning">Green Cleaning</option>
-                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-6">
-              <label for="contact-date" class="block text-gray-700 mb-2">Preferred Date</label>
-              <input type="date" id="contact-date" name="preferred_date" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" />
-            </div>
-            <div class="mb-6">
-              <label for="contact-message" class="block text-gray-700 mb-2">Additional Details</label>
-              <textarea id="contact-message" name="message" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-700 text-gray-900 focus:outline-none focus:border-[#FFA985]" rows="4" placeholder="Tell us more about your cleaning needs..."></textarea>
-            </div>
-            <button type="submit" id="contact-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free Quote Now
-            </button>
-            <p class="text-center text-sm text-gray-500 mt-3">
-              <i class="fas fa-lock mr-1"></i> Your information is secure. We'll respond within 2 hours.
-            </p>
-            <div id="contact-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">What areas do you serve?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">We proudly serve Alabama (Huntsville, Birmingham, Madison, Athens, Mountain Brook, Muscle Shoals) and Tennessee (Nashville, West Nashville, Belle Meade, Green Hills). If you're unsure if we cover your area, give us a call at 256-826-1100!</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">Are your cleaners background checked and insured?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">Absolutely. Every member of The Valley Clean Team is thoroughly background checked, professionally trained, and fully insured with $2 million in liability coverage. We're also bonded for your complete peace of mind. As a veteran-owned business, we hold ourselves to the highest standards.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">Do you offer same-day cleaning service?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">Yes! We offer same-day cleaning service based on availability. For same-day requests, we recommend calling us directly at 256-826-1100 as early as possible. We'll do our best to accommodate urgent cleaning needs.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">Do you bring your own cleaning supplies?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">Yes, we bring all necessary cleaning supplies and equipment to every job. We use professional-grade, eco-friendly products that are safe for children, pets, and the environment. If you have specific product preferences or allergies, just let us know and we'll accommodate your needs.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">What's included in a deep cleaning?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">Our deep cleaning service includes everything in a regular cleaning PLUS: inside appliances, baseboards and door frames, light fixtures and ceiling fans, window sills and blinds, cabinet fronts, and behind furniture cleaning. It's perfect for first-time customers, seasonal cleaning, or homes that need extra attention.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">Do you offer discounts for recurring services?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">Yes! We offer generous discounts for recurring cleaning services: up to 20% off for weekly service, 15% off for bi-weekly, and 10% off for monthly cleanings. It's the best way to keep your home consistently clean while saving money.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+          <div class="flex justify-between items-center">
+            <h4 class="font-bold text-[#333333] pr-4">What's your satisfaction guarantee?</h4>
+            <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+          </div>
+          <div class="faq-answer">
+            <p class="text-gray-600 mt-4">We offer a 100% satisfaction guarantee. If you're not completely satisfied with our cleaning, let us know within 24 hours and we'll come back to re-clean any areas of concern at no additional charge. Your happiness is our priority.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Ready to Get Started CTA Section -->
+  <section id="contact" class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-white">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">Ready to Get Started?</h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Choose how you'd like to connect with us</p>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <!-- Call Now -->
+        <a href="tel:2568261100" class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition group text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4 group-hover:scale-110 transition">
+            <i class="fas fa-phone text-[#333333] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Call Us Now</h3>
+          <p class="text-[#FFA985] text-2xl font-bold mb-2">256-826-1100</p>
+          <p class="text-sm text-gray-500">Mon-Fri, 9am-5pm</p>
+        </a>
+
+        <!-- Get Quote -->
+        <button onclick="document.getElementById('hero-quote-form').scrollIntoView({ behavior: 'smooth', block: 'center' })" class="bg-white rounded-2xl p-8 shadow-lg border-2 border-[#FFA985] hover:bg-[#FFA985]/5 transition group text-center cursor-pointer">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4 group-hover:scale-110 transition">
+            <i class="fas fa-file-alt text-[#333333] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Get Free Quote</h3>
+          <p class="text-gray-600 mb-2">Fill out form above</p>
+          <p class="text-sm text-[#FFA985] font-semibold"><i class="fas fa-arrow-up mr-1"></i> Scroll to form</p>
+        </button>
+
+        <!-- Book Online -->
+        <a href="/booking" class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition group text-center">
+          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4 group-hover:scale-110 transition">
+            <i class="fas fa-calendar-check text-[#333333] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Book Online</h3>
+          <p class="text-gray-600 mb-2">Schedule your cleaning</p>
+          <p class="text-sm text-gray-500">Pick your date & time</p>
+        </a>
+      </div>
+
+      <!-- Trust Reinforcement -->
+      <div class="flex flex-wrap justify-center gap-8 text-center">
+        <div class="flex items-center text-gray-700">
+          <i class="fas fa-check-circle text-green-500 mr-2"></i>
+          <span>100% Satisfaction Guaranteed</span>
+        </div>
+        <div class="flex items-center text-gray-700">
+          <i class="fas fa-clock text-[#FFA985] mr-2"></i>
+          <span>Response in 2 Hours</span>
+        </div>
+        <div class="flex items-center text-gray-700">
+          <i class="fas fa-shield-alt text-blue-500 mr-2"></i>
+          <span>$2M Insurance Coverage</span>
+        </div>
+        <div class="flex items-center text-gray-700">
+          <i class="fas fa-medal text-yellow-500 mr-2"></i>
+          <span>Veteran-Owned Business</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
   <Footer />
 
   <script>
-    // Form submission handler function
-    async function handleFormSubmit(form, submitBtn, messageDiv, sourceName) {
+    async function handleFormSubmit(form: HTMLFormElement, submitBtn: HTMLButtonElement, messageDiv: HTMLElement, sourceName: string) {
       const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        preferred_date: form.preferred_date?.value || '',
-        message: form.message?.value || '',
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service') as HTMLSelectElement)?.value || '',
+        preferred_date: (form.elements.namedItem('preferred_date') as HTMLInputElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
         source: sourceName,
         page_url: window.location.href
       };
@@ -360,16 +429,22 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
 
       try {
-        const response = await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+        const response = await fetch('/api/submit-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
 
-        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
-        messageDiv.classList.remove('hidden');
-        form.reset();
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+          messageDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
         messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
@@ -377,24 +452,63 @@ import ResponseTimeStats from '../components/ResponseTimeStats.astro';
       }
 
       submitBtn.disabled = false;
-      submitBtn.innerHTML = 'Get My Free Quote Now';
+      submitBtn.innerHTML = 'Get My Free Quote';
     }
 
-    // Hero quote form
     document.getElementById('hero-quote-form')?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const submitBtn = document.getElementById('hero-submit-btn');
-      const messageDiv = document.getElementById('hero-form-message');
-      await handleFormSubmit(this, submitBtn, messageDiv, 'Homepage Hero Form');
+      const form = e.target as HTMLFormElement;
+      const submitBtn = document.getElementById('hero-submit-btn') as HTMLButtonElement;
+      const messageDiv = document.getElementById('hero-form-message') as HTMLElement;
+      await handleFormSubmit(form, submitBtn, messageDiv, 'Homepage Hero Form');
     });
+  </script>
 
-    // Contact section form
-    document.getElementById('contact-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('contact-submit-btn');
-      const messageDiv = document.getElementById('contact-form-message');
-      await handleFormSubmit(this, submitBtn, messageDiv, 'Homepage Contact Form');
-    });
+  <!-- Sticky Get Quote Button -->
+  <button
+    id="sticky-quote-btn"
+    onclick="document.getElementById('hero-quote-form').scrollIntoView({ behavior: 'smooth', block: 'center' })"
+    class="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-2 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] hover:from-[#FF8C61] hover:to-[#FFB366] text-[#333333] px-6 py-3 rounded-full font-semibold shadow-xl transition-all duration-300 opacity-0 translate-y-4"
+    aria-label="Get free quote"
+  >
+    <i class="fas fa-file-alt"></i>
+    <span>Get Quote</span>
+  </button>
+
+  <script is:inline>
+    // Sticky quote button visibility
+    (function() {
+      const stickyBtn = document.getElementById('sticky-quote-btn');
+      const heroForm = document.getElementById('hero-quote-form');
+
+      if (stickyBtn && heroForm) {
+        let ticking = false;
+
+        function updateStickyButton() {
+          const heroRect = heroForm.getBoundingClientRect();
+          const isHeroVisible = heroRect.bottom > 0 && heroRect.top < window.innerHeight;
+
+          if (isHeroVisible) {
+            stickyBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            stickyBtn.classList.remove('opacity-100', 'translate-y-0');
+          } else {
+            stickyBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            stickyBtn.classList.add('opacity-100', 'translate-y-0');
+          }
+          ticking = false;
+        }
+
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            requestAnimationFrame(updateStickyButton);
+            ticking = true;
+          }
+        }, { passive: true });
+
+        // Initial check
+        updateStickyButton();
+      }
+    })();
   </script>
 </BaseLayout>
 
