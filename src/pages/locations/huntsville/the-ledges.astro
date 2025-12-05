@@ -1,0 +1,616 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "How do you handle gate access at The Ledges?",
+    answer: "We work seamlessly with The Ledges gate security. You can provide us with a gate code, add us to your approved vendor list, or call ahead when we're scheduled. We're experienced with gated communities and ensure smooth, professional entry every time. Many Ledges residents add us as a permanent approved vendor after their first service."
+  },
+  {
+    question: "Can you work around our golf schedule?",
+    answer: "Absolutely! We understand The Ledges lifestyle revolves around golf and mountain activities. We offer flexible scheduling including early mornings, late afternoons, and weekends to accommodate your time on the course. Many clients prefer us to clean while they're out enjoying the Robert Trent Jones Trail."
+  },
+  {
+    question: "Do you have experience with large, multi-level homes?",
+    answer: "Yes, extensively. The Ledges homes typically range from 3,500 to 8,000+ square feet with multiple levels. Our teams are trained specifically for large estates - we bring adequate staff, use efficient systems, and complete thorough cleaning without rushing. We understand the unique challenges of mountain homes with stairs and split levels."
+  },
+  {
+    question: "How do you care for fine finishes like hardwood and natural stone?",
+    answer: "We use premium, pH-balanced products specifically formulated for luxury surfaces. Our team is trained in proper care for hardwood floors, granite countertops, marble bathrooms, and natural stone features. We never use harsh chemicals that could damage expensive finishes. Each surface receives the specialized attention it requires."
+  },
+  {
+    question: "What about wine cellars and specialty rooms?",
+    answer: "We're experienced cleaning wine cellars, home theaters, game rooms, and other specialty spaces common in Ledges homes. We understand temperature-sensitive areas, proper care for climate-controlled spaces, and how to clean around valuable collections. Just let us know about any special rooms during your initial consultation."
+  },
+  {
+    question: "Can you accommodate seasonal residents?",
+    answer: "Yes! Many Ledges homeowners are seasonal residents or have second homes. We can schedule deep cleans before your arrival, maintenance cleaning during your stay, and closing services when you leave. We're also happy to coordinate with property managers and can provide check-in reports and photos."
+  },
+  {
+    question: "What's included in estate cleaning for Ledges homes?",
+    answer: "Our estate service includes comprehensive cleaning of all living spaces, careful attention to architectural details, high-end surface care, interior window cleaning, and meticulous attention to luxury finishes. We also clean large kitchens with professional appliances, multiple bathrooms, outdoor living spaces, and ensure every room meets The Ledges standard of excellence."
+  },
+  {
+    question: "Do you provide post-construction cleaning for renovations?",
+    answer: "Absolutely. Many Ledges homeowners do high-end renovations and additions. Our post-construction service includes detailed removal of construction dust, window cleaning, fixture polishing, and preparing your space to move back in. We understand the thoroughness required after contractor work and won't leave until everything shines."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Luxury Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Huntsville",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "The Ledges - Huntsville, Alabama",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Huntsville",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Premium residential cleaning services for luxury homes in The Ledges golf community. Specialized care for large estates, fine finishes, and mountain homes.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="Luxury Cleaning Services in The Ledges, Huntsville | Premium Estate Care"
+  description="Elite cleaning services for The Ledges golf community. Expert care for 3,500-8,000+ sq ft mountain homes with fine finishes, wine cellars & luxury features. Free consultation!"
+  geoRegion="US-AL"
+  geoPlacename="The Ledges, Huntsville, Alabama"
+  geoPosition="34.6583;-86.6542"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-mountain mr-2"></i>The Ledges Golf Community
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Luxury Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">The Ledges</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Your mountain estate deserves extraordinary care. From sprawling multi-level homes to fine hardwood and natural stone finishes, we provide the meticulous attention The Ledges community expects. Professional service that matches your lifestyle of excellence.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-home text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Estate</p>
+              <p class="text-gray-400 text-xs">Specialists</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">$2M Insured</p>
+              <p class="text-gray-400 text-xs">Coverage</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-clock text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Flexible</p>
+              <p class="text-gray-400 text-xs">Scheduling</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Get Free Quote
+            </a>
+            <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Schedule Consultation
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-sparkles mr-1"></i> THE LEDGES RESIDENTS
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Request Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Trusted by your neighbors in The Ledges</p>
+          <form id="ledges-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 3,500 sq ft">Under 3,500 sq ft</option>
+                <option value="3,500 - 5,000 sq ft">3,500 - 5,000 sq ft</option>
+                <option value="5,000 - 7,000 sq ft">5,000 - 7,000 sq ft</option>
+                <option value="7,000 - 10,000 sq ft">7,000 - 10,000 sq ft</option>
+                <option value="Over 10,000 sq ft">Over 10,000 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Service Needed *</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Regular Maintenance">Regular Maintenance (Weekly/Bi-weekly)</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="Post-Construction">Post-Construction</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Special requests (wine cellar, gate code, etc.)" rows="3"></textarea>
+            </div>
+            <button type="submit" id="ledges-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-lock mr-1"></i> Your information is secure and confidential
+            </p>
+            <div id="ledges-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About The Ledges Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Cleaning Excellence for<br>The Ledges Lifestyle
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            The Ledges represents the pinnacle of Huntsville mountain living - a gated golf community where homes range from $600,000 to over $2 million, nestled against stunning Monte Sano views. These aren't just houses; they're architectural statements with 3,500 to 8,000+ square feet of luxury living space.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Your estate features multiple levels taking advantage of mountain topography, premium hardwood throughout, natural stone accents, gourmet kitchens with high-end appliances, spa-like bathrooms with marble and granite, and often wine cellars, home theaters, or game rooms. Many homes include outdoor living spaces designed to capture those breathtaking valley views.
+          </p>
+          <p class="text-lg text-gray-700">
+            Standard cleaning services aren't built for properties like yours. That's why Ledges residents choose The Valley Clean Team - we specialize in large, luxury estates with the fine finishes and attention to detail your investment demands.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Typical Ledges Home Features:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>3,500-8,000+ sq ft</strong> on multiple levels</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Premium hardwood floors</strong> throughout living spaces</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Natural stone surfaces</strong> - granite, marble, travertine</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Gourmet kitchens</strong> with professional-grade appliances</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>4-6 bathrooms</strong> with luxury fixtures and tile</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Wine cellars</strong> and climate-controlled storage</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Custom millwork</strong> and architectural details</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Covered patios</strong> and outdoor entertainment areas</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Ledges Residents Choose Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Cleaning expertise that matches your property investment</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Estate-Sized Experience</h3>
+          <p class="text-gray-600">We're not intimidated by 5,000+ square foot homes. Our teams are specifically trained for large properties with multiple levels, bringing adequate staff and time to do it right. We understand the unique challenges of mountain homes with stairs, split levels, and sprawling layouts.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-gem text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Premium Surface Care</h3>
+          <p class="text-gray-600">Your hardwood, marble, granite, and natural stone finishes represent significant investment. We use professional-grade, pH-balanced products specifically formulated for luxury surfaces. No harsh chemicals, no shortcuts - just proper care that preserves your home's value and beauty.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-shield text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Gated Community Expertise</h3>
+          <p class="text-gray-600">We work seamlessly with Ledges gate security. Whether it's a permanent vendor authorization, guest code, or call-ahead arrangement, we handle access professionally. Your neighbors trust us - many have added us as approved permanent vendors.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-calendar-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Golf Schedule Friendly</h3>
+          <p class="text-gray-600">We understand The Ledges lifestyle revolves around the Robert Trent Jones Golf Trail. That's why we offer early morning, late afternoon, and weekend scheduling. Many clients prefer us to clean while they're out enjoying the course - you come home to a spotless estate.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-wine-glass text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Specialty Room Care</h3>
+          <p class="text-gray-600">Wine cellars, home theaters, game rooms, home offices - we're experienced with the specialty spaces common in Ledges estates. We understand temperature-sensitive areas, proper cleaning around valuable collections, and how to care for specialized finishes and equipment.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">$2M Insurance & Bonded</h3>
+          <p class="text-gray-600">We carry $2 million in liability coverage because we work in high-value homes like yours. Every team member is background-checked, bonded, and professionally trained. We're licensed, insured, and veteran-owned with the integrity your community deserves.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Popular at The Ledges -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Services Popular at The Ledges
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning & Estate Service</h3>
+          <p class="text-gray-600 mb-6">Comprehensive top-to-bottom cleaning for your entire estate. Perfect for initial service, seasonal deep cleans, or before hosting events. Includes all rooms, specialty spaces, interior windows, and detailed attention to fine finishes.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All bedrooms, bathrooms, and living spaces</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchen and appliance deep clean</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards, ceiling fans, light fixtures</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior window cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Wine cellar and specialty room cleaning</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Get Quote
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
+          <p class="text-gray-600 mb-6">Consistent, reliable service to keep your Ledges estate pristine. Weekly or bi-weekly visits with the same dedicated team who learns your home, your preferences, and your standards. Most popular with full-time residents.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Consistent same-day, same-team service</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All living areas and high-traffic zones</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchen and bathroom maintenance</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Flexible around your golf schedule</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Priority scheduling and preferred rates</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Learn More
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-hammer text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Post-Construction Cleaning</h3>
+          <p class="text-gray-600 mb-6">Ledges residents frequently do high-end renovations and additions. Our construction cleanup includes detailed dust removal, surface restoration, window cleaning, and making your space move-in ready after contractor work.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Complete construction dust removal</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Surface polishing and protection</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All windows and fixtures cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Detailed finish work throughout</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Ready to move in or entertain</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Schedule Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Huntsville Homeowners Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">K Parriski</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              P
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Patrick Scogin</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-gray-600">Everything you need to know about our Ledges cleaning services</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving Nearby Huntsville Communities
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/huntsville" class="neighborhood-badge block text-center">
+          Downtown Huntsville
+        </a>
+        <a href="/locations/huntsville/hampton-cove" class="neighborhood-badge block text-center">
+          Hampton Cove
+        </a>
+        <a href="/locations/huntsville/twickenham" class="neighborhood-badge block text-center">
+          Twickenham Historic District
+        </a>
+        <a href="/locations/madison" class="neighborhood-badge block text-center">
+          Madison
+        </a>
+        <a href="/huntsville-cleaning" class="neighborhood-badge block text-center">
+          All Huntsville Areas
+        </a>
+        <a href="/locations" class="neighborhood-badge block text-center">
+          View All Locations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Ready for <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">The Ledges Standard</span> of Clean?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Join your neighbors in trusting The Valley Clean Team with your mountain estate. Call now for a free, no-obligation quote customized for your home.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-clock mr-2"></i>Response within 2 hours | Same-day service available
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('ledges-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('ledges-submit-btn');
+      const messageDiv = document.getElementById('ledges-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'The Ledges - Huntsville',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'The Ledges Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours to discuss your quote.';
+          messageDiv.classList.remove('hidden');
+        }
+        form.reset();
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>

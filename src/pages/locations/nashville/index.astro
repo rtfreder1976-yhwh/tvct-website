@@ -1,56 +1,740 @@
 ---
-import LocationLayout from '../../../layouts/LocationLayout.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+
+const city = "Nashville";
+const state = "Tennessee";
+const region = "Davidson County";
+
+// Geographic data
+const geoData = {
+  region: "US-TN",
+  position: "36.1627;-86.7816",
+  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+};
+
+// Neighborhoods served
+const neighborhoods = [
+  "Belle Meade",
+  "Green Hills",
+  "12 South",
+  "The Gulch",
+  "Brentwood",
+  "Franklin",
+  "West End",
+  "Forest Hills",
+  "Oak Hill",
+  "Sylvan Park",
+  "The Nations",
+  "Germantown",
+  "East Nashville",
+  "Music Row"
+];
+
+// Nashville-specific FAQs with schema
+const faqs = [
+  {
+    question: "Do you serve music industry professionals in Nashville?",
+    answer: "Absolutely. We understand the unique demands of Nashville's music industry professionals. Whether you're a recording artist, producer, or industry executive, we provide discreet, flexible scheduling around your studio sessions, tours, and irregular hours. We respect your privacy and can work around valuable equipment and creative spaces."
+  },
+  {
+    question: "Can you clean luxury estates in Belle Meade?",
+    answer: "Yes, we specialize in premium estate cleaning throughout Belle Meade. Our team is trained to care for high-end properties ranging from $1M to $10M+, including historic mansions, modern luxury estates, and everything in between. We're fully insured with $2 million in liability coverage and understand the expectations of Nashville's most discerning homeowners."
+  },
+  {
+    question: "What Nashville neighborhoods do you serve?",
+    answer: "We serve all of Nashville and surrounding areas including Belle Meade, Green Hills, Brentwood, Franklin, The Gulch, 12 South, West End, Forest Hills, Oak Hill, Sylvan Park, The Nations, Germantown, East Nashville, and Music Row. Whether you're in a historic estate or a modern luxury condo, we deliver the same white-glove service to every property."
+  },
+  {
+    question: "Do you offer cleaning for healthcare professionals and medical executives?",
+    answer: "Yes, we work with many healthcare professionals and medical executives in Nashville's thriving healthcare industry. We understand demanding schedules, on-call rotations, and the need for impeccably clean, healthy home environments. We offer flexible scheduling including same-day service and can accommodate last-minute changes due to emergency shifts."
+  },
+  {
+    question: "Can you accommodate busy tech startup executives in The Gulch?",
+    answer: "Absolutely. We serve many tech professionals and startup executives in The Gulch, Music Row, and throughout Nashville's growing tech sector. We understand your time is valuable and offer same-day service, flexible scheduling, and can work around your busy lifestyle. Your luxury condo or penthouse will receive the premium care it deserves."
+  },
+  {
+    question: "How do you ensure discretion for high-profile clients?",
+    answer: "Privacy and discretion are paramount in our service. All team members are background-checked, professionally trained, and sign confidentiality agreements. As a veteran-owned business serving Nashville's music, healthcare, and business communities, we understand the importance of discretion. Many of our clients are high-profile professionals who trust us implicitly."
+  }
+];
+
+// Schema for FAQPage
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Testimonials
+const testimonials = [
+  {
+    initial: "K",
+    name: "K Parriski",
+    area: "via Google",
+    text: "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+  },
+  {
+    initial: "K",
+    name: "Karen Sears",
+    area: "via Google",
+    text: "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
+  },
+  {
+    initial: "E",
+    name: "Emeria Ewing",
+    area: "via Google",
+    text: "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+  }
+];
 ---
 
-<LocationLayout
-  title="Professional Cleaning Services in Nashville, TN | The Valley Clean Team"
-  description="Top-rated cleaning services in Nashville, Tennessee. Residential & commercial cleaning in Belle Meade, Green Hills, Sylvan Park, The Nations, and all Nashville neighborhoods. Get your free quote today!"
-  city="Nashville"
-  state="Tennessee"
-  region="Davidson County"
-  tagline="Proudly Serving Nashville & Middle Tennessee"
-  heroDescription="The Valley Clean Team provides premier residential and commercial cleaning throughout Nashville and surrounding areas. From Belle Meade estates to Downtown condos, we deliver white-glove cleaning services that Music City residents trust."
-  features={["Licensed & Insured", "Same-Day Service Available", "100% Satisfaction Guaranteed"]}
-  neighborhoods={[
-    "Belle Meade",
-    "Green Hills",
-    "12 South",
-    "Sylvan Park",
-    "The Nations",
-    "West End",
-    "Hillsboro Village",
-    "East Nashville",
-    "Germantown",
-    "The Gulch",
-    "Downtown Nashville",
-    "Music Row",
-    "Belmont-Hillsboro",
-    "Edgehill",
-    "Berry Hill",
-    "Oak Hill",
-    "Forest Hills",
-    "Brentwood",
-    "Franklin",
-    "Bellevue"
-  ]}
-  testimonials={[
-    {
-      initial: "K",
-      name: "K Parriski",
-      area: "via Google",
-      text: "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
-    },
-    {
-      initial: "K",
-      name: "Karen Sears",
-      area: "via Google",
-      text: "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
-    },
-    {
-      initial: "E",
-      name: "Emeria Ewing",
-      area: "via Google",
-      text: "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
-    }
-  ]}
-/>
+<BaseLayout
+  title="Luxury Cleaning Services in Nashville, TN | White Glove Estate Cleaning"
+  description="Nashville's premier luxury cleaning service. Veteran-owned, women-led, $2M insured. Serving Belle Meade, Green Hills, Brentwood, Franklin, The Gulch. 130+ 5-star reviews."
+  ogImage={geoData.image}
+  geoRegion={geoData.region}
+  geoPlacename={`${city}, ${state}`}
+  geoPosition={geoData.position}
+>
+  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-map-marker-alt mr-2"></i>Proudly Serving Music City
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Luxury Cleaning Services in <span class="gold-gradient">Nashville, Tennessee</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Music City's premier white-glove cleaning service for discerning homeowners. Trusted by executives, artists, and professionals in Nashville's most prestigious neighborhoods.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Women-Led</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ Reviews</span>
+            </div>
+          </div>
+
+          <!-- Urgency Badge -->
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+            <span class="text-green-700 font-semibold">
+              <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Day Service Available
+            </span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <i class="fas fa-calendar mr-2"></i>Book Your Service
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Nashville Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving Belle Meade, Green Hills, Brentwood & all Nashville</p>
+          <form id="location-quote-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Nashville Neighborhood" value="Nashville, TN" required>
+            </div>
+            <div class="mb-4">
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Select Service Type *</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Regular Cleaning">Regular Cleaning</option>
+                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
+                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
+                <option value="Event Cleaning">Event Cleaning</option>
+                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
+                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+              </select>
+            </div>
+            <input type="hidden" name="city" value="Nashville">
+            <input type="hidden" name="state" value="Tennessee">
+            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Get My Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-clock mr-1"></i> Response within 2 hours
+            </p>
+            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-8">
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">1,047+</div>
+          <p class="text-gray-600">Homes Cleaned</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">130+</div>
+          <p class="text-gray-600">5-Star Reviews</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">$2M</div>
+          <p class="text-gray-600">Liability Insurance</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">3+</div>
+          <p class="text-gray-600">Years in Nashville</p>
+        </div>
+      </div>
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">$2M Liability Insurance</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Women-Led Business</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-user-check text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Background-Checked Team</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Nashville Trusts Us -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Why Nashville Trusts The Valley Clean Team
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p class="text-lg mb-6">
+          Nashville is a city unlike any other. From the legendary music studios of Music Row to the towering healthcare headquarters downtown, from innovative tech startups in The Gulch to the historic estates of Belle Meade, Music City attracts ambitious professionals, creative artists, and discerning families who demand excellence in every aspect of their lives.
+        </p>
+
+        <p class="text-lg mb-6">
+          At The Valley Clean Team, we understand the unique rhythms of Nashville life. We serve busy executives who split their time between boardrooms and their Brentwood estates. We work with recording artists and music industry professionals whose irregular studio schedules require flexible, reliable service. We clean for medical professionals and healthcare executives from Vanderbilt and HCA who need pristine, healthy home environments. We support tech startup founders in The Gulch who value their time above all else.
+        </p>
+
+        <p class="text-lg mb-6">
+          What sets us apart is our unwavering commitment to discretion, quality, and professionalism. As a veteran-owned, women-led business, we bring military precision and attention to detail to every property we service. Many of our Nashville clients are high-profile individuals who require absolute privacy and trust. Our background-checked team members understand that discretion isn't just appreciated—it's essential.
+        </p>
+
+        <p class="text-lg mb-6">
+          Whether you're managing a historic Belle Meade mansion, a modern luxury condo overlooking the Cumberland River, or an executive family home in Brentwood with demanding schedules, we deliver the same white-glove service that has earned us over 130 five-star reviews. Our $2 million liability insurance coverage provides peace of mind for even the most valuable properties, and our 100% satisfaction guarantee ensures you receive nothing less than exceptional results every time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Neighborhoods We Serve -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Nashville Neighborhoods We Serve
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Premium cleaning services throughout Music City's most prestigious communities</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-crown text-[#FFA985] mr-3"></i>Belle Meade
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Nashville's most prestigious neighborhood, home to historic estates and old Nashville families. Properties ranging from $1M to $10M+ require the highest level of care and discretion. Our team is trained to handle antique furnishings, luxury finishes, and the exacting standards expected in Belle Meade's grand mansions.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-shopping-bag text-[#FFA985] mr-3"></i>Green Hills
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Upscale suburban elegance near Nashville's premier shopping district. Home to executives, professionals, and established families who value quality and convenience. We serve everything from spacious family homes to luxury townhomes, maintaining the pristine standards Green Hills residents expect.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-briefcase text-[#FFA985] mr-3"></i>Brentwood
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Executive family haven with top-rated schools and prestigious addresses. Brentwood professionals demand reliable, consistent service that accommodates busy schedules. From spacious estates to modern luxury homes, we provide the meticulous care that keeps Brentwood properties looking their absolute best.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-landmark text-[#FFA985] mr-3"></i>Franklin
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Where historic charm meets modern luxury. Franklin's blend of Civil War-era architecture and contemporary estates requires versatile cleaning expertise. Whether you own a restored historic home or a newly built luxury property, our team understands the unique care each requires.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-building text-[#FFA985] mr-3"></i>The Gulch
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Nashville's trendiest neighborhood, featuring luxury high-rise condos and penthouses. Home to young professionals, tech entrepreneurs, and creative industry leaders who value their time and privacy. We offer same-day service and flexible scheduling perfect for The Gulch's fast-paced lifestyle.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-guitar text-[#FFA985] mr-3"></i>12 South
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Trendy, walkable neighborhood with beautifully renovated homes. Popular with artists, music industry professionals, and the creative class. These thoughtfully restored properties deserve equally thoughtful cleaning care, which our team delivers with precision and respect for your home's character.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-user-md text-[#FFA985] mr-3"></i>West End
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Home to Vanderbilt University and numerous medical professionals. This area's residents include physicians, researchers, and healthcare executives with demanding schedules. We accommodate irregular hours, on-call rotations, and last-minute changes while maintaining consistently excellent service.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-tree text-[#FFA985] mr-3"></i>Forest Hills
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Established wealth and privacy in one of Nashville's most exclusive enclaves. Forest Hills residents expect—and receive—the highest level of professional service. Our discreet, background-checked team understands the privacy requirements and exacting standards of this prestigious community.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <span class="neighborhood-badge">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            {neighborhood}
+          </span>
+        ))}
+      </div>
+
+      <p class="text-center text-gray-600 mt-8">
+        Don't see your neighborhood? We serve all of Nashville and surrounding areas. <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call 256-826-1100</a> to confirm service availability.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Available in Nashville -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Premium Cleaning Services Available in Nashville
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Comprehensive luxury cleaning solutions for every Nashville property</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Comprehensive top-to-bottom cleaning for Nashville estates and luxury homes. Perfect for seasonal refreshes or preparing your property for special events.
+          </p>
+          <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Weekly or bi-weekly maintenance cleaning for busy Nashville professionals. Enjoy a consistently pristine home without lifting a finger.
+          </p>
+          <a href="/services/regular-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-truck-moving text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Move In/Out</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Relocating to or from Nashville? We ensure your new home is spotless or help you secure your deposit when moving out.
+          </p>
+          <a href="/services/move-in-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-key text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Airbnb Turnover</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Fast, reliable turnover service for Nashville vacation rental hosts. Same-day availability ensures your property is always guest-ready.
+          </p>
+          <a href="/services" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-hammer text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Post-Construction</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Completed a renovation or addition? We handle the dust, debris, and detail work to reveal your beautiful new space.
+          </p>
+          <a href="/services/post-construction-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Event Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Pre and post-event cleaning for Nashville gatherings. From intimate dinner parties to large celebrations, we handle the cleanup.
+          </p>
+          <a href="/services" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-700 mb-6">
+          <i class="fas fa-clock text-green-600 mr-2"></i>
+          <strong>Same-day service available for Nashville residents.</strong> Call for availability.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block shadow-lg">
+            <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+          </a>
+          <a href="/contact" class="px-8 py-4 rounded-full font-semibold inline-block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+            <i class="fas fa-calendar mr-2"></i>Schedule Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Types We Clean -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Property Types We Clean in Nashville
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-home text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Historic Belle Meade Estates</h3>
+              <p class="text-gray-700">
+                Antebellum mansions and historic properties require specialized care. Our team is trained in gentle cleaning techniques for original hardwood floors, antique fixtures, and delicate architectural details. We use pH-neutral products that preserve your property's historic integrity.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-building text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Modern Luxury Condos</h3>
+              <p class="text-gray-700">
+                High-rise living in The Gulch, Downtown, and Music Row demands efficient, professional service. We're experienced with luxury finishes, floor-to-ceiling windows, and the unique logistics of condo and penthouse cleaning. Your stunning views deserve an equally stunning interior.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-users text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Executive Family Homes</h3>
+              <p class="text-gray-700">
+                Spacious homes in Brentwood, Green Hills, and Franklin with busy families require reliable, thorough cleaning. We work around your schedule, accommodate last-minute changes, and maintain the consistently pristine environment your family deserves.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-music text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Music Industry Professionals' Homes</h3>
+              <p class="text-gray-700">
+                Recording artists, producers, and industry executives need flexible scheduling and absolute discretion. We respect your privacy, work around studio sessions and tours, and can carefully navigate spaces with valuable equipment and instruments.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Nashville Customers Say
+        </h2>
+        <div class="section-divider"></div>
+        <div class="flex items-center justify-center gap-2 mt-4">
+          <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" class="h-6" />
+          <span class="text-xl text-gray-600">Reviews</span>
+          <span class="text-[#FFA985] font-bold">4.9</span>
+          <div class="text-[#FFA985] text-sm">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <span class="text-gray-500">(130+ reviews)</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {testimonials.map((testimonial) => (
+          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                {testimonial.initial}
+              </div>
+              <div class="ml-4">
+                <h4 class="font-bold">{testimonial.name}</h4>
+                <p class="text-sm text-gray-600">{testimonial.area}</p>
+                <div class="text-[#FFA985]">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-700">"{testimonial.text}"</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="https://www.google.com/maps/place/The+Valley+Clean+Team" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+          <i class="fab fa-google mr-2"></i>See All Google Reviews <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions About Nashville Cleaning Services
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions from Nashville homeowners</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready to Experience Nashville's Premier Cleaning Service?
+      </h2>
+      <p class="text-xl text-gray-600 mb-4">
+        Join hundreds of satisfied Nashville homeowners who trust The Valley Clean Team
+      </p>
+      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+        <span class="text-green-700 font-semibold text-lg">
+          <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Day Service Available - Call Today!
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+          <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+          <i class="fas fa-calendar mr-2"></i>Book Your Service
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>Service Area
+            </h4>
+            <p class="text-gray-600">All of Nashville and surrounding Davidson County</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-clock text-[#FFA985] mr-2"></i>Hours
+            </h4>
+            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-phone text-[#FFA985] mr-2"></i>Contact
+            </h4>
+            <p class="text-gray-600">256-826-1100<br>info@thevalleycleanteam.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('location-submit-btn');
+      const messageDiv = document.getElementById('location-form-message');
+      const form = e.target;
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        location: form.location?.value || '',
+        city: form.city?.value || '',
+        state: form.state?.value || '',
+        source: 'Location Page - Nashville',
+        page_url: window.location.href
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+
+      try {
+        const response = await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+        messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+        messageDiv.classList.remove('hidden');
+        form.reset();
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtn.dataset.originalText || 'Get My Free Quote';
+    });
+
+    // Store original button text
+    const btn = document.getElementById('location-submit-btn');
+    if (btn) btn.dataset.originalText = btn.textContent;
+  </script>
+</BaseLayout>

@@ -16,13 +16,83 @@ interface Props {
   benefits: string[];
   includes: string[];
   price: string;
+  neighborhoods?: string[];
   faqs: Array<{
     question: string;
     answer: string;
   }>;
 }
 
-const { title, description, service, serviceSlug, city, state, citySlug, serviceDescription, benefits, includes, price, faqs } = Astro.props;
+const { title, description, service, serviceSlug, city, state, citySlug, serviceDescription, benefits, includes, price, neighborhoods = [], faqs } = Astro.props;
+
+// Generate canonical URL
+const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}/${serviceSlug}`;
+
+// Schema for Service with enhanced areaServed
+const areaServedSchema = citySlug === 'mountain-brook' && neighborhoods.length > 0 ? [
+  {
+    "@type": "City",
+    "name": city,
+    "containedInPlace": { "@type": "State", "name": state }
+  },
+  ...neighborhoods.map(neighborhood => ({
+    "@type": "Place",
+    "name": neighborhood,
+    "containedInPlace": {
+      "@type": "City",
+      "name": city,
+      "containedInPlace": { "@type": "State", "name": state }
+    }
+  }))
+] : citySlug === 'muscle-shoals' ? [
+  {
+    "@type": "City",
+    "name": "Muscle Shoals",
+    "containedInPlace": { "@type": "State", "name": "Alabama" }
+  },
+  {
+    "@type": "City",
+    "name": "Florence",
+    "containedInPlace": { "@type": "State", "name": "Alabama" }
+  },
+  {
+    "@type": "City",
+    "name": "Sheffield",
+    "containedInPlace": { "@type": "State", "name": "Alabama" }
+  },
+  {
+    "@type": "City",
+    "name": "Tuscumbia",
+    "containedInPlace": { "@type": "State", "name": "Alabama" }
+  },
+  {
+    "@type": "Place",
+    "name": "Walnut Street Historic District",
+    "containedInPlace": { "@type": "City", "name": "Florence", "containedInPlace": { "@type": "State", "name": "Alabama" } }
+  },
+  {
+    "@type": "Place",
+    "name": "Wilson Lake",
+    "containedInPlace": { "@type": "State", "name": "Alabama" }
+  },
+  {
+    "@type": "Place",
+    "name": "Shoals Creek",
+    "containedInPlace": { "@type": "State", "name": "Alabama" }
+  },
+  {
+    "@type": "Place",
+    "name": "Killen",
+    "containedInPlace": { "@type": "State", "name": "Alabama" }
+  }
+] : {
+  "@type": "City",
+  "name": city,
+  "containedInPlace": {
+    "@type": "State",
+    "name": state
+  }
+};
 
 // Schema for Service
 const serviceSchema = {
@@ -38,16 +108,15 @@ const serviceSchema = {
       "addressLocality": city,
       "addressRegion": state,
       "addressCountry": "US"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "130",
+      "bestRating": "5"
     }
   },
-  "areaServed": {
-    "@type": "City",
-    "name": city,
-    "containedInPlace": {
-      "@type": "State",
-      "name": state
-    }
-  },
+  "areaServed": areaServedSchema,
   "description": serviceDescription,
   "offers": {
     "@type": "Offer",
@@ -75,7 +144,7 @@ const faqSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} canonicalUrl={canonicalUrl}>
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <Navigation />
@@ -109,12 +178,19 @@ const faqSchema = {
             </div>
           </div>
 
+          <!-- Urgency Badge -->
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+            <span class="text-green-700 font-semibold">
+              <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Week Availability
+            </span>
+          </div>
+
           <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg">
-              <i class="fas fa-phone mr-2"></i>Call 256-826-1100
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
             </a>
-            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition">
-              <i class="fas fa-calendar mr-2"></i>Book Online
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <i class="fas fa-calendar mr-2"></i>Book Your Consultation
             </a>
           </div>
         </div>
@@ -154,13 +230,45 @@ const faqSchema = {
   <!-- Trust Bar -->
   <section class="py-6 px-6 bg-gray-50">
     <div class="container mx-auto">
-      <div class="flex flex-wrap justify-center gap-6 text-sm">
-        <span class="flex items-center"><i class="fas fa-shield-alt text-[#FFA985] mr-2"></i> Fully Insured</span>
-        <span class="flex items-center"><i class="fas fa-user-check text-[#FFA985] mr-2"></i> Background Checked</span>
-        <span class="flex items-center"><i class="fas fa-medal text-[#FFA985] mr-2"></i> Veteran Owned</span>
-        <span class="flex items-center"><i class="fas fa-star text-[#FFA985] mr-2"></i> 130+ 5-Star Reviews</span>
-        <span class="flex items-center"><i class="fas fa-redo text-[#FFA985] mr-2"></i> Satisfaction Guaranteed</span>
+      <div class="flex flex-wrap justify-center gap-4 mb-4">
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">$2M Liability Insurance</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Women-Led Business</span>
+        </div>
       </div>
+      <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-star text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">130+ Five-Star Reviews</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-user-check text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Background-Checked Team</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-home text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">1,047+ Homes Cleaned</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Local Social Proof Banner -->
+  <section class="py-8 px-6 bg-gradient-to-r from-blue-50 to-purple-50">
+    <div class="container mx-auto text-center">
+      <p class="text-lg text-gray-700 mb-2">
+        <i class="fas fa-heart text-red-500 mr-2"></i>
+        <strong>{city === "Nashville" ? "Trusted by families in Belle Meade, Green Hills, and Brentwood" : city === "Birmingham" || city === "Mountain Brook" ? "Trusted by families in Mountain Brook, Vestavia Hills, and Homewood" : (city === "Muscle Shoals" || city === "The Shoals") ? "Trusted by families in Wilson Lake, Walnut Street Historic, and Shoals Creek" : "Trusted by families in The Ledges, Hampton Cove, and Twickenham"}</strong>
+      </p>
+      <p class="text-gray-600">Your neighbors choose us for {service.toLowerCase()}</p>
     </div>
   </section>
 
@@ -381,15 +489,20 @@ const faqSchema = {
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
         Ready for {service} in {city}?
       </h2>
-      <p class="text-xl text-gray-600 mb-8">
+      <p class="text-xl text-gray-600 mb-4">
         Get your free quote today. Most responses within 2 hours!
       </p>
+      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+        <span class="text-green-700 font-semibold text-lg">
+          <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Week Availability - Call Today!
+        </span>
+      </div>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:2568261100" class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg">
-          <i class="fas fa-phone mr-2"></i>256-826-1100
+        <a href="tel:2568261100" class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition">
+          <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
         </a>
-        <a href="/contact" class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
-          <i class="fas fa-calendar mr-2"></i>Book Online
+        <a href="/contact" class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md">
+          <i class="fas fa-calendar mr-2"></i>Book Your Consultation
         </a>
       </div>
     </div>

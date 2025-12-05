@@ -3,6 +3,7 @@ interface Props {
   type?: 'organization' | 'local' | 'service' | 'article';
   city?: string;
   state?: string;
+  neighborhoods?: string[];
   serviceName?: string;
   servicePrice?: string;
   serviceDescription?: string;
@@ -19,6 +20,7 @@ const {
   type = 'organization',
   city,
   state,
+  neighborhoods = [],
   serviceName,
   servicePrice,
   serviceDescription,
@@ -239,7 +241,7 @@ const organizationSchema = {
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "5.0",
+    "ratingValue": "4.9",
     "reviewCount": "130",
     "bestRating": "5",
     "worstRating": "1"
@@ -335,7 +337,22 @@ const localSchema = city ? {
   "email": "info@thevalleycleanteam.com",
   "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
   "priceRange": "$$",
-  "areaServed": {
+  "areaServed": neighborhoods.length > 0 ? [
+    {
+      "@type": "City",
+      "name": city,
+      "containedInPlace": { "@type": "State", "name": state }
+    },
+    ...neighborhoods.map(neighborhood => ({
+      "@type": "Place",
+      "name": neighborhood,
+      "containedInPlace": {
+        "@type": "City",
+        "name": city,
+        "containedInPlace": { "@type": "State", "name": state }
+      }
+    }))
+  ] : {
     "@type": "City",
     "name": city,
     "containedInPlace": { "@type": "State", "name": state }
@@ -351,7 +368,7 @@ const localSchema = city ? {
   },
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "5.0",
+    "ratingValue": "4.9",
     "reviewCount": "130",
     "bestRating": "5"
   },
