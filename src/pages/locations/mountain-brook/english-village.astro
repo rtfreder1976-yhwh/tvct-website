@@ -600,17 +600,23 @@ const serviceSchema = {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
       }
       try {
-        await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+        const response = await fetch('/api/submit-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
-          messageDiv.classList.remove('hidden');
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
         }
-        form.reset();
       } catch (error) {
         if (messageDiv) {
           messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

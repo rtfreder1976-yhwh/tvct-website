@@ -133,12 +133,12 @@ import Footer from '../components/Footer.astro';
                 service: form.service.value,
                 location: form.location.value,
                 message: form.message.value,
-                source: 'Website Contact Form',
+                source: 'Contact Page Form',
                 page_url: window.location.href
               };
 
               try {
-                const response = await fetch('https://u.thevalleycleanteam.com/widget/form/hvhNBpTY8bFtBgY2qJen', {
+                const response = await fetch('/api/submit-form', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json',
@@ -146,15 +146,20 @@ import Footer from '../components/Footer.astro';
                   body: JSON.stringify(formData)
                 });
 
-                // Show success message
-                formMessage.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-                formMessage.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
-                form.reset();
+                const result = await response.json();
 
+                if (response.ok && result.success) {
+                  formMessage.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+                  formMessage.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+                  formMessage.classList.remove('hidden');
+                  form.reset();
+                } else {
+                  throw new Error(result.error || 'Submission failed');
+                }
               } catch (error) {
-                // Show error message
                 formMessage.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
                 formMessage.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+                formMessage.classList.remove('hidden');
               }
 
               // Reset button
