@@ -53,10 +53,10 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://storage.googleapis.com" />
 
-    <!-- Preload critical resources (improves LCP) -->
+    <!-- Preload critical font for LCP (H1 uses Playfair Display Bold) -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://wsrv.nl" />
-    <link rel="preload" href="https://wsrv.nl/?url=https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png&w=320&h=320&fit=cover&output=webp" as="image" type="image/webp" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -199,9 +199,9 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
       /* Prevent layout shift for images */
       img{aspect-ratio:attr(width)/attr(height)}
 
-      /* Font display swap to prevent FOIT */
+      /* Critical font declarations - use preloaded fonts immediately */
+      @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2) format('woff2')}
       @font-face{font-family:'Inter';font-display:swap}
-      @font-face{font-family:'Playfair Display';font-display:swap}
     </style>
 
     <!-- Font Awesome with font-display: swap - load fonts inline, then only class definitions -->
