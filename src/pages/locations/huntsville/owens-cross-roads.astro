@@ -1,0 +1,613 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "What areas of Owens Cross Roads do you serve?",
+    answer: "We serve all of Owens Cross Roads including the Highway 431 corridor, homes near the New Market area, properties along Old Highway 431, established neighborhoods and newer subdivisions throughout the community, and rural properties in surrounding Madison County. From family homes to executive properties, we bring premium service to all of Owens Cross Roads."
+  },
+  {
+    question: "How do you handle the mix of new construction and established homes in Owens Cross Roads?",
+    answer: "Owens Cross Roads features everything from brand-new construction in growing subdivisions to established homes that have been part of the community for decades. We adapt our cleaning approach to each home's specific needs - proper care for new finishes like quartz and LVP, and appropriate attention to traditional materials in older homes. Every property gets customized service."
+  },
+  {
+    question: "Can you work around our commute schedule to Huntsville?",
+    answer: "Absolutely! Many Owens Cross Roads residents commute to Research Park or downtown Huntsville. We offer daytime cleaning while you're at work - provide us with a key, garage code, or smart lock access. Come home from your commute to a spotless house. Your evenings and weekends are yours, not spent catching up on housework."
+  },
+  {
+    question: "Do you serve the newer subdivisions being built in Owens Cross Roads?",
+    answer: "Yes! Owens Cross Roads is growing rapidly with new subdivisions and custom builds. We provide move-in cleaning for newly constructed homes, regular maintenance for new residents, and understand the modern finishes and open floor plans common in today's new construction. We grow with the community."
+  },
+  {
+    question: "What about properties with land and outbuildings?",
+    answer: "Many Owens Cross Roads properties include acreage, workshops, or additional structures. While we focus on residential cleaning, we can discuss including finished living spaces in guest houses or converted outbuildings. We understand rural property layouts and accommodate the unique features of country homes."
+  },
+  {
+    question: "How do you handle homes with pets - especially larger dogs common in country settings?",
+    answer: "Owens Cross Roads families often have dogs, and we're completely comfortable working around them. We use pet-safe products, can work with pets present, and focus extra attention on pet hair and the entry areas where outdoor dogs track in dirt. Your furry family members are welcome during our visit."
+  },
+  {
+    question: "What's included in your regular cleaning service?",
+    answer: "Our regular cleaning covers all bedrooms, bathrooms, kitchen, and living areas. We dust, vacuum, mop, and thoroughly clean all surfaces. Kitchens receive detailed attention to counters and appliances, bathrooms are scrubbed and sanitized. For recurring clients, the same team maintains consistent quality week after week."
+  },
+  {
+    question: "Can you help when we're selling our home?",
+    answer: "Definitely! A clean home shows better and sells faster. We offer move-out and showing preparation services. Deep clean before listing, regular maintenance during the selling period, and final move-out cleaning are all available. We help Owens Cross Roads sellers make the best impression on buyers."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Huntsville",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Owens Cross Roads, Alabama",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Owens Cross Roads",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for Owens Cross Roads families. Regular maintenance, deep cleaning, move-in/out services for this growing Madison County community.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning in Owens Cross Roads, AL | Professional Service"
+  description="Trusted cleaning for Owens Cross Roads families. Regular maintenance, deep cleaning & move-in/out services. Serving new construction & established homes. Veteran-owned!"
+  geoRegion="US-AL"
+  geoPlacename="Owens Cross Roads, Alabama"
+  geoPosition="34.5878;-86.4553"
+  canonicalUrl="https://thevalleycleanteam.com/locations/huntsville/owens-cross-roads"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-home mr-2"></i>Growing Madison County Community
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Owens Cross Roads</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Owens Cross Roads has become one of Madison County's most desirable communities - affordable space, great schools, and quick access to Huntsville. Your growing family deserves weekends free from housework. Let us handle the cleaning while you enjoy everything that makes Owens Cross Roads such a great place to call home.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-users text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Family</p>
+              <p class="text-gray-400 text-xs">Focused</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-calendar-check text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Same Day</p>
+              <p class="text-gray-400 text-xs">Available</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Quote
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-clock mr-1"></i> 2-HOUR RESPONSE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving Owens Cross Roads families</p>
+          <form id="ocr-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="Post-Construction">Post-Construction</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
+                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
+                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
+                <option value="3,500 - 4,500 sq ft">3,500 - 4,500 sq ft</option>
+                <option value="Over 4,500 sq ft">Over 4,500 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (pets, special requests, etc.)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="ocr-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-shield-alt mr-1"></i> Licensed, bonded & insured
+            </p>
+            <div id="ocr-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Owens Cross Roads Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Professional Cleaning for<br>Owens Cross Roads Living
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            Owens Cross Roads represents the sweet spot of Madison County living - more space than you'd find closer to Huntsville, excellent value for your investment, and a manageable commute to Research Park and downtown. This unincorporated community along Highway 431 has transformed from a rural crossroads into a thriving residential area where families put down roots.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            The community offers genuine variety. New subdivisions with contemporary homes sit alongside established neighborhoods and rural properties with acreage. Home values typically range from $250,000 to $500,000, with larger custom properties commanding higher prices. Whether you bought new construction last year or have been in your family home for decades, Owens Cross Roads offers the space and community feel that families seek.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            New Market Road Elementary, Hampton Cove Elementary, and Hampton Cove Middle School serve many OCR families, and the community takes pride in its schools. Youth sports keep parents busy on evenings and weekends. Many residents commute to Redstone Arsenal, Research Park, or Huntsville Hospital for work, making convenience and time-saving services especially valuable.
+          </p>
+          <p class="text-lg text-gray-700">
+            Your family's time together matters more than housework. Between commutes, school events, sports practices, and trying to maintain some semblance of personal time, who has energy left for cleaning? The Valley Clean Team gives Owens Cross Roads families their weekends back. Come home to a clean house instead of chores waiting for attention.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Owens Cross Roads Home Features:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>2,000-4,500 sq ft</strong> family homes</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>New construction</strong> with modern finishes</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Established homes</strong> with character</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Open floor plans</strong> for family living</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>3-5 bedrooms</strong> for growing families</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Larger lots</strong> and some acreage</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Two-car garages</strong> and storage</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Bonus rooms</strong> and flex spaces</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Owens Cross Roads Families Choose Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Reliable service for busy Madison County families</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Time</h3>
+          <p class="text-gray-600">Consistency matters to families. You'll have the same dedicated team every visit who learns your home, your preferences, and becomes a trusted part of your household routine. No strangers, no explaining things repeatedly - just reliable people who know what you need.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-briefcase text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Commuter-Friendly Service</h3>
+          <p class="text-gray-600">The drive to Research Park or downtown takes long enough - you shouldn't come home to cleaning. We work while you're at the office. Provide access and return to a pristine house. Your commute home becomes something to look forward to, not dread.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">New & Established Home Care</h3>
+          <p class="text-gray-600">Owens Cross Roads has both new construction and established homes. We know how to care for modern finishes like quartz and LVP, and we respect the character of older builds. Your home gets the appropriate care regardless of when it was built.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-paw text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Pet & Kid Friendly</h3>
+          <p class="text-gray-600">OCR is a family community - that means kids, dogs, and the associated messes. We use family-safe, pet-friendly products and work comfortably around your household dynamics. Extra attention to pet hair and high-traffic areas comes standard. We understand busy family homes.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-bolt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same-Day When Needed</h3>
+          <p class="text-gray-600">Life with kids is unpredictable. Last-minute guests, post-birthday party cleanup, or just one of those weeks when you need backup. We offer same-day service when available - call before noon and we'll do our best. Flexibility when you need it most.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Values</h3>
+          <p class="text-gray-600">Military discipline meets Southern hospitality. We're punctual, thorough, and treat your home with respect. Licensed, bonded, insured, and background-checked - we bring the reliability and integrity that Owens Cross Roads families appreciate in their neighbors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Services for Owens Cross Roads Homes
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
+          <p class="text-gray-600 mb-6">Our most popular service for OCR families. Weekly or bi-weekly cleaning keeps your home consistently clean despite busy schedules. Same team, same quality, same day each week. Stop spending weekends cleaning and start living.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All bedrooms and living areas</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchen and bathrooms detailed</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Dusting, vacuuming, mopping</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Preferred rates for recurring clients</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Get Started
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
+          <p class="text-gray-600 mb-6">Top-to-bottom cleaning for your entire home. Perfect for first-time service, seasonal refresh, or when life has gotten ahead of housework. We tackle everything, including areas that don't get regular attention.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Everything in regular clean PLUS</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards, ceiling fans, fixtures</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior windows and tracks</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance exteriors detailed</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Book Deep Clean
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-truck text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
+          <p class="text-gray-600 mb-6">Owens Cross Roads is growing, with families moving in and out regularly. Whether starting fresh in a new home or leaving your property spotless for the next family, we handle the transition cleaning completely.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Complete empty home cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance interiors cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>New construction move-in ready</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Schedule Move Clean
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Madison County Families Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              E
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Emeria Ewing</h4>
+              <p class="text-sm text-gray-500">Huntsville Area Resident</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">K Parriski</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving Nearby Communities
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/huntsville/hampton-cove" class="neighborhood-badge block text-center">
+          Hampton Cove
+        </a>
+        <a href="/locations/huntsville/big-cove" class="neighborhood-badge block text-center">
+          Big Cove
+        </a>
+        <a href="/locations/huntsville" class="neighborhood-badge block text-center">
+          Downtown Huntsville
+        </a>
+        <a href="/locations/huntsville/jones-valley" class="neighborhood-badge block text-center">
+          Jones Valley
+        </a>
+        <a href="/locations/madison" class="neighborhood-badge block text-center">
+          Madison
+        </a>
+        <a href="/locations" class="neighborhood-badge block text-center">
+          View All Locations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Give Your Family <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Their Weekends Back</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        You moved to Owens Cross Roads for the space, the community, and the lifestyle. Let us handle the cleaning while you enjoy family time. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-calendar-alt mr-2"></i>Same-day service available | 2-hour response guarantee
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('ocr-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('ocr-submit-btn');
+      const messageDiv = document.getElementById('ocr-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'Owens Cross Roads, Alabama',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'Owens Cross Roads Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>
