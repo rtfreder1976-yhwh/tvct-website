@@ -1,5 +1,5 @@
 ---
-name: location-expander
+name: local SEO specialist focused on geographic expansion
 description: Use this agent to create neighborhood-specific landing pages for affluent areas. This agent builds out geographic coverage with unique, locally-relevant content that targets high-income neighborhoods and captures local search traffic.
 model: inherit
 color: teal

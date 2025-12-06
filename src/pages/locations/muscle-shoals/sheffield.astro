@@ -1,0 +1,613 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "What areas of Sheffield do you serve?",
+    answer: "We serve all of Sheffield and surrounding Colbert County communities. This includes downtown Sheffield, neighborhoods along Jackson Highway, Avalon Avenue, areas near Spring Park, the riverfront district, neighborhoods near Sheffield High School, and residential areas throughout the city. From historic homes to modern developments, we clean Sheffield homes with care."
+  },
+  {
+    question: "How does pricing work for Sheffield homes?",
+    answer: "Most Sheffield homes range from $135-$300 for regular cleaning, depending on square footage and service frequency. The average Sheffield home (1,400-2,200 sq ft) typically falls in the $150-$225 range for regular service. Deep cleaning runs approximately 50% more. We offer preferred pricing for recurring weekly and bi-weekly clients. Call 256-826-1100 for your personalized quote."
+  },
+  {
+    question: "Do you clean historic homes in Sheffield's older neighborhoods?",
+    answer: "Absolutely! Sheffield has beautiful historic neighborhoods with homes dating from the early 1900s. We're experienced cleaning older homes with original hardwood floors, high ceilings, vintage fixtures, and period details. We use appropriate products and techniques that respect these materials while achieving modern cleanliness."
+  },
+  {
+    question: "Can you work around shift schedules for TVA and industrial workers?",
+    answer: "Yes! Sheffield is home to many TVA employees and industrial workers with non-traditional schedules. We accommodate rotating shifts, overnight workers, and irregular hours. Whether you work days, nights, or rotating schedules, we can find cleaning times that work for your life."
+  },
+  {
+    question: "Do you serve rental properties and landlords in Sheffield?",
+    answer: "Definitely! We work with Sheffield landlords and property managers for turnover cleaning between tenants, regular maintenance of rental properties, and move-in/move-out cleaning. Reliable cleaning helps protect your rental investment and keeps good tenants happy."
+  },
+  {
+    question: "What about homes near the riverfront and Wilson Dam?",
+    answer: "We serve Sheffield's riverfront areas and neighborhoods near Wilson Dam. These properties often have unique features: views, outdoor spaces, humidity considerations, and sometimes older construction. We're equipped to handle the specific needs of riverfront Sheffield homes."
+  },
+  {
+    question: "Can you clean before or after events at Spring Park?",
+    answer: "Yes! Sheffield families often host gatherings connected to Spring Park events, festivals, and community celebrations. We offer pre-event cleaning to prepare your home for guests and post-event cleanup to restore it afterward. Spring Park brings visitors to Sheffield; let us help you host them well."
+  },
+  {
+    question: "How far in advance should I book Sheffield cleaning?",
+    answer: "For regular recurring service, a few days' notice is typically sufficient. For deep cleaning, move-in/out, or post-construction, we recommend 3-5 days when possible. Same-day service may be available for urgent needs. Call 256-826-1100 to check current availability for Sheffield."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sheffield",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Sheffield, Alabama",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Sheffield",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for Sheffield, Alabama families. Regular maintenance, deep cleaning, and move-in/out services throughout Colbert County's Quad City community.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning Services in Sheffield, AL | The Valley Clean Team"
+  description="Professional cleaning for Sheffield families. Regular maintenance, deep cleaning & move-in/out services. Serving Colbert County's Quad City. Veteran-owned, insured!"
+  geoRegion="US-AL"
+  geoPlacename="Sheffield, Alabama"
+  geoPosition="34.7648;-87.6986"
+  canonicalUrl="https://thevalleycleanteam.com/locations/muscle-shoals/sheffield"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-city mr-2"></i>Serving Sheffield & Colbert County
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Professional House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Sheffield, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Sheffield sits at the heart of The Shoals' Quad Cities, a community with deep roots and hardworking families. From historic homes near downtown to family neighborhoods throughout the city, Sheffield residents deserve clean homes without sacrificing their limited free time. The Valley Clean Team brings professional cleaning to Sheffield's working families.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-home text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Family</p>
+              <p class="text-gray-400 text-xs">Homes</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-dollar-sign text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Honest</p>
+              <p class="text-gray-400 text-xs">Pricing</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Quote
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-clock mr-1"></i> 2-HOUR RESPONSE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving Sheffield families throughout Colbert County</p>
+          <form id="sheffield-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="Post-Construction">Post-Construction</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 1,200 sq ft">Under 1,200 sq ft</option>
+                <option value="1,200 - 1,800 sq ft">1,200 - 1,800 sq ft</option>
+                <option value="1,800 - 2,500 sq ft">1,800 - 2,500 sq ft</option>
+                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
+                <option value="Over 3,500 sq ft">Over 3,500 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (pets, special requests, work schedule)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="sheffield-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-shield-alt mr-1"></i> Licensed, bonded & insured
+            </p>
+            <div id="sheffield-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Sheffield Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Cleaning Services for<br>Sheffield's Working Families
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            Sheffield holds a proud place in The Shoals' history and identity. Originally developed during the boom years of the Tennessee Valley, Sheffield grew up around industry and the working families who powered it. Today, the city maintains its blue-collar character while offering affordable housing, strong community bonds, and easy access to employment throughout The Shoals region. Sheffield is a city where neighbors know each other and hard work is respected.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Sheffield homes reflect this practical character. Properties range from charming historic homes near downtown built in the early 1900s to mid-century ranch houses to newer construction in developing areas. Home values typically range from $80,000 to over $300,000, offering affordable homeownership opportunities for families, first-time buyers, and retirees seeking value. The housing stock includes excellent bones that reward owners who maintain them.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Life in Sheffield is busy. Many residents work at TVA, in local manufacturing, healthcare, retail, or commute to Florence, Muscle Shoals, or beyond. Between work shifts, family responsibilities, community involvement, and life's demands, who has time to scrub bathrooms and dust ceiling fans? Sheffield families work hard enough during the week; they shouldn't spend weekends cleaning house.
+          </p>
+          <p class="text-lg text-gray-700">
+            The Valley Clean Team serves Sheffield with the respect and affordability its residents deserve. We're not a fancy service with fancy prices. We're a veteran-owned, women-led business that does excellent work at fair rates. We show up when we say we will, clean thoroughly, and treat your home like we'd treat our own. That's the Sheffield way.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Sheffield Home Features We Clean:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Historic homes</strong> with original hardwood and details</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Ranch-style homes</strong> from the 50s-70s</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Updated kitchens</strong> and bathrooms</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>2-4 bedrooms</strong> for family living</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Covered porches</strong> and outdoor spaces</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Garages and utility rooms</strong></span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Rental properties</strong> for landlords</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Newer construction</strong> in developing areas</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Sheffield Families Choose Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Honest service for hardworking Colbert County families</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-dollar-sign text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Fair, Honest Pricing</h3>
+          <p class="text-gray-600">No hidden fees, no surprise charges, no upselling. We quote fairly and stick to our word. Sheffield families work hard for their money, and we respect that. You'll know exactly what you're paying before we arrive, and you'll feel it's worth every penny.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-clock text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Shift-Work Friendly</h3>
+          <p class="text-gray-600">We know Sheffield's economy runs on shift work: TVA, manufacturing, healthcare, retail. We accommodate non-traditional schedules, early mornings, and whatever hours work for your rotating schedule. Your work hours shouldn't prevent you from having a clean home.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Time</h3>
+          <p class="text-gray-600">You'll have the same dedicated cleaning team every visit. They learn your home, know your preferences, and become familiar faces you can trust. No revolving door of strangers, no explaining everything repeatedly. Just consistent, reliable service.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Home Experience</h3>
+          <p class="text-gray-600">Sheffield has beautiful older homes with character. We're experienced with original hardwood, high ceilings, vintage fixtures, and the features that make these homes special. Proper cleaning products and techniques protect what makes your home unique.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Values</h3>
+          <p class="text-gray-600">Military discipline meets Southern reliability. We show up on time, do what we say, and treat people right. As a veteran-owned, women-led business, we bring the values Sheffield respects: integrity, hard work, and accountability. No excuses, just results.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-building text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Landlord Services</h3>
+          <p class="text-gray-600">Own rental property in Sheffield? We work with landlords for turnover cleaning, regular maintenance, and move-in/out service. Reliable cleaning helps protect your investment, attract quality tenants, and maintain property value over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Services for Sheffield Homes
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
+          <p class="text-gray-600 mb-6">Our most popular service. Weekly or bi-weekly cleaning keeps your Sheffield home consistently clean so you can enjoy your time off instead of spending it on housework.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All bedrooms and living areas</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchens and bathrooms sanitized</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Dusting, vacuuming, mopping</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Recurring client discounts</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Get Started
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
+          <p class="text-gray-600 mb-6">Comprehensive top-to-bottom cleaning for first-time service, seasonal refresh, or when life has gotten ahead of you. Perfect reset for your Sheffield home.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Everything in regular clean PLUS</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards, ceiling fans, vents</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior windows and tracks</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside appliances</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Book Deep Clean
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-truck text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
+          <p class="text-gray-600 mb-6">Moving to or from Sheffield? We make transitions easier. Secure your deposit when leaving, start fresh in your new home, or prepare a rental for new tenants.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Complete empty home cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance interiors cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Landlord/deposit ready</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Schedule Move Clean
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Shoals Families Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Karen Sears</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">K Parriski</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving The Shoals Quad Cities
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/muscle-shoals" class="neighborhood-badge block text-center">
+          Muscle Shoals
+        </a>
+        <a href="/locations/florence" class="neighborhood-badge block text-center">
+          Florence
+        </a>
+        <a href="/locations/muscle-shoals/killen" class="neighborhood-badge block text-center">
+          Killen
+        </a>
+        <a href="/locations/florence/wilson-lake" class="neighborhood-badge block text-center">
+          Wilson Lake
+        </a>
+        <a href="/locations/muscle-shoals/cypress-lakes" class="neighborhood-badge block text-center">
+          Cypress Lakes
+        </a>
+        <a href="/locations" class="neighborhood-badge block text-center">
+          View All Locations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Give Yourself <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Your Weekends Back</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        You work hard enough all week. Let us handle the cleaning so you can enjoy your time off. Fair pricing, honest service, and a spotless Sheffield home. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-calendar-alt mr-2"></i>Shift-work friendly scheduling | 2-hour response
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('sheffield-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('sheffield-submit-btn');
+      const messageDiv = document.getElementById('sheffield-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'Sheffield, Alabama',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'Sheffield Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>

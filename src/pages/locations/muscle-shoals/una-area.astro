@@ -1,0 +1,613 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "Do you offer cleaning services for UNA faculty and staff?",
+    answer: "Yes! We serve many University of North Alabama faculty members, administrators, and staff. We understand the demands of academic life: grading seasons, research deadlines, committee obligations, and the work that follows you home. Let us handle the cleaning so you can focus on your students, scholarship, and actually having a life outside campus."
+  },
+  {
+    question: "Can you work around an academic schedule?",
+    answer: "Absolutely. Academic schedules are unique: irregular hours, evening class prep, weekend grading, and semester intensity that varies dramatically. We offer flexible scheduling that accommodates faculty life. Clean during your office hours, while you're in class, or on days that work with your teaching schedule. We adapt to you."
+  },
+  {
+    question: "Do you serve student housing and apartments near campus?",
+    answer: "We do! While we primarily serve homeowners, we also clean rental homes, condos, and apartments in the UNA area. Move-out cleaning is especially popular for graduating students and those relocating. We help ensure you get your deposit back or leave your rental pristine for the next tenant."
+  },
+  {
+    question: "What about homes with home offices and study spaces?",
+    answer: "Many UNA-area residents work from home - faculty preparing courses, administrators handling paperwork, graduate students writing dissertations. We're experienced cleaning around home offices, respecting your papers and materials, and maintaining the productive environment you need. Your workspace stays organized while we clean around it."
+  },
+  {
+    question: "Do you serve healthcare professionals near North Alabama Medical Center?",
+    answer: "Yes! The UNA area is home to many nurses, physicians, and healthcare workers from North Alabama Medical Center and nearby facilities. We understand shift work, long hours, and the exhaustion that comes with healthcare careers. Come home to a clean house instead of facing chores after a 12-hour shift."
+  },
+  {
+    question: "Can you handle homes near campus with lots of foot traffic?",
+    answer: "Definitely. Homes near UNA often have visitors: students stopping by for office hours, colleagues for meetings, friends and family visiting. We maintain your home at a level where unexpected guests are always welcome. Regular service keeps your home consistently company-ready."
+  },
+  {
+    question: "What areas near UNA do you serve?",
+    answer: "We serve the entire UNA-adjacent area including neighborhoods along Pine Street, Court Street, Wood Avenue, and throughout Florence's historic and residential areas near campus. From historic homes in walking distance to modern houses in surrounding neighborhoods, we bring professional cleaning to your door."
+  },
+  {
+    question: "How much does cleaning cost for homes near UNA?",
+    answer: "Most UNA-area homes range from $150-$300 for regular cleaning, depending on size and service frequency. Smaller historic homes near campus may be lower; larger family homes in surrounding neighborhoods may be higher. We offer discounts for recurring weekly and bi-weekly service. Call 256-826-1100 for your personalized quote."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Florence",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "UNA Campus Area, Florence, Alabama",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Florence",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for UNA faculty, staff, students, and families in the University of North Alabama area. Flexible scheduling around academic life.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning Near UNA Campus - Florence, AL | The Valley Clean Team"
+  description="Professional cleaning for UNA faculty, staff & families. Flexible scheduling around academic life. Serving homes near University of North Alabama. Veteran-owned!"
+  geoRegion="US-AL"
+  geoPlacename="University of North Alabama Area, Florence, Alabama"
+  geoPosition="34.8028;-87.6754"
+  canonicalUrl="https://thevalleycleanteam.com/locations/muscle-shoals/una-area"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-university mr-2"></i>Near University of North Alabama
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning Near <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">UNA Campus</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Academic life is demanding enough without spending your weekends cleaning. Whether you're UNA faculty balancing teaching and research, administrative staff managing campus operations, or a healthcare professional from nearby hospitals, The Valley Clean Team gives you back your precious free time. Come home to clean instead of coming home to chores.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-graduation-cap text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Faculty</p>
+              <p class="text-gray-400 text-xs">Friendly</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-clock text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Flexible</p>
+              <p class="text-gray-400 text-xs">Schedule</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Quote
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-clock mr-1"></i> 2-HOUR RESPONSE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving UNA faculty, staff & families</p>
+          <form id="una-area-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+                <option value="End of Semester Clean">End of Semester Clean</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 1,200 sq ft">Under 1,200 sq ft</option>
+                <option value="1,200 - 1,800 sq ft">1,200 - 1,800 sq ft</option>
+                <option value="1,800 - 2,500 sq ft">1,800 - 2,500 sq ft</option>
+                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
+                <option value="Over 3,500 sq ft">Over 3,500 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (schedule preferences, home office, etc.)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="una-area-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-shield-alt mr-1"></i> Licensed, bonded & insured
+            </p>
+            <div id="una-area-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About UNA Area Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Cleaning Services for<br>Academic Professionals & Families
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            The University of North Alabama anchors Florence's cultural and intellectual life. This historic campus, home to the beloved Leo the Lion mascots, draws faculty, researchers, administrators, and students from across the country. The surrounding neighborhoods blend charming historic homes within walking distance of campus with family-friendly residential areas throughout Florence.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            The UNA-area community includes diverse professionals: tenured professors balancing teaching loads with research publications, instructors grading stacks of papers late into the night, administrative staff keeping the university running, graduate students pursuing advanced degrees while working, and healthcare workers from nearby North Alabama Medical Center and ECM Hospital. What unites them is demanding schedules and limited time for household chores.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Housing near UNA ranges from historic Victorian and Craftsman homes in walkable neighborhoods to modern family houses in surrounding areas. Property values range from $150,000 to over $400,000. Whether you own a charming bungalow near campus or a larger family home in adjacent neighborhoods, your time is valuable. The hours you spend cleaning could be spent on research, course prep, family time, or actually relaxing.
+          </p>
+          <p class="text-lg text-gray-700">
+            The Valley Clean Team understands academic life. We know that finals week is different from summer break, that some semesters are heavier than others, and that your home needs to function as both sanctuary and workspace. We adapt to your schedule, respect your home office, and deliver the consistent cleanliness that lets you focus on what matters.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">UNA-Area Home Features We Clean:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Historic homes</strong> near campus with character</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Home offices and study spaces</strong></span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Hardwood floors</strong> common in older homes</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Modern family homes</strong> in surrounding areas</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Libraries and book collections</strong></span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>2-4 bedrooms</strong> for families and guests</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Rental apartments and condos</strong></span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Covered porches</strong> and outdoor spaces</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why UNA-Area Residents Choose Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Professional service that respects academic and professional life</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-calendar-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Academic Schedule Flexibility</h3>
+          <p class="text-gray-600">We understand that faculty schedules vary wildly: heavy teaching days, research time, office hours, committee meetings. We work around your unique schedule, not the other way around. Clean during your time on campus or whenever works best for your semester.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-laptop text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Home Office Respect</h3>
+          <p class="text-gray-600">Your home office isn't just a workspace; it's where research happens, papers get graded, and courses get designed. We clean around your materials respectfully, never disturbing papers, books, or your organized chaos. Your workspace stays functional while everything else shines.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-hospital text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Healthcare Worker Friendly</h3>
+          <p class="text-gray-600">Many UNA-area residents work at North Alabama Medical Center or ECM Hospital. We understand shift work, irregular hours, and the exhaustion of healthcare careers. Come home to a clean house after a 12-hour shift instead of facing more work. You've earned it.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Home Experience</h3>
+          <p class="text-gray-600">Many homes near UNA are historic properties with original hardwood, plaster walls, and period details. We're experienced cleaning these older homes with appropriate products and techniques that respect their character while achieving modern cleanliness.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Consistency</h3>
+          <p class="text-gray-600">You'll have the same dedicated team every visit. They learn your home, your preferences, and your schedule. No explaining your needs repeatedly, no rotating strangers. Just reliable, consistent service from people who know your space.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Reliability</h3>
+          <p class="text-gray-600">Military discipline meets academic expectations. We're punctual, thorough, and professional. As a veteran-owned, women-led business, we bring the values you appreciate: reliability, attention to detail, and doing what we promise. Every time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Services for UNA-Area Homes
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
+          <p class="text-gray-600 mb-6">Our most popular service for busy academics and professionals. Weekly or bi-weekly cleaning keeps your home consistently clean so you never have to worry about unexpected visitors or spending weekends scrubbing.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All living areas and bedrooms</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchens and bathrooms sanitized</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Home office maintained (respectfully)</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Recurring client discounts</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Get Started
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
+          <p class="text-gray-600 mb-6">Comprehensive top-to-bottom cleaning perfect for semester breaks, before guests arrive, or when life has gotten ahead of you. Reset your home to pristine condition.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Everything in regular clean PLUS</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards, ceiling fans, vents</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior windows and tracks</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside appliances</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Book Deep Clean
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-truck text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
+          <p class="text-gray-600 mb-6">Perfect for graduating students, faculty relocating for new positions, or anyone moving to or from the UNA area. Secure your deposit or start fresh in your new home.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Complete empty home cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance interiors cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Deposit-back guarantee</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Schedule Move Clean
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Florence Residents Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">K Parriski</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Karen Sears</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving Florence & The Shoals
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/florence" class="neighborhood-badge block text-center">
+          Downtown Florence
+        </a>
+        <a href="/locations/florence/historic-district" class="neighborhood-badge block text-center">
+          Historic District
+        </a>
+        <a href="/locations/muscle-shoals" class="neighborhood-badge block text-center">
+          Muscle Shoals
+        </a>
+        <a href="/locations/muscle-shoals/killen" class="neighborhood-badge block text-center">
+          Killen
+        </a>
+        <a href="/locations/florence/wilson-lake" class="neighborhood-badge block text-center">
+          Wilson Lake
+        </a>
+        <a href="/locations" class="neighborhood-badge block text-center">
+          View All Locations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Trade Grading Papers for <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Relaxation</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        You work hard enough during the week. Let us handle the housework so you can enjoy your evenings and weekends. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-calendar-alt mr-2"></i>Flexible academic scheduling | 2-hour response
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('una-area-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('una-area-submit-btn');
+      const messageDiv = document.getElementById('una-area-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'UNA Area - Florence',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'UNA Area Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>

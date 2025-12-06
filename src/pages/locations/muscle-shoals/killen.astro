@@ -1,0 +1,613 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "What areas of Killen do you serve?",
+    answer: "We serve all of Killen and surrounding Lauderdale County, including Killen proper, the areas along Highway 72, County Road 61 corridors, newer subdivisions near Killen High School, established neighborhoods along Greenhill Road, and rural properties with acreage. Whether you live in a newer construction home or an established property, we bring the same premium service to every Killen residence."
+  },
+  {
+    question: "How does pricing work for Killen homes?",
+    answer: "Most Killen homes range from $150-$350 for regular cleaning depending on square footage and service frequency. New construction homes (2,000-3,500 sq ft) typically fall in the $175-$275 range for regular service. Larger custom homes on acreage may be higher. Deep cleaning runs approximately 50% more than regular service. We offer discounts for recurring weekly and bi-weekly clients. Call 256-826-1100 for your personalized quote."
+  },
+  {
+    question: "Can you work around our family's schedule?",
+    answer: "Absolutely! Killen families often have busy schedules with school activities, work, and sports. We offer flexible scheduling including during school hours while you're at work, early morning or late afternoon slots, and can coordinate around your family's routine. Many clients provide a garage code or smart lock access so we can clean while they're away."
+  },
+  {
+    question: "Do you clean new construction homes in Killen's growing subdivisions?",
+    answer: "Yes! Killen has experienced significant growth with many new subdivisions and custom-built homes. We're experienced cleaning modern open floor plans, granite and quartz countertops, LVP flooring, high ceilings, and the contemporary finishes common in newer construction. We also provide move-in cleaning for families relocating to Killen."
+  },
+  {
+    question: "How do you handle homes with pets?",
+    answer: "Many Killen families have dogs, cats, or both! We're completely pet-friendly and use products safe for animals. We can work around pets who need to stay home, focus extra attention on pet hair removal, and address any pet-related cleaning needs. Just let us know about your furry family members when scheduling."
+  },
+  {
+    question: "Do you serve rural properties outside Killen town limits?",
+    answer: "Yes! Many Killen-area families live on larger properties outside town limits in Lauderdale County. We serve rural homes, properties with acreage, and residences in the surrounding countryside. Travel time may affect scheduling, but we're committed to serving the entire Killen community."
+  },
+  {
+    question: "What's included in your regular cleaning service?",
+    answer: "Our regular cleaning includes all bedrooms, bathrooms, kitchen, living areas, dusting, vacuuming, mopping, and surface cleaning throughout. We focus on high-traffic areas and maintain your home week-to-week. Bathrooms are scrubbed and sanitized, kitchens receive detailed attention, and all living spaces are left fresh and clean."
+  },
+  {
+    question: "Can you help with post-construction cleaning after a renovation?",
+    answer: "Definitely! Killen has many ongoing home improvement projects. Whether you've finished a kitchen remodel, bathroom renovation, added a room, or completed major construction, we handle post-construction cleaning. This includes removing construction dust from every surface, detailed cleaning of new fixtures, and making your renovated space move-in ready."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Killen",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Killen, Alabama",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Killen",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for Killen, Alabama families. Regular maintenance, deep cleaning, move-in/out, and post-construction cleaning for growing Lauderdale County community.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning Services in Killen, AL | The Valley Clean Team"
+  description="Professional cleaning for Killen families. Regular maintenance, deep cleaning & move-in/out services. Serving new construction & established homes. Veteran-owned, insured!"
+  geoRegion="US-AL"
+  geoPlacename="Killen, Alabama"
+  geoPosition="34.8620;-87.5328"
+  canonicalUrl="https://thevalleycleanteam.com/locations/muscle-shoals/killen"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-home mr-2"></i>Serving Killen & Lauderdale County
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Professional House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Killen, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Killen is one of the fastest-growing communities in The Shoals, and busy families deserve to spend their free time enjoying life rather than cleaning. The Valley Clean Team provides reliable, thorough cleaning services for Killen's growing families, from brand-new construction homes to established properties throughout Lauderdale County.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-users text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Family</p>
+              <p class="text-gray-400 text-xs">Focused</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-calendar-check text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Flexible</p>
+              <p class="text-gray-400 text-xs">Scheduling</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Quote
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-clock mr-1"></i> 2-HOUR RESPONSE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving Killen families throughout Lauderdale County</p>
+          <form id="killen-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="Post-Construction">Post-Construction</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 1,500 sq ft">Under 1,500 sq ft</option>
+                <option value="1,500 - 2,000 sq ft">1,500 - 2,000 sq ft</option>
+                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
+                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
+                <option value="Over 3,500 sq ft">Over 3,500 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (pets, special requests, etc.)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="killen-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-shield-alt mr-1"></i> Licensed, bonded & insured
+            </p>
+            <div id="killen-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Killen Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Cleaning Services for<br>Growing Killen Families
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            Killen has transformed from a quiet rural community into one of The Shoals' most desirable places to live. Located in Lauderdale County just minutes from Florence, Killen offers families the best of both worlds: small-town charm with easy access to shopping, dining, and employment throughout The Shoals region. The community has experienced remarkable growth with new subdivisions, custom-built homes, and families relocating from across North Alabama.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Killen homes range from affordable starter properties around $150,000 to custom-built family estates exceeding $500,000. The community attracts young professionals starting families, established households seeking more space and better schools, retirees enjoying quiet country living, and commuters working in Florence, Decatur, or the Tennessee Valley. Whether you've recently built a new construction home in one of Killen's growing subdivisions or own an established property on a quiet country road, your home deserves professional care.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Life in Killen is busy. Between Killen High School activities, youth sports, community events, and careers, families barely have time to breathe, let alone keep up with housework. The Valley Clean Team gives Killen families back their weekends. Come home to a clean house instead of coming home to chores. Spend Saturday at the ball field instead of scrubbing bathrooms.
+          </p>
+          <p class="text-lg text-gray-700">
+            Our veteran-owned, women-led team brings the same reliability and attention to detail that Killen families value in their neighbors. We're local, we're trustworthy, and we understand that your home is your sanctuary. Let us help you protect and maintain it.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Killen Home Features We Clean:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Modern open floor plans</strong> common in new construction</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Granite and quartz countertops</strong> requiring proper care</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>LVP and hardwood flooring</strong> throughout</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>High ceilings and ceiling fans</strong></span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>3-4 bedrooms</strong> perfect for families</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Multiple bathrooms</strong> with modern fixtures</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Bonus rooms and home offices</strong></span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Garages and utility rooms</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Killen Families Choose Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Reliable service for busy Lauderdale County families</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Visit</h3>
+          <p class="text-gray-600">Consistency matters. You'll have the same dedicated cleaning team every time. They learn your home, your preferences, and become familiar faces you can trust. No revolving door of strangers, no explaining your needs repeatedly. Just reliable service from people who know your home.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-calendar-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Flexible Family Scheduling</h3>
+          <p class="text-gray-600">Killen life is busy with school, sports, and activities. We work around your schedule, not the other way around. Clean while you're at work, during school hours, or on your preferred day. Provide access codes and come home to a spotless house without rearranging your life.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-paw text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Pet-Friendly Service</h3>
+          <p class="text-gray-600">Dogs, cats, and furry family members are welcome! Many Killen homes include four-legged residents. We use pet-safe products, handle pet hair with expertise, and can work comfortably around your animals. Your pets are part of your family, and we treat them accordingly.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">New Construction Expertise</h3>
+          <p class="text-gray-600">Killen's growing with new homes and subdivisions. We're experienced cleaning modern finishes, open concepts, and contemporary materials. From move-in cleans for newly constructed homes to maintaining granite, quartz, and luxury vinyl plank flooring, we know how to care for today's building materials.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Values</h3>
+          <p class="text-gray-600">Military discipline meets small-town reliability. We're punctual, thorough, and treat your home with respect. As a veteran-owned, women-led business, we bring the values Killen families appreciate: honesty, hard work, and doing what we say we'll do. No shortcuts, no excuses.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Fully Insured & Background-Checked</h3>
+          <p class="text-gray-600">Your home and family's safety come first. We carry $2 million in liability insurance, and every team member is background-checked and bonded. You can trust our team in your home, around your belongings, and with your access codes. Peace of mind is part of our service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Services for Killen Homes
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
+          <p class="text-gray-600 mb-6">Our most popular service for Killen families. Weekly or bi-weekly cleaning keeps your home consistently clean and company-ready. Same team, same quality, same day each week.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All bedrooms and living areas</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchens and bathrooms sanitized</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Dusting, vacuuming, mopping</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Recurring client discounts</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Get Started
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
+          <p class="text-gray-600 mb-6">Comprehensive top-to-bottom cleaning perfect for first-time service, seasonal refresh, or when your home needs extra attention beyond regular maintenance.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Everything in regular clean PLUS</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards, ceiling fans, vents</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior windows and tracks</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance exteriors detailed</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Book Deep Clean
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-truck text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
+          <p class="text-gray-600 mb-6">Perfect for families relocating to Killen or moving within the area. Get your new home pristine before moving in, or leave your old home spotless to secure your deposit.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Complete empty home cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance interiors cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>New construction move-in ready</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Schedule Move Clean
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Shoals Families Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">K Parriski</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              P
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Patrick Scogin</h4>
+              <p class="text-sm text-gray-500">via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving The Shoals Area
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/muscle-shoals" class="neighborhood-badge block text-center">
+          Muscle Shoals
+        </a>
+        <a href="/locations/florence" class="neighborhood-badge block text-center">
+          Florence
+        </a>
+        <a href="/locations/florence/wilson-lake" class="neighborhood-badge block text-center">
+          Wilson Lake
+        </a>
+        <a href="/locations/muscle-shoals/sheffield" class="neighborhood-badge block text-center">
+          Sheffield
+        </a>
+        <a href="/locations/florence/historic-district" class="neighborhood-badge block text-center">
+          Historic District
+        </a>
+        <a href="/locations" class="neighborhood-badge block text-center">
+          View All Locations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Give Your Killen Family <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Their Weekends Back</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Stop spending precious family time cleaning. Let The Valley Clean Team handle your home while you enjoy life in Killen. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-calendar-alt mr-2"></i>Same-day service available | 2-hour response guarantee
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('killen-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('killen-submit-btn');
+      const messageDiv = document.getElementById('killen-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'Killen, Alabama',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'Killen Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>
