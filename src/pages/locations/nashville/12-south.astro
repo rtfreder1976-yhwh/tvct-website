@@ -1,0 +1,608 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "What areas do you serve in 12 South and Wedgewood-Houston?",
+    answer: "We serve all of 12 South, Wedgewood-Houston (WeHo), and surrounding areas including homes along 12th Avenue South, Wedgewood Avenue, Houston Street, Sevier Park area, and the neighborhoods connecting to Belmont. From renovated bungalows to modern new construction, we bring quality cleaning services throughout this dynamic Nashville district."
+  },
+  {
+    question: "Do you have experience with 12 South's mix of historic and modern homes?",
+    answer: "Absolutely! 12 South showcases Nashville's architectural evolution - from charming 1930s bungalows to sleek contemporary new builds. We adapt our cleaning approach accordingly, using gentle techniques for vintage features and appropriate methods for modern finishes. Whatever style your home represents, we have the expertise."
+  },
+  {
+    question: "Can you accommodate irregular schedules common with creative professionals?",
+    answer: "Yes! Many 12 South and WeHo residents work in creative industries with non-traditional schedules. We offer flexible scheduling that works around your life, whether you work from home, keep late hours, or travel frequently. Just tell us what works for you."
+  },
+  {
+    question: "Do you clean condos and townhomes in the 12 South area?",
+    answer: "Yes, we clean all property types in 12 South and Wedgewood-Houston, including condos, townhomes, lofts, and single-family homes. We're experienced with the efficient layouts typical of urban living and can work with building access requirements or concierge services as needed."
+  },
+  {
+    question: "What products do you use for homes with modern finishes?",
+    answer: "12 South homes often feature high-end contemporary finishes like quartz countertops, designer fixtures, and specialty flooring. We use appropriate products for each surface type - non-abrasive cleaners for delicate materials, streak-free solutions for glass-heavy designs, and proper care for luxury finishes."
+  },
+  {
+    question: "Can you clean when I'm working from my home studio?",
+    answer: "Many 12 South and WeHo residents have home offices, art studios, or creative spaces. We're skilled at working around these areas, cleaning room-by-room to minimize disruption, and scheduling around your focus time. Your productivity won't suffer."
+  },
+  {
+    question: "Do you offer cleaning before or after Airbnb guests?",
+    answer: "Yes! Some 12 South homeowners rent their properties on short-term platforms. We offer turnover cleaning between guests, ensuring your property is spotless for each arrival. We can coordinate with your rental schedule and provide consistent, reliable service."
+  },
+  {
+    question: "What about post-renovation cleaning for remodeled properties?",
+    answer: "With constant renovation activity in 12 South and Wedgewood-Houston, post-construction cleaning is one of our specialties. We remove all that fine construction dust, clean new surfaces properly, and prepare your freshly renovated space for living. We understand the unique challenges of renovation cleanup."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Premium Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "12 South and Wedgewood-Houston - Nashville, Tennessee",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for 12 South and Wedgewood-Houston homes. Expert care for Nashville's trendiest neighborhoods - from renovated bungalows to modern new construction.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning in 12 South & WeHo Nashville | Premium Service"
+  description="Professional cleaning for 12 South & Wedgewood-Houston homes. Expert care for Nashville's trendiest neighborhoods. Modern & vintage homes. Book today!"
+  geoRegion="US-TN"
+  geoPlacename="12 South, Nashville, Tennessee"
+  geoPosition="36.1228;-86.7889"
+  canonicalUrl="https://thevalleycleanteam.com/locations/nashville/12-south"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-map-pin mr-2"></i>Nashville's Trendiest Neighborhoods
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">12 South & Wedgewood-Houston</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            From the boutique-lined streets of 12 South to the creative energy of Wedgewood-Houston, these Nashville neighborhoods represent the city at its most dynamic. The Valley Clean Team delivers cleaning services that match the style and standards of residents who choose to live here - professional, flexible, and impeccably executed.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-home text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">All Home</p>
+              <p class="text-gray-400 text-xs">Styles</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-calendar-check text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Flexible</p>
+              <p class="text-gray-400 text-xs">Scheduling</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Quote
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-clock mr-1"></i> 2-HOUR RESPONSE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving 12 South & WeHo with style</p>
+          <form id="12south-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="Post-Construction">Post-Renovation Cleaning</option>
+                <option value="Airbnb Turnover">Airbnb/Short-Term Rental</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 1,200 sq ft">Under 1,200 sq ft</option>
+                <option value="1,200 - 1,600 sq ft">1,200 - 1,600 sq ft</option>
+                <option value="1,600 - 2,200 sq ft">1,600 - 2,200 sq ft</option>
+                <option value="2,200 - 3,000 sq ft">2,200 - 3,000 sq ft</option>
+                <option value="Over 3,000 sq ft">Over 3,000 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (property type, special requests, etc.)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="12south-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-shield-alt mr-1"></i> Licensed, bonded & insured
+            </p>
+            <div id="12south-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About 12 South & WeHo Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Professional Cleaning for<br>Nashville's Creative Core
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            12 South and Wedgewood-Houston represent Nashville's evolution from Music City to It City. These neighborhoods have transformed from overlooked residential areas into two of the South's most coveted addresses. Home values range from $400,000 to well over $1.5 million, with demand consistently outpacing supply as young professionals, creatives, and entrepreneurs vie for addresses in these walkable, vibrant communities.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            12 South's transformation began with independent boutiques and local restaurants taking over the commercial strip along 12th Avenue South. Today, the neighborhood draws visitors from across the region to shop, dine, and experience Nashville's contemporary culture. Sevier Park anchors the residential community, surrounded by streets where renovated 1930s bungalows sit alongside striking new construction designed by Nashville's most innovative architects.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Wedgewood-Houston - affectionately known as WeHo - has emerged as Nashville's art district. Former industrial buildings now house galleries, artist studios, and creative businesses. The residential streets feature an eclectic mix of historic cottages undergoing careful restoration and bold contemporary homes that push architectural boundaries. Fort Negley Park and the Nashville Zoo provide green space and family amenities.
+          </p>
+          <p class="text-lg text-gray-700">
+            The residents of 12 South and WeHo are as diverse as the architecture - creative professionals, tech entrepreneurs, musicians, restaurateurs, and design enthusiasts who chose these neighborhoods for their energy, walkability, and authenticity. The Valley Clean Team understands what drew you here and delivers cleaning services that match your standards.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">12 South & WeHo Home Features:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>1,200-3,500 sq ft</strong> diverse properties</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Renovated bungalows</strong> with modern updates</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Contemporary new builds</strong> with designer finishes</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Open floor plans</strong> and loft-style layouts</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Home offices</strong> and creative studios</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>High-end kitchens</strong> and spa bathrooms</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Hardwood floors</strong> and specialty materials</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Outdoor living spaces</strong> and rooftop decks</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why 12 South & WeHo Choose Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Service that matches your style and standards</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">All Home Styles</h3>
+          <p class="text-gray-600">From a meticulously restored 1930s bungalow to a sleek contemporary build, we understand how to clean different architectural styles. Vintage details and modern finishes both receive appropriate care from our trained team.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-calendar-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Flexible Scheduling</h3>
+          <p class="text-gray-600">Creative careers don't follow 9-to-5 schedules. We work around your life, whether you keep late studio hours, travel frequently, or work from home. Tell us what works and we'll make it happen.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Time</h3>
+          <p class="text-gray-600">Consistency matters in design-forward homes. Your dedicated team learns your home's specific features, understands your preferences, and delivers increasingly personalized service with each visit.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-gem text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Luxury Finish Care</h3>
+          <p class="text-gray-600">12 South and WeHo homes often feature designer finishes - quartz countertops, specialty tile, custom fixtures. We use appropriate products and techniques for each material, protecting your investment while achieving pristine results.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-bed text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Short-Term Rental Ready</h3>
+          <p class="text-gray-600">Some 12 South properties serve as short-term rentals. We offer turnover cleaning between guests, maintaining the high standards that earn five-star reviews and repeat bookings for your property.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Values</h3>
+          <p class="text-gray-600">Military discipline means we're on time, follow through, and maintain consistent standards. Licensed, bonded, and carrying $2M in insurance. Professional service with integrity you can trust.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Services for 12 South & WeHo
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
+          <p class="text-gray-600 mb-6">The most popular choice for 12 South and WeHo residents. Weekly or bi-weekly service keeps your stylish home consistently pristine. Same team, same day, same excellence - so your space is always ready for impromptu gatherings or quiet evenings in.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All living areas detailed</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchens and bathrooms spotless</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Specialty floor care included</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Preferred rates for recurring service</span>
+            </li>
+          </ul>
+          <a href="/services/weekly-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
+          <p class="text-gray-600 mb-6">Comprehensive cleaning that reaches everywhere. Perfect for first-time service, seasonal refreshes, before hosting events, or getting your space back on track. Design-forward homes deserve thorough attention to every detail.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Everything in regular clean PLUS</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards, trim, architectural details</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Light fixtures and ceiling fans</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior windows throughout</span>
+            </li>
+          </ul>
+          <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-hammer text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Post-Renovation Cleaning</h3>
+          <p class="text-gray-600 mb-6">With constant renovation activity in 12 South and WeHo, post-construction cleaning is essential. We remove all that fine construction dust, properly clean new surfaces, and prepare your freshly renovated space for living.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Construction dust removal</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>New fixture and surface cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Ready to enjoy your updates</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call: 256-826-1100 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Nashville Residents Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Katie N.</h4>
+              <p class="text-sm text-gray-500">Creative Director</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "My renovated bungalow has a mix of original 1930s details and very modern finishes. Other services didn't know how to handle that. The Valley Clean Team understands both and treats everything appropriately. My home has never looked better."
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              M
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Marcus T.</h4>
+              <p class="text-sm text-gray-500">Tech Entrepreneur</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Working from home means my space needs to be clean but I can't have disruptions during work hours. They clean around my schedule, are quiet during calls, and my WeHo townhouse is always spotless. The flexibility is exactly what I needed."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving Nearby Nashville Communities
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/nashville/hillsboro-village" class="neighborhood-badge block text-center">
+          Hillsboro Village
+        </a>
+        <a href="/locations/nashville/sylvan-park" class="neighborhood-badge block text-center">
+          Sylvan Park
+        </a>
+        <a href="/locations/nashville/green-hills" class="neighborhood-badge block text-center">
+          Green Hills
+        </a>
+        <a href="/locations/nashville/belle-meade" class="neighborhood-badge block text-center">
+          Belle Meade
+        </a>
+        <a href="/locations/nashville/brentwood" class="neighborhood-badge block text-center">
+          Brentwood
+        </a>
+        <a href="/locations/nashville" class="neighborhood-badge block text-center">
+          All Nashville Areas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Ready for <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">12 South Quality?</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Your stylish 12 South or WeHo home deserves cleaning services that match its character. Professional, flexible, and consistently excellent. Call today for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-calendar-alt mr-2"></i>Same-day service available | 2-hour response guarantee
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('12south-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('12south-submit-btn');
+      const messageDiv = document.getElementById('12south-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: '12 South / Wedgewood-Houston - Nashville',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: '12 South Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>

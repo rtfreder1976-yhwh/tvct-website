@@ -1,0 +1,607 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "What areas of Oak Hill do you serve?",
+    answer: "We serve all of Oak Hill and surrounding areas including homes along Franklin Pike, Tyne Boulevard, Granny White Pike, Otter Creek Road, and throughout the Oak Hill city limits. From historic estates to contemporary luxury homes, we bring premium cleaning services to every Oak Hill residence."
+  },
+  {
+    question: "How do you handle Oak Hill's historic and newer luxury homes differently?",
+    answer: "Oak Hill features both distinguished historic estates and newly constructed luxury properties. We adapt our approach accordingly - using gentle techniques appropriate for antique finishes and delicate materials in historic homes, while employing modern methods for contemporary surfaces in newer constructions. Our team assesses each home's unique requirements."
+  },
+  {
+    question: "Do you have experience with gated properties and security systems?",
+    answer: "Absolutely. Many Oak Hill properties feature gates, security systems, and controlled access. We work seamlessly with your security protocols, respecting codes and procedures. Our background-checked team members are trusted by Oak Hill homeowners who require the highest levels of discretion and security consciousness."
+  },
+  {
+    question: "Can you accommodate homes with separate guest houses or pool houses?",
+    answer: "Yes! Many Oak Hill properties include additional structures such as guest houses, pool houses, home offices in separate buildings, or carriage houses. We can include these in your regular service or clean them on a different schedule. We'll customize our service to cover all structures on your property."
+  },
+  {
+    question: "What cleaning products do you use for fine finishes?",
+    answer: "Oak Hill homes often feature luxury materials including marble, granite, specialty woods, and designer finishes. We use appropriate pH-balanced, non-abrasive products for each surface type. Our team is trained to identify different materials and select the safest, most effective cleaning approach for everything from rare woods to Italian marble."
+  },
+  {
+    question: "How do you handle cleaning around fine art and valuable antiques?",
+    answer: "Oak Hill homes frequently contain significant art collections and valuable antiques. Our team is trained to clean around these items with extreme care. We use appropriate dusting techniques, never move valuable items without explicit permission, and understand that some pieces require specialized care that goes beyond standard cleaning."
+  },
+  {
+    question: "Can you provide service for special events at Oak Hill estates?",
+    answer: "Absolutely! Oak Hill estates often host elegant gatherings, charity events, and private celebrations. We offer pre-event deep cleaning to ensure your home is immaculate for guests, and post-event cleanup to restore everything to perfection. Same-day and next-day service is often available for event needs."
+  },
+  {
+    question: "Do you offer regular maintenance for seasonal residents?",
+    answer: "Yes, we serve Oak Hill homeowners who split time between residences. We can maintain your property during absences, prepare the home before your arrival, and provide deep cleaning after extended periods away. Your Oak Hill home will always be ready when you return."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Premium Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Oak Hill - Nashville, Tennessee",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional estate cleaning services for Oak Hill luxury homes. Regular maintenance, deep cleaning, and specialized services for Nashville's most exclusive municipality.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="Estate Cleaning in Oak Hill, Nashville | Luxury Service"
+  description="Premier cleaning for Oak Hill estates. Expert care for Nashville's most exclusive homes. Background-checked team, $2M insured, complete discretion. Call today!"
+  geoRegion="US-TN"
+  geoPlacename="Oak Hill, Nashville, Tennessee"
+  geoPosition="36.0628;-86.7856"
+  canonicalUrl="https://thevalleycleanteam.com/locations/nashville/oak-hill"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-crown mr-2"></i>Nashville's Most Exclusive Municipality
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Estate Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Oak Hill</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Oak Hill is home to some of Tennessee's most significant estates, where governors, industry titans, and Nashville's most established families reside. The Valley Clean Team provides the estate-level cleaning services these exceptional properties require - with the discretion and expertise Oak Hill homeowners demand.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">$2M</p>
+              <p class="text-gray-400 text-xs">Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-user-lock text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Complete</p>
+              <p class="text-gray-400 text-xs">Discretion</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-gem text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">White</p>
+              <p class="text-gray-400 text-xs">Glove</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Consultation
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-lock mr-1"></i> CONFIDENTIAL CONSULTATION
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Request Your Estate Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Discreet service for Oak Hill estates</p>
+          <form id="oakhill-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Regular Estate Maintenance">Regular Estate Maintenance</option>
+                <option value="Estate Deep Cleaning">Estate Deep Cleaning</option>
+                <option value="Pre-Event Preparation">Pre-Event Preparation</option>
+                <option value="Post-Event Cleanup">Post-Event Cleanup</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Estate Size *</option>
+                <option value="4,000 - 6,000 sq ft">4,000 - 6,000 sq ft</option>
+                <option value="6,000 - 8,000 sq ft">6,000 - 8,000 sq ft</option>
+                <option value="8,000 - 10,000 sq ft">8,000 - 10,000 sq ft</option>
+                <option value="10,000 - 15,000 sq ft">10,000 - 15,000 sq ft</option>
+                <option value="Over 15,000 sq ft">Over 15,000 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (guest houses, special requirements, etc.)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="oakhill-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Request Consultation
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-lock mr-1"></i> Complete confidentiality guaranteed
+            </p>
+            <div id="oakhill-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Oak Hill Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            White-Glove Service for<br>Oak Hill Estates
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            Oak Hill occupies a singular position in Nashville's geography and social fabric. This independent city, entirely surrounded by Nashville, has maintained its exclusive character since incorporation in 1952. With home values ranging from $1 million to over $10 million, Oak Hill represents the apex of Middle Tennessee residential real estate. The Governor's Residence, numerous historic estates, and some of Nashville's most significant properties call Oak Hill home.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            The estates here reflect generations of wealth, taste, and commitment to quality. Many properties span multiple acres, featuring main residences that rival the finest homes in America alongside guest houses, pool complexes, tennis facilities, and meticulously maintained grounds. The architecture ranges from Georgian and Colonial Revival masterpieces built in Oak Hill's early decades to contemporary estates designed by internationally recognized architects.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Inside these homes, you find the finest materials and craftsmanship: hand-laid marble floors, museum-quality millwork, antique fixtures sourced from European estates, and collections of art and antiques accumulated over generations. These interiors demand cleaning services that understand their significance and treat every surface, every object, with appropriate expertise and respect.
+          </p>
+          <p class="text-lg text-gray-700">
+            Oak Hill residents include current and former governors, corporate chairmen, entertainment industry legends, healthcare system leaders, and families whose names define Nashville history. The Valley Clean Team understands that serving these clients requires more than cleaning skill - it requires absolute discretion, unwavering reliability, and the ability to work invisibly within households where privacy is paramount.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Oak Hill Estate Features:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>5,000-20,000+ sq ft</strong> main residences</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Guest houses</strong> and auxiliary structures</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Museum-quality</strong> art and antiques</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Marble and stone</strong> surfaces throughout</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Historic woodwork</strong> and millwork</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Wine cellars</strong> and climate-controlled spaces</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Formal entertaining</strong> spaces</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Pool houses</strong> and outdoor kitchens</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Oak Hill Trusts Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Estate-level service for Nashville's finest homes</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-secret text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Absolute Discretion</h3>
+          <p class="text-gray-600">Oak Hill residents occupy positions of public significance. Our team members sign comprehensive confidentiality agreements, pass thorough background checks, and understand that discretion isn't just preferred - it's required. What we see stays with us.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-gem text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Fine Art & Antique Care</h3>
+          <p class="text-gray-600">Our team receives specialized training in working around museum-quality collections. We understand appropriate cleaning methods for different periods and materials, and we never touch or move valuable items without explicit instruction from the homeowner.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-users text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Dedicated Estate Team</h3>
+          <p class="text-gray-600">Oak Hill estates receive a dedicated team assigned exclusively to their property. This team learns every detail of your home, understands your preferences and protocols, and delivers increasingly personalized service with each visit.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-building text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Multi-Structure Service</h3>
+          <p class="text-gray-600">Oak Hill properties often include multiple structures. We coordinate cleaning across main residences, guest houses, pool houses, and other buildings on your estate. One team, one schedule, comprehensive coverage of your entire property.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">$2M Insurance Coverage</h3>
+          <p class="text-gray-600">We carry $2 million in liability insurance - essential for properties containing irreplaceable items. We're fully bonded and background-checked, providing the protection and peace of mind Oak Hill homeowners require.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Excellence</h3>
+          <p class="text-gray-600">Military discipline translates perfectly to estate service. We're punctual, follow instructions precisely, maintain chain of command protocols, and deliver consistent excellence. The same values that define Oak Hill define our service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Estate Services for Oak Hill
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-home text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Estate Maintenance</h3>
+          <p class="text-gray-600 mb-6">Comprehensive weekly or bi-weekly service keeps your Oak Hill estate in impeccable condition. Your dedicated team maintains consistency across all spaces, from formal rooms to private quarters, ensuring your home is always ready for family or guests.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All living spaces meticulously cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchen and bathrooms sanitized</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Careful attention to fine surfaces</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Same dedicated team every visit</span>
+            </li>
+          </ul>
+          <a href="/services/weekly-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Estate Deep Cleaning</h3>
+          <p class="text-gray-600 mb-6">Intensive cleaning for estates requiring comprehensive attention. Ideal for seasonal refreshes, before opening homes after extended absences, or restoring a property to showpiece condition for important occasions.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Top-to-bottom detailed cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All architectural details addressed</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Crystal and fixture cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior windows throughout</span>
+            </li>
+          </ul>
+          <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-champagne-glasses text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Special Event Service</h3>
+          <p class="text-gray-600 mb-6">Oak Hill estates frequently host significant gatherings. We provide pre-event preparation ensuring every space is perfect for your guests, and post-event cleanup restoring your home to its usual impeccable state.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Pre-event deep cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Day-of touch-up available</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Post-event restoration</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Flexible scheduling around your event</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call: 256-826-1100 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Trusted by Nashville's Finest
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              W
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">William H.</h4>
+              <p class="text-sm text-gray-500">Nashville Estate Owner</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "After decades of struggling to find reliable household help, we finally found a team that meets our standards. They understand our need for privacy, handle our antiques with appropriate care, and the consistency is remarkable. Simply excellent."
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              E
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Elizabeth M.</h4>
+              <p class="text-sm text-gray-500">Nashville Homeowner</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "We host frequently and need our home to be perfect for guests. The Valley Clean Team has never disappointed us. Their pre-event cleaning is thorough, and knowing they'll handle the cleanup afterward makes entertaining so much easier."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving Nearby Nashville Communities
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/nashville/belle-meade" class="neighborhood-badge block text-center">
+          Belle Meade
+        </a>
+        <a href="/locations/nashville/forest-hills" class="neighborhood-badge block text-center">
+          Forest Hills
+        </a>
+        <a href="/locations/nashville/green-hills" class="neighborhood-badge block text-center">
+          Green Hills
+        </a>
+        <a href="/locations/nashville/brentwood" class="neighborhood-badge block text-center">
+          Brentwood
+        </a>
+        <a href="/locations/nashville/hillsboro-village" class="neighborhood-badge block text-center">
+          Hillsboro Village
+        </a>
+        <a href="/locations/nashville" class="neighborhood-badge block text-center">
+          All Nashville Areas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Ready for <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Estate-Level Service?</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Your Oak Hill estate deserves cleaning services that match its distinction. Discreet, professional, and consistently excellent. Contact us for a confidential consultation.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-lock mr-2"></i>Confidential consultation | Complete discretion guaranteed
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('oakhill-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('oakhill-submit-btn');
+      const messageDiv = document.getElementById('oakhill-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'Oak Hill - Nashville',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'Oak Hill Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll contact you within 2 hours.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Request Consultation';
+      }
+    });
+  </script>
+</BaseLayout>
