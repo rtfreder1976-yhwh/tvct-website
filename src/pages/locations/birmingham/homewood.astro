@@ -1,0 +1,634 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "What makes Homewood different from other Birmingham neighborhoods?",
+    answer: "Homewood offers a unique blend of walkable urban village charm and established residential living. With a thriving downtown along 18th Street featuring local boutiques, restaurants, and cafes, plus neighborhoods ranging from 1920s Craftsman bungalows to modern new construction, Homewood attracts families, young professionals, and empty nesters who value community, convenience, and character. Homes typically range from 1,800 to 4,000 square feet."
+  },
+  {
+    question: "Do you clean both historic and newer construction homes in Homewood?",
+    answer: "Absolutely. Homewood has a wonderful mix of architecture - charming 1920s-1940s bungalows and Craftsman homes alongside newer construction and renovated properties. Our teams are trained to handle vintage hardwood floors and original details in older homes, as well as modern finishes in contemporary builds. We adapt our techniques and products to what your specific home needs."
+  },
+  {
+    question: "How do you handle homes near the walkable downtown area?",
+    answer: "Properties near Homewood's downtown core on 18th Street often have unique parking situations and may be closer to neighbors. We coordinate arrival times, use appropriate parking, work efficiently to minimize any disruption, and ensure we leave your home pristine whether you live in a cottage near the shops or an estate in Edgewood."
+  },
+  {
+    question: "What's included in your regular cleaning service for Homewood homes?",
+    answer: "Our regular cleaning (weekly or bi-weekly) covers all living areas, bedrooms, and bathrooms thoroughly. We clean your kitchen completely including appliances and counters, dust all surfaces and furniture, vacuum and mop floors appropriate to their type, and handle baseboards and light fixtures. You get the same dedicated team each visit who learns your home's specific needs."
+  },
+  {
+    question: "Do you offer services for families with children and pets?",
+    answer: "Yes, Homewood is incredibly family-friendly and we serve many households with children and pets. We use eco-friendly, non-toxic products safe for kids and animals. We're experienced working around toys, pet bowls, and the real-life messes that come with busy family homes. We can also coordinate cleaning around nap schedules or school pickups."
+  },
+  {
+    question: "Can you clean while I'm at work?",
+    answer: "Absolutely. Many Homewood residents work in downtown Birmingham or the medical district and prefer we clean while they're at the office. Simply provide a key or smart lock code - we'll arrive on schedule, clean your home thoroughly, lock up securely, and you'll come home to a sparkling house. It's like magic, but it's just reliable service."
+  },
+  {
+    question: "What areas of Homewood do you serve?",
+    answer: "We serve all Homewood neighborhoods including Edgewood, Rosedale, Hollywood, Oxmoor, Oak Grove, West Homewood, and Central Homewood near 18th Street. Whether you're in a cottage near the shops or a larger home in the hills, we've got you covered. We also serve nearby Mountain Brook, Vestavia Hills, and all of Birmingham."
+  },
+  {
+    question: "How quickly can you start service?",
+    answer: "We typically schedule new Homewood clients within 3-5 business days for regular service. Need something sooner? We offer same-day and next-day deep cleaning when available. Call us at 256-826-1100 and we'll find a time that works for your schedule."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "House Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Homewood",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Homewood - Birmingham, Alabama",
+    "containedInPlace": {
+      "@type": "City",
+      "name": "Birmingham",
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Alabama"
+      }
+    }
+  },
+  "description": "Professional house cleaning services for Homewood, Birmingham. Expert care for historic bungalows and modern homes. Trusted by families throughout this walkable community.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning in Homewood, Birmingham | Premium Service"
+  description="Professional cleaning for Homewood homes. Historic bungalows to new construction, family-friendly service. Trusted by your neighbors. Free quote!"
+  geoRegion="US-AL"
+  geoPlacename="Homewood, Birmingham, Alabama"
+  geoPosition="33.4718;-86.8008"
+  canonicalUrl="https://thevalleycleanteam.com/locations/birmingham/homewood"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-home mr-2"></i>Historic Charm Meets Modern Living
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Homewood, Birmingham</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Your Homewood home deserves cleaning that understands its character - whether you live in a charming 1920s bungalow near 18th Street or a spacious family home in Edgewood. We provide trusted, thorough cleaning for this walkable community where historic charm meets modern convenience. Join your neighbors who already trust us.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-users text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Family</p>
+              <p class="text-gray-400 text-xs">Friendly</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-leaf text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Eco</p>
+              <p class="text-gray-400 text-xs">Friendly</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Quote
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-clock mr-1"></i> 2-HOUR RESPONSE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Trusted by Homewood families since day one</p>
+          <form id="homewood-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Weekly Cleaning">Weekly Cleaning</option>
+                <option value="Bi-Weekly Cleaning">Bi-Weekly Cleaning</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 1,500 sq ft">Under 1,500 sq ft</option>
+                <option value="1,500 - 2,000 sq ft">1,500 - 2,000 sq ft</option>
+                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
+                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
+                <option value="3,500 - 4,000 sq ft">3,500 - 4,000 sq ft</option>
+                <option value="Over 4,000 sq ft">Over 4,000 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Any special requests? (pets, access instructions, specific areas of focus)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="homewood-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-shield-alt mr-1"></i> Licensed, bonded & insured
+            </p>
+            <div id="homewood-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Homewood Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Professional Cleaning for<br>Homewood's Unique Homes
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            Homewood is one of Birmingham's most beloved communities - a perfect blend of walkable downtown charm and established residential neighborhoods. The vibrant 18th Street corridor features locally-owned boutiques, beloved restaurants, and community gathering spots, while surrounding streets are lined with homes ranging from charming 1920s bungalows to spacious modern builds.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Homes in Homewood typically range from 1,800 to 4,000 square feet, with property values from $250,000 to $800,000+. You'll find Craftsman bungalows with original hardwood floors, Tudor cottages with character details, mid-century ranches, and newer construction - often on the same street. This architectural diversity makes Homewood special, and it requires cleaning teams who understand how to care for different home types.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Homewood attracts families drawn to excellent schools, young professionals who love the walkable lifestyle, and empty nesters who appreciate the convenience and community. Many residents work in downtown Birmingham, the medical district, or nearby Mountain Brook - busy people who want to spend their limited free time enjoying this wonderful community, not cleaning their homes.
+          </p>
+          <p class="text-lg text-gray-700">
+            Whether you live in a cozy cottage near Patriot Park or a larger family home in Edgewood, your home deserves care that respects its character and your busy schedule. We provide reliable, thorough cleaning that lets you love your Homewood lifestyle without the weekend chore list.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Homewood Community Features:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Walkable downtown</strong> with boutiques and restaurants</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Historic bungalows</strong> mixed with new construction</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Family-friendly</strong> with excellent schools</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Typical homes</strong> 1,800-4,000 sq ft</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Young professionals</strong> and growing families</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Original hardwoods</strong> in many older homes</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Strong community</strong> with local events</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Pet-friendly</strong> neighborhood culture</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Homewood Families Trust Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Reliable cleaning for your busy lifestyle</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic & Modern Expertise</h3>
+          <p class="text-gray-600">Homewood's architectural diversity requires flexible expertise. We know how to care for original 1920s hardwood floors in your bungalow AND modern quartz countertops in a new build. Different homes need different approaches - we adapt to what yours needs.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-baby text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Family & Pet Safe Products</h3>
+          <p class="text-gray-600">Homewood is full of families with kids and pets. We use eco-friendly, non-toxic products that are safe for your little ones and furry friends. No harsh chemicals, no worries. Just clean, healthy air and surfaces throughout your home.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Time</h3>
+          <p class="text-gray-600">You'll have the same cleaning team every visit. They learn your home - which floors need special care, where the kids' toys go, your pet's favorite spots. Consistency means better results and a team you actually know and trust in your home.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-briefcase text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Clean While You Work</h3>
+          <p class="text-gray-600">Commute to downtown Birmingham or the medical district? We clean while you're at work. Provide a key or smart lock code, and come home to a sparkling house. No rearranging your schedule, no waiting around. Just the magic of a clean home when you walk in.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Licensed & Insured</h3>
+          <p class="text-gray-600">Every team member is background-checked, bonded, and insured. We carry full liability coverage and workers' compensation. Your home and family are protected. We're professionals who take responsibility seriously - it's the only way we'd do business.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Values</h3>
+          <p class="text-gray-600">Military discipline meets Southern hospitality. We're punctual, thorough, and detail-oriented - arriving on time, doing the job right, and treating your home with respect. The same integrity that served our country now serves Homewood families.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Cleaning Services for Homewood Homes
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Cleaning</h3>
+          <p class="text-gray-600 mb-6">Weekly or bi-weekly cleaning that keeps your Homewood home consistently fresh. Same team every visit learns your preferences and delivers reliable results. Perfect for busy families and professionals.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All rooms cleaned thoroughly</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchen deep cleaned and sanitized</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Bathrooms scrubbed and disinfected</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Floors vacuumed and mopped</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Dusting all surfaces and furniture</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Get Started
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning</h3>
+          <p class="text-gray-600 mb-6">Top-to-bottom intensive cleaning for first-time service, seasonal refresh, or whenever your home needs extra attention. We reach the spots regular cleaning doesn't touch.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Everything in regular clean PLUS</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside appliances and cabinets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards and door frames</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Light fixtures and ceiling fans</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Behind and under furniture</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Book Deep Clean
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-truck text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
+          <p class="text-gray-600 mb-6">Homewood homes sell fast when they sparkle. Complete cleaning for buyers, sellers, renters, and landlords. Get your deposit back or impress your new buyers.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Complete empty home cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All appliances cleaned inside/out</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Windows and window tracks</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Realtor and landlord approved</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Schedule Move Clean
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <p class="text-gray-600 mb-4">
+          Looking for <a href="/locations/birmingham" class="text-[#FFA985] hover:underline font-semibold">all Birmingham services</a> or nearby <a href="/locations/mountain-brook" class="text-[#FFA985] hover:underline font-semibold">Mountain Brook cleaning</a>?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Birmingham Area Residents Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">K Parriski</h4>
+              <p class="text-sm text-gray-500">Birmingham Area Resident</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              E
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Emeria Ewing</h4>
+              <p class="text-sm text-gray-500">Birmingham Area Resident</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Homewood Cleaning FAQs
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving Birmingham Neighborhoods
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/mountain-brook" class="neighborhood-badge block text-center">
+          Mountain Brook
+        </a>
+        <a href="/locations/birmingham" class="neighborhood-badge block text-center">
+          Birmingham
+        </a>
+        <a href="/locations/mountain-brook/cherokee-bend" class="neighborhood-badge block text-center">
+          Vestavia Hills
+        </a>
+        <a href="/locations/mountain-brook/village" class="neighborhood-badge block text-center">
+          Hoover
+        </a>
+        <a href="/locations/mountain-brook/english-village" class="neighborhood-badge block text-center">
+          Cahaba Heights
+        </a>
+        <a href="/locations" class="neighborhood-badge block text-center">
+          View All Locations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Your Homewood Home Deserves <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">The Best</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Join your neighbors who already trust us with their homes. Call now for a free quote on cleaning services tailored to Homewood living.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-calendar-alt mr-2"></i>Same-day service available | 2-hour response guarantee
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('homewood-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('homewood-submit-btn');
+      const messageDiv = document.getElementById('homewood-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'Homewood - Birmingham',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'Homewood Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>

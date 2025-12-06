@@ -1,0 +1,631 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const title = "House Cleaning in Hoover, Alabama | Premium Service";
+const description = "Professional house cleaning in Hoover, AL. Serving Ross Bridge, Greystone, Riverchase & Lake Cyrus. Licensed, insured, veteran-owned.";
+
+// Service schema for Hoover
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "House Cleaning Services in Hoover, Alabama",
+  "description": "Premium residential cleaning services for Hoover homes. Serving Ross Bridge, Greystone, Riverchase, Lake Cyrus, and all Hoover neighborhoods.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "info@thevalleycleanteam.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hoover",
+      "addressRegion": "AL"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Hoover, AL",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "33.4054",
+      "longitude": "-86.8114"
+    }
+  },
+  "serviceType": "Residential Cleaning"
+};
+
+// FAQ Schema specific to Hoover homeowners
+const faqs = [
+  {
+    question: "How much does house cleaning cost in Hoover, Alabama?",
+    answer: "House cleaning in Hoover typically ranges from $175-$450+ depending on your home size and service type. Most Hoover homes (2,000-4,000 sq ft) cost $225-$375 for regular cleaning and $350-$550 for deep cleaning. Larger homes in Ross Bridge or Greystone with 4,000-6,000+ sq ft may cost more. We provide free, customized quotes based on your specific needs. Call 256-826-1100 for an instant Hoover estimate."
+  },
+  {
+    question: "Do you clean homes in Ross Bridge and Greystone golf communities?",
+    answer: "Absolutely! We regularly clean homes in Ross Bridge, Greystone, and other Hoover golf communities. We're familiar with gate access procedures, HOA guidelines, and the larger floor plans typical of these master-planned communities. Many of our Ross Bridge and Greystone clients have recurring weekly or bi-weekly service to keep their beautiful homes in pristine condition year-round."
+  },
+  {
+    question: "Are your cleaning products safe for families with children and pets?",
+    answer: "Yes! We use professional-grade, eco-friendly, non-toxic cleaning products that are completely safe for children and pets. Hoover families with young kids, dogs, and cats appreciate our green cleaning approach that keeps homes healthy and safe. If you have specific allergies or sensitivities, we're happy to accommodate your preferences at no extra charge."
+  },
+  {
+    question: "Do you offer recurring cleaning service for busy Hoover families?",
+    answer: "Yes! Recurring cleaning is our most popular service for Hoover families. We offer weekly, bi-weekly, and monthly service with discounts up to 20% off. Dual-income professionals and families love the consistency - same team, same day each visit, reliable service you can count on. Come home to a clean house without lifting a finger."
+  },
+  {
+    question: "Can you clean our Riverchase Galleria area home on short notice?",
+    answer: "Yes, we offer same-week and sometimes same-day availability for Hoover homes near the Riverchase Galleria area and throughout the city. Whether you need a quick clean before guests arrive or regular maintenance cleaning, we accommodate busy schedules. Call 256-826-1100 for immediate availability in your Hoover neighborhood."
+  },
+  {
+    question: "Do you provide move-in/move-out cleaning in Hoover?",
+    answer: "Absolutely! Hoover has an active real estate market with many families relocating. We provide thorough move-out cleaning to help you get your deposit back or prepare your home for sale, and move-in cleaning to ensure your new Hoover home is spotless before you unpack. We work with many Hoover real estate agents and can coordinate timing with your closing date."
+  },
+  {
+    question: "How do you handle cleaning larger Hoover homes with multiple levels?",
+    answer: "Many Hoover homes in communities like Ross Bridge, Greystone, and Lake Cyrus have 3,000-6,000+ square feet across multiple levels. We send appropriately sized teams based on your home's square footage and cleaning needs. We're experienced with large great rooms, finished basements, bonus rooms, and multi-story layouts common in Hoover's master-planned communities."
+  },
+  {
+    question: "Are your cleaners background-checked and insured for Hoover homes?",
+    answer: "Yes, we carry $2 million in liability insurance and are fully bonded. Every team member undergoes thorough background checks and professional training. As a veteran-owned business, we uphold the highest standards of integrity, professionalism, and trustworthiness - qualities that Hoover homeowners expect and deserve when inviting service providers into their homes."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  geoRegion="US-AL"
+  geoPlacename="Hoover, Alabama"
+  geoPosition="33.4054;-86.8114"
+  canonicalUrl="https://thevalleycleanteam.com/locations/birmingham/hoover"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-city mr-2"></i>Alabama's Fastest Growing City
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            House Cleaning in <span class="gold-gradient">Hoover, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            The Valley Clean Team provides premium house cleaning services for Hoover's thriving communities. From the prestigious Ross Bridge and Greystone golf communities to Riverchase and Lake Cyrus, we deliver the reliable, thorough cleaning service that busy Hoover families deserve - professional, trustworthy, and always exceeding expectations.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Licensed & Insured</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>Veteran Owned</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span>100% Satisfaction</span>
+            </div>
+          </div>
+
+          <!-- Urgency Badge -->
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+            <span class="text-green-700 font-semibold">
+              <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Week Service Available in Hoover
+            </span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <i class="fas fa-phone mr-2"></i>Call: 256-826-1100
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <i class="fas fa-calendar mr-2"></i>Book Your Cleaning
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Hoover Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Fast response for Hoover homeowners</p>
+          <form id="hoover-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="text" name="address" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Hoover Address/Community">
+            </div>
+            <div class="mb-4">
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Select Service Type *</option>
+                <option value="Regular Cleaning">Regular Cleaning</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Recurring Service">Recurring Service (Weekly/Bi-weekly)</option>
+                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <input type="hidden" name="location" value="Hoover, AL">
+            <input type="hidden" name="neighborhood" value="Hoover">
+            <button type="submit" id="hoover-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Get My Free Hoover Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-clock mr-1"></i> Response within 2 hours for Hoover residents
+            </p>
+            <div id="hoover-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Hoover Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
+            Professional Cleaning for <span class="gold-gradient">Hoover's Premier Communities</span>
+          </h2>
+          <p class="text-gray-700 mb-4">
+            Hoover is Alabama's largest suburb and one of the fastest-growing cities in the Southeast. With a population of over 90,000 residents, excellent schools in the Hoover City School District, and proximity to the Riverchase Galleria - Alabama's largest shopping destination - Hoover attracts successful families and professionals who demand quality in every aspect of their lives.
+          </p>
+          <p class="text-gray-700 mb-4">
+            Home values in Hoover range from $250,000 to over $1.5 million, with prestigious master-planned communities like Ross Bridge (featuring the Robert Trent Jones Golf Trail course), Greystone (with its own championship golf course), Riverchase, and the lakefront homes of Lake Cyrus. These communities feature homes typically ranging from 2,000 to 6,000+ square feet with modern amenities, open floor plans, and premium finishes.
+          </p>
+          <p class="text-gray-700 mb-4">
+            The Valley Clean Team understands Hoover families' needs. Whether you're executives commuting to downtown Birmingham, healthcare professionals at Grandview Medical Center, or families juggling kids' activities at the Hoover Met Complex, you don't have time for cleaning - but you want your beautiful Hoover home to always look its best.
+          </p>
+          <p class="text-gray-700">
+            That's where we come in. We provide reliable, thorough, family-friendly cleaning service that lets you focus on your career, your family, and enjoying everything Hoover has to offer - from shopping at the Galleria to dining at Greystone or enjoying outdoor activities at Moss Rock Preserve.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Typical Hoover Home Features</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-home text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Large Floor Plans:</strong> 2,000-6,000+ sq ft common in master-planned communities</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-golf-ball text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Golf Communities:</strong> Ross Bridge, Greystone with premium homes</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-utensils text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Gourmet Kitchens:</strong> Granite counters, stainless appliances, large islands</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-couch text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Open Floor Plans:</strong> Great rooms, vaulted ceilings, hardwood floors</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-water text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Lake Cyrus:</strong> Waterfront and lake-view properties</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-stairs text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Finished Basements:</strong> Rec rooms, home theaters, exercise rooms</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-swimming-pool text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Outdoor Living:</strong> Pools, patios, outdoor kitchens</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-door-open text-[#FFA985] mr-3 mt-1"></i>
+              <span class="text-gray-700"><strong>Multiple Bedrooms:</strong> 4-6 bedrooms for growing families</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Hoover Families <span class="gold-gradient">Choose Us</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">The qualities that matter most to Hoover homeowners</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-baby text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Kid & Pet Friendly</h3>
+          <p class="text-gray-600">We use eco-friendly, non-toxic cleaning products that are completely safe for children and pets. Hoover families with young kids and dogs love our green cleaning approach that keeps homes healthy and safe.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">$2M Insurance Coverage</h3>
+          <p class="text-gray-600">We carry $2 million in liability insurance protecting your valuable Hoover home. Every team member is background-checked, professionally trained, and bonded for your complete peace of mind.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-users text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Consistent Team</h3>
+          <p class="text-gray-600">Same professional team every visit means they learn your Hoover home's layout, your family's preferences, and your routine. Consistency leads to better results and builds trust over time.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-clock text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Flexible Scheduling</h3>
+          <p class="text-gray-600">We work around your family's busy schedule. Clean while kids are at Spain Park High, during your work hours, or on weekends. We accommodate your needs, not the other way around.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-percent text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Recurring Savings</h3>
+          <p class="text-gray-600">Save up to 20% with weekly recurring service. Hoover families love the value and convenience of having their homes professionally cleaned every week without thinking about it.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Veteran-Owned Excellence</h3>
+          <p class="text-gray-600">As a veteran-owned business, we bring military values to every Hoover home: integrity, reliability, attention to detail, and commitment to excellence. Your satisfaction is our mission.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Cleaning Services for <span class="gold-gradient">Hoover Homes</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Complete home care for your Hoover property</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-[#FFA985]">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Weekly or bi-weekly service to keep your Hoover home consistently clean. Perfect for busy families who want to come home to a fresh, clean house.
+          </p>
+          <ul class="space-y-2 mb-4 text-sm text-gray-600">
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>All living spaces cleaned</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Kitchen & bathrooms sanitized</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Floors vacuumed & mopped</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Dusting throughout</li>
+          </ul>
+          <a href="/services/recurring-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-sparkles text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Comprehensive top-to-bottom cleaning perfect for spring cleaning, before holidays, or when your Hoover home needs extra attention.
+          </p>
+          <ul class="space-y-2 mb-4 text-sm text-gray-600">
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Every room thoroughly cleaned</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Baseboards, fans, light fixtures</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Inside appliances & cabinets</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Detailed work throughout</li>
+          </ul>
+          <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">View Checklist →</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-truck-moving text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Relocating to or from Hoover? We ensure homes are spotless for new owners or help you get your deposit back from rentals.
+          </p>
+          <ul class="space-y-2 mb-4 text-sm text-gray-600">
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Empty home deep cleaning</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>All closets & cabinets cleaned</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Coordinate with real estate agents</li>
+            <li><i class="fas fa-check text-[#FFA985] mr-2"></i>Ready for final walk-through</li>
+          </ul>
+          <a href="/services/move-in-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Book Move Cleaning →</a>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <p class="text-gray-600 mb-4">
+          Looking for more services? View our <a href="/services" class="text-[#FFA985] hover:underline font-semibold">complete service offerings</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Hoover Families <span class="gold-gradient">Say About Us</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl">P</div>
+            <div class="ml-4">
+              <h4 class="font-bold text-[#333333]">Patrick S.</h4>
+              <p class="text-sm text-gray-500">Birmingham Area via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-600 italic">"Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl">E</div>
+            <div class="ml-4">
+              <h4 class="font-bold text-[#333333]">Emeria E.</h4>
+              <p class="text-sm text-gray-500">Birmingham Area via Google</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-600 italic">"Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Hoover Cleaning Service <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Questions from Hoover homeowners</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links Section -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Serving All of <span class="gold-gradient">Greater Birmingham</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Professional cleaning throughout the Birmingham metro</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        <a href="/locations/mountain-brook" class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Mountain Brook
+        </a>
+        <a href="/locations/birmingham" class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Vestavia Hills
+        </a>
+        <a href="/locations/birmingham" class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Homewood
+        </a>
+        <a href="/locations/birmingham" class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Cahaba Heights
+        </a>
+        <a href="/locations/birmingham" class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Birmingham
+        </a>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto mt-4">
+        <span class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Ross Bridge
+        </span>
+        <span class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Greystone
+        </span>
+        <span class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Riverchase
+        </span>
+        <span class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Lake Cyrus
+        </span>
+        <span class="neighborhood-badge">
+          <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+          Bluff Park
+        </span>
+      </div>
+      <p class="text-center text-gray-600 mt-8">
+        <a href="/locations" class="text-[#FFA985] font-semibold hover:underline">View all service locations →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for a <span class="gold-gradient">Cleaner Hoover Home</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-4">
+        Join hundreds of Hoover families who trust The Valley Clean Team for professional, reliable service
+      </p>
+      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+        <span class="text-green-700 font-semibold text-lg">
+          <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Week Availability in Hoover!
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+          <i class="fas fa-phone mr-2"></i>Call: 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+          <i class="fas fa-calendar mr-2"></i>Get Free Quote
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>Service Area
+            </h4>
+            <p class="text-gray-600">All of Hoover, AL and surrounding areas</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-clock text-[#FFA985] mr-2"></i>Hours
+            </h4>
+            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-phone text-[#FFA985] mr-2"></i>Contact
+            </h4>
+            <p class="text-gray-600">256-826-1100<br>info@thevalleycleanteam.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('hoover-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('hoover-submit-btn');
+      const messageDiv = document.getElementById('hoover-form-message');
+      const form = e.target as HTMLFormElement;
+
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service') as HTMLSelectElement)?.value || '',
+        address: (form.elements.namedItem('address') as HTMLInputElement)?.value || '',
+        location: (form.elements.namedItem('location') as HTMLInputElement)?.value || '',
+        neighborhood: (form.elements.namedItem('neighborhood') as HTMLInputElement)?.value || '',
+        source: 'Hoover Landing Page',
+        page_url: window.location.href
+      };
+
+      if (submitBtn) {
+        (submitBtn as HTMLButtonElement).disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Please call us at 256-826-1100 for immediate assistance.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+
+      if (submitBtn) {
+        (submitBtn as HTMLButtonElement).disabled = false;
+        submitBtn.textContent = 'Get My Free Hoover Quote';
+      }
+    });
+  </script>
+</BaseLayout>
