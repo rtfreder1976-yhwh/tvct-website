@@ -61,16 +61,16 @@ The Valley Clean Team is a veteran-owned professional cleaning company proudly s
 ### Bing Places
 - **URL:** https://www.bingplaces.com
 - **Priority:** HIGH - Powers Bing, Cortana, and some Apple Maps data
-- [ ] Create/claim listing
+- [X ] Create/claim listing
 - [ ] Import from Google Business Profile (easiest option)
 - [ ] OR manually add all business information
-- [ ] Add business description
+- [ X] Add business description
 - [ ] Upload photos
 - [ ] Add service areas
 - [ ] Verify listing
-- **Date Completed:** _______________
-- **Login Email:** _______________
-- **Notes:** _______________
+- **Date Completed:** 11/27/2025
+- **Login Email:** todd@thevalleycleanteam.com (Google Login)
+- **Notes:** Need to check service locations/areas.
 
 ---
 
@@ -84,9 +84,9 @@ The Valley Clean Team is a veteran-owned professional cleaning company proudly s
 - [ ] Upload photos
 - [ ] Add categories
 - [ ] Verify listing
-- **Date Completed:** _______________
-- **Apple ID Used:** _______________
-- **Notes:** _______________
+- **Date Completed:** 11/27/2025
+- **Apple ID Used:** rtfreder@gmail.com
+- **Notes:** Need to upload more photos, not in webp format.
 
 ---
 
@@ -199,7 +199,7 @@ The Valley Clean Team is a veteran-owned professional cleaning company proudly s
 - [ ] OR create free business profile (no accreditation badge)
 - [ ] Add all business information
 - [ ] Respond to any complaints
-- **Date Completed:** _______________
+- **Date Completed:** 11/27/2023
 - **Accredited:** Yes / No
 - **Notes:** _______________
 

@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
+  trailingSlash: 'never',
   integrations: [
     tailwind(),
     sitemap({
@@ -91,6 +91,7 @@ export default defineConfig({
     })
   ],
   build: {
-    format: 'directory'
+    format: 'directory',
+    inlineStylesheets: 'always'
   }
 });

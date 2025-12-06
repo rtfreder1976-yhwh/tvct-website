@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Valley Clean Team - Cleaning Checklist</title>
+  <style>
+    /* ============================================
+       CUSTOMIZABLE VARIABLES - Edit these easily!
+       ============================================ */
+    :root {
+      --primary-color: #f4a261;      /* Main orange color */
+      --primary-light: #fdf0e6;      /* Light background */
+      --header-bg: #f4a261;          /* Header background */
+      --text-dark: #333333;          /* Dark text */
+      --text-medium: #666666;        /* Medium text */
+      --border-color: #e8e8e8;       /* Table borders */
+      --check-color: #f4a261;        /* Checkbox color */
+      --white: #ffffff;
+
+      /* Spacing */
+      --section-gap: 1.5rem;
+      --cell-padding: 0.5rem 0.75rem;
+
+      /* Typography */
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --header-font-size: 2.5rem;
+      --subheader-font-size: 1.25rem;
+      --section-title-size: 1.1rem;
+      --task-font-size: 0.9rem;
+    }
+
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      color: var(--text-dark);
+      background: var(--white);
+      line-height: 1.4;
+    }
+
+    /* ============================================
+       PAGE CONTAINER
+       ============================================ */
+    .checklist-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* ============================================
+       HEADER SECTION
+       ============================================ */
+    .header {
+      background: var(--header-bg);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--section-gap);
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--white);
+    }
+
+    .logo-text {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .logo-tagline {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .header-title {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-title h1 {
+      color: var(--white);
+      font-size: var(--header-font-size);
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+
+    .header-title h2 {
+      color: var(--white);
+      font-size: var(--subheader-font-size);
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .header-illustration {
+      width: 80px;
+      height: 80px;
+      /* Placeholder for illustration - add your own image */
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 0.7rem;
+    }
+
+    /* ============================================
+       CHECKLIST TABLE STYLES
+       ============================================ */
+    .checklist-section {
+      margin-bottom: var(--section-gap);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 0.75rem 1rem;
+      font-size: var(--section-title-size);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .checklist-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .checklist-table thead {
+      background: var(--primary-light);
+    }
+
+    .checklist-table th {
+      padding: var(--cell-padding);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-medium);
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .checklist-table th:first-child {
+      text-align: left;
+      width: 45%;
+    }
+
+    .checklist-table td {
+      padding: var(--cell-padding);
+      font-size: var(--task-font-size);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .checklist-table td:first-child {
+      color: var(--text-dark);
+    }
+
+    .checklist-table td:not(:first-child) {
+      text-align: center;
+    }
+
+    .checklist-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .checklist-table tr:hover {
+      background: var(--primary-light);
+    }
+
+    /* ============================================
+       CHECKBOX STYLES
+       ============================================ */
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--check-color);
+      border-radius: 3px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .checkbox.checked {
+      background: var(--check-color);
+    }
+
+    .checkbox.checked::after {
+      content: '✓';
+      color: var(--white);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .checkbox:not(.checked)::after {
+      content: '';
+    }
+
+    /* ============================================
+       TWO-COLUMN LAYOUT FOR PRINT
+       ============================================ */
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .header-title h1 {
+        font-size: 1.75rem;
+      }
+    }
+
+    /* ============================================
+       PRINT STYLES
+       ============================================ */
+    @media print {
+      .checklist-page {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      .checklist-section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="checklist-page">
+
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-text">The Valley Clean Team</span>
+        <span class="logo-tagline">Life is messy. We've got this.</span>
+      </div>
+      <div class="header-title">
+        <h1>The Valley Clean Team</h1>
+        <h2>Cleaning Checklist</h2>
+      </div>
+      <div class="header-illustration">
+        <!-- Add your illustration here -->
+        <span>🧹</span>
+      </div>
+    </header>
+
+    <!-- ========== ALL ROOMS SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">All Rooms</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ALL ROOMS TASKS - Edit these easily! -->
+          <tr>
+            <td>Remove cobwebs</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Empty trash</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Sweep/vacuum floors (carpet + hard surfaces)</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Mop floors (hard surfaces)</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust shelves</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust blinds, windows, window sills</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Wipe &amp; clean mirrors</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Wipe &amp; clean light switches</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean glass surfaces</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust baseboards</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust reachable ceiling fans &amp; vents</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust furniture/lamps</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== KITCHEN SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Kitchen</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Inside/outside of microwave oven</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean backsplash</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Exterior of trash can</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Outside of stove hood</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean stovetop</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Countertops</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean sink &amp; chrome</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Exterior of cabinets &amp; drawers</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Pantry floor &amp; door</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Top of refrigerator</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Tables and chairs</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Outside of appliances</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== BATHROOMS SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Bathrooms</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Clean shower</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean tub</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Polish faucets</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean sinks</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean toilet and toilet area</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean counters</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust ledges</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Exterior of cabinets and drawers</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust doors &amp; door frames</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Vacuum rugs</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== BEDROOMS SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Bedrooms</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Make beds (change linen if available)</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Vacuum rugs</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Exterior of cabinets and drawers</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust ledges</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust doors &amp; door frames</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== LAUNDRY ROOM SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Laundry Room</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dust and wipe the outside of washer &amp; dryer</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Clean sinks</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Vacuum rugs</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Countertops</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust ledges</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust doors &amp; door frames</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== DINING ROOM SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Dining Room</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dust ledges</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Tables &amp; chairs</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Dust doors &amp; door frames</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== LIVING ROOM SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Living Room</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dust ledges</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Exterior of cabinets &amp; drawers</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust doors &amp; door frames</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== OFFICE SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Office</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dust ledges</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Vacuum rugs</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Exterior of cabinets &amp; drawers</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+          <tr>
+            <td>Dust doors &amp; door frames</td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox checked"></span></td>
+            <td><span class="checkbox checked"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ========== EXTRA SERVICES SECTION ========== -->
+    <section class="checklist-section">
+      <div class="section-header">Extra Services</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wash dishes</td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Wet wipe windows &amp; blinds</td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Clean inside of oven</td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Clean inside of refrigerator</td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Clean interior of kitchen cabinets</td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+          <tr>
+            <td>Hand detail baseboards</td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+            <td><span class="checkbox"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+
+</body>
+</html>

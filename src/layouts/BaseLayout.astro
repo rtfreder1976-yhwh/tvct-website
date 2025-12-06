@@ -44,19 +44,16 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Preconnect to critical third-party origins (improves LCP) -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <!-- Preconnect to critical third-party origins -->
+    <link rel="preconnect" href="https://wsrv.nl" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- DNS Prefetch for additional resources -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://storage.googleapis.com" />
+    <!-- Preload self-hosted critical font for LCP (H1 uses Playfair Display Bold) -->
+    <link rel="preload" href="/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin />
 
-    <!-- Preload critical font for LCP (H1 uses Playfair Display Bold) -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://wsrv.nl" />
+    <!-- DNS Prefetch for additional resources -->
+    <link rel="dns-prefetch" href="https://storage.googleapis.com" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -199,22 +196,16 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
       /* Prevent layout shift for images */
       img{aspect-ratio:attr(width)/attr(height)}
 
-      /* Critical font declarations - use preloaded fonts immediately */
-      @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2) format('woff2')}
+      /* Critical font declarations - use preloaded self-hosted fonts immediately */
+      @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/playfair-display-700.woff2) format('woff2')}
       @font-face{font-family:'Inter';font-display:swap}
     </style>
 
-    <!-- Font Awesome with font-display: swap - load fonts inline, then only class definitions -->
-    <style is:inline>
-      @font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:swap;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2) format("woff2")}
-      .fa,.fas,.fa-solid{font-family:"Font Awesome 6 Free";font-weight:900;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;line-height:1;text-rendering:auto}
-      .fab,.fa-brands{font-family:"Font Awesome 6 Brands";font-weight:400;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;line-height:1;text-rendering:auto}
-      .fa-phone:before{content:"\f095"}.fa-bars:before{content:"\f0c9"}.fa-envelope:before{content:"\f0e0"}.fa-map-marker-alt:before,.fa-location-dot:before{content:"\f3c5"}.fa-check:before{content:"\f00c"}.fa-check-circle:before,.fa-circle-check:before{content:"\f058"}.fa-star:before{content:"\f005"}.fa-arrow-right:before{content:"\f061"}.fa-shield-alt:before,.fa-shield-halved:before{content:"\f3ed"}.fa-clock:before{content:"\f017"}.fa-calendar-check:before{content:"\f274"}.fa-certificate:before{content:"\f0a3"}.fa-home:before,.fa-house:before{content:"\f015"}.fa-redo:before,.fa-arrow-rotate-right:before{content:"\f01e"}.fa-id-card:before{content:"\f2c2"}.fa-file-contract:before{content:"\f56c"}.fa-users:before{content:"\f0c0"}.fa-bolt:before{content:"\f0e7"}.fa-question-circle:before,.fa-circle-question:before{content:"\f059"}.fa-map:before{content:"\f279"}.fa-medal:before{content:"\f5a2"}.fa-sparkles:before{content:"\f890"}.fa-broom:before{content:"\f51a"}.fa-leaf:before{content:"\f06c"}.fa-building:before{content:"\f1ad"}.fa-truck:before{content:"\f0d1"}.fa-couch:before{content:"\f4b8"}.fa-bed:before{content:"\f236"}.fa-toilet:before{content:"\f7d8"}.fa-sink:before{content:"\e06d"}.fa-blender:before{content:"\f517"}.fa-door-open:before{content:"\f52b"}.fa-box:before{content:"\f466"}.fa-hammer:before{content:"\f6e3"}.fa-hard-hat:before,.fa-helmet-safety:before{content:"\f807"}.fa-glass-cheers:before,.fa-champagne-glasses:before{content:"\f79f"}.fa-birthday-cake:before,.fa-cake-candles:before{content:"\f1fd"}.fa-calendar-alt:before,.fa-calendar-days:before{content:"\f073"}.fa-seedling:before{content:"\f4d8"}.fa-recycle:before{content:"\f1b8"}.fa-spray-can:before{content:"\f5bd"}.fa-heart:before{content:"\f004"}.fa-quote-left:before{content:"\f10d"}.fa-times:before,.fa-xmark:before{content:"\f00d"}.fa-chevron-down:before{content:"\f078"}.fa-chevron-up:before{content:"\f077"}.fa-chevron-right:before{content:"\f054"}.fa-chevron-left:before{content:"\f053"}.fa-plus:before{content:"\2b"}.fa-minus:before{content:"\f068"}.fa-info-circle:before,.fa-circle-info:before{content:"\f05a"}.fa-exclamation-triangle:before,.fa-triangle-exclamation:before{content:"\f071"}.fa-facebook:before,.fa-facebook-f:before{content:"\f39e"}.fa-instagram:before{content:"\f16d"}.fa-twitter:before{content:"\f099"}.fa-google:before{content:"\f1a0"}.fa-yelp:before{content:"\f1e9"}.fa-lightbulb:before{content:"\f0eb"}.fa-fire:before{content:"\f06d"}.fa-apple-alt:before{content:"\f5d1"}.fa-wand-magic-sparkles:before{content:"\e2ca"}.fa-gift:before{content:"\f06b"}.fa-user:before{content:"\f007"}.fa-door-closed:before{content:"\f52a"}.fa-stopwatch:before{content:"\f2f2"}.fa-ban:before{content:"\f05e"}.fa-snowflake:before{content:"\f2dc"}.fa-tree:before{content:"\f1bb"}.fa-brain:before{content:"\f5dc"}.fa-dollar-sign:before{content:"\24"}.fa-utensils:before{content:"\f2e7"}.fa-square:before{content:"\f0c8"}.fa-box-open:before{content:"\f49e"}.fa-bath:before{content:"\f2cd"}.fa-eye-slash:before{content:"\f070"}.fa-sync:before,.fa-rotate:before{content:"\f021"}.fa-hands-helping:before,.fa-handshake-angle:before{content:"\f4c4"}.fa-sun:before{content:"\f185"}.fa-search:before,.fa-magnifying-glass:before{content:"\f002"}.fa-list-ol:before{content:"\f0cb"}.fa-wine-glass:before{content:"\f4e3"}.fa-wine-glass-alt:before,.fa-wine-glass-empty:before{content:"\f5ce"}.fa-drumstick-bite:before{content:"\f6d7"}.fa-calendar:before{content:"\f133"}.fa-lock:before{content:"\f023"}.fa-user-check:before{content:"\f4fc"}.fa-award:before{content:"\f559"}.fa-handshake:before{content:"\f2b5"}
-    </style>
+    <!-- Icons now use Lucide (inline SVG) - no font loading required -->
 
-    <!-- Google Fonts loaded asynchronously -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+    <!-- Google Fonts - Inter only (Playfair Display is self-hosted for LCP) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" /></noscript>
 
     <!-- Non-critical styles -->
     <style>
@@ -471,10 +462,6 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
           }, { passive: true });
         }
       })();
-    </script>
-    <!-- Lazy load fa-brands font after page load (for footer social icons) -->
-    <script is:inline>
-      if('requestIdleCallback' in window){requestIdleCallback(function(){var s=document.createElement('style');s.textContent='@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:swap;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2) format("woff2")}';document.head.appendChild(s)})}else{setTimeout(function(){var s=document.createElement('style');s.textContent='@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:swap;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2) format("woff2")}';document.head.appendChild(s)},1000)}
     </script>
 
   </body>

@@ -1,0 +1,379 @@
+---
+/**
+ * CleaningChecklist.astro
+ * 
+ * A data-driven cleaning checklist component for The Valley Clean Team.
+ * 
+ * HOW TO EDIT:
+ * 1. Modify the `checklistData` array below to add/remove/edit tasks
+ * 2. Change colors in the <style> section's CSS variables
+ * 3. Each task has: name, deep, weekly, monthly, moveInOut (true/false)
+ */
+
+// ============================================
+// CHECKLIST DATA - EDIT YOUR TASKS HERE!
+// ============================================
+const checklistData = [
+  {
+    section: "All Rooms",
+    tasks: [
+      { name: "Remove cobwebs", deep: true, weekly: false, monthly: true, moveInOut: true },
+      { name: "Empty trash", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Sweep/vacuum floors (carpet + hard surfaces)", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Mop floors (hard surfaces)", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust shelves", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust blinds, windows, window sills", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Wipe & clean mirrors", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Wipe & clean light switches", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean glass surfaces", deep: true, weekly: false, monthly: true, moveInOut: true },
+      { name: "Dust baseboards", deep: true, weekly: false, monthly: true, moveInOut: true },
+      { name: "Dust reachable ceiling fans & vents", deep: true, weekly: false, monthly: true, moveInOut: true },
+      { name: "Dust furniture/lamps", deep: true, weekly: true, monthly: true, moveInOut: false },
+    ]
+  },
+  {
+    section: "Kitchen",
+    tasks: [
+      { name: "Inside/outside of microwave oven", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean backsplash", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Exterior of trash can", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Outside of stove hood", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean stovetop", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Countertops", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean sink & chrome", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Exterior of cabinets & drawers", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Pantry floor & door", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Top of refrigerator", deep: true, weekly: false, monthly: true, moveInOut: true },
+      { name: "Tables and chairs", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Outside of appliances", deep: true, weekly: true, monthly: true, moveInOut: false },
+    ]
+  },
+  {
+    section: "Bathrooms",
+    tasks: [
+      { name: "Clean shower", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean tub", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Polish faucets", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean sinks", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean toilet and toilet area", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean counters", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust ledges", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Exterior of cabinets and drawers", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust doors & door frames", deep: true, weekly: false, monthly: true, moveInOut: true },
+      { name: "Vacuum rugs", deep: true, weekly: true, monthly: true, moveInOut: false },
+    ]
+  },
+  {
+    section: "Bedrooms",
+    tasks: [
+      { name: "Make beds (change linen if available)", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Vacuum rugs", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Exterior of cabinets and drawers", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust ledges", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust doors & door frames", deep: true, weekly: false, monthly: true, moveInOut: true },
+    ]
+  },
+  {
+    section: "Laundry Room",
+    tasks: [
+      { name: "Dust and wipe the outside of washer & dryer", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Clean sinks", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Vacuum rugs", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Countertops", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust ledges", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust doors & door frames", deep: true, weekly: false, monthly: true, moveInOut: true },
+    ]
+  },
+  {
+    section: "Dining Room",
+    tasks: [
+      { name: "Dust ledges", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Tables & chairs", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Dust doors & door frames", deep: true, weekly: false, monthly: true, moveInOut: true },
+    ]
+  },
+  {
+    section: "Living Room",
+    tasks: [
+      { name: "Dust ledges", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Exterior of cabinets & drawers", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust doors & door frames", deep: true, weekly: false, monthly: true, moveInOut: true },
+    ]
+  },
+  {
+    section: "Office",
+    tasks: [
+      { name: "Dust ledges", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Vacuum rugs", deep: true, weekly: true, monthly: true, moveInOut: false },
+      { name: "Exterior of cabinets & drawers", deep: true, weekly: true, monthly: true, moveInOut: true },
+      { name: "Dust doors & door frames", deep: true, weekly: false, monthly: true, moveInOut: true },
+    ]
+  },
+  {
+    section: "Extra Services",
+    tasks: [
+      { name: "Wash dishes", deep: false, weekly: false, monthly: false, moveInOut: false },
+      { name: "Wet wipe windows & blinds", deep: false, weekly: false, monthly: false, moveInOut: false },
+      { name: "Clean inside of oven", deep: false, weekly: false, monthly: false, moveInOut: false },
+      { name: "Clean inside of refrigerator", deep: false, weekly: false, monthly: false, moveInOut: false },
+      { name: "Clean interior of kitchen cabinets", deep: false, weekly: false, monthly: false, moveInOut: false },
+      { name: "Hand detail baseboards", deep: false, weekly: false, monthly: false, moveInOut: false },
+    ]
+  },
+];
+
+// Company info - edit these!
+const companyName = "The Valley Clean Team";
+const tagline = "Making Your Life Shine";
+---
+
+<div class="checklist-page">
+  
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-text">{companyName}</span>
+      <span class="logo-tagline">{tagline}</span>
+    </div>
+    <div class="header-title">
+      <h1>{companyName}</h1>
+      <h2>Cleaning Checklist</h2>
+    </div>
+    <div class="header-illustration">
+      <!-- Replace with your image: <img src="/path/to/image.png" alt="Cleaner" /> -->
+      <span>🧹</span>
+    </div>
+  </header>
+
+  <!-- Checklist Sections -->
+  {checklistData.map((section) => (
+    <section class="checklist-section">
+      <div class="section-header">{section.section}</div>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Deep</th>
+            <th>Weekly/<br/>Bi-Weekly</th>
+            <th>Monthly</th>
+            <th>Move<br/>In/Out</th>
+          </tr>
+        </thead>
+        <tbody>
+          {section.tasks.map((task) => (
+            <tr>
+              <td>{task.name}</td>
+              <td><span class={`checkbox ${task.deep ? 'checked' : ''}`}></span></td>
+              <td><span class={`checkbox ${task.weekly ? 'checked' : ''}`}></span></td>
+              <td><span class={`checkbox ${task.monthly ? 'checked' : ''}`}></span></td>
+              <td><span class={`checkbox ${task.moveInOut ? 'checked' : ''}`}></span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  ))}
+
+</div>
+
+<style>
+  /* ============================================
+     CUSTOMIZABLE VARIABLES - Edit colors here!
+     ============================================ */
+  :root {
+    --primary-color: #f4a261;      /* Main orange color */
+    --primary-light: #fdf0e6;      /* Light background */
+    --header-bg: #f4a261;          /* Header background */
+    --text-dark: #333333;          /* Dark text */
+    --text-medium: #666666;        /* Medium text */
+    --border-color: #e8e8e8;       /* Table borders */
+    --check-color: #f4a261;        /* Checkbox color */
+    --white: #ffffff;
+  }
+
+  /* Base styles */
+  .checklist-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+  }
+
+  /* Header */
+  .header {
+    background: var(--header-bg);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--white);
+  }
+
+  .logo-text {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .logo-tagline {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .header-title {
+    text-align: center;
+    flex: 1;
+  }
+
+  .header-title h1 {
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .header-title h2 {
+    color: var(--white);
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .header-illustration {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  /* Checklist sections */
+  .checklist-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Table styles */
+  .checklist-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .checklist-table thead {
+    background: var(--primary-light);
+  }
+
+  .checklist-table th {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .checklist-table th:first-child {
+    text-align: left;
+    width: 45%;
+  }
+
+  .checklist-table td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .checklist-table td:not(:first-child) {
+    text-align: center;
+  }
+
+  .checklist-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .checklist-table tr:hover {
+    background: var(--primary-light);
+  }
+
+  /* Checkbox styles */
+  .checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--check-color);
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .checkbox.checked {
+    background: var(--check-color);
+  }
+
+  .checkbox.checked::after {
+    content: '✓';
+    color: var(--white);
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .header-title h1 {
+      font-size: 1.75rem;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    .checklist-page {
+      max-width: 100%;
+      padding: 0;
+    }
+    
+    .checklist-section {
+      break-inside: avoid;
+    }
+  }
+</style>
+
+<script>
+  // Make checkboxes interactive
+  document.querySelectorAll('.checkbox').forEach(checkbox => {
+    checkbox.addEventListener('click', function() {
+      this.classList.toggle('checked');
+    });
+  });
+</script>

@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
 
 // Define all blog posts with metadata
 const blogPosts = [
@@ -242,12 +243,12 @@ const categoryColors: Record<string, string> = {
           <div id="filter-indicator" class="hidden mb-6 p-4 bg-[#FFA985]/10 rounded-xl border border-[#FFA985]/20">
             <div class="flex items-center justify-between">
               <span class="text-[#333333]">
-                <i class="fas fa-filter text-[#FFA985] mr-2"></i>
+                <Icon name="filter" class="w-5 h-5 text-[#FFA985] mr-2" />
                 Showing: <strong id="active-filter-name">All Posts</strong>
                 <span id="filter-count" class="text-gray-500 ml-2"></span>
               </span>
               <button id="clear-filter" class="text-[#FFA985] hover:underline text-sm font-medium">
-                <i class="fas fa-times mr-1"></i>Clear Filter
+                <Icon name="times" class="w-5 h-5 mr-1" />Clear Filter
               </button>
             </div>
           </div>
@@ -297,7 +298,7 @@ const categoryColors: Record<string, string> = {
 
           <!-- No Results Message -->
           <div id="no-results" class="hidden text-center py-12">
-            <i class="fas fa-search text-gray-300 text-6xl mb-4"></i>
+            <Icon name="search" class="w-16 h-16 text-gray-300  mb-4" />
             <p class="text-gray-500 text-lg">No posts found in this category.</p>
           </div>
         </div>
@@ -352,7 +353,7 @@ const categoryColors: Record<string, string> = {
           <!-- CTA Widget -->
           <div class="bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-2xl p-6 border border-gray-200 mt-6">
             <div class="text-center">
-              <i class="fas fa-star text-[#FFA985] text-4xl mb-4"></i>
+              <Icon name="star" class="w-10 h-10 text-[#FFA985]  mb-4" />
               <h3 class="text-xl font-bold mb-3 text-[#333333]">Need Professional Help?</h3>
               <p class="text-gray-600 mb-4">
                 Let our expert team handle the cleaning while you focus on what matters most.
@@ -370,7 +371,7 @@ const categoryColors: Record<string, string> = {
   <!-- Newsletter Section -->
   <section class="py-16 px-6 bg-gray-50">
     <div class="container mx-auto max-w-4xl text-center">
-      <i class="fas fa-envelope text-[#FFA985] text-5xl mb-4"></i>
+      <Icon name="envelope" class="w-12 h-12 text-[#FFA985]  mb-4" />
       <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
         Get Cleaning Tips Delivered to Your Inbox
       </h2>
@@ -386,7 +387,7 @@ const categoryColors: Record<string, string> = {
       </form>
       <div id="newsletter-form-message" class="hidden text-center p-4 rounded-lg mt-4 max-w-2xl mx-auto"></div>
       <p class="text-sm text-gray-500 mt-4">
-        <i class="fas fa-lock mr-1"></i> We respect your privacy. Unsubscribe anytime.
+        <Icon name="lock" class="w-5 h-5 mr-1" /> We respect your privacy. Unsubscribe anytime.
       </p>
     </div>
   </section>
@@ -517,7 +518,7 @@ const categoryColors: Record<string, string> = {
 
       if (submitBtn) {
         (submitBtn as HTMLButtonElement).disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>...';
+        submitBtn.innerHTML = '<Icon name="spinner" class="w-5 h-5 fa-spin mr-2" />...';
       }
 
       try {
@@ -531,7 +532,7 @@ const categoryColors: Record<string, string> = {
         if (response.ok && result.success) {
           if (messageDiv) {
             messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thanks for subscribing! Check your inbox for cleaning tips.';
+            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thanks for subscribing! Check your inbox for cleaning tips.';
             messageDiv.classList.remove('hidden');
           }
           form.reset();
@@ -541,7 +542,7 @@ const categoryColors: Record<string, string> = {
       } catch (error) {
         if (messageDiv) {
           messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please try again.';
+          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please try again.';
           messageDiv.classList.remove('hidden');
         }
       }
