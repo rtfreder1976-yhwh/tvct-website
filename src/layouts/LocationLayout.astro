@@ -21,12 +21,14 @@ interface Props {
     text: string;
   }>;
   neighborhoods?: string[];
+  canonicalSlug?: string;
 }
 
-const { title, description, city, state, region, tagline, heroDescription, features, testimonials, neighborhoods = [] } = Astro.props;
+const { title, description, city, state, region, tagline, heroDescription, features, testimonials, neighborhoods = [], canonicalSlug } = Astro.props;
 
 // Generate canonical URL for location pages
-const citySlug = city.toLowerCase().replace(/\s+/g, '-');
+// Use explicit canonicalSlug if provided, otherwise generate from city name
+const citySlug = canonicalSlug || city.toLowerCase().replace(/\s+/g, '-');
 const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}`;
 
 // Geographic data for location-specific meta tags
