@@ -1,0 +1,622 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const faqs = [
+  {
+    question: "Do you serve all sections of Bradford Creek?",
+    answer: "Yes, we serve every section of Bradford Creek including the original phases near Balch Road and the newer developments. Whether you live in the established homes built in the 1990s or the more recent additions, our team knows the neighborhood well and can accommodate your cleaning needs."
+  },
+  {
+    question: "What size homes do you typically clean in Bradford Creek?",
+    answer: "Most Bradford Creek homes range from 2,000 to 3,500 square feet with 3-5 bedrooms. We're experienced with these family-sized homes and price our services accordingly. Whether you have a cozy starter home or a larger property, we can customize our service to fit your needs and budget."
+  },
+  {
+    question: "Can you clean during school hours while my kids are away?",
+    answer: "Absolutely! This is a popular option for Bradford Creek families. Many of our clients are parents who want the house cleaned while kids are at James Clemens, Discovery Middle, or one of the excellent Madison City schools. We'll clean efficiently and be finished before the school bus returns."
+  },
+  {
+    question: "How do you handle homes with pets?",
+    answer: "Bradford Creek is full of pet-loving families, and we're comfortable working around dogs, cats, and other pets. We use pet-safe cleaning products and can work around your pet's routine. If you prefer, we can clean while pets are kenneled or in a separate room - just let us know your preference."
+  },
+  {
+    question: "What's the difference between regular cleaning and deep cleaning?",
+    answer: "Regular cleaning covers your weekly or bi-weekly maintenance needs - all living areas, kitchens, bathrooms, dusting, vacuuming, and mopping. Deep cleaning goes further with baseboards, ceiling fans, inside appliances, window tracks, cabinet fronts, and areas that don't get attention in routine cleaning. We recommend a deep clean seasonally or as a first-time service."
+  },
+  {
+    question: "Do I need to be home during the cleaning?",
+    answer: "Not at all! Most Bradford Creek clients provide us with a garage code, key, or smart lock access. We clean while you're at work and lock up securely when finished. Our team members are background-checked and fully insured, so you can trust us in your home."
+  },
+  {
+    question: "How far in advance do I need to book?",
+    answer: "For regular recurring service, we can usually start within a week. For one-time or deep cleaning, we recommend booking 3-5 days ahead, though we do offer same-day service when available. The earlier you book, the better chance you have of getting your preferred time slot."
+  },
+  {
+    question: "What if I'm not satisfied with the cleaning?",
+    answer: "Your satisfaction is our priority. If anything doesn't meet your expectations, let us know within 24 hours and we'll come back to make it right at no additional charge. We want Bradford Creek families to be completely happy with our service - that's how we've built our reputation."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Premium Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Huntsville",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "130"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Bradford Creek - Madison, Alabama",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for Bradford Creek families in Madison, Alabama. Regular maintenance, deep cleaning, and move-in/out services for established family homes.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "Contact for Quote"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning in Bradford Creek, Madison AL | Premium Service"
+  description="Trusted cleaning services for Bradford Creek homes in Madison. Family-friendly, background-checked team. Weekly, deep, and move cleaning. Book today!"
+  geoRegion="US-AL"
+  geoPlacename="Bradford Creek, Madison, Alabama"
+  geoPosition="34.7050;-86.7680"
+  canonicalUrl="https://thevalleycleanteam.com/locations/madison/bradford-creek"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <i class="fas fa-home mr-2"></i>Established Elegance in Madison
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Bradford Creek</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Bradford Creek families deserve more than clean homes - they deserve time with their families. As one of Madison's most established neighborhoods, we understand the pride you take in your home. Let us handle the cleaning while you focus on what matters most: making memories with your loved ones.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-users text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Family</p>
+              <p class="text-gray-400 text-xs">Friendly</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-shield-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Background</p>
+              <p class="text-gray-400 text-xs">Checked</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <i class="fas fa-calendar-check text-[#FFA985] text-2xl mb-2"></i>
+              <p class="text-white font-semibold text-sm">Flexible</p>
+              <p class="text-gray-400 text-xs">Scheduling</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <i class="fas fa-phone mr-2"></i>Call for Quote
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <i class="fas fa-clock mr-1"></i> 2-HOUR RESPONSE
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Proudly serving Bradford Creek families</p>
+          <form id="bradford-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Select Service *</option>
+                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move In/Out">Move In/Out Cleaning</option>
+                <option value="Post-Construction">Post-Construction</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
+                <option value="">Home Size *</option>
+                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
+                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
+                <option value="2,500 - 3,000 sq ft">2,500 - 3,000 sq ft</option>
+                <option value="3,000 - 3,500 sq ft">3,000 - 3,500 sq ft</option>
+                <option value="Over 3,500 sq ft">Over 3,500 sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (pets, special requests, etc.)" rows="2"></textarea>
+            </div>
+            <button type="submit" id="bradford-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-shield-alt mr-1"></i> Licensed, bonded & insured
+            </p>
+            <div id="bradford-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Bradford Creek Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Cleaning Services Designed for<br>Bradford Creek Living
+          </h2>
+          <div class="section-divider" style="margin-left: 0;"></div>
+          <p class="text-lg text-gray-700 mb-4">
+            Bradford Creek is one of Madison's most beloved established neighborhoods, known for its tree-lined streets, family-friendly atmosphere, and strong sense of community. Developed primarily in the 1990s and early 2000s, this neighborhood offers mature landscaping, generous lot sizes, and homes that have stood the test of time.
+          </p>
+          <p class="text-lg text-gray-700 mb-4">
+            Families choose Bradford Creek for its proximity to top-rated Madison City Schools, including James Clemens High School and Discovery Middle School. The neighborhood attracts professionals who work at nearby Cummings Research Park, Redstone Arsenal, and throughout the Huntsville metro area. These are busy families who value quality time together.
+          </p>
+          <p class="text-lg text-gray-700">
+            Your Bradford Creek home represents years of memories and investment. Whether it's maintaining the gleaming hardwoods in your living room, keeping up with the kids' playroom, or ensuring your master suite feels like a retreat, The Valley Clean Team understands what matters to Madison families. We'll treat your home with the care and attention it deserves.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Bradford Creek Home Features:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>2,000-3,500 sq ft</strong> family-sized homes</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>3-5 bedrooms</strong> with bonus rooms common</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Hardwood floors</strong> and carpet combinations</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Updated kitchens</strong> with granite and islands</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Mature landscaping</strong> and established lots</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>2-car garages</strong> and covered porches</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Open floor plans</strong> for family gatherings</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mt-1 mr-3 flex-shrink-0"></i>
+              <span class="text-gray-700"><strong>Fenced backyards</strong> for kids and pets</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Bradford Creek Families Choose Us
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Trusted service for Madison's established neighborhoods</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-friends text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Consistent Team Every Visit</h3>
+          <p class="text-gray-600">No revolving door of strangers. You'll have the same trusted team every time, people who know your home, your family, and your preferences. They'll remember that your dog is shy or which products you prefer. Consistency builds trust, and trust is everything.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-child text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Family-Safe Products</h3>
+          <p class="text-gray-600">With kids and pets in most Bradford Creek homes, we use eco-friendly, non-toxic cleaning products that are tough on dirt but gentle on your family. No harsh chemicals lingering after we leave. Your children and pets can safely play on freshly cleaned floors.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-clock text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">School-Hours Scheduling</h3>
+          <p class="text-gray-600">We understand the rhythm of family life in Bradford Creek. Schedule your cleaning during school hours and come home to a spotless house. No more spending Saturday mornings cleaning when you could be at your kid's soccer game or enjoying a family outing.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-user-shield text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Background-Checked Team</h3>
+          <p class="text-gray-600">Every team member undergoes thorough background checks before entering your home. We're fully licensed, bonded, and insured. You can trust us with a key or garage code - we take security as seriously as you do. Peace of mind is part of our service.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-star text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">130+ Five-Star Reviews</h3>
+          <p class="text-gray-600">Our reputation speaks for itself. Over 130 families across the Huntsville metro have given us five-star reviews. We earn that rating every day through consistent quality, reliable service, and attention to detail. Your neighbors trust us - you can too.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran Owned & Operated</h3>
+          <p class="text-gray-600">Military discipline meets Southern hospitality. We're punctual, thorough, and take pride in every job. The same attention to detail that served our country now serves Bradford Creek families. We show up on time, do the job right, and respect your home.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Services -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Services for Bradford Creek Homes
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-redo text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
+          <p class="text-gray-600 mb-6">The most popular choice for Bradford Creek families. Weekly or bi-weekly cleaning keeps your home consistently clean without the weekend hassle. Same team, same day each week - reliable service you can count on.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>All bedrooms and living areas cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Kitchens and bathrooms thoroughly scrubbed</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Dusting, vacuuming, and mopping</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Trash removal and bed making</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Preferred pricing for recurring clients</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Get Started
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-sparkles text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
+          <p class="text-gray-600 mb-6">Top-to-bottom detailed cleaning that tackles the areas regular cleaning doesn't reach. Perfect for seasonal refresh, before hosting family gatherings, or as your first service before starting regular cleaning.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Everything in regular cleaning PLUS</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Baseboards, ceiling fans, light fixtures</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Interior windows and tracks</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance exteriors detailed</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Cabinet fronts and door frames</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Book Deep Clean
+          </a>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <i class="fas fa-truck text-[#FFA985] text-4xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
+          <p class="text-gray-600 mb-6">Bradford Creek homes are in demand, and we help with the transitions. Whether you're moving in or out, we ensure the home is spotless. Get your deposit back or start fresh in your new home.</p>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Complete deep clean of empty home</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Appliance interior and exterior cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Windows, tracks, and blinds</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-700">
+              <i class="fas fa-check text-green-500 mt-1 mr-2 flex-shrink-0"></i>
+              <span>Ready for inspection or new owners</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+            Schedule Move Clean
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Madison Families Say
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              K
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">K Parriski</h4>
+              <p class="text-sm text-gray-500">Madison Area Resident</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+              P
+            </div>
+            <div>
+              <h4 class="font-bold text-[#333333]">Patrick Scogin</h4>
+              <p class="text-sm text-gray-500">Madison Area Resident</p>
+            </div>
+          </div>
+          <div class="flex mb-3">
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+            <i class="fas fa-star text-yellow-400"></i>
+          </div>
+          <p class="text-gray-700 italic">
+            "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving Nearby Communities
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/madison/providence" class="neighborhood-badge block text-center">
+          Providence
+        </a>
+        <a href="/locations/madison/heritage-plantation" class="neighborhood-badge block text-center">
+          Heritage Plantation
+        </a>
+        <a href="/locations/madison" class="neighborhood-badge block text-center">
+          Madison
+        </a>
+        <a href="/locations/huntsville" class="neighborhood-badge block text-center">
+          Huntsville
+        </a>
+        <a href="/locations/huntsville/hampton-cove" class="neighborhood-badge block text-center">
+          Hampton Cove
+        </a>
+        <a href="/locations" class="neighborhood-badge block text-center">
+          View All Locations
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Ready to Reclaim Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Weekends?</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Stop spending your free time cleaning. Join Bradford Creek families who trust The Valley Clean Team to keep their homes spotless. Call now for your free quote and take back your weekends.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <i class="fas fa-phone mr-3"></i>256-826-1100
+      </a>
+      <p class="text-gray-400 mt-6">
+        <i class="fas fa-calendar-alt mr-2"></i>Same-day service available | 2-hour response guarantee
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('bradford-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('bradford-submit-btn');
+      const messageDiv = document.getElementById('bradford-form-message');
+      const form = e.target as HTMLFormElement;
+      const formData = {
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
+        location: 'Bradford Creek - Madison',
+        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        source: 'Bradford Creek Landing Page',
+        page_url: window.location.href
+      };
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+      }
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll call you within 2 hours with your quote.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-calendar-check mr-2"></i>Get Free Quote';
+      }
+    });
+  </script>
+</BaseLayout>
