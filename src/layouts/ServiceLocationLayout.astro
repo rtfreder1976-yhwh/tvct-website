@@ -26,6 +26,92 @@ interface Props {
 
 const { title, description, service, serviceSlug, city, state, citySlug, serviceDescription, benefits, includes, price, neighborhoods = [], faqs } = Astro.props;
 
+// Related services mapping - each service links to 2-3 related services
+const relatedServicesMap: Record<string, Array<{slug: string, name: string, description: string}>> = {
+  'deep-cleaning': [
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Thorough cleaning for moving' },
+    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'Remove construction dust' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Weekly or biweekly cleaning' }
+  ],
+  'move-out-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' },
+    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'New home cleanup' },
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent cleaning needs' }
+  ],
+  'recurring-maid-service': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Start fresh before recurring' },
+    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Save 20% with weekly' },
+    { slug: 'biweekly-cleaning', name: 'Biweekly Cleaning', description: 'Every two weeks' }
+  ],
+  'weekly-cleaning': [
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'All frequency options' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
+    { slug: 'biweekly-cleaning', name: 'Biweekly Cleaning', description: 'Every two weeks option' }
+  ],
+  'biweekly-cleaning': [
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'All frequency options' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
+    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Weekly option' }
+  ],
+  'airbnb-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Between long-term guests' },
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Last-minute turnovers' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'End of rental cleaning' }
+  ],
+  'same-day-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough urgent cleaning' },
+    { slug: 'airbnb-cleaning', name: 'Airbnb Cleaning', description: 'Guest turnovers' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Urgent move cleaning' }
+  ],
+  'post-construction-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Follow-up deep clean' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After renovation' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Ongoing maintenance' }
+  ],
+  'senior-cleaning': [
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular scheduled visits' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough home cleaning' },
+    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Consistent weekly help' }
+  ],
+  'office-cleaning': [
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Full business cleaning' },
+    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'New office cleanup' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'One-time office deep clean' }
+  ],
+  'commercial-cleaning': [
+    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
+    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare facilities' },
+    { slug: 'retail-cleaning', name: 'Retail Cleaning', description: 'Store cleaning' }
+  ],
+  'medical-office-cleaning': [
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'General business' },
+    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough sanitization' }
+  ],
+  'house-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough house cleaning' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Scheduled cleaning' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+  ],
+  'restaurant-cleaning': [
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough kitchen cleaning' },
+    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'After remodel' }
+  ],
+  'retail-cleaning': [
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
+    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Office spaces' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough store cleaning' }
+  ]
+};
+
+// Get related services for current service, default to common ones if not mapped
+const relatedServices = relatedServicesMap[serviceSlug] || [
+  { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' },
+  { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Scheduled cleaning' },
+  { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+];
+
 // Generate canonical URL
 const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}/${serviceSlug}`;
 
@@ -460,24 +546,33 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- Other Services -->
+  <!-- Related Services -->
   <section class="py-16 px-6 bg-gray-50">
     <div class="container mx-auto max-w-5xl">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-[#333333] mb-4">Other {city} Cleaning Services</h2>
-        <p class="text-gray-600">Explore our full range of professional cleaning solutions</p>
+        <h2 class="text-3xl font-bold text-[#333333] mb-4">Related {city} Cleaning Services</h2>
+        <p class="text-gray-600">Explore related professional cleaning solutions in {city}</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        {relatedServices.map((related) => (
+          <a href={`/locations/${citySlug}/${related.slug}`} class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition group">
+            <Icon name="check-circle" class="w-8 h-8 text-[#FFA985] mb-3" />
+            <h4 class="font-bold text-[#333333] group-hover:text-[#FFA985] mb-2">{related.name} in {city}</h4>
+            <p class="text-gray-600 text-sm">{related.description}</p>
+          </a>
+        ))}
       </div>
       <div class="grid md:grid-cols-3 gap-6">
         <a href={`/${citySlug}-cleaning`} class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="home" class="w-8 h-8 text-[#FFA985]  mb-3" />
+          <Icon name="home" class="w-8 h-8 text-[#FFA985] mb-3" />
           <h4 class="font-bold text-[#333333] group-hover:text-[#FFA985]">All {city} Services</h4>
         </a>
         <a href="/services/" class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="list" class="w-8 h-8 text-[#FFA985]  mb-3" />
+          <Icon name="list" class="w-8 h-8 text-[#FFA985] mb-3" />
           <h4 class="font-bold text-[#333333] group-hover:text-[#FFA985]">View All Services</h4>
         </a>
         <a href="/pricing" class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="tag" class="w-8 h-8 text-[#FFA985]  mb-3" />
+          <Icon name="tag" class="w-8 h-8 text-[#FFA985] mb-3" />
           <h4 class="font-bold text-[#333333] group-hover:text-[#FFA985]">Full Pricing</h4>
         </a>
       </div>
