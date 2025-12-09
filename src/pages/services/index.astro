@@ -3,9 +3,125 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
 import Icon from '../../components/Icon.astro';
+
+// ItemList schema for services page
+const servicesListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Cleaning Services",
+  "description": "Professional cleaning services offered by The Valley Clean Team",
+  "numberOfItems": 8,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Service",
+        "name": "Deep Cleaning",
+        "description": "Comprehensive top-to-bottom cleaning that tackles every corner of your home",
+        "url": "https://thevalleycleanteam.com/services/deep-cleaning"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Service",
+        "name": "Regular Cleaning",
+        "description": "Consistent, reliable cleaning services on a weekly, bi-weekly, or monthly schedule",
+        "url": "https://thevalleycleanteam.com/services/regular-cleaning"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Service",
+        "name": "Move In/Out Cleaning",
+        "description": "Thorough move cleaning to ensure your new home is spotless or help secure your deposit back",
+        "url": "https://thevalleycleanteam.com/services/move-in-out-cleaning"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Service",
+        "name": "Commercial Cleaning",
+        "description": "Professional cleaning services for businesses of all sizes",
+        "url": "https://thevalleycleanteam.com/services/commercial-cleaning"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "Service",
+        "name": "Airbnb Cleaning",
+        "description": "Fast, thorough turnover cleaning for vacation rental hosts",
+        "url": "https://thevalleycleanteam.com/services/airbnb-cleaning"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "Service",
+        "name": "Post-Construction Cleaning",
+        "description": "Transform your newly built or renovated space from construction zone to move-in ready",
+        "url": "https://thevalleycleanteam.com/services/post-construction-cleaning"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "Service",
+        "name": "Event Cleaning",
+        "description": "Pre-event, during-event, and post-event cleaning services for any occasion",
+        "url": "https://thevalleycleanteam.com/services/event-cleaning"
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+        "@type": "Service",
+        "name": "Green Cleaning",
+        "description": "Eco-friendly cleaning using safe, sustainable, non-toxic products",
+        "url": "https://thevalleycleanteam.com/services/green-cleaning"
+      }
+    }
+  ]
+};
+
+// LocalBusiness schema
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "The Valley Clean Team",
+  "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "url": "https://thevalleycleanteam.com/services",
+  "telephone": "256-826-1100",
+  "priceRange": "$$",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Cleaning Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Deep Cleaning" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Regular Cleaning" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Move In/Out Cleaning" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Commercial Cleaning" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airbnb Cleaning" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Post-Construction Cleaning" } }
+    ]
+  }
+};
 ---
 
-<BaseLayout title="Our Cleaning Services | The Valley Clean Team">
+<BaseLayout title="Our Cleaning Services | The Valley Clean Team" description="Professional cleaning services in Alabama & Tennessee. Deep cleaning, recurring maid service, move-out, Airbnb, and commercial cleaning. Free quotes!">
+  <script type="application/ld+json" set:html={JSON.stringify(servicesListSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
   <Navigation />
 
   <!-- Hero Section -->

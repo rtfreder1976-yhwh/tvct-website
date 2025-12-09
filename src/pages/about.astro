@@ -3,6 +3,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
+
+// Organization schema for About page
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Valley Clean Team",
+  "url": "https://thevalleycleanteam.com",
+  "logo": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "description": "Veteran-owned and women-led professional cleaning company serving Alabama and Tennessee since 2021.",
+  "foundingDate": "2021",
+  "founders": [
+    {
+      "@type": "Person",
+      "name": "Todd Frederickson",
+      "jobTitle": "Co-Founder"
+    },
+    {
+      "@type": "Person",
+      "name": "Christen Frederickson",
+      "jobTitle": "Co-Founder"
+    }
+  ],
+  "telephone": "256-826-1100",
+  "email": "hello@thevalleycleanteam.com",
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/thevalleycleanteam",
+    "https://www.instagram.com/thevalleycleanteam"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "130",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+};
 ---
 
 <BaseLayout
@@ -10,6 +50,7 @@ import Icon from '../components/Icon.astro';
   description="The Valley Clean Team - veteran-owned cleaning company serving Alabama & Tennessee. Background-checked staff, $2M insured, 130+ 5-star reviews."
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   <Navigation />
 
   <!-- Hero Section -->
