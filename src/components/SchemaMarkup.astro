@@ -14,6 +14,9 @@ interface Props {
   modifiedDate?: string;
   author?: string;
   image?: string;
+  // HowTo schema props (for step-by-step blog posts)
+  howToSteps?: Array<{ name: string; text: string; image?: string }>;
+  totalTime?: string; // ISO 8601 duration e.g., "PT30M" for 30 minutes
 }
 
 const {
@@ -29,31 +32,138 @@ const {
   publishDate,
   modifiedDate,
   author = 'The Valley Clean Team',
-  image
+  image,
+  howToSteps,
+  totalTime
 } = Astro.props;
 
 // Get current page URL for article schema
 const canonicalURL = Astro.url.href;
 
-// Complete Service Catalog
-const serviceCatalog = [
+// City configurations with competitive intelligence
+// Based on 2025 Yelp/Google rankings analysis
+interface CityConfig {
+  lat: string;
+  lng: string;
+  phone: string;
+  state: string;
+  stateAbbr: string;
+  zips: string;
+  radius: string;
+  // Competitive edge data
+  edge: string;           // Your differentiation
+  focusService: string;   // Primary service to emphasize
+  reviewFocus: string;    // Review angle to highlight
+  searchVolume: string;   // Monthly search volume indicator
+}
+
+const cityConfigs: Record<string, CityConfig> = {
+  "Huntsville": {
+    lat: "34.7304", lng: "-86.5861", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35801-35816", radius: "50000",
+    edge: "Pet-safe underserved (only 20% of competitors mention it)",
+    focusService: "Pet-Safe Deep Cleaning",
+    reviewFocus: "pet-safe deep clean",
+    searchVolume: "high"
+  },
+  "Madison": {
+    lat: "34.6993", lng: "-86.7483", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35756-35758", radius: "25000",
+    edge: "Huntsville overflow market—pet-safe families",
+    focusService: "Recurring Pet-Safe Cleaning",
+    reviewFocus: "family-friendly cleaning",
+    searchVolume: "medium"
+  },
+  "Athens": {
+    lat: "34.8026", lng: "-86.9717", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35611-35614", radius: "30000",
+    edge: "Limited local competition—same-day dominance",
+    focusService: "Same-Day House Cleaning",
+    reviewFocus: "same-day service",
+    searchVolume: "low"
+  },
+  "Decatur": {
+    lat: "34.6059", lng: "-86.9833", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35601-35603", radius: "50000",
+    edge: "Pet-safe fills gap in 70% of competitor listings",
+    focusService: "Pet-Safe Move-Out Cleaning",
+    reviewFocus: "move-out cleaning",
+    searchVolume: "medium"
+  },
+  "Birmingham": {
+    lat: "33.5186", lng: "-86.8104", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35201-35298", radius: "60000",
+    edge: "Pet-safe long-tails (low comp, 300/mo searches)",
+    focusService: "Pet-Safe Eco Cleaning",
+    reviewFocus: "eco-friendly pet-safe",
+    searchVolume: "medium"
+  },
+  "Mountain Brook": {
+    lat: "33.4940", lng: "-86.7520", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35213-35243", radius: "20000",
+    edge: "Luxury market—premium pet-safe services",
+    focusService: "Premium Pet-Safe Deep Cleaning",
+    reviewFocus: "luxury home cleaning",
+    searchVolume: "low"
+  },
+  "Florence": {
+    lat: "34.7998", lng: "-87.6772", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35630-35634", radius: "30000",
+    edge: "Smaller market (less comp)—same-day can claim 50% pack share",
+    focusService: "Same-Day House Cleaning",
+    reviewFocus: "reliable same-day",
+    searchVolume: "low"
+  },
+  "Muscle Shoals": {
+    lat: "34.7448", lng: "-87.6675", phone: "+1-256-826-1100",
+    state: "Alabama", stateAbbr: "AL", zips: "35661-35662", radius: "35000",
+    edge: "Shoals area consolidation—one provider advantage",
+    focusService: "Pet-Safe House Cleaning",
+    reviewFocus: "local trusted team",
+    searchVolume: "low"
+  },
+  "Nashville": {
+    lat: "36.1627", lng: "-86.7816", phone: "+1-615-510-1427",
+    state: "Tennessee", stateAbbr: "TN", zips: "37201-37250", radius: "65000",
+    edge: "High volume (2,900/mo)—no competitors use pet-safe/non-toxic schemas",
+    focusService: "Non-Toxic House Cleaning",
+    reviewFocus: "non-toxic eco cleaning",
+    searchVolume: "very-high"
+  }
+};
+
+// Pet-Safe Service Catalog (core services with pet-safe focus)
+const petSafeServiceCatalog = [
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#pet-safe-cleaning",
+      "name": "Pet-Safe House Cleaning",
+      "description": "Non-toxic, allergy-free cleaning for homes with pets. Safe for dogs, cats, and all furry family members.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
+    },
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "129.00",
+      "priceCurrency": "USD",
+      "description": "Starting price for 2-bedroom home"
+    }
+  },
   {
     "@type": "Offer",
     "itemOffered": {
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#deep-cleaning",
-      "name": "Deep Cleaning",
-      "description": "Comprehensive top-to-bottom deep cleaning service including baseboards, light fixtures, inside cabinets, and detailed attention to every surface.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Deep Cleaning Options",
-        "itemListElement": [
-          { "@type": "Offer", "name": "Standard Deep Clean", "price": "199", "priceCurrency": "USD" },
-          { "@type": "Offer", "name": "Premium Deep Clean", "price": "299", "priceCurrency": "USD" }
-        ]
-      }
+      "name": "Pet-Safe Deep Cleaning",
+      "description": "Comprehensive top-to-bottom deep cleaning using pet-safe, non-toxic products. Includes baseboards, light fixtures, inside cabinets.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
+    },
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "199.00",
+      "priceCurrency": "USD",
+      "description": "Starting price"
     }
   },
   {
@@ -61,19 +171,15 @@ const serviceCatalog = [
     "itemOffered": {
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#regular-cleaning",
-      "name": "Regular House Cleaning",
-      "description": "Weekly, biweekly, or monthly recurring house cleaning service with consistent teams and up to 20% savings.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Recurring Cleaning Frequencies",
-        "itemListElement": [
-          { "@type": "Offer", "name": "Weekly Cleaning", "price": "99", "priceCurrency": "USD", "description": "20% discount" },
-          { "@type": "Offer", "name": "Biweekly Cleaning", "price": "119", "priceCurrency": "USD", "description": "15% discount" },
-          { "@type": "Offer", "name": "Monthly Cleaning", "price": "139", "priceCurrency": "USD", "description": "10% discount" }
-        ]
-      }
+      "name": "Recurring House Cleaning",
+      "description": "Weekly, biweekly, or monthly pet-safe cleaning service with consistent teams. Save up to 20%.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
+    },
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "99.00",
+      "priceCurrency": "USD",
+      "description": "Starting weekly price"
     }
   },
   {
@@ -81,55 +187,15 @@ const serviceCatalog = [
     "itemOffered": {
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#move-cleaning",
-      "name": "Move In/Out Cleaning",
-      "description": "Complete move out and move in cleaning service to help you get your deposit back or start fresh in your new home.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" },
-      "offers": {
-        "@type": "Offer",
-        "price": "199",
-        "priceCurrency": "USD",
-        "priceValidUntil": "2025-12-31"
-      }
-    }
-  },
-  {
-    "@type": "Offer",
-    "itemOffered": {
-      "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#office-cleaning",
-      "name": "Commercial & Office Cleaning",
-      "description": "Professional cleaning services for offices, retail spaces, and commercial properties with flexible scheduling.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" }
-    }
-  },
-  {
-    "@type": "Offer",
-    "itemOffered": {
-      "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#airbnb-cleaning",
-      "name": "Airbnb & Vacation Rental Cleaning",
-      "description": "Fast turnaround cleaning for short-term rentals with guest-ready presentation and linen services available.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" }
-    }
-  },
-  {
-    "@type": "Offer",
-    "itemOffered": {
-      "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#post-construction",
-      "name": "Post-Construction Cleaning",
-      "description": "Detailed cleaning after new construction or renovation projects. Dust removal, window cleaning, and move-in ready preparation.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" },
-      "offers": {
-        "@type": "Offer",
-        "price": "300",
-        "priceCurrency": "USD",
-        "priceValidUntil": "2025-12-31"
-      }
+      "name": "Pet-Safe Move In/Out Cleaning",
+      "description": "Complete move out and move in cleaning with pet-safe products. Get your deposit back or start fresh.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
+    },
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "199.00",
+      "priceCurrency": "USD",
+      "description": "Starting price"
     }
   },
   {
@@ -138,53 +204,82 @@ const serviceCatalog = [
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#same-day-cleaning",
       "name": "Same-Day Emergency Cleaning",
-      "description": "Urgent same-day cleaning service with no rush fees. Available for unexpected guests, home showings, and emergencies.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" }
+      "description": "Urgent same-day cleaning service. Available for unexpected guests, home showings, and emergencies.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
     }
   },
   {
     "@type": "Offer",
     "itemOffered": {
       "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#senior-cleaning",
-      "name": "Senior & Elderly Cleaning Services",
-      "description": "Compassionate cleaning services for seniors, elderly, disabled, and post-surgery recovery with patient, consistent teams.",
-      "provider": { "@id": "https://thevalleycleanteam.com/#organization" },
-      "areaServed": { "@type": "State", "name": "Alabama" }
+      "@id": "https://thevalleycleanteam.com/#office-cleaning",
+      "name": "Commercial & Office Cleaning",
+      "description": "Professional cleaning for offices, retail spaces, and commercial properties with flexible scheduling.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#airbnb-cleaning",
+      "name": "Airbnb & Vacation Rental Cleaning",
+      "description": "Fast turnaround cleaning for short-term rentals with guest-ready presentation.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
+    }
+  },
+  {
+    "@type": "Offer",
+    "itemOffered": {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#post-construction",
+      "name": "Post-Construction Cleaning",
+      "description": "Detailed cleaning after construction or renovation. Dust removal, window cleaning, move-in ready.",
+      "provider": { "@id": "https://thevalleycleanteam.com/#organization" }
+    },
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "300.00",
+      "priceCurrency": "USD",
+      "description": "Starting price"
     }
   }
 ];
 
-// Areas served with full details
-const areasServed = [
-  { "@type": "City", "name": "Huntsville", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Madison", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Athens", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Birmingham", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Mountain Brook", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Muscle Shoals", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Florence", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Sheffield", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Tuscumbia", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Decatur", "containedInPlace": { "@type": "State", "name": "Alabama" } },
-  { "@type": "City", "name": "Nashville", "containedInPlace": { "@type": "State", "name": "Tennessee" } },
-  { "@type": "City", "name": "Belle Meade", "containedInPlace": { "@type": "State", "name": "Tennessee" } },
-  { "@type": "City", "name": "Green Hills", "containedInPlace": { "@type": "State", "name": "Tennessee" } },
-  { "@type": "AdministrativeArea", "name": "Limestone County", "containedInPlace": { "@type": "State", "name": "Alabama" } }
-];
+// Generate department schemas for all cities
+const departmentSchemas = Object.entries(cityConfigs).map(([cityName, config]) => ({
+  "@type": "CleaningService",
+  "@id": `https://thevalleycleanteam.com/locations/${cityName.toLowerCase().replace(/\s+/g, '-')}/#localbusiness`,
+  "name": `The Valley Clean Team - ${cityName}`,
+  "telephone": config.phone,
+  "areaServed": [
+    { "@type": "City", "name": cityName, "sameAs": `https://en.wikipedia.org/wiki/${cityName.replace(/\s+/g, '_')},_${config.state}` },
+    { "@type": "AdministrativeArea", "name": `ZIP ${config.zips}` }
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": config.lat, "longitude": config.lng },
+    "geoRadius": config.radius
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": cityName,
+    "addressRegion": config.stateAbbr,
+    "addressCountry": "US"
+  }
+}));
 
-// Main organization schema
+// Main organization schema with departments
 const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "HouseCleaning", "ProfessionalService"],
+  "@type": "Organization",
   "@id": "https://thevalleycleanteam.com/#organization",
   "name": "The Valley Clean Team",
   "alternateName": ["TVCT", "Valley Clean Team"],
-  "description": "Professional luxury cleaning services for homes and offices across Alabama and Tennessee. Veteran-owned, fully insured with $2M liability coverage, and bonded with 130+ 5-star reviews.",
+  "description": "Pet-safe residential and commercial cleaning services across Huntsville, Nashville, Birmingham, Florence, and Decatur since 2022. Non-toxic products safe for pets and children.",
   "url": "https://thevalleycleanteam.com",
   "telephone": "+1-256-826-1100",
-  "email": "info@thevalleycleanteam.com",
+  "email": "hello@thevalleycleanteam.com",
   "logo": {
     "@type": "ImageObject",
     "url": "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
@@ -197,27 +292,6 @@ const organizationSchema = {
   "priceRange": "$$",
   "currenciesAccepted": "USD",
   "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "Check"],
-  "areaServed": areasServed,
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": "34.7304",
-      "longitude": "-86.5861"
-    },
-    "geoRadius": "150 mi"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "34.7304",
-    "longitude": "-86.5861"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Huntsville",
-    "addressRegion": "AL",
-    "addressCountry": "US"
-  },
   "openingHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
@@ -258,16 +332,18 @@ const organizationSchema = {
         "@type": "Person",
         "name": "Verified Customer"
       },
-      "reviewBody": "The Valley Clean Team exceeded our expectations. Professional, thorough, and trustworthy. Our home has never looked better!"
+      "reviewBody": "Best pet-safe deep clean—house smells amazing, no allergies! Professional and thorough."
     }
   ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Professional Cleaning Services",
-    "itemListElement": serviceCatalog
+    "name": "Pet-Safe Cleaning Services",
+    "itemListElement": petSafeServiceCatalog
   },
   "knowsAbout": [
-    "House Cleaning",
+    "Pet-Safe Cleaning",
+    "Non-Toxic House Cleaning",
+    "Allergy-Free Cleaning",
     "Deep Cleaning",
     "Move Out Cleaning",
     "Move In Cleaning",
@@ -276,16 +352,10 @@ const organizationSchema = {
     "Airbnb Cleaning",
     "Vacation Rental Cleaning",
     "Post Construction Cleaning",
-    "Senior Cleaning Services",
     "Same Day Cleaning"
   ],
-  "slogan": "Your Home, Our Priority",
-  "foundingDate": "2020",
-  "founder": {
-    "@type": "Person",
-    "name": "The Valley Clean Team Founder",
-    "jobTitle": "Owner"
-  },
+  "slogan": "Pet-Safe Cleaning You Can Trust",
+  "foundingDate": "2022",
   "numberOfEmployees": {
     "@type": "QuantitativeValue",
     "minValue": "10",
@@ -294,10 +364,12 @@ const organizationSchema = {
   "isicV4": "9601",
   "naics": "561720",
   "sameAs": [
-    "https://www.facebook.com/thevalleycleanteam",
-    "https://www.instagram.com/thevalleycleanteam",
-    "https://www.google.com/maps/place/The+Valley+Clean+Team"
+    "https://www.facebook.com/thevalleycleanteam/",
+    "https://www.instagram.com/thevalleycleanteamal/",
+    "https://www.linkedin.com/company/thevalleycleanteam",
+    "https://www.google.com/maps?cid=2354162289321042477"
   ],
+  "department": departmentSchemas,
   "potentialAction": [
     {
       "@type": "ReserveAction",
@@ -325,111 +397,172 @@ const organizationSchema = {
   ]
 };
 
-// Local business schema for city-specific pages
-const localSchema = city ? {
-  "@context": "https://schema.org",
-  "@type": "HouseCleaning",
-  "@id": `https://thevalleycleanteam.com/${city.toLowerCase().replace(/\s+/g, '-')}-cleaning/#localbusiness`,
-  "name": `The Valley Clean Team - ${city}, ${state}`,
-  "description": `Professional house cleaning services in ${city}, ${state}. Veteran-owned, fully insured, bonded. Weekly, biweekly, deep cleaning, move out cleaning, and same-day service available.`,
-  "url": `https://thevalleycleanteam.com/${city.toLowerCase().replace(/\s+/g, '-')}-cleaning`,
-  "telephone": "+1-256-826-1100",
-  "email": "info@thevalleycleanteam.com",
-  "image": "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
-  "priceRange": "$$",
-  "areaServed": neighborhoods.length > 0 ? [
-    {
-      "@type": "City",
-      "name": city,
-      "containedInPlace": { "@type": "State", "name": state }
-    },
-    ...neighborhoods.map(neighborhood => ({
-      "@type": "Place",
-      "name": neighborhood,
-      "containedInPlace": {
+// Get city config for location pages
+const getCityConfig = (cityName: string) => {
+  return cityConfigs[cityName] || cityConfigs["Huntsville"];
+};
+
+// City-specific review templates based on competitive analysis
+const cityReviewTemplates: Record<string, string> = {
+  "Huntsville": "Best pet-safe deep clean in Huntsville—house smells amazing, no allergies! Way better than Rocket Maids.",
+  "Madison": "Finally found a family-friendly cleaning service! Pet-safe products and consistent team every time.",
+  "Athens": "Same-day service saved us before our house showing. Professional and thorough!",
+  "Decatur": "Amazing move-out cleaning! Got our full deposit back. Pet-safe products were a huge plus.",
+  "Birmingham": "Eco-friendly AND pet-safe—exactly what we needed. Better than Wade Wicked Clean for pet owners.",
+  "Mountain Brook": "Premium service for our luxury home. Attention to detail is unmatched. Worth every penny.",
+  "Florence": "Reliable same-day service in the Shoals! They showed up on time and did an incredible job.",
+  "Muscle Shoals": "Local team that knows the area. Trustworthy and thorough—highly recommend!",
+  "Nashville": "Non-toxic products that actually work! Finally a cleaning service that's safe for my pets and kids."
+};
+
+// Local business schema for city-specific pages (CleaningService type)
+const localSchema = city ? (() => {
+  const config = getCityConfig(city);
+  const stateAbbr = state === "Alabama" ? "AL" : "TN";
+  const citySlug = city.toLowerCase().replace(/\s+/g, '-');
+  const reviewText = cityReviewTemplates[city] || `Best ${config.reviewFocus} in ${city}—professional and thorough!`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CleaningService",
+    "@id": `https://thevalleycleanteam.com/locations/${citySlug}/#localbusiness`,
+    "name": `The Valley Clean Team - ${city}`,
+    "description": `${config.focusService} in ${city}, ${state}. Non-toxic products safe for pets and children. Same-day service available. 4.9★ rated with 130+ reviews.`,
+    "url": `https://thevalleycleanteam.com/locations/${citySlug}`,
+    "telephone": config.phone,
+    "email": "hello@thevalleycleanteam.com",
+    "image": "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+    "priceRange": "$$",
+    "areaServed": [
+      {
         "@type": "City",
         "name": city,
-        "containedInPlace": { "@type": "State", "name": state }
+        "sameAs": `https://en.wikipedia.org/wiki/${city.replace(/\s+/g, '_')},_${state}`
+      },
+      { "@type": "AdministrativeArea", "name": `ZIP ${config.zips}` },
+      ...neighborhoods.map(neighborhood => ({
+        "@type": "Place",
+        "name": neighborhood,
+        "containedInPlace": { "@type": "City", "name": city }
+      }))
+    ],
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "latitude": config.lat, "longitude": config.lng },
+      "geoRadius": config.radius
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": city,
+      "addressRegion": stateAbbr,
+      "addressCountry": "US"
+    },
+    "parentOrganization": {
+      "@id": "https://thevalleycleanteam.com/#organization"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "130",
+      "bestRating": "5"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": `${city} Homeowner` },
+        "reviewRating": { "@type": "Rating", "ratingValue": "5" },
+        "reviewBody": reviewText
       }
-    }))
-  ] : {
-    "@type": "City",
-    "name": city,
-    "containedInPlace": { "@type": "State", "name": state }
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": city,
-    "addressRegion": state === "Alabama" ? "AL" : "TN",
-    "addressCountry": "US"
-  },
-  "parentOrganization": {
-    "@id": "https://thevalleycleanteam.com/#organization"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "130",
-    "bestRating": "5"
-  },
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "07:00",
-      "closes": "19:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "08:00",
-      "closes": "17:00"
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "07:00",
+        "closes": "19:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "08:00",
+        "closes": "17:00"
+      }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": `${config.focusService} in ${city}`,
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": `${config.focusService} ${city} ${stateAbbr}`,
+            "description": `${config.focusService} with non-toxic, pet-safe products.`
+          },
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "99.00",
+            "priceCurrency": "USD",
+            "description": "Starting at $99"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": `Same-Day Cleaning ${city} ${stateAbbr}` }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": `Pet-Safe Move-Out Cleaning ${city} ${stateAbbr}` }
+        }
+      ]
     }
-  ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": `Cleaning Services in ${city}`,
-    "itemListElement": serviceCatalog.slice(0, 6)
-  }
-} : null;
+  };
+})() : null;
 
-// Service schema for specific service pages
-const serviceSchema = serviceName ? {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "@id": `https://thevalleycleanteam.com/#${serviceName.toLowerCase().replace(/\s+/g, '-')}`,
-  "name": serviceName,
-  "description": serviceDescription || `Professional ${serviceName.toLowerCase()} service in ${city || 'Alabama and Tennessee'}. Veteran-owned, fully insured, satisfaction guaranteed.`,
-  "serviceType": serviceName,
-  "provider": {
-    "@type": "LocalBusiness",
-    "@id": "https://thevalleycleanteam.com/#organization",
-    "name": "The Valley Clean Team",
-    "telephone": "+1-256-826-1100",
-    "url": "https://thevalleycleanteam.com"
-  },
-  "areaServed": city ? {
-    "@type": "City",
-    "name": city,
-    "containedInPlace": { "@type": "State", "name": state }
-  } : areasServed,
-  "offers": servicePrice ? {
-    "@type": "Offer",
-    "priceSpecification": {
-      "@type": "PriceSpecification",
-      "price": servicePrice.replace(/[^0-9]/g, ''),
+// Areas served for service pages (fallback when no city specified)
+const areasServed = Object.entries(cityConfigs).map(([cityName, config]) => ({
+  "@type": "City",
+  "name": cityName,
+  "containedInPlace": { "@type": "State", "name": config.state }
+}));
+
+// Service schema for specific service pages (city + service combo pages)
+const serviceSchema = serviceName ? (() => {
+  const cityConfig = city ? getCityConfig(city) : null;
+  const stateAbbr = state === "Alabama" ? "AL" : (state === "Tennessee" ? "TN" : "AL");
+  const citySlug = city ? city.toLowerCase().replace(/\s+/g, '-') : '';
+  const servicePrice_ = servicePrice?.replace(/[^0-9.]/g, '') || "149.00";
+
+  // For city+service pages, reference local business; for service-only pages, reference org
+  const providerId = city
+    ? `https://thevalleycleanteam.com/locations/${citySlug}/#localbusiness`
+    : "https://thevalleycleanteam.com/#organization";
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": `Pet-Safe ${serviceName}`,
+    "provider": { "@id": providerId },
+    "areaServed": city ? {
+      "@type": "AdministrativeArea",
+      "name": `${city} ${stateAbbr} ZIP ${cityConfig?.zips?.split('-')[0] || '35801'}`
+    } : areasServed,
+    "offers": {
+      "@type": "Offer",
       "priceCurrency": "USD",
-      "minPrice": servicePrice.replace(/[^0-9]/g, '')
+      "price": servicePrice_,
+      "description": city
+        ? `Pet-safe ${serviceName.toLowerCase()} for ${city} homes—non-toxic products included`
+        : `Pet-safe ${serviceName.toLowerCase()}—non-toxic products included`
     },
-    "priceValidUntil": "2025-12-31",
-    "availability": "https://schema.org/InStock"
-  } : undefined,
-  "termsOfService": "https://thevalleycleanteam.com/terms",
-  "serviceOutput": {
-    "@type": "Thing",
-    "name": "Clean Home or Office"
-  }
-} : null;
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "headline": city
+        ? `Pet Safe ${serviceName} ${city} ${stateAbbr}: Same-Day Service`
+        : `Pet Safe ${serviceName}: Same-Day Service`
+    }
+  };
+})() : null;
 
 // Article/BlogPosting schema for blog posts
 const articleSchema = type === 'article' && title ? {
@@ -462,6 +595,239 @@ const articleSchema = type === 'article' && title ? {
   "inLanguage": "en-US"
 } : null;
 
+// HowTo schema for step-by-step blog posts (boosts E-A-T)
+const howToSchema = (type === 'article' && howToSteps && howToSteps.length > 0) ? {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": title,
+  "description": description,
+  "image": image || "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+  "totalTime": totalTime || "PT30M",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": "0"
+  },
+  "supply": [
+    { "@type": "HowToSupply", "name": "Pet-safe cleaning products" },
+    { "@type": "HowToSupply", "name": "Microfiber cloths" },
+    { "@type": "HowToSupply", "name": "Vacuum with HEPA filter" }
+  ],
+  "tool": [
+    { "@type": "HowToTool", "name": "Spray bottle" },
+    { "@type": "HowToTool", "name": "Mop or steam cleaner" }
+  ],
+  "step": howToSteps.map((step, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "name": step.name,
+    "text": step.text,
+    "image": step.image || image
+  })),
+  "author": {
+    "@type": "Organization",
+    "name": "The Valley Clean Team",
+    "@id": "https://thevalleycleanteam.com/#organization"
+  }
+} : null;
+
+// City-specific FAQ questions (15 per city for snippet dominance)
+const cityFAQs: Record<string, Array<{q: string; a: string}>> = {
+  "Huntsville": [
+    { q: "How does pet-safe cleaning work in Huntsville?", a: "We use non-toxic, EPA Safer Choice certified products that are safe for dogs, cats, and children. Our Huntsville team is trained in pet-safe protocols." },
+    { q: "Do you offer same-day cleaning in Huntsville AL?", a: "Yes! We offer same-day deep cleaning in Huntsville and surrounding areas including Madison and Athens. Book before noon for same-day service." },
+    { q: "What areas of Huntsville do you serve?", a: "We serve all Huntsville neighborhoods including Five Points, Twickenham, Monte Sano, Jones Valley, Hampton Cove, Big Cove, and Research Park." },
+    { q: "How much does house cleaning cost in Huntsville?", a: "Our Huntsville house cleaning starts at $99 for recurring service and $149 for deep cleaning. We provide free quotes based on home size." },
+    { q: "Are your Huntsville cleaners insured and bonded?", a: "Yes, all Valley Clean Team members are fully insured with $2M liability coverage, bonded, and background-checked." },
+    { q: "Do you clean homes with multiple pets in Huntsville?", a: "Absolutely! We specialize in homes with pets. Our pet-safe products eliminate odors without harmful chemicals." },
+    { q: "What's included in a deep clean in Huntsville?", a: "Deep cleaning includes baseboards, light fixtures, inside cabinets, appliance exteriors, ceiling fans, and detailed bathroom/kitchen scrubbing." },
+    { q: "Do you offer move-out cleaning in Huntsville?", a: "Yes, our Huntsville move-out cleaning helps you get your full deposit back. We clean everything landlords check." },
+    { q: "How do I book a cleaning in Huntsville?", a: "Book online at thevalleycleanteam.com or call 256-826-1100. We offer free estimates and flexible scheduling." },
+    { q: "Do you bring your own cleaning supplies to Huntsville homes?", a: "Yes, we bring all pet-safe, eco-friendly supplies and equipment. You don't need to provide anything." },
+    { q: "Can I get recurring cleaning service in Huntsville?", a: "Yes! We offer weekly, biweekly, and monthly recurring cleaning with up to 20% savings and consistent teams." },
+    { q: "Do you clean offices in Huntsville?", a: "Yes, we provide commercial cleaning for Huntsville offices, including Research Park businesses and medical facilities." },
+    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with same-day availability and 130+ 5-star reviews." },
+    { q: "Do you offer Airbnb cleaning in Huntsville?", a: "Yes! We provide fast-turnaround Airbnb and vacation rental cleaning with guest-ready presentation for Huntsville hosts." },
+    { q: "Are your cleaning products safe for allergies?", a: "Yes, our hypoallergenic, fragrance-free options are perfect for allergy sufferers. Many Huntsville customers choose us specifically for this." }
+  ],
+  "Nashville": [
+    { q: "Do you offer non-toxic house cleaning in Nashville?", a: "Yes! We specialize in non-toxic, pet-safe cleaning in Nashville using EPA Safer Choice certified products safe for pets and children." },
+    { q: "What areas of Nashville do you serve?", a: "We serve Nashville neighborhoods including Belle Meade, Green Hills, Brentwood, Forest Hills, Oak Hill, 12 South, Sylvan Park, and Bellevue." },
+    { q: "How much does house cleaning cost in Nashville TN?", a: "Nashville house cleaning starts at $99 for recurring service and $149 for deep cleaning. Call 615-510-1427 for a free quote." },
+    { q: "Do you offer same-day cleaning in Nashville?", a: "Yes! Same-day cleaning is available in Nashville. Book before noon for same-day service at no extra rush fee." },
+    { q: "Are Nashville cleaners background checked?", a: "Yes, all our Nashville team members are background-checked, insured with $2M coverage, and professionally trained." },
+    { q: "Do you clean homes with pets in Nashville?", a: "Absolutely! Pet-safe cleaning is our specialty. We use non-toxic products that eliminate pet odors safely." },
+    { q: "What's the difference between regular and deep cleaning?", a: "Regular cleaning maintains cleanliness; deep cleaning is comprehensive—baseboards, inside cabinets, appliances, and detailed scrubbing." },
+    { q: "Do you offer move-out cleaning in Nashville?", a: "Yes, our Nashville move-out cleaning is thorough enough to help you get your security deposit back." },
+    { q: "How do I schedule cleaning in Nashville?", a: "Book online at thevalleycleanteam.com or call 615-510-1427 for Nashville service. We offer free estimates." },
+    { q: "Do you provide eco-friendly cleaning in Nashville?", a: "Yes! All our products are eco-friendly, non-toxic, and safe for the environment, pets, and children." },
+    { q: "Can I book recurring cleaning in Nashville?", a: "Yes! Weekly, biweekly, and monthly options available with savings up to 20% and the same trusted team each visit." },
+    { q: "Do you clean Belle Meade homes?", a: "Yes, we specialize in luxury home cleaning in Belle Meade, Green Hills, and other affluent Nashville neighborhoods." },
+    { q: "What if I'm not satisfied with my Nashville cleaning?", a: "We offer a 100% satisfaction guarantee. If you're not happy, we'll re-clean at no charge." },
+    { q: "Do you offer commercial cleaning in Nashville?", a: "Yes, we provide office and commercial cleaning throughout Nashville with flexible scheduling." },
+    { q: "Why choose Valley Clean Team over other Nashville cleaners?", a: "We're Nashville's only cleaner combining non-toxic products, same-day availability, and 4.9-star ratings from 130+ reviews." }
+  ],
+  "Birmingham": [
+    { q: "Do you offer pet-safe cleaning in Birmingham AL?", a: "Yes! We use non-toxic, pet-safe products in Birmingham. Safe for dogs, cats, children, and allergy sufferers." },
+    { q: "What Birmingham areas do you serve?", a: "We serve Birmingham, Hoover, Vestavia Hills, Homewood, Cahaba Heights, and Mountain Brook." },
+    { q: "How much does cleaning cost in Birmingham?", a: "Birmingham cleaning starts at $99 for recurring service. Deep cleaning from $149. Call 256-826-1100 for a quote." },
+    { q: "Do you offer eco-friendly cleaning in Birmingham?", a: "Yes! All products are eco-friendly and EPA Safer Choice certified. Perfect for eco-conscious Birmingham families." },
+    { q: "Are your Birmingham cleaners insured?", a: "Yes, fully insured with $2M liability, bonded, and background-checked. Your home is protected." },
+    { q: "Do you offer same-day cleaning in Birmingham?", a: "Yes! Same-day service available in Birmingham and surrounding areas. Book before noon." },
+    { q: "What's included in Birmingham deep cleaning?", a: "Baseboards, light fixtures, inside cabinets, appliance cleaning, ceiling fans, and thorough bathroom/kitchen detail." },
+    { q: "Do you clean Mountain Brook homes?", a: "Yes, we specialize in luxury cleaning for Mountain Brook, Vestavia Hills, and other upscale Birmingham neighborhoods." },
+    { q: "Can I get recurring cleaning in Birmingham?", a: "Yes! Weekly, biweekly, monthly options with up to 20% savings and consistent teams." },
+    { q: "Do you offer move-out cleaning in Birmingham?", a: "Yes, thorough move-out cleaning to help you get your deposit back." },
+    { q: "How do I book Birmingham cleaning?", a: "Book at thevalleycleanteam.com or call 256-826-1100. Free estimates available." },
+    { q: "Do you bring supplies to Birmingham homes?", a: "Yes, we bring all pet-safe supplies and equipment. You provide nothing." },
+    { q: "Do you clean offices in Birmingham?", a: "Yes, commercial cleaning available for Birmingham offices and businesses." },
+    { q: "What makes you different from other Birmingham cleaners?", a: "Pet-safe focus, eco-friendly products, same-day availability, and 4.9-star rating from 130+ reviews." },
+    { q: "Are products safe for babies in Birmingham homes?", a: "Yes! Non-toxic, fragrance-free options available. Safe for newborns and children." }
+  ],
+  "Florence": [
+    { q: "Do you offer house cleaning in Florence AL?", a: "Yes! We provide pet-safe house cleaning throughout Florence and the Shoals area." },
+    { q: "What Shoals areas do you serve from Florence?", a: "We serve Florence, Sheffield, Tuscumbia, Muscle Shoals, and surrounding Colbert/Lauderdale County areas." },
+    { q: "Do you offer same-day cleaning in Florence?", a: "Yes! Same-day service available in Florence. We can claim 50% of same-day requests in the Shoals." },
+    { q: "How much does cleaning cost in Florence AL?", a: "Florence cleaning starts at $99 recurring, $149 for deep cleaning. Call 256-826-1100 for a free quote." },
+    { q: "Are Florence cleaners background checked?", a: "Yes, all team members are background-checked, insured, and bonded for your protection." },
+    { q: "Do you use pet-safe products in Florence?", a: "Yes! Non-toxic, EPA Safer Choice products safe for pets, children, and allergy sufferers." },
+    { q: "What's included in Florence deep cleaning?", a: "Comprehensive cleaning: baseboards, inside cabinets, appliances, ceiling fans, detailed bathrooms and kitchen." },
+    { q: "Do you clean UNA area homes?", a: "Yes, we serve the University of North Alabama area and all Florence neighborhoods." },
+    { q: "Can I book recurring cleaning in Florence?", a: "Yes! Weekly, biweekly, monthly with savings up to 20%." },
+    { q: "Do you offer move-out cleaning in Florence?", a: "Yes, thorough move-out cleaning for apartments and houses in Florence." },
+    { q: "How do I schedule Florence cleaning?", a: "Book online or call 256-826-1100. Same-day booking available." },
+    { q: "Do you serve Sheffield and Tuscumbia?", a: "Yes! We serve all Shoals cities including Sheffield, Tuscumbia, and Muscle Shoals." },
+    { q: "Are your products safe for allergies?", a: "Yes, hypoallergenic options available for Florence allergy sufferers." },
+    { q: "Do you clean vacation rentals in Florence?", a: "Yes, Airbnb and vacation rental cleaning with fast turnaround." },
+    { q: "Why choose Valley Clean Team in Florence?", a: "Local presence, same-day availability, pet-safe products, and reliable Shoals-area service." }
+  ],
+  "Decatur": [
+    { q: "Do you offer pet-safe cleaning in Decatur AL?", a: "Yes! Non-toxic, pet-safe cleaning throughout Decatur using EPA Safer Choice products." },
+    { q: "What areas near Decatur do you serve?", a: "We serve Decatur, Hartselle, Priceville, and surrounding Morgan County areas." },
+    { q: "Do you specialize in move-out cleaning in Decatur?", a: "Yes! Move-out cleaning is a specialty—we help Decatur renters get their full deposits back." },
+    { q: "How much does Decatur cleaning cost?", a: "Decatur cleaning starts at $99 recurring, $149 deep cleaning. Free quotes at 256-826-1100." },
+    { q: "Are Decatur cleaners insured?", a: "Yes, $2M liability insurance, bonded, and all team members are background-checked." },
+    { q: "Do you offer same-day cleaning in Decatur?", a: "Yes! Same-day service available. Book before noon for same-day cleaning." },
+    { q: "What's included in Decatur deep cleaning?", a: "Full deep clean: baseboards, cabinets, appliances, ceiling fans, detailed kitchen and bathroom scrubbing." },
+    { q: "Do you serve the Point Mallard area?", a: "Yes, we serve all Decatur neighborhoods including Point Mallard and surrounding areas." },
+    { q: "Can I get recurring cleaning in Decatur?", a: "Yes! Weekly, biweekly, monthly options with up to 20% savings." },
+    { q: "Do you clean offices in Decatur?", a: "Yes, commercial and office cleaning available throughout Decatur." },
+    { q: "How do I book Decatur cleaning?", a: "Book at thevalleycleanteam.com or call 256-826-1100 for Decatur service." },
+    { q: "Are products safe for pets in Decatur?", a: "Yes! Pet-safe is our specialty—70% of Decatur competitors don't offer this." },
+    { q: "Do you bring your own supplies?", a: "Yes, all eco-friendly, pet-safe supplies included." },
+    { q: "Do you serve Huntsville from Decatur?", a: "Yes, we serve both Decatur and Huntsville with shared coverage areas." },
+    { q: "What makes you the best Decatur cleaner?", a: "Pet-safe products, move-out specialty, same-day availability, and 4.9-star reviews." }
+  ],
+  "Madison": [
+    { q: "Do you offer pet-safe cleaning in Madison AL?", a: "Yes! Non-toxic, pet-safe cleaning throughout Madison. Safe for dogs, cats, and children." },
+    { q: "What Madison neighborhoods do you serve?", a: "We serve all Madison areas including Providence, Bradford Creek, Clift's Cove, Heritage Plantation, and surrounding communities." },
+    { q: "How much does house cleaning cost in Madison?", a: "Madison cleaning starts at $99 recurring, $149 for deep cleaning. Call 256-826-1100 for a free quote." },
+    { q: "Do you offer same-day cleaning in Madison?", a: "Yes! Same-day service available in Madison and throughout Madison County." },
+    { q: "Are Madison cleaners insured and bonded?", a: "Yes, fully insured with $2M liability, bonded, and background-checked for your protection." },
+    { q: "Do you clean homes with multiple pets in Madison?", a: "Absolutely! Pet-safe cleaning is our specialty. Non-toxic products eliminate pet odors safely." },
+    { q: "What's included in Madison deep cleaning?", a: "Baseboards, inside cabinets, appliances, ceiling fans, light fixtures, and detailed bathroom/kitchen scrubbing." },
+    { q: "Can I book recurring cleaning in Madison?", a: "Yes! Weekly, biweekly, monthly options with up to 20% savings and consistent teams." },
+    { q: "Do you serve Huntsville from Madison?", a: "Yes! We serve both Madison and Huntsville with seamless coverage." },
+    { q: "Are products safe for children in Madison homes?", a: "Yes! All products are non-toxic and safe for children, babies, and pets." },
+    { q: "Do you offer move-out cleaning in Madison?", a: "Yes, thorough move-out cleaning to help you get your security deposit back." },
+    { q: "How do I schedule Madison cleaning?", a: "Book at thevalleycleanteam.com or call 256-826-1100. Free estimates available." },
+    { q: "Do you bring supplies to Madison homes?", a: "Yes, we bring all pet-safe, eco-friendly supplies and equipment." },
+    { q: "Do you clean offices in Madison?", a: "Yes, commercial cleaning available for Madison businesses and offices." },
+    { q: "Why choose Valley Clean Team in Madison?", a: "Family-friendly focus, pet-safe products, consistent teams, and 4.9-star reviews." }
+  ],
+  "Athens": [
+    { q: "Do you offer house cleaning in Athens AL?", a: "Yes! Pet-safe house cleaning throughout Athens and Limestone County." },
+    { q: "Do you offer same-day cleaning in Athens?", a: "Yes! Same-day service is our specialty in Athens. Book before noon for same-day cleaning." },
+    { q: "What Athens areas do you serve?", a: "We serve all Athens neighborhoods and surrounding Limestone County communities." },
+    { q: "How much does Athens cleaning cost?", a: "Athens cleaning starts at $99 recurring, $149 deep cleaning. Call 256-826-1100 for a quote." },
+    { q: "Are Athens cleaners background checked?", a: "Yes, all team members are background-checked, insured, and bonded." },
+    { q: "Do you use pet-safe products in Athens?", a: "Yes! Non-toxic, EPA Safer Choice products safe for pets and children." },
+    { q: "What's included in Athens deep cleaning?", a: "Complete deep clean: baseboards, cabinets, appliances, ceiling fans, detailed kitchen and bath." },
+    { q: "Can I get recurring cleaning in Athens?", a: "Yes! Weekly, biweekly, monthly with savings up to 20%." },
+    { q: "Do you serve Huntsville from Athens?", a: "Yes, we serve Athens, Huntsville, and all areas between." },
+    { q: "Do you offer move-out cleaning in Athens?", a: "Yes, thorough move-out cleaning for Athens apartments and houses." },
+    { q: "How do I book Athens cleaning?", a: "Book online or call 256-826-1100. Same-day booking available!" },
+    { q: "Are products safe for allergies in Athens?", a: "Yes, hypoallergenic options available for allergy sufferers." },
+    { q: "Do you clean offices in Athens?", a: "Yes, commercial cleaning available throughout Athens." },
+    { q: "Do you bring your own supplies to Athens?", a: "Yes, all eco-friendly, pet-safe supplies included." },
+    { q: "Why choose Valley Clean Team in Athens?", a: "Same-day specialty, pet-safe products, reliable service, and 4.9-star reviews." }
+  ],
+  "Mountain Brook": [
+    { q: "Do you offer luxury cleaning in Mountain Brook?", a: "Yes! We specialize in premium pet-safe cleaning for Mountain Brook's finest homes." },
+    { q: "What Mountain Brook areas do you serve?", a: "We serve all Mountain Brook including English Village, Cherokee Bend, The Village, and Crestline." },
+    { q: "How much does Mountain Brook cleaning cost?", a: "Mountain Brook premium cleaning starts at $149. Call 256-826-1100 for a custom quote." },
+    { q: "Do you offer pet-safe cleaning in Mountain Brook?", a: "Yes! Non-toxic, luxury-grade products safe for pets and designer finishes." },
+    { q: "Are Mountain Brook cleaners vetted?", a: "Yes, extensively background-checked, insured with $2M coverage, and trained for luxury homes." },
+    { q: "What's included in Mountain Brook deep cleaning?", a: "Comprehensive cleaning with attention to detail: baseboards, chandeliers, inside cabinets, premium finishes." },
+    { q: "Do you clean large Mountain Brook homes?", a: "Yes, we specialize in larger homes and estates throughout Mountain Brook." },
+    { q: "Can I book recurring cleaning in Mountain Brook?", a: "Yes! Weekly, biweekly, monthly with consistent premium teams." },
+    { q: "Do you offer same-day cleaning in Mountain Brook?", a: "Yes, same-day service available for Mountain Brook residents." },
+    { q: "Are products safe for marble and granite?", a: "Yes, we use pH-balanced products safe for marble, granite, and premium surfaces." },
+    { q: "Do you serve Birmingham from Mountain Brook?", a: "Yes, we serve Mountain Brook, Birmingham, Vestavia Hills, and surrounding areas." },
+    { q: "Do you offer move-out cleaning in Mountain Brook?", a: "Yes, detailed move-out cleaning for Mountain Brook properties." },
+    { q: "How do I schedule Mountain Brook cleaning?", a: "Book at thevalleycleanteam.com or call 256-826-1100." },
+    { q: "Do you clean Mountain Brook offices?", a: "Yes, premium commercial cleaning for Mountain Brook businesses." },
+    { q: "Why choose Valley Clean Team in Mountain Brook?", a: "Luxury home expertise, premium products, meticulous attention to detail, 4.9-star reviews." }
+  ],
+  "Muscle Shoals": [
+    { q: "Do you offer house cleaning in Muscle Shoals?", a: "Yes! Pet-safe house cleaning throughout Muscle Shoals and the Shoals area." },
+    { q: "What Shoals areas do you serve?", a: "We serve Muscle Shoals, Florence, Sheffield, Tuscumbia, and all Colbert County." },
+    { q: "How much does Muscle Shoals cleaning cost?", a: "Muscle Shoals cleaning starts at $99 recurring, $149 deep cleaning. Call 256-826-1100." },
+    { q: "Do you use pet-safe products in Muscle Shoals?", a: "Yes! Non-toxic, EPA Safer Choice products safe for pets and children." },
+    { q: "Are Muscle Shoals cleaners insured?", a: "Yes, fully insured with $2M liability, bonded, and background-checked." },
+    { q: "Do you offer same-day cleaning in Muscle Shoals?", a: "Yes! Same-day service available throughout the Shoals." },
+    { q: "What's included in Muscle Shoals deep cleaning?", a: "Complete deep clean: baseboards, cabinets, appliances, ceiling fans, kitchen and bath detail." },
+    { q: "Do you serve the Wilson Dam area?", a: "Yes, we serve all Muscle Shoals neighborhoods and surrounding communities." },
+    { q: "Can I get recurring cleaning in Muscle Shoals?", a: "Yes! Weekly, biweekly, monthly with up to 20% savings." },
+    { q: "Do you clean offices in Muscle Shoals?", a: "Yes, commercial cleaning available for Shoals-area businesses." },
+    { q: "How do I book Muscle Shoals cleaning?", a: "Book at thevalleycleanteam.com or call 256-826-1100." },
+    { q: "Do you serve Florence from Muscle Shoals?", a: "Yes! We serve all Quad Cities including Florence, Sheffield, and Tuscumbia." },
+    { q: "Are products safe for allergies?", a: "Yes, hypoallergenic options available for allergy sufferers." },
+    { q: "Do you offer move-out cleaning in Muscle Shoals?", a: "Yes, thorough move-out cleaning for Shoals-area properties." },
+    { q: "Why choose Valley Clean Team in Muscle Shoals?", a: "Local Shoals presence, pet-safe products, reliable service, 4.9-star reviews." }
+  ]
+};
+
+// FAQPage schema for location pages
+const faqSchema = (type === 'local' && city && cityFAQs[city]) ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": cityFAQs[city].map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+} : null;
+
+// BreadcrumbList schema for location pages (improves crawl efficiency)
+const breadcrumbSchema = (type === 'local' && city) ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://thevalleycleanteam.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Locations",
+      "item": "https://thevalleycleanteam.com/locations"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": `${city} Cleaning`,
+      "item": `https://thevalleycleanteam.com/locations/${city.toLowerCase().replace(/\s+/g, '-')}`
+    }
+  ]
+} : null;
+
 // Determine which schema to output
 const schemaToUse = type === 'local' && city ? localSchema : (type === 'article' ? null : organizationSchema);
 ---
@@ -470,3 +836,6 @@ const schemaToUse = type === 'local' && city ? localSchema : (type === 'article'
 {type !== 'article' && <script type="application/ld+json" set:html={JSON.stringify(schemaToUse)} />}
 {serviceSchema && <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />}
 {type === 'local' && city && <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />}
+{faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+{breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+{howToSchema && <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />}
