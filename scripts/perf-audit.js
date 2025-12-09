@@ -3,16 +3,20 @@
 /**
  * Performance Audit Agent
  * File: scripts/perf-audit.js
- * 
+ *
  * Runs automated performance checks before committing changes.
  * Claude Code should run this script after making changes.
- * 
+ *
  * Usage: node scripts/perf-audit.js [--fix]
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const CONFIG = {
@@ -225,7 +229,7 @@ function checkInternalLinks() {
     const content = fs.readFileSync(file, 'utf-8');
     
     // Find internal links (starting with /)
-    const linkRegex = /href=["'](\\/[^"'#]*)/g;
+    const linkRegex = /href=["'](\/[^"'#]*)/g;
     let match;
     
     while ((match = linkRegex.exec(content)) !== null) {
