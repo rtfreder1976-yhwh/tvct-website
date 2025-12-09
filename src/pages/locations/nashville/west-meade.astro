@@ -1,0 +1,687 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const title = "House Cleaning in West Meade, TN | Valley Clean Team";
+const description = "Professional house cleaning in West Meade, Nashville. Serving 37205. Veteran-owned, insured. White-glove service for West Nashville's finest homes. Free quotes!";
+
+const faqs = [
+  {
+    question: "Do you provide house cleaning in West Meade?",
+    answer: "Yes! We provide comprehensive house cleaning services throughout West Meade and the 37205 zip code, including homes near Percy Warner Park, Belle Meade Boulevard, and the Harding Road corridor."
+  },
+  {
+    question: "What cleaning services do you offer in West Meade?",
+    answer: "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, and special occasion cleaning for West Meade homes."
+  },
+  {
+    question: "How much does house cleaning cost in West Meade?",
+    answer: "West Meade home cleaning typically starts at $180-$280 for standard cleaning, depending on home size and condition. We provide free, detailed quotes with transparent pricing."
+  },
+  {
+    question: "Are your cleaners background-checked and insured?",
+    answer: "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your peace of mind."
+  },
+  {
+    question: "Do you clean large estate homes in West Meade?",
+    answer: "Yes! We specialize in larger homes common to West Meade. Our teams are experienced with estate properties, multi-level homes, and high-end finishes."
+  },
+  {
+    question: "Can I get the same cleaning team each visit?",
+    answer: "Yes! We assign dedicated teams to West Meade clients. You'll see the same familiar faces who learn your home's specific needs and preferences."
+  },
+  {
+    question: "Do you use eco-friendly cleaning products?",
+    answer: "We offer green cleaning options using EPA Safer Choice products. Just let us know your preferences when booking your West Meade cleaning service."
+  },
+  {
+    question: "How do I book cleaning for my West Meade home?",
+    answer: "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and can often accommodate same-week appointments."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "House Cleaning Service",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+1-615-510-1427",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "postalCode": "37205",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "West Meade, Nashville, TN"
+  },
+  "description": "Professional house cleaning services in West Meade, Nashville, Tennessee."
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <meta name="geo.region" content="US-TN" />
+    <meta name="geo.placename" content="West Meade, Nashville" />
+    <meta name="geo.position" content="36.1048;-86.8967" />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>House Cleaning Services in West Meade, Nashville</h1>
+        <p class="hero-subtitle">Premium cleaning for West Nashville's most distinguished homes near Percy Warner Park</p>
+        <div class="trust-badges">
+          <span class="badge"><i class="fas fa-shield-alt"></i> $2M Insured</span>
+          <span class="badge"><i class="fas fa-medal"></i> Veteran-Owned</span>
+          <span class="badge"><i class="fas fa-star"></i> 5-Star Rated</span>
+        </div>
+      </div>
+      <div class="hero-form">
+        <h3>Get Your Free Quote</h3>
+        <form id="quote-form" action="/api/submit-form" method="POST">
+          <input type="hidden" name="source" value="west-meade-neighborhood" />
+          <input type="hidden" name="city" value="West Meade" />
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <input type="tel" name="phone" placeholder="Phone Number" required />
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Email Address" required />
+          </div>
+          <div class="form-group">
+            <select name="service" required>
+              <option value="">Select Service...</option>
+              <option value="recurring">Recurring Cleaning</option>
+              <option value="deep-clean">Deep Cleaning</option>
+              <option value="move-in-out">Move In/Out Cleaning</option>
+              <option value="one-time">One-Time Cleaning</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="bedrooms" required>
+              <option value="">Bedrooms...</option>
+              <option value="1-2">1-2 Bedrooms</option>
+              <option value="3">3 Bedrooms</option>
+              <option value="4">4 Bedrooms</option>
+              <option value="5+">5+ Bedrooms</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary">Get Free Quote</button>
+        </form>
+        <p class="form-note"><i class="fas fa-clock"></i> Response within 15 minutes</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="intro-section">
+    <div class="container">
+      <div class="intro-content">
+        <h2>Professional Cleaning for West Meade Homes</h2>
+        <p>West Meade represents the best of West Nashville—established neighborhoods with mature trees, elegant homes, and proximity to Percy Warner Park's natural beauty. Our cleaning team understands the character of these classic Nashville homes and delivers service that matches their distinction.</p>
+        <p>As a veteran-owned company, we bring discipline and attention to detail to every West Meade home we clean. From the historic properties along Belle Meade Boulevard to the family homes near Harding Academy, we provide consistent, reliable cleaning you can count on.</p>
+        <p>Serving the 37205 zip code, our dedicated teams become familiar with your home, your preferences, and your expectations—delivering the same exceptional results visit after visit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section">
+    <div class="container">
+      <h2>Our West Meade Cleaning Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-home"></i></div>
+          <h3>Regular House Cleaning</h3>
+          <p>Weekly, biweekly, or monthly cleaning to keep your West Meade home consistently pristine. Same team every visit.</p>
+          <ul>
+            <li>All rooms dusted and vacuumed</li>
+            <li>Kitchens and bathrooms sanitized</li>
+            <li>Floors cleaned throughout</li>
+            <li>Beds made, surfaces organized</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-sparkles"></i></div>
+          <h3>Deep Cleaning</h3>
+          <p>Comprehensive cleaning reaching every corner of your home. Perfect for seasonal refreshes or first-time service.</p>
+          <ul>
+            <li>Inside cabinets and appliances</li>
+            <li>Baseboards and crown molding</li>
+            <li>Light fixtures and ceiling fans</li>
+            <li>Window sills and blinds</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-box"></i></div>
+          <h3>Move In/Out Cleaning</h3>
+          <p>Thorough cleaning for West Meade real estate transactions. We help ensure deposits and smooth closings.</p>
+          <ul>
+            <li>Complete interior detailed</li>
+            <li>Appliances cleaned inside/out</li>
+            <li>Closets and storage areas</li>
+            <li>Garage floor cleaning available</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-section">
+    <div class="container">
+      <h2>Why West Meade Homeowners Trust Us</h2>
+      <div class="features-grid">
+        <div class="feature">
+          <i class="fas fa-users"></i>
+          <h3>Consistent Teams</h3>
+          <p>Your dedicated team learns your home and preferences, delivering personalized service every visit.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Fully Insured</h3>
+          <p>$2 million liability coverage protects your home and valuables. Complete peace of mind.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-medal"></i>
+          <h3>Veteran Values</h3>
+          <p>Military discipline means reliability, punctuality, and attention to detail in every clean.</p>
+        </div>
+        <div class="feature">
+          <i class="fas fa-check-double"></i>
+          <h3>Satisfaction Guaranteed</h3>
+          <p>Not 100% satisfied? We'll return within 24 hours to address any concerns at no charge.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served Section -->
+  <section class="areas-section">
+    <div class="container">
+      <h2>Serving All of West Meade & Nearby Areas</h2>
+      <p>Our West Meade cleaning service covers the entire 37205 zip code and surrounding West Nashville neighborhoods:</p>
+      <div class="areas-grid">
+        <div class="area-item">
+          <h4>West Meade Areas</h4>
+          <ul>
+            <li>Percy Warner Park area</li>
+            <li>Belle Meade Boulevard corridor</li>
+            <li>Harding Road vicinity</li>
+            <li>Harpeth Hills area</li>
+          </ul>
+        </div>
+        <div class="area-item">
+          <h4>Nearby Communities</h4>
+          <ul>
+            <li><a href="/locations/nashville/belle-meade/">Belle Meade</a></li>
+            <li><a href="/locations/nashville/">Nashville</a></li>
+            <li>Bellevue</li>
+            <li>Green Hills</li>
+          </ul>
+        </div>
+        <div class="area-item">
+          <h4>Service Coverage</h4>
+          <ul>
+            <li>37205 zip code (primary)</li>
+            <li>Near Harding Academy</li>
+            <li>West Nashville residents</li>
+            <li>All home sizes welcome</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-grid">
+        {faqs.map((faq) => (
+          <div class="faq-item">
+            <h3>{faq.question}</h3>
+            <p>{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready for a Cleaner West Meade Home?</h2>
+      <p>Join your neighbors who trust The Valley Clean Team for reliable, professional cleaning service.</p>
+      <div class="cta-buttons">
+        <a href="tel:+16155101427" class="btn-primary"><i class="fas fa-phone"></i> (615) 510-1427</a>
+        <a href="/get-quote/" class="btn-secondary">Get Free Quote</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-section {
+    position: relative;
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+    padding: 60px 20px;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: url('/images/west-meade-background.webp') center/cover;
+    opacity: 0.2;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-text {
+    color: white;
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background: rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+  }
+
+  .badge i {
+    margin-right: 6px;
+  }
+
+  .hero-form {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+
+  .hero-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e3a5f;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: #2d5a87;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: #1e3a5f;
+  }
+
+  .form-note {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #1e3a5f;
+  }
+
+  .intro-section {
+    background: #f8f9fa;
+  }
+
+  .intro-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .intro-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .service-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border: 1px solid #eee;
+  }
+
+  .service-icon {
+    width: 60px;
+    height: 60px;
+    background: #e8f4f8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .service-icon i {
+    font-size: 1.5rem;
+    color: #2d5a87;
+  }
+
+  .service-card h3 {
+    color: #1e3a5f;
+    margin-bottom: 15px;
+  }
+
+  .service-card ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+  }
+
+  .service-card li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: #555;
+  }
+
+  .service-card li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #2d5a87;
+    font-weight: bold;
+  }
+
+  .why-choose-section {
+    background: #1e3a5f;
+    color: white;
+  }
+
+  .why-choose-section h2 {
+    color: white;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .feature {
+    text-align: center;
+  }
+
+  .feature i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #7cb9e8;
+  }
+
+  .feature h3 {
+    margin-bottom: 10px;
+  }
+
+  .feature p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+  }
+
+  .areas-section {
+    background: #f8f9fa;
+  }
+
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .area-item {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+  }
+
+  .area-item h4 {
+    color: #1e3a5f;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2d5a87;
+  }
+
+  .area-item ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .area-item li {
+    padding: 8px 0;
+    color: #555;
+  }
+
+  .area-item a {
+    color: #2d5a87;
+    text-decoration: none;
+  }
+
+  .area-item a:hover {
+    text-decoration: underline;
+  }
+
+  .faq-section {
+    background: white;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .faq-item {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+  }
+
+  .faq-item h3 {
+    color: #1e3a5f;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    color: white;
+  }
+
+  .cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .cta-buttons .btn-primary {
+    width: auto;
+    padding: 14px 30px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-secondary {
+    padding: 14px 30px;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    background: white;
+    color: #1e3a5f;
+  }
+
+  @media (max-width: 968px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .trust-badges {
+      justify-content: center;
+    }
+
+    .services-grid,
+    .features-grid,
+    .areas-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('quote-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          window.location.href = '/thank-you/';
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+      }
+    });
+  }
+</script>
