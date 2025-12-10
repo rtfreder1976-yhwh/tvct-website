@@ -1,0 +1,62 @@
+#!/bin/bash
+
+echo "=== META DESCRIPTION AUDIT ===" > meta_audit.txt
+echo "" >> meta_audit.txt
+
+# Arrays to store results
+declare -a MISSING_DESC
+declare -a TOO_SHORT
+declare -a TOO_LONG
+declare -a GOOD
+
+total=0
+missing_count=0
+too_short_count=0
+too_long_count=0
+good_count=0
+
+# Find all astro files and process them
+for file in $(find src/pages -name "*.astro" -type f | sort); do
+    total=$((total + 1))
+    
+    # Extract first description
+    desc=$(grep -o 'description="[^"]*"' "$file" | head -1 | sed 's/description="//' | sed 's/"$//')
+    
+    if [ -z "$desc" ]; then
+        # Missing description
+        MISSING_DESC+=("$file")
+        missing_count=$((missing_count + 1))
+        echo "MISSING: $file" >> meta_audit.txt
+    else
+        # Get length
+        len=${#desc}
+        
+        if [ $len -lt 120 ]; then
+            # Too short
+            TOO_SHORT+=("$file|$len|$desc")
+            too_short_count=$((too_short_count + 1))
+            echo "TOO_SHORT ($len): $file" >> meta_audit.txt
+            echo "  > $desc" >> meta_audit.txt
+        elif [ $len -gt 165 ]; then
+            # Too long
+            TOO_LONG+=("$file|$len|$desc")
+            too_long_count=$((too_long_count + 1))
+            echo "TOO_LONG ($len): $file" >> meta_audit.txt
+            echo "  > $desc" >> meta_audit.txt
+        else
+            # Good
+            GOOD+=("$file|$len")
+            good_count=$((good_count + 1))
+        fi
+    fi
+done
+
+echo "" >> meta_audit.txt
+echo "=== SUMMARY ===" >> meta_audit.txt
+echo "Total pages: $total" >> meta_audit.txt
+echo "Missing meta descriptions: $missing_count" >> meta_audit.txt
+echo "Too short (< 120): $too_short_count" >> meta_audit.txt
+echo "Too long (> 165): $too_long_count" >> meta_audit.txt
+echo "Good (120-165): $good_count" >> meta_audit.txt
+
+cat meta_audit.txt
