@@ -505,37 +505,25 @@ import Icon from '../components/Icon.astro';
   </button>
 
   <script is:inline>
-    // Sticky quote button visibility
+    // Sticky quote button visibility using Intersection Observer (no forced reflows)
     (function() {
       const stickyBtn = document.getElementById('sticky-quote-btn');
       const heroForm = document.getElementById('hero-quote-form');
 
       if (stickyBtn && heroForm) {
-        let ticking = false;
+        const observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              stickyBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+              stickyBtn.classList.remove('opacity-100', 'translate-y-0');
+            } else {
+              stickyBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+              stickyBtn.classList.add('opacity-100', 'translate-y-0');
+            }
+          });
+        }, { threshold: 0 });
 
-        function updateStickyButton() {
-          const heroRect = heroForm.getBoundingClientRect();
-          const isHeroVisible = heroRect.bottom > 0 && heroRect.top < window.innerHeight;
-
-          if (isHeroVisible) {
-            stickyBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-            stickyBtn.classList.remove('opacity-100', 'translate-y-0');
-          } else {
-            stickyBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-            stickyBtn.classList.add('opacity-100', 'translate-y-0');
-          }
-          ticking = false;
-        }
-
-        window.addEventListener('scroll', function() {
-          if (!ticking) {
-            requestAnimationFrame(updateStickyButton);
-            ticking = true;
-          }
-        }, { passive: true });
-
-        // Initial check
-        updateStickyButton();
+        observer.observe(heroForm);
       }
     })();
   </script>
