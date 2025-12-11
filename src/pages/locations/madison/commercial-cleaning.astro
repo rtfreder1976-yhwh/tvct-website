@@ -1,0 +1,429 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Madison commercial areas
+const commercialAreas = [
+  "Town Madison",
+  "Hughes Road Corridor",
+  "Madison Square Mall Area",
+  "Highway 72 Corridor",
+  "Downtown Madison",
+  "Wall Triana Highway",
+  "Research Park (nearby)",
+  "County Line Road"
+];
+
+// Industries served
+const industriesServed = [
+  { name: "Medical & Dental Offices", icon: "fa-stethoscope" },
+  { name: "Professional Offices", icon: "fa-briefcase" },
+  { name: "Retail Stores", icon: "fa-store" },
+  { name: "Restaurants & Food Service", icon: "fa-utensils" },
+  { name: "Gyms & Fitness Centers", icon: "fa-dumbbell" },
+  { name: "Salons & Spas", icon: "fa-spa" },
+  { name: "Churches & Religious Centers", icon: "fa-church" },
+  { name: "Daycares & Schools", icon: "fa-child" },
+  { name: "Real Estate Offices", icon: "fa-home" },
+  { name: "Financial Services", icon: "fa-university" },
+  { name: "Tech Companies", icon: "fa-laptop-code" },
+  { name: "Warehouses & Light Industrial", icon: "fa-warehouse" }
+];
+
+// What's included
+const includedServices = [
+  "Reception & lobby cleaning",
+  "All office surfaces dusted",
+  "Desks & workstations cleaned",
+  "Conference rooms maintained",
+  "Break room & kitchen cleaning",
+  "Restroom sanitization",
+  "Floor vacuuming & mopping",
+  "Trash & recycling removal",
+  "Window & glass cleaning",
+  "High-touch surface disinfection",
+  "Carpet spot cleaning",
+  "Supply restocking (optional)"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does commercial cleaning cost in Madison?",
+    answer: "Commercial cleaning in Madison varies by space size, cleaning frequency, and specific requirements. Small offices (under 2,000 sq ft) typically start around $150-$300/visit. Larger spaces or specialized facilities are custom quoted. We offer daily, weekly, biweekly, and monthly options with volume discounts. Call (256) 856-1006 for a free walk-through and quote."
+  },
+  {
+    question: "Do you clean offices in Town Madison?",
+    answer: "Yes! Town Madison's growing commercial district includes offices, retail spaces, and mixed-use buildings we service regularly. Whether you're in The Exchange business park, a retail space near Toyota Field, or anywhere in Town Madison, we provide professional commercial cleaning tailored to your needs."
+  },
+  {
+    question: "Can you clean after business hours?",
+    answer: "Absolutely! Most of our Madison commercial clients prefer evening or early morning cleaning to avoid disrupting their business operations. We work around your schedule—whether that's after your office closes at 5pm, early mornings before you open, or weekends for retail locations."
+  },
+  {
+    question: "Do you provide janitorial supplies?",
+    answer: "Yes, we can provide all cleaning supplies and restock your restrooms with paper products, soap, and sanitizer. This is included in many of our commercial cleaning packages, or available as an add-on. We use commercial-grade products appropriate for your facility type."
+  },
+  {
+    question: "Are you insured for commercial properties?",
+    answer: "Yes, we carry $2 million in liability insurance specifically covering commercial cleaning services. We're also bonded, so your Madison business and property are fully protected. We can provide certificates of insurance for your records or property manager requirements."
+  },
+  {
+    question: "Do you clean medical and dental offices?",
+    answer: "Yes! We provide specialized cleaning for medical and dental offices in Madison with attention to healthcare cleaning standards. We use EPA-registered disinfectants, focus on high-touch surfaces, and understand the heightened cleanliness expectations in healthcare environments."
+  },
+  {
+    question: "How do you handle security and building access?",
+    answer: "We work with you to establish secure access procedures—whether that's key pickup, alarm codes, key cards, or meeting your property manager. All our team members are background-checked, and we maintain strict protocols for after-hours building access."
+  },
+  {
+    question: "Can you customize cleaning to our specific needs?",
+    answer: "Every Madison business has different needs, and we customize our cleaning plans accordingly. Need extra attention to your reception area? Special disinfection protocols? Kitchen deep cleaning weekly? We build a cleaning plan around what matters most to your business."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Commercial Cleaning Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": commercialAreas.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Madison, AL`
+  })),
+  "serviceType": "Commercial Cleaning",
+  "description": "Professional commercial cleaning services in Madison, Alabama. Office cleaning, janitorial services for businesses throughout Madison County."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Commercial Cleaning Madison AL | Office Janitorial Services | Valley Clean Team"
+  description="Professional commercial cleaning in Madison, Alabama. Office cleaning, janitorial services for Town Madison businesses. Veteran-owned. Call (256) 856-1006"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-building mr-2"></i>Business Cleaning Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Commercial Cleaning Services in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Madison's growing business community—from Town Madison's new commercial district to established offices along Highway 72—deserves professional cleaning that reflects your standards. We provide reliable janitorial services that keep your workspace spotless and your team healthy.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-user-check text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Background-Checked</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Madison's trusted commercial cleaning team</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries Served -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Industries We <span class="gold-gradient">Serve in Madison</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Professional cleaning tailored to your business type
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {industriesServed.map((industry) => (
+          <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center hover:border-[#FFA985] transition-all">
+            <i class={`fas ${industry.icon} text-[#FFA985] text-2xl mb-2`}></i>
+            <p class="text-gray-700 text-sm font-medium">{industry.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Commercial Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive janitorial services for your Madison business
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Madison Businesses Choose <span class="gold-gradient">The Valley Clean Team</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-clock text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Flexible Scheduling</h3>
+          <p class="text-gray-600">Evening, early morning, or weekend cleaning that never disrupts your business operations. We work on your schedule.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-clipboard-check text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Consistent Quality</h3>
+          <p class="text-gray-600">Same team, same standards, every visit. Detailed checklists ensure nothing gets missed, and your space looks great every day.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-shield-virus text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Health-Focused</h3>
+          <p class="text-gray-600">EPA-registered disinfectants and attention to high-touch surfaces keep your team healthy and reduce sick days.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-key text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Secure Access</h3>
+          <p class="text-gray-600">Background-checked team members with strict protocols for key control, alarm codes, and after-hours building access.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military discipline and attention to detail in everything we do. Your business deserves the same commitment we gave in service.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-file-contract text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">No Long Contracts</h3>
+          <p class="text-gray-600">We earn your business with results, not legal agreements. Flexible terms that work for your business needs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Madison Commercial Areas -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Madison <span class="gold-gradient">Commercial Areas</span> We Serve
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Professional cleaning throughout Madison's business districts
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {commercialAreas.map((area) => (
+          <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{area}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about commercial cleaning in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/services/commercial-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Commercial</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Our full commercial cleaning services overview.</p>
+        </a>
+        
+        <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Periodic deep cleaning for offices and commercial spaces.</p>
+        </a>
+        
+        <a href="/locations/madison" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Madison Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Madison, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Keep Your Madison Business Spotless
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Professional commercial cleaning that reflects your business standards. Flexible scheduling, consistent quality, no long-term contracts.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>Veteran-Owned | $2M Insurance | Background-Checked Team
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

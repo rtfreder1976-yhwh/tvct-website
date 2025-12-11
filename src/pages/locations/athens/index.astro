@@ -1,34 +1,613 @@
 ---
-import LocationLayout from '../../../layouts/LocationLayout.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+import { athensTestimonials } from '../../../data/testimonials';
+
+const city = "Athens";
+const state = "Alabama";
+const region = "Limestone County";
+
+// Geographic data
+const geoData = {
+  region: "US-AL",
+  position: "34.8029;-86.9717",
+  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+};
+
+// Neighborhoods and areas served
+const neighborhoods = [
+  "Downtown Athens",
+  "The Square",
+  "Athens State University area",
+  "Beaty Historic District",
+  "East Athens",
+  "West Athens",
+  "Tanner",
+  "Elkmont",
+  "Ardmore",
+  "Belle Mina",
+  "Mooresville",
+  "Clements",
+  "Capshaw"
+];
+
+// Athens-specific FAQs
+const faqs = [
+  {
+    question: "Do you clean historic homes in the Beaty Historic District?",
+    answer: "Yes, we specialize in caring for Athens' beautiful historic homes in the Beaty Historic District and throughout the downtown area. Our team understands the unique needs of antebellum and Victorian properties—from original hardwood floors to period details. We use gentle, appropriate products that preserve your home's historic character while delivering a thorough clean."
+  },
+  {
+    question: "Can you work around Fiddlers Convention and festival schedules?",
+    answer: "Absolutely! We know Athens transforms during the Tennessee Valley Old Time Fiddlers Convention and Storytelling Festival each October. We offer flexible scheduling for pre-event deep cleans and post-event refreshes. If you're hosting out-of-town visitors for these events, we'll ensure your home is guest-ready."
+  },
+  {
+    question: "What Athens and Limestone County areas do you serve?",
+    answer: "We serve all of Athens and Limestone County including Downtown Athens, The Square, Athens State University area, Beaty Historic District, East and West Athens, Tanner, Elkmont, Ardmore, Belle Mina, Mooresville, Clements, and Capshaw. We also serve homes along the Elk River and Tennessee River areas."
+  },
+  {
+    question: "Do you provide cleaning services near Athens State University?",
+    answer: "Yes, we serve the Athens State University area with residential cleaning for faculty, staff, students, and families. We understand academic schedules and can work around exam periods, holiday breaks, and the busy fall semester when events bring thousands to campus."
+  },
+  {
+    question: "Can you accommodate Huntsville commuters' schedules?",
+    answer: "Definitely. Many Athens residents commute to Huntsville for work at Redstone Arsenal, NASA Marshall, and local tech companies. We offer flexible scheduling—including while you're at work—so you come home to a clean house. Same-day service is also available for busy professionals."
+  },
+  {
+    question: "Do you offer move-in/move-out cleaning for Athens rentals?",
+    answer: "Yes, we provide thorough move-in and move-out cleaning throughout Athens and Limestone County. Our detailed cleaning helps tenants get their security deposit back and prepares properties for new occupants. We work with property managers, landlords, and real estate agents for smooth transitions."
+  },
+  {
+    question: "How do you handle cleaning during tornado season?",
+    answer: "Athens is no stranger to severe weather. We offer flexible rescheduling when storms impact the area, and we provide post-storm cleanup services to help restore your home. If you need extra help after severe weather, we're here to support our community."
+  },
+  {
+    question: "Do you serve the antebellum homes in Belle Mina and Mooresville?",
+    answer: "Yes, we proudly serve the historic communities of Belle Mina and Mooresville along the Antebellum Trail. These beautifully preserved homes require special care, and our team is trained to clean period properties with the attention they deserve. We respect your home's history while delivering modern cleaning standards."
+  }
+];
+
+// Schema for FAQPage
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Testimonials - imported from centralized data
+const testimonials = athensTestimonials.map(t => ({
+  initial: t.initial,
+  name: t.name,
+  area: t.source,
+  text: t.text
+}));
 ---
 
-<LocationLayout
+<BaseLayout
   title="Athens AL Cleaning Services | The Valley Clean Team"
-  description="Top-rated cleaning services in Athens, Alabama. Residential & commercial cleaning serving Limestone County. Get your free quote today!"
-  city="Athens"
-  state="Alabama"
-  region="Limestone County"
-  tagline="Proudly Serving Athens & Limestone County"
-  heroDescription="The Valley Clean Team provides premier residential and commercial cleaning throughout Athens and Limestone County. From historic downtown Athens to surrounding communities, we deliver professional cleaning services that local families trust."
-  features={["Licensed & Insured", "Same-Day Service Available", "Military Discount"]}
-  testimonials={[
-    {
-      initial: "P",
-      name: "Patrick Scogin",
-      area: "via Google",
-      text: "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."
-    },
-    {
-      initial: "K",
-      name: "Karen Sears",
-      area: "via Google",
-      text: "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
-    },
-    {
-      initial: "E",
-      name: "Emeria Ewing",
-      area: "via Google",
-      text: "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
-    }
-  ]}
-/>
+  description="Premier Athens cleaning services. Veteran-owned, $2M insured. Serving Downtown Athens, The Square, Limestone County. 130+ 5-star reviews."
+  ogImage={geoData.image}
+  geoRegion={geoData.region}
+  geoPlacename={`${city}, ${state}`}
+  geoPosition={geoData.position}
+>
+  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-map-marker-alt mr-2"></i>Classic. Southern. Character.
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Professional Cleaning Services in <span class="gold-gradient">Athens, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Limestone County's trusted cleaning service for families and professionals. From historic homes around The Square to modern neighborhoods, we deliver spotless results throughout Athens.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Women-Led</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ Reviews</span>
+            </div>
+          </div>
+
+          <!-- Urgency Badge -->
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-clock mr-2"></i>Same-Day Service Available in Athens
+            </span>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all duration-200">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all duration-200">
+              <i class="fas fa-phone mr-2"></i>(256) 856-1006
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Athens' trusted cleaning professionals</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Athens Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Serving Athens: <span class="gold-gradient">Alabama's Classic City</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Incorporated in 1818—one year before Alabama became a state—Athens is one of the oldest cities in Alabama and the proud county seat of Limestone County. Named after the ancient Greek city, Athens has grown from its agricultural roots into a thriving community of over 32,000 residents while preserving its classic Southern charm. The city consistently earns rankings as one of Alabama's safest cities and best places to retire.
+          </p>
+          <p class="mb-6">
+            The Valley Clean Team is honored to serve Athens families—from the historic homes surrounding The Square to modern neighborhoods throughout Limestone County. Whether you're a professional commuting to Huntsville, a faculty member at Athens State University, or a family enjoying the city's renowned school system, we deliver the same meticulous attention that's earned us 130+ five-star reviews across North Alabama.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Historic Athens Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Historic Athens: <span class="gold-gradient">Where History Lives</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Home to three Alabama governors and the state's oldest institution of higher education
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            <i class="fas fa-landmark text-[#FFA985] mr-2"></i>The Square & Downtown
+          </h3>
+          <p class="text-gray-600">
+            The historic Limestone County Courthouse anchors Athens' beloved Square—a gathering place for parades, pep rallies, festivals, and community events. Surrounding the courthouse, you'll find unique shops, local restaurants, and benches under dogwood trees perfect for enjoying an ice cream cone. The Square is the heart of Athens life, hosting the iconic Fiddlers Convention, Storytelling Festival, and Cars & Bikes on the Square events.
+          </p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            <i class="fas fa-university text-[#FFA985] mr-2"></i>Athens State University
+          </h3>
+          <p class="text-gray-600">
+            Founded in 1822 as Athens Female Academy, Athens State University is Alabama's oldest institution of higher education. Legend has it that during the Civil War, the college president saved the campus from Union destruction with a letter from fellow Freemason Abraham Lincoln. Today, the university serves as a "reverse junior college" for community college graduates and hosts major festivals on its beautiful campus each October.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Historic Trails Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        The <span class="gold-gradient">Antebellum Trail</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Limestone County preserves some of Alabama's finest antebellum architecture
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-home text-4xl text-[#FFA985] mb-4"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Athens</h3>
+          <p class="text-gray-600 text-sm">The Beaty Historic District features antebellum and Victorian homes, including the Robert Donnell House (1840) and the residence of Governor Thomas Bibb, Alabama's second governor</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-columns text-4xl text-[#FFA985] mb-4"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Belle Mina</h3>
+          <p class="text-gray-600 text-sm">Home to the stunning Belle Mina plantation house, built in 1826 by Governor Thomas Bibb. The community preserves beautiful examples of Alabama's antebellum heritage</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-church text-4xl text-[#FFA985] mr-2"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Mooresville</h3>
+          <p class="text-gray-600 text-sm">Alabama's oldest incorporated town (1818) with preserved 19th-century architecture, the historic Stagecoach Inn, and the tiny post office that's operated since 1840</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas We Serve Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Areas We Serve in <span class="gold-gradient">Athens & Limestone County</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning services throughout Athens and surrounding Limestone County communities
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-city text-[#FFA985] mr-2"></i>Athens Proper
+          </h3>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Downtown Athens / The Square</li>
+            <li>• Beaty Historic District</li>
+            <li>• Athens State University area</li>
+            <li>• East Athens</li>
+            <li>• West Athens</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>Historic Communities
+          </h3>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Belle Mina</li>
+            <li>• Mooresville</li>
+            <li>• Elkmont</li>
+            <li>• Clements</li>
+            <li>• Capshaw</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-road text-[#FFA985] mr-2"></i>Limestone County
+          </h3>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Tanner</li>
+            <li>• Ardmore</li>
+            <li>• Lester</li>
+            <li>• Elk River area</li>
+            <li>• I-65 Corridor communities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Athens Events Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Athens <span class="gold-gradient">Signature Events</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        We keep Athens homes guest-ready for the city's legendary festivals
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">OCTOBER</div>
+          <h3 class="font-bold text-[#333333] mb-2">Fiddlers Convention</h3>
+          <p class="text-gray-600 text-sm">The "Granddaddy of Midsouth Fiddlers Conventions" draws 15,000+ music lovers to Athens State for four days of traditional music and $47,000 in prizes</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">OCTOBER</div>
+          <h3 class="font-bold text-[#333333] mb-2">Storytelling Festival</h3>
+          <p class="text-gray-600 text-sm">Five days celebrating the spoken word with nationally acclaimed storytellers under the big tent at Athens State University</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">OCTOBER</div>
+          <h3 class="font-bold text-[#333333] mb-2">Athens Haunts Walk</h3>
+          <p class="text-gray-600 text-sm">90-minute paranormal walking tour of historic downtown, uncovering ghost stories and spooky legends at 13 historic locations</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">MONTHLY</div>
+          <h3 class="font-bold text-[#333333] mb-2">Cars & Bikes on the Square</h3>
+          <p class="text-gray-600 text-sm">Classic cars, motorcycles, live entertainment, and prizes on The Square during warm weather months</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Our <span class="gold-gradient">Cleaning Services</span> in Athens
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning solutions for Athens homes and businesses
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <a href="/services/weekly-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Weekly Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Consistent, reliable weekly service keeps your Athens home spotless. Perfect for busy families and professionals.</p>
+        </a>
+        
+        <a href="/services/biweekly-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Biweekly Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Our most popular option for Athens families. Thorough cleaning every two weeks maintains a fresh, healthy home.</p>
+        </a>
+        
+        <a href="/services/deep-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Top-to-bottom cleaning perfect for those historic homes or seasonal refreshes before Fiddlers Convention weekend.</p>
+        </a>
+        
+        <a href="/services/move-out-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Get your full deposit back. Thorough move-in/move-out cleaning for Athens rentals and home sales.</p>
+        </a>
+        
+        <a href="/services/airbnb-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-key text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Airbnb Turnover</h3>
+          </div>
+          <p class="text-gray-600">Fast, reliable turnover cleaning for vacation rentals. Keep your 5-star rating during festival season.</p>
+        </a>
+        
+        <a href="/locations/athens/commercial-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Commercial Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Professional office and commercial cleaning for Athens businesses around The Square and beyond.</p>
+        </a>
+
+        <a href="/locations/athens/event-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-glass-cheers text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Event Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Before and after party cleanup for Athens weddings, corporate events, and celebrations. Same-day available.</p>
+        </a>
+
+        <a href="/locations/athens/green-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-leaf text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Green Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Eco-friendly cleaning with plant-based, non-toxic products. Safe for children, pets, and allergy sufferers.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Athens History Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Athens: <span class="gold-gradient">A City of Firsts</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Athens has been making history since before Alabama was a state. In 1934, Athens became the first town to receive electricity from the Tennessee Valley Authority—a milestone in American infrastructure. The city was home to both William Wyatt Bibb, Alabama's first governor, and his brother Thomas Bibb, the second governor. George S. Houston, elected in 1874, was the state's first post-Reconstruction Democratic governor.
+          </p>
+          <p class="mb-6">
+            Today, Athens balances its historic character with modern growth. Located midway between Nashville and Birmingham on I-65, and sharing a boundary with Huntsville, Athens attracts families seeking excellent schools, professionals commuting to high-tech jobs, and visitors drawn by world-class festivals. The Tennessee Valley Old Time Fiddlers Convention—now in its 58th year—brings thousands to celebrate traditional music, while the Storytelling Festival continues the Southern tradition of tales and laughter.
+          </p>
+          <p>
+            We understand what makes Athens special—the pride in history, the warmth of The Square, the importance of community. That's why Athens families trust The Valley Clean Team with their homes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What Our <span class="gold-gradient">Customers Say</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Over 130 five-star reviews from families across North Alabama
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {testimonials.map((testimonial) => (
+          <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+                {testimonial.initial}
+              </div>
+              <div>
+                <h4 class="font-bold text-[#333333]">{testimonial.name}</h4>
+                <p class="text-sm text-gray-500">{testimonial.area}</p>
+              </div>
+            </div>
+            <div class="flex text-[#FFA985] mb-3">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-600 italic">"{testimonial.text}"</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Athens Families Choose <span class="gold-gradient">The Valley Clean Team</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Veteran-Owned</h3>
+          <p class="text-gray-600 text-sm">Proudly veteran-owned and operated with military precision and values</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-shield-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">$2M Insurance</h3>
+          <p class="text-gray-600 text-sm">Fully bonded and insured for your complete peace of mind</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-user-check text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Background Checked</h3>
+          <p class="text-gray-600 text-sm">Every team member is thoroughly vetted and professionally trained</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-heart text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">100% Satisfaction</h3>
+          <p class="text-gray-600 text-sm">If you're not happy, we'll make it right—guaranteed</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 px-6" id="faq">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions from Athens homeowners
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq, index) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready for a Spotless Home in Athens?
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Join the families across Limestone County who trust The Valley Clean Team. Get your free quote today—same-day service available.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all duration-200">
+          <i class="fas fa-phone mr-2"></i>(256) 856-1006
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

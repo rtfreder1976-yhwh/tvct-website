@@ -1,0 +1,472 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Decatur";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Decatur areas
+const neighborhoods = [
+  "Bank Street Historic District",
+  "Albany Historic District",
+  "Downtown Decatur",
+  "Point Mallard Area",
+  "Near Wheeler Lake",
+  "Tennessee River Area",
+  "Southwest Decatur",
+  "Austin",
+  "Priceville",
+  "Hartselle"
+];
+
+// What's included
+const includedServices = [
+  "Fresh linens & bed making",
+  "Towel setup & display",
+  "All surfaces wiped & dusted",
+  "Kitchen deep cleaned",
+  "Appliances cleaned inside & out",
+  "Dishes washed & put away",
+  "Bathrooms sanitized",
+  "Toiletries restocked (if provided)",
+  "Floors vacuumed & mopped",
+  "Trash removed & bins lined",
+  "Amenities checked & organized",
+  "Damage & issue inspection",
+  "Smart lock code verification",
+  "Photo documentation (optional)"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does Airbnb turnover cleaning cost in Decatur?",
+    answer: "Airbnb turnover cleaning in Decatur typically costs $85-$125 for 1-2 bedroom properties and $125-$175+ for 3+ bedroom properties. Pricing depends on property size, number of beds/baths, and guest turnover condition. We offer volume discounts for property managers. Call (256) 856-1006 for a quote."
+  },
+  {
+    question: "What makes Decatur a good short-term rental market?",
+    answer: "Decatur offers unique short-term rental opportunities with Wheeler Lake recreation (fishing, boating, camping), Point Mallard Water Park and campground visitors, Tennessee River attractions, historic downtown, and proximity to Huntsville. The area attracts outdoor enthusiasts year-round."
+  },
+  {
+    question: "How quickly can you turn over a property?",
+    answer: "Most Decatur properties can be turned over in 2-3 hours depending on size and condition. For same-day turnovers, book in advance to ensure availability. We understand tight check-in/check-out windows and work efficiently."
+  },
+  {
+    question: "Do you service vacation rentals near Wheeler Lake?",
+    answer: "Yes! We serve lake houses and vacation rentals near Wheeler Lake, along the Tennessee River, and throughout the Point Mallard area. These properties often need extra attention for sand, fishing gear, and outdoor activity debris."
+  },
+  {
+    question: "Can you handle last-minute turnover requests?",
+    answer: "We try our best! While advance booking is preferred, we understand the nature of short-term rentals. Call us as soon as you know about a same-day turnover and we'll do everything possible to accommodate you."
+  },
+  {
+    question: "Do you restock supplies and toiletries?",
+    answer: "Yes! If you provide supplies, we'll restock them during turnover. We can also purchase and restock supplies for you at cost plus a small service fee. Just let us know your preferences."
+  },
+  {
+    question: "Do you inspect for guest damage?",
+    answer: "Absolutely. We check for damage, missing items, and anything that needs attention before your next guest arrives. We'll notify you immediately of any issues so you can address them or document for Airbnb claims."
+  },
+  {
+    question: "Do you work with property managers?",
+    answer: "Yes! We work with several Decatur-area property managers and offer volume pricing for multiple properties. Consistent quality, reliable scheduling, and direct communication make us a trusted partner for vacation rental management."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Airbnb Cleaning Decatur AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Decatur",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Decatur, AL`
+  })),
+  "serviceType": "Vacation Rental Cleaning",
+  "description": "Professional Airbnb and vacation rental turnover cleaning in Decatur, Alabama. Wheeler Lake, Point Mallard area. Fast turnovers, 5-star ready."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Airbnb Cleaning Decatur AL | Vacation Rental Turnover | Valley Clean Team"
+  description="Professional Airbnb & vacation rental cleaning in Decatur, Alabama. Wheeler Lake, Point Mallard area. Fast turnovers, 5-star ready. Call (256) 856-1006"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-key mr-2"></i>5-Star Turnover Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Airbnb & Vacation Rental Cleaning in <span class="gold-gradient">Decatur, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Keep your Decatur vacation rental 5-star ready. From Wheeler Lake getaways to downtown Decatur properties, we provide reliable turnover cleaning that impresses guests and protects your reviews. Fast turnovers, hotel-quality results.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">5-Star Quality</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">1-2 Bedroom</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$85-$125</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">3+ Bedroom</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$125-$175+</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Volume</span>
+                <div class="text-lg font-semibold text-green-600">Discounts Available</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Decatur vacation rental specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Every Turnover</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Hotel-quality cleaning that earns 5-star reviews
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Decatur Rental Market -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Decatur's <span class="gold-gradient">Vacation Rental Market</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Why guests choose Decatur—and why they need spotless stays
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-water text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Wheeler Lake Recreation</h3>
+          <p class="text-gray-600">Fishing, boating, water sports—guests come for the lake and bring sand, tackle, and outdoor gear. We know how to clean after lake adventures.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-swimmer text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Point Mallard Visitors</h3>
+          <p class="text-gray-600">Water park, campground, and outdoor recreation bring families year-round. Short-term rentals near Point Mallard need reliable turnover service.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-landmark text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Downtown</h3>
+          <p class="text-gray-600">Bank Street's shops and restaurants, local events, and Tennessee River views attract visitors looking for authentic small-city experiences.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-briefcase text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Business Travelers</h3>
+          <p class="text-gray-600">Manufacturing and corporate visitors to Decatur often prefer Airbnb over hotels. They expect spotless, professional accommodations.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-rocket text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Huntsville Overflow</h3>
+          <p class="text-gray-600">When Huntsville events fill hotels, visitors stay in Decatur. Space Camp, aerospace events, and conventions create rental demand.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-campground text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Outdoor Enthusiasts</h3>
+          <p class="text-gray-600">Hiking, biking, birdwatching—the Tennessee River Valley attracts nature lovers who appreciate clean, comfortable vacation rentals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Serving Vacation Rentals Throughout <span class="gold-gradient">Decatur & Morgan County</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From lakefront properties to downtown stays
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Managers -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold text-[#333333] mb-4">
+            Property Manager <span class="gold-gradient">Services</span>
+          </h2>
+          <p class="text-gray-600">
+            Managing multiple Decatur vacation rentals? We're your reliable cleaning partner.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="flex items-start">
+            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#333333]">Volume Pricing</h4>
+              <p class="text-gray-600 text-sm">Discounted rates for multiple properties and high-turnover schedules.</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#333333]">Priority Scheduling</h4>
+              <p class="text-gray-600 text-sm">Your turnovers get priority, even during busy seasons.</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#333333]">Direct Communication</h4>
+              <p class="text-gray-600 text-sm">Single point of contact for all your properties.</p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+            <div>
+              <h4 class="font-semibold text-[#333333]">Issue Reporting</h4>
+              <p class="text-gray-600 text-sm">Immediate notification of damage, maintenance needs, or supply issues.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-8">
+          <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+            <i class="fas fa-phone mr-2"></i>Discuss Property Management Needs
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about Airbnb cleaning in Decatur
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Decatur
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/decatur/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Seasonal deep clean for your rental property.</p>
+        </a>
+        
+        <a href="/locations/decatur/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-home text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Home Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Regular cleaning for your primary residence.</p>
+        </a>
+        
+        <a href="/locations/decatur" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Decatur Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Decatur, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Keep Your Decatur Rental 5-Star Ready
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Reliable turnover cleaning that impresses guests and protects your reviews. From Wheeler Lake properties to downtown Decatur stays.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>Fast Turnovers | Reliable Service | Volume Discounts
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

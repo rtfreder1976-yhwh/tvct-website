@@ -1,0 +1,619 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+import { decaturTestimonials } from '../../../data/testimonials';
+
+const city = "Decatur";
+const state = "Alabama";
+const region = "Morgan County";
+
+// Geographic data
+const geoData = {
+  region: "US-AL",
+  position: "34.6059;-86.9833",
+  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+};
+
+// Neighborhoods and areas served
+const neighborhoods = [
+  "Old Decatur Historic District",
+  "Albany Historic District",
+  "Point Mallard",
+  "Southwest Decatur",
+  "Southeast Decatur",
+  "Hartselle",
+  "Priceville",
+  "Somerville",
+  "Trinity",
+  "Moulton",
+  "Danville",
+  "Cedar Ridge",
+  "Brookhaven"
+];
+
+// Decatur-specific FAQs
+const faqs = [
+  {
+    question: "Do you clean historic Victorian homes in Old Decatur and Albany districts?",
+    answer: "Absolutely. Our team is experienced with Decatur's beautiful historic homes—the largest concentration of Victorian-era cottages in Alabama. We understand the care required for period details like original hardwood floors, ornate woodwork, and antique fixtures. We use appropriate products and gentle techniques to preserve your home's historic character while delivering a thorough clean."
+  },
+  {
+    question: "Can you work around Point Mallard events and busy summer schedules?",
+    answer: "Yes, we're familiar with Decatur's busy event calendar—from Alabama Jubilee Balloon Classic to Spirit of America Festival. We offer flexible scheduling, same-day service, and can accommodate vacation rental turnovers during peak Point Mallard season. Whether you're hosting out-of-town guests for the hot air balloon festival or need post-event cleaning, we've got you covered."
+  },
+  {
+    question: "What Decatur and Morgan County areas do you serve?",
+    answer: "We serve all of Decatur and surrounding Morgan County communities including Old Decatur, Albany Historic District, Southwest and Southeast Decatur, Hartselle, Priceville, Somerville, Trinity, Danville, Cedar Ridge, Brookhaven, and Moulton. We also serve nearby Wheeler Lake properties and homes near the Tennessee River."
+  },
+  {
+    question: "Do you provide cleaning for Wheeler Lake vacation rentals?",
+    answer: "Yes, we specialize in short-term rental turnovers for Wheeler Lake properties. We understand the quick turnaround times needed for Airbnb and VRBO rentals, and we can coordinate cleaning schedules around your guests' check-in/check-out times. Our reliable turnover service helps maintain your 5-star rating."
+  },
+  {
+    question: "Can you clean around United Launch Alliance and manufacturing schedules?",
+    answer: "Absolutely. Many of our Decatur clients work at United Launch Alliance, Daikin, 3M, Toray, and other manufacturing facilities with rotating shifts. We offer flexible scheduling—including early morning, evening, and weekend appointments—to work around your production schedules. Your home will be spotless when you get off shift."
+  },
+  {
+    question: "Do you offer move-out cleaning for Decatur rentals and homes?",
+    answer: "Yes, we provide thorough move-in and move-out cleaning throughout Decatur. Our detailed cleaning helps tenants get their deposit back and prepares properties for new occupants. We can coordinate with property managers, landlords, and real estate agents for smooth transitions."
+  },
+  {
+    question: "How do you handle cleaning for families with children at Decatur schools?",
+    answer: "We understand busy Decatur families juggling school schedules at Austin High, Decatur High, Cedar Ridge, and other local schools. We can clean while kids are at school, work around after-school activities, and accommodate hectic family schedules. We use family-safe, eco-friendly products and pay special attention to high-traffic areas."
+  },
+  {
+    question: "Do you serve homes near Wheeler National Wildlife Refuge?",
+    answer: "Yes, we serve properties throughout the Wheeler Wildlife Refuge area, including homes along the Tennessee River. We understand that living near the refuge means dealing with seasonal dust, pollen, and outdoor elements. Our deep cleaning services help keep your home fresh year-round, especially helpful before and after Festival of the Cranes season."
+  }
+];
+
+// Schema for FAQPage
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Testimonials - imported from centralized data
+const testimonials = decaturTestimonials.map(t => ({
+  initial: t.initial,
+  name: t.name,
+  area: t.source,
+  text: t.text
+}));
+---
+
+<BaseLayout
+  title="Decatur AL Cleaning Services | The Valley Clean Team"
+  description="Premier Decatur cleaning services. Veteran-owned, $2M insured. Serving Old Decatur, Albany Historic District, Point Mallard. 130+ 5-star reviews."
+  ogImage={geoData.image}
+  geoRegion={geoData.region}
+  geoPlacename={`${city}, ${state}`}
+  geoPosition={geoData.position}
+>
+  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-map-marker-alt mr-2"></i>Proudly Serving The River City
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Professional Cleaning Services in <span class="gold-gradient">Decatur, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            North Alabama's trusted cleaning service for Decatur families and businesses. From historic Victorian homes to modern Wheeler Lake properties, we deliver spotless results throughout Morgan County.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Women-Led</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ Reviews</span>
+            </div>
+          </div>
+
+          <!-- Urgency Badge -->
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-clock mr-2"></i>Same-Day Service Available in Decatur
+            </span>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all duration-200">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all duration-200">
+              <i class="fas fa-phone mr-2"></i>(256) 856-1006
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Decatur's trusted cleaning professionals</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Decatur Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Serving Decatur: <span class="gold-gradient">The River City</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Named for naval hero Stephen Decatur and incorporated in 1821, Decatur has grown into North Alabama's tenth largest city with nearly 58,000 residents. Known as "The River City" for its stunning location along Wheeler Lake and the Tennessee River, Decatur combines small-town charm with big-city amenities. As Morgan County's seat, the city serves as a commercial hub for the Huntsville-Decatur metropolitan area.
+          </p>
+          <p class="mb-6">
+            The Valley Clean Team is proud to serve Decatur's diverse community—from the beautiful Victorian "Painted Ladies" in the historic districts to modern homes near Point Mallard Park. Whether you're a United Launch Alliance engineer, a healthcare professional at Decatur Morgan Hospital, a family near Cedar Ridge, or a lakeside property owner on Wheeler Lake, we deliver the same meticulous attention to detail that's earned us 130+ five-star reviews.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Historic Districts Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Historic Districts: <span class="gold-gradient">Alabama's Victorian Treasure</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Decatur is home to Alabama's largest concentration of Victorian-era homes, affectionately called "The Painted Ladies"
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            <i class="fas fa-landmark text-[#FFA985] mr-2"></i>Old Decatur Historic District
+          </h3>
+          <p class="text-gray-600">
+            Originally platted in 1821, Old Decatur was nearly destroyed during the Civil War and rebuilt with stunning Victorian architecture. Today, Line Street and Ferry Street feature the grandest homes, with styles ranging from French Empire to Queen Anne to Craftsman bungalows. Landmarks include the 1833 Old State Bank—Alabama's oldest bank building—and the McEntire House where Confederates planned the Battle of Shiloh. The district spans 116 acres of architectural treasure listed on the National Register of Historic Places.
+          </p>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>Albany Historic District
+          </h3>
+          <p class="text-gray-600">
+            Founded in 1887 by northern investors and designed by famed landscape architect Nathan Franklin Barrett, New Decatur (renamed Albany) reflects early 20th century trends: Colonial Revival, California Cottage, Dutch Colonial, and Frank Lloyd Wright influences. The neighborhood surrounds beautiful Delano Park—designed in the 1930s by Carolyn Cortner Smith, Alabama's first female architect. Sherman and Jackson Streets showcase the finest Victorian designs with smaller Craftsman and Tudor homes throughout.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Landmarks & Recreation Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Decatur <span class="gold-gradient">Landmarks & Recreation</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From America's first wave pool to pristine wildlife refuges, Decatur offers world-class recreation
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-water text-4xl text-[#FFA985] mb-4"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Point Mallard Park</h3>
+          <p class="text-gray-600 text-sm">780-acre recreation complex featuring America's first wave pool (1970), 18-hole golf course, ice rink, campground, and scenic Tennessee River trails</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-dove text-4xl text-[#FFA985] mb-4"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Wheeler Wildlife Refuge</h3>
+          <p class="text-gray-600 text-sm">35,000 acres protecting over 20,000 Sandhill cranes and endangered Whooping cranes. January's Festival of the Cranes draws thousands of nature lovers</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-tree text-4xl text-[#FFA985] mb-4"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Delano Park</h3>
+          <p class="text-gray-600 text-sm">Historic 1887 park with rose garden, walking paths, and splash pad. Named for FDR's mother and beautifully redesigned in the 1930s</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-theater-masks text-4xl text-[#FFA985] mr-2"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Princess Theatre</h3>
+          <p class="text-gray-600 text-sm">Downtown's historic performing arts center hosting concerts, plays, and community events in a beautifully restored venue</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas We Serve Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Areas We Serve in <span class="gold-gradient">Decatur & Morgan County</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning services throughout Decatur, Hartselle, and surrounding Morgan County communities
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-city text-[#FFA985] mr-2"></i>Historic Decatur
+          </h3>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Old Decatur Historic District</li>
+            <li>• Albany Historic District</li>
+            <li>• Bank Street area</li>
+            <li>• Downtown Decatur</li>
+            <li>• Delano Park neighborhood</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>Greater Decatur
+          </h3>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Southwest Decatur / Cedar Ridge</li>
+            <li>• Southeast Decatur / Brookhaven</li>
+            <li>• Point Mallard area</li>
+            <li>• Wheeler Lake properties</li>
+            <li>• Tennessee River shoreline</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-road text-[#FFA985] mr-2"></i>Morgan County
+          </h3>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Hartselle</li>
+            <li>• Priceville</li>
+            <li>• Trinity</li>
+            <li>• Somerville</li>
+            <li>• Danville / Moulton</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Major Events Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Decatur's <span class="gold-gradient">Signature Events</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        We keep Decatur homes guest-ready year-round for the city's legendary festivals and events
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">MEMORIAL DAY</div>
+          <h3 class="font-bold text-[#333333] mb-2">Alabama Jubilee</h3>
+          <p class="text-gray-600 text-sm">Hot air balloon classic at Point Mallard with antique cars, tractors, art shows, and kite festival</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">JULY 4TH</div>
+          <h3 class="font-bold text-[#333333] mb-2">Spirit of America</h3>
+          <p class="text-gray-600 text-sm">One of the South's largest free Fourth of July festivals—65,000+ attendees with fireworks at Point Mallard</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">LABOR DAY</div>
+          <h3 class="font-bold text-[#333333] mb-2">Battle for Decatur</h3>
+          <p class="text-gray-600 text-sm">Civil War reenactment commemorating the 1864 battle, with period demonstrations and educational programs</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100">
+          <div class="text-[#FFA985] font-bold text-sm mb-2">JANUARY</div>
+          <h3 class="font-bold text-[#333333] mb-2">Festival of the Cranes</h3>
+          <p class="text-gray-600 text-sm">Wheeler Wildlife Refuge hosts nature lovers viewing 20,000+ Sandhill cranes and rare Whooping cranes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Our <span class="gold-gradient">Cleaning Services</span> in Decatur
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning solutions for Decatur homes and businesses
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <a href="/locations/decatur/recurring-maid-service" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Recurring Maid Service</h3>
+          </div>
+          <p class="text-gray-600">Weekly, biweekly, or monthly cleaning keeps your Decatur home spotless. Save up to 20% with recurring service.</p>
+        </a>
+        
+        <a href="/locations/decatur/deep-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Comprehensive top-to-bottom cleaning for historic Victorians or seasonal refreshes before Decatur's big festivals.</p>
+        </a>
+        
+        <a href="/locations/decatur/move-out-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Get your full deposit back or prepare for new tenants. Thorough cleaning for Decatur apartments and homes.</p>
+        </a>
+        
+        <a href="/locations/decatur/post-construction-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-hard-hat text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Post-Construction</h3>
+          </div>
+          <p class="text-gray-600">New home or renovation? Remove fine construction dust from every surface. Serving Priceville, Hartselle, and all of Morgan County.</p>
+        </a>
+        
+        <a href="/locations/decatur/airbnb-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-key text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Airbnb Turnover</h3>
+          </div>
+          <p class="text-gray-600">Fast, reliable turnover cleaning for Wheeler Lake vacation rentals and Point Mallard area short-term rentals.</p>
+        </a>
+        
+        <a href="/locations/decatur/commercial-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Commercial Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Professional office and business cleaning. Medical, retail, restaurants. After-hours service available.</p>
+        </a>
+        
+        <a href="/locations/decatur/event-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-glass-cheers text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Event Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Pre-event prep and post-party cleanup. Holiday gatherings, open houses, and celebrations.</p>
+        </a>
+        
+        <a href="/locations/decatur/green-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-leaf text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Green Cleaning</h3>
+          </div>
+          <p class="text-gray-600">Eco-friendly cleaning safe for children, pets, and allergies. Plant-based products at no extra cost.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notable Decatur Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Decatur: <span class="gold-gradient">A City of Firsts</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Decatur holds a special place in American history. The city was the eastern terminus of the Tuscumbia, Courtland and Decatur Railroad—the first railway built west of the Appalachian Mountains (1834). Point Mallard Park opened in 1970 featuring America's first wave pool, pioneering a water park revolution. Astronaut Mae Jemison, the first Black woman to travel to space, was born here in 1956.
+          </p>
+          <p class="mb-6">
+            Today, United Launch Alliance builds every satellite-launching rocket used by the U.S. government right here in Decatur, shipping them via the Tennessee River to Cape Canaveral. Major employers like Daikin, 3M, Toray, and Vulcan Materials make Decatur a manufacturing powerhouse, while Calhoun Community College and proximity to Huntsville fuel continued growth.
+          </p>
+          <p>
+            We understand Decatur's unique character—the pride in historic preservation, the excitement of festival season, the balance of industry and recreation. That's why Decatur families trust The Valley Clean Team with their homes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What Our <span class="gold-gradient">Customers Say</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Over 130 five-star reviews from families across North Alabama
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {testimonials.map((testimonial) => (
+          <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+                {testimonial.initial}
+              </div>
+              <div>
+                <h4 class="font-bold text-[#333333]">{testimonial.name}</h4>
+                <p class="text-sm text-gray-500">{testimonial.area}</p>
+              </div>
+            </div>
+            <div class="flex text-[#FFA985] mb-3">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p class="text-gray-600 italic">"{testimonial.text}"</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Decatur Families Choose <span class="gold-gradient">The Valley Clean Team</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Veteran-Owned</h3>
+          <p class="text-gray-600 text-sm">Proudly veteran-owned and operated with military precision and values</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-shield-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">$2M Insurance</h3>
+          <p class="text-gray-600 text-sm">Fully bonded and insured for your complete peace of mind</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-user-check text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Background Checked</h3>
+          <p class="text-gray-600 text-sm">Every team member is thoroughly vetted and professionally trained</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-heart text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">100% Satisfaction</h3>
+          <p class="text-gray-600 text-sm">If you're not happy, we'll make it right—guaranteed</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 px-6" id="faq">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions from Decatur homeowners
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq, index) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready for a Spotless Home in Decatur?
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Join the families across Morgan County who trust The Valley Clean Team. Get your free quote today—same-day service available.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all duration-200">
+          <i class="fas fa-phone mr-2"></i>(256) 856-1006
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

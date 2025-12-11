@@ -15,9 +15,9 @@ export default defineConfig({
       customPages: [
         'https://thevalleycleanteam.com/',
         'https://thevalleycleanteam.com/services',
-        'https://thevalleycleanteam.com/deep-cleaning',
-        'https://thevalleycleanteam.com/move-in-out-cleaning',
-        'https://thevalleycleanteam.com/post-construction-cleaning',
+        'https://thevalleycleanteam.com/services/deep-cleaning',
+        'https://thevalleycleanteam.com/services/move-in-out-cleaning',
+        'https://thevalleycleanteam.com/services/post-construction-cleaning',
         'https://thevalleycleanteam.com/pricing',
         'https://thevalleycleanteam.com/contact',
         'https://thevalleycleanteam.com/locations',
@@ -32,7 +32,7 @@ export default defineConfig({
         }
 
         // Main service pages - very high priority
-        if (url.includes('/services') || url.includes('/pricing') || url.includes('/contact') || url.endsWith('/deep-cleaning') || url.endsWith('/deep-cleaning/') || url.endsWith('/move-in-out-cleaning') || url.endsWith('/move-in-out-cleaning/') || url.endsWith('/post-construction-cleaning') || url.endsWith('/post-construction-cleaning/')) {
+        if (url.includes('/services') || url.includes('/pricing') || url.includes('/contact')) {
           return { ...item, priority: 0.9, changefreq: 'weekly' };
         }
 

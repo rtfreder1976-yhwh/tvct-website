@@ -1,0 +1,562 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const service = "Move Out Cleaning";
+const phone = "(256) 856-1006";
+
+// Madison neighborhoods for dropdown and schema
+const neighborhoods = [
+  "Town Madison",
+  "Clift Farm",
+  "Rainbow Mountain Heights",
+  "Providence",
+  "Bradford Creek",
+  "Heritage Plantation",
+  "Clifts Cove",
+  "Madison City",
+  "Triana",
+  "The Reserve",
+  "Anslee Farms",
+  "Cambridge",
+  "Lake Forest"
+];
+
+// Madison apartment complexes
+const apartmentComplexes = [
+  "The Lofts at Town Madison",
+  "The Dempsey",
+  "Prosper Madison Oaks",
+  "Spencer Trace Apartments",
+  "Shelton Park Apartments",
+  "The Grand Reserve at Madison",
+  "Madison Landing at Research Park",
+  "Madison Pines",
+  "Brio Parc Apartments",
+  "The Everstead at Madison",
+  "Weston Ranch",
+  "Villas at Capital Twenty"
+];
+
+// What's included in move-out cleaning
+const includedServices = [
+  "All rooms deep cleaned top to bottom",
+  "Inside all cabinets & drawers wiped",
+  "Inside closets vacuumed & cleaned",
+  "Oven deep cleaned inside & out",
+  "Refrigerator cleaned inside & out",
+  "Dishwasher interior cleaned",
+  "All appliance exteriors detailed",
+  "Bathrooms scrubbed & disinfected",
+  "Shower doors & tracks descaled",
+  "Light fixtures & ceiling fans dusted",
+  "All switch plates & outlets wiped",
+  "Window sills & tracks cleaned",
+  "Baseboards thoroughly wiped",
+  "Doors & door frames cleaned",
+  "Floors vacuumed, mopped & polished",
+  "Garage swept (if applicable)"
+];
+
+// Process steps
+const processSteps = [
+  {
+    step: "1",
+    title: "Request Your Quote",
+    description: "Tell us about your Madison property—apartment or house, square footage, number of rooms, and your move-out date. We'll provide a free, detailed quote."
+  },
+  {
+    step: "2",
+    title: "Schedule Your Clean",
+    description: "Pick a date that works with your move timeline. We offer same-day service for urgent situations and can coordinate with your final walkthrough."
+  },
+  {
+    step: "3",
+    title: "We Deep Clean Everything",
+    description: "Our team arrives with all supplies and equipment. We systematically clean every surface landlords inspect—inside appliances, cabinets, closets, and more."
+  },
+  {
+    step: "4",
+    title: "Get Your Deposit Back",
+    description: "Leave your keys and let us handle the rest. Our thorough cleaning helps Madison tenants get their full security deposits back."
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does move-out cleaning cost in Madison?",
+    answer: "Move-out cleaning in Madison starts at $225 for apartments and smaller homes. Most Madison apartments (1,000-1,500 sq ft) run $250-$350, while typical Madison houses (2,400-3,200 sq ft) are $350-$500. We provide exact quotes based on your property's size and condition. Call (256) 856-1006 for a free estimate."
+  },
+  {
+    question: "Will move-out cleaning help me get my security deposit back?",
+    answer: "Yes! Our move-out cleaning is specifically designed to meet Madison landlord and property manager standards. We deep clean everything they inspect—inside appliances, cabinets, closets, bathrooms, and all surfaces. Many Madison tenants report getting their full deposit back after our service, which typically ranges from $1,000-$2,500 in this market."
+  },
+  {
+    question: "Do you clean apartments at The Lofts at Town Madison, The Dempsey, or other Madison complexes?",
+    answer: "Absolutely! We regularly clean move-outs at all major Madison apartment communities including The Lofts at Town Madison, The Dempsey, Prosper Madison Oaks, Spencer Trace, Grand Reserve, Madison Landing, and all other complexes. We know what property managers expect and deliver results that pass inspection."
+  },
+  {
+    question: "Can you do same-day move-out cleaning in Madison?",
+    answer: "Yes, we offer same-day move-out cleaning in Madison based on availability. If you have an urgent move or final walkthrough coming up, call us at (256) 856-1006 as early as possible and we'll do our best to accommodate your timeline."
+  },
+  {
+    question: "Do you offer move-in cleaning for new Madison homes and apartments?",
+    answer: "Yes! With Madison being Alabama's fastest-growing city, we do a lot of move-in cleaning for both apartments and new construction homes. We'll ensure your new space is spotless and sanitized before you unpack—especially important for new builds that have construction dust throughout."
+  },
+  {
+    question: "What Madison neighborhoods do you serve for move-out cleaning?",
+    answer: "We serve all of Madison including Town Madison, Clift Farm, Rainbow Mountain Heights, Providence, Bradford Creek, Heritage Plantation, Madison City, Triana, Cambridge, Lake Forest, and all surrounding areas. We also serve nearby Huntsville, Decatur, and Athens."
+  },
+  {
+    question: "How long does move-out cleaning take in Madison?",
+    answer: "Typical Madison apartments (1-2 bedrooms) take 2-4 hours. Larger Madison homes (3-4 bedrooms, 2,400-3,200 sq ft) typically take 4-6 hours. Heavily soiled properties or those needing extra attention may take longer. We'll give you a time estimate with your quote."
+  },
+  {
+    question: "Do I need to be there during the move-out cleaning?",
+    answer: "No, you don't need to be present. Many Madison tenants give us access and then handle their move while we clean. Just let us know your preferred method—leaving a key, meeting us at the start, or coordinating with your property manager."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Move Out Cleaning Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Madison, AL`
+  })),
+  "serviceType": "Move Out Cleaning",
+  "description": "Professional move-out cleaning services in Madison, Alabama. Get your security deposit back with our thorough, landlord-approved cleaning."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Move Out Cleaning Madison AL | Get Your Deposit Back | Valley Clean Team"
+  description="Professional move-out cleaning in Madison, AL. Get your security deposit back! Serving Town Madison, apartments & homes. Same-day available."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-clock mr-2"></i>Same-Day Service Available
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Move Out Cleaning in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Moving out of your Madison apartment or home? Our professional move-out cleaning service ensures your property passes inspection and helps you get your full security deposit back. We serve all Madison neighborhoods, apartment complexes, and surrounding areas.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Move-Out Cleaning From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$225</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Madison Apartments</span>
+                <div class="text-lg font-semibold text-gray-700">$250-$350</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Madison Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$350-$500</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Fast response • No obligation</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Madison Tenants Need Pro Move-Out Cleaning -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Madison Tenants Choose <span class="gold-gradient">Professional Move-Out Cleaning</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Madison's rental market is competitive and growing fast. With over 1,500 apartments and countless rental homes throughout Town Madison, Clift Farm, and established neighborhoods, property managers have high standards. The average Madison apartment rents for $1,172-$1,721 monthly—and security deposits often match or exceed one month's rent. That's $1,000-$2,500 you could lose without proper move-out cleaning.
+          </p>
+          <p class="mb-6">
+            Between packing boxes, coordinating movers, and managing lease timelines, the last thing you need is to spend your final weekend scrubbing oven interiors and cleaning inside cabinet drawers. Our professional move-out cleaning service handles everything landlords inspect—inside appliances, cabinets, closets, bathroom fixtures, window tracks, baseboards, and more.
+          </p>
+          <p>
+            Whether you're relocating for a Redstone Arsenal assignment, moving from an apartment to your first Madison home, or simply upgrading within the city, we ensure you leave your old place spotless. Most Madison tenants who use our service report getting their full deposit back—and that peace of mind is priceless during an already stressful time.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Madison Move-Out Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that satisfies landlords and property managers
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Process -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Our <span class="gold-gradient">Simple Process</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From quote to spotless property in four easy steps
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        {processSteps.map((step) => (
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              {step.step}
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] mb-3">{step.title}</h3>
+            <p class="text-gray-600">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Apartment Complexes We Serve -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Madison <span class="gold-gradient">Apartment Complexes</span> We Serve
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Trusted by tenants at all major Madison apartment communities
+      </p>
+      
+      <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {apartmentComplexes.map((complex) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-building text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{complex}</span>
+          </div>
+        ))}
+      </div>
+      
+      <p class="text-center text-gray-600 mt-8">
+        <i class="fas fa-plus-circle text-[#FFA985] mr-2"></i>
+        Plus all other Madison apartments, condos, townhomes, and rental houses
+      </p>
+    </div>
+  </section>
+
+  <!-- Why Choose Us for Move-Out -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Choose Us for <span class="gold-gradient">Move-Out Cleaning</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-dollar-sign text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Get Your Deposit Back</h3>
+          <p class="text-gray-600">Our thorough cleaning meets landlord inspection standards. Most clients report getting their full security deposit returned.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-bolt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Same-Day Service</h3>
+          <p class="text-gray-600">Urgent move-out? We offer same-day service in Madison based on availability. Call early for best scheduling.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-clipboard-check text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Landlord Approved</h3>
+          <p class="text-gray-600">We know what Madison property managers look for. Our checklist covers every area they typically inspect.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military precision and attention to detail. We understand PCS moves and can accommodate tight timelines.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">$2M Insured</h3>
+          <p class="text-gray-600">Fully bonded and insured for your complete peace of mind. Your property is protected throughout the cleaning.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-box text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">All Supplies Included</h3>
+          <p class="text-gray-600">We bring everything—cleaning products, equipment, and supplies. You don't need to provide anything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Neighborhoods Served -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Madison <span class="gold-gradient">Neighborhoods</span> We Serve
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Move-out cleaning throughout all of Madison, Alabama
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="flex items-center bg-white rounded-lg p-3 shadow-sm border border-gray-100">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-8">
+        <p class="text-gray-600">
+          Also serving <strong>Huntsville</strong>, <strong>Decatur</strong>, <strong>Athens</strong>, and all of North Alabama
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Also Offer Move-In -->
+  <section class="py-16 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-[#333333] mb-6">
+          Moving Into a New Madison Home?
+        </h2>
+        <p class="text-xl text-gray-700 mb-8">
+          We also offer move-in cleaning to ensure your new space is spotless before you unpack. Whether it's a new construction home in Town Madison or Clift Farm, or an existing property, we'll remove construction dust, sanitize every surface, and prepare your new home for your family.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/locations/madison/deep-cleaning" class="inline-flex items-center px-6 py-3 bg-white text-[#333333] font-semibold rounded-full shadow-md hover:shadow-lg transition-all border border-[#FFA985]">
+            <i class="fas fa-sparkles text-[#FFA985] mr-2"></i>Deep Cleaning
+          </a>
+          <a href="/services/post-construction-cleaning" class="inline-flex items-center px-6 py-3 bg-white text-[#333333] font-semibold rounded-full shadow-md hover:shadow-lg transition-all border border-[#FFA985]">
+            <i class="fas fa-hard-hat text-[#FFA985] mr-2"></i>Post-Construction Cleaning
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about move-out cleaning in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Madison
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Comprehensive top-to-bottom cleaning for your Madison home.</p>
+        </a>
+        
+        <a href="/locations/madison" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Weekly or biweekly cleaning for your new Madison home.</p>
+        </a>
+        
+        <a href="/services/commercial-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Commercial Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Office and commercial space cleaning in Madison.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Get Your Madison Security Deposit Back
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Don't risk losing hundreds or thousands of dollars on your security deposit. Our professional move-out cleaning satisfies landlords and helps you leave on good terms.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-clock mr-2"></i>Same-day service available • Free quotes • No obligation
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

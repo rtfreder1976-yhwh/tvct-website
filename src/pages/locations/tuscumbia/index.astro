@@ -1,0 +1,798 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+import { florenceTestimonials } from '../../../data/testimonials';
+
+const city = "Tuscumbia";
+const state = "Alabama";
+const region = "Colbert County";
+
+// Geographic data
+const geoData = {
+  region: "US-AL",
+  position: "34.7312;-87.7025",
+  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+};
+
+// Neighborhoods and areas served
+const neighborhoods = [
+  "Downtown Tuscumbia",
+  "Spring Park Area",
+  "Ivy Green District",
+  "North Commons",
+  "East Tuscumbia",
+  "West Tuscumbia",
+  "Colbert Heights",
+  "Spring Creek",
+  "Muscle Shoals",
+  "Sheffield",
+  "Florence",
+  "Cherokee",
+  "Leighton",
+  "Littleville"
+];
+
+// Tuscumbia-specific FAQs with schema
+const faqs = [
+  {
+    question: "Do you clean historic homes near Ivy Green and downtown Tuscumbia?",
+    answer: "Absolutely. Tuscumbia's historic homes—from the 19th-century residences near Ivy Green to the beautifully preserved properties in the National Register Historic District—require specialized care. Our team uses gentle, pH-neutral products that protect original hardwood floors, antique fixtures, and architectural details while delivering a thorough clean. We understand the pride Tuscumbia residents take in their historic community."
+  },
+  {
+    question: "Can you clean before or after Helen Keller Festival events?",
+    answer: "Yes! The Helen Keller Festival in June brings thousands of visitors to Tuscumbia, and many residents host out-of-town guests or rent their properties during this time. We offer pre-event deep cleaning to get your home guest-ready and post-event cleaning to restore your home after hosting. The same applies for 'It's a Dickens Christmas, Y'all' and other Tuscumbia festivals throughout the year."
+  },
+  {
+    question: "Do you serve the entire Quad Cities area?",
+    answer: "Yes, we serve all of the Shoals area including Tuscumbia, Florence, Muscle Shoals, and Sheffield. Whether you're in downtown Tuscumbia near Spring Park, in a lakeside home near Wilson Lake, or anywhere else in Colbert County, we deliver the same professional service. Our familiarity with the Quad Cities means we understand each community's unique character."
+  },
+  {
+    question: "What areas of Tuscumbia do you serve?",
+    answer: "We serve all Tuscumbia neighborhoods including Downtown, the Spring Park area, the Ivy Green district, North Commons, East and West Tuscumbia, Colbert Heights, and Spring Creek. We also serve surrounding communities like Cherokee, Leighton, and Littleville. If you're in Colbert County, we can help."
+  },
+  {
+    question: "Do you offer Airbnb turnover cleaning in Tuscumbia?",
+    answer: "Yes! Tuscumbia's tourism attractions—Ivy Green, the Alabama Music Hall of Fame, Spring Park, and the annual Miracle Worker performances—bring visitors year-round who often stay in vacation rentals. We provide fast, reliable turnover cleaning that keeps your property guest-ready and helps maintain your 5-star reviews. Same-day service is available when scheduling permits."
+  },
+  {
+    question: "Can you clean my home before I host family for The Miracle Worker performances?",
+    answer: "Absolutely. The Miracle Worker performances at Ivy Green from June through July bring families together from across the country. We can deep clean your home before your guests arrive and provide a quick refresh cleaning during their stay if needed. Many Tuscumbia families rely on us to help make their hosting experience stress-free."
+  },
+  {
+    question: "Do you clean homes near the Tennessee River and Wilson Lake?",
+    answer: "Yes, we serve homeowners throughout the Shoals area, including properties near Wilson Lake and the Tennessee River. These homes often see extra traffic during fishing season and summer months. We understand the unique cleaning needs of lakeside properties and can accommodate flexible scheduling for weekend visitors and seasonal residents."
+  },
+  {
+    question: "How quickly can you provide service in Tuscumbia?",
+    answer: "We offer same-day service for Tuscumbia residents when availability permits. For regular recurring service, we typically can begin within a few days of your initial contact. Call us at 256-826-1100 for current availability—we're committed to serving the Shoals community with reliable, responsive service."
+  }
+];
+
+// Schema for FAQPage
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Testimonials - imported from centralized data (using Florence/Shoals reviews)
+const testimonials = florenceTestimonials.map(t => ({
+  initial: t.initial,
+  name: t.name,
+  area: t.source,
+  text: t.text
+}));
+---
+
+<BaseLayout
+  title="Tuscumbia Cleaning Services | House Cleaning in the Shoals | The Valley Clean Team"
+  description="Professional cleaning in Tuscumbia, AL. Serving the Shoals: Florence, Muscle Shoals & Sheffield. Veteran-owned, $2M insured, 130+ 5-star reviews."
+  ogImage={geoData.image}
+  geoRegion={geoData.region}
+  geoPlacename={`${city}, ${state}`}
+  geoPosition={geoData.position}
+>
+  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-map-marker-alt mr-2"></i>Proudly Serving the Shoals
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Professional Cleaning Services in <span class="gold-gradient">Tuscumbia, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            From historic homes near Ivy Green to modern residences throughout the Quad Cities, The Valley Clean Team brings professional cleaning to Helen Keller's hometown and Alabama's musical heartland.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Women-Led</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ Reviews</span>
+            </div>
+          </div>
+
+          <!-- Urgency Badge -->
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+            <span class="text-green-700 font-semibold">
+              <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Day Service Available
+            </span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <i class="fas fa-calendar mr-2"></i>Book Your Service
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Tuscumbia Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving all of the Shoals: Tuscumbia, Florence, Muscle Shoals & Sheffield</p>
+          <form id="location-quote-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Tuscumbia Neighborhood or Quad City" value="Tuscumbia, AL" required>
+            </div>
+            <div class="mb-4">
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Select Service Type *</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Regular Cleaning">Regular Cleaning</option>
+                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
+                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
+                <option value="Event Cleaning">Event Cleaning</option>
+                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
+                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+              </select>
+            </div>
+            <input type="hidden" name="city" value="Tuscumbia">
+            <input type="hidden" name="state" value="Alabama">
+            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Get My Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-clock mr-1"></i> Response within 2 hours
+            </p>
+            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-8">
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">1,047+</div>
+          <p class="text-gray-600">Homes Cleaned</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">130+</div>
+          <p class="text-gray-600">5-Star Reviews</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">$2M</div>
+          <p class="text-gray-600">Liability Insurance</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">100%</div>
+          <p class="text-gray-600">Satisfaction Guaranteed</p>
+        </div>
+      </div>
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">$2M Liability Insurance</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Women-Led Business</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-user-check text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Background-Checked Team</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Tuscumbia Trusts Us - Main Content Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Why the Shoals Trusts The Valley Clean Team
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p class="text-lg mb-6">
+          Tuscumbia holds a special place in American history. One of Alabama's oldest towns—incorporated in 1820—this community was named for a Chickasaw chief who welcomed early settlers to the bountiful land near a magnificent spring. It was here, at a modest estate called Ivy Green, that Helen Adams Keller was born in 1880 and would later make her miraculous breakthrough at the water pump with teacher Anne Sullivan. Today, Tuscumbia remains the proud county seat of Colbert County and the historic heart of the Shoals region.
+        </p>
+
+        <p class="text-lg mb-6">
+          The Valley Clean Team understands what makes Tuscumbia and the Quad Cities special. This isn't just another collection of small towns—it's a community with deep roots in American transportation history (home to the first railroad west of the Allegheny Mountains in 1830), legendary musical heritage (the Alabama Music Hall of Fame stands on Highway 72), and an enduring commitment to preserving the charm that makes the Shoals unlike anywhere else. From the 48-foot Coldwater Falls cascading through Spring Park to the Victorian-era storefronts of downtown, Tuscumbia blends historic character with genuine Southern hospitality.
+        </p>
+
+        <p class="text-lg mb-6">
+          Our cleaning service is designed for the families, retirees, and young professionals who call the Shoals home. We serve the historic neighborhoods near the Colbert County Courthouse—a stunning 1909 structure that anchors the National Register Historic District—where beautifully preserved 19th-century homes deserve equally careful cleaning. We clean modern family homes in Spring Creek and Colbert Heights, where busy parents juggle work and Little League schedules. We maintain vacation rentals and guest houses for hosts who welcome visitors drawn by The Miracle Worker performances, the Helen Keller Festival, and the legendary music studios just minutes away.
+        </p>
+
+        <p class="text-lg mb-6">
+          The Shoals draws a steady stream of visitors year-round. Music lovers make pilgrimages to nearby FAME Studios in Muscle Shoals and Muscle Shoals Sound Studio in Sheffield—hallowed ground where Aretha Franklin, Wilson Pickett, the Rolling Stones, and countless legends recorded. History enthusiasts tour Ivy Green and Spring Park, especially during the Helen Keller Festival each June and "It's a Dickens Christmas, Y'all" in December. Anglers flock to Wilson Lake and the Tennessee River for some of the Southeast's best bass fishing. For Tuscumbia homeowners, this means hosting out-of-town guests, maintaining rental properties, and keeping homes ready for impromptu visitors who want to experience the magic of this remarkable community.
+        </p>
+
+        <p class="text-lg mb-6">
+          As a veteran-owned, women-led business, we bring military precision and genuine care to every Tuscumbia home we clean. Our background-checked team members treat your property with the same respect we'd show our own—whether you live in a charming cottage near downtown, a spacious family home by Spring Creek Golf Course, or a lakeside retreat near the Tennessee River. We understand that in close-knit communities like Tuscumbia, reputation matters. That's why we've built ours on reliability, quality, and the kind of personal service that neighbors recommend to neighbors.
+        </p>
+
+        <p class="text-lg mb-6">
+          Whether you need weekly cleaning to keep up with a busy household, deep cleaning before your family arrives for festival season, move-out cleaning as you transition to your next chapter, or Airbnb turnover service to keep your rental earning five-star reviews, The Valley Clean Team delivers professional results with small-town values. Our $2 million liability insurance provides peace of mind, and our 100% satisfaction guarantee ensures you're always happy with our work. We're proud to serve Tuscumbia, Florence, Muscle Shoals, Sheffield, and all the communities that make the Shoals such a special place to call home.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tuscumbia Landmarks & Character Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Serving Tuscumbia's Historic Heart & the Quad Cities
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Professional cleaning throughout Alabama's musical and historical treasure</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-landmark text-[#FFA985] mr-3"></i>Historic Downtown
+          </h3>
+          <p class="text-gray-700 mb-4">
+            The Colbert County Courthouse anchors a National Register Historic District filled with 19th-century architecture. From the Palace Drugstore ice cream parlor to Coldwater Bookstore and charming boutiques, downtown Tuscumbia preserves the character of a simpler era. Homes in this district often feature original hardwood floors, tall ceilings, and period details that deserve specialized care.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-water text-[#FFA985] mr-3"></i>Spring Park Area
+          </h3>
+          <p class="text-gray-700 mb-4">
+            Tuscumbia's crown jewel features the world's largest man-made natural stone waterfall—Coldwater Falls—where 4.3 million gallons cascade daily over the 48-foot drop. The Princess Im-Mi-Ah-Key fountain shoots water 100 feet high, choreographed to lights and music. Nearby residences enjoy this parkside setting while benefiting from convenient access to downtown amenities.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-3"></i>Ivy Green District
+          </h3>
+          <p class="text-gray-700 mb-4">
+            The neighborhood surrounding Helen Keller's birthplace—a National Historic Landmark since 1954—features gracious homes on tree-lined streets. The Miracle Worker performances draw visitors each summer, and the Helen Keller Festival transforms the area each June. Homeowners here often host guests and appreciate cleaning service that understands their community's historic significance.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas We Serve -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Quad Cities & Shoals Areas We Serve
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Comprehensive cleaning throughout the Shoals region</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-3"></i>Tuscumbia
+          </h3>
+          <p class="text-gray-700 mb-2">
+            The historic county seat and birthplace of Helen Keller. We serve all Tuscumbia neighborhoods including Downtown, the Spring Park area, Ivy Green district, North Commons, East and West Tuscumbia, Colbert Heights, and Spring Creek. From historic homes to modern construction, we understand Tuscumbia's diverse housing stock.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-music text-[#FFA985] mr-3"></i>Muscle Shoals
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Home to FAME Studios where the legendary "Muscle Shoals sound" was born. This vibrant community attracts music lovers and families alike. We clean homes throughout Muscle Shoals, from established neighborhoods to newer developments, providing the same reliable service that's made us trusted across the region.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-guitar text-[#FFA985] mr-3"></i>Sheffield
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Where Muscle Shoals Sound Studio gave the world hits from the Rolling Stones to Lynyrd Skynyrd. Sheffield's residential neighborhoods range from historic craftsman homes to contemporary family houses. Helen Keller Hospital serves the region from here, and many healthcare professionals call Sheffield home.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-university text-[#FFA985] mr-3"></i>Florence
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Home to the University of North Alabama and the W.C. Handy birthplace, Florence anchors the Quad Cities with its vibrant downtown and diverse neighborhoods. We serve Florence families, professors, students in off-campus housing, and retirees who've made this welcoming city their home.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-fish text-[#FFA985] mr-3"></i>Tennessee River & Lake Areas
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Wilson Lake and Pickwick Lake draw anglers seeking bass, crappie, and catfish throughout the year. Lakeside homes and river properties see extra traffic during fishing season and summer months. We provide flexible scheduling for weekend visitors and seasonal residents who want to arrive to a clean, welcoming home.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-map text-[#FFA985] mr-3"></i>Surrounding Communities
+          </h3>
+          <p class="text-gray-700 mb-2">
+            We also serve Cherokee, Leighton, Littleville, and other Colbert County communities. Rural properties, farm homes, and residences throughout the county all receive the same professional attention we bring to every cleaning. If you're in the Shoals area, we're here to help.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <span class="neighborhood-badge">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            {neighborhood}
+          </span>
+        ))}
+      </div>
+
+      <p class="text-center text-gray-600 mt-8">
+        Don't see your area? We serve all of the Shoals region. <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call 256-826-1100</a> to confirm service availability.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Available -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Cleaning Services Available in Tuscumbia & the Shoals
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Professional cleaning solutions for every Shoals home</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <a href="/locations/tuscumbia/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Recurring Maid Service</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            Weekly, biweekly, or monthly cleaning. Save up to 20% with recurring service.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+
+        <a href="/locations/tuscumbia/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            Comprehensive top-to-bottom cleaning for Helen Keller Festival prep or special occasions.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+
+        <a href="/locations/tuscumbia/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            Get your deposit back. Thorough cleaning for move-outs and move-ins.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+
+        <a href="/locations/tuscumbia/post-construction-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-hard-hat text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Post-Construction</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            New builds and renovations. Remove construction dust from every surface.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+
+        <a href="/locations/tuscumbia/airbnb-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-key text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Airbnb Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            Fast turnovers for vacation rentals. Keep your 5-star reviews coming.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+
+        <a href="/locations/tuscumbia/commercial-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Commercial Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            Offices, medical, retail. After-hours service available.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+
+        <a href="/locations/tuscumbia/event-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-glass-cheers text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Event Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            Pre and post-event cleaning. Perfect for Miracle Worker season hosting.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+
+        <a href="/locations/tuscumbia/green-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-leaf text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333]">Green Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4 text-sm">
+            Eco-friendly, non-toxic products. Safe for kids and pets. No extra cost.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline text-sm">Learn More →</span>
+        </a>
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-700 mb-6">
+          <i class="fas fa-clock text-green-600 mr-2"></i>
+          <strong>Same-day service available for Shoals residents.</strong> Call for availability.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block shadow-lg">
+            <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+          </a>
+          <a href="/contact" class="px-8 py-4 rounded-full font-semibold inline-block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+            <i class="fas fa-calendar mr-2"></i>Schedule Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Types We Clean -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Property Types We Clean in the Shoals
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-landmark text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Historic Homes</h3>
+              <p class="text-gray-700">
+                Tuscumbia's National Register Historic District features 19th-century architecture with original details. Our team uses gentle products and careful techniques that preserve wood floors, plaster walls, and period fixtures while delivering thorough cleaning results.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-home text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Family Homes</h3>
+              <p class="text-gray-700">
+                From ranch-style homes in Spring Creek to two-story properties in newer developments, we clean the family homes where Shoals residents raise their children, host gatherings, and build memories. Consistent weekly or biweekly service keeps these busy households running smoothly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-umbrella-beach text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Lakeside & River Properties</h3>
+              <p class="text-gray-700">
+                Wilson Lake and Tennessee River properties see seasonal visitors, weekend guests, and fishing enthusiasts. We provide flexible scheduling for part-time residents and can prepare your property before you arrive or clean up after guests depart.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-key text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Vacation Rentals</h3>
+              <p class="text-gray-700">
+                The Shoals' music history and Helen Keller attractions draw tourists year-round. Our Airbnb and vacation rental turnover service keeps your property guest-ready with fast, thorough cleaning that helps maintain your stellar reviews and maximizes your bookings.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Our Customers Say
+        </h2>
+        <div class="section-divider"></div>
+        <div class="flex items-center justify-center gap-2 mt-4">
+          <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png" alt="Google" class="h-6" width="92" height="30" loading="lazy" />
+          <span class="text-xl text-gray-600">Reviews</span>
+          <span class="text-[#FFA985] font-bold">4.9</span>
+          <div class="text-[#FFA985] text-sm">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <span class="text-gray-500">(130+ reviews)</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {testimonials.map((testimonial) => (
+          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                {testimonial.initial}
+              </div>
+              <div class="ml-4">
+                <h4 class="font-bold">{testimonial.name}</h4>
+                <p class="text-sm text-gray-600">{testimonial.area}</p>
+                <div class="text-[#FFA985]">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-700">"{testimonial.text}"</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="https://www.google.com/maps/place/The+Valley+Clean+Team" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+          <i class="fab fa-google mr-2"></i>See All Google Reviews <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions About Tuscumbia Cleaning Services
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions from Shoals homeowners</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready to Experience the Shoals' Best Cleaning Service?
+      </h2>
+      <p class="text-xl text-gray-600 mb-4">
+        Join Tuscumbia, Florence, Muscle Shoals, and Sheffield homeowners who trust The Valley Clean Team
+      </p>
+      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+        <span class="text-green-700 font-semibold text-lg">
+          <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Day Service Available - Call Today!
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+          <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+          <i class="fas fa-calendar mr-2"></i>Book Your Service
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>Service Area
+            </h4>
+            <p class="text-gray-600">Tuscumbia, Florence, Muscle Shoals, Sheffield & all Colbert County</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-clock text-[#FFA985] mr-2"></i>Hours
+            </h4>
+            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-phone text-[#FFA985] mr-2"></i>Contact
+            </h4>
+            <p class="text-gray-600">256-826-1100<br>info@thevalleycleanteam.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('location-submit-btn');
+      const messageDiv = document.getElementById('location-form-message');
+      const form = e.target;
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        location: form.location?.value || '',
+        city: form.city?.value || '',
+        state: form.state?.value || '',
+        source: 'Location Page - Tuscumbia',
+        page_url: window.location.href
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+          messageDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtn.dataset.originalText || 'Get My Free Quote';
+    });
+
+    // Store original button text
+    const btn = document.getElementById('location-submit-btn');
+    if (btn) btn.dataset.originalText = btn.textContent;
+  </script>
+</BaseLayout>

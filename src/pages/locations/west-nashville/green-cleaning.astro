@@ -1,0 +1,377 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "West Nashville";
+const state = "Tennessee";
+const phone = "(615) 961-0028";
+
+// West Nashville neighborhoods
+const neighborhoods = [
+  "Belle Meade",
+  "Sylvan Park",
+  "The Nations",
+  "West Meade",
+  "Charlotte Park",
+  "Sylvan Heights",
+  "Cherokee Park",
+  "Richland Park",
+  "White Bridge",
+  "Hillwood",
+  "West End",
+  "Green Hills"
+];
+
+// Benefits
+const benefits = [
+  { icon: "fa-baby", title: "Safe for Children", description: "Non-toxic products you can trust around babies, toddlers, and kids of all ages." },
+  { icon: "fa-paw", title: "Pet-Friendly", description: "Safe for cats, dogs, and all furry family members who spend time on floors and surfaces." },
+  { icon: "fa-head-side-cough", title: "Allergy Relief", description: "Fragrance-free and hypoallergenic options reduce irritation for sensitive individuals." },
+  { icon: "fa-wind", title: "No Harsh Fumes", description: "Breathe easy—no chemical odors lingering in your home after cleaning." },
+  { icon: "fa-leaf", title: "Environmentally Responsible", description: "Biodegradable products that protect Nashville's waterways and environment." },
+  { icon: "fa-check-double", title: "Equally Effective", description: "Modern eco-friendly products clean just as well as conventional chemicals." }
+];
+
+// Products we use
+const products = [
+  "Plant-based all-purpose cleaners",
+  "Biodegradable cleaning solutions",
+  "Essential oil-based disinfectants",
+  "Non-toxic glass cleaners",
+  "Eco-friendly floor solutions",
+  "Fragrance-free options available",
+  "EPA Safer Choice certified products",
+  "HEPA-filtered vacuums"
+];
+
+// Perfect for
+const perfectFor = [
+  "Homes with babies & toddlers",
+  "Pet families",
+  "Allergy & asthma sufferers",
+  "Chemical sensitivity",
+  "Eco-conscious households",
+  "Health-focused families"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Are green cleaning products as effective as regular cleaners?",
+    answer: "Yes! Modern eco-friendly products have come a long way. Our green cleaning solutions effectively cut grease, sanitize surfaces, and leave your home sparkling—without harsh chemicals."
+  },
+  {
+    question: "Does green cleaning cost extra?",
+    answer: "No! We offer green cleaning at NO EXTRA COST. We believe everyone should have access to safer cleaning options, regardless of budget."
+  },
+  {
+    question: "What makes your products 'green'?",
+    answer: "Our green products are plant-based, biodegradable, and free from harsh chemicals like ammonia, chlorine, and synthetic fragrances. Many are EPA Safer Choice certified."
+  },
+  {
+    question: "Is green cleaning safe for babies?",
+    answer: "Absolutely! Green cleaning is especially popular with families who have babies and young children. Non-toxic products mean you don't have to worry about residue on surfaces babies touch or floors where they crawl."
+  },
+  {
+    question: "Can green products handle tough messes?",
+    answer: "Yes! Our eco-friendly products effectively tackle grease, grime, soap scum, and everyday messes. For extremely stubborn situations, we'll discuss options with you."
+  },
+  {
+    question: "Do you offer fragrance-free options?",
+    answer: "Yes! For clients with fragrance sensitivities, we offer completely fragrance-free products. Just let us know your preferences when booking."
+  },
+  {
+    question: "Is green cleaning good for allergies?",
+    answer: "Yes! Many allergy sufferers find relief with green cleaning because we eliminate the harsh chemical fumes and synthetic fragrances that can trigger reactions."
+  },
+  {
+    question: "Can I request green cleaning for any service?",
+    answer: "Absolutely! Green cleaning is available for all our services—recurring cleaning, deep cleaning, move-out cleaning, and more. Just request it when booking."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Green Cleaning West Nashville TN",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+16159610028"
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Nashville, TN`
+  })),
+  "serviceType": "Eco-Friendly House Cleaning",
+  "description": "Professional green cleaning in West Nashville. Eco-friendly, non-toxic, pet-safe, child-safe. Belle Meade, Sylvan Park, The Nations."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Green Cleaning West Nashville TN | Eco-Friendly, Non-Toxic | Valley Clean Team"
+  description="Professional green cleaning in West Nashville. Eco-friendly, non-toxic, pet & child safe. No extra cost! Belle Meade, Sylvan Park. Call (615) 961-0028"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-leaf mr-2"></i>No Extra Cost for Green Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Green Cleaning in <span class="gold-gradient">West Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            A spotless home without harsh chemicals. Our eco-friendly cleaning uses plant-based, non-toxic products that are safe for your children, pets, and the environment—at no extra cost. Perfect for West Nashville families who want a clean home and peace of mind.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-baby text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Child-Safe</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-paw text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Pet-Safe</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-leaf text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Eco-Friendly</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-green-50 rounded-xl p-4 shadow-md border border-green-200 inline-block mb-6">
+            <div class="text-center">
+              <span class="text-green-700 font-semibold">Green Cleaning Available At</span>
+              <div class="text-3xl font-bold text-green-600 mt-1">NO EXTRA COST</div>
+              <p class="text-sm text-green-600 mt-1">With any cleaning service</p>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+16159610028" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Green cleaning at no extra cost</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Benefits of <span class="gold-gradient">Green Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        A healthier home for your family and the environment
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {benefits.map((benefit) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+              <i class={`fas ${benefit.icon} text-green-600 text-xl`}></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] mb-2">{benefit.title}</h3>
+            <p class="text-gray-600 text-sm">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Use -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What We <span class="gold-gradient">Use</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Professional-grade eco-friendly products
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {products.map((product) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{product}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Green Cleaning is <span class="gold-gradient">Perfect For</span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        {perfectFor.map((item) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+            <i class="fas fa-check-circle text-green-500 text-2xl mb-3"></i>
+            <p class="text-gray-700 font-medium">{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Available With All Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Available With <span class="gold-gradient">All Our Services</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Request green cleaning with any service—no extra charge
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/west-nashville/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-green-400 transition-all group text-center">
+          <i class="fas fa-calendar-check text-green-500 text-3xl mb-4"></i>
+          <h3 class="text-lg font-bold text-[#333333] group-hover:text-green-600">Recurring Cleaning</h3>
+        </a>
+        
+        <a href="/locations/west-nashville/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-green-400 transition-all group text-center">
+          <i class="fas fa-sparkles text-green-500 text-3xl mb-4"></i>
+          <h3 class="text-lg font-bold text-[#333333] group-hover:text-green-600">Deep Cleaning</h3>
+        </a>
+        
+        <a href="/locations/west-nashville/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-green-400 transition-all group text-center">
+          <i class="fas fa-box text-green-500 text-3xl mb-4"></i>
+          <h3 class="text-lg font-bold text-[#333333] group-hover:text-green-600">Move-Out Cleaning</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Green Cleaning Throughout <span class="gold-gradient">West Nashville</span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-green-500 to-green-600" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Clean Home. Healthy Family. Happy Planet.
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Eco-friendly cleaning at no extra cost. Request green cleaning with any service.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-green-600 bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+16159610028" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

@@ -1,0 +1,464 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Birmingham";
+const state = "Alabama";
+const phone = "(205) 790-0049";
+
+// Birmingham neighborhoods organized by area
+const neighborhoodGroups = [
+  {
+    area: "Over the Mountain",
+    neighborhoods: ["Mountain Brook", "Vestavia Hills", "Homewood", "Cahaba Heights", "Crestline", "Brook Highland", "Bluff Park"]
+  },
+  {
+    area: "Greater Birmingham",
+    neighborhoods: ["Hoover", "Ross Bridge", "Greystone", "Riverchase", "Inverness", "Rocky Ridge", "Helena"]
+  },
+  {
+    area: "Urban Birmingham",
+    neighborhoods: ["Downtown", "Southside", "Five Points South", "Highland Park", "Avondale", "Lakeview", "Forest Park"]
+  }
+];
+
+// What's included in recurring service
+const includedServices = [
+  "All surfaces dusted & wiped",
+  "Kitchen counters & appliances",
+  "Stovetop & exterior appliances",
+  "Bathroom sanitization",
+  "Toilets, sinks & mirrors",
+  "Floor vacuuming & mopping",
+  "Bed making & linens straightened",
+  "Trash removal & liners replaced",
+  "High-touch surfaces disinfected",
+  "Light fixtures & ceiling fans dusted",
+  "Baseboards spot cleaned",
+  "General tidying & organizing"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does recurring maid service cost in Birmingham?",
+    answer: "Recurring cleaning in Birmingham typically ranges from $139-$249 per visit depending on home size, frequency, and service level. Weekly clients receive 20% off, biweekly 15% off, and monthly 10% off standard rates. Mountain Brook and Vestavia Hills larger homes may be higher. Call (205) 790-0049 for a personalized quote."
+  },
+  {
+    question: "What's the difference between weekly, biweekly, and monthly service?",
+    answer: "Weekly service keeps your Birmingham home consistently spotless with minimal buildup between visits—ideal for busy families and pet owners. Biweekly is our most popular option, balancing thorough cleaning with value. Monthly works for smaller homes, individuals, or as a supplement to your own cleaning routine."
+  },
+  {
+    question: "Do you send the same cleaning team each visit?",
+    answer: "Yes! Consistency is key to great service. You'll have the same trusted team members who learn your home's layout, your preferences, and your specific needs. They become familiar with your Mountain Brook estate or Homewood bungalow and know exactly how you like things done."
+  },
+  {
+    question: "What areas of Birmingham do you serve?",
+    answer: "We serve all Birmingham metro areas including Mountain Brook, Vestavia Hills, Homewood, Hoover, Cahaba Heights, Ross Bridge, Greystone, Highland Park, Southside, Five Points South, Avondale, Lakeview, and surrounding communities. We cover the full Over the Mountain region and greater Birmingham."
+  },
+  {
+    question: "Can I customize what's cleaned each visit?",
+    answer: "Absolutely. While we follow a comprehensive checklist, we can prioritize areas that matter most to you. Need extra attention on the kitchen? Prefer we skip the guest room? Want us to rotate deep-cleaning tasks? We tailor our service to your Birmingham lifestyle."
+  },
+  {
+    question: "Do I need to be home during cleaning?",
+    answer: "Not at all. Many of our Birmingham clients provide a key, garage code, or smart lock access. You'll come home to a sparkling clean house without rearranging your schedule. We're fully insured and all team members are background-checked."
+  },
+  {
+    question: "What if I need to skip or reschedule a cleaning?",
+    answer: "No problem. Just give us 48 hours notice to skip or reschedule without any fee. Life happens—sick kids, out of town, unexpected guests. We're flexible and work around your schedule. No long-term contracts mean you're in control."
+  },
+  {
+    question: "Should I start with a deep clean before recurring service?",
+    answer: "We highly recommend it. A deep clean establishes a pristine baseline—inside appliances, baseboards, window tracks—then recurring service maintains that level. It's like detailing your car before regular washes. Most Birmingham clients find this approach delivers the best results."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Recurring Maid Service Birmingham AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12057900049",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Birmingham",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoodGroups.flatMap(g => g.neighborhoods).map(n => ({
+    "@type": "Place",
+    "name": `${n}, Birmingham, AL`
+  })),
+  "serviceType": "Recurring Maid Service",
+  "description": "Professional recurring maid service in Birmingham, Alabama. Weekly, biweekly, and monthly cleaning for Mountain Brook, Vestavia Hills, Homewood, Hoover, and all Birmingham areas."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Recurring Maid Service Birmingham AL | Mountain Brook, Vestavia | Valley Clean Team"
+  description="Professional recurring maid service in Birmingham, AL. Weekly, biweekly, monthly cleaning. Serving Mountain Brook, Vestavia Hills, Homewood, Hoover."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-calendar-check mr-2"></i>Scheduled Cleaning Service
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Recurring Maid Service in <span class="gold-gradient">Birmingham, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            From Mountain Brook estates to Southside lofts, Birmingham's busy professionals and families trust us to keep their homes consistently spotless. Choose weekly, biweekly, or monthly service—same trusted team, same exceptional results, every time.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Pricing Cards -->
+          <div class="grid grid-cols-3 gap-3 mb-6">
+            <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center">
+              <div class="text-xs text-green-600 font-bold mb-1">SAVE 20%</div>
+              <div class="text-lg font-bold text-[#333333]">Weekly</div>
+              <div class="text-2xl font-bold text-[#FFA985]">$139+</div>
+              <div class="text-xs text-gray-500">per visit</div>
+            </div>
+            <div class="bg-gradient-to-b from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-4 shadow-md border-2 border-[#FFA985] text-center relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFA985] text-white text-xs px-2 py-1 rounded-full">MOST POPULAR</div>
+              <div class="text-xs text-green-600 font-bold mb-1">SAVE 15%</div>
+              <div class="text-lg font-bold text-[#333333]">Biweekly</div>
+              <div class="text-2xl font-bold text-[#FFA985]">$159+</div>
+              <div class="text-xs text-gray-500">per visit</div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center">
+              <div class="text-xs text-green-600 font-bold mb-1">SAVE 10%</div>
+              <div class="text-lg font-bold text-[#333333]">Monthly</div>
+              <div class="text-2xl font-bold text-[#FFA985]">$179+</div>
+              <div class="text-xs text-gray-500">per visit</div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12057900049" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Birmingham's trusted recurring cleaning service</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Recurring Service -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Birmingham Families Choose <span class="gold-gradient">Recurring Service</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Birmingham is Alabama's largest metro—a bustling city where professionals at UAB, Regions, and downtown businesses juggle demanding careers with family life. From Mountain Brook's prestigious estates to Homewood's charming bungalows, the last thing you need is spending your precious weekends scrubbing floors.
+          </p>
+          <p class="mb-6">
+            Our recurring maid service fits your Birmingham lifestyle. Choose the frequency that works for you: weekly for busy families with kids and pets, biweekly for the perfect balance of clean and cost, or monthly to supplement your own routine. Either way, you'll come home to a consistently clean house without lifting a finger.
+          </p>
+          <p>
+            The same trusted team members return each visit, learning your home's unique needs and your personal preferences. They know which Mountain Brook estate has the marble that needs special care, which Vestavia Hills family wants extra attention on the kids' playroom, which Southside loft dweller prefers fragrance-free products.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Grid -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Benefits of <span class="gold-gradient">Recurring Service</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-piggy-bank text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Save Money</h3>
+          <p class="text-gray-600 text-sm">Up to 20% off every cleaning with weekly service. The more often we clean, the more you save.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-clock text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Save Time</h3>
+          <p class="text-gray-600 text-sm">Reclaim your weekends. No more spending Saturday mornings scrubbing bathrooms.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-users text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Same Team</h3>
+          <p class="text-gray-600 text-sm">Your trusted cleaners know your home, your preferences, and exactly how you like things done.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-home text-amber-600 text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Always Clean</h3>
+          <p class="text-gray-600 text-sm">Your Birmingham home stays consistently spotless. Ready for anything, anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Every Visit</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that covers all the essentials
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Birmingham Neighborhoods -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Serving All <span class="gold-gradient">Birmingham</span> Neighborhoods
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From Mountain Brook to Hoover, we keep Birmingham homes spotless
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {neighborhoodGroups.map((group) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+            <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+              <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>{group.area}
+            </h3>
+            <ul class="space-y-2 text-gray-600">
+              {group.neighborhoods.map((n) => (
+                <li>• {n}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- No Contract Promise -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-12 border border-gray-100">
+        <div class="text-center">
+          <div class="w-20 h-20 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <i class="fas fa-file-contract text-[#FFA985] text-3xl"></i>
+          </div>
+          <h2 class="text-3xl font-bold text-[#333333] mb-4">
+            No Contracts. No Commitments. <span class="gold-gradient">No Hassle.</span>
+          </h2>
+          <p class="text-xl text-gray-600 mb-6">
+            We earn your business every visit, not with fine print. Skip, pause, or cancel anytime with just 48 hours notice. Your satisfaction is what keeps Birmingham families coming back—not contractual obligations.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4 text-gray-700">
+            <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+              <i class="fas fa-check text-green-500 mr-2"></i>Skip anytime
+            </div>
+            <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+              <i class="fas fa-check text-green-500 mr-2"></i>Pause service
+            </div>
+            <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+              <i class="fas fa-check text-green-500 mr-2"></i>Cancel anytime
+            </div>
+            <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
+              <i class="fas fa-check text-green-500 mr-2"></i>48 hours notice
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about recurring service in Birmingham
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Birmingham
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/birmingham/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Start with a deep clean, then maintain with recurring service.</p>
+        </a>
+        
+        <a href="/locations/birmingham/commercial-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Commercial Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Need your Birmingham office cleaned too? We do that.</p>
+        </a>
+        
+        <a href="/locations/birmingham" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Birmingham Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our cleaning services in Birmingham, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Keep Your Birmingham Home Consistently Spotless
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Join hundreds of Birmingham families who've reclaimed their weekends. Same trusted team, flexible scheduling, no contracts. Just a beautifully clean home, every time.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12057900049" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Same Team Every Visit | No Contracts
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

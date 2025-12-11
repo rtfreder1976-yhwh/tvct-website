@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import SchemaMarkup from '../components/SchemaMarkup.astro';
 import Icon from '../components/Icon.astro';
+import { getTestimonialsByService } from '../data/testimonials';
 
 interface Props {
   title: string;
@@ -25,6 +26,9 @@ interface Props {
 }
 
 const { title, description, service, serviceSlug, city, state, citySlug, serviceDescription, benefits, includes, price, neighborhoods = [], faqs } = Astro.props;
+
+// Get service-specific testimonials
+const serviceTestimonials = getTestimonialsByService(serviceSlug);
 
 // Related services mapping - each service links to 2-3 related services
 const relatedServicesMap: Record<string, Array<{slug: string, name: string, description: string}>> = {
@@ -402,8 +406,66 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- About This Service -->
+  <!-- Service Testimonials -->
   <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4 text-[#333333]">
+          What {city} Customers Say About Our {service}
+        </h2>
+        <div class="section-divider"></div>
+        <div class="flex items-center justify-center gap-2 mt-4">
+          <div class="flex text-[#FFA985]">
+            <Icon name="star" class="w-5 h-5" fill="currentColor" />
+            <Icon name="star" class="w-5 h-5" fill="currentColor" />
+            <Icon name="star" class="w-5 h-5" fill="currentColor" />
+            <Icon name="star" class="w-5 h-5" fill="currentColor" />
+            <Icon name="star" class="w-5 h-5" fill="currentColor" />
+          </div>
+          <span class="font-bold text-[#333333]">5.0</span>
+          <span class="text-gray-600">from 130+ reviews</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        {serviceTestimonials.slice(0, 3).map((testimonial) => (
+          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-lg">
+                {testimonial.initial}
+              </div>
+              <div class="ml-3">
+                <h4 class="font-bold text-[#333333]">{testimonial.name}</h4>
+                <p class="text-xs text-gray-500">{testimonial.source}</p>
+              </div>
+            </div>
+            <div class="flex text-[#FFA985] text-sm mb-3">
+              <Icon name="star" class="w-4 h-4" fill="currentColor" />
+              <Icon name="star" class="w-4 h-4" fill="currentColor" />
+              <Icon name="star" class="w-4 h-4" fill="currentColor" />
+              <Icon name="star" class="w-4 h-4" fill="currentColor" />
+              <Icon name="star" class="w-4 h-4" fill="currentColor" />
+            </div>
+            <p class="text-gray-700 text-sm line-clamp-4">"{testimonial.text}"</p>
+            <div class="mt-3">
+              <span class="bg-[#FFA985]/10 text-[#FFA985] text-xs px-2 py-1 rounded-full">{testimonial.service || service}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="https://g.page/r/thevalleycleanteam/review" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+          <Icon name="google" class="w-5 h-5 mr-2" />
+          Read More Reviews on Google
+          <Icon name="external-link-alt" class="w-4 h-4 ml-2" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About This Service -->
+  <section class="py-16 px-6">
     <div class="container mx-auto max-w-5xl">
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
@@ -659,4 +721,13 @@ const faqSchema = {
     const btn = document.getElementById('service-location-submit-btn');
     if (btn) btn.dataset.originalText = btn.textContent;
   </script>
+
+  <style>
+    .line-clamp-4 {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
 </BaseLayout>

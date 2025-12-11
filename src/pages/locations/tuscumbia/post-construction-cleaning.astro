@@ -1,0 +1,410 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Tuscumbia";
+const state = "Alabama";
+const phone = "(256) 826-1100";
+
+// Service areas
+const serviceAreas = [
+  "Tuscumbia",
+  "Sheffield",
+  "Muscle Shoals",
+  "Florence",
+  "Cherokee",
+  "Leighton",
+  "Littleville",
+  "Colbert Heights",
+  "Spring Creek"
+];
+
+// What's included
+const includedServices = [
+  "Fine dust removal from all surfaces",
+  "HVAC vents & returns cleaned",
+  "Inside all cabinets & drawers",
+  "Window sills & tracks detailed",
+  "Light fixtures & ceiling fans",
+  "Baseboards throughout",
+  "Door frames & doors",
+  "Crown molding dusted",
+  "Switch plates & outlets",
+  "Countertops sanitized",
+  "Appliance interiors cleaned",
+  "Bathroom fixtures sanitized",
+  "Tile & grout cleaned",
+  "Mirrors & glass polished",
+  "Hardwood floors properly cleaned",
+  "Construction debris removed"
+];
+
+// Project types
+const projectTypes = [
+  {
+    title: "New Home Construction",
+    description: "Complete post-construction cleaning for newly built homes throughout the Shoals. We remove construction dust from every surface before your final walkthrough."
+  },
+  {
+    title: "Kitchen Remodels",
+    description: "Kitchen renovations create fine dust that spreads throughout your home. We clean the remodeled space plus address dust migration to other rooms."
+  },
+  {
+    title: "Bathroom Renovations",
+    description: "Tile dust, grout residue, and construction debris thoroughly removed. Your new bathroom ready to use."
+  },
+  {
+    title: "Room Additions & Whole-Home",
+    description: "Major renovations require major cleaning. We handle additions, whole-home remodels, and historic home restorations."
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Why do new homes need post-construction cleaning?",
+    answer: "Even 'clean' new construction has fine drywall dust embedded in HVAC systems, inside cabinets, window tracks, and on every surface. Builder cleaning typically addresses only visible areas. Our post-construction cleaning reaches the hidden dust that affects air quality and settles on your belongings after you move in."
+  },
+  {
+    question: "How much does post-construction cleaning cost in Tuscumbia?",
+    answer: "Post-construction cleaning in Tuscumbia typically starts at $350 for smaller projects, with most homes ranging $400-$600. Large custom homes or extensive renovations may be $600-$800+. Pricing depends on square footage, project type, and current condition. Call (256) 826-1100 for a free estimate."
+  },
+  {
+    question: "What's the difference between builder cleaning and professional post-construction cleaning?",
+    answer: "Builder cleaning focuses on making the home presentable for showing—sweeping floors and wiping visible surfaces. Professional post-construction cleaning goes deeper: inside cabinets, HVAC vents, window tracks, light fixtures, and all the places fine dust accumulates. It's the difference between looking clean and being clean."
+  },
+  {
+    question: "Do you serve Sheffield, Muscle Shoals, and Florence for post-construction?",
+    answer: "Yes! We serve the entire Quad Cities area for post-construction cleaning, including Tuscumbia, Sheffield, Muscle Shoals, Florence, and surrounding Colbert County communities. Same professional service throughout the Shoals."
+  },
+  {
+    question: "When should I schedule post-construction cleaning?",
+    answer: "Schedule post-construction cleaning after all construction work is complete but before your final walkthrough or move-in. This timing ensures you see the home at its cleanest and can identify any remaining punch-list items."
+  },
+  {
+    question: "How long does post-construction cleaning take?",
+    answer: "Most Tuscumbia homes require 6-10 hours for thorough post-construction cleaning. Larger custom homes or heavily impacted properties may take 10-14+ hours. We'll provide a time estimate with your quote."
+  },
+  {
+    question: "Do you clean after renovations, not just new construction?",
+    answer: "Absolutely! We clean after kitchen remodels, bathroom renovations, room additions, and any construction project that creates dust. Renovation dust is often worse than new construction because it spreads throughout an occupied home."
+  },
+  {
+    question: "Can you clean historic homes after restoration work?",
+    answer: "Yes! Tuscumbia has many beautiful historic properties. We understand the special care these homes require and use gentle products that protect original hardwoods, antique fixtures, and architectural details while thoroughly removing construction dust."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Post-Construction Cleaning Tuscumbia AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568261100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tuscumbia",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": serviceAreas.map(area => ({
+    "@type": "Place",
+    "name": `${area}, AL`
+  })),
+  "serviceType": "Post-Construction Cleaning",
+  "description": "Professional post-construction cleaning in Tuscumbia, Alabama. New builds, renovations, remodels throughout the Shoals and Colbert County."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Post-Construction Cleaning Tuscumbia AL | New Build & Renovation | Valley Clean Team"
+  description="Professional post-construction cleaning in Tuscumbia, Alabama. New homes, remodels, renovations. Remove construction dust. Veteran-owned. Call (256) 826-1100"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-hard-hat mr-2"></i>New Builds & Renovations
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Post-Construction Cleaning in <span class="gold-gradient">Tuscumbia, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Building or renovating in Tuscumbia? Construction dust doesn't just sit on surfaces—it hides in HVAC systems, inside cabinets, and in every crack and crevice. Our post-construction cleaning removes the dust builders leave behind, so your new or renovated space is truly move-in ready.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-user-check text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Background-Checked</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Starting From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$350</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Typical Range</span>
+                <div class="text-xl font-semibold text-gray-700">$400-$600</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Post-construction cleaning specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Builder Cleaning <span class="gold-gradient">Isn't Enough</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            After construction, fine drywall dust doesn't just sit on surfaces—it embeds itself in places you can't see: inside HVAC ducts and vents, inside brand-new cabinets and drawers, in window tracks and crown molding details, behind switch plates and outlet covers.
+          </p>
+          <p class="mb-6">
+            Builder cleaning focuses on making the home presentable for showing—sweeping floors and wiping counters. But within days of moving in, that hidden dust starts circulating through your HVAC system, settling on your furniture and belongings.
+          </p>
+          <p>
+            Professional post-construction cleaning reaches all those hidden areas, removing dust before it becomes your problem.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Post-Construction Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Thorough cleaning that goes beyond the surface
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Types -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Projects We <span class="gold-gradient">Clean</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {projectTypes.map((project) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+            <h3 class="text-xl font-bold text-[#333333] mb-3">{project.title}</h3>
+            <p class="text-gray-600">{project.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Serving <span class="gold-gradient">The Shoals</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Post-construction cleaning throughout Colbert County and the Quad Cities
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+        {serviceAreas.map((area) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{area}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about post-construction cleaning
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/tuscumbia/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Thorough cleaning for established homes.</p>
+        </a>
+        
+        <a href="/locations/tuscumbia/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Keep your new home clean with regular service.</p>
+        </a>
+        
+        <a href="/locations/tuscumbia" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Tuscumbia Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Tuscumbia.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Make Your New Space Truly Move-In Ready
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Don't let construction dust follow you into your new or renovated Tuscumbia home. Professional post-construction cleaning removes what builders leave behind.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

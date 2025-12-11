@@ -1,0 +1,306 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "West Nashville";
+const state = "Tennessee";
+const phone = "(615) 961-0028";
+
+// West Nashville neighborhoods
+const neighborhoods = [
+  "Belle Meade",
+  "Sylvan Park",
+  "The Nations",
+  "West Meade",
+  "Charlotte Park",
+  "Sylvan Heights",
+  "Cherokee Park",
+  "Richland Park",
+  "White Bridge",
+  "Hillwood",
+  "West End",
+  "Green Hills"
+];
+
+// What's included
+const includedServices = [
+  "All surfaces dusted & wiped",
+  "Ceiling fans & light fixtures",
+  "Baseboards throughout",
+  "Door frames & doors cleaned",
+  "Window sills & tracks detailed",
+  "Switch plates & outlets wiped",
+  "Kitchen deep cleaned",
+  "Inside oven & microwave",
+  "Inside refrigerator & freezer",
+  "Inside dishwasher",
+  "Cabinets wiped inside & out",
+  "Countertops sanitized",
+  "Bathrooms scrubbed completely",
+  "Tile & grout cleaned",
+  "Toilets sanitized inside & out",
+  "Mirrors & glass polished",
+  "Floors vacuumed & mopped",
+  "Closets cleaned out",
+  "Garage swept (if applicable)"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does move-out cleaning cost in West Nashville?",
+    answer: "Move-out cleaning in West Nashville typically ranges from $250-$400 for apartments and standard homes. Belle Meade estates, larger properties, and heavily soiled units are quoted individually. Call (615) 961-0028 for a free quote based on your specific property."
+  },
+  {
+    question: "Will move-out cleaning help me get my deposit back?",
+    answer: "Yes! Our thorough move-out cleaning addresses the items landlords check during inspections—inside appliances, baseboards, window tracks, cabinet interiors, and overall cleanliness. A professionally cleaned property significantly improves your chances of full deposit return."
+  },
+  {
+    question: "How far in advance should I book move-out cleaning?",
+    answer: "We recommend booking 1-2 weeks ahead, especially at month's end when demand is highest. However, we understand moves can be unpredictable and accommodate last-minute requests when possible."
+  },
+  {
+    question: "Do you clean Belle Meade rental properties?",
+    answer: "Absolutely! Whether you're leaving a Belle Meade estate, Sylvan Park rental, or The Nations apartment, we provide the same thorough service. Our $2M insurance covers properties of all values."
+  },
+  {
+    question: "How long does move-out cleaning take?",
+    answer: "Move-out cleaning typically takes 4-8 hours for standard properties. Larger homes, heavily soiled units, or properties requiring extra attention may take longer. We'll provide a time estimate with your quote."
+  },
+  {
+    question: "Do you work with property managers?",
+    answer: "Yes! We work with property managers throughout West Nashville for tenant turnovers. We offer reliable scheduling, consistent quality, and can coordinate directly with your management company."
+  },
+  {
+    question: "What if the property is heavily soiled?",
+    answer: "We can handle it! Properties requiring extra work—heavy grease buildup, neglected bathrooms, or significant cleaning challenges—receive custom quotes. We'll assess the situation and provide honest pricing."
+  },
+  {
+    question: "Do you offer move-in cleaning too?",
+    answer: "Yes! Move-in cleaning ensures your new West Nashville home is fresh and sanitized before you unpack. Same thorough service, giving you a clean start in your new space."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Move-Out Cleaning West Nashville TN",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+16159610028"
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Nashville, TN`
+  })),
+  "serviceType": "Move-Out Cleaning",
+  "description": "Professional move-out cleaning in West Nashville. Get your deposit back. Belle Meade, Sylvan Park, The Nations."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Move-Out Cleaning West Nashville TN | Get Your Deposit Back | Valley Clean Team"
+  description="Professional move-out cleaning in West Nashville. Get your deposit back! Belle Meade, Sylvan Park, The Nations. Veteran-owned. Call (615) 961-0028"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-dollar-sign mr-2"></i>Get Your Full Deposit Back
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Move-Out Cleaning in <span class="gold-gradient">West Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Moving is stressful enough—let us handle the cleaning. Our thorough move-out service covers everything landlords inspect: inside appliances, baseboards, window tracks, and every detail that affects your deposit. Whether you're leaving a Belle Meade estate or a Nations apartment, we'll leave it spotless.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Deposit-Back Guarantee</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Apartments From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$250</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Average Homes</span>
+                <div class="text-2xl font-bold text-gray-700">$300-$400</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+16159610028" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Move-out cleaning specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Move-Out Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Everything landlords check during move-out inspection
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Move-Out Cleaning Throughout <span class="gold-gradient">West Nashville</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From luxury rentals to urban apartments
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Get Your Deposit Back
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Don't leave money on the table. Professional move-out cleaning that passes inspection.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+16159610028" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

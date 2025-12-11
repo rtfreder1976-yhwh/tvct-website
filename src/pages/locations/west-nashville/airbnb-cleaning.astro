@@ -1,0 +1,360 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "West Nashville";
+const state = "Tennessee";
+const phone = "(615) 961-0028";
+
+// West Nashville neighborhoods
+const neighborhoods = [
+  "Belle Meade",
+  "Sylvan Park",
+  "The Nations",
+  "West Meade",
+  "Charlotte Park",
+  "Sylvan Heights",
+  "Cherokee Park",
+  "Richland Park",
+  "White Bridge",
+  "Hillwood",
+  "West End",
+  "Green Hills"
+];
+
+// What's included
+const includedServices = [
+  "Complete linen change",
+  "Fresh towel setup",
+  "All surfaces wiped & sanitized",
+  "Kitchen deep cleaned",
+  "Appliances wiped inside & out",
+  "Dishes washed & put away",
+  "Bathrooms scrubbed & sanitized",
+  "Toiletries restocked (if provided)",
+  "Floors vacuumed & mopped",
+  "Trash removed & bins relined",
+  "Amenities checked & arranged",
+  "Damage & issue inspection",
+  "Smart lock code verification",
+  "Photo documentation available"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does Airbnb cleaning cost in West Nashville?",
+    answer: "Airbnb turnover cleaning in West Nashville typically costs $100-$150 for 1-2 bedroom properties and $150-$200+ for larger homes. Volume discounts available for hosts with multiple properties or frequent turnovers. Call (615) 961-0028 for custom pricing."
+  },
+  {
+    question: "Why is West Nashville a good market for short-term rentals?",
+    answer: "West Nashville offers guests proximity to Music Row, The Gulch, downtown, and Centennial Park while providing quieter, residential neighborhoods. The Nations' trendy vibe, Sylvan Park's charm, and Belle Meade's luxury appeal attract diverse guests—from bachelorette parties to business travelers."
+  },
+  {
+    question: "How quickly can you turn over a property?",
+    answer: "Standard turnovers take 2-4 hours depending on property size. We can often accommodate same-day requests and tight windows between guests. Communication is key—let us know your checkout and check-in times."
+  },
+  {
+    question: "Do you work with property managers?",
+    answer: "Yes! We partner with property managers throughout West Nashville, offering consistent quality, reliable scheduling, and volume pricing. We can coordinate directly with your management team."
+  },
+  {
+    question: "Can you handle last-minute turnover requests?",
+    answer: "We do our best! While advance booking is preferred, we understand the unpredictable nature of short-term rentals. Call as soon as you know about a last-minute need and we'll work to accommodate you."
+  },
+  {
+    question: "Do you restock supplies and toiletries?",
+    answer: "Yes! We can restock supplies you provide (toiletries, coffee, snacks) or handle purchasing for you. Many hosts find this saves time and ensures guests always have fresh amenities."
+  },
+  {
+    question: "Can you inspect for damages between guests?",
+    answer: "Absolutely! We document any damages, maintenance issues, or supply needs during each turnover. This helps you address problems quickly and protect your property."
+  },
+  {
+    question: "Do you clean luxury properties in Belle Meade?",
+    answer: "Yes! We're experienced with West Nashville's high-end rentals, including Belle Meade estates and upscale properties near Green Hills. Our $2M insurance and professional team provide the care luxury properties require."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Airbnb Cleaning West Nashville TN",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+16159610028"
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Nashville, TN`
+  })),
+  "serviceType": "Vacation Rental Cleaning",
+  "description": "Professional Airbnb and VRBO turnover cleaning in West Nashville. Belle Meade, Sylvan Park, The Nations. Fast turnovers, reliable service."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Airbnb Cleaning West Nashville TN | VRBO Turnover Service | Valley Clean Team"
+  description="Professional Airbnb & VRBO cleaning in West Nashville. Fast turnovers, 5-star ready. Belle Meade, Sylvan Park, The Nations. Call (615) 961-0028"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-pink-50 border border-pink-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-pink-700 text-sm font-medium">
+              <i class="fas fa-star mr-2"></i>Keep Your 5-Star Rating
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Airbnb & VRBO Cleaning in <span class="gold-gradient">West Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Your West Nashville rental deserves turnovers that wow guests. Our professional Airbnb cleaning ensures every guest arrives to a spotless, welcoming space—protecting your reviews and maximizing your bookings. From The Nations' trendy lofts to Belle Meade estates, we keep your property 5-star ready.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-bolt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Fast Turnovers</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">5-Star Quality</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">1-2 Bedroom</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$100-$150</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">3+ Bedroom</span>
+                <div class="text-2xl font-bold text-gray-700">$150-$200+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+16159610028" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Airbnb turnover specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- West Nashville STR Market -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        West Nashville's <span class="gold-gradient">Thriving STR Market</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+        West Nashville attracts diverse guests—from music industry visitors and bachelorette parties to business travelers and families. Your property needs to impress every time.
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-music text-[#FFA985] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Music Row Proximity</h3>
+          <p class="text-gray-600 text-sm">Minutes from Nashville's music industry hub, attracting artists, producers, and industry professionals.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-glass-cheers text-[#FFA985] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">The Nations Scene</h3>
+          <p class="text-gray-600 text-sm">Trendy breweries, restaurants, and converted warehouse spaces draw young travelers.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-tree text-[#FFA985] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Centennial Park</h3>
+          <p class="text-gray-600 text-sm">Nashville's Parthenon and beautiful park attract families and culture-seekers.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-home text-[#FFA985] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Sylvan Park Charm</h3>
+          <p class="text-gray-600 text-sm">Tree-lined streets and local boutiques offer an authentic Nashville experience.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-crown text-[#FFA985] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Belle Meade Luxury</h3>
+          <p class="text-gray-600 text-sm">Upscale estates attract high-end guests seeking privacy and elegance.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-briefcase text-[#FFA985] text-xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Business Travel</h3>
+          <p class="text-gray-600 text-sm">Easy access to downtown and corporate offices makes West Nashville popular with professionals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Every Turnover</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Everything your guests expect for a 5-star experience
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Airbnb Cleaning Throughout <span class="gold-gradient">West Nashville</span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Keep Your 5-Star Rating
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Professional turnovers that impress every guest. Reliable, thorough, and fast.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+16159610028" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

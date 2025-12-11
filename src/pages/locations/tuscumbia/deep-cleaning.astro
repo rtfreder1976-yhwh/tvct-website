@@ -1,0 +1,566 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Tuscumbia";
+const state = "Alabama";
+const phone = "(256) 826-1100";
+
+// Tuscumbia and Quad Cities neighborhoods
+const neighborhoods = [
+  "Downtown Tuscumbia",
+  "Spring Park Area",
+  "Ivy Green District",
+  "North Commons",
+  "East Tuscumbia",
+  "West Tuscumbia",
+  "Colbert Heights",
+  "Spring Creek",
+  "Cherokee",
+  "Leighton",
+  "Littleville",
+  "Wilson Lake Area"
+];
+
+// What's included in deep cleaning
+const includedServices = [
+  "All surfaces dusted top to bottom",
+  "Ceiling fans & light fixtures cleaned",
+  "Baseboards thoroughly wiped",
+  "Door frames & doors cleaned",
+  "Window sills & tracks detailed",
+  "All switch plates & outlets wiped",
+  "Kitchen deep cleaned & degreased",
+  "Inside oven cleaning",
+  "Inside refrigerator cleaning",
+  "Inside microwave & dishwasher",
+  "Cabinet fronts cleaned",
+  "All bathrooms deep scrubbed",
+  "Tile grout cleaned",
+  "Shower doors descaled",
+  "Toilets sanitized inside & out",
+  "Mirrors & glass polished",
+  "Floors vacuumed & mopped",
+  "Under furniture cleaned",
+  "Trash removed & liners replaced"
+];
+
+// Process steps
+const processSteps = [
+  {
+    step: "1",
+    title: "Request Your Quote",
+    description: "Tell us about your Tuscumbia home—square footage, number of rooms, and any specific needs. We'll provide a detailed, no-obligation quote."
+  },
+  {
+    step: "2",
+    title: "Schedule Your Clean",
+    description: "Pick a date that works for you. We offer flexible scheduling and can work around Helen Keller Festival, holiday events, and guest arrivals."
+  },
+  {
+    step: "3",
+    title: "Deep Clean Every Room",
+    description: "Our trained team systematically cleans your entire home—inside appliances, behind furniture, and everywhere regular cleaning misses."
+  },
+  {
+    step: "4",
+    title: "Enjoy Your Spotless Home",
+    description: "Walk into a fresh, sanitized home that's ready for guests, family events, or simply your own enjoyment. Many clients continue with recurring service."
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does deep cleaning cost in Tuscumbia?",
+    answer: "Deep cleaning in Tuscumbia typically ranges from $225-$350 for average-sized homes (1,500-2,500 sq ft). Historic homes near Ivy Green or larger properties may run $325-$450+. Pricing depends on square footage, number of rooms, home condition, and specific requests. Call (256) 826-1100 for a free quote."
+  },
+  {
+    question: "What's included in deep cleaning vs. regular cleaning?",
+    answer: "Deep cleaning goes far beyond regular maintenance. We clean inside appliances (oven, refrigerator, microwave), detail baseboards, clean window sills and tracks, degrease kitchen surfaces, deep scrub tile grout, clean under and behind furniture, dust ceiling fans and light fixtures, and sanitize high-touch surfaces throughout your Tuscumbia home."
+  },
+  {
+    question: "Do you clean historic homes near Ivy Green?",
+    answer: "Absolutely! Tuscumbia's historic homes—including beautiful 19th-century residences near Ivy Green and properties in the National Register Historic District—require specialized care. We use gentle, pH-neutral products that protect original hardwood floors, antique fixtures, and architectural details while delivering a thorough clean."
+  },
+  {
+    question: "Can you clean before Helen Keller Festival events?",
+    answer: "Yes! The Helen Keller Festival brings thousands of visitors to Tuscumbia each June, and many residents host out-of-town guests. We offer pre-event deep cleaning to get your home guest-ready, plus post-event cleaning to restore order. The same applies for 'It's a Dickens Christmas, Y'all' and other Tuscumbia festivals."
+  },
+  {
+    question: "How long does deep cleaning take in Tuscumbia?",
+    answer: "Typical Tuscumbia homes (1,500-2,500 sq ft) take 3-5 hours for thorough deep cleaning. Historic homes with detailed architectural features or larger properties may take 5-7+ hours. We don't rush—we ensure every area meets our standards before leaving."
+  },
+  {
+    question: "Do you serve the entire Quad Cities area?",
+    answer: "Yes! We serve all of the Shoals including Tuscumbia, Florence, Muscle Shoals, and Sheffield. Whether you're in downtown Tuscumbia near Spring Park, near Wilson Lake, or anywhere in Colbert County, we deliver professional service. Our familiarity with the Quad Cities means we understand each community."
+  },
+  {
+    question: "Do you clean Wilson Lake vacation rentals?",
+    answer: "Yes, we specialize in vacation rental cleaning for Wilson Lake properties and Tuscumbia Airbnbs. With year-round tourism attractions like Ivy Green, Alabama Music Hall of Fame, and The Miracle Worker performances, keeping your rental guest-ready is essential. We offer reliable turnover service to maintain your 5-star rating."
+  },
+  {
+    question: "Should I start with deep cleaning before recurring service?",
+    answer: "We highly recommend it. A deep clean establishes a pristine baseline, then recurring service maintains that level. Think of it like detailing your car before regular washes. Most Tuscumbia clients start with deep cleaning, then transition to biweekly or monthly service."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Deep Cleaning Tuscumbia AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568261100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tuscumbia",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Tuscumbia, AL`
+  })),
+  "serviceType": "Deep Cleaning",
+  "description": "Professional deep cleaning services in Tuscumbia, Alabama. Comprehensive top-to-bottom cleaning for homes throughout Colbert County and the Shoals."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Deep Cleaning Tuscumbia AL | Ivy Green, Shoals Area | Valley Clean Team"
+  description="Professional deep cleaning in Tuscumbia, AL. Serving Ivy Green area, Quad Cities, Wilson Lake. Inside appliances, baseboards. Veteran-owned."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-sparkles mr-2"></i>Top-to-Bottom Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Deep Cleaning Services in <span class="gold-gradient">Tuscumbia, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            From historic homes near Ivy Green to lakeside properties along Wilson Lake, our comprehensive deep cleaning service reaches every corner of your Tuscumbia home. We clean inside appliances, behind furniture, and everywhere regular cleaning misses—leaving your home truly, thoroughly clean.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Deep Cleaning From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$225</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Typical Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$275-$350</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Historic/Larger</span>
+                <div class="text-lg font-semibold text-gray-700">$325-$450+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">The Shoals' trusted deep cleaning professionals</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Tuscumbia Homes Need Deep Cleaning -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Tuscumbia Homes Need <span class="gold-gradient">Professional Deep Cleaning</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Tuscumbia—birthplace of Helen Keller and heart of the Shoals—is a community steeped in history and Southern hospitality. From the beautiful 19th-century homes near Ivy Green to charming residences throughout downtown, Tuscumbia's architectural heritage requires thoughtful care. Regular cleaning simply can't address the dust that accumulates in historic trim, vintage fixtures, and high ceilings.
+          </p>
+          <p class="mb-6">
+            The Shoals area's Tennessee River location also creates unique challenges. Wilson Lake humidity, seasonal pollen, and Alabama's red clay soil all find their way into your home. For families hosting guests during Helen Keller Festival, The Miracle Worker performances, or holiday events, a deep clean ensures your home makes the impression you want.
+          </p>
+          <p>
+            Whether you're preparing for festival season, recovering from hosting visitors, getting a vacation rental guest-ready, or simply haven't had time for thorough cleaning, our deep cleaning service addresses every area of your Tuscumbia home. We clean inside appliances, behind furniture, and in corners that daily cleaning misses.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Tuscumbia Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that goes far beyond regular maintenance
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Process -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Our <span class="gold-gradient">Deep Cleaning Process</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Systematic, thorough, and designed for Shoals area homes
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        {processSteps.map((step) => (
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              {step.step}
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] mb-3">{step.title}</h3>
+            <p class="text-gray-600">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Deep Cleaning Throughout <span class="gold-gradient">The Shoals</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving Tuscumbia, Florence, Muscle Shoals, Sheffield & Colbert County
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+        <!-- Tuscumbia -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-landmark text-[#FFA985] mr-2"></i>Tuscumbia
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Downtown Tuscumbia</li>
+            <li>• Spring Park Area</li>
+            <li>• Ivy Green District</li>
+            <li>• North Commons</li>
+            <li>• East & West Tuscumbia</li>
+          </ul>
+        </div>
+        
+        <!-- Colbert County -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>Colbert County
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Colbert Heights</li>
+            <li>• Spring Creek</li>
+            <li>• Cherokee</li>
+            <li>• Leighton</li>
+            <li>• Littleville</li>
+          </ul>
+        </div>
+        
+        <!-- Quad Cities -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>Quad Cities
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Florence</li>
+            <li>• Muscle Shoals</li>
+            <li>• Sheffield</li>
+            <li>• Wilson Lake Area</li>
+            <li>• Tennessee River Properties</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Shoals Families Choose <span class="gold-gradient">The Valley Clean Team</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-landmark text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Home Expertise</h3>
+          <p class="text-gray-600">Tuscumbia's 19th-century homes deserve gentle care. We use pH-neutral products that protect original hardwood, antique fixtures, and architectural details.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-calendar-star text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Festival-Ready Service</h3>
+          <p class="text-gray-600">Helen Keller Festival, The Miracle Worker, Dickens Christmas—we help you prepare for hosting with pre-event deep cleaning and post-event restoration.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-water text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Wilson Lake Rentals</h3>
+          <p class="text-gray-600">Vacation rental owners trust us for reliable deep cleaning and turnover service. We help maintain your 5-star rating with thorough, consistent cleans.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military precision and values you can trust. We approach every Shoals home with discipline, attention to detail, and commitment to excellence.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">$2M Insured</h3>
+          <p class="text-gray-600">Fully bonded and insured for your complete peace of mind. Your historic home and irreplaceable heirlooms are protected throughout our service.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-star text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Satisfaction Guaranteed</h3>
+          <p class="text-gray-600">If you're not happy with any aspect of your deep clean, we'll come back and make it right. 130+ five-star reviews prove our commitment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        When to Schedule <span class="gold-gradient">Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Deep cleaning is ideal for these situations
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-users text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Before Guests Arrive</h3>
+          <p class="text-gray-600 text-sm">Helen Keller Festival, Miracle Worker performances, holiday visitors—be guest-ready.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-leaf text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Seasonal Refresh</h3>
+          <p class="text-gray-600 text-sm">Spring cleaning, fall prep, or any time your home needs a comprehensive refresh.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-key text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Vacation Rentals</h3>
+          <p class="text-gray-600 text-sm">Deep clean between guests or seasonal refresh for your Wilson Lake property.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-sync-alt text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Before Recurring</h3>
+          <p class="text-gray-600 text-sm">Establish a pristine baseline before starting weekly or biweekly service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about deep cleaning in Tuscumbia
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in The Shoals
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/tuscumbia" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Weekly or biweekly cleaning to maintain your deep-cleaned home.</p>
+        </a>
+        
+        <a href="/locations/florence" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Florence Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Cleaning services throughout Florence and Lauderdale County.</p>
+        </a>
+        
+        <a href="/locations/muscle-shoals" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-music text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Muscle Shoals</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Serving the music capital of the Shoals area.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready for a Truly Clean Tuscumbia Home?
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Experience the difference professional deep cleaning makes. From historic homes near Ivy Green to lakeside properties, we deliver the comprehensive clean your home deserves.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Background-Checked Team | $2M Insurance
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

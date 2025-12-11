@@ -1,0 +1,442 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Event types
+const eventTypes = [
+  { name: "Home Parties & Gatherings", icon: "fa-champagne-glasses", description: "Birthday parties, anniversaries, holiday gatherings" },
+  { name: "Wedding Events", icon: "fa-rings-wedding", description: "Pre-wedding prep, post-reception cleanup" },
+  { name: "Corporate Events", icon: "fa-briefcase", description: "Office parties, client events, team gatherings" },
+  { name: "Open Houses", icon: "fa-house-circle-check", description: "Real estate showings, new home tours" },
+  { name: "Holiday Hosting", icon: "fa-tree", description: "Thanksgiving, Christmas, New Year's parties" },
+  { name: "Game Day Parties", icon: "fa-football", description: "Trash Pandas games, Alabama football watch parties" }
+];
+
+// What's included pre-event
+const preEventServices = [
+  "Deep cleaning all living areas",
+  "Kitchen & bathrooms detailed",
+  "Floors vacuumed & mopped",
+  "All surfaces dusted & polished",
+  "Windows & glass cleaned",
+  "Guest bathrooms prepared",
+  "Outdoor spaces tidied",
+  "Entryways welcoming"
+];
+
+// What's included post-event
+const postEventServices = [
+  "All trash & recycling removed",
+  "Dishes washed & put away",
+  "Spills & stains addressed",
+  "Furniture returned to place",
+  "Floors thoroughly cleaned",
+  "Bathrooms sanitized",
+  "Kitchen deep cleaned",
+  "Your home back to normal"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does event cleaning cost in Madison?",
+    answer: "Event cleaning in Madison varies by home size, event type, and whether you need pre-event, post-event, or both. Pre-event deep cleaning typically ranges $250-$400. Post-event cleanup starts around $150-$300 depending on the event scope. Combined packages offer the best value. Call (256) 856-1006 for a custom quote."
+  },
+  {
+    question: "How far in advance should I book event cleaning?",
+    answer: "We recommend booking 1-2 weeks in advance for event cleaning, especially during holiday seasons. Last-minute availability isn't guaranteed, but we do our best to accommodate urgent requests. For major holidays like Thanksgiving and Christmas, book 2-3 weeks ahead."
+  },
+  {
+    question: "Do you offer both pre-event and post-event cleaning?",
+    answer: "Yes! We offer pre-event deep cleaning to prepare your Madison home for guests, post-event cleanup to restore your home afterward, or both as a combined package. Many hosts find both services give them peace of mind—a spotless home for guests and no cleanup stress after."
+  },
+  {
+    question: "Can you clean before a real estate open house?",
+    answer: "Absolutely! First impressions matter in real estate. We work with Madison homeowners and agents to prepare homes for open houses and showings. Our pre-showing cleaning ensures your home sparkles for potential buyers, from curb appeal to every interior detail."
+  },
+  {
+    question: "How quickly can you clean after an event?",
+    answer: "We can typically schedule post-event cleaning the next morning or same day depending on availability. For late-night events, next-morning cleanup is most common. Let us know your event date when booking, and we'll coordinate a cleanup time that works for you."
+  },
+  {
+    question: "Do you handle large post-event messes?",
+    answer: "Yes! We've cleaned up after large holiday parties, wedding receptions, and game day gatherings in Madison. No mess is too big—we bring the team and supplies needed. We address spills, stains, trash, dishes, and general chaos to restore your home quickly."
+  },
+  {
+    question: "Can you clean outdoor spaces for events?",
+    answer: "We include basic outdoor tidying—sweeping porches and patios, straightening outdoor furniture, removing obvious debris. For extensive outdoor cleaning like pressure washing, we can recommend trusted partners or discuss what's included in your package."
+  },
+  {
+    question: "Do you clean for corporate events at homes?",
+    answer: "Yes! Madison's business community often hosts client events, team gatherings, and corporate parties at private homes. We provide professional pre- and post-event cleaning that ensures your home makes the right impression on colleagues and clients."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Event Cleaning Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "serviceType": "Event Cleaning",
+  "description": "Professional pre-event and post-event cleaning services in Madison, Alabama. Party cleanup, holiday hosting prep, real estate open houses."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Event Cleaning Madison AL | Party Cleanup, Pre-Event Deep Clean | Valley Clean Team"
+  description="Event cleaning services in Madison, Alabama. Pre-event deep cleaning, post-party cleanup, holiday hosting prep. Veteran-owned. Call (256) 856-1006"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-purple-50 border border-purple-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-purple-700 text-sm font-medium">
+              <i class="fas fa-champagne-glasses mr-2"></i>Pre & Post Event Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Event Cleaning Services in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Hosting a party, open house, or holiday gathering in Madison? Focus on being the perfect host—not the cleanup. Our event cleaning services prepare your home to impress guests and restore it afterward, so you enjoy your event without the stress.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Madison's event cleaning specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Types -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Events We <span class="gold-gradient">Clean For</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From intimate gatherings to large celebrations
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {eventTypes.map((event) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+              <i class={`fas ${event.icon} text-[#FFA985] text-2xl`}></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] mb-2">{event.name}</h3>
+            <p class="text-gray-600 text-sm">{event.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre vs Post Event -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Pre-Event & Post-Event <span class="gold-gradient">Cleaning Options</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Pre-Event -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-green-600 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333]">Pre-Event Deep Clean</h3>
+              <p class="text-gray-600">Prepare your home to impress</p>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-6">
+            {preEventServices.map((service) => (
+              <li class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {service}
+              </li>
+            ))}
+          </ul>
+          <div class="bg-green-50 rounded-lg p-4 text-center">
+            <span class="text-sm text-gray-600">Starting at</span>
+            <div class="text-2xl font-bold text-green-600">$250-$400</div>
+          </div>
+        </div>
+        
+        <!-- Post-Event -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 bg-gradient-to-r from-blue-100 to-blue-200 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-broom text-blue-600 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333]">Post-Event Cleanup</h3>
+              <p class="text-gray-600">Restore your home after the party</p>
+            </div>
+          </div>
+          <ul class="space-y-3 mb-6">
+            {postEventServices.map((service) => (
+              <li class="flex items-center text-gray-700">
+                <i class="fas fa-check text-blue-500 mr-3"></i>
+                {service}
+              </li>
+            ))}
+          </ul>
+          <div class="bg-blue-50 rounded-lg p-4 text-center">
+            <span class="text-sm text-gray-600">Starting at</span>
+            <div class="text-2xl font-bold text-blue-600">$150-$300</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Combined Package -->
+      <div class="max-w-3xl mx-auto mt-8">
+        <div class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-2xl p-8 text-center text-white">
+          <h3 class="text-2xl font-bold mb-2">Complete Event Package</h3>
+          <p class="text-white/90 mb-4">Pre-event deep clean + post-event cleanup = complete peace of mind</p>
+          <div class="bg-white/20 rounded-lg p-4 inline-block">
+            <span class="text-lg">Save 10-15% with combined booking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Madison Event Season -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Madison's <span class="gold-gradient">Event Season</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700 text-center">
+          <p class="mb-6">
+            Madison families love to host—from Trash Pandas game day parties and Alabama football watch gatherings to holiday celebrations and milestone events. With median household incomes over $131,000 and beautiful homes in Town Madison, Clift Farm, and Providence, entertaining is part of life here.
+          </p>
+          <p>
+            Our event cleaning services let you focus on being the perfect host. We handle the deep clean before guests arrive and the restoration after they leave, so you can enjoy every moment of your celebration without worrying about the mess.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Estate Open Houses -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+                <i class="fas fa-house-circle-check text-[#FFA985] text-3xl"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-[#333333] mb-4">Real Estate Open House Prep</h2>
+              <p class="text-gray-700 mb-4">
+                First impressions sell homes. Madison's competitive real estate market demands properties that sparkle from the moment buyers walk in. Our pre-showing cleaning ensures your home is picture-perfect for open houses and private showings.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li><i class="fas fa-check text-green-500 mr-2"></i>Deep cleaning before showings</li>
+                <li><i class="fas fa-check text-green-500 mr-2"></i>Windows & glass polished</li>
+                <li><i class="fas fa-check text-green-500 mr-2"></i>Kitchen & bathrooms detailed</li>
+                <li><i class="fas fa-check text-green-500 mr-2"></i>Curb appeal attention</li>
+              </ul>
+            </div>
+            <div class="text-center">
+              <p class="text-gray-600 mb-2">Trusted by Madison realtors</p>
+              <p class="text-lg font-semibold text-[#333333]">Help your listing stand out</p>
+              <a href="tel:+12568561006" class="inline-flex items-center justify-center mt-4 px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full">
+                <i class="fas fa-phone mr-2"></i>Schedule Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about event cleaning in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Madison
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Comprehensive cleaning for any occasion.</p>
+        </a>
+        
+        <a href="/locations/madison/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Always ready for unexpected guests.</p>
+        </a>
+        
+        <a href="/locations/madison" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Madison Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Madison, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Host Your Event, Skip the Cleanup
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        From pre-event deep cleaning to post-party restoration, we handle everything so you can focus on your guests and enjoy your Madison celebration.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>Book early for holiday events!
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

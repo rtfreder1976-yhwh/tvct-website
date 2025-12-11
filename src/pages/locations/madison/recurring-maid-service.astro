@@ -1,0 +1,569 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Madison neighborhoods
+const neighborhoods = [
+  "Town Madison",
+  "Clift Farm",
+  "Rainbow Mountain Heights",
+  "Providence",
+  "Bradford Creek",
+  "Heritage Plantation",
+  "Clifts Cove",
+  "West Highlands",
+  "Madison City",
+  "Triana",
+  "The Reserve",
+  "Anslee Farms",
+  "Cambridge",
+  "Lake Forest",
+  "Celtic Manor",
+  "Village at Oakland Springs"
+];
+
+// What's included in recurring service
+const includedServices = [
+  "Thorough dusting of all surfaces",
+  "Vacuuming all floors & carpets",
+  "Mopping hard floors",
+  "Kitchen counters & appliances",
+  "Stovetop & microwave cleaning",
+  "Sink scrubbing & sanitizing",
+  "Bathroom deep cleaning",
+  "Toilet, shower & tub sanitizing",
+  "Mirror & glass cleaning",
+  "Bed making & linen straightening",
+  "Trash removal & liner replacement",
+  "High-touch surface disinfection"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "What recurring cleaning frequencies do you offer in Madison?",
+    answer: "We offer weekly, biweekly (every two weeks), and monthly recurring cleaning in Madison. Weekly provides the deepest savings (20% off) and keeps your home consistently pristine—ideal for busy Town Madison and Clift Farm families. Biweekly is our most popular option for Madison professionals, balancing value and maintenance. Monthly works well for smaller homes or those who do light cleaning between visits."
+  },
+  {
+    question: "How much can I save with recurring maid service in Madison?",
+    answer: "Madison recurring clients save significantly: Weekly service saves 20%, biweekly saves 15%, and monthly saves 10% compared to one-time cleaning rates. For a typical Madison home (2,400-3,200 sq ft), that's $40-70+ savings per cleaning, adding up to $500-1,500+ annually depending on frequency."
+  },
+  {
+    question: "Do you serve all Madison neighborhoods including Town Madison?",
+    answer: "Yes! We provide recurring maid service throughout all of Madison including Town Madison (The Exchange, Heights, Commons, West End), Clift Farm, Rainbow Mountain Heights, Providence, Bradford Creek, Heritage Plantation, West Highlands, Madison City, Triana, Celtic Manor, Lake Forest, and all surrounding areas."
+  },
+  {
+    question: "Can I change my cleaning frequency or schedule?",
+    answer: "Absolutely! Many Madison clients adjust seasonally—more frequent during busy work periods at Redstone Arsenal or Research Park, less during slower times. Switch between weekly, biweekly, or monthly anytime with 48 hours notice. No penalties or fees for changing. We also accommodate schedule shifts for travel or special events."
+  },
+  {
+    question: "Will I get the same cleaning team each visit?",
+    answer: "Yes! We assign a dedicated team to your Madison home. The same trusted cleaners come every visit, learning your preferences, your home's layout, and any special requests. They'll know that you prefer the guest room prioritized, or that certain areas need extra attention. Consistency is key to our service quality."
+  },
+  {
+    question: "What's included in recurring maid service?",
+    answer: "Every visit includes thorough dusting, vacuuming, mopping, kitchen cleaning (counters, stovetop, sink, appliance exteriors), bathroom sanitizing (toilet, shower, tub, sink, mirrors), bed making, trash removal, and high-touch surface disinfection. Deep cleaning tasks rotate through visits to ensure your entire Madison home stays fresh."
+  },
+  {
+    question: "Do I need to sign a contract for recurring service?",
+    answer: "Never. Our recurring service is completely contract-free. Pause, skip, or cancel anytime with 48 hours notice. We keep Madison clients through quality service, not legal obligations. Most families stay with us for years because they love the results and the consistency."
+  },
+  {
+    question: "How do I start recurring maid service in Madison?",
+    answer: "Call (256) 856-1006 or complete our online form. We'll discuss your Madison home's size, layout, and your needs, then recommend a frequency. Most clients begin with a deep cleaning to establish a baseline, then transition to their chosen recurring schedule. We can often start within the same week."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Recurring Maid Service Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Madison, AL`
+  })),
+  "serviceType": "Recurring Maid Service",
+  "description": "Professional recurring maid service in Madison, Alabama. Weekly, biweekly, and monthly cleaning with up to 20% savings. No contracts."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Recurring Maid Service Madison AL | Weekly & Biweekly Cleaning | Valley Clean Team"
+  description="Recurring maid service in Madison, AL. Save up to 20% with weekly, biweekly or monthly cleaning. Serving Town Madison, Clift Farm. No contracts."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-white font-semibold">
+              <i class="fas fa-sync-alt mr-2"></i>Save Up to 20% on Every Clean
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Recurring Maid Service in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Madison's busy professionals and growing families trust us to keep their homes spotless week after week. Choose weekly, biweekly, or monthly service—same dedicated team, consistent quality, significant savings. No contracts, ever.
+          </p>
+
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Key Benefits -->
+          <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-8">
+            <span><i class="fas fa-check text-green-500 mr-1"></i> No Contracts</span>
+            <span><i class="fas fa-check text-green-500 mr-1"></i> Same Team Every Visit</span>
+            <span><i class="fas fa-check text-green-500 mr-1"></i> Flexible Schedule</span>
+            <span><i class="fas fa-check text-green-500 mr-1"></i> Skip Anytime</span>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="space-y-4">
+          <!-- Weekly -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg border-2 border-[#FFA985]">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <span class="bg-[#FFA985] text-white text-xs px-2 py-1 rounded-full">BEST VALUE</span>
+                <h3 class="text-2xl font-bold text-[#333333] mt-2">Weekly Cleaning</h3>
+              </div>
+              <div class="text-right">
+                <p class="text-3xl font-bold text-[#FFA985]">20% OFF</p>
+                <p class="text-sm text-gray-500">From $139/visit</p>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">Perfect for busy Madison professionals and families with kids or pets. Your home stays pristine with minimal effort.</p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Maximum savings</li>
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Always ready for guests</li>
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Ideal for Town Madison homes</li>
+            </ul>
+          </div>
+
+          <!-- Biweekly -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">MOST POPULAR</span>
+                <h3 class="text-2xl font-bold text-[#333333] mt-2">Biweekly Cleaning</h3>
+              </div>
+              <div class="text-right">
+                <p class="text-3xl font-bold text-blue-500">15% OFF</p>
+                <p class="text-sm text-gray-500">From $159/visit</p>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">The sweet spot for most Madison homes. Great balance of value and consistent cleanliness.</p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Every two weeks</li>
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Great for couples & professionals</li>
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Most popular choice</li>
+            </ul>
+          </div>
+
+          <!-- Monthly -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+              <div>
+                <h3 class="text-2xl font-bold text-[#333333]">Monthly Cleaning</h3>
+              </div>
+              <div class="text-right">
+                <p class="text-3xl font-bold text-gray-600">10% OFF</p>
+                <p class="text-sm text-gray-500">From $179/visit</p>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-4">Monthly deep refresh for those who maintain between visits or have smaller spaces.</p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Once per month</li>
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Deep clean focus</li>
+              <li><i class="fas fa-check text-green-500 mr-2"></i>Budget-friendly option</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Madison Families Choose Recurring -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Madison Families Choose <span class="gold-gradient">Recurring Service</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Madison isn't just Alabama's fastest-growing city—it's home to some of the state's busiest professionals. With nearly 19% of residents working from home, careers at Redstone Arsenal and NASA Marshall, and families juggling James Clemens and Bob Jones school schedules, time is precious. The last thing you want to do on your weekend is deep clean a 3,000 square foot home.
+          </p>
+          <p class="mb-6">
+            That's why so many Town Madison, Clift Farm, and Rainbow Mountain Heights families choose recurring maid service. Instead of spending 4-6 hours every Saturday scrubbing bathrooms and mopping floors, you come home to a spotless house—every week, every two weeks, or every month. Your time goes back to you.
+          </p>
+          <p>
+            With median household incomes exceeding $131,000, Madison families understand the value of their time. Hiring professional cleaners isn't an expense—it's an investment in your quality of life, your family time, and your sanity. And with savings up to 20% on recurring service, it's more affordable than you might think.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Grid -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Benefits of <span class="gold-gradient">Recurring Service</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        More than just cleaning—it's a lifestyle upgrade for Madison families
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-piggy-bank text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Save Money</h3>
+          <p class="text-gray-600">Up to 20% off every cleaning. For a typical Madison home, that's $40-70+ savings per visit—hundreds annually.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-clock text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Save Time</h3>
+          <p class="text-gray-600">No scheduling hassle. Your cleaning happens automatically on your chosen day. Spend weekends at Town Madison, not mopping.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-users text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Same Team</h3>
+          <p class="text-gray-600">Your dedicated team knows your Madison home, your preferences, your standards. No strangers, no surprises.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-home text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Always Clean</h3>
+          <p class="text-gray-600">Ready for unexpected guests, kids' playdates, or just enjoying your space after a long day at Research Park.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included <span class="gold-gradient">Every Visit</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that covers every room, every time
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-8">
+        <p class="text-gray-600">
+          <i class="fas fa-plus-circle text-[#FFA985] mr-2"></i>
+          Deep cleaning tasks rotate through visits to ensure your entire home stays fresh
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Perfect for <span class="gold-gradient">Madison Lifestyles</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Tailored service for every type of Madison household
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-rocket text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Aerospace Professionals</h3>
+          <p class="text-gray-600">Working at Redstone Arsenal or NASA Marshall? Come home to a clean house after long hours on mission-critical projects. We schedule around your demanding work calendar.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-laptop-house text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Remote Workers</h3>
+          <p class="text-gray-600">Working from your Town Madison home office? We clean around your meeting schedule—a spotless workspace helps you stay productive and focused.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-child text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Busy Families</h3>
+          <p class="text-gray-600">53% of Madison households have children under 18. Between school drop-offs, soccer practice, and homework, who has time to deep clean? We've got you.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-dog text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Pet Owners</h3>
+          <p class="text-gray-600">Dogs track in dirt from Palmer Park. Cats leave fur everywhere. Our recurring service keeps pet hair and dander under control so you can enjoy your furry family members.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-user-tie text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Dual-Income Couples</h3>
+          <p class="text-gray-600">Both partners working? Neither wants to spend precious evenings cleaning. Let us handle the housework so you can enjoy your time together.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-home text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">New Homeowners</h3>
+          <p class="text-gray-600">Just bought in Clift Farm or Town Madison? Start your new chapter with a consistently clean home. We help protect your investment and maintain that new-home feeling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Neighborhoods -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Madison <span class="gold-gradient">Neighborhoods</span> We Serve
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Recurring maid service throughout all of Madison, Alabama
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 text-center shadow-sm border border-gray-100">
+            <p class="font-semibold text-[#333333]">{neighborhood}</p>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-8">
+        <p class="text-gray-600">
+          Also serving <strong>Huntsville</strong>, <strong>Decatur</strong>, <strong>Athens</strong>, and all of North Alabama
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- No Contract Promise -->
+  <section class="py-16 px-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+          <i class="fas fa-handshake text-[#FFA985] text-3xl"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-[#333333] mb-6">
+          No Contracts. No Hassle. <span class="gold-gradient">Just Quality Service.</span>
+        </h2>
+        <p class="text-xl text-gray-700 mb-8">
+          We don't lock Madison families into long-term contracts. You can pause, skip, or cancel anytime with 48 hours notice. We keep clients through excellent service, not legal obligations—and most stay with us for years.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 text-gray-600">
+          <div class="flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+            <span>Skip any week</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+            <span>Change frequency anytime</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+            <span>Cancel with no penalty</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+            <span>Reschedule easily</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about recurring maid service in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Madison
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Start with a deep clean before beginning recurring service.</p>
+        </a>
+        
+        <a href="/locations/madison/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Get your deposit back when moving out of your Madison home.</p>
+        </a>
+        
+        <a href="/locations/madison" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Madison Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our cleaning services in Madison, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Start Your Recurring Service in Madison Today
+      </h2>
+      <p class="text-xl text-white/90 mb-4 max-w-2xl mx-auto">
+        Join hundreds of Madison families who enjoy a consistently clean home. No contracts, no hassle—just reliable service that saves you time and money.
+      </p>
+      <div class="inline-block bg-white/20 backdrop-blur-sm border border-white/40 px-6 py-3 rounded-full mb-8">
+        <span class="text-white font-semibold text-lg">
+          <i class="fas fa-calendar-check mr-2"></i>Same-Week Availability — Call Today!
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Background-Checked Team | $2M Insurance
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

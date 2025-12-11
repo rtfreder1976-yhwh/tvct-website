@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "West Nashville";
+const state = "Tennessee";
+const phone = "(615) 961-0028";
+
+// West Nashville neighborhoods
+const neighborhoods = [
+  "Belle Meade",
+  "Sylvan Park",
+  "The Nations",
+  "West Meade",
+  "Charlotte Park",
+  "Sylvan Heights",
+  "Cherokee Park",
+  "Richland Park",
+  "White Bridge",
+  "Hillwood",
+  "West End",
+  "Green Hills"
+];
+
+// What's included
+const includedServices = [
+  "Fine dust removal from all surfaces",
+  "HVAC vents & returns cleaned",
+  "Inside all cabinets & drawers",
+  "Window sills & tracks detailed",
+  "Light fixtures cleaned",
+  "Baseboards throughout",
+  "Door frames & doors wiped",
+  "Crown molding dusted",
+  "Switch plates & outlets cleaned",
+  "Countertops sanitized",
+  "Appliance interiors cleaned",
+  "Bathroom fixtures sanitized",
+  "Tile & grout cleaned",
+  "Mirrors & glass polished",
+  "Hardwood floors cleaned",
+  "Construction debris removed"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does post-construction cleaning cost in West Nashville?",
+    answer: "Post-construction cleaning in West Nashville typically starts at $400 for standard projects, with pricing based on square footage and project scope. Belle Meade custom builds, major renovations, and larger properties receive custom quotes. Call (615) 961-0028 for a free estimate."
+  },
+  {
+    question: "Why do new homes need post-construction cleaning?",
+    answer: "Construction leaves behind fine drywall dust that settles everywhere—inside HVAC systems, cabinets, window tracks, and on every surface. Builder cleaning typically addresses only visible areas. Our detailed cleaning removes the hidden dust that can affect air quality and damage finishes."
+  },
+  {
+    question: "What's the difference between builder cleaning and professional post-construction cleaning?",
+    answer: "Builder cleaning is a quick surface clean before showing. Professional post-construction cleaning is comprehensive: we clean inside every cabinet, detail window tracks, remove dust from HVAC vents, clean light fixtures, and address the fine particles that builders miss."
+  },
+  {
+    question: "Do you clean Belle Meade custom builds?",
+    answer: "Absolutely! We specialize in West Nashville's luxury new construction, including Belle Meade custom homes. We understand the care required for high-end finishes, custom millwork, and premium materials. Our $2M insurance provides peace of mind."
+  },
+  {
+    question: "When should I schedule post-construction cleaning?",
+    answer: "Schedule after all construction is complete but before moving in furniture. This allows us to access all areas and clean thoroughly. We can work around your closing timeline."
+  },
+  {
+    question: "How long does post-construction cleaning take?",
+    answer: "Post-construction cleaning typically takes 6-10 hours for standard new homes. Large custom builds and extensive renovations may require 10-16+ hours or multiple days. We'll provide a time estimate with your quote."
+  },
+  {
+    question: "Do you clean after renovations, not just new builds?",
+    answer: "Yes! Kitchen remodels, bathroom renovations, additions, and whole-home updates all generate construction dust. We clean after projects of any size throughout West Nashville."
+  },
+  {
+    question: "Do you clean historic home renovations?",
+    answer: "Yes! West Nashville has many historic properties in Sylvan Park, Belle Meade, and West Meade. We understand the care required for original hardwoods, plaster walls, and vintage fixtures while thoroughly removing construction debris."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Post-Construction Cleaning West Nashville TN",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+16159610028"
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Nashville, TN`
+  })),
+  "serviceType": "Post-Construction Cleaning",
+  "description": "Professional post-construction cleaning in West Nashville. New builds, renovations, remodels. Belle Meade, Sylvan Park, The Nations."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Post-Construction Cleaning West Nashville TN | New Builds & Renovations | Valley Clean Team"
+  description="Professional post-construction cleaning in West Nashville. New homes, renovations, remodels. Belle Meade, Sylvan Park, The Nations. Call (615) 961-0028"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-orange-50 border border-orange-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-orange-700 text-sm font-medium">
+              <i class="fas fa-hard-hat mr-2"></i>New Construction & Renovation Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Post-Construction Cleaning in <span class="gold-gradient">West Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Your new build or renovation deserves more than builder cleaning. Construction leaves fine drywall dust embedded in HVAC systems, cabinet interiors, window tracks, and every surface. We remove what builders miss—so your West Nashville home is truly move-in ready.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-home text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Custom Home Experience</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Starting From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$400</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Custom Builds</span>
+                <div class="text-lg font-semibold text-gray-700">$600-$1,000+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+16159610028" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Post-construction cleaning experts</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Why Builder Cleaning <span class="gold-gradient">Isn't Enough</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+        Construction generates fine dust that settles everywhere—including places you can't see. Builder cleaning addresses visible surfaces, but misses the hidden areas that affect your air quality and home's cleanliness.
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-wind text-red-500 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">HVAC Systems</h3>
+          <p class="text-gray-600 text-sm">Dust in vents circulates through your home, affecting air quality.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-door-open text-red-500 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Cabinet Interiors</h3>
+          <p class="text-gray-600 text-sm">Drywall dust coats shelves where you'll store dishes and food.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-window-maximize text-red-500 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Window Tracks</h3>
+          <p class="text-gray-600 text-sm">Debris prevents proper sealing and operation.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-lightbulb text-red-500 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Light Fixtures</h3>
+          <p class="text-gray-600 text-sm">Dust on bulbs and fixtures reduces light output.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Post-Construction Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that makes your new space truly move-in ready
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Post-Construction Cleaning Throughout <span class="gold-gradient">West Nashville</span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Make Your New Space Truly Move-In Ready
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Don't settle for builder cleaning. Get the thorough post-construction clean your West Nashville home deserves.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+16159610028" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

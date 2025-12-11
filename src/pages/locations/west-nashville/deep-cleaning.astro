@@ -1,0 +1,398 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "West Nashville";
+const state = "Tennessee";
+const phone = "(615) 961-0028";
+
+// West Nashville neighborhoods
+const neighborhoods = [
+  "Belle Meade",
+  "Sylvan Park",
+  "The Nations",
+  "West Meade",
+  "Charlotte Park",
+  "Sylvan Heights",
+  "Cherokee Park",
+  "Richland Park",
+  "White Bridge",
+  "Hillwood",
+  "West End",
+  "Green Hills"
+];
+
+// What's included
+const includedServices = [
+  "All surfaces dusted top to bottom",
+  "Ceiling fans & light fixtures",
+  "Baseboards throughout",
+  "Door frames & doors wiped",
+  "Window sills & tracks detailed",
+  "Switch plates & outlets cleaned",
+  "Kitchen deep cleaned",
+  "Inside oven & microwave",
+  "Refrigerator exterior & seals",
+  "Cabinets wiped inside & out",
+  "Countertops sanitized",
+  "Bathrooms scrubbed completely",
+  "Tile & grout cleaned",
+  "Toilets sanitized inside & out",
+  "Mirrors & glass polished",
+  "Floors vacuumed & mopped",
+  "Under furniture cleaned",
+  "Closets & pantries organized"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does deep cleaning cost in West Nashville?",
+    answer: "Deep cleaning in West Nashville typically ranges from $250-$400 for standard homes, with larger properties and estates quoted individually. Belle Meade estates, Sylvan Park historic homes, and properties with extensive square footage receive custom pricing. Call (615) 961-0028 for a free quote."
+  },
+  {
+    question: "What's the difference between deep cleaning and regular cleaning?",
+    answer: "Deep cleaning is a comprehensive, intensive clean that addresses areas often missed during routine cleaning—inside appliances, behind furniture, baseboards, window tracks, grout lines, and detailed cabinet interiors. It's ideal as a first-time service, seasonal refresh, or pre-event preparation."
+  },
+  {
+    question: "How long does deep cleaning take?",
+    answer: "Deep cleaning typically takes 4-8 hours for standard West Nashville homes. Belle Meade estates and larger properties may require 8-12+ hours or a team approach. We'll provide a time estimate with your quote."
+  },
+  {
+    question: "Do you clean Belle Meade estates?",
+    answer: "Absolutely! We specialize in Belle Meade's grand properties, understanding the special care required for antebellum architecture, custom finishes, and luxury materials. Our $2M insurance provides peace of mind for Nashville's most valuable homes."
+  },
+  {
+    question: "Should I get deep cleaning before starting recurring service?",
+    answer: "We recommend it! Starting with a deep clean establishes a pristine baseline, making recurring maintenance more efficient and effective. Many West Nashville clients begin with deep cleaning then transition to weekly or biweekly service."
+  },
+  {
+    question: "Do you clean The Nations' modern lofts and condos?",
+    answer: "Yes! The Nations' converted warehouses, modern lofts, and new construction each have unique characteristics. We're experienced with concrete floors, industrial finishes, open floor plans, and contemporary materials."
+  },
+  {
+    question: "Can you deep clean before I host an event?",
+    answer: "Absolutely! Many West Nashville residents request deep cleaning before hosting parties, holiday gatherings, or out-of-town guests. Book early during busy seasons to secure your preferred date."
+  },
+  {
+    question: "Are you insured to work in high-end homes?",
+    answer: "Yes! We carry $2 million in liability insurance, are fully bonded, and all team members are background-checked. From Belle Meade's $3M+ estates to Sylvan Park's million-dollar renovations, your property is protected."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Deep Cleaning West Nashville TN",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+16159610028",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Nashville, TN`
+  })),
+  "serviceType": "Deep House Cleaning",
+  "description": "Professional deep cleaning services in West Nashville, Tennessee. Belle Meade, Sylvan Park, The Nations and more."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Deep Cleaning West Nashville TN | Belle Meade, Sylvan Park | Valley Clean Team"
+  description="Professional deep cleaning in West Nashville. Belle Meade estates, Sylvan Park, The Nations. Veteran-owned, $2M insured. Call (615) 961-0028"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-sparkles mr-2"></i>Top-to-Bottom Intensive Clean
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Deep Cleaning in <span class="gold-gradient">West Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            A comprehensive clean that reaches every corner of your West Nashville home. Our deep cleaning service tackles the buildup that routine cleaning misses—inside appliances, behind furniture, detailed baseboards, and more. Perfect for Belle Meade estates, Sylvan Park renovations, or any home that deserves a fresh start.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Deep Cleaning From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$250</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Estates & Large Homes</span>
+                <div class="text-lg font-semibold text-gray-700">Custom Quoted</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+16159610028" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">West Nashville's deep cleaning specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        A thorough clean that covers every detail
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Deep Cleaning is <span class="gold-gradient">Perfect For</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-home text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">First-Time Clients</h3>
+          <p class="text-gray-600 text-sm">Establish a pristine baseline before starting recurring service.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-sun text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Seasonal Refresh</h3>
+          <p class="text-gray-600 text-sm">Spring cleaning or fall reset to revitalize your home.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-glass-cheers text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Before Events</h3>
+          <p class="text-gray-600 text-sm">Get your home guest-ready for parties and gatherings.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-redo text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">Getting Back on Track</h3>
+          <p class="text-gray-600 text-sm">Life got busy? Reset your home to its best state.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Deep Cleaning Throughout <span class="gold-gradient">West Nashville</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From Belle Meade's grandest estates to The Nations' urban condos
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about deep cleaning in West Nashville
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/west-nashville/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Maintain your deep clean with regular service.</p>
+        </a>
+        
+        <a href="/locations/west-nashville/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Moving? Get your deposit back.</p>
+        </a>
+        
+        <a href="/locations/west-nashville" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All West Nashville Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in West Nashville.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Give Your Home the Deep Clean It Deserves
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        A thorough, intensive clean that reaches every corner. Perfect for West Nashville homes that deserve the best.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+16159610028" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

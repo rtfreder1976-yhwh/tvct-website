@@ -1,0 +1,532 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Madison neighborhoods with new construction
+const neighborhoods = [
+  "Town Madison",
+  "Clift Farm",
+  "The Exchange",
+  "The Heights at Town Madison",
+  "Town Madison West End",
+  "Providence",
+  "Bradford Creek",
+  "Rainbow Mountain Heights",
+  "Anslee Farms",
+  "Celtic Manor",
+  "Village at Oakland Springs",
+  "Lake Forest"
+];
+
+// What's included
+const includedServices = [
+  "Fine dust removal from all surfaces",
+  "HVAC vent & register cleaning",
+  "Inside all cabinets & drawers",
+  "Window sill & track cleaning",
+  "Light fixtures & ceiling fans",
+  "All baseboards wiped down",
+  "Door frames & hardware cleaned",
+  "Switch plates & outlets wiped",
+  "Countertops detailed & polished",
+  "Appliance interior cleaning",
+  "Bathroom deep sanitization",
+  "Tile & grout cleaning",
+  "Mirror & glass polishing",
+  "Floor cleaning & mopping",
+  "Garage sweep out",
+  "Debris & trash removal"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Why do new Madison homes need post-construction cleaning?",
+    answer: "Even beautifully finished new homes in Town Madison and Clift Farm have fine drywall dust embedded in HVAC systems, cabinets, and trim. This dust circulates through your home for months after move-in, aggravating allergies and settling on surfaces. Builder cleaning typically addresses only visible areas—our post-construction cleaning reaches everywhere."
+  },
+  {
+    question: "How much does post-construction cleaning cost in Madison?",
+    answer: "Post-construction cleaning in Madison typically ranges from $350-$550 for average new homes (2,500-3,500 sq ft). Larger Town Madison homes (4,000+ sq ft) may run $500-$750+. Pricing depends on square footage, home condition, and specific requests. Call (256) 856-1006 for a free quote."
+  },
+  {
+    question: "What's the difference between builder cleaning and professional post-construction cleaning?",
+    answer: "Builder cleaning is typically a quick surface clean to prepare for showing and closing. Professional post-construction cleaning addresses the fine dust in HVAC vents, inside cabinets and drawers, window tracks, light fixtures, and other areas builders often skip. We make your new home truly move-in ready."
+  },
+  {
+    question: "Do you clean new construction in Town Madison?",
+    answer: "Yes! Town Madison is one of our most requested service areas for post-construction cleaning. Whether you're in The Exchange, The Heights, West End, or any Town Madison community, we remove the construction dust that builders leave behind so you can move into a truly clean home."
+  },
+  {
+    question: "When should I schedule post-construction cleaning?",
+    answer: "Ideally, schedule post-construction cleaning after the builder's final walk-through but before you move furniture in. This allows us to clean floors, closets, and areas that would be blocked by furniture. We can also clean after move-in, but before is more thorough and efficient."
+  },
+  {
+    question: "How long does post-construction cleaning take?",
+    answer: "Post-construction cleaning takes longer than standard deep cleaning due to the fine dust in every area. Typical new Madison homes (2,500-3,500 sq ft) take 5-8 hours. Larger homes or those with extensive detail work may take 8-10+ hours. We ensure every area is thoroughly addressed."
+  },
+  {
+    question: "Do you clean after renovations too?",
+    answer: "Absolutely! Kitchen remodels, bathroom renovations, room additions—any construction project generates dust that spreads throughout your home. We provide post-renovation cleaning for established Madison homes, removing construction debris so you can enjoy your updated space."
+  },
+  {
+    question: "What Madison builders do you work with?",
+    answer: "We've cleaned homes from all major Madison builders including those in Town Madison, Clift Farm, Providence, and other new communities. We work directly with homeowners, builders, and real estate agents to coordinate timing around closing dates and move-in schedules."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Post-Construction Cleaning Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Madison, AL`
+  })),
+  "serviceType": "Post-Construction Cleaning",
+  "description": "Professional post-construction and builder cleaning in Madison, Alabama. Removing construction dust from new homes in Town Madison, Clift Farm, and beyond."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Post-Construction Cleaning Madison AL | Town Madison New Homes | Valley Clean Team"
+  description="Post-construction & builder cleaning in Madison, AL. New home cleaning for Town Madison, Clift Farm, Providence. Remove construction dust."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-amber-50 border border-amber-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-amber-700 text-sm font-medium">
+              <i class="fas fa-hard-hat mr-2"></i>New Construction Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Post-Construction Cleaning in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Madison is Alabama's fastest-growing city, and new homes in Town Madison and Clift Farm deserve a truly clean start. We remove the fine construction dust that builders leave behind—in HVAC vents, cabinets, window tracks, and everywhere else—so your new home is actually move-in ready.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Post-Construction From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$350</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Typical New Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$400-$550</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Larger Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$500-$750+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Madison's new construction cleaning experts</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Your New Madison Home <span class="gold-gradient">Isn't Actually Clean</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            You've closed on your beautiful new Town Madison home, and the builder did their "final cleaning." But within days, you notice a fine white dust on every surface. Your allergies flare up. You're constantly dusting. What happened?
+          </p>
+          <p class="mb-6">
+            Construction generates incredibly fine drywall dust that embeds everywhere—in your HVAC system (where it circulates throughout your home), inside cabinets and drawers, in window tracks and door frames, behind switch plates, and in every corner and crevice. Builder cleaning typically addresses only visible surfaces, leaving this hidden dust for you to deal with for months.
+          </p>
+          <p>
+            Our post-construction cleaning goes beyond surface cleaning to remove the dust builders miss. We clean inside your HVAC vents and registers, wipe down every cabinet interior, detail window tracks and door hardware, and ensure your new Madison home is truly ready for your family.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Post-Construction Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that addresses what builders leave behind
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- New Construction Areas -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Madison <span class="gold-gradient">New Construction</span> Communities
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving all of Madison's growing neighborhoods
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Town Madison -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-city text-[#FFA985] mr-2"></i>Town Madison
+          </h3>
+          <p class="text-gray-600 mb-4">Madison's flagship mixed-use development with thousands of new homes.</p>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• The Exchange</li>
+            <li>• The Heights</li>
+            <li>• The Commons</li>
+            <li>• West End</li>
+            <li>• Town Madison Apartments</li>
+          </ul>
+        </div>
+        
+        <!-- Clift Farm -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>Clift Farm
+          </h3>
+          <p class="text-gray-600 mb-4">Master-planned community with continued new construction phases.</p>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Single-family homes</li>
+            <li>• Townhomes</li>
+            <li>• Estate lots</li>
+            <li>• New phases opening</li>
+          </ul>
+        </div>
+        
+        <!-- Other Communities -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>Other Communities
+          </h3>
+          <p class="text-gray-600 mb-4">New construction throughout Madison.</p>
+          <ul class="space-y-2 text-gray-600 text-sm">
+            <li>• Providence</li>
+            <li>• Bradford Creek</li>
+            <li>• Anslee Farms</li>
+            <li>• Village at Oakland Springs</li>
+            <li>• Celtic Manor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Builder vs Professional -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Builder Cleaning vs. <span class="gold-gradient">Professional Post-Construction</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Builder Cleaning -->
+        <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+          <h3 class="text-xl font-bold text-gray-500 mb-4 flex items-center">
+            <i class="fas fa-times-circle text-gray-400 mr-2"></i>Builder Cleaning
+          </h3>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-minus text-gray-400 mr-3 mt-1"></i>
+              Surface cleaning only
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-minus text-gray-400 mr-3 mt-1"></i>
+              HVAC vents often skipped
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-minus text-gray-400 mr-3 mt-1"></i>
+              Cabinet interiors ignored
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-minus text-gray-400 mr-3 mt-1"></i>
+              Window tracks left dusty
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-minus text-gray-400 mr-3 mt-1"></i>
+              Quick turnaround for closing
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-minus text-gray-400 mr-3 mt-1"></i>
+              Dust circulates for months
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Professional Cleaning -->
+        <div class="bg-white rounded-xl p-6 border-2 border-[#FFA985] shadow-lg">
+          <h3 class="text-xl font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-2"></i>Professional Post-Construction
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              Thorough deep cleaning
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              HVAC vents & registers cleaned
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              Inside all cabinets & drawers
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              Window tracks detailed
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              Comprehensive, unhurried service
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              Truly move-in ready
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Also Serving Renovations -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+          <i class="fas fa-hammer text-[#FFA985] text-3xl"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-[#333333] mb-6">
+          Also Serving <span class="gold-gradient">Home Renovations</span>
+        </h2>
+        <p class="text-xl text-gray-700 mb-8">
+          Not buying new? Renovating your existing Madison home? Kitchen remodels, bathroom updates, room additions—any construction project generates dust that spreads throughout your home. We provide post-renovation cleaning that removes construction debris from your established home, so you can enjoy your updates without weeks of dusting.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 text-gray-600">
+          <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+            <i class="fas fa-utensils text-[#FFA985] mr-2"></i>
+            Kitchen Remodels
+          </div>
+          <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+            <i class="fas fa-bath text-[#FFA985] mr-2"></i>
+            Bathroom Renovations
+          </div>
+          <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+            <i class="fas fa-plus-square text-[#FFA985] mr-2"></i>
+            Room Additions
+          </div>
+          <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm">
+            <i class="fas fa-couch text-[#FFA985] mr-2"></i>
+            Basement Finishing
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about post-construction cleaning in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Madison
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Comprehensive cleaning for established Madison homes.</p>
+        </a>
+        
+        <a href="/locations/madison/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Maintain your new home with regular cleaning.</p>
+        </a>
+        
+        <a href="/locations/madison/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Leaving your current home? Get your deposit back.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Make Your New Madison Home Truly Move-In Ready
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Don't spend your first months in your new Town Madison or Clift Farm home constantly dusting. Our post-construction cleaning removes what builders leave behind.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Background-Checked Team | $2M Insurance
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

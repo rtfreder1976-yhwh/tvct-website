@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navigation from '../../../components/Navigation.astro';
 import Footer from '../../../components/Footer.astro';
 import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+import { nashvilleTestimonials } from '../../../data/testimonials';
 
 const city = "Nashville";
 const state = "Tennessee";
@@ -75,27 +76,13 @@ const faqSchema = {
   }))
 };
 
-// Testimonials
-const testimonials = [
-  {
-    initial: "K",
-    name: "K Parriski",
-    area: "via Google",
-    text: "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
-  },
-  {
-    initial: "K",
-    name: "Karen Sears",
-    area: "via Google",
-    text: "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
-  },
-  {
-    initial: "E",
-    name: "Emeria Ewing",
-    area: "via Google",
-    text: "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
-  }
-];
+// Testimonials - imported from centralized data
+const testimonials = nashvilleTestimonials.map(t => ({
+  initial: t.initial,
+  name: t.name,
+  area: t.source,
+  text: t.text
+}));
 ---
 
 <BaseLayout
@@ -392,7 +379,7 @@ const testimonials = [
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+        <a href="/locations/nashville/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
               <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
@@ -400,25 +387,25 @@ const testimonials = [
             <h3 class="text-xl font-bold text-[#333333]">Deep Cleaning</h3>
           </div>
           <p class="text-gray-700 mb-4">
-            Comprehensive top-to-bottom cleaning for Nashville estates and luxury homes. Perfect for seasonal refreshes or preparing your property for special events.
+            Top-to-bottom cleaning for Nashville estates. Perfect for seasonal refreshes or preparing for special events.
           </p>
-          <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
-        </div>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
 
-        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+        <a href="/locations/nashville/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
               <i class="fas fa-calendar-alt text-[#FFA985] text-xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#333333]">Recurring Service</h3>
+            <h3 class="text-xl font-bold text-[#333333]">Recurring Maid Service</h3>
           </div>
           <p class="text-gray-700 mb-4">
-            Weekly or bi-weekly maintenance cleaning for busy Nashville professionals. Enjoy a consistently pristine home without lifting a finger.
+            Weekly or bi-weekly cleaning for busy Nashville professionals. A consistently pristine home without lifting a finger.
           </p>
-          <a href="/services/regular-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
-        </div>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
 
-        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+        <a href="/locations/nashville/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
               <i class="fas fa-truck-moving text-[#FFA985] text-xl"></i>
@@ -426,12 +413,51 @@ const testimonials = [
             <h3 class="text-xl font-bold text-[#333333]">Move In/Out</h3>
           </div>
           <p class="text-gray-700 mb-4">
-            Relocating to or from Nashville? We ensure your new home is spotless or help you secure your deposit when moving out.
+            Relocating to or from Nashville? Secure your deposit when moving out or start fresh in a spotless new home.
           </p>
-          <a href="/services/move-in-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
-        </div>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
 
-        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+        <a href="/locations/nashville/commercial-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Commercial Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Music Row studios, The Gulch offices, medical facilities. After-hours available. Background-checked team.
+          </p>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
+
+        <a href="/locations/nashville/event-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-glass-cheers text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Event Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Pre-party prep & post-event cleanup. CMA Fest hosting, music events, celebrations. Bundle & save 10-15%.
+          </p>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
+
+        <a href="/locations/nashville/green-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-green-200 hover:border-green-500 transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+              <i class="fas fa-leaf text-green-600 text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Green Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Eco-friendly, non-toxic cleaning at NO EXTRA COST. Safe for children, pets, and allergies.
+          </p>
+          <span class="text-green-600 font-semibold">Learn More →</span>
+        </a>
+
+        <a href="/locations/nashville/airbnb-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
               <i class="fas fa-key text-[#FFA985] text-xl"></i>
@@ -439,12 +465,12 @@ const testimonials = [
             <h3 class="text-xl font-bold text-[#333333]">Airbnb Turnover</h3>
           </div>
           <p class="text-gray-700 mb-4">
-            Fast, reliable turnover service for Nashville vacation rental hosts. Same-day availability ensures your property is always guest-ready.
+            Fast, reliable turnover for Nashville vacation rentals. Same-day service for tight turnover schedules.
           </p>
-          <a href="/services/airbnb-cleaning/" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
-        </div>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
 
-        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+        <a href="/locations/nashville/post-construction-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
               <i class="fas fa-hammer text-[#FFA985] text-xl"></i>
@@ -452,23 +478,49 @@ const testimonials = [
             <h3 class="text-xl font-bold text-[#333333]">Post-Construction</h3>
           </div>
           <p class="text-gray-700 mb-4">
-            Completed a renovation or addition? We handle the dust, debris, and detail work to reveal your beautiful new space.
+            Completed a renovation? We handle construction dust, debris, and detail work to reveal your new space.
           </p>
-          <a href="/services/post-construction-cleaning/" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
-        </div>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
 
-        <div class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition">
+        <a href="/locations/nashville/office-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
-              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+              <i class="fas fa-briefcase text-[#FFA985] text-xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-[#333333]">Event Cleaning</h3>
+            <h3 class="text-xl font-bold text-[#333333]">Office Cleaning</h3>
           </div>
           <p class="text-gray-700 mb-4">
-            Pre and post-event cleaning for Nashville gatherings. From intimate dinner parties to large celebrations, we handle the cleanup.
+            Professional office cleaning for executive suites and small businesses. Confidentiality guaranteed.
           </p>
-          <a href="/services/event-cleaning/" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
-        </div>
+          <span class="text-[#FFA985] font-semibold">Learn More →</span>
+        </a>
+
+        <a href="/locations/nashville/medical-office-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-blue-200 hover:border-blue-500 transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <i class="fas fa-stethoscope text-blue-600 text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Medical Office Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Healthcare-grade sanitation for clinics and medical practices. OSHA-compliant, after-hours available.
+          </p>
+          <span class="text-blue-600 font-semibold">Learn More →</span>
+        </a>
+
+        <a href="/locations/nashville/dental-office-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-blue-200 hover:border-blue-500 transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <i class="fas fa-tooth text-blue-600 text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Dental Office Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Specialized dental practice cleaning. Operatory sanitation, waiting rooms, clinical-grade disinfection.
+          </p>
+          <span class="text-blue-600 font-semibold">Learn More →</span>
+        </a>
       </div>
 
       <div class="text-center">

@@ -1,37 +1,772 @@
 ---
-import LocationLayout from '../../../layouts/LocationLayout.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+import { birminghamTestimonials } from '../../../data/testimonials';
+
+const city = "Mountain Brook";
+const state = "Alabama";
+const region = "Jefferson County";
+
+// Geographic data
+const geoData = {
+  region: "US-AL",
+  position: "33.4940;-86.7419",
+  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+};
+
+// Neighborhoods served
+const neighborhoods = [
+  "Cherokee Bend",
+  "Brookwood Forest",
+  "English Village",
+  "Crestline Village",
+  "Mountain Brook Village",
+  "Overton",
+  "Country Club",
+  "Colonial Hills",
+  "Cherokee Estates",
+  "Crestline Heights",
+  "Dunbarton",
+  "Heritage Hills",
+  "Kingswood",
+  "Lane Parke"
+];
+
+// Mountain Brook-specific FAQs with schema
+const faqs = [
+  {
+    question: "Do you clean luxury estates in Cherokee Bend?",
+    answer: "Absolutely. We specialize in cleaning Cherokee Bend's finest estates, from sprawling properties on Cherokee Drive to the elegant homes surrounding Cherokee Bend Elementary. Our team is trained to care for properties ranging from $1M to $6M+, understanding the exacting standards of Mountain Brook's most prestigious neighborhood. We're fully insured with $2 million in liability coverage and handle antique furnishings, marble floors, and luxury finishes with expert care."
+  },
+  {
+    question: "Can you work around my country club schedule?",
+    answer: "Yes, we understand Mountain Brook's lifestyle centers around the Mountain Brook Club and Country Club of Birmingham. Whether you need cleaning before or after your golf round, tennis match, or social event at the club, we offer flexible scheduling to accommodate your commitments. Many of our clients are club members who appreciate our discretion and reliability."
+  },
+  {
+    question: "Do you have experience with historic Tudor homes in Mountain Brook?",
+    answer: "Mountain Brook's Tudor-style architecture is part of what makes this community so distinctive, and we're experienced in caring for these historic properties. From the original Warren Manning-designed estates to English Village's charming Tudor cottages, we use pH-neutral products and gentle techniques that preserve original hardwood floors, leaded glass windows, and architectural details while delivering a thorough clean."
+  },
+  {
+    question: "What Mountain Brook neighborhoods do you serve?",
+    answer: "We serve all Mountain Brook neighborhoods including Cherokee Bend, Brookwood Forest, English Village, Crestline Village, Mountain Brook Village, Overton, Country Club, Colonial Hills, Cherokee Estates, Crestline Heights, Dunbarton, Heritage Hills, Kingswood, and Lane Parke. Whether you're in a historic estate near Jemison Park or a modern home in Lane Parke, we deliver the same white-glove service throughout Mountain Brook."
+  },
+  {
+    question: "Do you serve UAB physicians and healthcare executives living in Mountain Brook?",
+    answer: "Yes, we work with many UAB physicians, specialists, and healthcare executives who call Mountain Brook home. We understand demanding on-call schedules, unpredictable hours, and the need for a pristine, healthy home environment. We offer flexible scheduling, last-minute accommodations, and consistent quality that busy medical professionals rely on."
+  },
+  {
+    question: "How do you ensure discretion for Mountain Brook's prominent residents?",
+    answer: "Privacy is paramount in Mountain Brook, ranked the 8th wealthiest city in America. Our background-checked team members sign confidentiality agreements and understand that discretion isn't just appreciated—it's essential. As a veteran-owned business serving Birmingham's most prestigious community, we've built our reputation on professionalism and trust. Many of our clients are executives, physicians, and business leaders who value our complete discretion."
+  },
+  {
+    question: "Can you clean before or after events at my Mountain Brook home?",
+    answer: "Absolutely. From intimate dinner parties to garden club gatherings to holiday celebrations, we provide pre-event preparation and post-event cleanup for Mountain Brook homes. We can have your home guest-ready before your event and restore it to pristine condition afterward, allowing you to focus on hosting rather than cleaning."
+  },
+  {
+    question: "Do you offer same-day cleaning service in Mountain Brook?",
+    answer: "Yes, we offer same-day service for Mountain Brook residents when availability permits. Whether you have unexpected guests, a last-minute showing, or simply need your home refreshed quickly, call us at 256-826-1100 to check same-day availability. We understand that in Mountain Brook, quality and convenience go hand in hand."
+  }
+];
+
+// Schema for FAQPage
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Testimonials - imported from centralized data (using Birmingham reviews for Mountain Brook)
+const testimonials = birminghamTestimonials.map(t => ({
+  initial: t.initial,
+  name: t.name,
+  area: t.source,
+  text: t.text
+}));
 ---
 
-<LocationLayout
-  title="Mountain Brook Cleaning Services | The Valley Clean Team"
-  description="Luxury cleaning for Mountain Brook estates. Trusted by Birmingham's finest homes in Cherokee Bend, English Village & Crestline. Licensed, insured, veteran-owned."
-  city="Mountain Brook"
-  state="Alabama"
-  region="Jefferson County"
-  tagline="Birmingham's Premier Luxury Cleaning Service"
-  heroDescription="The Valley Clean Team provides white-glove cleaning services for Mountain Brook's finest estates. From Cherokee Bend mansions to English Village Tudors, we bring the premium service your home deserves."
-  features={["$2M Insured", "Background-Checked Team", "Estate Experience"]}
-  testimonials={[
-    {
-      initial: "K",
-      name: "K Parriski",
-      area: "via Google",
-      text: "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
-    },
-    {
-      initial: "K",
-      name: "Karen Sears",
-      area: "via Google",
-      text: "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
-    },
-    {
-      initial: "E",
-      name: "Emeria Ewing",
-      area: "via Google",
-      text: "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
-    }
-  ]}
-  geoRegion="US-AL"
-  geoPlacename="Mountain Brook, Alabama"
-  geoPosition="33.4940;-86.7419"
-/>
+<BaseLayout
+  title="Mountain Brook Cleaning Services | Luxury House Cleaning | The Valley Clean Team"
+  description="Premium cleaning services for Mountain Brook AL estates. Serving Cherokee Bend, English Village & Crestline. Veteran-owned, $2M insured, 130+ 5-star reviews."
+  ogImage={geoData.image}
+  geoRegion={geoData.region}
+  geoPlacename={`${city}, ${state}`}
+  geoPosition={geoData.position}
+>
+  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <i class="fas fa-map-marker-alt mr-2"></i>Proudly Serving "The Tiny Kingdom"
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Luxury Cleaning Services in <span class="gold-gradient">Mountain Brook, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Birmingham's most prestigious community deserves Birmingham's finest cleaning service. From Cherokee Bend estates to English Village Tudors, we bring white-glove care to America's 8th wealthiest city.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Women-Led</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ Reviews</span>
+            </div>
+          </div>
+
+          <!-- Urgency Badge -->
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+            <span class="text-green-700 font-semibold">
+              <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Day Service Available
+            </span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <i class="fas fa-calendar mr-2"></i>Book Your Service
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Mountain Brook Quote</h3>
+          <p class="text-gray-600 mb-6 text-center">Serving Cherokee Bend, English Village, Crestline & all Mountain Brook</p>
+          <form id="location-quote-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Mountain Brook Neighborhood" value="Mountain Brook, AL" required>
+            </div>
+            <div class="mb-4">
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Select Service Type *</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Regular Cleaning">Regular Cleaning</option>
+                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
+                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
+                <option value="Event Cleaning">Event Cleaning</option>
+                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
+                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+              </select>
+            </div>
+            <input type="hidden" name="city" value="Mountain Brook">
+            <input type="hidden" name="state" value="Alabama">
+            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Get My Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <i class="fas fa-clock mr-1"></i> Response within 2 hours
+            </p>
+            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-8">
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">1,047+</div>
+          <p class="text-gray-600">Homes Cleaned</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">130+</div>
+          <p class="text-gray-600">5-Star Reviews</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">$2M</div>
+          <p class="text-gray-600">Liability Insurance</p>
+        </div>
+        <div>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">100%</div>
+          <p class="text-gray-600">Satisfaction Guaranteed</p>
+        </div>
+      </div>
+      <!-- Trust Badges -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">$2M Liability Insurance</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-venus text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Women-Led Business</span>
+        </div>
+        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <i class="fas fa-user-check text-[#FFA985] mr-2"></i>
+          <span class="text-sm font-semibold text-gray-700">Background-Checked Team</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Mountain Brook Trusts Us - Main Content Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Why Mountain Brook Trusts The Valley Clean Team
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p class="text-lg mb-6">
+          Mountain Brook isn't just another Birmingham suburb—it's a community that has been deliberately crafted for excellence since 1929. When real estate visionary Robert Jemison Jr. commissioned Boston landscape architect Warren H. Manning to design Mountain Brook Estates, the vision was clear: create a sanctuary where Birmingham's most successful families could enjoy estate-sized lots along winding scenic roads, surrounded by preserved natural beauty. Nearly a century later, that vision has made Mountain Brook the 8th wealthiest city in America and Alabama's most educated community, where 77% of residents hold a bachelor's degree or higher.
+        </p>
+
+        <p class="text-lg mb-6">
+          The Valley Clean Team understands that Mountain Brook homeowners expect more than ordinary cleaning service. Your Cherokee Bend estate with its Donald Ross-designed golf course views deserves the same meticulous attention that went into its construction. Your historic Tudor in English Village, with its original leaded glass windows and hand-laid hardwood floors, requires cleaners who appreciate architectural heritage. Your modern luxury home in Lane Parke demands professionals who understand contemporary finishes and smart home considerations.
+        </p>
+
+        <p class="text-lg mb-6">
+          We serve Mountain Brook's accomplished residents: the UAB physicians and specialists who save lives at Alabama's premier medical center, the attorneys and executives who lead Birmingham's business community, the entrepreneurs who built their success from the ground up, and the established families whose roots in Mountain Brook span generations. These professionals don't have time to manage cleaning schedules or worry about whether the job was done right. They need—and deserve—a cleaning partner they can trust completely.
+        </p>
+
+        <p class="text-lg mb-6">
+          What makes Mountain Brook unique is also what makes our service unique here. The community's famous 92% tree canopy—one of the highest ratios in the nation—creates stunning natural beauty but also brings pollen, leaves, and seasonal debris that require regular attention. The winding roads Manning designed create peaceful, private settings but mean we must navigate thoughtfully with respect for your neighbors. The three charming villages—English Village with its Continental Bakery and Chez Lulu, Crestline Village with Church Street Coffee's famous breakup cookies, and Mountain Brook Village with the Grand Bohemian Hotel—create a pedestrian-friendly lifestyle where your home's appearance reflects on the entire community.
+        </p>
+
+        <p class="text-lg mb-6">
+          As a veteran-owned, women-led business, we bring military precision and genuine care to every Mountain Brook property we clean. Our team members are background-checked, professionally trained, and understand that in a close-knit community like Mountain Brook, discretion and reliability aren't optional—they're essential. Many of our clients are prominent physicians, business leaders, and community figures who trust us not just with their homes, but with their privacy and reputation.
+        </p>
+
+        <p class="text-lg mb-6">
+          Whether you need weekly maintenance cleaning to keep your Brookwood Forest home guest-ready for impromptu gatherings, deep cleaning before hosting your garden club at your Overton residence, move-out cleaning for your college student's first apartment, or same-day service because unexpected guests are arriving tonight, The Valley Clean Team delivers the premium results Mountain Brook homeowners expect. Our $2 million liability insurance provides peace of mind for properties valued well into the millions, and our 100% satisfaction guarantee ensures you receive nothing less than exceptional results every time.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Three Villages Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Serving Mountain Brook's Three Historic Villages
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Premium cleaning throughout the communities Warren Manning designed</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-landmark text-[#FFA985] mr-3"></i>English Village
+          </h3>
+          <p class="text-gray-700 mb-4">
+            Perched near the top of Red Mountain with old-world charm, English Village features cafés like Continental Bakery and Chez Lulu, upscale boutiques, and galleries including the stunning Henhouse Antiques. The surrounding Tudor cottages and historic homes deserve cleaners who appreciate their architectural character and can navigate antique furnishings, original hardwood floors, and period details with care.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-clock text-[#FFA985] mr-3"></i>Crestline Village
+          </h3>
+          <p class="text-gray-700 mb-4">
+            Home to Mountain Brook's city hall and iconic clock tower, Crestline Village offers a main street vibe with trendy spots like Church Street Coffee and Books and Dyron's Lowcountry. Walking distance to the library, schools, and Crestline Elementary, this neighborhood's charming English manor-style homes and family-friendly atmosphere require consistent, reliable cleaning service that accommodates busy household schedules.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-hotel text-[#FFA985] mr-3"></i>Mountain Brook Village
+          </h3>
+          <p class="text-gray-700 mb-4">
+            The largest and most vibrant village, featuring the Grand Bohemian Hotel, Golden Age Wine, and Tom Beckbe's flagship boutique. Just steps from the Birmingham Zoo and Botanical Gardens, Mountain Brook Village anchors some of the community's most prestigious estates. Residents here expect exceptional service that matches their discerning lifestyle and proximity to Birmingham's finest attractions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Neighborhoods We Serve -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Mountain Brook Neighborhoods We Serve
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Expert cleaning for every prestigious Mountain Brook community</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-crown text-[#FFA985] mr-3"></i>Cherokee Bend
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Mountain Brook's most exclusive enclave, Cherokee Bend features sprawling estates on acre-plus lots surrounding Cherokee Bend Elementary—one of Alabama's top-rated schools. Properties here range from $1.5M to $6M+, featuring luxury finishes, expansive grounds, and the demanding standards of Birmingham's most accomplished families. Our team is trained to deliver the meticulous care these exceptional properties require.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-tree text-[#FFA985] mr-3"></i>Brookwood Forest
+          </h3>
+          <p class="text-gray-700 mb-2">
+            A family-oriented community with homes nestled among Mountain Brook's famous tree canopy. Brookwood Forest Elementary serves this neighborhood's families who value education, natural beauty, and community connection. From traditional Southern homes to updated contemporary properties, we provide consistent, reliable service that keeps Brookwood Forest homes looking their best year-round.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-golf-ball text-[#FFA985] mr-3"></i>Country Club
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Surrounding the historic Mountain Brook Club with its Donald Ross-designed golf course, and near the prestigious Country Club of Birmingham (founded 1898), this neighborhood represents the pinnacle of Birmingham society. These properties often feature formal entertaining spaces, guest quarters, and luxury amenities that require cleaning professionals who understand the expectations of club membership life.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-3"></i>Overton & Crestline
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Classic Mountain Brook neighborhoods with homes ranging from charming 1940s cottages to stately Colonial Revivals. Close to Crestline Village's shops and restaurants, these walkable communities attract professionals and families who appreciate Mountain Brook's village lifestyle. Our flexible scheduling accommodates the busy lives of residents who enjoy being steps from Church Street Coffee and the library.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-building text-[#FFA985] mr-3"></i>Lane Parke
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Mountain Brook's newest upscale development featuring traditional Tudor architecture with modern luxury amenities. These apartment homes and townhomes offer resort-style living within walking distance to Mountain Brook Village shopping and dining. We understand the unique requirements of these contemporary properties, including smart home features and premium finishes.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <h3 class="text-xl font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-leaf text-[#FFA985] mr-3"></i>Jemison Park Area
+          </h3>
+          <p class="text-gray-700 mb-2">
+            Properties near the beloved Jemison Park Nature Trail enjoy some of Mountain Brook's most serene settings along Shades Creek. From the historic Old Mill House landmark to homes with trail access, this area combines natural beauty with convenient village access. Our team appreciates how the park's beauty can also bring seasonal cleaning challenges we're equipped to handle.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <span class="neighborhood-badge">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            {neighborhood}
+          </span>
+        ))}
+      </div>
+
+      <p class="text-center text-gray-600 mt-8">
+        Don't see your neighborhood? We serve all of Mountain Brook. <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call 256-826-1100</a> to confirm service availability.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Available in Mountain Brook -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Premium Cleaning Services Available in Mountain Brook
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Comprehensive luxury cleaning solutions for every Mountain Brook property</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <a href="/locations/mountain-brook/weekly-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-week text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Weekly Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Consistent weekly service for busy Mountain Brook professionals. Keep your home perpetually guest-ready without lifting a finger.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline">Learn More →</span>
+        </a>
+
+        <a href="/locations/mountain-brook/biweekly-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Biweekly Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            The perfect balance for Mountain Brook families—thorough cleaning every two weeks at a comfortable cadence.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline">Learn More →</span>
+        </a>
+
+        <a href="/locations/mountain-brook/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Comprehensive top-to-bottom cleaning for Mountain Brook estates. Perfect for seasonal refreshes or preparing for special events.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline">Learn More →</span>
+        </a>
+
+        <a href="/locations/mountain-brook/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-truck-moving text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Move In/Out</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Relocating to or from Mountain Brook? We ensure your new home is spotless or help you prepare your property for sale.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline">Learn More →</span>
+        </a>
+
+        <a href="/locations/mountain-brook/airbnb-cleaning" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-key text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Airbnb Turnover</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Fast, reliable turnover service for Mountain Brook vacation rental hosts. Same-day availability ensures 5-star reviews.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline">Learn More →</span>
+        </a>
+
+        <a href="/services/post-construction-cleaning/" class="bg-white rounded-xl p-6 shadow-md border-2 border-[#FFA985]/20 hover:border-[#FFA985] transition block">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center mr-4">
+              <i class="fas fa-hammer text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333]">Post-Construction</h3>
+          </div>
+          <p class="text-gray-700 mb-4">
+            Completed a renovation or addition to your Mountain Brook home? We handle the dust and debris to reveal your beautiful new space.
+          </p>
+          <span class="text-[#FFA985] font-semibold hover:underline">Learn More →</span>
+        </a>
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-700 mb-6">
+          <i class="fas fa-clock text-green-600 mr-2"></i>
+          <strong>Same-day service available for Mountain Brook residents.</strong> Call for availability.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block shadow-lg">
+            <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+          </a>
+          <a href="/contact" class="px-8 py-4 rounded-full font-semibold inline-block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+            <i class="fas fa-calendar mr-2"></i>Schedule Service
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Types We Clean -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Property Types We Clean in Mountain Brook
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-chess-rook text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Historic Tudor Estates</h3>
+              <p class="text-gray-700">
+                Mountain Brook's signature Tudor architecture—from English Village cottages to Cherokee Bend mansions—requires specialized care. Our team uses pH-neutral products and gentle techniques that preserve original hardwood floors, leaded glass windows, limestone fireplaces, and period architectural details while delivering a thorough clean.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-home text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Craftsman & Colonial Homes</h3>
+              <p class="text-gray-700">
+                From Arts & Crafts bungalows to stately Colonial Revivals, Mountain Brook's diverse architectural heritage includes many styles beyond Tudor. We understand how to care for built-in cabinetry, crown moldings, and the unique features that give each home its character while maintaining the immaculate standards you expect.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-building text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Modern Luxury Properties</h3>
+              <p class="text-gray-700">
+                New construction and contemporary renovations in Mountain Brook feature premium finishes, smart home technology, and expansive glass. From Lane Parke's luxury apartments to newly built custom homes, we're experienced with marble countertops, hardwood floors, and the modern amenities that define today's luxury living.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-start">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4 flex-shrink-0">
+              <i class="fas fa-user-md text-white text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">Executive Professional Homes</h3>
+              <p class="text-gray-700">
+                Mountain Brook's physicians, attorneys, executives, and business leaders require reliable service that accommodates demanding schedules. We understand on-call rotations, last-minute meetings, and the need for consistent quality whether you're home or not. Your professionally cleaned home will always be ready for whatever your schedule brings.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What Birmingham Area Customers Say
+        </h2>
+        <div class="section-divider"></div>
+        <div class="flex items-center justify-center gap-2 mt-4">
+          <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png" alt="Google" class="h-6" width="92" height="30" loading="lazy" />
+          <span class="text-xl text-gray-600">Reviews</span>
+          <span class="text-[#FFA985] font-bold">4.9</span>
+          <div class="text-[#FFA985] text-sm">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <span class="text-gray-500">(130+ reviews)</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {testimonials.map((testimonial) => (
+          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                {testimonial.initial}
+              </div>
+              <div class="ml-4">
+                <h4 class="font-bold">{testimonial.name}</h4>
+                <p class="text-sm text-gray-600">{testimonial.area}</p>
+                <div class="text-[#FFA985]">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-700">"{testimonial.text}"</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="https://www.google.com/maps/place/The+Valley+Clean+Team" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+          <i class="fab fa-google mr-2"></i>See All Google Reviews <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions About Mountain Brook Cleaning Services
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions from Mountain Brook homeowners</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-[#333333] pr-4">{faq.question}</h4>
+              <i class="fas fa-chevron-down text-[#FFA985] faq-icon flex-shrink-0"></i>
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready to Experience Mountain Brook's Premier Cleaning Service?
+      </h2>
+      <p class="text-xl text-gray-600 mb-4">
+        Join Birmingham's most discerning homeowners who trust The Valley Clean Team
+      </p>
+      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+        <span class="text-green-700 font-semibold text-lg">
+          <i class="fas fa-calendar-check text-green-600 mr-2"></i>Same-Day Service Available - Call Today!
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+          <i class="fas fa-phone mr-2"></i>Call Now: 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+          <i class="fas fa-calendar mr-2"></i>Book Your Service
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>Service Area
+            </h4>
+            <p class="text-gray-600">All Mountain Brook neighborhoods and surrounding Jefferson County</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-clock text-[#FFA985] mr-2"></i>Hours
+            </h4>
+            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+          </div>
+          <div>
+            <h4 class="font-bold text-[#333333] mb-2">
+              <i class="fas fa-phone text-[#FFA985] mr-2"></i>Contact
+            </h4>
+            <p class="text-gray-600">256-826-1100<br>info@thevalleycleanteam.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('location-submit-btn');
+      const messageDiv = document.getElementById('location-form-message');
+      const form = e.target;
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        location: form.location?.value || '',
+        city: form.city?.value || '',
+        state: form.state?.value || '',
+        source: 'Location Page - Mountain Brook',
+        page_url: window.location.href
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Sending...';
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Thank you! We\'ll be in touch within 2 hours.';
+          messageDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = submitBtn.dataset.originalText || 'Get My Free Quote';
+    });
+
+    // Store original button text
+    const btn = document.getElementById('location-submit-btn');
+    if (btn) btn.dataset.originalText = btn.textContent;
+  </script>
+</BaseLayout>

@@ -1,0 +1,488 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Madison areas with vacation rentals
+const neighborhoods = [
+  "Town Madison",
+  "Downtown Madison",
+  "Clift Farm",
+  "Providence",
+  "Bradford Creek",
+  "Heritage Plantation",
+  "Rainbow Mountain Heights",
+  "Madison City",
+  "Near Toyota Field",
+  "Near Bridge Street"
+];
+
+// What's included
+const includedServices = [
+  "Complete linen change & bed making",
+  "Fresh towel setup & folding",
+  "All surfaces dusted & wiped",
+  "Kitchen deep cleaned",
+  "Appliances wiped inside & out",
+  "Dishes washed & put away",
+  "Bathrooms sanitized",
+  "Toiletries restocked (if provided)",
+  "Floors vacuumed & mopped",
+  "Trash removed & liners replaced",
+  "Welcome amenities arranged",
+  "Check for damages & report",
+  "Outdoor spaces tidied",
+  "Smart lock codes verified",
+  "Photo documentation (optional)"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does Airbnb turnover cleaning cost in Madison?",
+    answer: "Airbnb turnover cleaning in Madison typically ranges from $85-$150 for standard units (1-2 bedrooms) and $125-$200+ for larger properties (3+ bedrooms). Pricing depends on property size, number of beds/baths, and turnaround time needed. We offer volume discounts for hosts with multiple properties or frequent turnovers. Call (256) 856-1006 for a custom quote."
+  },
+  {
+    question: "How quickly can you turn over a Madison rental property?",
+    answer: "We can typically complete turnover cleaning within 2-4 hours depending on property size and condition. For same-day turnovers between checkout (11am) and check-in (3-4pm), we prioritize your property to ensure it's guest-ready. We recommend scheduling regular turnover times so we can guarantee availability."
+  },
+  {
+    question: "Do you service Town Madison vacation rentals?",
+    answer: "Yes! Town Madison's proximity to Toyota Field, restaurants, and entertainment makes it popular for short-term rentals. We provide turnover cleaning for Town Madison apartments, condos, and homes—ensuring your guests arrive to a spotless property after Rocket City Trash Pandas games or other events."
+  },
+  {
+    question: "Can you restock supplies and amenities?",
+    answer: "Absolutely! We can restock toiletries, coffee, snacks, and other amenities you provide for guests. Just supply us with inventory, and we'll ensure everything is fresh and properly arranged for each guest arrival. We can also notify you when supplies are running low."
+  },
+  {
+    question: "Do you check for damages after guests leave?",
+    answer: "Yes, damage inspection is part of our turnover service. We document any issues we notice—stains, broken items, missing property—and report to you immediately with photos if needed. This helps you address problems quickly and file claims if necessary."
+  },
+  {
+    question: "What if I need last-minute cleaning?",
+    answer: "We understand vacation rental schedules can change unexpectedly. We do our best to accommodate same-day and emergency turnover requests, though availability isn't guaranteed without advance notice. Building a regular schedule with us ensures priority booking for your property."
+  },
+  {
+    question: "Do you work with property managers?",
+    answer: "Yes! We work with individual hosts, property management companies, and real estate investors managing multiple Madison rentals. We offer streamlined communication, consistent quality, and volume pricing for property managers handling multiple units."
+  },
+  {
+    question: "Can you help maintain my 5-star rating?",
+    answer: "That's our goal! Cleanliness is consistently the #1 factor in guest reviews. Our detailed checklist ensures nothing is missed, and our attention to presentation—crisp linens, properly arranged amenities, spotless bathrooms—helps your property stand out and maintain top ratings."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Airbnb & Vacation Rental Cleaning Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Madison, AL`
+  })),
+  "serviceType": "Vacation Rental Turnover Cleaning",
+  "description": "Professional Airbnb and vacation rental turnover cleaning in Madison, Alabama. Fast turnovers for Town Madison rentals near Toyota Field."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Airbnb Cleaning Madison AL | Vacation Rental Turnover | Valley Clean Team"
+  description="Airbnb & vacation rental turnover cleaning in Madison, Alabama. Fast turnovers near Toyota Field, Town Madison. Maintain 5-star ratings. Call (256) 856-1006"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-pink-50 border border-pink-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-pink-700 text-sm font-medium">
+              <i class="fas fa-key mr-2"></i>Vacation Rental Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Airbnb & Vacation Rental Cleaning in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Town Madison's proximity to Toyota Field, Bridge Street, and Huntsville's tech corridor makes it prime territory for short-term rentals. Our turnover cleaning service ensures your property is guest-ready fast—with the attention to detail that maintains your 5-star rating.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">5-Star Quality</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-clock text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Fast Turnovers</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">1-2 Bedroom</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$85-$150</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">3+ Bedroom</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$125-$200+</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Volume Discounts</span>
+                <div class="text-lg font-semibold text-green-600">Available</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Madison's vacation rental cleaning experts</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Madison for STR -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Madison is <span class="gold-gradient">Perfect for Short-Term Rentals</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Madison's location between Huntsville and Decatur, combined with Town Madison's development, has created a booming short-term rental market. Guests come for Rocket City Trash Pandas games at Toyota Field, business trips to Research Park and Redstone Arsenal, Bridge Street shopping, and major events throughout the region.
+          </p>
+          <p class="mb-6">
+            Whether you're hosting baseball fans for a weekend series, business travelers for week-long projects, or families visiting relatives in the area, your property needs to be guest-ready fast. Same-day turnovers are common, and your cleaning service needs to keep up.
+          </p>
+          <p>
+            Our turnover cleaning ensures your Madison rental maintains the 5-star ratings that keep bookings coming. We handle everything—from fresh linens and spotless bathrooms to restocked amenities and damage checks—so you can focus on growing your rental business.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Turnover Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Everything your property needs to welcome the next guest
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Rating Protection -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Protect Your <span class="gold-gradient">5-Star Rating</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-list-check text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Detailed Checklist</h3>
+          <p class="text-gray-600">Every turnover follows our comprehensive checklist. Nothing gets missed—from light switches to shower corners.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-bed text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Hotel-Quality Presentation</h3>
+          <p class="text-gray-600">Crisp linens, neatly folded towels, properly arranged amenities. First impressions that earn 5-star reviews.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-camera text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Documentation</h3>
+          <p class="text-gray-600">Optional photo documentation of completed cleaning and any damage found. Protect yourself and your property.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Madison Rental Areas -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Popular Madison <span class="gold-gradient">Rental Areas</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving vacation rentals throughout Madison County
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-baseball text-[#FFA985] mr-2"></i>Near Toyota Field
+          </h3>
+          <p class="text-gray-600 text-sm">Town Madison properties perfect for Trash Pandas games. High turnover during baseball season—we keep up with your schedule.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-shopping-bag text-[#FFA985] mr-2"></i>Near Bridge Street
+          </h3>
+          <p class="text-gray-600 text-sm">Close to shopping, dining, and entertainment. Popular with tourists and business travelers visiting the area.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-building text-[#FFA985] mr-2"></i>Town Madison
+          </h3>
+          <p class="text-gray-600 text-sm">Apartments and homes in Madison's newest development. Modern amenities guests love—professional cleaning to match.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-rocket text-[#FFA985] mr-2"></i>Near Research Park
+          </h3>
+          <p class="text-gray-600 text-sm">Business traveler hotspot. Week-long stays for contractors, engineers, and professionals working in Huntsville.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>Established Neighborhoods
+          </h3>
+          <p class="text-gray-600 text-sm">Clift Farm, Providence, Bradford Creek homes hosting families visiting the area or attending special events.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>All Madison Rentals
+          </h3>
+          <p class="text-gray-600 text-sm">From single apartments to entire homes, we service vacation rentals throughout Madison and surrounding areas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- For Property Managers -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+          <div class="flex items-center mb-6">
+            <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-2xl"></i>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-[#333333]">Property Managers & Multi-Unit Hosts</h2>
+              <p class="text-gray-600">Volume pricing and priority scheduling</p>
+            </div>
+          </div>
+          <div class="prose prose-lg max-w-none text-gray-700 mb-6">
+            <p>
+              Managing multiple Madison rentals? We offer streamlined services designed for property managers and hosts with multiple units. Volume discounts, priority scheduling, consistent quality across all properties, and a single point of contact for all your turnover needs.
+            </p>
+          </div>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <i class="fas fa-percent text-[#FFA985] text-2xl mb-2"></i>
+              <p class="font-semibold text-[#333333]">Volume Discounts</p>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <i class="fas fa-calendar-alt text-[#FFA985] text-2xl mb-2"></i>
+              <p class="font-semibold text-[#333333]">Priority Scheduling</p>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg">
+              <i class="fas fa-user-tie text-[#FFA985] text-2xl mb-2"></i>
+              <p class="font-semibold text-[#333333]">Dedicated Contact</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about vacation rental cleaning in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Madison
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Periodic deep clean to maintain your rental property.</p>
+        </a>
+        
+        <a href="/locations/madison/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">For long-term rental properties or your own home.</p>
+        </a>
+        
+        <a href="/locations/madison" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Madison Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our cleaning services in Madison, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Keep Your Madison Rental 5-Star Ready
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        From Toyota Field game weekends to business traveler turnovers, we keep your Madison vacation rental guest-ready with fast, thorough turnover cleaning.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>Fast Turnovers | Damage Inspection | Volume Discounts
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

@@ -1,0 +1,426 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Birmingham";
+const state = "Alabama";
+const phone = "(205) 790-0049";
+
+// Birmingham neighborhoods
+const neighborhoods = [
+  "Mountain Brook",
+  "Vestavia Hills",
+  "Homewood",
+  "Hoover",
+  "Cahaba Heights",
+  "Crestline",
+  "Brook Highland",
+  "Ross Bridge",
+  "Greystone",
+  "Highland Park",
+  "Southside",
+  "Downtown Birmingham",
+  "Trussville",
+  "Irondale"
+];
+
+// What's included
+const includedServices = [
+  "All surfaces dusted & wiped",
+  "Ceiling fans & light fixtures",
+  "Baseboards thoroughly cleaned",
+  "Door frames & doors wiped",
+  "Window sills & tracks detailed",
+  "Switch plates & outlets cleaned",
+  "Kitchen deep cleaned",
+  "Inside oven cleaned",
+  "Inside refrigerator cleaned",
+  "Inside dishwasher & microwave",
+  "All cabinets wiped inside & out",
+  "Countertops sanitized",
+  "Bathrooms deep scrubbed",
+  "Tile & grout cleaned",
+  "Toilets sanitized completely",
+  "Mirrors & glass polished",
+  "Floors vacuumed & mopped",
+  "Closets cleaned out",
+  "Garage swept (if applicable)"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does move-out cleaning cost in Birmingham?",
+    answer: "Move-out cleaning in Birmingham typically ranges from $250-$400 for average homes (1,500-2,500 sq ft). Larger Over the Mountain homes in Mountain Brook and Vestavia Hills (3,000+ sq ft) may run $400-$600+. Pricing depends on square footage, home condition, and specific requirements. Call (205) 790-0049 for a free quote."
+  },
+  {
+    question: "Will move-out cleaning help me get my deposit back?",
+    answer: "That's our goal! Our thorough move-out cleaning addresses all the areas landlords and property managers check—inside appliances, baseboards, window tracks, cabinets, and detailed bathroom cleaning. We clean to the standard expected for deposit return inspections."
+  },
+  {
+    question: "Do you clean apartments in Downtown Birmingham and Southside?",
+    answer: "Yes! We service apartments throughout Birmingham including Downtown lofts, Southside apartments, Five Points South, Lakeview, and Highland Park. We understand apartment cleaning requirements and work within move-out timelines to ensure your unit passes inspection."
+  },
+  {
+    question: "Can you clean large homes in Mountain Brook and Vestavia Hills?",
+    answer: "Absolutely! We regularly clean large estate homes in Mountain Brook, Vestavia Hills, and other Over the Mountain communities. Our team is experienced with high-end finishes, multiple bathrooms, large kitchens, and the attention to detail these properties require."
+  },
+  {
+    question: "How far in advance should I schedule move-out cleaning?",
+    answer: "We recommend booking 1-2 weeks before your move-out date, especially at month-end when demand is highest. We can sometimes accommodate last-minute requests, but advance booking guarantees your preferred date and time."
+  },
+  {
+    question: "How long does move-out cleaning take?",
+    answer: "Typical Birmingham apartments and smaller homes (under 2,000 sq ft) take 3-5 hours. Larger homes in Mountain Brook, Vestavia Hills, or Hoover (2,500-4,000 sq ft) take 5-8 hours. We provide time estimates with your quote and ensure thorough cleaning regardless of duration."
+  },
+  {
+    question: "Do you work with Birmingham property management companies?",
+    answer: "Yes! We work with property managers, landlords, and real estate agents throughout Birmingham. We understand turnover timelines, inspection standards, and can coordinate directly with property managers on scheduling and requirements."
+  },
+  {
+    question: "What if the previous tenant left the home very dirty?",
+    answer: "We can handle heavily soiled properties, though pricing may be adjusted for extreme conditions. Let us know the situation when requesting a quote, and we'll provide an accurate estimate. Before-and-after photos help us assess the scope and provide fair pricing."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Move-Out Cleaning Birmingham AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12057900049",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Birmingham",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Birmingham, AL`
+  })),
+  "serviceType": "Move-Out Cleaning",
+  "description": "Professional move-out cleaning services in Birmingham, Alabama. Get your deposit back with thorough cleaning in Mountain Brook, Vestavia Hills, Homewood, and beyond."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Move-Out Cleaning Birmingham AL | Get Your Deposit Back | Valley Clean Team"
+  description="Professional move-out cleaning in Birmingham, Alabama. Mountain Brook, Vestavia Hills, Homewood, Downtown. Get your deposit back. Call (205) 790-0049"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-box mr-2"></i>Get Your Deposit Back
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Move-Out Cleaning in <span class="gold-gradient">Birmingham, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Moving out of your Birmingham apartment, Downtown loft, or Over the Mountain home? Our professional move-out cleaning ensures your property passes inspection and helps you get your full deposit back. From Mountain Brook estates to Southside studios, we clean to landlord standards.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Apartments From</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$250</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Average Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$300-$400</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Large Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$400-$600+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12057900049" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Birmingham's move-out cleaning specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Move-Out Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Everything landlords check, professionally cleaned
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Birmingham Neighborhoods -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Move-Out Cleaning Throughout <span class="gold-gradient">Birmingham</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving apartments, homes, and estates across the metro
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Over the Mountain -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-mountain text-[#FFA985] mr-2"></i>Over the Mountain
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Mountain Brook</li>
+            <li>• Vestavia Hills</li>
+            <li>• Homewood</li>
+            <li>• Cahaba Heights</li>
+            <li>• Crestline</li>
+            <li>• Brook Highland</li>
+          </ul>
+        </div>
+        
+        <!-- Urban Birmingham -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-city text-[#FFA985] mr-2"></i>Urban Birmingham
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Downtown Lofts</li>
+            <li>• Southside</li>
+            <li>• Five Points South</li>
+            <li>• Highland Park</li>
+            <li>• Lakeview</li>
+            <li>• Avondale</li>
+          </ul>
+        </div>
+        
+        <!-- Greater Birmingham -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>Greater Birmingham
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Hoover</li>
+            <li>• Ross Bridge</li>
+            <li>• Greystone</li>
+            <li>• Trussville</li>
+            <li>• Irondale</li>
+            <li>• Gardendale</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Your Deposit Back -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          How We Help You <span class="gold-gradient">Get Your Deposit Back</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Birmingham landlords and property managers have seen it all—and they know exactly where to look during move-out inspections. Inside the oven and refrigerator, cabinet interiors, window tracks, baseboards, bathroom grout, and those light fixtures tenants forget to dust.
+          </p>
+          <p class="mb-6">
+            Our move-out cleaning addresses every checkpoint. We clean inside all appliances, detail baseboards and window tracks, scrub bathroom tile and grout, wipe down all cabinet interiors, and ensure every surface meets inspection standards. Whether you're leaving a Mountain Brook estate or a Downtown apartment, we clean to the same thorough standard.
+          </p>
+          <p>
+            Professional cleaning often costs less than losing your security deposit—and it gives you documented proof that you left the property in excellent condition.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about move-out cleaning in Birmingham
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Birmingham
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/birmingham/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Moving into a new Birmingham home? Start fresh with deep cleaning.</p>
+        </a>
+        
+        <a href="/locations/birmingham/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Set up regular cleaning in your new Birmingham home.</p>
+        </a>
+        
+        <a href="/locations/birmingham" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Birmingham Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Birmingham, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Get Your Full Deposit Back
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Don't lose your security deposit to cleaning deductions. Professional move-out cleaning ensures your Birmingham property passes inspection.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12057900049" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>Book 1-2 weeks before your move-out date
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

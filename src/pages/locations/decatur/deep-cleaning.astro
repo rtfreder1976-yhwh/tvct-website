@@ -1,0 +1,567 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Decatur";
+const state = "Alabama";
+const phone = "(256) 826-1100";
+
+// Decatur neighborhoods
+const neighborhoods = [
+  "Old Decatur Historic District",
+  "Albany Historic District",
+  "Point Mallard",
+  "Southwest Decatur",
+  "Southeast Decatur",
+  "Hartselle",
+  "Priceville",
+  "Somerville",
+  "Trinity",
+  "Moulton",
+  "Danville",
+  "Cedar Ridge",
+  "Brookhaven",
+  "Wheeler Lake Area"
+];
+
+// What's included in deep cleaning
+const includedServices = [
+  "All surfaces dusted top to bottom",
+  "Ceiling fans & light fixtures cleaned",
+  "Baseboards thoroughly wiped",
+  "Door frames & doors cleaned",
+  "Window sills & tracks detailed",
+  "All switch plates & outlets wiped",
+  "Kitchen deep cleaned & degreased",
+  "Inside oven cleaning",
+  "Inside refrigerator cleaning",
+  "Inside microwave & dishwasher",
+  "Cabinet fronts cleaned",
+  "All bathrooms deep scrubbed",
+  "Tile grout cleaned",
+  "Shower doors descaled",
+  "Toilets sanitized inside & out",
+  "Mirrors & glass polished",
+  "Floors vacuumed & mopped",
+  "Under furniture cleaned",
+  "Trash removed & liners replaced"
+];
+
+// Process steps
+const processSteps = [
+  {
+    step: "1",
+    title: "Request Your Quote",
+    description: "Tell us about your Decatur home—square footage, number of rooms, and any specific needs. We'll provide a detailed, no-obligation quote."
+  },
+  {
+    step: "2",
+    title: "Schedule Your Clean",
+    description: "Pick a date that works around your schedule. We offer flexible times including evenings and weekends for manufacturing shift workers."
+  },
+  {
+    step: "3",
+    title: "Deep Clean Every Room",
+    description: "Our trained team systematically cleans your entire home—inside appliances, behind furniture, and everywhere regular cleaning misses."
+  },
+  {
+    step: "4",
+    title: "Enjoy Your Spotless Home",
+    description: "Walk into a fresh, sanitized home that looks and smells amazing. Many Decatur clients continue with recurring service."
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does deep cleaning cost in Decatur?",
+    answer: "Deep cleaning in Decatur typically ranges from $225-$375 for average-sized homes (1,500-2,500 sq ft). Larger homes and historic properties in Old Decatur or Albany districts may run $350-$500+. Pricing depends on square footage, number of rooms, home condition, and specific requests. Call (256) 826-1100 for a free quote."
+  },
+  {
+    question: "What's included in deep cleaning vs. regular cleaning?",
+    answer: "Deep cleaning goes far beyond regular maintenance. We clean inside appliances (oven, refrigerator, microwave), detail baseboards, clean window sills and tracks, degrease kitchen surfaces, deep scrub tile grout, clean under and behind furniture, dust ceiling fans and light fixtures, and sanitize high-touch surfaces throughout your Decatur home."
+  },
+  {
+    question: "Do you clean historic Victorian homes in Old Decatur?",
+    answer: "Absolutely! Decatur has Alabama's largest concentration of Victorian-era cottages, and we're experienced with these beautiful historic homes. We use gentle, pH-neutral products that clean effectively while protecting original hardwood floors, ornate woodwork, and antique fixtures. Your home's historic character deserves careful attention."
+  },
+  {
+    question: "How long does deep cleaning take in Decatur?",
+    answer: "Typical Decatur homes (1,500-2,500 sq ft) take 3-5 hours for thorough deep cleaning. Larger homes or those that haven't been professionally cleaned recently may take 5-7+ hours. Historic homes with detailed architectural features may also require additional time. We don't rush—we ensure every area meets our standards."
+  },
+  {
+    question: "Can you work around manufacturing shift schedules?",
+    answer: "Yes! Many Decatur clients work at United Launch Alliance, Daikin, 3M, Toray, and other manufacturing facilities with rotating shifts. We offer flexible scheduling including early mornings, evenings, and weekends to accommodate your work schedule. Your home will be spotless when you get off shift."
+  },
+  {
+    question: "Do you clean Wheeler Lake vacation rentals?",
+    answer: "Yes, we specialize in deep cleaning for Wheeler Lake vacation rentals and Airbnb properties. Whether you need turnover service between guests or a seasonal deep clean, we help maintain your property's 5-star rating. We can coordinate with your rental calendar for seamless service."
+  },
+  {
+    question: "What Decatur neighborhoods do you serve?",
+    answer: "We serve all of Decatur and Morgan County including Old Decatur Historic District, Albany Historic District, Point Mallard area, Southwest and Southeast Decatur, Cedar Ridge, Brookhaven, plus Hartselle, Priceville, Somerville, Trinity, Danville, and Moulton. We also serve Wheeler Lake properties along the Tennessee River."
+  },
+  {
+    question: "Should I start with deep cleaning before recurring service?",
+    answer: "We highly recommend it. A deep clean establishes a pristine baseline, then recurring service maintains that level. Think of it like detailing your car before regular washes. Most Decatur clients start with deep cleaning, then transition to biweekly or monthly service to keep their home consistently clean."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Deep Cleaning Decatur AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568261100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Decatur",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Decatur, AL`
+  })),
+  "serviceType": "Deep Cleaning",
+  "description": "Professional deep cleaning services in Decatur, Alabama. Comprehensive top-to-bottom cleaning for homes throughout Morgan County."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Deep Cleaning Decatur AL | Old Decatur, Hartselle | Valley Clean Team"
+  description="Professional deep cleaning in Decatur, AL. Serving Old Decatur, Albany, Hartselle, Wheeler Lake. Inside appliances, baseboards. Veteran-owned."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-sparkles mr-2"></i>Top-to-Bottom Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Deep Cleaning Services in <span class="gold-gradient">Decatur, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            From Victorian cottages in Old Decatur to modern homes in Cedar Ridge, our comprehensive deep cleaning service reaches every corner of your Decatur home. We clean inside appliances, behind furniture, and everywhere regular cleaning misses—leaving your home truly, thoroughly clean.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Deep Cleaning From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$225</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Typical Decatur Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$275-$375</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Historic/Larger Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$350-$500+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Decatur's trusted deep cleaning professionals</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Decatur Homes Need Deep Cleaning -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Decatur Homes Need <span class="gold-gradient">Professional Deep Cleaning</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Decatur's Tennessee River location creates unique cleaning challenges. The humidity from Wheeler Lake, seasonal pollen from the wildlife refuge, and dust from Alabama's warm climate all accumulate in your home. For Decatur's hardworking manufacturing families—at United Launch Alliance, Daikin, 3M, and beyond—there's often little time for thorough cleaning after long shifts.
+          </p>
+          <p class="mb-6">
+            For historic homes in Old Decatur and the Albany Historic District, there's an additional consideration. These beautiful Victorian cottages—the largest concentration in Alabama—feature original hardwood floors, ornate woodwork, and architectural details that require specialized care. Regular cleaning simply can't address the dust that accumulates in decorative trim, vintage radiators, and high ceilings.
+          </p>
+          <p>
+            Whether you're preparing for Alabama Jubilee Balloon Classic guests, recovering from Point Mallard summer activities, or simply haven't had time for a thorough clean, our deep cleaning service addresses every area of your Decatur home. We clean inside appliances, behind furniture, and in corners that daily cleaning misses—leaving your home comprehensively clean.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Decatur Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that goes far beyond regular maintenance
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Process -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Our <span class="gold-gradient">Deep Cleaning Process</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Systematic, thorough, and designed for Decatur homes
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        {processSteps.map((step) => (
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              {step.step}
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] mb-3">{step.title}</h3>
+            <p class="text-gray-600">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Decatur Neighborhoods -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Deep Cleaning Throughout <span class="gold-gradient">Decatur & Morgan County</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving all of Decatur and surrounding communities
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+        <!-- Historic Decatur -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-landmark text-[#FFA985] mr-2"></i>Historic Decatur
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Old Decatur Historic District</li>
+            <li>• Albany Historic District</li>
+            <li>• Downtown Decatur</li>
+          </ul>
+        </div>
+        
+        <!-- City of Decatur -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>Decatur Neighborhoods
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Southwest Decatur</li>
+            <li>• Southeast Decatur</li>
+            <li>• Point Mallard Area</li>
+            <li>• Cedar Ridge</li>
+            <li>• Brookhaven</li>
+          </ul>
+        </div>
+        
+        <!-- Greater Morgan County -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>Morgan County
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Hartselle</li>
+            <li>• Priceville</li>
+            <li>• Somerville</li>
+            <li>• Trinity</li>
+            <li>• Danville</li>
+            <li>• Wheeler Lake Area</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Decatur Families Choose <span class="gold-gradient">The Valley Clean Team</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-landmark text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Home Expertise</h3>
+          <p class="text-gray-600">We understand Old Decatur's Victorian cottages. Gentle products protect original hardwood, ornate trim, and antique fixtures while delivering a thorough clean.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-industry text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Shift-Friendly Scheduling</h3>
+          <p class="text-gray-600">Manufacturing shifts at ULA, Daikin, 3M, and Toray don't follow 9-5. We offer flexible scheduling including evenings and weekends to fit your work calendar.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-water text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Wheeler Lake Rentals</h3>
+          <p class="text-gray-600">Vacation rental owners trust us for reliable deep cleaning and turnover service. We help maintain your 5-star rating with thorough, consistent cleans.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military precision and values you can trust. We approach every Decatur home with discipline, attention to detail, and commitment to excellence.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">$2M Insured</h3>
+          <p class="text-gray-600">Fully bonded and insured for your complete peace of mind. Your historic home and irreplaceable antiques are protected throughout our service.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-star text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Satisfaction Guaranteed</h3>
+          <p class="text-gray-600">If you're not happy with any aspect of your deep clean, we'll come back and make it right. 130+ five-star reviews prove our commitment to quality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        When to Schedule <span class="gold-gradient">Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Deep cleaning is ideal for these situations
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-hot-air-balloon text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Before Events</h3>
+          <p class="text-gray-600 text-sm">Alabama Jubilee, Spirit of America, Festival of Cranes—get your home guest-ready.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-leaf text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Seasonal Refresh</h3>
+          <p class="text-gray-600 text-sm">Spring cleaning, fall prep, or any time your home needs a comprehensive refresh.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-box text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Moving In/Out</h3>
+          <p class="text-gray-600 text-sm">Start fresh in your new Decatur home or leave your old property spotless.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-sync-alt text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Before Recurring</h3>
+          <p class="text-gray-600 text-sm">Establish a pristine baseline before starting weekly or biweekly service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about deep cleaning in Decatur
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Decatur
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/decatur" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Weekly or biweekly cleaning to maintain your deep-cleaned home.</p>
+        </a>
+        
+        <a href="/services/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Get your deposit back when moving out of your Decatur home.</p>
+        </a>
+        
+        <a href="/services/airbnb-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-key text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Airbnb Turnover</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Wheeler Lake vacation rental cleaning and turnover service.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready for a Truly Clean Decatur Home?
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Experience the difference professional deep cleaning makes. From historic Victorian cottages to modern homes, we deliver the comprehensive clean your home deserves.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Background-Checked Team | $2M Insurance
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

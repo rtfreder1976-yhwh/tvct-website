@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Navigation from '../../../components/Navigation.astro';
 import Footer from '../../../components/Footer.astro';
 import SchemaMarkup from '../../../components/SchemaMarkup.astro';
+import { florenceTestimonials } from '../../../data/testimonials';
 
 const city = "Florence";
 const state = "Alabama";
@@ -69,27 +70,13 @@ const faqSchema = {
   }))
 };
 
-// Testimonials
-const testimonials = [
-  {
-    initial: "K",
-    name: "K Parriski",
-    area: "via Google",
-    text: "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
-  },
-  {
-    initial: "P",
-    name: "Patrick Scogin",
-    area: "via Google",
-    text: "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."
-  },
-  {
-    initial: "K",
-    name: "Karen Sears",
-    area: "via Google",
-    text: "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
-  }
-];
+// Testimonials - imported from centralized data
+const testimonials = florenceTestimonials.map(t => ({
+  initial: t.initial,
+  name: t.name,
+  area: t.source,
+  text: t.text
+}));
 ---
 
 <BaseLayout
@@ -440,37 +427,38 @@ const testimonials = [
           <span class="text-[#FFA985] font-semibold">Learn More <i class="fas fa-arrow-right ml-1"></i></span>
         </a>
 
-        <!-- Historic Home Cleaning -->
-        <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <!-- Commercial Cleaning -->
+        <a href="/locations/florence/commercial-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
           <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-landmark text-[#333333] text-2xl"></i>
+            <i class="fas fa-building text-[#333333] text-2xl"></i>
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Historic Home Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Commercial Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            Specialized care for Walnut Street Victorian and antebellum properties. We use preservation-appropriate products and techniques that protect original floors, antique fixtures, and period details while achieving pristine cleanliness. Your historic investment deserves expert care.
-          </p>
-        </div>
-
-        <!-- Move In/Out Cleaning -->
-        <a href="/services/move-in-out-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-truck-moving text-[#333333] text-2xl"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out</h3>
-          <p class="text-gray-700 mb-4">
-            Whether you're arriving at UNA or relocating within The Shoals, ensure your new home is pristine or secure your deposit when departing. Comprehensive cleaning that meets landlord and realtor standards. Same-day service often available.
+            Professional office cleaning for Shoals businesses throughout Florence, Muscle Shoals, Sheffield & Tuscumbia. After-hours service available. Medical offices, retail, and professional spaces.
           </p>
           <span class="text-[#FFA985] font-semibold">Learn More <i class="fas fa-arrow-right ml-1"></i></span>
         </a>
 
-        <!-- Post-Construction -->
-        <a href="/services/post-construction-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
+        <!-- Event Cleaning -->
+        <a href="/locations/florence/event-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
           <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <i class="fas fa-hammer text-[#333333] text-2xl"></i>
+            <i class="fas fa-glass-cheers text-[#333333] text-2xl"></i>
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Event Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            Completed a renovation on your historic Florence home or waterfront property? We handle construction dust, debris removal, and the detailed cleaning required before enjoying your newly updated space. Professional results for contractors and homeowners.
+            Before and after party cleanup for Wilson Lake weddings, corporate events, and Shoals celebrations. Same-day service available for last-minute needs.
+          </p>
+          <span class="text-[#FFA985] font-semibold">Learn More <i class="fas fa-arrow-right ml-1"></i></span>
+        </a>
+
+        <!-- Green Cleaning -->
+        <a href="/locations/florence/green-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <i class="fas fa-leaf text-[#333333] text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Green Cleaning</h3>
+          <p class="text-gray-700 mb-4">
+            Eco-friendly cleaning with plant-based, non-toxic products. Safe for children, pets, and allergy sufferers. Same thorough results without harsh chemicals.
           </p>
           <span class="text-[#FFA985] font-semibold">Learn More <i class="fas fa-arrow-right ml-1"></i></span>
         </a>

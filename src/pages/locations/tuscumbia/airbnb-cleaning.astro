@@ -1,0 +1,425 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Tuscumbia";
+const state = "Alabama";
+const phone = "(256) 826-1100";
+
+// Rental areas
+const rentalAreas = [
+  "Downtown Tuscumbia",
+  "Spring Park Area",
+  "Near Ivy Green",
+  "Wilson Lake Area",
+  "Tennessee River",
+  "Sheffield",
+  "Muscle Shoals",
+  "Florence",
+  "Cherokee",
+  "Colbert Heights"
+];
+
+// What's included
+const includedServices = [
+  "Fresh linens & bed making",
+  "Towel setup & staging",
+  "All surfaces wiped & dusted",
+  "Kitchen deep cleaned",
+  "Appliances wiped inside & out",
+  "Dishes washed & put away",
+  "Bathrooms sanitized",
+  "Toiletries restocked (if provided)",
+  "Floors vacuumed & mopped",
+  "Trash emptied & replaced",
+  "Amenity check & staging",
+  "Damage inspection & photos",
+  "Smart lock verification",
+  "Guest-ready presentation"
+];
+
+// Tuscumbia tourism draws
+const tourismDraws = [
+  {
+    title: "Ivy Green & Helen Keller",
+    description: "Helen Keller's birthplace draws visitors year-round, with peak season during The Miracle Worker performances June-July."
+  },
+  {
+    title: "Alabama Music Hall of Fame",
+    description: "Music fans visit to explore Alabama's rich musical heritage, from W.C. Handy to modern stars."
+  },
+  {
+    title: "Wilson Lake & Tennessee River",
+    description: "Fishing, boating, and water recreation bring visitors to lakeside vacation rentals throughout the Shoals."
+  },
+  {
+    title: "Helen Keller Festival",
+    description: "The June festival brings thousands of visitors who need accommodations throughout the Quad Cities."
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does Airbnb turnover cleaning cost in Tuscumbia?",
+    answer: "Airbnb turnover cleaning in Tuscumbia typically costs $85-$125 for 1-2 bedroom properties and $125-$175+ for 3+ bedrooms. Pricing depends on property size and turnover requirements. We offer volume discounts for property managers and hosts with multiple bookings. Call (256) 826-1100 for a quote."
+  },
+  {
+    question: "Is Tuscumbia a good market for vacation rentals?",
+    answer: "Yes! Tuscumbia attracts visitors to Ivy Green (Helen Keller's birthplace), The Miracle Worker outdoor drama, Alabama Music Hall of Fame, Wilson Lake recreation, and the annual Helen Keller Festival. The Quad Cities area sees steady tourism year-round with peaks during summer performances."
+  },
+  {
+    question: "How quickly can you turn over a property?",
+    answer: "Standard turnovers take 2-3 hours depending on property size. We can often accommodate same-day bookings when scheduled in advance. For back-to-back turnovers, let us know your checkout and check-in times and we'll build a schedule that works."
+  },
+  {
+    question: "Do you service vacation rentals near Wilson Lake?",
+    answer: "Absolutely! We serve vacation rentals throughout the Shoals including lakefront properties near Wilson Lake and the Tennessee River. These properties often see higher traffic during fishing and boating season."
+  },
+  {
+    question: "Can you handle last-minute turnover requests?",
+    answer: "We do our best to accommodate urgent requests when availability permits. Build a relationship with us for priority scheduling—established clients get first consideration for last-minute needs."
+  },
+  {
+    question: "Do you restock guest supplies?",
+    answer: "Yes! If you provide supplies (toiletries, coffee, paper products), we'll restock them as part of turnover cleaning. We can also help you establish a restocking system and let you know when inventory runs low."
+  },
+  {
+    question: "Do you check for damage between guests?",
+    answer: "Yes, we conduct a damage inspection during each turnover and can provide photo documentation. This helps you address issues before the next guest arrives and document any damage for Airbnb claims."
+  },
+  {
+    question: "Do you work with property managers?",
+    answer: "Yes! We work with property managers throughout the Shoals who handle multiple vacation rentals. We offer volume discounts, priority scheduling, and can coordinate directly with your team."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Airbnb Cleaning Tuscumbia AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568261100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tuscumbia",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": rentalAreas.map(area => ({
+    "@type": "Place",
+    "name": `${area}, AL`
+  })),
+  "serviceType": "Vacation Rental Turnover Cleaning",
+  "description": "Professional Airbnb and vacation rental turnover cleaning in Tuscumbia, Alabama. Fast turnovers for the Shoals tourism market."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Airbnb & Vacation Rental Cleaning Tuscumbia AL | Turnover Service | Valley Clean Team"
+  description="Professional Airbnb turnover cleaning in Tuscumbia, Alabama. Fast turnovers for Ivy Green, Wilson Lake vacation rentals. Veteran-owned. Call (256) 826-1100"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-key mr-2"></i>Vacation Rental Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Airbnb & Vacation Rental Cleaning in <span class="gold-gradient">Tuscumbia, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Fast, reliable turnover cleaning for Tuscumbia's vacation rental market. From Ivy Green visitors to Wilson Lake fishermen, your guests expect spotless accommodations. We deliver hotel-quality cleanliness with every turnover, helping you maintain 5-star reviews.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-bolt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Fast Turnovers</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">1-2 Bedrooms</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$85-$125</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">3+ Bedrooms</span>
+                <div class="text-xl font-semibold text-gray-700">$125-$175+</div>
+              </div>
+            </div>
+            <p class="text-sm text-green-600 mt-2">
+              <i class="fas fa-tag mr-1"></i>Volume discounts available
+            </p>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">The Shoals vacation rental experts</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tuscumbia Tourism -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Tuscumbia's <span class="gold-gradient">Vacation Rental Market</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        The Shoals attract visitors year-round—your rental needs to impress
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {tourismDraws.map((draw) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+            <h3 class="text-xl font-bold text-[#333333] mb-3">{draw.title}</h3>
+            <p class="text-gray-600">{draw.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Every Turnover</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Hotel-quality cleaning and staging
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Vacation Rental Cleaning Throughout <span class="gold-gradient">The Shoals</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving the entire Quad Cities vacation rental market
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+        {rentalAreas.map((area) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{area}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Property Managers -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="flex-shrink-0">
+            <div class="w-20 h-20 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center">
+              <i class="fas fa-building text-[#FFA985] text-3xl"></i>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-[#333333] mb-4">Property Managers Welcome</h2>
+            <p class="text-gray-600 mb-4">
+              Managing multiple vacation rentals in the Shoals? We offer volume discounts, priority scheduling, and can coordinate directly with your team. Build a relationship with us for reliable turnovers across your entire portfolio.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 mr-2"></i>Volume pricing for multiple properties
+              </li>
+              <li class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 mr-2"></i>Priority scheduling during peak season
+              </li>
+              <li class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 mr-2"></i>Direct coordination with your team
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about vacation rental cleaning
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/tuscumbia/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Periodic deep cleans between busy seasons.</p>
+        </a>
+        
+        <a href="/locations/tuscumbia/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Need cleaning for your own home too?</p>
+        </a>
+        
+        <a href="/locations/tuscumbia" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Tuscumbia Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Tuscumbia.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Keep Your 5-Star Reviews Coming
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Guests notice cleanliness first. Professional turnover cleaning helps you maintain excellent reviews and keep your Tuscumbia rental booked.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

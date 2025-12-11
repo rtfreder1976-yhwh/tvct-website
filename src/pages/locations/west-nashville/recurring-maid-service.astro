@@ -1,0 +1,447 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "West Nashville";
+const state = "Tennessee";
+const phone = "(615) 961-0028";
+
+// West Nashville neighborhoods
+const neighborhoods = [
+  "Belle Meade",
+  "Sylvan Park",
+  "The Nations",
+  "West Meade",
+  "Charlotte Park",
+  "Sylvan Heights",
+  "Cherokee Park",
+  "Richland Park",
+  "White Bridge",
+  "Hillwood",
+  "West End",
+  "Green Hills"
+];
+
+// Service frequencies
+const frequencies = [
+  { name: "Weekly", discount: "20% off", description: "Best for busy professionals, families with children, and those who love a consistently spotless home." },
+  { name: "Biweekly", discount: "15% off", description: "Our most popular option—perfect balance of a pristine home and great value." },
+  { name: "Monthly", discount: "10% off", description: "Ideal for maintaining a clean home with lighter touch-ups between visits." }
+];
+
+// What's included
+const includedServices = [
+  "All rooms dusted & tidied",
+  "Furniture surfaces wiped",
+  "Floors vacuumed & mopped",
+  "Kitchen counters & appliances",
+  "Stovetop cleaned",
+  "Sink scrubbed & sanitized",
+  "Bathrooms deep cleaned",
+  "Toilets sanitized",
+  "Mirrors & glass polished",
+  "Trash emptied",
+  "Beds made (linens changed on request)",
+  "General tidying & organization"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does recurring cleaning cost in West Nashville?",
+    answer: "Recurring cleaning in West Nashville typically starts at $150 per visit for standard homes, with pricing based on home size and frequency. Weekly clients save 20%, biweekly saves 15%, and monthly saves 10%. Belle Meade estates and larger properties are quoted individually. Call (615) 961-0028 for a free quote."
+  },
+  {
+    question: "What West Nashville neighborhoods do you serve?",
+    answer: "We serve all of West Nashville including Belle Meade, Sylvan Park, The Nations, West Meade, Charlotte Park, Sylvan Heights, Cherokee Park, Richland Park, White Bridge, Hillwood, West End, and areas near Centennial Park. We also serve neighboring Green Hills and Forest Hills."
+  },
+  {
+    question: "Do I need to be home during cleaning?",
+    answer: "No! Most of our West Nashville clients provide entry instructions (garage code, lockbox, smart lock) so we can clean while they're at work or running errands. We're fully insured and background-checked for your peace of mind."
+  },
+  {
+    question: "Can I customize what gets cleaned each visit?",
+    answer: "Absolutely! While we follow a comprehensive checklist, we can focus on areas that matter most to you. Need extra attention on the gourmet kitchen? Prefer we skip certain rooms? Just let us know your preferences."
+  },
+  {
+    question: "What if I need to skip or reschedule a cleaning?",
+    answer: "We understand busy schedules! We ask for 48 hours notice for schedule changes when possible, but we work with you to reschedule at a convenient time."
+  },
+  {
+    question: "Do you bring your own supplies and equipment?",
+    answer: "Yes! We bring all professional-grade cleaning supplies and equipment. We use products that are effective and safe. If you prefer specific products or have sensitivities, just let us know—we offer eco-friendly and fragrance-free options."
+  },
+  {
+    question: "Is there a contract or commitment?",
+    answer: "No long-term contracts! We earn your business with every visit. You can pause, change frequency, or cancel anytime. We believe quality service keeps clients coming back, not legal agreements."
+  },
+  {
+    question: "Do you clean Belle Meade estates?",
+    answer: "Absolutely! Belle Meade's grand estates require specialized care, and we're equipped to handle homes of any size. We understand the discretion and attention to detail that Belle Meade residents expect, from antebellum architecture to modern luxury properties."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Recurring Maid Service West Nashville TN",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+16159610028",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Nashville, TN`
+  })),
+  "serviceType": "Recurring House Cleaning",
+  "description": "Professional recurring maid service in West Nashville, Tennessee. Weekly, biweekly, and monthly cleaning for Belle Meade, Sylvan Park, The Nations and more."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Recurring Maid Service West Nashville TN | Belle Meade, Sylvan Park | Valley Clean Team"
+  description="Professional recurring maid service in West Nashville, TN. Weekly, biweekly, monthly. Belle Meade, Sylvan Park, The Nations."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-calendar-check mr-2"></i>Save Up to 20% with Recurring Service
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Recurring Maid Service in <span class="gold-gradient">West Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Come home to clean—every week, every other week, or every month. Our recurring cleaning service keeps your West Nashville home consistently spotless while saving you up to 20%. From Belle Meade estates to Sylvan Park bungalows to The Nations' modern lofts, we deliver the reliable service Nashville's west side deserves.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Recurring Service From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$150</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Save Up To</span>
+                <div class="text-2xl font-bold text-green-600">20% Off</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+16159610028" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">West Nashville's trusted cleaning team</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frequency Options -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Choose Your <span class="gold-gradient">Cleaning Frequency</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        The more often we clean, the more you save
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {frequencies.map((freq, index) => (
+          <div class={`bg-white rounded-2xl p-6 shadow-lg border-2 ${index === 1 ? 'border-[#FFA985] scale-105' : 'border-gray-100'} relative`}>
+            {index === 1 && (
+              <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span class="bg-[#FFA985] text-white text-sm font-semibold px-4 py-1 rounded-full">Most Popular</span>
+              </div>
+            )}
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-[#333333] mb-2">{freq.name}</h3>
+              <div class="text-3xl font-bold text-green-600 mb-4">{freq.discount}</div>
+              <p class="text-gray-600">{freq.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Every Visit</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that keeps your West Nashville home fresh
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- West Nashville Areas -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Serving All of <span class="gold-gradient">West Nashville</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From Belle Meade's grand estates to The Nations' urban energy
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why West Nashville Families Choose Us -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why West Nashville Families <span class="gold-gradient">Choose Us</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-piggy-bank text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Real Savings</h3>
+          <p class="text-gray-600">Up to 20% off with recurring service. The more often we clean, the less time each visit takes, and we pass those savings to you.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-clock text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Consistent Schedule</h3>
+          <p class="text-gray-600">Same day, same time, same great service. You'll always know when to expect us and come home to a clean house.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-home text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Estate Experience</h3>
+          <p class="text-gray-600">From Belle Meade mansions to Sylvan Park historic homes, we're experienced with properties of every size and style.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-user-secret text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Discretion Guaranteed</h3>
+          <p class="text-gray-600">Many music industry professionals and executives trust us. Background-checked staff who respect your privacy.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-file-contract text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">No Contracts</h3>
+          <p class="text-gray-600">Cancel or pause anytime. We earn your business with quality service, not legal agreements.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military discipline and attention to detail. $2M insured, background-checked team you can trust.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about recurring cleaning in West Nashville
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in West Nashville
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/west-nashville/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Start with a deep clean before beginning recurring service.</p>
+        </a>
+        
+        <a href="/locations/west-nashville/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Moving? Get your deposit back with thorough cleaning.</p>
+        </a>
+        
+        <a href="/locations/west-nashville" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All West Nashville Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in West Nashville.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Come Home to Clean Every Time
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Join families throughout West Nashville who enjoy a consistently clean home without lifting a finger. Save up to 20% with recurring service.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+16159610028" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>No Contracts | Cancel Anytime | Satisfaction Guaranteed
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

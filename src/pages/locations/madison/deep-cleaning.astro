@@ -1,0 +1,522 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Madison neighborhoods
+const neighborhoods = [
+  "Town Madison",
+  "Clift Farm",
+  "Rainbow Mountain Heights",
+  "Providence",
+  "Bradford Creek",
+  "Heritage Plantation",
+  "Clifts Cove",
+  "West Highlands",
+  "Madison City",
+  "Triana",
+  "The Reserve",
+  "Anslee Farms",
+  "Cambridge",
+  "Lake Forest",
+  "Celtic Manor",
+  "Village at Oakland Springs"
+];
+
+// What's included in deep cleaning
+const includedServices = [
+  "All surfaces dusted top to bottom",
+  "Ceiling fans & light fixtures cleaned",
+  "Baseboards thoroughly wiped",
+  "Door frames & doors cleaned",
+  "Window sills & tracks detailed",
+  "All switch plates & outlets wiped",
+  "Kitchen deep cleaned & degreased",
+  "Inside oven cleaning",
+  "Inside refrigerator cleaning",
+  "Inside microwave & dishwasher",
+  "Cabinet fronts cleaned",
+  "All bathrooms deep scrubbed",
+  "Tile grout cleaned",
+  "Shower doors descaled",
+  "Toilets sanitized inside & out",
+  "Mirrors & glass polished",
+  "Floors vacuumed & mopped",
+  "Under furniture cleaned",
+  "Trash removed & liners replaced"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does deep cleaning cost in Madison?",
+    answer: "Deep cleaning in Madison typically ranges from $275-$425 for average-sized homes (2,000-3,000 sq ft). Larger Town Madison and Clift Farm homes (3,500+ sq ft) may run $400-$550+. Pricing depends on square footage, number of rooms, home condition, and specific requests. Call (256) 856-1006 for a free, detailed quote."
+  },
+  {
+    question: "What's included in deep cleaning vs. regular cleaning?",
+    answer: "Deep cleaning goes far beyond regular maintenance. We clean inside appliances (oven, refrigerator, microwave), detail baseboards, clean window sills and tracks, degrease kitchen surfaces, deep scrub tile grout, clean under and behind furniture, dust ceiling fans and light fixtures, and sanitize high-touch surfaces throughout your Madison home."
+  },
+  {
+    question: "Do you serve Town Madison and new construction homes?",
+    answer: "Absolutely! Town Madison's beautiful new homes—from The Exchange to The Heights to West End—are some of our most requested service areas. New construction often has leftover dust in HVAC systems, cabinets, and trim that regular cleaning misses. Our deep cleaning addresses every area, making your new Town Madison home truly move-in ready."
+  },
+  {
+    question: "How long does deep cleaning take in Madison?",
+    answer: "Typical Madison homes (2,000-3,000 sq ft) take 4-6 hours for thorough deep cleaning. Larger Town Madison and Clift Farm homes (3,500+ sq ft) may take 6-8+ hours. Homes that haven't been professionally cleaned recently require additional time. We don't rush—we ensure every area meets our standards."
+  },
+  {
+    question: "Can you clean homes with smart home technology?",
+    answer: "Yes! Madison's newer homes often feature smart thermostats, security systems, and automated features. Our team is experienced with modern home technology and takes care around control panels, sensors, and connected devices while thoroughly cleaning your home."
+  },
+  {
+    question: "Do you clean new construction before move-in?",
+    answer: "Yes, post-construction and builder cleaning is one of our specialties in Madison's rapidly growing communities. New homes often have drywall dust, paint residue, and construction debris that needs professional attention. We prepare your new Town Madison, Clift Farm, or Providence home for a truly fresh start."
+  },
+  {
+    question: "What Madison neighborhoods do you serve?",
+    answer: "We serve all Madison neighborhoods including Town Madison (The Exchange, Heights, Commons, West End), Clift Farm, Rainbow Mountain Heights, Providence, Bradford Creek, Heritage Plantation, Clifts Cove, West Highlands, Madison City, Triana, Celtic Manor, Lake Forest, The Reserve, Anslee Farms, Cambridge, and Village at Oakland Springs."
+  },
+  {
+    question: "Should I start with deep cleaning before recurring service?",
+    answer: "We highly recommend it. A deep clean establishes a pristine baseline, then recurring service maintains that level. Think of it like detailing your car before regular washes. Most Madison clients start with deep cleaning, then transition to biweekly or weekly service to keep their home consistently spotless."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Deep Cleaning Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Madison, AL`
+  })),
+  "serviceType": "Deep Cleaning",
+  "description": "Professional deep cleaning services in Madison, Alabama. Comprehensive top-to-bottom cleaning for homes throughout Madison County."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Deep Cleaning Madison AL | Town Madison, Clift Farm | Valley Clean Team"
+  description="Professional deep cleaning in Madison, AL. Serving Town Madison, Clift Farm, Providence. Inside appliances, baseboards, grout. Veteran-owned."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-sparkles mr-2"></i>Top-to-Bottom Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Deep Cleaning Services in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            From brand-new Town Madison homes to established Clift Farm properties, our comprehensive deep cleaning service reaches every corner of your Madison home. We clean inside appliances, behind furniture, and everywhere regular cleaning misses—leaving your home truly, thoroughly clean.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Deep Cleaning From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$275</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Typical Madison Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$325-$425</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Larger Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$400-$550+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Madison's trusted deep cleaning professionals</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Madison Homes Need Deep Cleaning -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Madison Homes Need <span class="gold-gradient">Professional Deep Cleaning</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Madison is Alabama's fastest-growing city for good reason—excellent schools, proximity to Huntsville's tech corridor, and beautiful new communities like Town Madison and Clift Farm attract families from across the country. But these homes, whether brand-new or established, accumulate dust, allergens, and grime in places regular cleaning simply can't reach.
+          </p>
+          <p class="mb-6">
+            New construction homes in Town Madison often have fine drywall dust embedded in HVAC systems, cabinets, and trim that circulates for months. Established homes in Providence and Heritage Plantation have years of buildup in window tracks, baseboards, and behind appliances. Alabama's humidity means mold and mildew can develop in bathrooms and kitchens without proper attention.
+          </p>
+          <p>
+            With 19% of Madison residents working from home and median household incomes exceeding $131,000, your time is valuable. Our deep cleaning service addresses every area of your home—inside appliances, behind furniture, and in corners that daily cleaning misses—so you can enjoy your beautiful Madison home without spending your weekends scrubbing.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Madison Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that goes far beyond regular maintenance
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Madison Neighborhoods -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Deep Cleaning Throughout <span class="gold-gradient">Madison</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving all Madison neighborhoods and communities
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Town Madison -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-building text-[#FFA985] mr-2"></i>Town Madison
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• The Exchange</li>
+            <li>• The Heights</li>
+            <li>• The Commons</li>
+            <li>• West End</li>
+            <li>• Town Madison Apartments</li>
+          </ul>
+        </div>
+        
+        <!-- Established Neighborhoods -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>Established Areas
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Clift Farm</li>
+            <li>• Providence</li>
+            <li>• Heritage Plantation</li>
+            <li>• Bradford Creek</li>
+            <li>• Rainbow Mountain Heights</li>
+          </ul>
+        </div>
+        
+        <!-- Other Areas -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>More Madison
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Clifts Cove</li>
+            <li>• Madison City</li>
+            <li>• Triana</li>
+            <li>• The Reserve</li>
+            <li>• Lake Forest</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Madison Families Choose <span class="gold-gradient">The Valley Clean Team</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-hammer text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">New Construction Experts</h3>
+          <p class="text-gray-600">Town Madison's new homes need special attention. We remove construction dust from HVAC systems, cabinets, and trim that builders leave behind.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-laptop-house text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Remote Worker Friendly</h3>
+          <p class="text-gray-600">19% of Madison works from home. We schedule around your meetings and ensure your home office is spotless for video calls.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-child text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Family-Safe Products</h3>
+          <p class="text-gray-600">53% of Madison households have children. We use eco-friendly products safe for kids and pets while delivering powerful cleaning results.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military precision, attention to detail, and values you can trust. We approach every Madison home with discipline and commitment.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">$2M Insured</h3>
+          <p class="text-gray-600">Fully bonded and insured for your complete peace of mind. Your Madison home and belongings are protected throughout our service.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-star text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Satisfaction Guaranteed</h3>
+          <p class="text-gray-600">If you're not happy with any aspect of your deep clean, we'll come back and make it right. 130+ five-star reviews prove our commitment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- When to Schedule -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        When to Schedule <span class="gold-gradient">Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Deep cleaning is ideal for these situations
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-home text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">New Home Move-In</h3>
+          <p class="text-gray-600 text-sm">Clear construction dust and make your new Town Madison home truly move-in ready.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-leaf text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Seasonal Refresh</h3>
+          <p class="text-gray-600 text-sm">Spring cleaning, holiday prep, or quarterly maintenance to keep your home at its best.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-baby text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Life Events</h3>
+          <p class="text-gray-600 text-sm">Before baby arrives, after illness, preparing for guests, or celebrating milestones.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-sync-alt text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Before Recurring</h3>
+          <p class="text-gray-600 text-sm">Establish a pristine baseline before starting weekly or biweekly service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about deep cleaning in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Madison
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/madison/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Maintain your deep-cleaned home with weekly or biweekly service.</p>
+        </a>
+        
+        <a href="/locations/madison/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Get your deposit back when moving out of your Madison home.</p>
+        </a>
+        
+        <a href="/locations/madison" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Madison Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our cleaning services in Madison, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready for a Truly Clean Madison Home?
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Experience the difference professional deep cleaning makes. From new Town Madison homes to established Clift Farm properties, we deliver the comprehensive clean your home deserves.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Background-Checked Team | $2M Insurance
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

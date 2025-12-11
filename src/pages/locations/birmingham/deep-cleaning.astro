@@ -1,0 +1,578 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Birmingham";
+const state = "Alabama";
+const phone = "(205) 790-0049";
+
+// Birmingham neighborhoods
+const neighborhoods = [
+  "Mountain Brook",
+  "Homewood",
+  "Vestavia Hills",
+  "Hoover",
+  "Crestline",
+  "Highland Park",
+  "Forest Park",
+  "Southside",
+  "Five Points South",
+  "Avondale",
+  "Lakeview",
+  "Downtown Birmingham",
+  "UAB Area",
+  "Irondale",
+  "Trussville",
+  "Gardendale",
+  "Cahaba Heights",
+  "Brook Highland",
+  "Greystone",
+  "Ross Bridge",
+  "Liberty Park"
+];
+
+// What's included in deep cleaning
+const includedServices = [
+  "All surfaces dusted top to bottom",
+  "Ceiling fans & light fixtures cleaned",
+  "Baseboards thoroughly wiped",
+  "Door frames & doors cleaned",
+  "Window sills & tracks detailed",
+  "All switch plates & outlets wiped",
+  "Kitchen deep cleaned & degreased",
+  "Inside oven cleaning",
+  "Inside refrigerator cleaning",
+  "Inside microwave & dishwasher",
+  "Cabinet fronts cleaned",
+  "All bathrooms deep scrubbed",
+  "Tile grout cleaned",
+  "Shower doors descaled",
+  "Toilets sanitized inside & out",
+  "Mirrors & glass polished",
+  "Floors vacuumed & mopped",
+  "Under furniture cleaned",
+  "Trash removed & liners replaced"
+];
+
+// Process steps
+const processSteps = [
+  {
+    step: "1",
+    title: "Request Your Quote",
+    description: "Tell us about your Birmingham home—square footage, number of rooms, and any specific concerns. We'll provide a detailed, no-obligation quote."
+  },
+  {
+    step: "2",
+    title: "Schedule Your Clean",
+    description: "Pick a date and time that works for your schedule. We offer flexible availability including weekends for busy professionals."
+  },
+  {
+    step: "3",
+    title: "Deep Clean Every Room",
+    description: "Our trained team systematically cleans your entire home from ceiling to floor—reaching areas regular cleaning misses."
+  },
+  {
+    step: "4",
+    title: "Enjoy Your Spotless Home",
+    description: "Walk into a fresh, sanitized home that looks and smells amazing. Many clients continue with recurring service to maintain that feeling."
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does deep cleaning cost in Birmingham?",
+    answer: "Deep cleaning in Birmingham typically ranges from $250-$450 for average-sized homes (2,000-3,000 sq ft). Larger Mountain Brook and Vestavia Hills estates (4,000+ sq ft) may run $400-$600+. Pricing depends on square footage, number of rooms, home condition, and specific requests. Call (205) 790-0049 for a free, detailed quote."
+  },
+  {
+    question: "What's included in a deep cleaning vs. regular cleaning?",
+    answer: "Deep cleaning goes far beyond regular maintenance cleaning. We clean inside appliances (oven, refrigerator, microwave), detail baseboards, clean window sills and tracks, degrease kitchen surfaces, deep scrub tile grout, clean under and behind furniture, dust ceiling fans and light fixtures, and sanitize high-touch surfaces throughout your Birmingham home."
+  },
+  {
+    question: "Do you serve Mountain Brook, Vestavia Hills, and Homewood?",
+    answer: "Yes! We specialize in Birmingham's prestigious Over the Mountain communities including Mountain Brook, Vestavia Hills, Homewood, Cahaba Heights, and Crestline. We understand the expectations of these luxury neighborhoods and deliver the premium service your home deserves."
+  },
+  {
+    question: "How long does deep cleaning take in Birmingham?",
+    answer: "Typical Birmingham homes (2,000-3,000 sq ft) take 4-6 hours for a thorough deep clean. Larger Mountain Brook estates or homes that haven't been professionally cleaned recently may take 6-8+ hours. We don't rush—we ensure every area meets our standards before leaving."
+  },
+  {
+    question: "Do you offer deep cleaning for historic homes in Southside and Highland Park?",
+    answer: "Absolutely. Birmingham's historic neighborhoods feature beautiful early 20th century architecture requiring specialized care. Our team uses gentle, pH-neutral products that clean effectively while protecting original hardwood floors, antique fixtures, and delicate architectural details."
+  },
+  {
+    question: "Can you clean high-rise condos and downtown apartments?",
+    answer: "Yes! We serve downtown Birmingham condos, Lakeview apartments, Southside lofts, and luxury high-rises. We carry $2M insurance, coordinate with building management, and provide discrete, professional service for urban professionals. Your luxury condo receives premium care."
+  },
+  {
+    question: "What Birmingham neighborhoods do you serve?",
+    answer: "We serve all of Birmingham and Jefferson County including Mountain Brook, Homewood, Vestavia Hills, Hoover, Cahaba Heights, Crestline, Highland Park, Forest Park, Southside, Five Points South, Avondale, Lakeview, Downtown, UAB Area, Irondale, Trussville, Gardendale, Brook Highland, Greystone, Ross Bridge, and Liberty Park."
+  },
+  {
+    question: "Should I start with deep cleaning before recurring service?",
+    answer: "We highly recommend it. A deep clean establishes a pristine baseline, then recurring service maintains that level. Think of it like detailing your car before regular washes. Most Birmingham clients start with deep cleaning, then transition to biweekly or weekly service."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Deep Cleaning Birmingham AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12057900049",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Birmingham",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Birmingham, AL`
+  })),
+  "serviceType": "Deep Cleaning",
+  "description": "Professional deep cleaning services in Birmingham, Alabama. Comprehensive top-to-bottom cleaning for homes throughout Jefferson County."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Deep Cleaning Birmingham AL | Mountain Brook, Vestavia | Valley Clean Team"
+  description="Professional deep cleaning in Birmingham, AL. Serving Mountain Brook, Vestavia Hills, Homewood, Hoover. Inside appliances, baseboards, grout."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-sparkles mr-2"></i>Top-to-Bottom Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Deep Cleaning Services in <span class="gold-gradient">Birmingham, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Alabama's largest metro deserves the deepest clean. Our comprehensive deep cleaning service reaches every corner of your Birmingham home—inside appliances, behind furniture, and everywhere regular cleaning misses. Perfect for Mountain Brook estates, Vestavia Hills homes, and downtown condos alike.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Deep Cleaning From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$275</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Typical Birmingham Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$325-$450</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Larger Estates</span>
+                <div class="text-lg font-semibold text-gray-700">$450-$600+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12057900049" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Birmingham's trusted deep cleaning professionals</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Birmingham Homes Need Deep Cleaning -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Birmingham Homes Need <span class="gold-gradient">Professional Deep Cleaning</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Birmingham's climate creates unique cleaning challenges. Alabama's hot, humid summers mean air conditioning runs constantly—and dust, pollen, and allergens circulate throughout your home. The red clay soil that characterizes Jefferson County tracks in on shoes and pets, embedding in carpets and settling on baseboards. Regular cleaning simply can't keep up.
+          </p>
+          <p class="mb-6">
+            For Mountain Brook estates and Vestavia Hills homes, there's an additional factor: these premium properties feature high-end finishes, expansive floor plans, and architectural details that accumulate dust in hard-to-reach places. Vaulted ceilings, crown molding, built-in cabinetry, and professional-grade appliances all require thorough, careful cleaning that goes beyond surface maintenance.
+          </p>
+          <p>
+            Whether you're preparing for the holidays, recovering from renovation, moving into a new home, or simply haven't had a professional clean in months, our deep cleaning service addresses every area of your Birmingham home. We clean inside appliances, behind furniture, and in corners and crevices that daily cleaning misses—leaving your home truly, comprehensively clean.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Birmingham Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that goes far beyond regular maintenance
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Process -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Our <span class="gold-gradient">Deep Cleaning Process</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Systematic, thorough, and designed for Birmingham homes
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        {processSteps.map((step) => (
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+              {step.step}
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] mb-3">{step.title}</h3>
+            <p class="text-gray-600">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Birmingham Neighborhoods -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Deep Cleaning Throughout <span class="gold-gradient">Birmingham</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving all of Jefferson County and Birmingham's most prestigious neighborhoods
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+        <!-- Over the Mountain -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-mountain text-[#FFA985] mr-2"></i>Over the Mountain
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Mountain Brook</li>
+            <li>• Vestavia Hills</li>
+            <li>• Homewood</li>
+            <li>• Cahaba Heights</li>
+            <li>• Crestline</li>
+            <li>• Brook Highland</li>
+          </ul>
+        </div>
+        
+        <!-- Urban Birmingham -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-city text-[#FFA985] mr-2"></i>Urban Birmingham
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Downtown Birmingham</li>
+            <li>• Southside</li>
+            <li>• Five Points South</li>
+            <li>• Highland Park</li>
+            <li>• Avondale</li>
+            <li>• Lakeview</li>
+          </ul>
+        </div>
+        
+        <!-- Greater Birmingham -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-map-marked-alt text-[#FFA985] mr-2"></i>Greater Birmingham
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Hoover</li>
+            <li>• Ross Bridge</li>
+            <li>• Greystone</li>
+            <li>• Trussville</li>
+            <li>• Irondale</li>
+            <li>• Gardendale</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Birmingham Families Choose <span class="gold-gradient">The Valley Clean Team</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-home text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Estate-Level Service</h3>
+          <p class="text-gray-600">We understand the expectations of Mountain Brook and Vestavia Hills homeowners. Premium finishes require premium care—and that's exactly what we deliver.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-landmark text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Home Expertise</h3>
+          <p class="text-gray-600">Birmingham's Southside and Highland Park feature irreplaceable early 20th century homes. We use gentle products that clean effectively while preserving architectural details.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-building text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Condo & High-Rise Ready</h3>
+          <p class="text-gray-600">Downtown condos, Lakeview lofts, and luxury apartments. We coordinate with building management and provide discrete, professional service for urban professionals.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military precision, attention to detail, and values you can trust. We approach every Birmingham home with the same discipline and dedication.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-shield-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">$2M Insured</h3>
+          <p class="text-gray-600">Fully bonded and insured for your complete peace of mind. Your Mountain Brook estate or Vestavia Hills home is protected throughout our service.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-star text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Satisfaction Guaranteed</h3>
+          <p class="text-gray-600">If you're not happy with any aspect of your deep clean, we'll come back and make it right. 130+ five-star reviews prove our commitment to quality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        When to Schedule <span class="gold-gradient">Deep Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Deep cleaning is ideal for these situations
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-calendar-alt text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Seasonal Refresh</h3>
+          <p class="text-gray-600 text-sm">Spring cleaning, holiday prep, or quarterly maintenance to keep your home at its best.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-box text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Moving In/Out</h3>
+          <p class="text-gray-600 text-sm">Start fresh in your new Birmingham home or leave your old property spotless.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-hammer text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Post-Renovation</h3>
+          <p class="text-gray-600 text-sm">Construction dust gets everywhere. We'll make your renovated home livable again.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+          <i class="fas fa-sync-alt text-3xl text-[#FFA985] mb-3"></i>
+          <h3 class="font-bold text-[#333333] mb-2">Before Recurring</h3>
+          <p class="text-gray-600 text-sm">Establish a pristine baseline before starting weekly or biweekly service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about deep cleaning in Birmingham
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Birmingham
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/birmingham" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Weekly or biweekly cleaning to maintain your deep-cleaned home.</p>
+        </a>
+        
+        <a href="/locations/birmingham/commercial-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-building text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Commercial Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Office and commercial cleaning throughout Birmingham.</p>
+        </a>
+        
+        <a href="/locations/birmingham/office-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-briefcase text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Office Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Professional office cleaning for Birmingham businesses.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Ready for a Truly Clean Birmingham Home?
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Experience the difference professional deep cleaning makes. From Mountain Brook estates to downtown condos, we deliver the comprehensive clean your home deserves.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12057900049" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Background-Checked Team | $2M Insurance
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

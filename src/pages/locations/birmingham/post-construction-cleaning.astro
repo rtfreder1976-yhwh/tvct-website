@@ -1,0 +1,469 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Birmingham";
+const state = "Alabama";
+const phone = "(205) 790-0049";
+
+// Birmingham areas with new construction/renovation
+const constructionAreas = [
+  "Mountain Brook",
+  "Vestavia Hills",
+  "Homewood",
+  "Hoover",
+  "Ross Bridge",
+  "Greystone",
+  "Liberty Park",
+  "Cahaba Heights",
+  "Downtown Birmingham",
+  "Southside",
+  "Highland Park",
+  "Crestline"
+];
+
+// What's included
+const includedServices = [
+  "Fine dust removal from all surfaces",
+  "HVAC vent & register cleaning",
+  "Inside all cabinets & drawers",
+  "Window sill & track cleaning",
+  "Light fixtures & ceiling fans",
+  "All baseboards wiped down",
+  "Door frames & hardware cleaned",
+  "Crown molding & trim dusted",
+  "Switch plates & outlets wiped",
+  "Countertops detailed & polished",
+  "Appliance interior cleaning",
+  "Bathroom deep sanitization",
+  "Tile & grout cleaning",
+  "Mirror & glass polishing",
+  "Hardwood floor cleaning",
+  "Debris & trash removal"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Why do new Birmingham homes need post-construction cleaning?",
+    answer: "Even the most beautifully finished new homes have fine drywall dust in HVAC systems, cabinets, and trim that builders' quick cleaning misses. This dust circulates for months, aggravating allergies and settling on surfaces. Our post-construction cleaning removes dust from everywhere—inside vents, cabinet interiors, window tracks—so your new home is truly move-in ready."
+  },
+  {
+    question: "How much does post-construction cleaning cost in Birmingham?",
+    answer: "Post-construction cleaning in Birmingham typically ranges from $400-$700 for average new homes (2,500-4,000 sq ft). Larger Mountain Brook and Vestavia Hills homes may run $600-$1,000+. Pricing depends on square footage, home condition, and specific requirements. Call (205) 790-0049 for a free quote."
+  },
+  {
+    question: "Do you clean new construction in Mountain Brook and Vestavia Hills?",
+    answer: "Yes! Over the Mountain's new custom homes and renovations are among our most requested post-construction cleaning services. These premium properties deserve meticulous attention—we clean high ceilings, custom cabinetry, high-end finishes, and every detail that makes these homes exceptional."
+  },
+  {
+    question: "Do you handle renovation cleanup too?",
+    answer: "Absolutely! Kitchen remodels, bathroom renovations, room additions, and whole-home renovations all generate construction dust. Whether it's a historic Highland Park home update or a modern Homewood renovation, we remove construction debris and dust so you can enjoy your updated space immediately."
+  },
+  {
+    question: "What's the difference between builder cleaning and professional post-construction cleaning?",
+    answer: "Builder cleaning is a quick surface clean to prepare for closing. Professional post-construction cleaning addresses fine dust in HVAC vents, inside cabinets, window tracks, behind appliances, and other areas builders skip. We make your new Birmingham home truly ready for living."
+  },
+  {
+    question: "When should I schedule post-construction cleaning?",
+    answer: "Ideally, schedule after the builder's final walk-through but before moving furniture in. This allows thorough cleaning of floors, closets, and areas that furniture would block. We can also clean after move-in, but before is more efficient and comprehensive."
+  },
+  {
+    question: "How long does post-construction cleaning take?",
+    answer: "Post-construction cleaning takes longer than standard deep cleaning due to fine dust throughout. Typical Birmingham homes (2,500-3,500 sq ft) take 6-10 hours. Larger Over the Mountain homes with high ceilings and custom details may take 10-14+ hours. We ensure every area is thoroughly addressed."
+  },
+  {
+    question: "Do you clean high ceilings and custom features?",
+    answer: "Yes! Birmingham's custom homes often feature vaulted ceilings, crown molding, built-ins, and architectural details that collect construction dust. We have equipment and experience to clean high areas safely and ensure every custom feature is dust-free and showcase-ready."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Post-Construction Cleaning Birmingham AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12057900049",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Birmingham",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": constructionAreas.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Birmingham, AL`
+  })),
+  "serviceType": "Post-Construction Cleaning",
+  "description": "Professional post-construction and builder cleaning in Birmingham, Alabama. New home and renovation cleanup in Mountain Brook, Vestavia Hills, and beyond."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Post-Construction Cleaning Birmingham AL | New Home & Renovation | Valley Clean Team"
+  description="Post-construction cleaning in Birmingham, Alabama. New home & renovation cleanup for Mountain Brook, Vestavia Hills, Homewood. Call (205) 790-0049"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-amber-50 border border-amber-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-amber-700 text-sm font-medium">
+              <i class="fas fa-hard-hat mr-2"></i>New Construction & Renovation
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Post-Construction Cleaning in <span class="gold-gradient">Birmingham, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Birmingham's custom homes, renovations, and new construction deserve a thorough clean that goes beyond what builders provide. We remove the fine construction dust from HVAC vents, cabinets, window tracks, and every surface—so your Mountain Brook estate or Homewood renovation is truly ready to enjoy.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Post-Construction From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$400</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Typical Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$500-$700</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Large Custom Homes</span>
+                <div class="text-lg font-semibold text-gray-700">$700-$1,000+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12057900049" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Birmingham's construction cleaning experts</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem Section -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Your New Birmingham Home <span class="gold-gradient">Isn't Actually Clean</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            You've invested significantly in your new Mountain Brook custom home, Vestavia Hills construction, or Homewood renovation. The builder did their "final cleaning" before closing. But within days, you notice fine white dust everywhere. Your allergies flare. Every surface needs constant dusting.
+          </p>
+          <p class="mb-6">
+            Construction generates incredibly fine drywall dust that embeds in your HVAC system (where it circulates throughout your home), inside custom cabinets and drawers, in window tracks and crown molding detail, and in every corner. Builder cleaning addresses visible surfaces only, leaving hidden dust for you to deal with for months.
+          </p>
+          <p>
+            Our post-construction cleaning goes far beyond surface cleaning. We clean inside HVAC vents and registers, wipe down every cabinet interior, detail window tracks and door hardware, dust crown molding and architectural details, and ensure your beautiful Birmingham home is truly ready for living.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Post-Construction Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that addresses what builders leave behind
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Birmingham <span class="gold-gradient">Construction Areas</span> We Serve
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        New homes and renovations throughout the metro
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Over the Mountain -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-gem text-[#FFA985] mr-2"></i>Custom Home Areas
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Mountain Brook Estates</li>
+            <li>• Vestavia Hills Custom</li>
+            <li>• Homewood Renovations</li>
+            <li>• Cahaba Heights</li>
+            <li>• Crestline</li>
+          </ul>
+        </div>
+        
+        <!-- New Communities -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>New Communities
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Ross Bridge</li>
+            <li>• Greystone</li>
+            <li>• Liberty Park</li>
+            <li>• Hoover New Construction</li>
+            <li>• Brook Highland</li>
+          </ul>
+        </div>
+        
+        <!-- Urban Renovations -->
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-4 flex items-center">
+            <i class="fas fa-building text-[#FFA985] mr-2"></i>Urban Renovations
+          </h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>• Downtown Loft Conversions</li>
+            <li>• Highland Park Historic</li>
+            <li>• Southside Renovations</li>
+            <li>• Avondale Updates</li>
+            <li>• Lakeview Condos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New vs Renovation -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        We Handle <span class="gold-gradient">Both</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- New Construction -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 bg-gradient-to-r from-amber-100 to-amber-200 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-home text-amber-600 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333]">New Construction</h3>
+              <p class="text-gray-600">Custom homes & builder homes</p>
+            </div>
+          </div>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-center"><i class="fas fa-check text-amber-500 mr-3"></i>Custom Mountain Brook homes</li>
+            <li class="flex items-center"><i class="fas fa-check text-amber-500 mr-3"></i>Vestavia Hills new builds</li>
+            <li class="flex items-center"><i class="fas fa-check text-amber-500 mr-3"></i>Ross Bridge & Greystone</li>
+            <li class="flex items-center"><i class="fas fa-check text-amber-500 mr-3"></i>Pre-move-in cleaning</li>
+            <li class="flex items-center"><i class="fas fa-check text-amber-500 mr-3"></i>Builder punch-list support</li>
+          </ul>
+        </div>
+        
+        <!-- Renovation -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 bg-gradient-to-r from-blue-100 to-blue-200 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-hammer text-blue-600 text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333]">Renovations</h3>
+              <p class="text-gray-600">Remodels & updates</p>
+            </div>
+          </div>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i>Kitchen remodels</li>
+            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i>Bathroom renovations</li>
+            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i>Room additions</li>
+            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i>Historic home updates</li>
+            <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i>Whole-home renovations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about post-construction cleaning in Birmingham
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Birmingham
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/birmingham/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Comprehensive cleaning for established homes.</p>
+        </a>
+        
+        <a href="/locations/birmingham/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Maintain your new home with regular cleaning.</p>
+        </a>
+        
+        <a href="/locations/birmingham" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Birmingham Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Birmingham, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Make Your New Birmingham Home Truly Move-In Ready
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Don't spend months dealing with construction dust. Our professional post-construction cleaning removes what builders leave behind—from Mountain Brook custom homes to Downtown loft renovations.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12057900049" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>130+ Five-Star Reviews | Background-Checked Team | $2M Insurance
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

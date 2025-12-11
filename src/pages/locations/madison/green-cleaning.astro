@@ -1,0 +1,379 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Madison";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Benefits
+const benefits = [
+  { title: "Safe for Children", icon: "fa-child", description: "53% of Madison households have children under 18. Our products won't leave harmful residues on floors where kids play." },
+  { title: "Pet-Friendly", icon: "fa-paw", description: "Dogs and cats are part of Madison families. Eco-friendly products protect sensitive paws and curious noses." },
+  { title: "Allergy Relief", icon: "fa-lungs", description: "Traditional cleaners can trigger allergies and asthma. Our green products clean without irritating airways." },
+  { title: "No Harsh Fumes", icon: "fa-wind", description: "Work-from-home Madison professionals don't want chemical smells disrupting their home office. Our products are low-odor." },
+  { title: "Environmentally Responsible", icon: "fa-leaf", description: "Biodegradable products that are safe for Madison's water systems and local environment." },
+  { title: "Equally Effective", icon: "fa-check-double", description: "Modern eco-friendly products deliver the same cleaning power as traditional chemicals." }
+];
+
+// What we use
+const productTypes = [
+  "Plant-based surface cleaners",
+  "Biodegradable all-purpose solutions",
+  "Essential oil-based disinfectants",
+  "Non-toxic glass cleaners",
+  "Eco-friendly floor solutions",
+  "Fragrance-free options available",
+  "EPA Safer Choice certified products",
+  "HEPA-filtered vacuums"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Is green cleaning as effective as traditional cleaning?",
+    answer: "Yes! Modern eco-friendly cleaning products have come a long way. The plant-based and biodegradable products we use deliver excellent cleaning results—cutting grease, removing grime, and sanitizing surfaces—without harsh chemicals. You won't sacrifice cleanliness for sustainability."
+  },
+  {
+    question: "How much does green cleaning cost in Madison?",
+    answer: "Green cleaning is available at the same prices as our standard cleaning services. We've invested in high-quality eco-friendly products that don't require a premium. Whether you choose deep cleaning, recurring service, or any other option, green products are included upon request at no extra charge."
+  },
+  {
+    question: "What makes cleaning products 'green' or eco-friendly?",
+    answer: "Our green cleaning products are plant-based rather than petroleum-based, biodegradable so they break down naturally, free from harsh chemicals like chlorine bleach and ammonia, low in volatile organic compounds (VOCs) that cause fumes, and many are EPA Safer Choice certified."
+  },
+  {
+    question: "Is green cleaning safe for babies and toddlers?",
+    answer: "Absolutely—that's one of the main reasons families choose green cleaning. Babies and toddlers spend time on floors and put hands in mouths. Our eco-friendly products don't leave behind chemical residues, making your Madison home safer for crawling babies and exploring toddlers."
+  },
+  {
+    question: "Can green cleaning products handle tough messes?",
+    answer: "Yes! We use professional-grade eco-friendly products designed for tough cleaning challenges. Kitchen grease, bathroom soap scum, and general household grime are all handled effectively. For extremely stubborn situations, we'll discuss the best approach with you."
+  },
+  {
+    question: "Do you offer fragrance-free cleaning?",
+    answer: "Yes! While many eco-friendly products have pleasant natural scents from essential oils, we offer completely fragrance-free options for clients with chemical sensitivities, allergies, or simply a preference for no added scents. Just let us know your preference."
+  },
+  {
+    question: "Is green cleaning good for people with allergies?",
+    answer: "Green cleaning is excellent for allergy sufferers. Traditional cleaning products can trigger respiratory issues and skin sensitivities. Our eco-friendly products are formulated without common irritants, and our HEPA-filtered vacuums capture allergens instead of recirculating them."
+  },
+  {
+    question: "Can I request green cleaning for just some services?",
+    answer: "Yes! Green cleaning is available for all our Madison services—deep cleaning, recurring service, move-out cleaning, and more. Simply request eco-friendly products when booking, and we'll use them throughout your home."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Green Cleaning Madison AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Madison",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "serviceType": "Green Cleaning",
+  "description": "Eco-friendly green cleaning services in Madison, Alabama. Non-toxic, plant-based products safe for kids, pets, and the environment."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Green Cleaning Madison AL | Eco-Friendly, Non-Toxic | Valley Clean Team"
+  description="Eco-friendly green cleaning in Madison, Alabama. Plant-based, non-toxic products safe for kids & pets. Same great clean. Veteran-owned. Call (256) 856-1006"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-green-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-100 border border-green-300 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-leaf mr-2"></i>Eco-Friendly Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Green Cleaning Services in <span class="gold-gradient">Madison, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            A cleaner home doesn't require harsh chemicals. Our eco-friendly cleaning uses plant-based, non-toxic products that are safe for your children, pets, and the environment—without compromising on cleaning power. Madison families deserve both a spotless home and peace of mind.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-green-200">
+              <i class="fas fa-seedling text-green-600 mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Plant-Based</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-green-200">
+              <i class="fas fa-child text-green-600 mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Kid-Safe</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-green-200">
+              <i class="fas fa-paw text-green-600 mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Pet-Friendly</span>
+            </div>
+          </div>
+
+          <!-- No Extra Cost -->
+          <div class="bg-green-50 rounded-xl p-4 border border-green-200 inline-block mb-6">
+            <div class="flex items-center">
+              <i class="fas fa-tag text-green-600 text-2xl mr-4"></i>
+              <div>
+                <span class="text-sm text-gray-600">Green cleaning available at</span>
+                <div class="text-xl font-bold text-green-600">No Extra Cost</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-green-500 to-green-600 rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-green-500 rounded-full hover:bg-green-50 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Madison's eco-friendly cleaning team</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Green Cleaning -->
+  <section class="py-16 bg-white px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Why Madison Families Choose <span class="gold-gradient">Green Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Safe for your family, effective for your home
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {benefits.map((benefit) => (
+          <div class="bg-gray-50 rounded-xl p-6 border border-gray-100">
+            <div class="w-14 h-14 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mb-4">
+              <i class={`fas ${benefit.icon} text-green-600 text-2xl`}></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] mb-2">{benefit.title}</h3>
+            <p class="text-gray-600 text-sm">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Use -->
+  <section class="py-16 bg-green-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What We <span class="gold-gradient">Use</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Professional-grade eco-friendly products
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {productTypes.map((product) => (
+          <div class="bg-white rounded-xl p-4 shadow-sm border border-green-100 flex items-center">
+            <i class="fas fa-leaf text-green-500 mr-3"></i>
+            <span class="text-gray-700">{product}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Green Cleaning is <span class="gold-gradient">Perfect For</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-baby text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Homes with Babies</h3>
+          <p class="text-gray-600 text-sm">Crawling babies put hands in mouths. No chemical residues to worry about.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-dog text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Pet Families</h3>
+          <p class="text-gray-600 text-sm">Dogs and cats walk on floors and groom themselves. Keep them safe.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-head-side-mask text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Allergy Sufferers</h3>
+          <p class="text-gray-600 text-sm">Chemical sensitivities and respiratory issues benefit from non-toxic cleaning.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-laptop-house text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-bold text-[#333333] mb-2">Work-From-Home</h3>
+          <p class="text-gray-600 text-sm">19% of Madison works remotely. No harsh fumes disrupting your workday.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Green + All Services -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-[#333333] mb-6">
+          Available With <span class="gold-gradient">All Services</span>
+        </h2>
+        <p class="text-xl text-gray-700 mb-8">
+          Green cleaning isn't a separate service—it's an option available with everything we do. Request eco-friendly products for any cleaning service:
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          <a href="/locations/madison/recurring-maid-service" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-green-400 transition-all">
+            <i class="fas fa-calendar-check text-green-500 mr-2"></i>
+            <span class="text-gray-700 font-medium">Recurring Service</span>
+          </a>
+          <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-green-400 transition-all">
+            <i class="fas fa-sparkles text-green-500 mr-2"></i>
+            <span class="text-gray-700 font-medium">Deep Cleaning</span>
+          </a>
+          <a href="/locations/madison/move-out-cleaning" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-green-400 transition-all">
+            <i class="fas fa-box text-green-500 mr-2"></i>
+            <span class="text-gray-700 font-medium">Move-Out Cleaning</span>
+          </a>
+          <a href="/locations/madison/post-construction-cleaning" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-green-400 transition-all">
+            <i class="fas fa-hard-hat text-green-500 mr-2"></i>
+            <span class="text-gray-700 font-medium">Post-Construction</span>
+          </a>
+          <a href="/locations/madison/airbnb-cleaning" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-green-400 transition-all">
+            <i class="fas fa-key text-green-500 mr-2"></i>
+            <span class="text-gray-700 font-medium">Airbnb Turnover</span>
+          </a>
+          <a href="/locations/madison/event-cleaning" class="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-green-400 transition-all">
+            <i class="fas fa-champagne-glasses text-green-500 mr-2"></i>
+            <span class="text-gray-700 font-medium">Event Cleaning</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about green cleaning in Madison
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-green-500 group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-green-500 to-green-600" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Clean Home. Safe Home. Green Home.
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Give your Madison family the clean they deserve without the chemicals they don't need. Green cleaning at no extra cost.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-green-600 bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-leaf mr-2"></i>Plant-Based | Kid-Safe | Pet-Friendly | No Extra Cost
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

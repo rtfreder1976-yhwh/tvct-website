@@ -1,0 +1,415 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Tuscumbia";
+const state = "Alabama";
+const phone = "(256) 826-1100";
+
+// Benefits
+const benefits = [
+  {
+    title: "Safe for Children",
+    description: "No toxic residues on floors, toys, or surfaces where little ones play and explore.",
+    icon: "fa-baby"
+  },
+  {
+    title: "Pet-Friendly",
+    description: "Products safe for dogs, cats, and other pets who spend time on floors and furniture.",
+    icon: "fa-paw"
+  },
+  {
+    title: "Allergy Relief",
+    description: "Fragrance-free and hypoallergenic options that won't trigger allergies or sensitivities.",
+    icon: "fa-lungs"
+  },
+  {
+    title: "No Harsh Fumes",
+    description: "Clean without the headache-inducing chemical smells of traditional cleaning products.",
+    icon: "fa-wind"
+  },
+  {
+    title: "Environmentally Responsible",
+    description: "Biodegradable products that are better for the Tennessee River watershed and our Shoals community.",
+    icon: "fa-leaf"
+  },
+  {
+    title: "Equally Effective",
+    description: "Modern eco-friendly products clean just as well as traditional chemicals—without the downsides.",
+    icon: "fa-check-circle"
+  }
+];
+
+// Product types
+const productTypes = [
+  "Plant-based all-purpose cleaners",
+  "Biodegradable bathroom solutions",
+  "Essential oil-based disinfectants",
+  "Non-toxic glass and mirror cleaners",
+  "Eco-friendly floor cleaning solutions",
+  "Fragrance-free options available",
+  "EPA Safer Choice certified products",
+  "HEPA filtration vacuums"
+];
+
+// Perfect for
+const perfectFor = [
+  {
+    title: "Homes with Babies & Toddlers",
+    description: "Little ones put everything in their mouths. Green cleaning means no toxic residues on floors and surfaces.",
+    icon: "fa-baby-carriage"
+  },
+  {
+    title: "Pet Families",
+    description: "Dogs and cats spend time on floors and lick their paws. Eco-friendly products keep them safe.",
+    icon: "fa-dog"
+  },
+  {
+    title: "Allergy Sufferers",
+    description: "Fragrance-free and hypoallergenic options that won't trigger respiratory issues or sensitivities.",
+    icon: "fa-head-side-mask"
+  },
+  {
+    title: "Eco-Conscious Households",
+    description: "Products that are better for the environment and the Shoals community we all call home.",
+    icon: "fa-globe-americas"
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Are green cleaning products as effective as traditional cleaners?",
+    answer: "Yes! Modern eco-friendly products have come a long way. We use professional-grade green cleaners that match or exceed the cleaning power of traditional products—without the harsh chemicals. Your home will be just as clean, just safer."
+  },
+  {
+    question: "Does green cleaning cost extra?",
+    answer: "No! We offer eco-friendly cleaning at no additional cost. We believe safer products should be accessible to everyone, so green cleaning is available with any of our services—recurring, deep cleaning, move-out, and more."
+  },
+  {
+    question: "What makes cleaning products 'green' or eco-friendly?",
+    answer: "Our green products are plant-based, biodegradable, and free from harsh chemicals like ammonia, chlorine bleach, and synthetic fragrances. Many are EPA Safer Choice certified, meaning they meet strict safety standards for human health and the environment."
+  },
+  {
+    question: "Is green cleaning safe for babies and toddlers?",
+    answer: "Absolutely! That's one of the main reasons families choose green cleaning. No toxic residues on floors where babies crawl, on toys they put in their mouths, or on surfaces they touch throughout your home."
+  },
+  {
+    question: "Can green cleaning handle tough messes and stains?",
+    answer: "Yes! Our professional-grade eco-friendly products handle everyday cleaning and tougher challenges like kitchen grease, bathroom soap scum, and general household grime. For extremely stubborn situations, we'll discuss the best approach with you."
+  },
+  {
+    question: "Do you offer fragrance-free cleaning options?",
+    answer: "Yes! We offer completely fragrance-free green cleaning for clients with chemical sensitivities, allergies, or those who simply prefer no added scents. Just let us know when booking."
+  },
+  {
+    question: "Is green cleaning better for people with allergies?",
+    answer: "Many clients with allergies, asthma, or chemical sensitivities find green cleaning much easier to tolerate. Without harsh chemicals and synthetic fragrances, there's less likelihood of triggering respiratory issues or skin reactions."
+  },
+  {
+    question: "Can I request green cleaning for any service?",
+    answer: "Yes! Green cleaning is available with all our services including recurring maid service, deep cleaning, move-out cleaning, post-construction cleaning, Airbnb turnover, and more. Just mention your preference when booking."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Green Cleaning Tuscumbia AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568261100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tuscumbia",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Tuscumbia, AL"
+  },
+  "serviceType": "Eco-Friendly House Cleaning",
+  "description": "Professional green cleaning services in Tuscumbia, Alabama. Non-toxic, eco-friendly products safe for families and pets. No extra cost."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Green Cleaning Tuscumbia AL | Eco-Friendly, Non-Toxic | Valley Clean Team"
+  description="Professional green cleaning in Tuscumbia, Alabama. Eco-friendly, non-toxic products safe for kids and pets. No extra cost. Call (256) 826-1100"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-green-700 text-sm font-medium">
+              <i class="fas fa-leaf mr-2"></i>No Extra Cost
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Green Cleaning in <span class="gold-gradient">Tuscumbia, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            A spotless home shouldn't come with harsh chemicals. Our green cleaning option uses eco-friendly, non-toxic products that are safe for your family, pets, and the environment—at no extra cost. Same great clean, just gentler.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-baby text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Safe for Kids</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-paw text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Pet-Friendly</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-leaf text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Eco-Friendly</span>
+            </div>
+          </div>
+
+          <!-- No Extra Cost Banner -->
+          <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fas fa-check text-green-600 text-xl"></i>
+              </div>
+              <div>
+                <div class="text-xl font-bold text-green-800">No Extra Cost</div>
+                <p class="text-green-700 text-sm">Green cleaning available with all services at no additional charge</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Eco-friendly cleaning for the Shoals</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Why Choose <span class="gold-gradient">Green Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        All the clean, none of the harsh chemicals
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {benefits.map((benefit) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+            <div class="w-12 h-12 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center mb-4">
+              <i class={`fas ${benefit.icon} text-green-600 text-xl`}></i>
+            </div>
+            <h3 class="text-xl font-bold text-[#333333] mb-3">{benefit.title}</h3>
+            <p class="text-gray-600">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Use -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What We <span class="gold-gradient">Use</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Professional-grade eco-friendly products
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {productTypes.map((product) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-leaf text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{product}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfect For -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Perfect <span class="gold-gradient">For</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Green cleaning is ideal for Tuscumbia households with...
+      </p>
+      
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {perfectFor.map((item) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 flex">
+            <div class="flex-shrink-0 mr-4">
+              <div class="w-14 h-14 bg-gradient-to-r from-green-100 to-green-200 rounded-full flex items-center justify-center">
+                <i class={`fas ${item.icon} text-green-600 text-2xl`}></i>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">{item.title}</h3>
+              <p class="text-gray-600">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Available With All Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-8 border border-green-200">
+        <h2 class="text-2xl font-bold text-center text-[#333333] mb-6">
+          Available With <span class="text-green-600">All Services</span>
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <a href="/locations/tuscumbia/recurring-maid-service" class="bg-white rounded-lg p-4 text-center hover:shadow-md transition-all">
+            <i class="fas fa-calendar-check text-[#FFA985] text-xl mb-2"></i>
+            <div class="text-gray-700 font-medium">Recurring Service</div>
+          </a>
+          <a href="/locations/tuscumbia/deep-cleaning" class="bg-white rounded-lg p-4 text-center hover:shadow-md transition-all">
+            <i class="fas fa-sparkles text-[#FFA985] text-xl mb-2"></i>
+            <div class="text-gray-700 font-medium">Deep Cleaning</div>
+          </a>
+          <a href="/locations/tuscumbia/move-out-cleaning" class="bg-white rounded-lg p-4 text-center hover:shadow-md transition-all">
+            <i class="fas fa-box text-[#FFA985] text-xl mb-2"></i>
+            <div class="text-gray-700 font-medium">Move-Out</div>
+          </a>
+          <a href="/locations/tuscumbia/post-construction-cleaning" class="bg-white rounded-lg p-4 text-center hover:shadow-md transition-all">
+            <i class="fas fa-hard-hat text-[#FFA985] text-xl mb-2"></i>
+            <div class="text-gray-700 font-medium">Post-Construction</div>
+          </a>
+          <a href="/locations/tuscumbia/airbnb-cleaning" class="bg-white rounded-lg p-4 text-center hover:shadow-md transition-all">
+            <i class="fas fa-key text-[#FFA985] text-xl mb-2"></i>
+            <div class="text-gray-700 font-medium">Airbnb</div>
+          </a>
+          <a href="/locations/tuscumbia/event-cleaning" class="bg-white rounded-lg p-4 text-center hover:shadow-md transition-all">
+            <i class="fas fa-glass-cheers text-[#FFA985] text-xl mb-2"></i>
+            <div class="text-gray-700 font-medium">Event Cleaning</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about green cleaning
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Clean That's Safe for Everyone
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Your Tuscumbia home can be spotless without harsh chemicals. Green cleaning at no extra cost—request it with any service.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-leaf mr-2"></i>Eco-friendly • Non-toxic • No extra cost
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

@@ -1,0 +1,450 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Birmingham";
+const state = "Alabama";
+const phone = "(205) 790-0049";
+
+// Birmingham areas with vacation rentals
+const rentalAreas = [
+  "Downtown Birmingham",
+  "Southside",
+  "Five Points South",
+  "Lakeview",
+  "Highland Park",
+  "Avondale",
+  "Homewood",
+  "Mountain Brook",
+  "Vestavia Hills",
+  "Near UAB",
+  "Near BJCC"
+];
+
+// What's included
+const includedServices = [
+  "Complete linen change & bed making",
+  "Fresh towel setup & folding",
+  "All surfaces dusted & wiped",
+  "Kitchen deep cleaned",
+  "Appliances wiped inside & out",
+  "Dishes washed & put away",
+  "Bathrooms sanitized",
+  "Toiletries restocked (if provided)",
+  "Floors vacuumed & mopped",
+  "Trash removed & liners replaced",
+  "Welcome amenities arranged",
+  "Check for damages & report",
+  "Smart lock codes verified",
+  "Photo documentation (optional)"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does Airbnb turnover cleaning cost in Birmingham?",
+    answer: "Airbnb turnover cleaning in Birmingham typically ranges from $85-$150 for standard units (1-2 bedrooms) and $125-$225+ for larger properties (3+ bedrooms). Downtown lofts and Southside apartments are often on the lower end, while larger Homewood or Mountain Brook properties cost more. We offer volume discounts for hosts with multiple properties. Call (205) 790-0049 for a custom quote."
+  },
+  {
+    question: "Do you clean Downtown Birmingham and Southside rentals?",
+    answer: "Yes! Downtown Birmingham and Southside are among our busiest areas for vacation rental turnovers. These neighborhoods attract business travelers, UAB visitors, concert-goers at the BJCC, and tourists exploring Birmingham's food and culture scene. We understand the fast turnover pace these urban rentals require."
+  },
+  {
+    question: "How quickly can you turn over a Birmingham rental?",
+    answer: "We can typically complete turnover cleaning within 2-4 hours depending on property size and condition. For same-day turnovers between checkout and check-in, we prioritize your property to ensure it's guest-ready. Regular scheduling helps guarantee availability for your busiest times."
+  },
+  {
+    question: "Can you handle turnovers for BJCC events and UAB events?",
+    answer: "Absolutely! Birmingham's BJCC hosts major concerts, conventions, and sporting events that drive vacation rental demand. UAB football games, graduation, and parent weekends also create booking surges. We understand these high-demand periods and can schedule accordingly to maximize your bookings."
+  },
+  {
+    question: "Do you work with property managers in Birmingham?",
+    answer: "Yes! We work with individual hosts, property management companies, and real estate investors managing multiple Birmingham rentals. We offer streamlined communication, consistent quality across all properties, and volume pricing for managers handling multiple units."
+  },
+  {
+    question: "Can you restock supplies and amenities?",
+    answer: "Yes! We can restock toiletries, coffee, snacks, and other amenities you provide for guests. Just supply us with inventory, and we'll ensure everything is fresh and properly arranged for each arrival. We can also notify you when supplies are running low."
+  },
+  {
+    question: "Do you check for damages after guests leave?",
+    answer: "Yes, damage inspection is part of our turnover service. We document any issues we notice—stains, broken items, missing property—and report to you immediately with photos if needed. This helps you address problems quickly and file claims if necessary."
+  },
+  {
+    question: "What if I need last-minute cleaning?",
+    answer: "We understand vacation rental schedules can change unexpectedly. We do our best to accommodate same-day and emergency turnover requests, though availability isn't guaranteed without advance notice. Building a regular schedule with us ensures priority booking for your property."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Airbnb & Vacation Rental Cleaning Birmingham AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12057900049",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Birmingham",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": rentalAreas.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Birmingham, AL`
+  })),
+  "serviceType": "Vacation Rental Turnover Cleaning",
+  "description": "Professional Airbnb and vacation rental turnover cleaning in Birmingham, Alabama. Fast turnovers for Downtown, Southside, and area rentals."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Airbnb Cleaning Birmingham AL | Vacation Rental Turnover | Valley Clean Team"
+  description="Airbnb & vacation rental turnover cleaning in Birmingham, AL. Fast turnovers for Downtown, Southside, Five Points. Maintain 5-star ratings."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-pink-50 border border-pink-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-pink-700 text-sm font-medium">
+              <i class="fas fa-key mr-2"></i>Vacation Rental Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Airbnb & Vacation Rental Cleaning in <span class="gold-gradient">Birmingham, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Birmingham's growing tourism scene—from BJCC events and UAB activities to the food and culture renaissance Downtown—has made short-term rentals a thriving business. Our turnover cleaning service ensures your property is guest-ready fast with the attention to detail that maintains your 5-star rating.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">5-Star Quality</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-clock text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Fast Turnovers</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">1-2 Bedroom</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$85-$150</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">3+ Bedroom</span>
+                <div class="text-2xl font-bold text-[#FFA985]">$125-$225+</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Volume Discounts</span>
+                <div class="text-lg font-semibold text-green-600">Available</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12057900049" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Birmingham's vacation rental cleaning experts</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Birmingham STR -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
+          Why Birmingham is <span class="gold-gradient">Booming for Short-Term Rentals</span>
+        </h2>
+        <div class="prose prose-lg max-w-none text-gray-700">
+          <p class="mb-6">
+            Birmingham's renaissance has made it a destination. BJCC hosts major concerts, conventions, and sporting events. UAB brings students, families, and medical visitors year-round. The city's award-winning food scene, civil rights history, and cultural attractions draw tourists from around the world.
+          </p>
+          <p class="mb-6">
+            Downtown lofts, Southside apartments, Five Points South condos, and even homes in Homewood and Mountain Brook are thriving as short-term rentals. Business travelers, event attendees, and tourists all need somewhere to stay—and they expect hotel-quality cleanliness.
+          </p>
+          <p>
+            Our turnover cleaning ensures your Birmingham rental maintains the 5-star ratings that keep bookings coming. We handle everything from fresh linens to spotless bathrooms so you can focus on growing your rental business.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Turnover Cleaning</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Everything your property needs to welcome the next guest
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Areas -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Popular Birmingham <span class="gold-gradient">Rental Areas</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Serving vacation rentals throughout the metro
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-building text-[#FFA985] mr-2"></i>Downtown & Southside
+          </h3>
+          <p class="text-gray-600 text-sm">Urban lofts and apartments near BJCC, restaurants, and nightlife. High turnover during events and conventions.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-graduation-cap text-[#FFA985] mr-2"></i>Near UAB
+          </h3>
+          <p class="text-gray-600 text-sm">Popular with visiting families, medical travelers, and sports fans. Consistent demand year-round.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-music text-[#FFA985] mr-2"></i>Five Points South
+          </h3>
+          <p class="text-gray-600 text-sm">Walkable entertainment district popular with tourists exploring Birmingham's food and culture scene.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-beer text-[#FFA985] mr-2"></i>Avondale & Lakeview
+          </h3>
+          <p class="text-gray-600 text-sm">Trendy neighborhoods with breweries, restaurants, and local character. Popular with younger travelers.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-home text-[#FFA985] mr-2"></i>Homewood
+          </h3>
+          <p class="text-gray-600 text-sm">Family-friendly neighborhood with shops and restaurants. Attracts families visiting the area.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>All Birmingham Areas
+          </h3>
+          <p class="text-gray-600 text-sm">From Highland Park to Mountain Brook, we service vacation rentals throughout greater Birmingham.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rating Protection -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Protect Your <span class="gold-gradient">5-Star Rating</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-list-check text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Detailed Checklist</h3>
+          <p class="text-gray-600">Every turnover follows our comprehensive checklist. Nothing gets missed—from light switches to shower corners.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-bed text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Hotel-Quality Presentation</h3>
+          <p class="text-gray-600">Crisp linens, neatly folded towels, properly arranged amenities. First impressions that earn 5-star reviews.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-camera text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Documentation</h3>
+          <p class="text-gray-600">Optional photo documentation of completed cleaning and any damage found. Protect yourself and your property.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about vacation rental cleaning in Birmingham
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/birmingham/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Periodic deep clean to maintain your rental property.</p>
+        </a>
+        
+        <a href="/locations/birmingham/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-calendar-check text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
+          </div>
+          <p class="text-gray-600 text-sm">For long-term rental properties or your own home.</p>
+        </a>
+        
+        <a href="/locations/birmingham" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Birmingham Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our services in Birmingham, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Keep Your Birmingham Rental 5-Star Ready
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        From BJCC event weekends to business traveler turnovers, we keep your Birmingham vacation rental guest-ready with fast, thorough turnover cleaning.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12057900049" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>Fast Turnovers | Damage Inspection | Volume Discounts
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

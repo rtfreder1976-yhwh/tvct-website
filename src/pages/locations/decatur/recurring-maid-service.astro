@@ -1,0 +1,447 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Decatur";
+const state = "Alabama";
+const phone = "(256) 856-1006";
+
+// Decatur areas
+const neighborhoods = [
+  "Bank Street Historic District",
+  "Albany Historic District",
+  "Brookmeade",
+  "Point Mallard Area",
+  "Southwest Decatur",
+  "Austin",
+  "Priceville",
+  "Hartselle",
+  "Trinity",
+  "Moulton",
+  "Somerville",
+  "Danville"
+];
+
+// Service frequencies
+const frequencies = [
+  { name: "Weekly", discount: "20% off", description: "Best for busy families, pet owners, and those who love a consistently spotless home." },
+  { name: "Biweekly", discount: "15% off", description: "Our most popular option—perfect balance of clean home and value." },
+  { name: "Monthly", discount: "10% off", description: "Great for maintaining a clean home with lighter touch-ups between visits." }
+];
+
+// What's included
+const includedServices = [
+  "All rooms dusted & tidied",
+  "Furniture surfaces wiped",
+  "Floors vacuumed & mopped",
+  "Kitchen counters & appliances",
+  "Stovetop cleaned",
+  "Sink scrubbed & sanitized",
+  "Bathrooms deep cleaned",
+  "Toilets sanitized",
+  "Mirrors & glass polished",
+  "Trash emptied",
+  "Beds made (linens changed on request)",
+  "General tidying & organization"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does recurring cleaning cost in Decatur?",
+    answer: "Recurring cleaning in Decatur typically starts at $125 per visit, with pricing based on home size and frequency. Weekly clients save 20%, biweekly saves 15%, and monthly saves 10% compared to one-time cleaning rates. Most Decatur homes (1,500-2,500 sq ft) range from $125-$200 per visit. Call (256) 856-1006 for a free quote."
+  },
+  {
+    question: "What areas of Decatur do you serve?",
+    answer: "We serve all of Decatur including Bank Street Historic District, Albany Historic District, Brookmeade, Point Mallard area, Southwest Decatur, and surrounding communities like Austin, Priceville, Hartselle, Trinity, and Moulton."
+  },
+  {
+    question: "Do I need to be home during cleaning?",
+    answer: "No! Most of our Decatur clients provide entry instructions (garage code, lockbox, hidden key) so we can clean while they're at work or running errands. We're fully insured and background-checked for your peace of mind."
+  },
+  {
+    question: "Can I customize what gets cleaned each visit?",
+    answer: "Absolutely! While we follow a comprehensive checklist, we can focus on areas that matter most to you. Need extra kitchen attention? Prefer we skip certain rooms? Just let us know your preferences and we'll customize your service."
+  },
+  {
+    question: "What if I need to skip or reschedule a cleaning?",
+    answer: "Life happens! We ask for 48 hours notice for schedule changes when possible, but we understand emergencies come up. We'll work with you to reschedule at a convenient time."
+  },
+  {
+    question: "Do you bring your own supplies and equipment?",
+    answer: "Yes! We bring all cleaning supplies and equipment. We use professional-grade products that are effective and safe. If you prefer specific products or have sensitivities, just let us know—we offer eco-friendly and fragrance-free options."
+  },
+  {
+    question: "Is there a contract or commitment?",
+    answer: "No long-term contracts! We earn your business with every visit. You can pause, change frequency, or cancel anytime. We believe quality service keeps clients coming back, not legal agreements."
+  },
+  {
+    question: "What's the difference between recurring cleaning and deep cleaning?",
+    answer: "Recurring cleaning maintains your home's cleanliness with regular visits. Deep cleaning is a more intensive, one-time service that addresses built-up grime, inside appliances, baseboards, and areas often missed. We recommend starting with a deep clean, then transitioning to recurring service to maintain that fresh feeling."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Recurring Maid Service Decatur AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568561006",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Decatur",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Decatur, AL`
+  })),
+  "serviceType": "Recurring House Cleaning",
+  "description": "Professional recurring maid service in Decatur, Alabama. Weekly, biweekly, and monthly cleaning for homes throughout Morgan County."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Recurring Maid Service Decatur AL | Weekly, Biweekly Cleaning | Valley Clean Team"
+  description="Professional recurring maid service in Decatur, AL. Weekly, biweekly, monthly house cleaning. Veteran-owned, insured. Save up to 20%."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-blue-700 text-sm font-medium">
+              <i class="fas fa-calendar-check mr-2"></i>Save Up to 20% with Recurring Service
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Recurring Maid Service in <span class="gold-gradient">Decatur, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Come home to clean—every week, every other week, or every month. Our recurring cleaning service keeps your Decatur home consistently spotless while saving you up to 20% compared to one-time cleanings. From Bank Street to Point Mallard, we've got Decatur covered.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Recurring Service From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$125</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Save Up To</span>
+                <div class="text-2xl font-bold text-green-600">20% Off</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Decatur's trusted cleaning team</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frequency Options -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Choose Your <span class="gold-gradient">Cleaning Frequency</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        The more often we clean, the more you save
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {frequencies.map((freq, index) => (
+          <div class={`bg-white rounded-2xl p-6 shadow-lg border-2 ${index === 1 ? 'border-[#FFA985] scale-105' : 'border-gray-100'} relative`}>
+            {index === 1 && (
+              <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span class="bg-[#FFA985] text-white text-sm font-semibold px-4 py-1 rounded-full">Most Popular</span>
+              </div>
+            )}
+            <div class="text-center">
+              <h3 class="text-2xl font-bold text-[#333333] mb-2">{freq.name}</h3>
+              <div class="text-3xl font-bold text-green-600 mb-4">{freq.discount}</div>
+              <p class="text-gray-600">{freq.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        What's Included in <span class="gold-gradient">Every Visit</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Comprehensive cleaning that keeps your Decatur home fresh
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        {includedServices.map((service) => (
+          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+            <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+            <span class="text-gray-700">{service}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Decatur Areas -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Serving All of <span class="gold-gradient">Decatur & Morgan County</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Professional cleaning throughout the Decatur area
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Decatur Families Choose Us -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Why Decatur Families <span class="gold-gradient">Choose Us</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-piggy-bank text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Real Savings</h3>
+          <p class="text-gray-600">Up to 20% off with recurring service. The more often we clean, the less time each visit takes, and we pass those savings to you.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-clock text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Consistent Schedule</h3>
+          <p class="text-gray-600">Same day, same time, same great service. You'll always know when to expect us and come home to a clean house.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-users text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Familiar Team</h3>
+          <p class="text-gray-600">We try to send the same cleaners to your home so they learn your preferences and what matters most to you.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-calendar-alt text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Flexible Scheduling</h3>
+          <p class="text-gray-600">Need to skip a week for vacation? Reschedule for a holiday? No problem—we work with your life.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-file-contract text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">No Contracts</h3>
+          <p class="text-gray-600">Cancel or pause anytime. We earn your business with quality service, not legal agreements.</p>
+        </div>
+        
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-medal text-[#FFA985] text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
+          <p class="text-gray-600">Military discipline and attention to detail in everything we do. Background-checked, $2M insured.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        Common questions about recurring cleaning in Decatur
+      </p>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Related <span class="gold-gradient">Services</span> in Decatur
+      </h2>
+      
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a href="/locations/decatur/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-sparkles text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Start with a deep clean before beginning recurring service.</p>
+        </a>
+        
+        <a href="/locations/decatur/move-out-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-box text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Moving? Get your deposit back with thorough move-out cleaning.</p>
+        </a>
+        
+        <a href="/locations/decatur" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-map-marker-alt text-[#FFA985] text-xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Decatur Services</h3>
+          </div>
+          <p class="text-gray-600 text-sm">Explore all our cleaning services in Decatur, AL.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Come Home to Clean Every Time
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Join hundreds of Decatur families who enjoy a consistently clean home without lifting a finger. Save up to 20% with recurring service.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+      <p class="text-white/80 mt-6">
+        <i class="fas fa-star mr-2"></i>No Contracts | Cancel Anytime | Satisfaction Guaranteed
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

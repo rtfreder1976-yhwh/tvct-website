@@ -1,0 +1,388 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "Huntsville";
+const state = "Alabama";
+const phone = "(256) 826-1100";
+
+// Event types
+const eventTypes = [
+  "Game Day Parties",
+  "Corporate Events",
+  "Holiday Parties",
+  "Birthday Celebrations",
+  "Graduation Parties",
+  "Baby & Bridal Showers",
+  "Anniversary Celebrations",
+  "Retirement Parties",
+  "Fundraisers & Galas",
+  "Open Houses",
+  "Family Reunions",
+  "Watch Parties"
+];
+
+// Huntsville events context
+const localEvents = [
+  "Alabama vs Auburn Watch Parties",
+  "Rocket City Trash Pandas Games",
+  "Panoply Arts Festival Hosting",
+  "Big Spring Jam Events",
+  "NASA & Space Camp Celebrations",
+  "Redstone Arsenal Events",
+  "Research Park Corporate Functions",
+  "Downtown Huntsville Gatherings"
+];
+
+// Pre-event services
+const preEventServices = [
+  "Deep clean all main areas",
+  "Kitchen & bar area prep",
+  "Bathroom deep cleaning",
+  "Floor vacuuming & mopping",
+  "Surface dusting & polishing",
+  "Window & mirror cleaning",
+  "Guest room preparation",
+  "Outdoor patio cleaning",
+  "Trash removal",
+  "Fresh scent throughout"
+];
+
+// Post-event services
+const postEventServices = [
+  "Trash & recyclables removal",
+  "Dish collection & kitchen cleanup",
+  "Spill & stain treatment",
+  "Food debris removal",
+  "Bathroom sanitization",
+  "Floor cleaning (all types)",
+  "Surface wipe-down",
+  "Furniture repositioning",
+  "Outdoor area cleanup",
+  "Next-day deep clean available"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does event cleaning cost in Huntsville?",
+    answer: "Pre-event cleaning typically starts at $200 and post-event cleanup at $150, depending on home size and event scale. Combined packages save 10-15%. For large gatherings like Trash Pandas watch parties or graduation celebrations, we'll provide a custom quote. Call (256) 826-1100."
+  },
+  {
+    question: "How far in advance should I book event cleaning?",
+    answer: "We recommend booking 1-2 weeks ahead, especially during football season, graduation season (May), and holidays. For major Huntsville events like game days or holiday parties, book even earlier. Last-minute requests? Call us—we'll do our best!"
+  },
+  {
+    question: "Do you clean before AND after events?",
+    answer: "Yes! Many clients book both. Pre-event cleaning ensures your home impresses guests, while post-event cleanup means you wake up to a clean house. Combined packages save 10-15%."
+  },
+  {
+    question: "What if my party runs late—can you still come?",
+    answer: "Absolutely! We offer next-morning cleanup for late events. Schedule post-event cleaning for 8 AM, 10 AM, or whenever works for your recovery. No judgment on party duration!"
+  },
+  {
+    question: "Can you handle large game day gatherings?",
+    answer: "Yes! Huntsville loves football—Alabama, Auburn, and now Trash Pandas baseball. We've cleaned after watch parties of 50+ guests. We'll assess the scope and bring the right team."
+  },
+  {
+    question: "Do you clean outdoor areas for events?",
+    answer: "Yes! Patios, decks, porches, and outdoor entertaining spaces are included. Monte Sano mountain views and Hampton Cove backyards deserve to shine for your guests."
+  },
+  {
+    question: "What about corporate events at my home?",
+    answer: "Research Park professionals often host colleagues at home. We provide executive-level cleaning that impresses—discreet, thorough, and professional. Your reputation stays spotless."
+  },
+  {
+    question: "Can you handle red wine and food stains?",
+    answer: "We treat common party stains—red wine, food spills, grease marks. For severe carpet stains, we may recommend professional carpet cleaning, but we'll get the rest of your home spotless."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Event Cleaning Huntsville AL",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+12568261100"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Huntsville",
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Alabama"
+    }
+  },
+  "serviceType": "Event Cleaning",
+  "description": "Pre-event and post-party cleaning in Huntsville AL. Game days, corporate events, celebrations. Veteran-owned."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Event Cleaning Huntsville AL | Pre-Party & Post-Event Cleanup | Valley Clean Team"
+  description="Event cleaning in Huntsville AL. Pre-party prep & post-event cleanup. Game days, corporate events, celebrations. Veteran-owned. Call (256) 826-1100"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-purple-50 border border-purple-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-purple-700 text-sm font-medium">
+              <i class="fas fa-glass-cheers mr-2"></i>Celebrate Without the Stress
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Event Cleaning in <span class="gold-gradient">Huntsville, AL</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            From Alabama game day watch parties to graduation celebrations, Huntsville knows how to host. Let us handle the cleaning so you can focus on your guests. Pre-event prep gets your home guest-ready. Post-event cleanup means you wake up to a spotless house—not last night's mess.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-broom text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Pre-Event Prep</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-sunrise text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Post-Party Cleanup</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-piggy-bank text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Bundle & Save 10-15%</span>
+            </div>
+          </div>
+
+          <!-- Pricing -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 mb-6">
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <span class="text-sm text-gray-600">Pre-Event Cleaning</span>
+                <div class="text-2xl font-bold text-[#333333]">From $200</div>
+              </div>
+              <div>
+                <span class="text-sm text-gray-600">Post-Event Cleanup</span>
+                <div class="text-2xl font-bold text-[#333333]">From $150</div>
+              </div>
+            </div>
+            <div class="text-center mt-3 pt-3 border-t border-gray-100">
+              <span class="text-[#FFA985] font-semibold">Book Both & Save 10-15%</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Book Event Cleaning
+            </a>
+            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Book Your Event Cleaning</h2>
+          <p class="text-gray-600 text-center mb-6">Pre-party prep or post-event rescue</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Huntsville Events Context -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Cleaning for <span class="gold-gradient">Rocket City Events</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+        Huntsville celebrates big—from SEC football rivalries to Trash Pandas games, from Research Park networking events to backyard graduations. We've got your cleaning covered.
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {localEvents.map((event) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-star text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{event}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre-Event vs Post-Event -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        <!-- Pre-Event -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] p-6 text-white text-center">
+            <i class="fas fa-broom text-4xl mb-3"></i>
+            <h3 class="text-2xl font-bold">Pre-Event Cleaning</h3>
+            <p class="text-white/90">Impress your guests from the moment they arrive</p>
+            <div class="text-3xl font-bold mt-2">From $200</div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-600 mb-4">Schedule 1-2 days before your event. We'll make every room guest-ready:</p>
+            <ul class="space-y-2">
+              {preEventServices.map((service) => (
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-3 flex-shrink-0"></i>
+                  <span class="text-gray-700">{service}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Post-Event -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6 text-white text-center">
+            <i class="fas fa-sunrise text-4xl mb-3"></i>
+            <h3 class="text-2xl font-bold">Post-Event Cleanup</h3>
+            <p class="text-white/90">Wake up to a clean house, not last night's mess</p>
+            <div class="text-3xl font-bold mt-2">From $150</div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-600 mb-4">Schedule for the morning after. We'll restore order:</p>
+            <ul class="space-y-2">
+              {postEventServices.map((service) => (
+                <li class="flex items-center">
+                  <i class="fas fa-check text-green-500 mr-3 flex-shrink-0"></i>
+                  <span class="text-gray-700">{service}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bundle CTA -->
+      <div class="text-center mt-8">
+        <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 border border-[#FFA985]/30">
+          <i class="fas fa-piggy-bank text-[#FFA985] text-2xl mb-2"></i>
+          <p class="text-xl font-bold text-[#333333]">Book Both Services & Save 10-15%</p>
+          <p class="text-gray-600">The stress-free hosting package</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Types -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Events We <span class="gold-gradient">Clean For</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From intimate gatherings to large celebrations
+      </p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+        {eventTypes.map((eventType) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-check-circle text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{eventType}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Host the Party. Skip the Cleanup.
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        You deserve to enjoy your event—and the day after. Let us handle the mess.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Book Event Cleaning
+        </a>
+        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>

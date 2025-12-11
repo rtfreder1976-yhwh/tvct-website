@@ -1,0 +1,363 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+
+const city = "West Nashville";
+const state = "Tennessee";
+const phone = "(615) 961-0028";
+
+// West Nashville neighborhoods
+const neighborhoods = [
+  "Belle Meade",
+  "Sylvan Park",
+  "The Nations",
+  "West Meade",
+  "Charlotte Park",
+  "Sylvan Heights",
+  "Cherokee Park",
+  "Richland Park",
+  "White Bridge",
+  "Hillwood",
+  "West End",
+  "Green Hills"
+];
+
+// Event types
+const eventTypes = [
+  { name: "House Parties", icon: "fa-glass-cheers", description: "Dinner parties, cocktail parties, birthday celebrations" },
+  { name: "Holiday Entertaining", icon: "fa-holly-berry", description: "Thanksgiving, Christmas, New Year's Eve gatherings" },
+  { name: "Music Industry Events", icon: "fa-music", description: "Album release parties, songwriter rounds, listening sessions" },
+  { name: "Weddings & Receptions", icon: "fa-heart", description: "Home weddings, rehearsal dinners, bridal showers" },
+  { name: "Real Estate Open Houses", icon: "fa-home", description: "Get Belle Meade listings show-ready" },
+  { name: "Game Day Parties", icon: "fa-football-ball", description: "Titans, Predators, Vanderbilt watch parties" }
+];
+
+// Pre-event services
+const preEventServices = [
+  "Deep clean living areas",
+  "Kitchen & bathrooms detailed",
+  "Floors vacuumed & mopped",
+  "All surfaces dusted & wiped",
+  "Windows & glass polished",
+  "Guest bathrooms prepared",
+  "Outdoor entertaining areas",
+  "Entryways & foyers cleaned"
+];
+
+// Post-event services
+const postEventServices = [
+  "Trash & recycling removed",
+  "Dishes washed & put away",
+  "Spills & stains addressed",
+  "Furniture returned to place",
+  "Floors cleaned thoroughly",
+  "Bathrooms sanitized",
+  "Kitchen restored",
+  "Home returned to pre-party state"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does event cleaning cost in West Nashville?",
+    answer: "Pre-event cleaning typically ranges $200-$400 depending on home size. Post-event cleaning ranges $150-$350 depending on the scope. Combined packages save 10-15%. Belle Meade estates receive custom quotes. Call (615) 961-0028 for pricing."
+  },
+  {
+    question: "How far in advance should I book pre-event cleaning?",
+    answer: "We recommend booking 1-2 weeks ahead for pre-event cleaning, especially during holiday seasons. For post-event cleaning, book when you schedule your event so we can reserve your preferred time slot."
+  },
+  {
+    question: "Do you offer both pre-event and post-event packages?",
+    answer: "Yes! Many clients book both services. We'll prepare your home before guests arrive, then return after to handle cleanup. Combined packages save 10-15%."
+  },
+  {
+    question: "Can you clean Belle Meade estates for events?",
+    answer: "Absolutely! We specialize in preparing West Nashville's finest homes for entertaining. From intimate dinner parties to large gatherings, we understand the standards Belle Meade hosts expect."
+  },
+  {
+    question: "Do you clean for real estate open houses?",
+    answer: "Yes! A professionally cleaned home makes a powerful impression on buyers. We help West Nashville agents showcase properties at their best, from Belle Meade estates to Sylvan Park bungalows."
+  },
+  {
+    question: "How quickly can you clean after an event?",
+    answer: "We can often come the morning after your event or even late the same evening for smaller gatherings. Let us know your timeline and we'll accommodate."
+  },
+  {
+    question: "Do you clean outdoor entertaining spaces?",
+    answer: "Yes! Patios, decks, porches, and outdoor kitchens are included in our event cleaning. West Nashville's beautiful weather means outdoor entertaining is popular year-round."
+  },
+  {
+    question: "Can you handle game day party cleanup?",
+    answer: "Absolutely! Titans games, Predators watch parties, Vanderbilt tailgates—we've seen it all. We'll restore your home after even the most enthusiastic celebrations."
+  }
+];
+
+// Schema markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Event Cleaning West Nashville TN",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "+16159610028"
+  },
+  "areaServed": neighborhoods.map(n => ({
+    "@type": "Place",
+    "name": `${n}, Nashville, TN`
+  })),
+  "serviceType": "Event Cleaning",
+  "description": "Professional pre-event and post-event cleaning in West Nashville. Party prep, holiday entertaining, open houses. Belle Meade, Sylvan Park, The Nations."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Event Cleaning West Nashville TN | Party Prep & Cleanup | Valley Clean Team"
+  description="Professional event cleaning in West Nashville. Pre-event prep, post-party cleanup. Belle Meade, Sylvan Park, The Nations. Call (615) 961-0028"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-purple-50 border border-purple-200 px-4 py-2 rounded-full mb-4">
+            <span class="text-purple-700 text-sm font-medium">
+              <i class="fas fa-glass-cheers mr-2"></i>Party Prep & Post-Event Cleanup
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
+            Event Cleaning in <span class="gold-gradient">West Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Host with confidence and wake up to a clean home. Our event cleaning service handles the before and after—so you can focus on your guests. Whether it's a Belle Meade dinner party, a Nations house concert, or holiday entertaining, we make hosting stress-free.
+          </p>
+          
+          <!-- Trust Badges -->
+          <div class="flex flex-wrap gap-3 mb-6">
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-medal text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-shield-alt text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+            </div>
+            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
+              <i class="fas fa-star text-[#FFA985] mr-2"></i>
+              <span class="text-sm font-semibold text-gray-700">130+ 5-Star Reviews</span>
+            </div>
+          </div>
+
+          <!-- Price -->
+          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
+            <div class="flex items-center gap-4">
+              <div>
+                <span class="text-sm text-gray-600">Pre-Event From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">$200</div>
+              </div>
+              <div class="text-gray-300">|</div>
+              <div>
+                <span class="text-sm text-gray-600">Post-Event From</span>
+                <div class="text-2xl font-bold text-gray-700">$150</div>
+              </div>
+            </div>
+            <p class="text-sm text-green-600 mt-2"><i class="fas fa-tag mr-1"></i>Combined packages save 10-15%</p>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
+              <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+            </a>
+            <a href="tel:+16159610028" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+              <i class="fas fa-phone mr-2"></i>{phone}
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+          <p class="text-gray-600 text-center mb-6">Event cleaning specialists</p>
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
+            style="width:100%; height:400px; border:none; border-radius:3px"
+            id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="TVCT Quote Request"
+            data-height="400"
+            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
+            data-form-id="X00JsI4NjCZNHEAEqcXj"
+            title="TVCT Quote Request"
+          ></iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Types -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
+        Events We <span class="gold-gradient">Support</span>
+      </h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+        From intimate gatherings to major celebrations
+      </p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {eventTypes.map((event) => (
+          <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
+              <i class={`fas ${event.icon} text-[#FFA985] text-xl`}></i>
+            </div>
+            <h3 class="text-lg font-bold text-[#333333] mb-2">{event.name}</h3>
+            <p class="text-gray-600 text-sm">{event.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre & Post Event Services -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <!-- Pre-Event -->
+        <div>
+          <h2 class="text-2xl font-bold text-[#333333] mb-6 flex items-center">
+            <span class="w-10 h-10 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-sparkles text-white"></i>
+            </span>
+            Pre-Event Cleaning
+          </h2>
+          <p class="text-gray-600 mb-6">Get your home guest-ready before the party starts</p>
+          <div class="space-y-3">
+            {preEventServices.map((service) => (
+              <div class="flex items-center bg-white rounded-lg p-3 shadow-sm border border-gray-100">
+                <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+                <span class="text-gray-700">{service}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <!-- Post-Event -->
+        <div>
+          <h2 class="text-2xl font-bold text-[#333333] mb-6 flex items-center">
+            <span class="w-10 h-10 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mr-3">
+              <i class="fas fa-broom text-white"></i>
+            </span>
+            Post-Event Cleanup
+          </h2>
+          <p class="text-gray-600 mb-6">Wake up to a clean home after the celebration</p>
+          <div class="space-y-3">
+            {postEventServices.map((service) => (
+              <div class="flex items-center bg-white rounded-lg p-3 shadow-sm border border-gray-100">
+                <i class="fas fa-check-circle text-green-500 mr-3 flex-shrink-0"></i>
+                <span class="text-gray-700">{service}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas Served -->
+  <section class="py-16 bg-gray-50 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Event Cleaning Throughout <span class="gold-gradient">West Nashville</span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {neighborhoods.map((neighborhood) => (
+          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
+            <i class="fas fa-map-marker-alt text-[#FFA985] mr-2"></i>
+            <span class="text-gray-700 font-medium">{neighborhood}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
+        Frequently Asked <span class="gold-gradient">Questions</span>
+      </h2>
+      
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
+              <i class="fas fa-chevron-down text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0"></i>
+            </summary>
+            <div class="px-6 pb-6 text-gray-600">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+        Host Without the Hassle
+      </h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        We handle the before and after—you focus on your guests.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
+          <i class="fas fa-calendar-check mr-2"></i>Get Free Quote
+        </a>
+        <a href="tel:+16159610028" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+          <i class="fas fa-phone mr-2"></i>{phone}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .gold-gradient {
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+</style>
