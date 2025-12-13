@@ -460,12 +460,6 @@ const localSchema = city ? (() => {
     "parentOrganization": {
       "@id": "https://thevalleycleanteam.com/#organization"
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "130",
-      "bestRating": "5"
-    },
     "review": [
       {
         "@type": "Review",
@@ -835,7 +829,6 @@ const schemaToUse = type === 'local' && city ? localSchema : (type === 'article'
 {type === 'article' && articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
 {type !== 'article' && <script type="application/ld+json" set:html={JSON.stringify(schemaToUse)} />}
 {serviceSchema && <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />}
-{type === 'local' && city && <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />}
 {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
 {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
 {howToSchema && <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />}
