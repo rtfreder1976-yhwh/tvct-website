@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/404'),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft'),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),

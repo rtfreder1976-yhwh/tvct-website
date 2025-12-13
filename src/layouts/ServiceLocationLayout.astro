@@ -30,89 +30,85 @@ const { title, description, service, serviceSlug, city, state, citySlug, service
 // Get service-specific testimonials
 const serviceTestimonials = getTestimonialsByService(serviceSlug);
 
-// Related services mapping - each service links to 2-3 related services
+// Related services mapping - each service links to 2 related services
+// ONLY use deep-cleaning and move-out-cleaning as they exist in ALL locations
 const relatedServicesMap: Record<string, Array<{slug: string, name: string, description: string}>> = {
   'deep-cleaning': [
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Thorough cleaning for moving' },
-    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'Remove construction dust' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Weekly or biweekly cleaning' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Thorough cleaning for moving' }
   ],
   'move-out-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' },
-    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'New home cleanup' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent cleaning needs' }
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' }
   ],
   'recurring-maid-service': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Start fresh before recurring' },
-    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Save 20% with weekly' },
-    { slug: 'biweekly-cleaning', name: 'Biweekly Cleaning', description: 'Every two weeks' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
   ],
   'weekly-cleaning': [
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'All frequency options' },
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
-    { slug: 'biweekly-cleaning', name: 'Biweekly Cleaning', description: 'Every two weeks option' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
   ],
   'biweekly-cleaning': [
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'All frequency options' },
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
-    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Weekly option' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
   ],
   'airbnb-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Between long-term guests' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Last-minute turnovers' },
     { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'End of rental cleaning' }
   ],
   'same-day-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough urgent cleaning' },
-    { slug: 'airbnb-cleaning', name: 'Airbnb Cleaning', description: 'Guest turnovers' },
     { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Urgent move cleaning' }
   ],
   'post-construction-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Follow-up deep clean' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After renovation' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Ongoing maintenance' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After renovation' }
   ],
   'senior-cleaning': [
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular scheduled visits' },
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough home cleaning' },
-    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Consistent weekly help' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Downsizing assistance' }
   ],
   'office-cleaning': [
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Full business cleaning' },
-    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'New office cleanup' },
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'One-time office deep clean' }
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'One-time office deep clean' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After office move' }
   ],
   'commercial-cleaning': [
-    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
-    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare facilities' },
-    { slug: 'retail-cleaning', name: 'Retail Cleaning', description: 'Store cleaning' }
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough one-time cleaning' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Commercial move cleaning' }
   ],
   'medical-office-cleaning': [
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'General business' },
-    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough sanitization' }
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough sanitization' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Practice relocation' }
   ],
   'house-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough house cleaning' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Scheduled cleaning' },
     { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
   ],
   'restaurant-cleaning': [
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough kitchen cleaning' },
-    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'After remodel' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Restaurant closing' }
   ],
   'retail-cleaning': [
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
-    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Office spaces' },
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough store cleaning' }
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough store cleaning' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Store closing' }
+  ],
+  'event-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough cleaning' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Post-event cleanup' }
+  ],
+  'green-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough eco cleaning' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+  ],
+  'dental-office-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough sanitization' },
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Practice relocation' }
   ]
 };
 
 // Get related services for current service, default to common ones if not mapped
+// Default uses only pages that exist in ALL locations (deep-cleaning and move-out-cleaning)
 const relatedServices = relatedServicesMap[serviceSlug] || [
   { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' },
-  { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Scheduled cleaning' },
   { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
 ];
 
