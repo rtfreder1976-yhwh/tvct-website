@@ -1,15 +1,19 @@
 /**
  * IndexNow Batch Submission Script
  * Submits all site URLs to IndexNow for faster indexing
- * 
+ *
  * Usage: node scripts/indexnow-submit.js
- * 
+ *
  * Run after deployment to notify search engines of new/updated pages
  */
 
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const CONFIG = {
@@ -19,6 +23,9 @@ const CONFIG = {
   searchEngine: 'api.indexnow.org', // Also works: www.bing.com, yandex.com
 };
 
+// Directories to exclude from submission
+const EXCLUDED_DIRS = ['Draft Blog Posts'];
+
 // Collect all .astro pages from src/pages
 function collectPages(dir, baseRoute = '') {
   const pages = [];
@@ -26,8 +33,12 @@ function collectPages(dir, baseRoute = '') {
 
   for (const item of items) {
     const fullPath = path.join(dir, item.name);
-    
+
     if (item.isDirectory()) {
+      // Skip excluded directories
+      if (EXCLUDED_DIRS.includes(item.name)) {
+        continue;
+      }
       // Recurse into subdirectories
       pages.push(...collectPages(fullPath, `${baseRoute}/${item.name}`));
     } else if (item.name.endsWith('.astro')) {
@@ -51,7 +62,7 @@ async function submitToIndexNow(urls) {
     host: CONFIG.siteUrl.replace('https://', ''),
     key: CONFIG.apiKey,
     keyLocation: CONFIG.keyLocation,
-    urlList: urls.map(url => `${CONFIG.siteUrl}${url}/`)
+    urlList: urls.map(url => `${CONFIG.siteUrl}${url === '/' ? '' : url}`)
   });
 
   const options = {
@@ -98,41 +109,41 @@ function getStatusMessage(code) {
 
 // Main execution
 async function main() {
-  console.log('🔍 IndexNow Batch Submission');
+  console.log('IndexNow Batch Submission');
   console.log('============================\n');
 
   // Collect pages
   const pagesDir = path.join(__dirname, '..', 'src', 'pages');
   const pages = collectPages(pagesDir);
-  
-  console.log(`📄 Found ${pages.length} pages to submit\n`);
+
+  console.log(`Found ${pages.length} pages to submit\n`);
 
   // IndexNow allows up to 10,000 URLs per request, but let's batch by 100
   const batchSize = 100;
   const batches = [];
-  
+
   for (let i = 0; i < pages.length; i += batchSize) {
     batches.push(pages.slice(i, i + batchSize));
   }
 
-  console.log(`📦 Split into ${batches.length} batch(es)\n`);
+  console.log(`Split into ${batches.length} batch(es)\n`);
 
   // Submit each batch
   for (let i = 0; i < batches.length; i++) {
     const batch = batches[i];
     console.log(`Submitting batch ${i + 1}/${batches.length} (${batch.length} URLs)...`);
-    
+
     try {
       const result = await submitToIndexNow(batch);
       console.log(`   Status: ${result.statusCode} - ${result.message}`);
-      
+
       if (result.statusCode === 200 || result.statusCode === 202) {
-        console.log(`   ✅ Success!\n`);
+        console.log(`   Success!\n`);
       } else {
-        console.log(`   ⚠️ Issue detected. Response: ${result.data}\n`);
+        console.log(`   Issue detected. Response: ${result.data}\n`);
       }
     } catch (error) {
-      console.log(`   ❌ Error: ${error.message}\n`);
+      console.log(`   Error: ${error.message}\n`);
     }
 
     // Small delay between batches
@@ -142,13 +153,16 @@ async function main() {
   }
 
   console.log('============================');
-  console.log('✅ Submission complete!\n');
-  
-  // List all submitted URLs
-  console.log('📋 URLs submitted:');
-  pages.forEach(page => {
-    console.log(`   ${CONFIG.siteUrl}${page}/`);
+  console.log('Submission complete!\n');
+
+  // List first 20 URLs submitted
+  console.log('Sample URLs submitted:');
+  pages.slice(0, 20).forEach(page => {
+    console.log(`   ${CONFIG.siteUrl}${page === '/' ? '' : page}`);
   });
+  if (pages.length > 20) {
+    console.log(`   ... and ${pages.length - 20} more`);
+  }
 }
 
 main().catch(console.error);
