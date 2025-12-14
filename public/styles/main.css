@@ -1,0 +1,284 @@
+/* Main Stylesheet - Non-Critical CSS
+ * These styles are loaded asynchronously to improve initial page load
+ * Critical CSS remains inlined in BaseLayout.astro
+ */
+
+/* ==========================================================================
+   Gradients & Visual Effects
+   ========================================================================== */
+
+.gold-gradient {
+  background: linear-gradient(135deg, #FFA985 0%, #FF8C61 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cta-gradient {
+  background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+}
+
+/* ==========================================================================
+   Cards & Interactive Components
+   ========================================================================== */
+
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+}
+
+.stat-number {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #FFA985;
+}
+
+.btn-secondary {
+  border: 2px solid #FFA985;
+  color: #FFA985;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  background: #FFA985;
+  color: #333333;
+}
+
+.testimonial-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+/* ==========================================================================
+   FAQ Accordion
+   ========================================================================== */
+
+.faq-item {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 500px;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-icon {
+  transition: transform 0.3s ease;
+}
+
+/* ==========================================================================
+   Sticky CTA & Contact Cards
+   ========================================================================== */
+
+.sticky-cta {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 40;
+  animation: pulse-subtle 2s infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@media (min-width: 768px) {
+  .sticky-cta { display: none; }
+}
+
+.contact-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+  transform: translateY(-5px);
+}
+
+/* ==========================================================================
+   Location & Neighborhood Badges
+   ========================================================================== */
+
+.neighborhood-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: #4b5563;
+  transition: all 0.2s ease;
+}
+
+.neighborhood-badge:hover {
+  background: #FFA985;
+  color: #333333;
+}
+
+.value-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+}
+
+/* ==========================================================================
+   Feature Lists
+   ========================================================================== */
+
+.feature-list li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-list li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  color: #FFA985;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   Blog Cards & Categories
+   ========================================================================== */
+
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(255, 169, 133, 0.15);
+}
+
+.category-tag {
+  background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: inline-block;
+}
+
+.sidebar-widget {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+   Accessibility & Performance
+   ========================================================================== */
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch-friendly tap targets for mobile */
+@media (max-width: 768px) {
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Optimize text rendering on mobile */
+  body {
+    text-rendering: optimizeSpeed;
+  }
+
+  /* Improve mobile scroll performance */
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Reduce padding on mobile for better viewport usage */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Optimize grid gap on mobile */
+  .gap-8 {
+    gap: 1.5rem;
+  }
+
+  /* Faster transitions on mobile */
+  .service-card, .btn-primary, .btn-secondary {
+    transition-duration: 0.15s;
+  }
+}
+
+/* Optimize paint performance */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Content visibility for below-fold sections */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* ==========================================================================
+   Screen Reader Only (for skip links)
+   ========================================================================== */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only:focus,
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}

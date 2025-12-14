@@ -23,9 +23,34 @@ interface Props {
     question: string;
     answer: string;
   }>;
+  // NEW: Extended content props for better text-to-HTML ratio
+  localContext?: string[]; // Array of paragraphs about local context
+  neighborhoodsServed?: Array<{name: string; zipCodes?: string[]}>; // Neighborhoods with zip codes
+  whyChooseContent?: string[]; // Extended why choose us paragraphs
+  serviceHighlights?: string[]; // Additional service highlights/features
+  countyName?: string; // County name for local SEO
 }
 
-const { title, description, service, serviceSlug, city, state, citySlug, serviceDescription, benefits, includes, price, neighborhoods = [], faqs } = Astro.props;
+const {
+  title,
+  description,
+  service,
+  serviceSlug,
+  city,
+  state,
+  citySlug,
+  serviceDescription,
+  benefits,
+  includes,
+  price,
+  neighborhoods = [],
+  faqs,
+  localContext = [],
+  neighborhoodsServed = [],
+  whyChooseContent = [],
+  serviceHighlights = [],
+  countyName = ''
+} = Astro.props;
 
 // Get service-specific testimonials
 const serviceTestimonials = getTestimonialsByService(serviceSlug);
@@ -454,6 +479,63 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- Local Context Section - SEO-rich content about the local area -->
+  {localContext.length > 0 && (
+    <section class="py-16 px-6 bg-white">
+      <div class="container mx-auto max-w-4xl">
+        <h2 class="text-3xl font-bold mb-6 text-[#333333] text-center">
+          {service} Services for {city}{countyName ? `, ${countyName}` : ''} Residents
+        </h2>
+        <div class="section-divider"></div>
+        <div class="prose prose-lg max-w-none text-gray-700 space-y-4 mt-8">
+          {localContext.map((paragraph) => (
+            <p class="text-gray-700 leading-relaxed">{paragraph}</p>
+          ))}
+        </div>
+        {serviceHighlights.length > 0 && (
+          <div class="mt-8 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5 rounded-xl p-6 border border-[#FFA985]/20">
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">What Sets Our {city} {service} Apart</h3>
+            <ul class="grid md:grid-cols-2 gap-3">
+              {serviceHighlights.map((highlight) => (
+                <li class="flex items-start">
+                  <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                  <span class="text-gray-700">{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- Neighborhoods Served Section -->
+  {neighborhoodsServed.length > 0 && (
+    <section class="py-12 px-6 bg-gray-50">
+      <div class="container mx-auto max-w-4xl">
+        <h2 class="text-2xl font-bold mb-6 text-[#333333] text-center">
+          Areas We Serve for {service} Near {city}
+        </h2>
+        <p class="text-center text-gray-600 mb-8">
+          Our {service.toLowerCase()} team proudly serves {city} and these surrounding communities{countyName ? ` in ${countyName}` : ''}:
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          {neighborhoodsServed.map((area) => (
+            <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+              <h3 class="font-semibold text-[#333333] mb-1">{area.name}</h3>
+              {area.zipCodes && area.zipCodes.length > 0 && (
+                <p class="text-sm text-gray-500">ZIP: {area.zipCodes.join(', ')}</p>
+              )}
+            </div>
+          ))}
+        </div>
+        <p class="text-center text-gray-600 mt-6 text-sm">
+          Don't see your neighborhood? Call us at <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> — we likely serve your area too!
+        </p>
+      </div>
+    </section>
+  )}
+
   <!-- About This Service -->
   <section class="py-16 px-6">
     <div class="container mx-auto max-w-5xl">
@@ -462,15 +544,23 @@ const faqSchema = {
           <h2 class="text-3xl font-bold mb-6 text-[#333333]">
             About Our {service} in {city}
           </h2>
-          <p class="text-gray-700 mb-4">
-            The Valley Clean Team provides professional {service.toLowerCase()} throughout {city}, {state} and surrounding areas. Our trained cleaning specialists understand the unique needs of local homeowners, delivering consistent quality that exceeds expectations every time.
-          </p>
-          <p class="text-gray-700 mb-4">
-            We use professional-grade equipment and eco-friendly products that are safe for your family, pets, and the environment. Our {city} team is fully insured with $2 million in liability coverage, background-checked, and committed to treating your home with the respect it deserves.
-          </p>
-          <p class="text-gray-700">
-            As a veteran-owned business, we bring military precision and attention to detail to every job. Whether you're a busy professional, a growing family, or simply want more time to enjoy life, our {service.toLowerCase()} is designed to give you back the gift of a clean home without the hassle.
-          </p>
+          {whyChooseContent.length > 0 ? (
+            whyChooseContent.map((paragraph) => (
+              <p class="text-gray-700 mb-4">{paragraph}</p>
+            ))
+          ) : (
+            <>
+              <p class="text-gray-700 mb-4">
+                The Valley Clean Team provides professional {service.toLowerCase()} throughout {city}, {state} and surrounding areas. Our trained cleaning specialists understand the unique needs of local homeowners, delivering consistent quality that exceeds expectations every time.
+              </p>
+              <p class="text-gray-700 mb-4">
+                We use professional-grade equipment and eco-friendly products that are safe for your family, pets, and the environment. Our {city} team is fully insured with $2 million in liability coverage, background-checked, and committed to treating your home with the respect it deserves.
+              </p>
+              <p class="text-gray-700">
+                As a veteran-owned business, we bring military precision and attention to detail to every job. Whether you're a busy professional, a growing family, or simply want more time to enjoy life, our {service.toLowerCase()} is designed to give you back the gift of a clean home without the hassle.
+              </p>
+            </>
+          )}
         </div>
         <div class="bg-white rounded-2xl p-8 shadow-lg">
           <h3 class="text-xl font-bold mb-6 text-[#333333]">Our {city} Service Guarantee</h3>
