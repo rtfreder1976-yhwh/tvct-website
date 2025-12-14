@@ -514,13 +514,13 @@ const serviceSchema = {
       const messageDiv = document.getElementById('cherokee-bend-form-message');
       const form = e.target as HTMLFormElement;
       const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_frequency') as HTMLSelectElement)?.value || '',
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value | '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value | '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value | '',
+        service: (form.elements.namedItem('service_frequency') as HTMLSelectElement)?.value | '',
         location: 'Cherokee Bend - Mountain Brook',
-        home_size: (form.elements.namedItem('property_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        home_size: (form.elements.namedItem('property_size') as HTMLSelectElement)?.value | '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value | '',
         source: 'Cherokee Bend Landing Page',
         page_url: window.location.href
       };
@@ -544,7 +544,7 @@ const serviceSchema = {
           }
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         if (messageDiv) {

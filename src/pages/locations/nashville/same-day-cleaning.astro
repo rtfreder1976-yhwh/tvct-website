@@ -393,12 +393,12 @@ const faqSchema = {
       const messageDiv = document.getElementById('same-day-form-message');
       const form = e.target;
       const formData = {
-        name: form.name?.value || '',
-        phone: form.phone?.value || '',
+        name: form.name?.value | '',
+        phone: form.phone?.value | '',
         service: 'Same-Day Cleaning',
-        location: form.location?.value || '',
-        urgency_reason: form.urgency_reason?.value || '',
-        timeline: form.timeline?.value || '',
+        location: form.location?.value | '',
+        urgency_reason: form.urgency_reason?.value | '',
+        timeline: form.timeline?.value | '',
         source: 'Nashville Same-Day Cleaning Page',
         page_url: window.location.href
       };
@@ -418,7 +418,7 @@ const faqSchema = {
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

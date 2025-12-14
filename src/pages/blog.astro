@@ -451,7 +451,7 @@ const categoryColors: Record<string, string> = {
 
         blogCards.forEach((card) => {
           const cardCategory = card.getAttribute('data-category');
-          if (category === 'all' || cardCategory === category) {
+          if (category === 'all' | cardCategory === category) {
             card.classList.remove('hidden');
             visibleCount++;
           } else {
@@ -473,7 +473,7 @@ const categoryColors: Record<string, string> = {
         } else {
           filterIndicator?.classList.remove('hidden');
           const activeBtn = document.querySelector(`[data-filter="${category}"]`);
-          const label = activeBtn?.querySelector('span span')?.textContent || category;
+          const label = activeBtn?.querySelector('span span')?.textContent | category;
           if (activeFilterName) activeFilterName.textContent = label;
           if (filterCount) filterCount.textContent = `(${visibleCount} posts)`;
         }
@@ -491,7 +491,7 @@ const categoryColors: Record<string, string> = {
       // Add click handlers to filter buttons
       filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          const category = btn.getAttribute('data-filter') || 'all';
+          const category = btn.getAttribute('data-filter') | 'all';
           filterPosts(category);
         });
       });
@@ -511,7 +511,7 @@ const categoryColors: Record<string, string> = {
       const form = e.target as HTMLFormElement;
 
       const formData = {
-        email: (form.email as HTMLInputElement)?.value || '',
+        email: (form.email as HTMLInputElement)?.value | '',
         source: 'Blog Newsletter Subscription',
         page_url: window.location.href
       };
@@ -537,7 +537,7 @@ const categoryColors: Record<string, string> = {
           }
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         if (messageDiv) {

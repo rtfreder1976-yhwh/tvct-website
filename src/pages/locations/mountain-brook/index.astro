@@ -95,7 +95,7 @@ const testimonials = birminghamTestimonials.map(t => ({
 ---
 
 <BaseLayout
-  title="Mountain Brook Cleaning Services | Luxury Home"
+  title="Mountain Brook Cleaning Services"
   description="Premium cleaning services for Mountain Brook AL estates. Serving Cherokee Bend, English Village & Crestline. Veteran-owned, $2M insured, 130+ 5-star reviews."
   ogImage={geoData.image}
   geoRegion={geoData.region}
@@ -791,13 +791,13 @@ const testimonials = birminghamTestimonials.map(t => ({
       const form = e.target;
 
       const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        state: form.state?.value || '',
+        name: form.name?.value | '',
+        email: form.email?.value | '',
+        phone: form.phone?.value | '',
+        service: form.service?.value | '',
+        location: form.location?.value | '',
+        city: form.city?.value | '',
+        state: form.state?.value | '',
         source: 'Location Page - Mountain Brook',
         page_url: window.location.href
       };
@@ -819,7 +819,7 @@ const testimonials = birminghamTestimonials.map(t => ({
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
@@ -828,7 +828,7 @@ const testimonials = birminghamTestimonials.map(t => ({
       }
 
       submitBtn.disabled = false;
-      submitBtn.textContent = submitBtn.dataset.originalText || 'Get My Free Quote';
+      submitBtn.textContent = submitBtn.dataset.originalText | 'Get My Free Quote';
     });
 
     // Store original button text

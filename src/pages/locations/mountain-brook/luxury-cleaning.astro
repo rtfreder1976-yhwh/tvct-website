@@ -482,13 +482,13 @@ const faqSchema = {
       const messageDiv = document.getElementById('luxury-cleaning-form-message');
       const form = e.target;
       const formData = {
-        name: form.name?.value || '',
-        phone: form.phone?.value || '',
-        email: form.email?.value || '',
+        name: form.name?.value | '',
+        phone: form.phone?.value | '',
+        email: form.email?.value | '',
         service: 'Luxury Home Cleaning',
-        location: form.neighborhood?.value || '',
-        home_size: form.home_size?.value || '',
-        message: form.message?.value || '',
+        location: form.neighborhood?.value | '',
+        home_size: form.home_size?.value | '',
+        message: form.message?.value | '',
         source: 'Mountain Brook Luxury Cleaning Page',
         page_url: window.location.href
       };
@@ -508,7 +508,7 @@ const faqSchema = {
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

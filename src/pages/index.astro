@@ -455,12 +455,12 @@ import Icon from '../components/Icon.astro';
   <script>
     async function handleFormSubmit(form: HTMLFormElement, submitBtn: HTMLButtonElement, messageDiv: HTMLElement, sourceName: string) {
       const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service') as HTMLSelectElement)?.value || '',
-        preferred_date: (form.elements.namedItem('preferred_date') as HTMLInputElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value | '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value | '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value | '',
+        service: (form.elements.namedItem('service') as HTMLSelectElement)?.value | '',
+        preferred_date: (form.elements.namedItem('preferred_date') as HTMLInputElement)?.value | '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value | '',
         source: sourceName,
         page_url: window.location.href
       };
@@ -483,7 +483,7 @@ import Icon from '../components/Icon.astro';
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

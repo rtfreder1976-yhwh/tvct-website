@@ -57,7 +57,7 @@ const topPages = [
 ---
 
 <BaseLayout
-  title="SEO Dashboard - Analytics & Performance Tracking"
+  title="SEO Dashboard"
   description="Internal SEO dashboard for tracking rankings, traffic, leads, and competitor analysis."
   noindex={true}
 >
@@ -609,7 +609,7 @@ const topPages = [
           const data = await this.fetchData();
 
           // Check if APIs returned data
-          const hasLiveData = data.rankings || data.traffic || data.leads;
+          const hasLiveData = data.rankings | data.traffic | data.leads;
 
           if (hasLiveData) {
             console.log('Live data received:', data);
@@ -640,7 +640,7 @@ const topPages = [
       // Animate numbers on load
       const stats = document.querySelectorAll('.text-3xl.font-bold, .text-2xl.font-bold');
       stats.forEach(stat => {
-        const text = stat.textContent || '';
+        const text = stat.textContent | '';
         const isPercentage = text.includes('%');
         const isDecimal = text.includes('.');
         const value = parseFloat(text.replace(/[^0-9.]/g, ''));

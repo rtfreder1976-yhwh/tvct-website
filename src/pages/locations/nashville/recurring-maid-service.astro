@@ -407,12 +407,12 @@ const faqSchema = {
       const messageDiv = document.getElementById('recurring-form-message');
       const form = e.target;
       const formData = {
-        name: form.name?.value || '',
-        phone: form.phone?.value || '',
-        email: form.email?.value || '',
+        name: form.name?.value | '',
+        phone: form.phone?.value | '',
+        email: form.email?.value | '',
         service: 'Recurring Maid Service',
-        frequency: form.frequency?.value || '',
-        location: form.location?.value || '',
+        frequency: form.frequency?.value | '',
+        location: form.location?.value | '',
         source: 'Nashville Recurring Maid Service Page',
         page_url: window.location.href
       };
@@ -432,7 +432,7 @@ const faqSchema = {
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

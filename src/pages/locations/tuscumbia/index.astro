@@ -95,7 +95,7 @@ const testimonials = florenceTestimonials.map(t => ({
 ---
 
 <BaseLayout
-  title="Tuscumbia Cleaning Services | House Cleaning in the Shoals | Valley Clean Team"
+  title="Tuscumbia Cleaning Services | Valley Clean Team"
   description="Professional cleaning in Tuscumbia, AL. Serving the Shoals: Florence, Muscle Shoals & Sheffield. Veteran-owned, $2M insured, 130+ 5-star reviews."
   ogImage={geoData.image}
   geoRegion={geoData.region}
@@ -752,13 +752,13 @@ const testimonials = florenceTestimonials.map(t => ({
       const form = e.target;
 
       const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        state: form.state?.value || '',
+        name: form.name?.value | '',
+        email: form.email?.value | '',
+        phone: form.phone?.value | '',
+        service: form.service?.value | '',
+        location: form.location?.value | '',
+        city: form.city?.value | '',
+        state: form.state?.value | '',
         source: 'Location Page - Tuscumbia',
         page_url: window.location.href
       };
@@ -780,7 +780,7 @@ const testimonials = florenceTestimonials.map(t => ({
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error || 'Submission failed');
+          throw new Error(result.error | 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
@@ -789,7 +789,7 @@ const testimonials = florenceTestimonials.map(t => ({
       }
 
       submitBtn.disabled = false;
-      submitBtn.textContent = submitBtn.dataset.originalText || 'Get My Free Quote';
+      submitBtn.textContent = submitBtn.dataset.originalText | 'Get My Free Quote';
     });
 
     // Store original button text
