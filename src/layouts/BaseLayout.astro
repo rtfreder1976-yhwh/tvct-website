@@ -225,31 +225,7 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <SpeedInsights />
     <Analytics />
 
-    <!-- Defer non-critical JavaScript -->
-    <script is:inline>
-      // Optimized scroll handler with rAF to prevent forced reflows
-      (function() {
-        var nav = document.querySelector('nav');
-        if (nav) {
-          var ticking = false;
-          var lastScrollY = 0;
-          window.addEventListener('scroll', function() {
-            lastScrollY = window.scrollY;
-            if (!ticking) {
-              requestAnimationFrame(function() {
-                if (lastScrollY > 50) {
-                  nav.classList.add('nav-scrolled');
-                } else {
-                  nav.classList.remove('nav-scrolled');
-                }
-                ticking = false;
-              });
-              ticking = true;
-            }
-          }, { passive: true });
-        }
-      })();
-    </script>
+    <script is:inline>(function(){var n=document.querySelector('nav');if(n){var t=false,l=0;window.addEventListener('scroll',function(){l=window.scrollY;if(!t){requestAnimationFrame(function(){l>50?n.classList.add('nav-scrolled'):n.classList.remove('nav-scrolled');t=false});t=true}},{passive:true})}})();</script>
 
   </body>
 </html>
