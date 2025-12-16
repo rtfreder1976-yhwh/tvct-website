@@ -264,7 +264,16 @@ const categoryColors: Record<string, string> = {
                 <a href={`/blog/${post.slug}`} class="block">
                   <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center relative overflow-hidden">
                     {post.image ? (
-                      <img src={post.image} alt={post.title} class="w-full h-full object-cover" width="400" height="192" loading="lazy" />
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        class="w-full h-full object-cover"
+                        width="400"
+                        height="192"
+                        loading={index < 2 ? "eager" : "lazy"}
+                        fetchpriority={index === 0 ? "high" : undefined}
+                        decoding={index < 2 ? "sync" : "async"}
+                      />
                     ) : (
                       <Icon name={post.icon} class="w-16 h-16 text-[#FFA985]" />
                     )}
@@ -511,7 +520,7 @@ const categoryColors: Record<string, string> = {
       const form = e.target as HTMLFormElement;
 
       const formData = {
-        email: (form.email as HTMLInputElement)?.value | '',
+        email: (form.email as HTMLInputElement)?.value || '',
         source: 'Blog Newsletter Subscription',
         page_url: window.location.href
       };

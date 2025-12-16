@@ -46,8 +46,6 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
 
     <!-- Preconnect to critical third-party origins -->
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Preload self-hosted critical font for LCP (H1 uses Playfair Display Bold) -->
     <link rel="preload" href="/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin />
@@ -55,8 +53,8 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <!-- DNS Prefetch for additional resources -->
     <link rel="dns-prefetch" href="https://storage.googleapis.com" />
 
-    <!-- Preload hero image for LCP on homepage -->
-    <link rel="preload" href="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_avif,q_20,w_1280/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/68ffd1216c3896390c852897.png" as="image" fetchpriority="high" type="image/avif" />
+    <!-- Page-specific preloads (hero images, etc.) -->
+    <slot name="preload" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -205,14 +203,11 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
 
       /* Critical font declarations - use preloaded self-hosted fonts immediately */
       @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/playfair-display-700.woff2) format('woff2')}
-      @font-face{font-family:'Inter';font-display:swap}
+      @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/inter-variable.woff2) format('woff2')}
     </style>
 
-    <!-- Icons now use Lucide (inline SVG) - no font loading required -->
-
-    <!-- Google Fonts - Inter only (Playfair Display is self-hosted for LCP) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" /></noscript>
+    <!-- Preload Inter variable font for faster body text rendering -->
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Non-critical styles - loaded asynchronously for better performance -->
     <link rel="preload" href="/styles/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />

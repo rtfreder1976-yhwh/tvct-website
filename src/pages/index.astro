@@ -16,6 +16,8 @@ import Icon from '../components/Icon.astro';
   description="Professional luxury cleaning in Alabama & Tennessee. Veteran-owned, insured, bonded. 130+ 5-star reviews. Same-day service. Call 256-826-1100."
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
 >
+  <!-- Preload hero image for LCP -->
+  <link slot="preload" rel="preload" href="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_avif,q_20,w_1280/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/68ffd1216c3896390c852897.png" as="image" fetchpriority="high" type="image/avif" />
   <Navigation />
   
   <!-- Hero Section -->
@@ -455,12 +457,12 @@ import Icon from '../components/Icon.astro';
   <script>
     async function handleFormSubmit(form: HTMLFormElement, submitBtn: HTMLButtonElement, messageDiv: HTMLElement, sourceName: string) {
       const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value | '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value | '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value | '',
-        service: (form.elements.namedItem('service') as HTMLSelectElement)?.value | '',
-        preferred_date: (form.elements.namedItem('preferred_date') as HTMLInputElement)?.value | '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value | '',
+        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
+        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
+        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
+        service: (form.elements.namedItem('service') as HTMLSelectElement)?.value || '',
+        preferred_date: (form.elements.namedItem('preferred_date') as HTMLInputElement)?.value || '',
+        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
         source: sourceName,
         page_url: window.location.href
       };
