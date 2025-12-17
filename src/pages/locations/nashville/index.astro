@@ -63,20 +63,6 @@ const faqs = [
   }
 ];
 
-// Schema for FAQPage
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
-};
-
 // Testimonials - imported from centralized data
 const testimonials = nashvilleTestimonials.map(t => ({
   initial: t.initial,
@@ -95,7 +81,6 @@ const testimonials = nashvilleTestimonials.map(t => ({
   geoPosition={geoData.position}
 >
   <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <Navigation />
 
   <!-- Hero Section -->
@@ -803,13 +788,13 @@ const testimonials = nashvilleTestimonials.map(t => ({
       const form = e.target;
 
       const formData = {
-        name: form.name?.value | '',
-        email: form.email?.value | '',
-        phone: form.phone?.value | '',
-        service: form.service?.value | '',
-        location: form.location?.value | '',
-        city: form.city?.value | '',
-        state: form.state?.value | '',
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        location: form.location?.value || '',
+        city: form.city?.value || '',
+        state: form.state?.value || '',
         source: 'Location Page - Nashville',
         page_url: window.location.href
       };
