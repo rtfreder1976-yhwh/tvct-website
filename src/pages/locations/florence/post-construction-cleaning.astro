@@ -1,435 +1,64 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Navigation from '../../../components/Navigation.astro';
-import Footer from '../../../components/Footer.astro';
-import Icon from '../../../components/Icon.astro';
-
-const city = "Florence";
-const state = "Alabama";
-const phone = "(256) 826-1100";
-
-// Florence/Shoals areas
-const neighborhoods = [
-  "Historic District",
-  "Rivermont",
-  "Lakeside Estates",
-  "Shoals Creek",
-  "Wilson Lake",
-  "Muscle Shoals",
-  "Sheffield",
-  "Tuscumbia",
-  "Killen",
-  "Rogersville"
-];
-
-// What's included
-const includedServices = [
-  "Fine dust removal from all surfaces",
-  "HVAC vents & registers cleaned",
-  "Inside all cabinets & drawers",
-  "Window sills & tracks detailed",
-  "Light fixtures & ceiling fans",
-  "Baseboards throughout",
-  "Door frames & hardware",
-  "Crown molding & trim",
-  "Switch plates & outlets",
-  "Countertops & backsplashes",
-  "Appliance interiors cleaned",
-  "Bathroom fixtures sanitized",
-  "Tile & grout cleaned",
-  "Mirrors & glass polished",
-  "Hardwood floors properly cleaned",
-  "Construction debris removal"
-];
-
-// FAQs
-const faqs = [
-  {
-    question: "Why does my new Florence home need post-construction cleaning?",
-    answer: "Even quality builders leave behind fine drywall dust that embeds everywhere—inside cabinets, HVAC systems, window tracks, and surfaces. This dust circulates through your home for months if not properly removed. Builder cleaning typically addresses only visible surfaces, not the detailed cleaning needed for a truly move-in ready home."
-  },
-  {
-    question: "How much does post-construction cleaning cost in Florence?",
-    answer: "Post-construction cleaning in Florence typically starts at $350 for smaller homes and renovations. Average new construction homes (1,800-2,500 sq ft) typically cost $400-$600. Larger custom homes may cost $600-$800+. Pricing depends on square footage, construction type, and condition. Call (256) 826-1100 for a free quote."
-  },
-  {
-    question: "What's the difference between builder cleaning and professional post-construction cleaning?",
-    answer: "Builder cleaning is basic—sweeping floors, wiping visible surfaces, removing large debris. Professional post-construction cleaning is thorough—inside every cabinet, every HVAC vent, window tracks, appliance interiors, light fixtures, and all the places where fine dust settles and hides."
-  },
-  {
-    question: "Do you serve new construction in Muscle Shoals and Sheffield?",
-    answer: "Yes! We serve new construction and renovation projects throughout the Shoals area including Florence, Muscle Shoals, Sheffield, Tuscumbia, Killen, and Rogersville. The entire Shoals region has significant new home construction we regularly service."
-  },
-  {
-    question: "When should I schedule post-construction cleaning?",
-    answer: "Schedule after all construction is complete but before moving in or final walkthrough. Ideally, book 1-2 weeks before your move-in date. We can also clean after the builder's crew has done their basic cleaning—we'll address everything they missed."
-  },
-  {
-    question: "How long does post-construction cleaning take?",
-    answer: "Typical Florence homes (1,800-2,500 sq ft) take 6-10 hours for thorough post-construction cleaning. Larger homes or those with extensive custom features may take 10-14+ hours. We provide time estimates with your quote."
-  },
-  {
-    question: "Do you clean after renovations and remodels too?",
-    answer: "Absolutely! Kitchen remodels, bathroom updates, room additions, and whole-home renovations all create the same fine dust problems as new construction. We provide the same detailed cleaning for any renovation project."
-  },
-  {
-    question: "Can you clean homes with high ceilings and custom features?",
-    answer: "Yes! We have equipment and experience for homes with high ceilings, custom millwork, specialty fixtures, and architectural details. We take extra care with custom features while ensuring thorough dust removal."
-  }
-];
-
-// Schema markup
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Post-Construction Cleaning Florence AL",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "+12568261100",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Florence",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
-  },
-  "areaServed": neighborhoods.map(n => ({
-    "@type": "Place",
-    "name": `${n}, Florence, AL`
-  })),
-  "serviceType": "Post-Construction Cleaning",
-  "description": "Professional post-construction cleaning in Florence, Alabama. New homes, renovations, remodels. Remove construction dust properly."
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
-};
+import ServiceLocationLayout from '../../../layouts/ServiceLocationLayout.astro';
 ---
 
-<BaseLayout
-  title="Post-Construction Cleaning Florence AL | Valley Clean Team"
-  description="Professional post-construction cleaning in Florence, Alabama. New homes, renovations, remodels. Remove fine dust properly. Veteran-owned. Call (256) 826-1100"
->
-  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <Navigation />
-
-  <!-- Hero Section -->
-  <section class="pt-32 pb-16 px-6 bg-gradient-to-b from-gray-50 to-white">
-    <div class="container mx-auto">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
-            <span class="text-blue-700 text-sm font-medium">
-              <Icon name="hard-hat" class="w-5 h-5 mr-2" />New Construction & Renovations
-            </span>
-          </div>
-          <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
-            Post-Construction Cleaning in <span class="gold-gradient">Florence, Alabama</span>
-          </h1>
-          <p class="text-xl text-gray-700 mb-6">
-            Built a new home or finished a renovation in the Shoals? Builder cleaning only scratches the surface. Our detailed post-construction cleaning removes the fine drywall dust that embeds in cabinets, HVAC systems, and every surface—making your new space truly move-in ready.
-          </p>
-
-          <!-- Trust Badges -->
-          <div class="flex flex-wrap gap-3 mb-6">
-            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
-              <Icon name="medal" class="w-5 h-5 text-[#FFA985] mr-2" />
-              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
-            </div>
-            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
-              <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
-              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
-            </div>
-            <div class="flex items-center bg-white px-3 py-2 rounded-full shadow-sm border border-gray-200">
-              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
-              <span class="text-sm font-semibold text-gray-700">Background Checked</span>
-            </div>
-          </div>
-
-          <!-- Price -->
-          <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
-            <div class="flex items-center gap-4">
-              <div>
-                <span class="text-sm text-gray-600">Starting From</span>
-                <div class="text-3xl font-bold text-[#FFA985]">$350</div>
-              </div>
-              <div class="text-gray-300">|</div>
-              <div>
-                <span class="text-sm text-gray-600">Typical Homes</span>
-                <div class="text-lg font-semibold text-gray-700">$400-$600</div>
-              </div>
-              <div class="text-gray-300">|</div>
-              <div>
-                <span class="text-sm text-gray-600">Large/Custom</span>
-                <div class="text-lg font-semibold text-gray-700">$600-$800+</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CTAs -->
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </a>
-            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
-              <Icon name="phone" class="w-5 h-5 mr-2" />{phone}
-            </a>
-          </div>
-        </div>
-
-        <!-- Quote Form -->
-        <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 text-center mb-6">Post-construction cleaning experts</p>
-          <iframe
-            src="https://api.leadconnectorhq.com/widget/form/X00JsI4NjCZNHEAEqcXj"
-            style="width:100%; height:400px; border:none; border-radius:3px"
-            id="inline-X00JsI4NjCZNHEAEqcXj"
-            data-layout="{'id':'INLINE'}"
-            data-trigger-type="alwaysShow"
-            data-trigger-value=""
-            data-activation-type="alwaysActivated"
-            data-activation-value=""
-            data-deactivation-type="neverDeactivate"
-            data-deactivation-value=""
-            data-form-name="TVCT Quote Request"
-            data-height="400"
-            data-layout-iframe-id="inline-X00JsI4NjCZNHEAEqcXj"
-            data-form-id="X00JsI4NjCZNHEAEqcXj"
-            title="TVCT Quote Request"
-          ></iframe>
-          <script src="https://link.msgsndr.com/js/form_embed.js"></script>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- The Problem Section -->
-  <section class="py-16 bg-gray-50 px-6">
-    <div class="container mx-auto">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
-          Why Builder Cleaning <span class="gold-gradient">Isn't Enough</span>
-        </h2>
-        <div class="prose prose-lg max-w-none text-gray-700">
-          <p class="mb-6">
-            You've invested in a beautiful new Florence home or renovation. The builder's crew swept up, wiped down counters, and it looks ready. But here's what they left behind:
-          </p>
-          <ul class="space-y-3 mb-6">
-            <li><strong>Fine drywall dust</strong> embedded in your HVAC system—circulating through your home every time the air runs</li>
-            <li><strong>Construction residue</strong> inside every cabinet, drawer, and closet</li>
-            <li><strong>Window tracks and sills</strong> packed with dust and debris</li>
-            <li><strong>Light fixtures and ceiling fans</strong> coated in fine particles</li>
-            <li><strong>Appliance interiors</strong> that haven't been cleaned at all</li>
-          </ul>
-          <p>
-            This dust doesn't just disappear—it settles on your furniture, affects air quality, and can trigger allergies for months. Professional post-construction cleaning removes it properly, so you can enjoy your new space from day one.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What's Included -->
-  <section class="py-16 px-6">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
-        What's Included in <span class="gold-gradient">Post-Construction Cleaning</span>
-      </h2>
-      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-        Thorough cleaning that goes beyond the surface
-      </p>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-        {includedServices.map((service) => (
-          <div class="flex items-center bg-white rounded-lg p-4 shadow-sm border border-gray-100">
-            <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-            <span class="text-gray-700">{service}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- New Construction Areas -->
-  <section class="py-16 bg-gray-50 px-6">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
-        Serving New Construction in <span class="gold-gradient">The Shoals</span>
-      </h2>
-      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-        Growing communities with active home construction
-      </p>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
-        {neighborhoods.map((neighborhood) => (
-          <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-100 text-center">
-            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />
-            <span class="text-gray-700 font-medium">{neighborhood}</span>
-          </div>
-        ))}
-      </div>
-
-      <div class="mt-12 max-w-3xl mx-auto text-center">
-        <p class="text-gray-700">
-          The Shoals area is experiencing significant growth, with new subdivisions throughout Florence, Muscle Shoals, and surrounding communities. We work with builders, contractors, and homeowners to ensure every new home is properly cleaned before move-in.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Types of Projects -->
-  <section class="py-16 px-6">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
-        Projects We <span class="gold-gradient">Clean</span>
-      </h2>
-
-      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
-          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
-            <Icon name="home" class="w-8 h-8 text-[#FFA985]" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">New Home Construction</h3>
-          <p class="text-gray-600">Complete cleaning for newly built homes of all sizes. We work with your builder's timeline and ensure your home is truly move-in ready.</p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
-          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
-            <Icon name="utensils" class="w-8 h-8 text-[#FFA985]" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Kitchen Remodels</h3>
-          <p class="text-gray-600">Cabinet dust, countertop residue, and construction debris from your kitchen renovation. Inside new cabinets, appliances, and every surface.</p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
-          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
-            <Icon name="bath" class="w-8 h-8 text-[#FFA985]" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Bathroom Renovations</h3>
-          <p class="text-gray-600">Tile dust, grout haze, and construction residue from bathroom updates. Detailed cleaning of new fixtures, surfaces, and cabinetry.</p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
-          <div class="w-14 h-14 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mb-4">
-            <Icon name="hammer" class="w-8 h-8 text-[#FFA985]" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Room Additions & Whole-Home</h3>
-          <p class="text-gray-600">Additions, whole-home renovations, and major remodeling projects. We clean both new and existing spaces affected by construction.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQs -->
-  <section class="py-16 bg-gray-50 px-6">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
-        Frequently Asked <span class="gold-gradient">Questions</span>
-      </h2>
-      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-        Common questions about post-construction cleaning in Florence
-      </p>
-
-      <div class="max-w-3xl mx-auto space-y-4">
-        {faqs.map((faq) => (
-          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
-            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
-              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] group-open:rotate-180 transition-transform flex-shrink-0" />
-            </summary>
-            <div class="px-6 pb-6 text-gray-600">
-              {faq.answer}
-            </div>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Related Services -->
-  <section class="py-16 px-6">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
-        Related <span class="gold-gradient">Services</span> in Florence
-      </h2>
-
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <a href="/locations/florence/deep-cleaning" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
-              <Icon name="sparkles" class="w-6 h-6 text-[#FFA985]" />
-            </div>
-            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
-          </div>
-          <p class="text-gray-600 text-sm">Intensive one-time cleaning for existing homes.</p>
-        </a>
-
-        <a href="/locations/florence/recurring-maid-service" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
-              <Icon name="calendar-check" class="w-6 h-6 text-[#FFA985]" />
-            </div>
-            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">Recurring Service</h3>
-          </div>
-          <p class="text-gray-600 text-sm">Keep your new home clean with regular service.</p>
-        </a>
-
-        <a href="/locations/florence" class="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:border-[#FFA985] transition-all group">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
-              <Icon name="map-marker-alt" class="w-6 h-6 text-[#FFA985]" />
-            </div>
-            <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985]">All Florence Services</h3>
-          </div>
-          <p class="text-gray-600 text-sm">Explore all our services in Florence, AL.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
-    <div class="container mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
-        Make Your New Home Truly Move-In Ready
-      </h2>
-      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-        Don't settle for builder cleaning. Professional post-construction cleaning removes the fine dust that affects your air quality and settles on everything.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
-          <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-        </a>
-        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
-          <Icon name="phone" class="w-5 h-5 mr-2" />{phone}
-        </a>
-      </div>
-      <p class="text-white/80 mt-6">
-        <Icon name="star" class="w-5 h-5 mr-2" fill="currentColor" />New Homes | Renovations | Remodels
-      </p>
-    </div>
-  </section>
-
-  <Footer />
-</BaseLayout>
-
-<style>
-  .gold-gradient {
-    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-</style>
+<ServiceLocationLayout
+  title="Post Construction Cleaning Florence AL | Valley Clean Team"
+  description="Professional post-construction cleaning in Florence, Alabama. New homes, renovations, remodels. Remove construction dust properly. Veteran-owned. Call (256) 826-1100"
+  service="Post Construction Cleaning"
+  serviceSlug="post-construction-cleaning"
+  city="Florence"
+  state="AL"
+  citySlug="florence"
+  phone="(256) 826-1100"
+  serviceDescription="Built a new home or finished a renovation in the Shoals? Builder cleaning only scratches the surface. Our detailed post-construction cleaning removes the fine drywall dust that embeds in cabinets, HVAC systems, and every surface—making your new space truly move-in ready."
+  price="From $350"
+  benefits={[
+    "Specialized in construction dust and debris removal",
+    "Work with contractors and homeowners alike",
+    "Flexible scheduling around your project timeline",
+    "All professional equipment and supplies included",
+    "Final walkthrough quality cleaning",
+    "100% satisfaction guarantee"
+  ]}
+  includes={[
+    "Fine dust removal from all surfaces",
+    "HVAC vents and registers cleaned",
+    "Inside all cabinets and drawers",
+    "Window sills and tracks detailed",
+    "Light fixtures and ceiling fans",
+    "Baseboards throughout",
+    "Door frames and hardware",
+    "Crown molding and trim",
+    "Switch plates and outlets",
+    "Countertops and backsplashes",
+    "Appliance interiors cleaned",
+    "Bathroom fixtures sanitized"
+  ]}
+  faqs={[
+    {
+      question: "Why does my new Florence home need post-construction cleaning?",
+      answer: "Even quality builders leave behind fine drywall dust that embeds everywhere—inside cabinets, HVAC systems, window tracks, and surfaces. This dust circulates through your home for months if not properly removed. Builder cleaning typically addresses only visible surfaces, not the detailed cleaning needed for a truly move-in ready home."
+    },
+    {
+      question: "How much does post-construction cleaning cost in Florence?",
+      answer: "Post-construction cleaning in Florence typically starts at $350 for smaller homes and renovations. Average new construction homes (1,800-2,500 sq ft) typically cost $400-$600. Larger custom homes may cost $600-$800+. Pricing depends on square footage, construction type, and condition. Call (256) 826-1100 for a free quote."
+    },
+    {
+      question: "What's the difference between builder cleaning and professional post-construction cleaning?",
+      answer: "Builder cleaning is basic—sweeping floors, wiping visible surfaces, removing large debris. Professional post-construction cleaning is thorough—inside every cabinet, every HVAC vent, window tracks, appliance interiors, light fixtures, and all the places where fine dust settles and hides."
+    },
+    {
+      question: "Do you serve new construction in Muscle Shoals and Sheffield?",
+      answer: "Yes! We serve new construction and renovation projects throughout the Shoals area including Florence, Muscle Shoals, Sheffield, Tuscumbia, Killen, and Rogersville. The entire Shoals region has significant new home construction we regularly service."
+    },
+    {
+      question: "When should I schedule post-construction cleaning?",
+      answer: "Schedule after all construction is complete but before moving in or final walkthrough. Ideally, book 1-2 weeks before your move-in date. We can also clean after the builder's crew has done their basic cleaning—we'll address everything they missed."
+    },
+    {
+      question: "How long does post-construction cleaning take?",
+      answer: "Typical Florence homes (1,800-2,500 sq ft) take 6-10 hours for thorough post-construction cleaning. Larger homes or those with extensive custom features may take 10-14+ hours. We provide time estimates with your quote."
+    }
+  ]}
+/>
