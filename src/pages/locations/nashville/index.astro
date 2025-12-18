@@ -5,6 +5,7 @@ import Footer from '../../../components/Footer.astro';
 import SchemaMarkup from '../../../components/SchemaMarkup.astro';
 import { nashvilleTestimonials } from '../../../data/testimonials';
 import Icon from '../../../components/Icon.astro';
+import LocationGoogleMap from '../../../components/LocationGoogleMap.astro';
 
 const city = "Nashville";
 const state = "Tennessee";
@@ -350,6 +351,38 @@ const testimonials = nashvilleTestimonials.map(t => ({
       <p class="text-center text-gray-600 mt-8">
         Don't see your neighborhood? We serve all of Nashville and surrounding areas. <a href="tel:6155101427" class="text-[#FFA985] font-semibold hover:underline">Call 615-510-1427</a> to confirm service availability.
       </p>
+    </div>
+  </section>
+
+  <!-- Service Area Map -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Our {city} Service Area
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Proudly serving {city} and surrounding {region} communities</p>
+      </div>
+
+      <LocationGoogleMap
+        city={city}
+        state={state}
+        lat={36.1627}
+        lng={-86.7816}
+        zoom={10}
+        serviceRadius={25}
+        neighborhoods={neighborhoods}
+      />
+
+      <div class="mt-8 text-center">
+        <p class="text-gray-600 mb-4">
+          Don't see your area on the map? We may still serve your location.
+        </p>
+        <a href="tel:6155101427" class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm: 615-510-1427
+        </a>
+      </div>
     </div>
   </section>
 

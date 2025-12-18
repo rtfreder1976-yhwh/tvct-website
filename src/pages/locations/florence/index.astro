@@ -5,6 +5,7 @@ import Footer from '../../../components/Footer.astro';
 import SchemaMarkup from '../../../components/SchemaMarkup.astro';
 import { florenceTestimonials } from '../../../data/testimonials';
 import Icon from '../../../components/Icon.astro';
+import LocationGoogleMap from '../../../components/LocationGoogleMap.astro';
 
 const city = "Florence";
 const state = "Alabama";
@@ -380,6 +381,38 @@ const testimonials = florenceTestimonials.map(t => ({
     </div>
   </section>
 
+  <!-- Service Area Map -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Our {city} Service Area
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Proudly serving {city} and surrounding {region} communities</p>
+      </div>
+
+      <LocationGoogleMap
+        city={city}
+        state={state}
+        lat={34.7998}
+        lng={-87.6772}
+        zoom={10}
+        serviceRadius={20}
+        neighborhoods={neighborhoods}
+      />
+
+      <div class="mt-8 text-center">
+        <p class="text-gray-600 mb-4">
+          Don't see your area on the map? We may still serve your location.
+        </p>
+        <a href="tel:2568261100" class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm: 256-826-1100
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- Services Available -->
   <section class="py-20 px-6">
     <div class="container mx-auto max-w-6xl">
@@ -676,13 +709,13 @@ const testimonials = florenceTestimonials.map(t => ({
       const form = e.target;
 
       const formData = {
-        name: form.name?.value | '',
-        email: form.email?.value | '',
-        phone: form.phone?.value | '',
-        service: form.service?.value | '',
-        location: form.location?.value | '',
-        city: form.city?.value | '',
-        state: form.state?.value | '',
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        location: form.location?.value || '',
+        city: form.city?.value || '',
+        state: form.state?.value || '',
         source: 'Location Page - Florence',
         page_url: window.location.href
       };
