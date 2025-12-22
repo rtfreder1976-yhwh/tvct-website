@@ -211,3 +211,4 @@ Before every commit, verify:
 - [ ] H1 contains primary keyword
 - [ ] Alt text on all images
 - [ ] Mobile responsive verified
+- audit all pages

@@ -112,10 +112,10 @@ Page: ${page_url || 'Unknown'}
 Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
     `.trim();
 
-    // Send email using Resend
+    // Send email to GHL inbox for workflow automation
     const { data, error } = await resend.emails.send({
       from: 'The Valley Clean Team <leads@thevalleycleanteam.com>',
-      to: ['todd@thevalleycleanteam.com'],
+      to: ['leads@thevalleycleanteam.com'],
       subject: `New Lead: ${service || 'Cleaning Service'} - ${name || phone}`,
       html: emailHtml,
       text: emailText,

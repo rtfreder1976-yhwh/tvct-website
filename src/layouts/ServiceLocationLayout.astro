@@ -55,78 +55,103 @@ const {
 // Get service-specific testimonials
 const serviceTestimonials = getTestimonialsByService(serviceSlug);
 
-// Related services mapping - each service links to 2 related services
-// ONLY use deep-cleaning and move-out-cleaning as they exist in ALL locations
+// Related services mapping - each service links to 2-3 related services
+// Expanded to improve internal linking between all service pages
 const relatedServicesMap: Record<string, Array<{slug: string, name: string, description: string}>> = {
   'deep-cleaning': [
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Thorough cleaning for moving' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Thorough cleaning for moving' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Maintain your clean home' },
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent cleaning needs' }
   ],
   'move-out-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' }
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' },
+    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'After renovations' },
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent move cleaning' }
   ],
   'recurring-maid-service': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Start fresh before recurring' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Consistent weekly service' },
+    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Compassionate care' }
   ],
   'weekly-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Flexible scheduling' },
+    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Gentle, reliable service' }
   ],
   'biweekly-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'More frequent service' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Flexible options' }
   ],
   'airbnb-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Between long-term guests' },
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Quick turnovers' },
     { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'End of rental cleaning' }
   ],
   'same-day-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough urgent cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Urgent move cleaning' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Urgent move cleaning' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Prevent future emergencies' }
   ],
   'post-construction-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Follow-up deep clean' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After renovation' }
+    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After renovation' },
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent project cleanup' }
   ],
   'senior-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough home cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Downsizing assistance' }
+    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Consistent care' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular assistance' }
   ],
   'office-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'One-time office deep clean' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After office move' }
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Full commercial service' },
+    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare facilities' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'One-time office deep clean' }
   ],
   'commercial-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough one-time cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Commercial move cleaning' }
+    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
+    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare cleaning' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough one-time cleaning' }
   ],
   'medical-office-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough sanitization' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Practice relocation' }
+    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'General office cleaning' },
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
+    { slug: 'dental-office-cleaning', name: 'Dental Office', description: 'Dental practice cleaning' }
   ],
   'house-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough house cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular maintenance' },
+    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Compassionate care' }
+  ],
+  'luxury-cleaning': [
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough luxury cleaning' },
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular maintenance' },
+    { slug: 'house-cleaning', name: 'House Cleaning', description: 'Residential service' }
   ],
   'restaurant-cleaning': [
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough kitchen cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Restaurant closing' }
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent restaurant needs' }
   ],
   'retail-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough store cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Store closing' }
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
+    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional cleaning' },
+    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough store cleaning' }
   ],
   'event-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough cleaning' },
+    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent event needs' },
     { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Post-event cleanup' }
   ],
   'green-cleaning': [
     { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough eco cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular eco cleaning' },
+    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Gentle, safe products' }
   ],
   'dental-office-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough sanitization' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Practice relocation' }
+    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare cleaning' },
+    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
+    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' }
   ]
 };
 
