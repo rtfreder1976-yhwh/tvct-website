@@ -1,0 +1,366 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import Icon from '../../components/Icon.astro';
+
+// Market data with geo info
+const markets = [
+  {
+    name: "Huntsville",
+    state: "Alabama",
+    slug: "huntsville",
+    description: "Rocket City's premier cleaning service. Serving The Ledges, Hampton Cove, Twickenham, Madison, and surrounding Madison County.",
+    phone: "256-826-1100",
+    neighborhoods: ["The Ledges", "Hampton Cove", "Twickenham", "Madison", "Monte Sano", "Big Cove", "Jones Valley"],
+    featured: true
+  },
+  {
+    name: "Birmingham",
+    state: "Alabama",
+    slug: "birmingham",
+    description: "Premium cleaning for Birmingham's finest neighborhoods including Mountain Brook, Homewood, Vestavia Hills, and Hoover.",
+    phone: "256-826-1100",
+    neighborhoods: ["Mountain Brook", "Homewood", "Vestavia Hills", "Hoover", "Cahaba Heights"],
+    featured: true
+  },
+  {
+    name: "Nashville",
+    state: "Tennessee",
+    slug: "nashville",
+    description: "Music City's trusted cleaning service. Serving West Nashville, Green Hills, Belle Meade, and surrounding areas.",
+    phone: "615-510-1427",
+    neighborhoods: ["West Nashville", "Green Hills", "Belle Meade", "Sylvan Park"],
+    featured: true
+  },
+  {
+    name: "Athens",
+    state: "Alabama",
+    slug: "athens",
+    description: "Limestone County's go-to cleaning service. Serving Athens, Ardmore, Elkmont, and surrounding communities.",
+    phone: "256-826-1100",
+    neighborhoods: ["Downtown Athens", "Ardmore", "Elkmont", "Belle Mina", "Tanner"],
+    featured: false
+  },
+  {
+    name: "Decatur",
+    state: "Alabama",
+    slug: "decatur",
+    description: "Morgan County cleaning excellence. Serving Decatur, Hartselle, Priceville, and surrounding areas.",
+    phone: "256-826-1100",
+    neighborhoods: ["Point Mallard", "Hartselle", "Priceville", "Austinville"],
+    featured: false
+  },
+  {
+    name: "Florence",
+    state: "Alabama",
+    slug: "florence",
+    description: "The Shoals' trusted cleaning service. Serving Florence, Muscle Shoals, Sheffield, and Tuscumbia.",
+    phone: "256-826-1100",
+    neighborhoods: ["Historic District", "Lakeside Estates", "Killen", "Rogersville"],
+    featured: false
+  },
+  {
+    name: "Mountain Brook",
+    state: "Alabama",
+    slug: "mountain-brook",
+    description: "Luxury estate cleaning for Alabama's most affluent community. White-glove service for Mountain Brook's finest homes.",
+    phone: "256-826-1100",
+    neighborhoods: ["Crestline", "English Village", "Mountain Brook Village", "Cherokee Bend"],
+    featured: false
+  },
+  {
+    name: "Madison",
+    state: "Alabama",
+    slug: "madison",
+    description: "Growing Madison families trust us for reliable, consistent cleaning. Serving all Madison neighborhoods.",
+    phone: "256-826-1100",
+    neighborhoods: ["Town Madison", "Bradford Creek", "Mill Creek", "Hughes Road"],
+    featured: false
+  },
+  {
+    name: "Muscle Shoals",
+    state: "Alabama",
+    slug: "muscle-shoals",
+    description: "Professional cleaning in the heart of The Shoals. Serving Muscle Shoals, Florence, and Colbert County.",
+    phone: "256-826-1100",
+    neighborhoods: ["Downtown", "Wilson Dam", "Avalon"],
+    featured: false
+  },
+  {
+    name: "Tuscumbia",
+    state: "Alabama",
+    slug: "tuscumbia",
+    description: "Historic Tuscumbia deserves expert care. Home of Helen Keller's Birthplace and Alabama's oldest city.",
+    phone: "256-826-1100",
+    neighborhoods: ["Downtown Historic", "Spring Park", "Deshler"],
+    featured: false
+  },
+  {
+    name: "West Nashville",
+    state: "Tennessee",
+    slug: "west-nashville",
+    description: "West Nashville's growing neighborhoods deserve premium cleaning. Serving Sylvan Park, The Nations, and Charlotte Park.",
+    phone: "615-510-1427",
+    neighborhoods: ["Sylvan Park", "The Nations", "Charlotte Park", "West End"],
+    featured: false
+  }
+];
+
+const featuredMarkets = markets.filter(m => m.featured);
+const otherMarkets = markets.filter(m => !m.featured);
+
+// Schema for the locations index page
+const locationsSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "The Valley Clean Team",
+  "description": "Premium cleaning services across Alabama and Tennessee. Veteran-owned, women-led, fully insured.",
+  "url": "https://thevalleycleanteam.com/locations",
+  "telephone": "256-826-1100",
+  "email": "hello@thevalleycleanteam.com",
+  "priceRange": "$$",
+  "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+  "areaServed": markets.map(market => ({
+    "@type": "City",
+    "name": market.name,
+    "containedInPlace": {
+      "@type": "State",
+      "name": market.state
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Service Locations | Valley Clean Team"
+  description="The Valley Clean Team serves Huntsville, Birmingham, Nashville, Athens, Florence, Decatur & more. Find premium cleaning services near you. Veteran-owned, insured."
+  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(locationsSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center">
+        <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <span class="text-[#FFA985] font-semibold">
+            <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving Alabama & Tennessee
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+          Find <span class="gold-gradient">Premium Cleaning</span> Near You
+        </h1>
+        <p class="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
+          The Valley Clean Team provides luxury cleaning services across multiple markets in Alabama and Tennessee. Veteran-owned, women-led, fully insured with $2M coverage.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 text-gray-700">
+          <div class="flex items-center">
+            <Icon name="medal" class="w-5 h-5 text-[#FFA985] mr-2" />
+            <span>Veteran-Owned</span>
+          </div>
+          <div class="flex items-center">
+            <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+            <span>$2M Insured</span>
+          </div>
+          <div class="flex items-center">
+            <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />
+            <span>130+ Five-Star Reviews</span>
+          </div>
+          <div class="flex items-center">
+            <Icon name="award" class="w-5 h-5 text-[#FFA985] mr-2" />
+            <span>Women-Led</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Markets -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Our Primary Markets
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Full-service cleaning in our core service areas</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {featuredMarkets.map((market) => (
+          <a href={`/locations/${market.slug}`} class="bg-white rounded-2xl p-8 shadow-lg border-2 border-transparent hover:border-[#FFA985] transition group">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                <Icon name="map-marker-alt" class="w-6 h-6 text-[#333333]" />
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-[#333333]">{market.name}</h3>
+                <p class="text-gray-500">{market.state}</p>
+              </div>
+            </div>
+            <p class="text-gray-700 mb-4">{market.description}</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {market.neighborhoods.slice(0, 4).map((neighborhood) => (
+                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">{neighborhood}</span>
+              ))}
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[#FFA985] font-semibold group-hover:underline">
+                Explore Services <Icon name="arrow-right" class="w-4 h-4 ml-1" />
+              </span>
+              <span class="text-gray-500 text-sm">{market.phone}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All Service Areas -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          All Service Areas
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Find premium cleaning services throughout our coverage area</p>
+      </div>
+
+      <!-- Alabama Section -->
+      <div class="mb-12">
+        <h3 class="text-2xl font-bold mb-6 text-[#333333] flex items-center">
+          <Icon name="map-marker-alt" class="w-6 h-6 text-[#FFA985] mr-3" />Alabama
+        </h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {markets.filter(m => m.state === "Alabama").map((market) => (
+            <a href={`/locations/${market.slug}`} class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] hover:shadow-lg transition">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="text-xl font-bold text-[#333333]">{market.name}</h4>
+                <Icon name="chevron-right" class="w-5 h-5 text-[#FFA985]" />
+              </div>
+              <p class="text-gray-600 text-sm mb-3">{market.description}</p>
+              <div class="flex flex-wrap gap-1">
+                {market.neighborhoods.slice(0, 3).map((n) => (
+                  <span class="text-xs text-gray-500">{n}</span>
+                ))}
+                {market.neighborhoods.length > 3 && (
+                  <span class="text-xs text-[#FFA985]">+{market.neighborhoods.length - 3} more</span>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Tennessee Section -->
+      <div>
+        <h3 class="text-2xl font-bold mb-6 text-[#333333] flex items-center">
+          <Icon name="map-marker-alt" class="w-6 h-6 text-[#FFA985] mr-3" />Tennessee
+        </h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {markets.filter(m => m.state === "Tennessee").map((market) => (
+            <a href={`/locations/${market.slug}`} class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] hover:shadow-lg transition">
+              <div class="flex items-center justify-between mb-3">
+                <h4 class="text-xl font-bold text-[#333333]">{market.name}</h4>
+                <Icon name="chevron-right" class="w-5 h-5 text-[#FFA985]" />
+              </div>
+              <p class="text-gray-600 text-sm mb-3">{market.description}</p>
+              <div class="flex flex-wrap gap-1">
+                {market.neighborhoods.slice(0, 3).map((n) => (
+                  <span class="text-xs text-gray-500">{n}</span>
+                ))}
+                {market.neighborhoods.length > 3 && (
+                  <span class="text-xs text-[#FFA985]">+{market.neighborhoods.length - 3} more</span>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Available -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Services Available in All Markets
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="sparkles" class="w-10 h-10 text-[#FFA985] mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Deep Cleaning</h4>
+          <p class="text-gray-600 text-sm">Top-to-bottom estate clean</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="home" class="w-10 h-10 text-[#FFA985] mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Regular Cleaning</h4>
+          <p class="text-gray-600 text-sm">Weekly or bi-weekly service</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="truck-moving" class="w-10 h-10 text-[#FFA985] mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Move In/Out</h4>
+          <p class="text-gray-600 text-sm">Secure your deposit</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="building" class="w-10 h-10 text-[#FFA985] mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Commercial</h4>
+          <p class="text-gray-600 text-sm">Offices & businesses</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="key" class="w-10 h-10 text-[#FFA985] mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Airbnb Turnover</h4>
+          <p class="text-gray-600 text-sm">Fast rental turnovers</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="hammer" class="w-10 h-10 text-[#FFA985] mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Post-Construction</h4>
+          <p class="text-gray-600 text-sm">Renovation cleanup</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="clock" class="w-10 h-10 text-[#FFA985] mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Same-Day Service</h4>
+          <p class="text-gray-600 text-sm">Emergency cleaning</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-md text-center">
+          <Icon name="leaf" class="w-10 h-10 text-green-500 mx-auto mb-3" />
+          <h4 class="font-bold text-[#333333] mb-2">Green Cleaning</h4>
+          <p class="text-gray-600 text-sm">Eco-friendly options</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
+        Ready to Experience Premium Cleaning?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Choose your location above or contact us directly for a free quote.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center shadow-lg">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Alabama: 256-826-1100
+        </a>
+        <a href="tel:6155101427" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center shadow-lg">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Tennessee: 615-510-1427
+        </a>
+      </div>
+      <p class="text-gray-500 mt-6">
+        <Icon name="envelope" class="w-4 h-4 mr-1" />Or email us at <a href="mailto:hello@thevalleycleanteam.com" class="text-[#FFA985] hover:underline">hello@thevalleycleanteam.com</a>
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

@@ -16,8 +16,9 @@ import Icon from '../components/Icon.astro';
   description="Professional luxury cleaning in Alabama & Tennessee. Veteran-owned, insured, bonded. 130+ 5-star reviews. Same-day service. Call 256-826-1100."
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
 >
-  <!-- Preload hero image for LCP -->
-  <link slot="preload" rel="preload" href="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_avif,q_20,w_1280/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/68ffd1216c3896390c852897.png" as="image" fetchpriority="high" type="image/avif" />
+  <!-- Preload hero image for LCP - mobile version is the actual LCP element -->
+  <link slot="preload" rel="preload" href="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_avif,q_20,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/68ffd1216c3896390c852897.png" as="image" fetchpriority="high" type="image/avif" media="(max-width: 1023px)" />
+  <link slot="preload" rel="preload" href="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_avif,q_20,w_1280/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/68ffd1216c3896390c852897.png" as="image" fetchpriority="high" type="image/avif" media="(min-width: 1024px)" />
   <Navigation />
   
   <!-- Hero Section -->
@@ -42,7 +43,7 @@ import Icon from '../components/Icon.astro';
       <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
         <!-- Left Column - Headline & Contact -->
         <div class="text-center lg:text-left">
-          <!-- Hero Image - Mobile visible, desktop accent -->
+          <!-- Hero Image - Mobile visible, desktop accent (LCP element on mobile) -->
           <div class="mb-6 lg:hidden">
             <img
               src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_avif,q_20,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/68ffd1216c3896390c852897.png"
@@ -50,7 +51,7 @@ import Icon from '../components/Icon.astro';
               class="w-full max-w-md mx-auto rounded-2xl shadow-xl"
               loading="eager"
               fetchpriority="high"
-              decoding="async"
+              decoding="sync"
               width="400"
               height="267"
             />
@@ -80,7 +81,7 @@ import Icon from '../components/Icon.astro';
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
               <span class="font-semibold">256-826-1100</span>
             </a>
-            <a href="mailto:info@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+            <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
               <Icon name="envelope" class="w-5 h-5 text-[#FFA985] mr-2" />
               <span class="font-semibold">Email Us</span>
             </a>
