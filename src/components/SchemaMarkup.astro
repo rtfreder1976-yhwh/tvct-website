@@ -247,20 +247,21 @@ const petSafeServiceCatalog = [
 ];
 
 // Generate department schemas for all cities
+// Using LocalBusiness type (which Organization expects for department property)
 const departmentSchemas = Object.entries(cityConfigs).map(([cityName, config]) => ({
-  "@type": "CleaningService",
+  "@type": "LocalBusiness",
   "@id": `https://thevalleycleanteam.com/locations/${cityName.toLowerCase().replace(/\s+/g, '-')}/#localbusiness`,
   "name": `The Valley Clean Team - ${cityName}`,
   "telephone": config.phone,
   "areaServed": [
     { "@type": "City", "name": cityName, "sameAs": `https://en.wikipedia.org/wiki/${cityName.replace(/\s+/g, '_')},_${config.state}` },
-    { "@type": "AdministrativeArea", "name": `ZIP ${config.zips}` }
+    { "@type": "AdministrativeArea", "name": `ZIP ${config.zips}` },
+    {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "latitude": config.lat, "longitude": config.lng },
+      "geoRadius": config.radius
+    }
   ],
-  "serviceArea": {
-    "@type": "GeoCircle",
-    "geoMidpoint": { "@type": "GeoCoordinates", "latitude": config.lat, "longitude": config.lng },
-    "geoRadius": config.radius
-  },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": cityName,
@@ -416,17 +417,17 @@ const localSchema = city ? (() => {
         "sameAs": `https://en.wikipedia.org/wiki/${city.replace(/\s+/g, '_')},_${state}`
       },
       { "@type": "AdministrativeArea", "name": `ZIP ${config.zips}` },
+      {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "latitude": config.lat, "longitude": config.lng },
+        "geoRadius": config.radius
+      },
       ...neighborhoods.map(neighborhood => ({
         "@type": "Place",
         "name": neighborhood,
         "containedInPlace": { "@type": "City", "name": city }
       }))
     ],
-    "serviceArea": {
-      "@type": "GeoCircle",
-      "geoMidpoint": { "@type": "GeoCoordinates", "latitude": config.lat, "longitude": config.lng },
-      "geoRadius": config.radius
-    },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": city,
