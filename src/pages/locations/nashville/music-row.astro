@@ -1,0 +1,745 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import Icon from '../../../components/Icon.astro';
+
+const title = "Cleaning Services Music Row Nashville TN";
+const description = "Premium cleaning for Music Row's industry professionals. Flexible scheduling around studio sessions, complete discretion, residential and small office cleaning. Veteran-owned, $2M insured. Call 615-510-1427.";
+
+// Service schema for Music Row
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Cleaning Services in Music Row, Nashville",
+  "description": "Premium residential and small office cleaning services for Music Row's music industry professionals. Flexible scheduling, complete discretion, and meticulous attention to detail for recording artists, producers, executives, and industry staff.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "615-510-1427",
+    "email": "hello@thevalleycleanteam.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Music Row, Nashville, TN",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "36.1503",
+      "longitude": "-86.7976"
+    }
+  },
+  "serviceType": "Residential and Commercial Cleaning"
+};
+
+// LocalBusiness schema
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "The Valley Clean Team - Music Row",
+  "description": "Premium cleaning services for Music Row's music industry professionals",
+  "telephone": "615-510-1427",
+  "email": "hello@thevalleycleanteam.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Nashville",
+    "addressRegion": "TN",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "36.1503",
+    "longitude": "-86.7976"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Music Row, Nashville, TN"
+  }
+};
+
+// FAQ Schema specific to Music Row and music industry professionals
+const faqs = [
+  {
+    question: "Can you work around irregular studio schedules and late-night sessions?",
+    answer: "Absolutely. We understand that music industry professionals operate on non-traditional schedules. Whether you finish a session at 3am or need your home cleaned before a 6pm writing appointment, we offer flexible scheduling to accommodate your creative workflow. Many of our Music Row clients prefer us to clean while they're in the studio, so they return to a spotless home without disrupting their work rhythm."
+  },
+  {
+    question: "Do you provide cleaning for small recording studios and music offices?",
+    answer: "Yes, we offer cleaning services for small studios, publishing offices, and music industry workspaces in the Music Row area. We understand the unique needs of creative spaces - we're careful around expensive equipment, soundproofing materials, and instruments. Our team knows not to disturb studio setups, control room configurations, or production workflows."
+  },
+  {
+    question: "How do you ensure discretion for high-profile music industry clients?",
+    answer: "Privacy is paramount in the music industry, and we take it seriously. All team members sign comprehensive confidentiality agreements and undergo thorough background checks. We never discuss our clients, their homes, or their schedules with anyone. As a veteran-owned business, we uphold the highest standards of integrity. Your privacy isn't just a policy - it's a commitment backed by our service record."
+  },
+  {
+    question: "Can you clean homes with home studios or recording equipment?",
+    answer: "Yes, many of our Music Row clients have home studios, recording setups, or production rooms. We're experienced in carefully cleaning around expensive audio equipment, instruments, and studio furniture. We never touch mixing consoles, microphones, or equipment without explicit permission, and we use appropriate cleaning methods that won't damage sensitive electronics or acoustic treatments."
+  },
+  {
+    question: "Do you offer same-day cleaning for last-minute needs before tours or label visits?",
+    answer: "Yes, we understand that music industry schedules can change rapidly. Whether you have a label executive visiting unexpectedly, need your home pristine before heading out on tour, or want to return from the road to a spotless space, we offer same-day service based on availability. Call us at 615-510-1427 as early as possible and we'll do our best to accommodate urgent requests."
+  },
+  {
+    question: "What areas near Music Row do you serve?",
+    answer: "We serve all of Music Row and surrounding neighborhoods including Edgehill Village, Belmont-Hillsboro, Midtown, the Gulch, 12 South, and Vanderbilt/Belmont University areas. Whether you live in a historic Music Row cottage, a modern Midtown condo, or a restored Edgehill bungalow, we provide the same premium service throughout the area."
+  },
+  {
+    question: "Can you accommodate touring schedules and extended absences?",
+    answer: "Absolutely. Many of our Music Row clients are touring artists or travel frequently for work. We can maintain your home while you're away, adjust service frequency during tour seasons, or provide a thorough deep clean before your return. We're experienced with key/code access, security systems, and maintaining empty homes to ensure everything is perfect when you get back."
+  },
+  {
+    question: "How much does cleaning cost for Music Row homes and apartments?",
+    answer: "Music Row homes and apartments vary widely in size and style, from compact condos to historic properties. Regular cleaning typically ranges from $150-$350 depending on square footage and specific needs. Deep cleaning runs $250-$500+. Small studio or office cleaning starts at $150. We provide customized quotes based on your specific space and requirements. Call 615-510-1427 for a free estimate."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+  geoRegion="US-TN"
+  geoPlacename="Music Row, Nashville, Tennessee"
+  geoPosition="36.1503;-86.7976"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <Icon name="music" class="w-5 h-5 mr-2" />Serving Nashville's Music Industry
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Cleaning Services for <span class="gold-gradient">Music Row, Nashville</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            The Valley Clean Team provides premium cleaning services designed for Music Row's unique community. From recording artists and producers to music executives and publishing professionals, we understand the demands of the music industry - flexible scheduling around studio sessions, complete discretion, and meticulous attention to detail for both residential and small commercial spaces.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Flexible Scheduling</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Complete Discretion</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>$2M Insured</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:6155101427" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <Icon name="calendar" class="w-5 h-5 mr-2" />Get Your Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Music Row Quote</h2>
+          <p class="text-gray-600 mb-6 text-center">Confidential service for industry professionals</p>
+          <form id="music-row-quote-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <select name="property_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Property Type *</option>
+                <option value="Home/Apartment">Home or Apartment</option>
+                <option value="Home with Studio">Home with Home Studio</option>
+                <option value="Small Office">Small Office/Publishing House</option>
+                <option value="Small Studio">Small Recording Studio</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Service Type *</option>
+                <option value="Regular Cleaning">Regular Maintenance Cleaning</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="One-Time Clean">One-Time Cleaning</option>
+                <option value="Move-In/Out">Move-In or Move-Out Cleaning</option>
+                <option value="Same-Day">Same-Day Service</option>
+              </select>
+            </div>
+            <input type="hidden" name="location" value="Music Row, Nashville, TN">
+            <input type="hidden" name="neighborhood" value="Music Row">
+            <button type="submit" id="music-row-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Request Confidential Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <Icon name="lock" class="w-5 h-5 mr-1" /> Confidential - Response within 2 hours
+            </p>
+            <div id="music-row-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- About Music Row Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
+            Understanding Music Row's <span class="gold-gradient">Unique Needs</span>
+          </h2>
+          <p class="text-gray-700 mb-4">
+            Music Row is more than a neighborhood - it's the beating heart of Nashville's legendary music industry. From the historic RCA Studio B where Elvis recorded to the modern offices of major labels and independent publishers, this iconic stretch has shaped the sound of American music for over six decades.
+          </p>
+          <p class="text-gray-700 mb-4">
+            The professionals who live and work in the Music Row area face unique challenges: irregular hours dictated by studio sessions and creative deadlines, frequent travel for tours and industry events, and the need for absolute discretion in an industry where privacy matters. The Valley Clean Team understands these demands and has tailored our services to meet them.
+          </p>
+          <p class="text-gray-700 mb-4">
+            Whether you're a Grammy-winning artist, an A&R executive, a session musician, or a publishing coordinator, your home should be a sanctuary from the demands of the industry. We provide the reliable, discreet cleaning service that lets you focus on what you do best - creating and supporting great music.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">We Serve Music Row's Diverse Properties</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Historic bungalows and renovated cottages</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Modern condos and luxury apartments</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="microphone" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Homes with professional home studios</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="briefcase" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Small music publishing offices</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="headphones" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Boutique recording studio spaces</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="guitar" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Artist management and label offices</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="university" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Properties near Belmont and Vanderbilt</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="warehouse" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Mixed-use live/work spaces</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Cleaning Services for <span class="gold-gradient">Music Industry Professionals</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Flexible, discreet, and tailored to your schedule</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="home" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Recurring Residential Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Maintain your Music Row home with regular cleaning that works around your schedule. Same team every visit, flexible timing to accommodate studio sessions and travel.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Weekly, bi-weekly, or monthly options</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Consistent dedicated team</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Flexible scheduling around sessions</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Up to 20% recurring discount</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Schedule Service</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="sparkles" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning Service</h3>
+          <p class="text-gray-600 mb-4">
+            Comprehensive cleaning perfect for returning from tour, preparing for industry visitors, or seasonal refreshes. Top-to-bottom attention to every detail.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Complete top-to-bottom cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Interior windows and baseboards</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Behind and under furniture</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Perfect for post-tour homecoming</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Request Quote</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="bolt" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Same-Day Service</h3>
+          <p class="text-gray-600 mb-4">
+            Last-minute label meeting at your place? Unexpected guests? Need your home perfect before heading out on tour? We offer same-day service when you need it most.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Based on availability</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Call early for best scheduling</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Perfect for industry emergencies</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Pre-tour preparation</span>
+            </li>
+          </ul>
+          <a href="tel:6155101427" class="text-[#FFA985] font-semibold hover:underline">Call: 615-510-1427</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="briefcase" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Small Office Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Keep your music publishing house, management office, or small studio space professional and welcoming. Discreet service that respects your business operations.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Publishing and management offices</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Small recording studio common areas</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>After-hours scheduling available</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Careful around equipment</span>
+            </li>
+          </ul>
+          <a href="/locations/nashville/office-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="truck-moving" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move-In/Move-Out Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Relocating to or from Music Row? Whether you just signed your deal or moving to a bigger place, we ensure every surface is spotless.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Complete property cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Inside all cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Appliance deep cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Ready for your fresh start</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Get Quote</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="plane" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Tour & Travel Maintenance</h3>
+          <p class="text-gray-600 mb-4">
+            Keep your home maintained while you're on the road. We offer customized scheduling for touring artists - maintain while you're away, deep clean before you return.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Scheduled maintenance while touring</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Pre-return deep cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Key/code access trusted</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Flexible tour season scheduling</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Discuss Your Needs</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Music Row Trusts Us -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Music Row <span class="gold-gradient">Trusts The Valley Clean Team</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">The qualities that matter most to music industry professionals</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="user-lock" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Complete Discretion</h3>
+              <p class="text-gray-700">
+                In an industry where privacy is paramount, we understand the importance of confidentiality. All team members sign strict NDAs, undergo thorough background checks, and are trained in discretion. We never discuss our clients or their homes. Your privacy is protected by our integrity and our commitment to professionalism.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="clock" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Flexible Scheduling</h3>
+              <p class="text-gray-700">
+                We know music doesn't keep banker's hours. Whether you need cleaning at unconventional times, schedule changes around last-minute sessions, or service while you're on tour, we accommodate your creative schedule. Your work rhythm comes first - we adapt to serve you better.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="microphone-alt" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Equipment-Aware Cleaning</h3>
+              <p class="text-gray-700">
+                We understand the value of studio equipment, instruments, and audio gear. Our team is trained to clean carefully around sensitive electronics, never disturb studio setups, and use appropriate methods for spaces with soundproofing or acoustic treatment. Your creative tools are safe with us.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="shield-alt" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">$2M Insurance Coverage</h3>
+              <p class="text-gray-700">
+                We carry $2 million in liability insurance and are fully bonded - providing peace of mind when we're in your home or around valuable equipment. Every team member is thoroughly background-checked and professionally trained. We're prepared to protect what matters to you.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="users" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Consistent Team</h3>
+              <p class="text-gray-700">
+                We assign the same dedicated cleaning team to your property for every visit. They'll become familiar with your preferences, your space, and your schedule - providing increasingly personalized service with each visit. Consistency means comfort and trust.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="medal" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Veteran-Owned Excellence</h3>
+              <p class="text-gray-700">
+                As a veteran-owned, women-led business, we bring military values to every service: attention to detail, commitment to excellence, integrity, and unwavering reliability. We understand that trust is earned through consistent performance and professional conduct.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Areas We Serve -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Serving Music Row <span class="gold-gradient">and Surrounding Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Premium cleaning throughout Nashville's creative heart</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Music Row
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Edgehill Village
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Belmont-Hillsboro
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Midtown
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Vanderbilt Area
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Belmont Area
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          West End
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Demonbreun Hill
+        </span>
+      </div>
+      <p class="text-center text-gray-600 mt-8">
+        Also serving: <a href="/locations/nashville/belle-meade" class="text-[#FFA985] font-semibold hover:underline">Belle Meade</a>,
+        <a href="/locations/nashville/green-hills" class="text-[#FFA985] font-semibold hover:underline ml-2">Green Hills</a>,
+        <a href="/locations/nashville" class="text-[#FFA985] font-semibold hover:underline ml-2">12 South, The Gulch</a>, and
+        <a href="/locations/nashville" class="text-[#FFA985] font-semibold hover:underline ml-2">all Nashville areas</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Music Row Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Questions from music industry professionals</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for <span class="gold-gradient">Industry-Caliber Cleaning</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Join Nashville's music professionals who trust The Valley Clean Team for flexible, discreet, premium cleaning service
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:6155101427" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
+        </a>
+        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+          <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Consultation
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+            </p>
+            <p class="text-gray-600">Music Row, Nashville, TN and surrounding neighborhoods</p>
+          </div>
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
+            </p>
+            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Flexible scheduling available</p>
+          </div>
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
+            </p>
+            <p class="text-gray-600">615-510-1427<br>hello@thevalleycleanteam.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('music-row-quote-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('music-row-submit-btn');
+      const messageDiv = document.getElementById('music-row-form-message');
+      const form = e.target;
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        property_type: form.property_type?.value || '',
+        location: form.location?.value || '',
+        neighborhood: form.neighborhood?.value || '',
+        source: 'Music Row Landing Page',
+        page_url: window.location.href
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = 'Thank you! We\'ll contact you within 2 hours with your confidential quote.';
+          messageDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = 'Please call us at 615-510-1427 for immediate assistance.';
+        messageDiv.classList.remove('hidden');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Request Confidential Quote';
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,733 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import Icon from '../../../components/Icon.astro';
+
+const title = "House Cleaning East Nashville TN";
+const description = "Professional house cleaning services for East Nashville's creative community. Regular cleaning, deep cleaning, and Airbnb turnover for Five Points, Lockeland Springs, Inglewood, and Historic Edgefield. Veteran-owned, insured, and trusted.";
+
+// Service schema for East Nashville
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "House Cleaning Services in East Nashville",
+  "description": "Professional house cleaning services for East Nashville's homes and rentals. Specializing in regular cleaning, deep cleaning, and Airbnb turnover for the creative community.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "615-510-1427",
+    "email": "hello@thevalleycleanteam.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nashville",
+      "addressRegion": "TN"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "East Nashville, Nashville, TN",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "36.1842",
+      "longitude": "-86.7341"
+    }
+  },
+  "serviceType": "House Cleaning"
+};
+
+// LocalBusiness schema
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "The Valley Clean Team - East Nashville",
+  "description": "Professional house cleaning services for East Nashville's creative community",
+  "telephone": "615-510-1427",
+  "email": "hello@thevalleycleanteam.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Nashville",
+    "addressRegion": "TN",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "East Nashville, Nashville, TN"
+  }
+};
+
+// FAQ Schema specific to East Nashville
+const faqs = [
+  {
+    question: "Do you offer cleaning around irregular musician schedules in East Nashville?",
+    answer: "Absolutely. We know East Nashville runs on its own clock - late nights at Basement East, early morning sessions, and tours that pop up unexpectedly. We offer flexible scheduling including evening and weekend appointments. Just let us know your routine (or lack of one), and we'll work around it. Many of our East Nashville clients give us key access so we can clean while they're at gigs or in the studio."
+  },
+  {
+    question: "What does house cleaning cost in East Nashville?",
+    answer: "Most East Nashville homes range from $150-$350 for a standard cleaning, depending on size and condition. The neighborhood's popular bungalows and Victorians (typically 1,200-2,400 sq ft) usually fall in the $175-$275 range. We provide transparent pricing upfront - the quote you get is the price you pay. Call 615-510-1427 for a quick estimate based on your home's specifics."
+  },
+  {
+    question: "Do you handle Airbnb and short-term rental turnovers in East Nashville?",
+    answer: "Yes, and we're really good at it. East Nashville is one of Nashville's hottest Airbnb markets, and we've perfected the turnover process. We can handle same-day turnovers, restock essentials, and make sure your rental is guest-ready with fresh linens and sparkling bathrooms. Many East Nashville hosts rely on us for consistent 5-star cleanliness ratings."
+  },
+  {
+    question: "Are you experienced with older homes and their quirks?",
+    answer: "East Nashville is full of character homes - 1920s bungalows, Victorian-era houses, and historic Edgefield properties. We understand the unique needs of these spaces: original hardwood floors that need gentle care, vintage fixtures, higher ceilings with crown molding, and sometimes temperamental plumbing. Our team knows how to clean these homes properly without causing damage."
+  },
+  {
+    question: "Can you clean around my home studio or music equipment?",
+    answer: "We get it - your gear is your livelihood. Our team is trained to work carefully around home studios, instruments, and recording equipment. We won't touch your mixing board or move your guitars. Just show us what's off-limits during the walkthrough, and we'll keep your creative space clean without disrupting your setup."
+  },
+  {
+    question: "Do you work with pet owners? My rescue dog is part of the family.",
+    answer: "East Nashville loves its rescue pets, and so do we. We're completely pet-friendly and use eco-friendly, non-toxic cleaning products that are safe for dogs, cats, and whatever other creatures share your space. We can work around nervous pets, avoid certain areas if needed, or give your furry friend some love while we clean. Just let us know their temperament beforehand."
+  },
+  {
+    question: "What eco-friendly products do you use?",
+    answer: "We use premium, environmentally-conscious cleaning products that are tough on grime but gentle on the planet. No harsh chemicals, no strong artificial fragrances - just effective, safe cleaning. This matters especially in East Nashville's older homes where good ventilation can be limited, and for households with kids, pets, or sensitivities."
+  },
+  {
+    question: "Can I book same-day or last-minute cleaning in East Nashville?",
+    answer: "Yes, we offer same-day cleaning when availability allows. Life in East Nashville moves fast - unexpected guests, landlord visits, or that dinner party you forgot about. Call us at 615-510-1427 and we'll do our best to fit you in. We recommend booking at least 24-48 hours ahead for guaranteed availability, but we understand that's not always possible in a creative neighborhood."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+  geoRegion="US-TN"
+  geoPlacename="East Nashville, Nashville, Tennessee"
+  geoPosition="36.1842;-86.7341"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <Icon name="home-lg-alt" class="w-5 h-5 mr-2" />East Nashville's Trusted Cleaning Team
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            House Cleaning Services in <span class="gold-gradient">East Nashville, TN</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            The Valley Clean Team brings reliable, professional house cleaning to East Nashville's creative community. From historic bungalows in Lockeland Springs to renovated Victorians in Five Points, we keep your home spotless so you can focus on what matters - your art, your music, your life.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Flexible Scheduling</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Pet-Friendly Products</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>$2M Insured</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:6155101427" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <Icon name="calendar" class="w-5 h-5 mr-2" />Get Your Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your East Nashville Quote</h2>
+          <p class="text-gray-600 mb-6 text-center">Quick response, honest pricing</p>
+          <form id="east-nashville-quote-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="text" name="property_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Bedrooms / Bathrooms (e.g., 3 bed / 2 bath)">
+            </div>
+            <div class="mb-4">
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Select Service Type *</option>
+                <option value="Regular Cleaning">Regular Cleaning</option>
+                <option value="Deep Cleaning">Deep Cleaning</option>
+                <option value="Move-In/Move-Out">Move-In / Move-Out</option>
+                <option value="Airbnb Turnover">Airbnb / Rental Turnover</option>
+                <option value="One-Time Cleaning">One-Time Cleaning</option>
+              </select>
+            </div>
+            <input type="hidden" name="location" value="East Nashville, Nashville, TN">
+            <input type="hidden" name="neighborhood" value="East Nashville">
+            <button type="submit" id="east-nashville-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Get My Free Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours
+            </p>
+            <div id="east-nashville-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- About East Nashville -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
+            Cleaning for <span class="gold-gradient">East Nashville's Creative Community</span>
+          </h2>
+          <p class="text-gray-700 mb-4">
+            East Nashville is unlike anywhere else in the city. From the indie music venues and vintage shops of Five Points to the tree-lined streets of Lockeland Springs, this neighborhood pulses with creative energy. The people who live here - musicians, artists, writers, and the young professionals who love being part of it all - need a cleaning service that gets it.
+          </p>
+          <p class="text-gray-700 mb-4">
+            We understand that your schedule isn't 9-to-5. That your home might double as a recording studio. That your rescue pit bull needs safe, non-toxic products. And that you want honest, straightforward pricing without the upsell.
+          </p>
+          <p class="text-gray-700 mb-4">
+            Whether you own a charming 1920s bungalow, rent a renovated Victorian, or manage an Airbnb in the heart of the action, The Valley Clean Team delivers consistent, professional cleaning that respects your space, your stuff, and your time.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">East Nashville Homes We Clean</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">1920s-1940s bungalows with original hardwoods</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Victorian-era homes in Historic Edgefield</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="city" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Modern new construction and renovations</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="door-open" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Loft apartments and condos</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="key" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Airbnb and short-term rentals</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="music" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Homes with music studios and creative spaces</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="paw" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Pet-friendly households (we love dogs)</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="seedling" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Eco-conscious homes wanting green products</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our East Nashville Services -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Cleaning Services for <span class="gold-gradient">East Nashville</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Professional cleaning that fits your lifestyle</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="home" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular House Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Weekly, biweekly, or monthly cleaning to keep your East Nashville home consistently fresh. Same team every time, so they know your space and preferences.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>All rooms dusted and vacuumed</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Kitchens and bathrooms thoroughly cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Floors mopped, hardwoods cared for properly</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Trash emptied, beds made</span>
+            </li>
+          </ul>
+          <a href="/locations/nashville/weekly-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="sparkles" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Top-to-bottom detailed cleaning for when your home needs extra attention. Perfect for spring cleaning, before hosting, or just hitting reset.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Inside cabinets, appliances, and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Baseboards, window sills, light fixtures</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Behind and under furniture</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Detailed scrubbing of kitchens and baths</span>
+            </li>
+          </ul>
+          <a href="/locations/nashville/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="key" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb & Rental Turnover</h3>
+          <p class="text-gray-600 mb-4">
+            Quick, thorough turnovers for East Nashville's busy short-term rental market. We help you maintain those 5-star reviews.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Same-day turnover available</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Fresh linens and towels arranged</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Restocking essentials (toiletries, coffee)</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Photo-ready presentation</span>
+            </li>
+          </ul>
+          <a href="/locations/nashville/airbnb-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="truck-moving" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move-In / Move-Out Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Transitioning apartments or houses? We make sure you get your deposit back or start fresh in your new place.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Every surface cleaned top to bottom</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Inside all cabinets, closets, and appliances</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Walls spot-cleaned, fixtures polished</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Ready for inspection or your first night</span>
+            </li>
+          </ul>
+          <a href="/locations/nashville/move-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="bolt" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Same-Day Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Life happens. Parents visiting unexpectedly? Forgot about that dinner party? We offer same-day service when availability allows.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Quick response, flexible arrival times</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Focus on high-impact areas</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Guest-ready in hours, not days</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Call by noon for same-day service</span>
+            </li>
+          </ul>
+          <a href="/locations/nashville/same-day-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="hammer" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Renovation Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Just finished renovating your East Nashville bungalow? We remove the dust, debris, and construction mess so you can enjoy your new space.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Construction dust removal from all surfaces</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Windows, fixtures, and trim detailed</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Floor cleaning safe for new finishes</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Move-in ready results</span>
+            </li>
+          </ul>
+          <a href="/locations/nashville/post-construction-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why East Nashville Trusts Us -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why East Nashville <span class="gold-gradient">Chooses Us</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">What matters to our East Nashville clients</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="clock" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Flexible Scheduling</h3>
+              <p class="text-gray-700">
+                We work around your schedule, not the other way around. Late riser? Night owl? Touring musician? We offer evening and weekend appointments, and many clients give us key access to clean while they're out.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="leaf" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Eco-Friendly Products</h3>
+              <p class="text-gray-700">
+                We use environmentally-conscious cleaning products that are effective but gentle. Safe for your pets, your kids, and the planet. No harsh chemicals or overpowering fragrances.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="dollar-sign" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Transparent Pricing</h3>
+              <p class="text-gray-700">
+                No surprises, no hidden fees. We give you an honest quote upfront, and that's the price you pay. Most East Nashville homes run $150-$350 depending on size and service type.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="users" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Consistent Team</h3>
+              <p class="text-gray-700">
+                You get the same cleaning team every time. They learn your preferences, know your home's quirks, and become familiar faces you can trust. No rotating strangers in your space.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="shield-alt" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Fully Insured & Background-Checked</h3>
+              <p class="text-gray-700">
+                We carry $2 million in liability insurance and every team member is thoroughly background-checked. Your home, your belongings, and your peace of mind are protected.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="medal" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Veteran-Owned, Women-Led</h3>
+              <p class="text-gray-700">
+                We're a veteran-owned, women-led business that brings military discipline and attention to detail to every clean. Supporting us means supporting a small business with real values.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- East Nashville Neighborhoods -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Serving All of <span class="gold-gradient">East Nashville</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Professional cleaning throughout the East Side</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Five Points
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Lockeland Springs
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Historic Edgefield
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Inglewood
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          East End
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          McFerrin Park
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Greenwood
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Cleveland Park
+        </span>
+      </div>
+      <p class="text-center text-gray-600 mt-8">
+        Also serving nearby: <a href="/locations/nashville" class="text-[#FFA985] font-semibold hover:underline">Downtown Nashville</a>,
+        <a href="/locations/nashville/the-nations" class="text-[#FFA985] font-semibold hover:underline ml-2">The Nations</a>, and
+        <a href="/locations/nashville/green-hills" class="text-[#FFA985] font-semibold hover:underline ml-2">Green Hills</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          East Nashville Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Questions from our East Nashville clients</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for a <span class="gold-gradient">Cleaner Home</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Join the East Nashville neighbors who trust The Valley Clean Team to keep their homes spotless
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:6155101427" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
+        </a>
+        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+          <Icon name="calendar" class="w-5 h-5 mr-2" />Get Your Free Quote
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+            </p>
+            <p class="text-gray-600">East Nashville and all of greater Nashville, TN</p>
+          </div>
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
+            </p>
+            <p class="text-gray-600">Mon-Sat: 8am-6pm<br>Flexible scheduling available</p>
+          </div>
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
+            </p>
+            <p class="text-gray-600">615-510-1427<br>hello@thevalleycleanteam.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('east-nashville-quote-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('east-nashville-submit-btn');
+      const messageDiv = document.getElementById('east-nashville-form-message');
+      const form = e.target;
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        property_size: form.property_size?.value || '',
+        location: form.location?.value || '',
+        neighborhood: form.neighborhood?.value || '',
+        source: 'East Nashville Landing Page',
+        page_url: window.location.href
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = 'Thank you! We\'ll get back to you within 2 hours with your quote.';
+          messageDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(result.error | 'Submission failed');
+        }
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = 'Please call us at 615-510-1427 for immediate assistance.';
+        messageDiv.classList.remove('hidden');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Get My Free Quote';
+    });
+  </script>
+</BaseLayout>

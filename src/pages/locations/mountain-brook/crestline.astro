@@ -1,0 +1,733 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import Icon from '../../../components/Icon.astro';
+
+const title = "Luxury House Cleaning Crestline Mountain Brook AL";
+const description = "Premium estate cleaning services for Crestline's finest homes. White-glove service for historic Tudor and Colonial estates, antique care, and discretion you can trust. Serving Crestline Village and Mountain Brook since 2021.";
+
+// Service schema for Crestline
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Luxury House Cleaning Services in Crestline",
+  "description": "Premium estate cleaning services for Crestline's luxury homes and historic estates in Mountain Brook, Alabama. Specialized in antique care, fine surface handling, and discretion.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "hello@thevalleycleanteam.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Mountain Brook",
+      "addressRegion": "AL"
+    }
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Crestline, Mountain Brook, AL",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "33.5010",
+      "longitude": "-86.7450"
+    }
+  },
+  "serviceType": "Luxury House Cleaning"
+};
+
+// LocalBusiness schema
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "The Valley Clean Team - Crestline",
+  "description": "Premier luxury house cleaning services for Crestline's finest homes in Mountain Brook",
+  "telephone": "256-826-1100",
+  "email": "hello@thevalleycleanteam.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Mountain Brook",
+    "addressRegion": "AL",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Crestline, Mountain Brook, AL"
+  }
+};
+
+// FAQ Schema specific to Crestline luxury estates
+const faqs = [
+  {
+    question: "Do you have experience cleaning historic Tudor homes in Crestline?",
+    answer: "Yes, Crestline's Tudor and Colonial architecture is part of what makes this neighborhood so distinguished, and we're extensively trained in caring for these historic properties. From original leaded glass windows and hand-laid hardwood floors to limestone fireplaces and period millwork, we use pH-neutral products and gentle techniques that preserve architectural integrity while delivering a meticulous clean. Our team understands that Crestline homes often date to the 1930s-1950s and require specialized knowledge."
+  },
+  {
+    question: "How do you handle cleaning around antique furniture and family heirlooms?",
+    answer: "Crestline homes often contain museum-quality antiques, inherited heirlooms, and valuable art collections accumulated over generations. Our team receives specialized training in caring for these irreplaceable items. We use appropriate cleaning methods for different materials—from delicate porcelain and silver to oil paintings and Oriental rugs—and never move or touch valuable pieces without explicit permission. We understand these aren't just possessions; they're family legacies."
+  },
+  {
+    question: "What's the cost of luxury house cleaning in Crestline?",
+    answer: "Crestline luxury house cleaning typically starts at $350-$700+ depending on square footage, specific requirements, and service frequency. Most Crestline estates range from 3,500-8,000+ sq ft and feature specialized finishes requiring expert attention. We provide customized quotes after an in-home consultation to understand your home's unique features and your specific preferences. Call 256-826-1100 for a confidential consultation."
+  },
+  {
+    question: "How do you ensure discretion for Crestline's prominent families?",
+    answer: "Discretion is paramount in Crestline, where many residents are prominent physicians, attorneys, executives, and established Birmingham families. All team members sign comprehensive confidentiality agreements and undergo thorough background checks. We work efficiently and professionally, respecting your privacy, security systems, and family routines. As a veteran-owned business, we uphold the highest standards of integrity that Crestline homeowners expect and deserve."
+  },
+  {
+    question: "Do you offer regular maintenance cleaning for Crestline homes?",
+    answer: "Yes, most of our Crestline clients prefer weekly or bi-weekly recurring service to maintain their homes in pristine condition. We assign the same dedicated team to your home for every visit, ensuring they become intimately familiar with your preferences, your home's unique features, and your family's routine. Recurring clients receive priority scheduling, preferred rates, and increasingly personalized service."
+  },
+  {
+    question: "Can you clean before or after events at my Crestline home?",
+    answer: "Absolutely. Crestline residents frequently host garden club gatherings, dinner parties, holiday celebrations, and charity events. We specialize in pre-event deep cleaning to ensure your home is flawless for guests and post-event restoration to return it to pristine condition. We offer flexible scheduling around your event timeline, including same-day and next-day service for last-minute occasions."
+  },
+  {
+    question: "Do you serve the Crestline Village area specifically?",
+    answer: "Yes, we serve all of Crestline including homes throughout the Crestline Village area. Whether your home is walking distance to Church Street Coffee and the library, near Crestline Elementary, or in the surrounding Crestline Heights and residential areas, we deliver consistent white-glove service. Our team is familiar with Crestline's winding streets, mature landscaping, and the community's walkable village atmosphere."
+  },
+  {
+    question: "Are your cleaners bonded and insured for high-value Crestline homes?",
+    answer: "Yes, we carry $2 million in liability insurance and are fully bonded—far exceeding industry standards and appropriate for Crestline's valuable properties. Every team member undergoes thorough background checks and professional training before entering any client's home. As a veteran-owned, women-led business, we bring military precision and genuine care to every Crestline property, providing the peace of mind that discerning homeowners require."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+  geoRegion="US-AL"
+  geoPlacename="Crestline, Mountain Brook, Alabama"
+  geoPosition="33.5010;-86.7450"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Column -->
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+            <span class="text-[#FFA985] font-semibold">
+              <Icon name="home-lg-alt" class="w-5 h-5 mr-2" />Mountain Brook's Premier Estate Cleaning
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+            Luxury House Cleaning in <span class="gold-gradient">Crestline, Mountain Brook</span>
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            The Valley Clean Team provides white-glove luxury house cleaning services for Crestline's most distinguished homes. From historic Tudor estates near Crestline Village to stately Colonial properties throughout this prestigious Mountain Brook neighborhood, we deliver the discretion, expertise, and meticulous attention to detail that Crestline's finest homes demand.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>$2M Liability Insurance</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>White Glove Service</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Complete Discretion</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call: 256-826-1100
+            </a>
+            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+              <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Consultation
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Crestline Estate Quote</h2>
+          <p class="text-gray-600 mb-6 text-center">Confidential consultation for your luxury home</p>
+          <form id="crestline-quote-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <input type="text" name="property_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Approximate Square Footage">
+            </div>
+            <div class="mb-4">
+              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Select Service Type *</option>
+                <option value="Estate Regular Cleaning">Regular Estate Maintenance</option>
+                <option value="Estate Deep Cleaning">Estate Deep Cleaning</option>
+                <option value="Pre-Event Preparation">Pre-Event Preparation</option>
+                <option value="Post-Event Cleanup">Post-Event Cleanup</option>
+                <option value="Seasonal Deep Clean">Seasonal Deep Clean</option>
+              </select>
+            </div>
+            <input type="hidden" name="location" value="Crestline, Mountain Brook, AL">
+            <input type="hidden" name="neighborhood" value="Crestline">
+            <button type="submit" id="crestline-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Request Confidential Consultation
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <Icon name="lock" class="w-5 h-5 mr-1" /> Confidential - Response within 2 hours
+            </p>
+            <div id="crestline-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- About Crestline Estates -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
+            Understanding Crestline's <span class="gold-gradient">Unique Estate Needs</span>
+          </h2>
+          <p class="text-gray-700 mb-4">
+            Crestline represents the heart of Mountain Brook—Alabama's wealthiest city and one of the most affluent communities in America. Centered around the charming Crestline Village with its iconic clock tower, this prestigious neighborhood combines old-world Southern elegance with the convenience of walkable village living that discerning families have treasured for generations.
+          </p>
+          <p class="text-gray-700 mb-4">
+            From magnificent Tudor estates with mature landscaping to stately Colonial homes near top-rated Crestline Elementary, Crestline properties range from $800,000 to over $3 million. These homes feature architectural details, antique furnishings, fine art collections, and luxury finishes that require more than standard cleaning—they demand the white-glove estate service that The Valley Clean Team provides.
+          </p>
+          <p class="text-gray-700 mb-4">
+            Our Crestline clients include executives, physicians, attorneys, and established Birmingham families who expect discretion, consistency, and perfection. We understand that your home is more than just a residence—it's a reflection of your family's legacy, an investment in your future, and a sanctuary where generations of memories are made.
+          </p>
+        </div>
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Crestline Estate Features We Specialize In</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <Icon name="crown" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Historic Tudor and Colonial architecture</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="palette" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Fine art collections and inherited antiques</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="chair" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Period furniture and family heirlooms</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="gem" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Marble, granite, and luxury stone surfaces</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Original hardwood flooring and millwork</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="door-closed" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Leaded glass windows and period details</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="wine-glass" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Wine cellars and butler's pantries</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="chandelier" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Crystal chandeliers and luxury fixtures</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="couch" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Formal living and entertaining spaces</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="leaf" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <span class="text-gray-700">Screened porches and sunrooms</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Crestline Services -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Luxury Cleaning <span class="gold-gradient">Services for Crestline</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Comprehensive estate maintenance tailored to your needs</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="home" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular Estate Maintenance</h3>
+          <p class="text-gray-600 mb-4">
+            Weekly or bi-weekly service to keep your Crestline home in pristine condition. Same dedicated team, consistent results, complete discretion.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>All living spaces meticulously cleaned</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Kitchen and bathrooms sanitized</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Careful dusting of antiques and art</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Premium hardwood floor care</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Schedule Service</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="sparkles" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Estate Deep Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Comprehensive deep cleaning perfect for seasonal refreshes, pre-listing preparation, or restoring your estate to showroom condition.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Top-to-bottom detailed cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Baseboards, crown molding, trim work</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Chandelier and fixture cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Window cleaning (interior)</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Request Quote</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="champagne-glasses" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Special Event Preparation</h3>
+          <p class="text-gray-600 mb-4">
+            Hosting a dinner party, garden club meeting, or holiday celebration? We ensure your Crestline home is flawless for your guests.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Pre-event deep cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Post-event restoration</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Same-day availability</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Flexible scheduling around your event</span>
+            </li>
+          </ul>
+          <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call: 256-826-1100</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="truck-moving" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move-In/Move-Out Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            Transitioning to or from your Crestline home? We ensure every surface is immaculate for the next chapter.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Complete home cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Inside cabinets and closets</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Appliance deep cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Ready for inspection or listing photos</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Get Quote</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="hammer" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Renovation Cleaning</h3>
+          <p class="text-gray-600 mb-4">
+            After home renovations or remodeling, we remove construction dust and debris to reveal your refreshed spaces.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Construction dust removal</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Surface protection and detailing</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>HVAC vent cleaning coordination</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Final walk-through inspection</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Schedule Service</a>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="snowflake" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Seasonal Estate Refresh</h3>
+          <p class="text-gray-600 mb-4">
+            Spring and fall deep cleaning to refresh your estate for the changing seasons and upcoming holidays.
+          </p>
+          <ul class="space-y-2 mb-4">
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Seasonal deep cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Window and drapery attention</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Outdoor living space cleaning</span>
+            </li>
+            <li class="flex items-start text-sm text-gray-600">
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <span>Holiday preparation services</span>
+            </li>
+          </ul>
+          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Crestline Trusts Us -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Crestline <span class="gold-gradient">Trusts The Valley Clean Team</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">The qualities that matter most to discerning Crestline homeowners</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="user-lock" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Absolute Discretion</h3>
+              <p class="text-gray-700">
+                We understand that privacy is paramount in Crestline. All team members sign comprehensive confidentiality agreements, undergo thorough background checks, and are trained to respect your privacy, security systems, and family routines. Your trust is our most valuable asset.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="gem" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Antique & Fine Art Expertise</h3>
+              <p class="text-gray-700">
+                Our team receives specialized training in caring for antiques, fine art, and valuable collections. We understand appropriate cleaning methods for different materials, from delicate porcelain to oil paintings, ensuring your family treasures receive the gentle, expert care they deserve.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="users" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Dedicated Estate Team</h3>
+              <p class="text-gray-700">
+                We assign the same professional cleaning team to your home for every visit. This consistency means they become familiar with your preferences, your home's unique features, and your family's routine—delivering increasingly personalized service with each visit.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="shield-alt" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">$2M Insurance Coverage</h3>
+              <p class="text-gray-700">
+                We carry $2 million in liability insurance and are fully bonded—far exceeding industry standards. This comprehensive coverage protects your valuable home and provides the peace of mind you expect when inviting service professionals into your Crestline residence.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="clock" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Flexible Scheduling</h3>
+              <p class="text-gray-700">
+                We work around your schedule, not the other way around. Prefer us to clean while you're at the office? Need us there before a dinner party? Require service on specific days? We accommodate your preferences and maintain your routine without disruption.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+              <Icon name="medal" class="w-6 h-6 text-white" />
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">Veteran-Owned Excellence</h3>
+              <p class="text-gray-700">
+                As a veteran-owned, women-led business, we bring military values to every service: attention to detail, commitment to excellence, integrity, and unwavering reliability. These principles align perfectly with the standards Crestline homeowners demand and deserve.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Crestline & Adjacent Neighborhoods -->
+  <section class="py-16 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Serving All of <span class="gold-gradient">Crestline & Mountain Brook</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Premium house cleaning throughout Mountain Brook's finest areas</p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Crestline Village
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Crestline Heights
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Cherokee Bend
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Mountain Brook Village
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          English Village
+        </span>
+        <span class="neighborhood-badge">
+          <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Overton
+        </span>
+      </div>
+      <p class="text-center text-gray-600 mt-8">
+        Also serving: <a href="/locations/mountain-brook" class="text-[#FFA985] font-semibold hover:underline">All Mountain Brook neighborhoods</a>,
+        <a href="/locations/birmingham" class="text-[#FFA985] font-semibold hover:underline ml-2">Greater Birmingham</a>, and
+        <a href="/locations/birmingham/liberty-park" class="text-[#FFA985] font-semibold hover:underline ml-2">Liberty Park</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Crestline Luxury House Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Questions from Crestline homeowners</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready to Experience <span class="gold-gradient">White-Glove Estate Service</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Join Crestline's most distinguished families who trust The Valley Clean Team for exceptional home care
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call: 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+          <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Consultation
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-8 border border-gray-200">
+        <div class="grid md:grid-cols-3 gap-6 text-left">
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+            </p>
+            <p class="text-gray-600">Crestline, Mountain Brook, AL and surrounding areas</p>
+          </div>
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
+            </p>
+            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+          </div>
+          <div>
+            <p class="font-bold text-[#333333] mb-2">
+              <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
+            </p>
+            <p class="text-gray-600">256-826-1100<br>hello@thevalleycleanteam.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('crestline-quote-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('crestline-submit-btn');
+      const messageDiv = document.getElementById('crestline-form-message');
+      const form = e.target;
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        property_size: form.property_size?.value || '',
+        location: form.location?.value || '',
+        neighborhood: form.neighborhood?.value || '',
+        source: 'Crestline Landing Page',
+        page_url: window.location.href
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll contact you within 2 hours with your confidential consultation.';
+          messageDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(result.error | 'Submission failed');
+        }
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Please call us at 256-826-1100 for immediate assistance.';
+        messageDiv.classList.remove('hidden');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Request Confidential Consultation';
+    });
+  </script>
+</BaseLayout>
