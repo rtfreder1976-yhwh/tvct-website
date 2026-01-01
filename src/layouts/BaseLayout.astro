@@ -28,8 +28,19 @@ const {
 
 // Generate canonical URL from current page if not provided
 const siteUrl = "https://thevalleycleanteam.com";
-const currentPath = Astro.url.pathname;
-const canonical = canonicalUrl || `${siteUrl}${currentPath === '/' ? '' : currentPath.replace(/\/$/, '')}`;
+const preferredHost = "thevalleycleanteam.com";
+const normalizePathname = (pathname: string) =>
+  pathname !== '/' ? pathname.replace(/\/+$/, '') : '/';
+const toCanonicalUrl = (value: string | URL) => {
+  const url = typeof value === 'string' ? new URL(value, siteUrl) : new URL(value.toString());
+  url.protocol = 'https:';
+  url.host = preferredHost;
+  url.pathname = normalizePathname(url.pathname);
+  url.search = '';
+  url.hash = '';
+  return url.toString();
+};
+const canonical = canonicalUrl ? toCanonicalUrl(canonicalUrl) : toCanonicalUrl(Astro.url);
 
 // Ensure title has brand name
 const fullTitle = title.includes('Valley Clean Team') ? title : `${title} | Valley Clean Team`;
