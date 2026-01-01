@@ -1,13 +1,27 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { google } from 'googleapis';
+import { enforceAnalyticsToken, enforceRateLimit } from './_utils/analyticsAuth';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, X-Analytics-Token, Content-Type');
   res.setHeader('Cache-Control', 'public, max-age=3600');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
 
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  if (!enforceRateLimit(req, res)) {
+    return;
+  }
+
+  if (!enforceAnalyticsToken(req, res)) {
+    return;
   }
 
   try {

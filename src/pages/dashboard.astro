@@ -551,10 +551,16 @@ const topPages = [
     const Dashboard = {
       // Fetch live data from API routes
       async fetchData() {
+        // Provide the analytics token via Authorization: Bearer <token> or X-Analytics-Token.
+        // For internal access, store a token in localStorage as "analyticsApiToken".
+        const analyticsToken = window.localStorage?.getItem('analyticsApiToken');
+        const analyticsHeaders = analyticsToken
+          ? { Authorization: `Bearer ${analyticsToken}` }
+          : {};
         const [rankingsRes, trafficRes, leadsRes] = await Promise.allSettled([
-          fetch('/api/rankings').then(r => r.json()),
-          fetch('/api/traffic').then(r => r.json()),
-          fetch('/api/leads').then(r => r.json())
+          fetch('/api/rankings', { headers: analyticsHeaders }).then(r => r.json()),
+          fetch('/api/traffic', { headers: analyticsHeaders }).then(r => r.json()),
+          fetch('/api/leads', { headers: analyticsHeaders }).then(r => r.json())
         ]);
 
         return {
