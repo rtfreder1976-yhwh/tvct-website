@@ -44,16 +44,7 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-LXHE2DSZ7T');
-    </script>
-
-    <!-- Preconnect to critical third-party origins -->
+    <!-- Preconnect to critical third-party origins (before scripts for maximum benefit) -->
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 
@@ -231,6 +222,28 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <Analytics />
 
     <script is:inline>(function(){var n=document.querySelector('nav');if(n){var t=false,l=0;window.addEventListener('scroll',function(){l=window.scrollY;if(!t){requestAnimationFrame(function(){l>50?n.classList.add('nav-scrolled'):n.classList.remove('nav-scrolled');t=false});t=true}},{passive:true})}})();</script>
+
+    <!-- Google Analytics 4 - Deferred loading to prevent forced reflow impact on CWV -->
+    <script is:inline>
+      (function(){
+        function loadGA(){
+          window.dataLayer=window.dataLayer||[];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag=gtag;
+          gtag('js',new Date());
+          gtag('config','G-LXHE2DSZ7T');
+          var s=document.createElement('script');
+          s.src='https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T';
+          s.async=true;
+          document.head.appendChild(s);
+        }
+        if('requestIdleCallback' in window){
+          requestIdleCallback(loadGA,{timeout:3000});
+        }else{
+          setTimeout(loadGA,2000);
+        }
+      })();
+    </script>
 
   </body>
 </html>
