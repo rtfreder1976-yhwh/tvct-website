@@ -52,6 +52,14 @@ const {
   countyName = ''
 } = Astro.props;
 
+const normalizeSlug = (slug: string) => slug.trim().replace(/^\/+|\/+$/g, '');
+const normalizedCitySlug = normalizeSlug(citySlug);
+const normalizedServiceSlug = normalizeSlug(serviceSlug);
+
+if (!normalizedCitySlug || !normalizedServiceSlug) {
+  throw new Error('ServiceLocationLayout requires valid citySlug and serviceSlug to build canonicalUrl.');
+}
+
 // Get service-specific testimonials
 const serviceTestimonials = getTestimonialsByService(serviceSlug);
 
@@ -163,7 +171,7 @@ const relatedServices = relatedServicesMap[serviceSlug] || [
 ];
 
 // Generate canonical URL
-const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}/${serviceSlug}`;
+const canonicalUrl = `https://thevalleycleanteam.com/locations/${normalizedCitySlug}/${normalizedServiceSlug}`;
 
 // Schema for Service with enhanced areaServed
 const areaServedSchema = citySlug === 'mountain-brook' && neighborhoods.length > 0 ? [
