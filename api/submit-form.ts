@@ -1,6 +1,17 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Resend } from 'resend';
 
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+const normalizeTextValue = (value: unknown) =>
+  typeof value === 'string' ? value.trim() : '';
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -27,6 +38,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const resend = new Resend(resendApiKey);
 
     const { name, email, phone, service, location, preferred_date, message, source, page_url } = req.body;
+    const normalizedName = normalizeTextValue(name);
+    const normalizedEmail = normalizeTextValue(email);
+    const normalizedPhone = normalizeTextValue(phone);
+    const normalizedService = normalizeTextValue(service);
+    const normalizedLocation = normalizeTextValue(location);
+    const normalizedPreferredDate = normalizeTextValue(preferred_date);
+    const normalizedMessage = normalizeTextValue(message);
+    const normalizedSource = normalizeTextValue(source);
+    const normalizedPageUrl = normalizeTextValue(page_url);
 
     if (!phone) {
       return res.status(400).json({
@@ -47,44 +67,44 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           <table style="width: 100%; border-collapse: collapse;">
             <tr>
               <td style="padding: 10px 0; font-weight: bold; color: #555;">Name:</td>
-              <td style="padding: 10px 0; color: #333;">${name || 'Not provided'}</td>
+              <td style="padding: 10px 0; color: #333;">${normalizedName ? escapeHtml(normalizedName) : 'Not provided'}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; font-weight: bold; color: #555;">Phone:</td>
-              <td style="padding: 10px 0; color: #333;"><a href="tel:${phone}" style="color: #FFA985;">${phone}</a></td>
+              <td style="padding: 10px 0; color: #333;"><a href="tel:${escapeHtml(normalizedPhone)}" style="color: #FFA985;">${escapeHtml(normalizedPhone)}</a></td>
             </tr>
             <tr>
               <td style="padding: 10px 0; font-weight: bold; color: #555;">Email:</td>
-              <td style="padding: 10px 0; color: #333;">${email ? `<a href="mailto:${email}" style="color: #FFA985;">${email}</a>` : 'Not provided'}</td>
+              <td style="padding: 10px 0; color: #333;">${normalizedEmail ? `<a href="mailto:${escapeHtml(normalizedEmail)}" style="color: #FFA985;">${escapeHtml(normalizedEmail)}</a>` : 'Not provided'}</td>
             </tr>
             <tr>
               <td style="padding: 10px 0; font-weight: bold; color: #555;">Service Requested:</td>
-              <td style="padding: 10px 0; color: #333;">${service || 'Not specified'}</td>
+              <td style="padding: 10px 0; color: #333;">${normalizedService ? escapeHtml(normalizedService) : 'Not specified'}</td>
             </tr>
-            ${location ? `
+            ${normalizedLocation ? `
             <tr>
               <td style="padding: 10px 0; font-weight: bold; color: #555;">Location:</td>
-              <td style="padding: 10px 0; color: #333;">${location}</td>
+              <td style="padding: 10px 0; color: #333;">${escapeHtml(normalizedLocation)}</td>
             </tr>
             ` : ''}
-            ${preferred_date ? `
+            ${normalizedPreferredDate ? `
             <tr>
               <td style="padding: 10px 0; font-weight: bold; color: #555;">Preferred Date:</td>
-              <td style="padding: 10px 0; color: #333;">${preferred_date}</td>
+              <td style="padding: 10px 0; color: #333;">${escapeHtml(normalizedPreferredDate)}</td>
             </tr>
             ` : ''}
           </table>
 
-          ${message ? `
+          ${normalizedMessage ? `
           <h3 style="color: #333; margin-top: 20px;">Message:</h3>
           <div style="background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #FFA985;">
-            ${message}
+            ${escapeHtml(normalizedMessage)}
           </div>
           ` : ''}
 
           <div style="margin-top: 30px; padding: 15px; background: #fff; border-radius: 8px; font-size: 12px; color: #666;">
-            <p style="margin: 5px 0;"><strong>Source:</strong> ${source || 'Website'}</p>
-            <p style="margin: 5px 0;"><strong>Page:</strong> ${page_url || 'Unknown'}</p>
+            <p style="margin: 5px 0;"><strong>Source:</strong> ${normalizedSource ? escapeHtml(normalizedSource) : 'Website'}</p>
+            <p style="margin: 5px 0;"><strong>Page:</strong> ${normalizedPageUrl ? escapeHtml(normalizedPageUrl) : 'Unknown'}</p>
             <p style="margin: 5px 0;"><strong>Time:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
           </div>
         </div>
@@ -98,17 +118,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const emailText = `
 New Lead from Website
 
-Name: ${name || 'Not provided'}
-Phone: ${phone}
-Email: ${email || 'Not provided'}
-Service: ${service || 'Not specified'}
-${location ? `Location: ${location}` : ''}
-${preferred_date ? `Preferred Date: ${preferred_date}` : ''}
-${message ? `\nMessage:\n${message}` : ''}
+Name: ${normalizedName || 'Not provided'}
+Phone: ${normalizedPhone}
+Email: ${normalizedEmail || 'Not provided'}
+Service: ${normalizedService || 'Not specified'}
+${normalizedLocation ? `Location: ${normalizedLocation}` : ''}
+${normalizedPreferredDate ? `Preferred Date: ${normalizedPreferredDate}` : ''}
+${normalizedMessage ? `\nMessage:\n${normalizedMessage}` : ''}
 
 ---
-Source: ${source || 'Website'}
-Page: ${page_url || 'Unknown'}
+Source: ${normalizedSource || 'Website'}
+Page: ${normalizedPageUrl || 'Unknown'}
 Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
     `.trim();
 
@@ -116,10 +136,10 @@ Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
     const { data, error } = await resend.emails.send({
       from: 'The Valley Clean Team <leads@thevalleycleanteam.com>',
       to: ['leads@thevalleycleanteam.com'],
-      subject: `New Lead: ${service || 'Cleaning Service'} - ${name || phone}`,
+      subject: `New Lead: ${normalizedService || 'Cleaning Service'} - ${normalizedName || normalizedPhone}`,
       html: emailHtml,
       text: emailText,
-      replyTo: email || undefined
+      replyTo: normalizedEmail || undefined
     });
 
     if (error) {
