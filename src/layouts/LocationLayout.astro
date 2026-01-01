@@ -21,15 +21,33 @@ interface Props {
     text: string;
   }>;
   neighborhoods?: string[];
+  citySlug: string;
   canonicalSlug?: string;
 }
 
-const { title, description, city, state, region, tagline, heroDescription, features, testimonials, neighborhoods = [], canonicalSlug } = Astro.props;
+const {
+  title,
+  description,
+  city,
+  state,
+  region,
+  tagline,
+  heroDescription,
+  features,
+  testimonials,
+  neighborhoods = [],
+  citySlug,
+  canonicalSlug
+} = Astro.props;
 
 // Generate canonical URL for location pages
-// Use explicit canonicalSlug if provided, otherwise generate from city name
-const citySlug = canonicalSlug || city.toLowerCase().replace(/\s+/g, '-');
-const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}`;
+// Use explicit canonicalSlug if provided, otherwise fall back to the known citySlug
+const normalizeSlug = (slug: string) => slug.trim().replace(/^\/+|\/+$/g, '');
+const locationSlug = normalizeSlug(canonicalSlug ?? citySlug);
+if (!locationSlug) {
+  throw new Error('LocationLayout requires citySlug or canonicalSlug to build canonicalUrl.');
+}
+const canonicalUrl = `https://thevalleycleanteam.com/locations/${locationSlug}`;
 
 // Geographic data for location-specific meta tags
 const geoData: Record<string, { region: string; position: string; image: string }> = {
