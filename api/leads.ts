@@ -29,23 +29,71 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const prevStartDate = new Date(prevEndDate);
     prevStartDate.setDate(prevStartDate.getDate() - 30);
 
-    const response = await fetch(
-      `https://services.leadconnectorhq.com/contacts/?locationId=${locationId}&limit=100`,
-      {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Version': '2021-07-28',
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    const MAX_PAGES = 10;
+    const MAX_RECORDS = 1000;
+    const contacts: any[] = [];
+    let nextPage: number | string | null = 1;
+    let pagesFetched = 0;
 
-    if (!response.ok) {
-      throw new Error(`GHL API error: ${response.status}`);
+    while (nextPage && pagesFetched < MAX_PAGES && contacts.length < MAX_RECORDS) {
+      const params = new URLSearchParams({
+        locationId,
+        limit: '100'
+      });
+
+      if (typeof nextPage === 'number') {
+        params.set('page', String(nextPage));
+      } else if (typeof nextPage === 'string') {
+        params.set('startAfter', nextPage);
+      }
+
+      const response = await fetch(
+        `https://services.leadconnectorhq.com/contacts/?${params.toString()}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Version': '2021-07-28',
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`GHL API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const pageContacts = data.contacts || [];
+      contacts.push(...pageContacts);
+      pagesFetched += 1;
+
+      if (pageContacts.length === 0) {
+        nextPage = null;
+        break;
+      }
+
+      const nextPageToken =
+        data?.meta?.nextPage ??
+        data?.nextPage ??
+        data?.meta?.startAfter ??
+        data?.startAfter ??
+        data?.meta?.nextPageToken ??
+        null;
+
+      nextPage = nextPageToken || null;
+
+      if (contacts.length >= MAX_RECORDS) {
+        break;
+      }
     }
 
-    const data = await response.json();
-    const contacts = data.contacts || [];
+    if (nextPage && (pagesFetched >= MAX_PAGES || contacts.length >= MAX_RECORDS)) {
+      console.warn('Truncated contact pagination', {
+        pagesFetched,
+        contactsFetched: contacts.length,
+        nextPage
+      });
+    }
 
     const currentPeriodContacts = contacts.filter((contact: any) => {
       const createdAt = new Date(contact.dateAdded);
