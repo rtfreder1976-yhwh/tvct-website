@@ -239,9 +239,17 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <SpeedInsights />
     <Analytics />
 
-    <!-- GoHighLevel Chat Widget -->
-    <script src="https://beta.leadconnectorhq.com/loader.js" data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69601836082708ff815b40d3"></script>
-
     <script is:inline>(function(){var navEl=document.querySelector('nav');if(navEl){var ticking=false,scrollPos=0;window.addEventListener('scroll',function(){scrollPos=window.scrollY;if(!ticking){requestAnimationFrame(function(){scrollPos>50?navEl.classList.add('nav-scrolled'):navEl.classList.remove('nav-scrolled');ticking=false});ticking=true}},{passive:true})}})();</script>
+
+    <!-- GoHighLevel Chat Widget - loaded after page ready to avoid conflicts -->
+    <script is:inline>
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.src = 'https://beta.leadconnectorhq.com/loader.js';
+        script.setAttribute('data-resources-url', 'https://beta.leadconnectorhq.com/chat-widget/loader.js');
+        script.setAttribute('data-widget-id', '69601836082708ff815b40d3');
+        document.body.appendChild(script);
+      });
+    </script>
   </body>
 </html>
