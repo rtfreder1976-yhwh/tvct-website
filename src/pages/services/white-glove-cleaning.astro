@@ -1,0 +1,604 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import Icon from '../../components/Icon.astro';
+
+const title = "White Glove Cleaning Services | Valley Clean Team";
+const description = "Premium white glove cleaning for luxury homes. Interior windows, detailed baseboards, light switches, ceiling fans & door frames. Veteran-owned, $2M insured.";
+
+// Service schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "White Glove Cleaning Service",
+  "description": "Premium white glove cleaning service for luxury homes. Includes interior windows, detailed baseboards, light switches, door frames, ceiling fans, and meticulous attention to every surface.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "hello@thevalleycleanteam.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Huntsville",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "serviceType": "White Glove Cleaning",
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "price": "350",
+      "priceCurrency": "USD",
+      "minPrice": "350"
+    },
+    "availability": "https://schema.org/InStock"
+  }
+};
+
+// FAQ Schema
+const faqs = [
+  {
+    question: "What's included in white glove cleaning that's not in deep cleaning?",
+    answer: "White glove cleaning includes everything in our deep clean PLUS: interior window cleaning, detailed cleaning of all baseboards, light switches and door frames, ceiling fan blade detailing, cabinet face wiping, air vent cleaning, and a meticulous quality inspection. It's our most thorough service for homeowners who want perfection."
+  },
+  {
+    question: "How long does a white glove cleaning take?",
+    answer: "White glove cleaning typically takes 5-8 hours depending on home size. A 2,500 sq ft home usually takes 6-7 hours. We don't rush - the extra time ensures every detail receives the attention it deserves."
+  },
+  {
+    question: "How much does white glove cleaning cost?",
+    answer: "White glove cleaning starts at $350 for homes up to 1,500 sq ft. Medium homes (1,500-2,500 sq ft) start at $475, and larger homes are priced accordingly. This premium service is typically 25-30% more than our deep cleaning due to the additional detail work."
+  },
+  {
+    question: "Is white glove cleaning safe for luxury finishes?",
+    answer: "Absolutely. We use pH-balanced, premium products specifically selected for marble, hardwood, granite, and delicate surfaces. Our team is trained to handle fine finishes, antiques, and luxury materials with appropriate techniques and products."
+  },
+  {
+    question: "How often should I schedule white glove cleaning?",
+    answer: "Most clients schedule white glove cleaning quarterly as a seasonal refresh, with our regular or deep cleaning service in between. Some clients prefer monthly white glove service for consistently immaculate results."
+  },
+  {
+    question: "Do you clean chandeliers and light fixtures?",
+    answer: "Yes! White glove service includes careful cleaning of accessible chandeliers and light fixtures. For very high or complex fixtures, we'll discuss safe access options or recommend a specialist."
+  },
+  {
+    question: "Can you work around my schedule and maintain discretion?",
+    answer: "Absolutely. Many of our white glove clients are executives and professionals who value privacy. We offer flexible scheduling, unmarked vehicles upon request, and complete discretion. Our team focuses entirely on their work and maintains strict confidentiality."
+  },
+  {
+    question: "What's your satisfaction guarantee for white glove service?",
+    answer: "100% satisfaction guaranteed. If any area doesn't meet your expectations, contact us within 24 hours and we'll return to address it at no charge. We conduct a quality walkthrough before leaving to ensure every detail is perfect."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// What's included - comprehensive checklist
+const whiteGloveIncludes = [
+  {
+    section: "All Rooms",
+    icon: "home",
+    tasks: [
+      "All deep cleaning tasks PLUS",
+      "Interior window cleaning (all accessible)",
+      "Detailed baseboards - hand wiped",
+      "Light switch plates cleaned & sanitized",
+      "Door frames & door tops wiped",
+      "Ceiling fan blades detailed",
+      "Air vents & returns cleaned",
+      "Cabinet faces wiped down",
+      "Picture frames & mirrors detailed",
+      "Lamp shades dusted",
+      "Outlet covers cleaned"
+    ]
+  },
+  {
+    section: "Kitchen",
+    icon: "kitchen-set",
+    tasks: [
+      "All deep cleaning tasks PLUS",
+      "Cabinet exteriors hand wiped",
+      "Drawer fronts cleaned",
+      "Range hood detailed inside & out",
+      "Small appliance exteriors",
+      "Under-cabinet lighting cleaned",
+      "Backsplash detailed",
+      "Hardware polished"
+    ]
+  },
+  {
+    section: "Bathrooms",
+    icon: "bath",
+    tasks: [
+      "All deep cleaning tasks PLUS",
+      "Grout lines detailed",
+      "Fixtures polished to shine",
+      "Mirror edges detailed",
+      "Exhaust fan vent cleaned",
+      "Cabinet hardware polished",
+      "Towel bars & hooks cleaned",
+      "Toiletry organization (optional)"
+    ]
+  },
+  {
+    section: "Living Areas",
+    icon: "couch",
+    tasks: [
+      "All deep cleaning tasks PLUS",
+      "Furniture detailed (not just dusted)",
+      "Bookshelf contents dusted",
+      "Electronics wiped carefully",
+      "Fireplace mantle detailed",
+      "Built-in cabinetry cleaned",
+      "Decorative items repositioned"
+    ]
+  }
+];
+
+// Comparison with other services
+const serviceComparison = [
+  { feature: "Surface dusting", regular: true, deep: true, whiteGlove: true },
+  { feature: "Vacuuming & mopping", regular: true, deep: true, whiteGlove: true },
+  { feature: "Kitchen & bath sanitizing", regular: true, deep: true, whiteGlove: true },
+  { feature: "Inside appliances", regular: false, deep: true, whiteGlove: true },
+  { feature: "Baseboards (quick wipe)", regular: false, deep: true, whiteGlove: true },
+  { feature: "Baseboards (detailed hand clean)", regular: false, deep: false, whiteGlove: true },
+  { feature: "Interior windows", regular: false, deep: false, whiteGlove: true },
+  { feature: "Light switches & door frames", regular: false, deep: false, whiteGlove: true },
+  { feature: "Ceiling fan blade detailing", regular: false, deep: false, whiteGlove: true },
+  { feature: "Air vents & returns", regular: false, deep: false, whiteGlove: true },
+  { feature: "Cabinet face wiping", regular: false, deep: false, whiteGlove: true },
+  { feature: "Quality walkthrough inspection", regular: false, deep: false, whiteGlove: true }
+];
+
+const processSteps = [
+  {
+    number: 1,
+    title: "Consultation",
+    description: "We discuss your home's specific needs, preferred products, and any areas requiring special attention.",
+    icon: "comments"
+  },
+  {
+    number: 2,
+    title: "Detailed Assessment",
+    description: "Our team leader walks through your home to note special finishes, valuable items, and focus areas.",
+    icon: "clipboard-list"
+  },
+  {
+    number: 3,
+    title: "Top-Down Clean",
+    description: "We work ceiling to floor, room by room, with meticulous attention to every surface and detail.",
+    icon: "arrow-down-long"
+  },
+  {
+    number: 4,
+    title: "Detail Work",
+    description: "Interior windows, baseboards, light switches, vents, and all white glove extras are completed.",
+    icon: "magnifying-glass"
+  },
+  {
+    number: 5,
+    title: "Quality Inspection",
+    description: "Team leader conducts thorough walkthrough, checking every detail against our white glove standards.",
+    icon: "check-double"
+  },
+  {
+    number: 6,
+    title: "Final Verification",
+    description: "We review completed work with you (or via photos) to ensure 100% satisfaction before leaving.",
+    icon: "thumbs-up"
+  }
+];
+
+const serviceAreas = [
+  { name: "Mountain Brook", link: "/locations/mountain-brook/luxury-cleaning" },
+  { name: "Belle Meade", link: "/locations/nashville/belle-meade" },
+  { name: "Brentwood", link: "/locations/nashville/brentwood" },
+  { name: "Green Hills", link: "/locations/nashville/green-hills" },
+  { name: "Huntsville", link: "/locations/huntsville/deep-cleaning" },
+  { name: "Madison", link: "/locations/madison/deep-cleaning" },
+  { name: "Florence", link: "/locations/florence/deep-cleaning" },
+  { name: "Birmingham", link: "/locations/birmingham/deep-cleaning" },
+  { name: "Nashville", link: "/locations/nashville/deep-cleaning" },
+  { name: "Franklin", link: "/locations/nashville/franklin" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <Icon name="gem" class="w-5 h-5 mr-2" />Our Premium Service Tier
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">White Glove</span> Cleaning Services
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            For homeowners who accept nothing less than perfection. White glove cleaning goes beyond deep cleaning with meticulous attention to interior windows, detailed baseboards, light switches, door frames, ceiling fans, and every surface that matters to you.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8">
+            <div class="flex items-center text-gray-300">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Interior Windows</span>
+            </div>
+            <div class="flex items-center text-gray-300">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Detailed Baseboards</span>
+            </div>
+            <div class="flex items-center text-gray-300">
+              <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span>Quality Walkthrough</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg text-center transition transform hover:scale-105">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+            </a>
+            <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold text-center hover:bg-[#FFA985] hover:text-gray-900 transition">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Pricing Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-1 rounded-full text-sm font-bold">PREMIUM</span>
+            <h3 class="text-2xl font-bold text-[#333333] mt-3 mb-2">White Glove Pricing</h3>
+            <p class="text-gray-600">Our most comprehensive service</p>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Small Home</h4>
+                <p class="text-sm text-gray-600">Up to 1,500 sq ft</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">From $350</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]">
+              <div>
+                <h4 class="font-bold text-[#333333]">Medium Home</h4>
+                <p class="text-sm text-gray-600">1,500 - 2,500 sq ft</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">From $475</span>
+                <p class="text-xs text-gray-600">Most Popular</p>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Large Home</h4>
+                <p class="text-sm text-gray-600">2,500 - 4,000 sq ft</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">From $650</span>
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+              <div>
+                <h4 class="font-bold text-[#333333]">Estate</h4>
+                <p class="text-sm text-gray-600">4,000+ sq ft</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-bold text-[#FFA985]">Custom Quote</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gray-900 text-white rounded-xl p-4 mb-6">
+            <p class="text-sm text-center">
+              <Icon name="crown" class="w-5 h-5 mr-2 text-[#FFA985]" />
+              <strong>Quarterly Package:</strong> Save 10% when you schedule 4 white glove cleans per year
+            </p>
+          </div>
+
+          <a href="/contact" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            Request White Glove Quote
+          </a>
+          <p class="text-center text-xs text-gray-500 mt-3">
+            <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Service Comparison -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Choose <span class="gold-gradient">White Glove</span>?
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          See how white glove cleaning compares to our other services
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto overflow-x-auto">
+        <table class="w-full bg-white rounded-2xl shadow-lg overflow-hidden">
+          <thead class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+            <tr>
+              <th class="text-left p-4 text-gray-900 font-bold">Feature</th>
+              <th class="text-center p-4 text-gray-900 font-bold">Regular</th>
+              <th class="text-center p-4 text-gray-900 font-bold">Deep Clean</th>
+              <th class="text-center p-4 text-gray-900 font-bold bg-gray-900/10">White Glove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {serviceComparison.map((row, i) => (
+              <tr class={i % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                <td class="p-4 text-gray-700">{row.feature}</td>
+                <td class="text-center p-4">
+                  {row.regular ? <Icon name="check" class="w-5 h-5 text-green-500" /> : <Icon name="minus" class="w-5 h-5 text-gray-300" />}
+                </td>
+                <td class="text-center p-4">
+                  {row.deep ? <Icon name="check" class="w-5 h-5 text-green-500" /> : <Icon name="minus" class="w-5 h-5 text-gray-300" />}
+                </td>
+                <td class="text-center p-4 bg-[#FFA985]/5">
+                  {row.whiteGlove ? <Icon name="check" class="w-5 h-5 text-green-500" /> : <Icon name="minus" class="w-5 h-5 text-gray-300" />}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included Section -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          What's <span class="gold-gradient">Included</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          White glove cleaning includes everything in deep cleaning plus these premium extras
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {whiteGloveIncludes.map(room => (
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <Icon name={room.icon} class="w-6 h-6 text-white" />
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">{room.section}</h3>
+            <ul class="space-y-2">
+              {room.tasks.map(task => (
+                <li class="flex items-start text-gray-600 text-sm">
+                  <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-0.5 flex-shrink-0" />
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Who It's For -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          White Glove Service is <span class="gold-gradient">Perfect For</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="home" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Luxury Homeowners</h3>
+          <p class="text-gray-600">Owners of high-end homes who expect immaculate results and appreciate meticulous attention to every detail.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="briefcase" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Busy Executives</h3>
+          <p class="text-gray-600">C-suite executives, physicians, and attorneys who value their time and want their home perfectly maintained.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="calendar-alt" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Special Occasions</h3>
+          <p class="text-gray-600">Pre-holiday preparation, hosting important guests, or celebrating milestones with a perfectly pristine home.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="redo" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Quarterly Refresh</h3>
+          <p class="text-gray-600">Homeowners who want comprehensive seasonal cleaning to maintain their home at the highest standard year-round.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="allergies" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">Allergy Sufferers</h3>
+          <p class="text-gray-600">Those who need thorough removal of dust, allergens, and particles from vents, fans, and surfaces.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+            <Icon name="house-user" class="w-8 h-8 text-white" />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-[#333333]">New Homeowners</h3>
+          <p class="text-gray-600">Moving into a new home and want every surface, window, and detail spotless before settling in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Process -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Our White Glove <span class="gold-gradient">Process</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          A meticulous approach that ensures nothing is overlooked
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {processSteps.map(step => (
+          <div class="relative bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+            <div class="absolute -top-4 -left-4 w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl shadow-lg">
+              {step.number}
+            </div>
+            <div class="ml-4">
+              <div class="flex items-center mb-4">
+                <Icon name={step.icon} class="w-6 h-6 text-[#FFA985] mr-3" />
+                <h3 class="text-xl font-bold text-[#333333]">{step.title}</h3>
+              </div>
+              <p class="text-gray-600">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          White Glove <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Premium white glove cleaning available across Alabama and Tennessee
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto mb-8">
+        {serviceAreas.map(area => (
+          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
+            <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
+            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600">
+          <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Don't see your area? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> - we may still serve you!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          White Glove <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Common questions about our premium service</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Ready for <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Perfection</span>?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Experience the difference white glove cleaning makes in your home
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-white hover:bg-white hover:text-gray-900 transition text-lg font-semibold px-8 py-5 border-2 border-white rounded-full">
+          <Icon name="envelope" class="w-5 h-5 mr-2" />Get Free Quote
+        </a>
+      </div>
+      <p class="text-gray-400">
+        <Icon name="gem" class="w-5 h-5 text-[#FFA985] mr-2" />
+        $2M insured | Veteran-owned | 100% satisfaction guaranteed
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

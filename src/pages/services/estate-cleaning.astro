@@ -1,0 +1,608 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import Icon from '../../components/Icon.astro';
+
+const title = "Estate Cleaning Services | Large Home Specialists | Valley Clean Team";
+const description = "Professional estate cleaning for homes 4,000+ sq ft. Dedicated team, priority scheduling, no home too large. Veteran-owned, $2M insured. Serving Alabama & Tennessee.";
+
+// Service schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Estate Cleaning Service",
+  "description": "Professional cleaning service for large estates and luxury homes over 4,000 sq ft. Features dedicated cleaning teams, priority scheduling, and comprehensive household management support.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "telephone": "256-826-1100",
+    "email": "hello@thevalleycleanteam.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Huntsville",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Alabama" },
+    { "@type": "State", "name": "Tennessee" }
+  ],
+  "serviceType": "Estate Cleaning",
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "priceCurrency": "USD"
+    },
+    "availability": "https://schema.org/InStock"
+  }
+};
+
+// FAQ Schema
+const faqs = [
+  {
+    question: "What size home qualifies for estate cleaning service?",
+    answer: "Our estate cleaning service is designed for homes 4,000 square feet and larger. This includes large single-family homes, multi-level estates, properties with guest houses or pool houses, and homes with extensive outdoor living spaces. There's no maximum size - we've successfully cleaned homes over 10,000 sq ft."
+  },
+  {
+    question: "Do you have a maximum home size you'll clean?",
+    answer: "No. Unlike some competitors who refuse homes over 7,000 sq ft, The Valley Clean Team welcomes large estates of any size. We simply adjust our team size and scheduling to match your property's needs. No home is too large for our experienced estate cleaning teams."
+  },
+  {
+    question: "Will I have the same cleaning team every visit?",
+    answer: "Yes! Estate clients receive a dedicated team that cleans your property every visit. Your team learns your home's layout, your preferences, and any special requirements. This consistency ensures better results and builds the trust that comes from familiar faces caring for your home."
+  },
+  {
+    question: "How does estate cleaning pricing work?",
+    answer: "Estate cleaning is custom-quoted based on your home's square footage, number of rooms, special features, and service frequency. We provide a detailed walkthrough and quote before starting. Most estate clients find recurring service (weekly or bi-weekly) offers the best value and keeps their home consistently maintained."
+  },
+  {
+    question: "Do you clean guest houses, pool houses, and outbuildings?",
+    answer: "Absolutely. Estate cleaning includes all structures on your property - main residence, guest quarters, pool houses, home offices, and detached structures. We create a comprehensive cleaning plan that addresses every building you want maintained."
+  },
+  {
+    question: "Can you coordinate with our estate manager or household staff?",
+    answer: "Yes, we regularly work with estate managers, personal assistants, and household staff. We can provide detailed reports, coordinate schedules around events, accommodate special requests, and integrate seamlessly with your existing household operations."
+  },
+  {
+    question: "What's included in estate cleaning that other services don't offer?",
+    answer: "Estate cleaning includes: dedicated team assignment, priority scheduling, seasonal deep cleans, coordination with household staff, detailed reporting upon request, flexible rescheduling without penalties, and a dedicated account manager who knows your property and preferences."
+  },
+  {
+    question: "How do you handle valuable antiques and fine furnishings?",
+    answer: "Our estate teams receive specialized training in caring for fine furnishings, antiques, art, and luxury finishes. We use appropriate products for marble, hardwood, silk, leather, and delicate materials. We document pre-existing conditions and follow your specific instructions for irreplaceable items."
+  },
+  {
+    question: "What insurance coverage do you carry for estate cleaning?",
+    answer: "We carry $2 million in general liability coverage specifically because we work in high-value properties. All team members are bonded, background-checked, and trained to work in luxury environments. We're happy to provide certificates of insurance to you or your estate manager."
+  },
+  {
+    question: "Do you offer same-day or emergency estate cleaning?",
+    answer: "Yes. Estate clients receive priority scheduling, including same-day service when available. Whether you're hosting an unexpected gathering or need pre-event preparation, we do our best to accommodate urgent requests for our estate clients."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Estate cleaning features
+const estateFeatures = [
+  {
+    icon: "users",
+    title: "Dedicated Team",
+    description: "The same cleaning team every visit. They learn your home, your preferences, and deliver consistent results you can count on."
+  },
+  {
+    icon: "calendar-check",
+    title: "Priority Scheduling",
+    description: "Estate clients receive scheduling priority. Need to reschedule? No penalties. Need same-day service? We'll do our best to accommodate."
+  },
+  {
+    icon: "expand-alt",
+    title: "No Size Limits",
+    description: "Unlike competitors who refuse large homes, we welcome estates of any size. 5,000 sq ft? 10,000 sq ft? We've got you covered."
+  },
+  {
+    icon: "home",
+    title: "Full Property Coverage",
+    description: "Main residence, guest house, pool house, home office - we clean all structures on your property under one comprehensive plan."
+  },
+  {
+    icon: "sync",
+    title: "Seasonal Deep Cleans",
+    description: "Estate clients receive complimentary quarterly deep cleans included with recurring service to maintain the highest standards year-round."
+  },
+  {
+    icon: "user-tie",
+    title: "Account Manager",
+    description: "A dedicated point of contact who knows your property and handles all scheduling, special requests, and communication."
+  }
+];
+
+// What we clean
+const whatWeCover = [
+  {
+    category: "Main Residence",
+    icon: "chess-rook",
+    items: ["All living areas", "Bedrooms & bathrooms", "Kitchen & dining", "Home offices", "Media rooms", "Wine cellars", "Multiple levels & staircases"]
+  },
+  {
+    category: "Guest Quarters",
+    icon: "bed",
+    items: ["Guest bedrooms & suites", "Private bathrooms", "Kitchenettes", "Sitting areas", "Guest house structures"]
+  },
+  {
+    category: "Outdoor Living",
+    icon: "umbrella-beach",
+    items: ["Pool house cleaning", "Outdoor kitchen areas", "Screened porches", "Covered patios", "Cabana spaces"]
+  },
+  {
+    category: "Specialty Spaces",
+    icon: "dumbbell",
+    items: ["Home gyms", "Game rooms", "Home theaters", "Art studios", "Libraries & studies", "Workshops"]
+  }
+];
+
+// Competitor comparison points
+const whyChooseUs = [
+  {
+    competitor: "Competitors refuse homes over 7,000 sq ft",
+    us: "No home too large - we welcome estates of any size"
+  },
+  {
+    competitor: "Rotating crews who don't know your home",
+    us: "Same dedicated team, every visit, by name"
+  },
+  {
+    competitor: "$50+ cancellation fees",
+    us: "Flexible rescheduling - life happens, we understand"
+  },
+  {
+    competitor: "Limited liability coverage",
+    us: "$2 million insurance - your assets are protected"
+  },
+  {
+    competitor: "Generic service for every home",
+    us: "Customized plans for your estate's unique needs"
+  }
+];
+
+const serviceAreas = [
+  { name: "Mountain Brook", link: "/locations/mountain-brook/luxury-cleaning", highlight: true },
+  { name: "Belle Meade", link: "/locations/nashville/belle-meade", highlight: true },
+  { name: "Brentwood", link: "/locations/nashville/brentwood", highlight: true },
+  { name: "Cherokee Bend", link: "/locations/mountain-brook/cherokee-bend", highlight: true },
+  { name: "Green Hills", link: "/locations/nashville/green-hills" },
+  { name: "Franklin", link: "/locations/nashville/franklin" },
+  { name: "Huntsville", link: "/locations/huntsville" },
+  { name: "Birmingham", link: "/locations/birmingham" },
+  { name: "Nashville", link: "/locations/nashville" },
+  { name: "Florence", link: "/locations/florence" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <Icon name="chess-rook" class="w-5 h-5 mr-2" />Large Home Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Estate</span> Cleaning Services
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Professional cleaning for homes 4,000+ square feet. Dedicated teams, priority scheduling, and the expertise to maintain your estate to the highest standards. No home is too large.
+          </p>
+
+          <!-- Key differentiator -->
+          <div class="bg-white/10 backdrop-blur rounded-xl p-6 mb-8">
+            <div class="flex items-center mb-3">
+              <Icon name="expand-alt" class="w-8 h-8 text-[#FFA985] mr-3" />
+              <h3 class="text-xl font-bold text-white">No Home Too Large</h3>
+            </div>
+            <p class="text-gray-300">
+              Unlike competitors who refuse homes over 7,000 sq ft, we welcome estates of any size. From 4,000 to 15,000+ square feet, we have the teams and expertise to keep your property immaculate.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg text-center transition transform hover:scale-105">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+            </a>
+            <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold text-center hover:bg-[#FFA985] hover:text-gray-900 transition">
+              Request Estate Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-1 rounded-full text-sm font-bold">ESTATE SERVICE</span>
+            <h3 class="text-2xl font-bold text-[#333333] mt-3 mb-2">Get Your Custom Quote</h3>
+            <p class="text-gray-600">For homes 4,000+ sq ft</p>
+          </div>
+
+          <form id="estate-quote-form">
+            <div class="mb-4">
+              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+            </div>
+            <div class="mb-4">
+              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+            </div>
+            <div class="mb-4">
+              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+            </div>
+            <div class="mb-4">
+              <select name="sqft" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Approximate Square Footage *</option>
+                <option value="4,000 - 5,000 sq ft">4,000 - 5,000 sq ft</option>
+                <option value="5,000 - 6,000 sq ft">5,000 - 6,000 sq ft</option>
+                <option value="6,000 - 7,000 sq ft">6,000 - 7,000 sq ft</option>
+                <option value="7,000 - 8,000 sq ft">7,000 - 8,000 sq ft</option>
+                <option value="8,000 - 10,000 sq ft">8,000 - 10,000 sq ft</option>
+                <option value="10,000+ sq ft">10,000+ sq ft</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <select name="frequency" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+                <option value="">Preferred Frequency *</option>
+                <option value="Weekly">Weekly Service</option>
+                <option value="Bi-Weekly">Bi-Weekly Service</option>
+                <option value="Monthly">Monthly Service</option>
+                <option value="One-Time">One-Time Deep Clean</option>
+                <option value="Consultation">Just Want a Consultation</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <textarea name="details" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Tell us about your property (guest houses, pool house, special requirements...)" rows="3"></textarea>
+            </div>
+            <input type="hidden" name="service" value="Estate Cleaning">
+            <button type="submit" id="estate-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+              Request Estate Quote
+            </button>
+            <p class="text-center text-xs text-gray-500 mt-3">
+              <Icon name="phone" class="w-5 h-5 mr-1" /> We'll call within 2 hours to discuss your property
+            </p>
+            <div id="estate-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Estate Features -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          The <span class="gold-gradient">Estate Care</span> Difference
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          What makes our estate service different from standard cleaning
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {estateFeatures.map(feature => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <Icon name={feature.icon} class="w-8 h-8 text-white" />
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{feature.title}</h3>
+            <p class="text-gray-600">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us vs Competitors -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Why Estate Owners <span class="gold-gradient">Choose Us</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-4">
+        {whyChooseUs.map((item, index) => (
+          <div class="bg-white rounded-xl overflow-hidden shadow-md">
+            <div class="grid md:grid-cols-2">
+              <div class="p-6 bg-gray-100 border-r border-gray-200">
+                <div class="flex items-center mb-2">
+                  <Icon name="times-circle" class="w-5 h-5 text-red-500 mr-2" />
+                  <span class="text-sm font-semibold text-gray-500 uppercase">Others</span>
+                </div>
+                <p class="text-gray-600">{item.competitor}</p>
+              </div>
+              <div class="p-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10">
+                <div class="flex items-center mb-2">
+                  <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-2" />
+                  <span class="text-sm font-semibold text-[#FFA985] uppercase">Valley Clean Team</span>
+                </div>
+                <p class="text-gray-700 font-medium">{item.us}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Cover -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Complete Property <span class="gold-gradient">Coverage</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          One comprehensive plan for your entire property - main residence and all structures
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {whatWeCover.map(area => (
+          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <Icon name={area.icon} class="w-6 h-6 text-white" />
+            </div>
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">{area.category}</h3>
+            <ul class="space-y-2">
+              {area.items.map(item => (
+                <li class="flex items-start text-gray-600 text-sm">
+                  <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Philosophy -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+            Custom Pricing for Your Estate
+          </h2>
+          <p class="text-lg text-gray-800 mb-6">
+            Every estate is unique. We don't believe in one-size-fits-all pricing for properties this special. That's why we provide custom quotes after understanding your home.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5" />
+              <span><strong>Free walkthrough</strong> - We'll tour your property and understand your needs</span>
+            </li>
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5" />
+              <span><strong>Detailed proposal</strong> - Clear pricing with no hidden fees</span>
+            </li>
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5" />
+              <span><strong>Recurring savings</strong> - Up to 20% off with weekly service</span>
+            </li>
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5" />
+              <span><strong>No contracts</strong> - Stay because you're satisfied, not obligated</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-xl">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6 text-center">Estate Service Includes:</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center text-gray-700">
+              <Icon name="check" class="w-5 h-5 text-green-500 mr-3" />
+              Dedicated cleaning team (same team every visit)
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="check" class="w-5 h-5 text-green-500 mr-3" />
+              Priority scheduling & flexible rescheduling
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="check" class="w-5 h-5 text-green-500 mr-3" />
+              All structures on property included
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="check" class="w-5 h-5 text-green-500 mr-3" />
+              Quarterly deep cleans included (with recurring)
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="check" class="w-5 h-5 text-green-500 mr-3" />
+              Account manager for coordination
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="check" class="w-5 h-5 text-green-500 mr-3" />
+              $2M liability insurance coverage
+            </li>
+          </ul>
+          <div class="mt-6 text-center">
+            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold inline-block">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Schedule Walkthrough
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Estate Cleaning <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Serving prestigious communities across Alabama and Tennessee
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto mb-8">
+        {serviceAreas.map(area => (
+          <a href={area.link} class={`rounded-xl p-4 shadow-md border text-center hover:shadow-lg transition group ${area.highlight ? 'bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 border-[#FFA985]' : 'bg-white border-gray-200 hover:border-[#FFA985]'}`}>
+            <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
+            <p class={`font-semibold group-hover:text-[#FFA985] transition ${area.highlight ? 'text-[#333333]' : 'text-[#333333]'}`}>{area.name}</p>
+            {area.highlight && <span class="text-xs text-[#FFA985]">Popular</span>}
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600">
+          <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Serve a different area? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> - we cover a wide region
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Estate Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Questions from estate owners</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Your Estate Deserves <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Dedicated Care</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-4">
+        No home is too large. Same dedicated team every visit. Priority service always.
+      </p>
+      <div class="inline-block bg-white/10 backdrop-blur px-6 py-3 rounded-full mb-8">
+        <span class="text-white font-semibold text-lg">
+          <Icon name="expand-alt" class="w-5 h-5 mr-2 text-[#FFA985]" />Serving homes 4,000 - 15,000+ sq ft
+        </span>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+        </a>
+        <a href="/contact" class="flex items-center text-white hover:bg-white hover:text-gray-900 transition text-lg font-semibold px-8 py-5 border-2 border-white rounded-full">
+          <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Walkthrough
+        </a>
+      </div>
+      <p class="text-gray-400">
+        <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+        $2M insured | Veteran-owned | Background-checked teams
+      </p>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script>
+    document.getElementById('estate-quote-form')?.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('estate-submit-btn');
+      const messageDiv = document.getElementById('estate-form-message');
+      const form = e.target;
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || 'Estate Cleaning',
+        sqft: form.sqft?.value || '',
+        frequency: form.frequency?.value || '',
+        message: form.details?.value || '',
+        source: 'Estate Cleaning Page',
+        page_url: window.location.href
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
+          messageDiv.innerHTML = 'Thank you! We\'ll call within 2 hours to discuss your estate.';
+          messageDiv.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error(result.error | 'Submission failed');
+        }
+      } catch (error) {
+        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
+        messageDiv.innerHTML = 'Something went wrong. Please call us at 256-826-1100.';
+        messageDiv.classList.remove('hidden');
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Request Estate Quote';
+    });
+  </script>
+</BaseLayout>
