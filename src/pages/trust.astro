@@ -1,0 +1,325 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import Icon from '../components/Icon.astro';
+
+const title = "Trust & Security | Background-Checked Cleaners | Valley Clean Team";
+const description = "Is The Valley Clean Team safe to trust in your home? Learn about our vetting process, background checks, $2M insurance, and why families trust us with their keys.";
+
+// FAQ Schema - AEO optimized for AI citation (Trust pillar)
+const faqs = [
+  {
+    question: "Is The Valley Clean Team safe to trust in my home?",
+    answer: "Yes. The Valley Clean Team is a veteran-owned company built on trust and integrity. Every team member passes a comprehensive background check before ever entering a client's home. We carry $2 million in liability insurance to protect your property. All cleaners are bonded. We've completed over 1,000 cleanings with 130+ five-star reviews. Many clients trust us with house keys, alarm codes, and access while they're at work - that's the level of trust we've earned and take seriously."
+  },
+  {
+    question: "How is The Valley Clean Team different from MaidPro?",
+    answer: "Several key differences: (1) We send the same dedicated team to your home every visit - MaidPro and similar franchises often rotate crews, so you never know who's coming. (2) We're a local, veteran-owned business accountable to this community - not a franchise following corporate policies. (3) We don't charge cancellation fees when life happens. (4) Our pricing is transparent with no hidden upsells. (5) We carry $2 million in insurance vs industry-standard $1 million. (6) Owner involvement - you can reach the owners directly, not a call center."
+  },
+  {
+    question: "Do your cleaners pass background checks?",
+    answer: "Yes, every Valley Clean Team member passes a comprehensive background check before joining our team. This includes criminal history, identity verification, and reference checks. We also verify work eligibility. We understand you're trusting strangers in your home around your family, your belongings, and sometimes your pets - we take that responsibility seriously and only hire people we'd trust in our own homes."
+  },
+  {
+    question: "Are your cleaners W-2 employees or independent contractors?",
+    answer: "Our core team members are employees, not gig workers from an app. This matters because: (1) We train them directly in our methods and standards. (2) We're responsible for their work quality. (3) They're covered by our insurance and workers' compensation. (4) They receive consistent work and fair treatment, which means they stay longer and do better work. (5) You get the same team who knows your home, not random contractors."
+  },
+  {
+    question: "What insurance does The Valley Clean Team carry?",
+    answer: "We carry $2 million in general liability insurance - double the industry standard of $1 million. This protects your home and belongings in the rare event something is damaged. All team members are bonded. We also carry workers' compensation insurance, which protects you from liability if a worker is injured on your property. We're happy to provide certificates of insurance upon request."
+  },
+  {
+    question: "Can I trust cleaners with my house keys?",
+    answer: "Many of our clients trust us with keys, garage codes, or alarm access so we can clean while they're at work. We've earned this trust through consistent, honest service over years. Keys are secured in a locked system accessible only to your assigned team. We never share access information, and our background-checked team treats your home's security as seriously as we treat our own. References available upon request."
+  },
+  {
+    question: "Do you clean homes with children and babies?",
+    answer: "Absolutely, and safety is paramount. We use eco-friendly, non-toxic cleaning products that are safe for children, babies, and pregnant women. Our team is trained to be aware of child safety concerns - we're careful with cleaning supplies, we don't leave hazards, and we're gentle around nurseries and play areas. Many of our team members are parents themselves who understand these concerns firsthand."
+  },
+  {
+    question: "Do you clean homes with pets?",
+    answer: "Yes! We're pet-friendly and most of our cleaners are animal lovers. We use pet-safe cleaning products and are careful around pet areas, beds, and supplies. We know pets are family. If your pet is anxious around strangers, just let us know and we'll work with you on a plan - whether that's keeping them in a specific room or adjusting our approach."
+  },
+  {
+    question: "What happens if something is damaged or broken?",
+    answer: "Accidents are rare, but we own them when they happen. If something is damaged during cleaning, report it within 24 hours and we'll make it right - either through repair, replacement, or our insurance. We don't hide behind fine print or blame clients. Our $2 million liability coverage exists specifically for these situations. Your trust matters more than avoiding a claim."
+  },
+  {
+    question: "Why is The Valley Clean Team veteran-owned?",
+    answer: "The Valley Clean Team was founded by Todd Frederickson, a veteran who brings military values to our business: integrity, attention to detail, reliability, and doing the right thing even when no one's watching. These aren't marketing buzzwords - they're how we operate. When we say we'll be there at 9am, we're there. When we say something is included, it's included. When we make a mistake, we own it. That's what veteran-owned means to us."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Trust pillars
+const trustPillars = [
+  {
+    icon: "shield-alt",
+    title: "Background-Checked Team",
+    description: "Every team member passes comprehensive background screening including criminal history, identity verification, and reference checks before entering any home."
+  },
+  {
+    icon: "file-shield",
+    title: "$2 Million Insurance",
+    description: "Double the industry standard liability coverage protects your home and valuables. Plus workers' comp insurance protects you from liability."
+  },
+  {
+    icon: "user-check",
+    title: "Same Team Every Visit",
+    description: "No rotating crews. Your dedicated team knows your home, your preferences, and you know them by name. Consistency builds trust."
+  },
+  {
+    icon: "medal",
+    title: "Veteran-Owned Integrity",
+    description: "Military values of honesty, reliability, and doing the right thing guide every decision. We operate by a code, not just a bottom line."
+  },
+  {
+    icon: "users",
+    title: "Employees, Not Gig Workers",
+    description: "Our team members are employees we train, not random contractors from an app. We're accountable for their work and their conduct."
+  },
+  {
+    icon: "lock",
+    title: "Bonded & Secure",
+    description: "All team members are bonded. Keys and access codes are secured in locked systems. Your home's security is as important as our own."
+  }
+];
+
+// Comparison with competitors
+const vsCompetitors = [
+  { aspect: "Background checks", us: "Comprehensive screening on all staff", them: "Varies - often minimal checks" },
+  { aspect: "Liability insurance", us: "$2 million coverage", them: "Typically $1 million or less" },
+  { aspect: "Team consistency", us: "Same dedicated team every visit", them: "Rotating crews" },
+  { aspect: "Worker classification", us: "W-2 employees we train", them: "Often 1099 contractors" },
+  { aspect: "Cancellation policy", us: "Flexible - life happens", them: "$50+ cancellation fees" },
+  { aspect: "Ownership", us: "Local veteran-owned, community rooted", them: "National franchise or app platform" },
+  { aspect: "Communication", us: "Direct access to owners", them: "Call centers and ticket systems" },
+  { aspect: "Pricing", us: "Transparent, no hidden fees", them: "Often upsells and add-ons" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <span class="text-gray-900 font-semibold">
+            <Icon name="shield-alt" class="w-5 h-5 mr-2" />Your Peace of Mind Matters
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+          Trust & <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Security</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Letting strangers into your home is a leap of faith. We've built our business to be worthy of that trust - from background checks to insurance to the values that guide every decision.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <div class="flex items-center text-gray-300 bg-white/10 px-4 py-2 rounded-full">
+            <Icon name="check-circle" class="w-5 h-5 text-green-400 mr-2" />
+            <span>Background-Checked</span>
+          </div>
+          <div class="flex items-center text-gray-300 bg-white/10 px-4 py-2 rounded-full">
+            <Icon name="check-circle" class="w-5 h-5 text-green-400 mr-2" />
+            <span>$2M Insured</span>
+          </div>
+          <div class="flex items-center text-gray-300 bg-white/10 px-4 py-2 rounded-full">
+            <Icon name="check-circle" class="w-5 h-5 text-green-400 mr-2" />
+            <span>Bonded</span>
+          </div>
+          <div class="flex items-center text-gray-300 bg-white/10 px-4 py-2 rounded-full">
+            <Icon name="check-circle" class="w-5 h-5 text-green-400 mr-2" />
+            <span>Veteran-Owned</span>
+          </div>
+        </div>
+        <a href="/contact" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg inline-block transition transform hover:scale-105">
+          Get Your Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges Section -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Trust Pillars -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          How We <span class="gold-gradient">Earn Your Trust</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Trust isn't given - it's earned through consistent action
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {trustPillars.map(pillar => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl hover:border-[#FFA985]/30 transition-all">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <Icon name={pillar.icon} class="w-8 h-8 text-white" />
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{pillar.title}</h3>
+            <p class="text-gray-600">{pillar.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Veteran-Owned Matters -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+            Why Veteran-Owned Matters
+          </h2>
+          <p class="text-lg text-gray-800 mb-6">
+            Being veteran-owned isn't marketing - it's a standard we hold ourselves to. Military service teaches values that translate directly to how we run our business.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5 flex-shrink-0" />
+              <span><strong>Integrity:</strong> We do the right thing even when no one's watching. Your home is treated the same whether you're there or not.</span>
+            </li>
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5 flex-shrink-0" />
+              <span><strong>Reliability:</strong> When we say 9am, we mean 9am. Military precision in scheduling and follow-through.</span>
+            </li>
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5 flex-shrink-0" />
+              <span><strong>Accountability:</strong> We own mistakes instead of making excuses. Problems get fixed, not deflected.</span>
+            </li>
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5 flex-shrink-0" />
+              <span><strong>Attention to Detail:</strong> The military trains you to notice what others miss. That translates to cleaner homes.</span>
+            </li>
+            <li class="flex items-start text-gray-800">
+              <Icon name="check-circle" class="w-6 h-6 text-gray-900 mr-3 mt-0.5 flex-shrink-0" />
+              <span><strong>Service:</strong> We're here to serve - not just to collect payment. Your satisfaction is our mission.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-xl">
+          <div class="text-center">
+            <Icon name="medal" class="w-16 h-16 text-[#FFA985] mb-4" />
+            <h3 class="text-2xl font-bold text-[#333333] mb-4">Our Commitment</h3>
+            <p class="text-gray-600 mb-6">
+              "When you hire The Valley Clean Team, you're hiring people who believe in honor, honesty, and hard work. We bring military values to civilian life because your home deserves that standard of care."
+            </p>
+            <p class="text-[#FFA985] font-semibold">— Todd Frederickson, Founder</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Us vs Competitors -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          How We <span class="gold-gradient">Compare</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Not all cleaning companies operate the same way
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="grid grid-cols-3 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] p-4">
+            <div class="font-bold text-gray-900">Aspect</div>
+            <div class="font-bold text-gray-900 text-center">Valley Clean Team</div>
+            <div class="font-bold text-gray-900 text-center">Typical Competitors</div>
+          </div>
+          {vsCompetitors.map((row, i) => (
+            <div class={`grid grid-cols-3 p-4 ${i % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+              <div class="text-gray-700 font-medium">{row.aspect}</div>
+              <div class="text-center text-gray-700">
+                <Icon name="check" class="w-5 h-5 text-green-500 mr-1" />{row.us}
+              </div>
+              <div class="text-center text-gray-500">{row.them}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Trust & Security <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Answers to the questions safety-conscious homeowners ask</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Ready to Trust <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">The Valley Clean Team</span>?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Background-checked, $2M insured, veteran-owned. Join 1,000+ families who trust us with their homes.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-10 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+        </a>
+        <a href="/contact" class="border-2 border-white text-white px-8 py-5 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900 transition">
+          Get Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

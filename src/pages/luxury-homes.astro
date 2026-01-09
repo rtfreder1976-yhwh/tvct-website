@@ -1,0 +1,394 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import Icon from '../components/Icon.astro';
+
+const title = "Luxury & Historic Home Cleaning | Valley Clean Team";
+const description = "Expert cleaning for luxury finishes: hardwood, marble, granite, antiques. Historic home specialists for Florence, Mountain Brook, Belle Meade. $2M insured, preservation-safe.";
+
+// FAQ Schema - AEO optimized for luxury/historic searches
+const faqs = [
+  {
+    question: "What products do you use on hardwood floors?",
+    answer: "We use pH-balanced, residue-free wood floor cleaners specifically formulated for hardwood. For original antique floors, we use even gentler products that clean without stripping decades-old patina or damaging historic finishes. We never use vinegar, ammonia, or steam on hardwood - all common DIY methods that can damage wood floors over time. Our products clean effectively while preserving and protecting your floors' natural beauty and finish."
+  },
+  {
+    question: "Can you clean marble without damaging it?",
+    answer: "Yes. Marble requires specific care because it's porous and sensitive to acidic cleaners. We use pH-neutral stone cleaners that safely clean marble without etching, dulling, or damaging the surface. We avoid all acidic products (vinegar, citrus, most bathroom cleaners) that can permanently damage marble. For marble countertops, floors, and bathroom surfaces, proper product selection is critical - we use professional-grade stone care products designed for this purpose."
+  },
+  {
+    question: "Do you have experience cleaning historic homes?",
+    answer: "Yes. The Valley Clean Team has extensive experience cleaning historic properties in Florence's Walnut Street district, Mountain Brook's historic areas, and throughout our service area. Historic homes have unique needs: plaster walls instead of drywall, original hardwood that's irreplaceable, antique fixtures, vintage tile, and architectural details that require gentle, informed care. Our team is trained in preservation-safe methods and product selection appropriate for historic materials."
+  },
+  {
+    question: "How do you protect antiques and valuables during cleaning?",
+    answer: "We treat every valuable item with museum-quality care. Before cleaning, we note any antiques, art, or heirlooms that require special attention. We use lint-free microfiber cloths, appropriate cleaning solutions for each material, and careful handling techniques. We never move valuable items without permission. For irreplaceable pieces, we follow your specific instructions. Our $2 million insurance provides additional protection, but our careful handling means you rarely need it."
+  },
+  {
+    question: "What's the difference between regular and luxury home cleaning?",
+    answer: "Luxury home cleaning goes beyond standard service in several ways: (1) Product selection - we use premium, material-appropriate cleaners for marble, granite, hardwood, and fine surfaces. (2) Attention to detail - we clean architectural features, moldings, and details standard cleaning skips. (3) Handling - we're trained to work around antiques, art, and high-value items safely. (4) Time - we don't rush, ensuring meticulous results. (5) Discretion - we understand privacy concerns in high-end homes."
+  },
+  {
+    question: "Do you clean homes over 5,000 square feet?",
+    answer: "Yes! Unlike some competitors who refuse large homes (Bear Brothers, for example, won't clean homes over 7,000 sq ft), The Valley Clean Team welcomes estates of any size. We've cleaned homes from 5,000 to over 15,000 square feet. We adjust team size and scheduling to match your property's needs. See our Estate Cleaning service for homes 4,000+ sq ft."
+  },
+  {
+    question: "Can you clean granite countertops properly?",
+    answer: "Absolutely. Granite requires specific care to maintain its beauty and seal. We use pH-neutral granite cleaners that won't break down the sealer or dull the finish. We avoid acidic cleaners, vinegar, and abrasive products. For daily cleaning, gentle soap and water works well, but our deep cleaning includes proper granite care that cleans without damage. We can also identify if your granite needs resealing (if water no longer beads on the surface)."
+  },
+  {
+    question: "How do you handle crystal chandeliers and light fixtures?",
+    answer: "For accessible chandeliers, we carefully dust or clean each crystal and the fixture frame using appropriate methods. We never spray cleaners directly onto electrical fixtures. For complex or very high chandeliers, we may recommend a specialty service. Our white glove cleaning service includes detailed light fixture cleaning as standard."
+  },
+  {
+    question: "What about cleaning around fine art and collections?",
+    answer: "We're extremely careful around fine art and collections. Generally, we dust frames only (not the art itself unless specifically instructed) using soft, lint-free cloths. We never use cleaning products near art. For valuable collections - whether wine, antiques, or other collectibles - we follow your specific guidance and treat items as irreplaceable. If you have concerns about specific pieces, we'll discuss handling before we begin."
+  },
+  {
+    question: "Do you offer recurring service for luxury homes?",
+    answer: "Yes, and recurring service is actually ideal for luxury homes. Regular professional maintenance protects your investment by preventing buildup that can damage fine finishes. We offer weekly, bi-weekly, and monthly service with the same dedicated team every visit. Your team learns your home's specific needs, your preferences, and provides consistent care that maintains your home's beauty and value."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+// Material expertise
+const materialExpertise = [
+  {
+    material: "Hardwood Floors",
+    icon: "tree",
+    description: "pH-balanced, residue-free cleaners that protect finish and preserve patina. No vinegar, ammonia, or steam that damages wood.",
+    wrongProducts: "Vinegar, Murphy's Oil Soap, steam mops, excessive water"
+  },
+  {
+    material: "Marble & Stone",
+    icon: "gem",
+    description: "pH-neutral stone cleaners that clean without etching or dulling. Safe for all marble surfaces including floors, counters, and showers.",
+    wrongProducts: "Vinegar, citrus cleaners, most bathroom cleaners, bleach"
+  },
+  {
+    material: "Granite Counters",
+    icon: "mountain",
+    description: "Gentle cleaners that protect the seal. We can identify when resealing is needed based on water absorption.",
+    wrongProducts: "Acidic cleaners, abrasive scrubs, Windex, bleach"
+  },
+  {
+    material: "Antique Furniture",
+    icon: "couch",
+    description: "Appropriate products for wood type and finish age. Gentle techniques that clean without damage.",
+    wrongProducts: "Silicone polishes, excessive moisture, abrasive cloths"
+  },
+  {
+    material: "Plaster Walls",
+    icon: "hotel",
+    description: "Dry or barely-damp cleaning that prevents moisture damage to historic plaster.",
+    wrongProducts: "Excessive water, harsh scrubbing, magic erasers on painted surfaces"
+  },
+  {
+    material: "Vintage Tile",
+    icon: "th",
+    description: "Gentle, grout-safe cleaning that preserves original tile and grout color.",
+    wrongProducts: "Harsh acids, bleach on colored grout, abrasive scrubs"
+  }
+];
+
+// Luxury areas served
+const luxuryAreas = [
+  { name: "Mountain Brook", link: "/locations/mountain-brook/luxury-cleaning", state: "AL" },
+  { name: "Belle Meade", link: "/locations/nashville/belle-meade", state: "TN" },
+  { name: "Brentwood", link: "/locations/nashville/brentwood", state: "TN" },
+  { name: "Green Hills", link: "/locations/nashville/green-hills", state: "TN" },
+  { name: "Walnut Street Historic", link: "/locations/florence/historic-district", state: "AL" },
+  { name: "Cherokee Bend", link: "/locations/mountain-brook/cherokee-bend", state: "AL" },
+  { name: "Franklin", link: "/locations/nashville/franklin", state: "TN" },
+  { name: "Vestavia Hills", link: "/locations/birmingham/vestavia-hills", state: "AL" },
+  { name: "Homewood", link: "/locations/birmingham/homewood", state: "AL" },
+  { name: "The Ledges", link: "/locations/huntsville", state: "AL" }
+];
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <span class="text-gray-900 font-semibold">
+            <Icon name="gem" class="w-5 h-5 mr-2" />Specialized Care for Fine Homes
+          </span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+          Luxury & <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Historic</span> Home Cleaning
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Your home's fine finishes require more than standard cleaning. From antique hardwood to marble surfaces, historic plaster to modern luxury materials - we understand the science of proper care.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+          <div class="flex items-center text-gray-300 bg-white/10 px-4 py-2 rounded-full">
+            <Icon name="check-circle" class="w-5 h-5 text-green-400 mr-2" />
+            <span>Preservation-Safe Products</span>
+          </div>
+          <div class="flex items-center text-gray-300 bg-white/10 px-4 py-2 rounded-full">
+            <Icon name="check-circle" class="w-5 h-5 text-green-400 mr-2" />
+            <span>Material Science Expertise</span>
+          </div>
+          <div class="flex items-center text-gray-300 bg-white/10 px-4 py-2 rounded-full">
+            <Icon name="check-circle" class="w-5 h-5 text-green-400 mr-2" />
+            <span>$2M Asset Protection</span>
+          </div>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/services/white-glove-cleaning" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg text-center transition transform hover:scale-105">
+            White Glove Service
+          </a>
+          <a href="/services/estate-cleaning" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold text-center hover:bg-white hover:text-gray-900 transition">
+            Estate Cleaning
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Section -->
+  <section class="py-8 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Material Expertise -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          The Science of <span class="gold-gradient">Proper Care</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Different materials require different care. Using the wrong products can permanently damage fine finishes.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {materialExpertise.map(item => (
+          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+              <Icon name={item.icon} class="w-6 h-6 text-white" />
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.material}</h3>
+            <p class="text-gray-600 mb-4">{item.description}</p>
+            <div class="bg-red-50 rounded-lg p-3 border border-red-100">
+              <p class="text-sm text-red-700">
+                <Icon name="exclamation-triangle" class="w-5 h-5 mr-1 text-red-500" />
+                <strong>Avoid:</strong> {item.wrongProducts}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Historic Home Expertise -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Historic Home <span class="gold-gradient">Specialists</span>
+          </h2>
+          <p class="text-lg text-gray-700 mb-6">
+            Historic homes aren't just old houses - they're irreplaceable pieces of our community's heritage. Victorian-era mansions, early 1900s craftsmans, and mid-century gems all require specialized knowledge to clean properly.
+          </p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start">
+              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+              <span class="text-gray-700"><strong>Original hardwood floors</strong> - Heart pine, oak, and other woods that can't be replaced</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+              <span class="text-gray-700"><strong>Plaster walls</strong> - Gentler cleaning than modern drywall requires</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+              <span class="text-gray-700"><strong>Antique fixtures</strong> - Period hardware, vintage tile, clawfoot tubs</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+              <span class="text-gray-700"><strong>Architectural details</strong> - Crown molding, wainscoting, built-ins</span>
+            </li>
+            <li class="flex items-start">
+              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+              <span class="text-gray-700"><strong>Family heirlooms</strong> - Antique furniture and irreplaceable pieces</span>
+            </li>
+          </ul>
+          <a href="/locations/florence/historic-district" class="text-[#FFA985] font-semibold hover:underline">
+            Learn about our Florence Historic District service →
+          </a>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-xl border border-gray-200">
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">Serving Historic Districts</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center text-gray-700">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <a href="/locations/florence/historic-district" class="hover:text-[#FFA985]">Walnut Street Historic District - Florence</a>
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <a href="/locations/mountain-brook" class="hover:text-[#FFA985]">Crestline & English Village - Mountain Brook</a>
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <a href="/locations/nashville/belle-meade" class="hover:text-[#FFA985]">Belle Meade - Nashville</a>
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <a href="/locations/birmingham/homewood" class="hover:text-[#FFA985]">Historic Homewood - Birmingham</a>
+            </li>
+            <li class="flex items-center text-gray-700">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <a href="/locations/huntsville" class="hover:text-[#FFA985]">Twickenham Historic - Huntsville</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Asset Protection -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+        $2 Million Asset Protection
+      </h2>
+      <p class="text-xl text-gray-800 mb-8 max-w-3xl mx-auto">
+        High-value homes deserve high-value protection. We carry double the industry-standard liability insurance specifically because we work in homes with valuable contents and irreplaceable finishes.
+      </p>
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="bg-white/20 backdrop-blur rounded-xl p-6">
+          <Icon name="file-shield" class="w-12 h-12 text-gray-900 mb-4" />
+          <h3 class="text-xl font-bold text-gray-900 mb-2">$2M Liability</h3>
+          <p class="text-gray-800">Double the industry standard coverage for your peace of mind</p>
+        </div>
+        <div class="bg-white/20 backdrop-blur rounded-xl p-6">
+          <Icon name="lock" class="w-12 h-12 text-gray-900 mb-4" />
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Bonded Staff</h3>
+          <p class="text-gray-800">All team members bonded for additional protection</p>
+        </div>
+        <div class="bg-white/20 backdrop-blur rounded-xl p-6">
+          <Icon name="shield-alt" class="w-12 h-12 text-gray-900 mb-4" />
+          <h3 class="text-xl font-bold text-gray-900 mb-2">COI Available</h3>
+          <p class="text-gray-800">Certificates of insurance provided upon request</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Luxury Areas Served -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Luxury <span class="gold-gradient">Service Areas</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Serving premier communities across Alabama and Tennessee</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto">
+        {luxuryAreas.map(area => (
+          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
+            <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
+            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
+            <p class="text-xs text-gray-500">{area.state}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Luxury Home <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">Questions from owners of fine homes</p>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq, index) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Links -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto text-center">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8">Our Premium Services</h3>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/services/white-glove-cleaning" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-6 py-3 rounded-full font-semibold hover:opacity-90 transition">
+          White Glove Cleaning
+        </a>
+        <a href="/services/estate-cleaning" class="bg-gray-900 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-800 transition">
+          Estate Cleaning
+        </a>
+        <a href="/services/deep-cleaning" class="border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-gray-900 hover:text-white transition">
+          Deep Cleaning
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Your Home Deserves <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Expert Care</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        From Florence's historic districts to Mountain Brook's estates - luxury homes require luxury care
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-10 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+        </a>
+        <a href="/contact" class="border-2 border-white text-white px-8 py-5 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900 transition">
+          Request Consultation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
