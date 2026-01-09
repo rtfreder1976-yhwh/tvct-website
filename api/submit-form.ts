@@ -34,6 +34,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
+    // Send to GHL webhook for CRM integration
+    const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/d0fbfbba-a109-42a7-a96e-f7879ec64279';
+
+    try {
+      await fetch(ghlWebhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name || '',
+          email: email || '',
+          phone: phone,
+          service: service || '',
+          location: location || '',
+          preferred_date: preferred_date || '',
+          message: message || '',
+          source: source || 'Website',
+          page_url: page_url || '',
+          submitted_at: new Date().toISOString()
+        })
+      });
+    } catch (ghlError) {
+      console.error('GHL webhook error:', ghlError);
+      // Continue with email even if GHL fails
+    }
+
     // Format the email content
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -114,8 +139,8 @@ Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
 
     // Send email to GHL inbox for workflow automation
     const { data, error } = await resend.emails.send({
-      from: 'The Valley Clean Team <leads@thevalleycleanteam.com>',
-      to: ['leads@thevalleycleanteam.com'],
+      from: 'The Valley Clean Team <hello@thevalleycleanteam.com>',
+      to: ['hello@thevalleycleanteam.com'],
       subject: `New Lead: ${service || 'Cleaning Service'} - ${name || phone}`,
       html: emailHtml,
       text: emailText,
