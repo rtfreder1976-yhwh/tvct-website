@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+
+const cities = [
+  { name: "Athens", slug: "/locations/athens", description: "County seat & historic downtown" },
+  { name: "Ardmore", slug: "/locations/athens/ardmore", description: "Tennessee border community" },
+  { name: "Elkmont", slug: "/locations/athens/elkmont", description: "Northern Limestone County" },
+  { name: "Tanner", slug: "/locations/athens/tanner", description: "Southern Limestone County" },
+  { name: "Belle Mina", slug: "/locations/athens/belle-mina", description: "Historic plantation area" },
+  { name: "East Limestone", slug: "/locations/athens/east-limestone", description: "Growing residential area" },
+  { name: "Clements", slug: "/locations/athens/clements", description: "Rural community" },
+  { name: "Lindsay Lane", slug: "/locations/athens/lindsay-lane", description: "Residential neighborhood" }
+];
+
+const faqs = [
+  {
+    question: "What areas of Limestone County do you serve?",
+    answer: "We serve ALL of Limestone County including Athens, Ardmore, Elkmont, Tanner, Belle Mina, East Limestone, Clements, and all rural areas. From downtown Athens to countryside properties, we bring premium cleaning throughout the county."
+  },
+  {
+    question: "How much does house cleaning cost in Limestone County?",
+    answer: "Pricing varies by home size and service type. Most Limestone County homes range from $150-$400 for regular cleaning. We offer free quotes and discounts for recurring service. Call 256-826-1100 for your personalized estimate."
+  },
+  {
+    question: "Do you serve the growing subdivisions in Athens?",
+    answer: "Absolutely! Athens and Limestone County are experiencing rapid growth with new subdivisions and families relocating from Huntsville and Decatur. We serve both established neighborhoods and new construction communities throughout the county."
+  },
+  {
+    question: "What makes The Valley Clean Team different?",
+    answer: "We're veteran-owned, women-led, and local. Unlike franchise operations, you get the same dedicated team every visit who learn your home and preferences. We're fully insured ($2M liability), background-checked, and offer a 100% satisfaction guarantee."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential & Commercial Cleaning Services",
+  "provider": { "@type": "LocalBusiness", "name": "The Valley Clean Team", "telephone": "+1-256-826-1100" },
+  "areaServed": { "@type": "AdministrativeArea", "name": "Limestone County, Alabama" }
+};
+---
+
+<BaseLayout
+  title="Limestone County Cleaning Services | Athens, Ardmore, Elkmont | Valley Clean Team"
+  description="Professional cleaning services throughout Limestone County, AL. Serving Athens, Ardmore, Elkmont, Tanner & all communities. Veteran-owned."
+  geoRegion="US-AL"
+  geoPlacename="Limestone County, Alabama"
+  canonicalUrl="https://thevalleycleanteam.com/locations/limestone-county"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto text-center">
+      <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+        <span class="text-gray-900 font-semibold">
+          <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving All of Limestone County
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white max-w-4xl mx-auto">
+        Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Limestone County, Alabama</span>
+      </h1>
+      <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+        One of Alabama's fastest-growing counties, Limestone County families trust The Valley Clean Team for reliable cleaning services. Serving Athens, Ardmore, Elkmont, and every community in between.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
+        </a>
+        <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition">
+          Get Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cities We Serve -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Communities We Serve in Limestone County</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        {cities.map(city => (
+          <a href={city.slug} class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] hover:shadow-lg transition group">
+            <div class="flex items-center mb-3">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985] transition">{city.name}</h3>
+            </div>
+            <p class="text-gray-600 text-sm">{city.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Limestone County -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold mb-6 text-[#333333] text-center">About Limestone County</h2>
+      <div class="section-divider"></div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          Limestone County, with Athens as its county seat, is one of Alabama's fastest-growing counties. Located between Huntsville and the Tennessee border, the county attracts families seeking affordable housing, excellent schools, and small-town character with easy access to big-city amenities.
+        </p>
+        <p>
+          From historic downtown Athens to new subdivisions throughout the county, Limestone County offers diverse living options. The Valley Clean Team serves families in every community, from long-established neighborhoods to brand-new construction, bringing reliable, professional cleaning services to busy households.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Limestone County Cleaning FAQs</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">
+        Ready for a Cleaner Home in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Limestone County</span>?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Join Limestone County families who trust The Valley Clean Team. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

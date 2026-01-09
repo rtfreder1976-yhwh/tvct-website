@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import Icon from '../../../components/Icon.astro';
+
+const faqs = [
+  {
+    question: "What areas of Lexington do you serve?",
+    answer: "We serve all of Lexington and surrounding Lauderdale County, including downtown Lexington, properties along Highway 64, the areas near Joe Wheeler State Park, lakefront homes on Wheeler Lake, and rural properties throughout the western Lauderdale County corridor. Whether you're in town or on the lake, we bring premium cleaning to every Lexington home."
+  },
+  {
+    question: "How does pricing work for Lexington homes?",
+    answer: "Most Lexington homes range from $150-$400 for regular cleaning depending on square footage, condition, and service frequency. Lakefront homes and larger properties may be higher due to size and specialized cleaning needs. Deep cleaning runs approximately 50% more than regular service. We offer discounts for recurring weekly and bi-weekly clients. Call 256-826-1100 for your personalized quote."
+  },
+  {
+    question: "Do you clean lakefront homes on Wheeler Lake?",
+    answer: "Yes! Many Lexington properties are situated on beautiful Wheeler Lake. We're experienced with lakefront home challenges including humidity control, dock-area tracking, and the extra cleaning needs that come with lake living. We can also coordinate cleaning around your rental schedule if you have a vacation rental property."
+  },
+  {
+    question: "Can you clean vacation rentals near Joe Wheeler State Park?",
+    answer: "Absolutely! Lexington's proximity to Joe Wheeler State Park makes it popular for vacation rentals and Airbnb properties. We offer turnover cleaning between guests, deep cleaning for seasonal preparation, and regular maintenance to keep your rental property guest-ready year-round."
+  },
+  {
+    question: "How do you handle rural properties outside Lexington?",
+    answer: "Many Lexington-area families live on larger rural properties in western Lauderdale County. We serve country homes, properties with acreage, and residences along the quieter county roads. Travel time may affect scheduling, but we're committed to serving the entire Lexington community."
+  },
+  {
+    question: "What's included in your regular cleaning service?",
+    answer: "Our regular cleaning includes all bedrooms, bathrooms, kitchen, living areas, dusting, vacuuming, mopping, and surface cleaning throughout. We focus on high-traffic areas and maintain your home week-to-week. Bathrooms are scrubbed and sanitized, kitchens receive detailed attention, and all living spaces are left fresh and clean."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lexington",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Lexington, Alabama",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "34.9734",
+      "longitude": "-87.3644"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lexington",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for Lexington, Alabama homes. Regular maintenance, deep cleaning, move-in/out, and vacation rental cleaning near Joe Wheeler State Park and Wheeler Lake.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning Lexington, AL | Wheeler Lake | Valley Clean Team"
+  description="House cleaning for Lexington, Alabama homes. Lakefront properties, vacation rentals near Joe Wheeler State Park. Veteran-owned. Lauderdale County."
+  geoRegion="US-AL"
+  geoPlacename="Lexington, Alabama"
+  geoPosition="34.9734;-87.3644"
+  canonicalUrl="https://thevalleycleanteam.com/locations/muscle-shoals/lexington"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <Icon name="water" class="w-5 h-5 mr-2" />Wheeler Lake & Joe Wheeler State Park
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Lexington, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Nestled along Wheeler Lake near Joe Wheeler State Park, Lexington offers peaceful lakefront living and natural beauty. Whether you're a full-time resident, weekender, or vacation rental owner, The Valley Clean Team keeps your Lexington home pristine so you can enjoy everything this beautiful area has to offer.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="water" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Lakefront</p>
+              <p class="text-gray-400 text-xs">Experts</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="shield-alt" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="home" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Vacation</p>
+              <p class="text-gray-400 text-xs">Rentals</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
+            </a>
+            <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <h2 class="text-2xl font-bold text-[#333333] mb-6 text-center">Lexington Cleaning Services</h2>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="home" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Regular Maintenance</h3>
+                <p class="text-sm text-gray-600">Weekly or bi-weekly cleaning for year-round residents</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="water" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Lakefront Home Cleaning</h3>
+                <p class="text-sm text-gray-600">Specialized care for Wheeler Lake properties</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="key" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Vacation Rental Turnovers</h3>
+                <p class="text-sm text-gray-600">Guest-ready cleaning for rental properties</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="sparkles" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Deep Cleaning</h3>
+                <p class="text-sm text-gray-600">Seasonal refreshes and move-in/out service</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="tel:2568261100" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
+          </a>
+          <p class="text-center text-xs text-gray-500 mt-3">
+            <Icon name="clock" class="w-5 h-5 mr-1" /> 2-hour response guarantee
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold mb-6 text-[#333333] text-center">
+        Cleaning Services for Lexington's Lake Community
+      </h2>
+      <div class="section-divider"></div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          Lexington, Alabama sits in a prime location along Wheeler Lake in western Lauderdale County. With Joe Wheeler State Park nearby, this quiet community attracts families who love outdoor recreation, lakefront living, and the peaceful pace of small-town Alabama. From fishing and boating to hiking and camping, Lexington residents spend their time enjoying nature, not scrubbing floors.
+        </p>
+        <p>
+          The Valley Clean Team serves Lexington homeowners with the same premium cleaning service we bring to communities throughout The Shoals. Whether you live in a lakefront property with stunning Wheeler Lake views, a cozy home in town, or manage vacation rentals for visitors exploring Joe Wheeler State Park, we keep your space immaculate.
+        </p>
+        <p>
+          Lakefront homes present unique cleaning challenges: humidity, tracked sand and debris, and the extra wear that comes with an active outdoor lifestyle. Our team understands these needs and brings the right techniques and products to keep your lake home fresh, clean, and welcoming year-round.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">
+          Frequently Asked Questions
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
+        Also Serving The Shoals Area
+      </h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/muscle-shoals" class="neighborhood-badge block text-center">Muscle Shoals</a>
+        <a href="/locations/florence" class="neighborhood-badge block text-center">Florence</a>
+        <a href="/locations/muscle-shoals/killen" class="neighborhood-badge block text-center">Killen</a>
+        <a href="/locations/muscle-shoals/rogersville" class="neighborhood-badge block text-center">Rogersville</a>
+        <a href="/locations/tuscumbia" class="neighborhood-badge block text-center">Tuscumbia</a>
+        <a href="/locations" class="neighborhood-badge block text-center">View All Locations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">
+        Enjoy Lake Life, <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">We'll Handle the Cleaning</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Lexington living is about enjoying Wheeler Lake and the outdoors. Let The Valley Clean Team handle your home while you make memories on the water.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

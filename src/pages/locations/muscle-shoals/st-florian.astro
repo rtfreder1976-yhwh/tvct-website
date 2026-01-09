@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import Icon from '../../../components/Icon.astro';
+
+const faqs = [
+  {
+    question: "What areas of St. Florian do you serve?",
+    answer: "We serve all of St. Florian and the surrounding Lauderdale County countryside, including downtown St. Florian, properties along Highway 17, the areas near St. Florian High School, farms and rural estates, and established neighborhoods throughout this tight-knit community. We bring the same premium service to every St. Florian home."
+  },
+  {
+    question: "How does pricing work for St. Florian homes?",
+    answer: "Most St. Florian homes range from $150-$375 for regular cleaning depending on square footage and service frequency. Larger farmhouses and rural estates may be higher due to size. Deep cleaning runs approximately 50% more than regular service. We offer discounts for recurring weekly and bi-weekly clients. Call 256-826-1100 for your personalized quote."
+  },
+  {
+    question: "Do you clean larger farmhouses and rural properties?",
+    answer: "Absolutely! St. Florian has many beautiful farmhouses, country homes, and properties on acreage. We're experienced cleaning larger rural properties with unique features like wraparound porches, multiple living areas, and the extra challenges that come with country living. Our team handles homes of all sizes."
+  },
+  {
+    question: "Can you work around farming schedules?",
+    answer: "Yes! We understand that St. Florian families often have agricultural schedules and unpredictable demands. We offer flexible scheduling and can adjust around your needs. Whether you need early morning cleaning before heading to the fields or prefer service while you're away, we accommodate your lifestyle."
+  },
+  {
+    question: "Do you handle homes with pets and livestock tracking?",
+    answer: "Many St. Florian homes include dogs, cats, and the occasional mud tracked in from outdoor work. We use pet-safe products and pay special attention to entryways and high-traffic areas. Our team is experienced with the unique cleaning needs of country homes where outdoor life meets indoor comfort."
+  },
+  {
+    question: "What's included in your regular cleaning service?",
+    answer: "Our regular cleaning includes all bedrooms, bathrooms, kitchen, living areas, dusting, vacuuming, mopping, and surface cleaning throughout. We focus on high-traffic areas and maintain your home week-to-week. Bathrooms are scrubbed and sanitized, kitchens receive detailed attention, and all living spaces are left fresh and clean."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "St. Florian",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "St. Florian, Alabama",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "34.8637",
+      "longitude": "-87.6283"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "St. Florian",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for St. Florian, Alabama homes. Regular maintenance, deep cleaning, and farmhouse cleaning for Lauderdale County's rural community.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning St. Florian, AL | Valley Clean Team"
+  description="House cleaning for St. Florian, Alabama homes. Farmhouses, rural properties & family homes. Veteran-owned cleaning for Lauderdale County."
+  geoRegion="US-AL"
+  geoPlacename="St. Florian, Alabama"
+  geoPosition="34.8637;-87.6283"
+  canonicalUrl="https://thevalleycleanteam.com/locations/muscle-shoals/st-florian"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <Icon name="home" class="w-5 h-5 mr-2" />Serving St. Florian & Rural Lauderdale County
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">St. Florian, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            St. Florian embodies small-town Alabama at its finest: strong community values, beautiful countryside, and hardworking families. The Valley Clean Team serves St. Florian homes with the same dedication and reliability that this community values. Let us handle the cleaning while you focus on family, faith, and farming.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="tractor" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Rural</p>
+              <p class="text-gray-400 text-xs">Specialists</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="shield-alt" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="heart" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Family</p>
+              <p class="text-gray-400 text-xs">Values</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
+            </a>
+            <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <h2 class="text-2xl font-bold text-[#333333] mb-6 text-center">St. Florian Cleaning Services</h2>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="home" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Regular Maintenance</h3>
+                <p class="text-sm text-gray-600">Weekly or bi-weekly cleaning for busy families</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="warehouse" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Farmhouse Cleaning</h3>
+                <p class="text-sm text-gray-600">Specialized care for larger rural properties</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="sparkles" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Deep Cleaning</h3>
+                <p class="text-sm text-gray-600">Seasonal refreshes and thorough cleaning</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="truck" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Move In/Out</h3>
+                <p class="text-sm text-gray-600">Complete cleaning for relocating families</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="tel:2568261100" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
+          </a>
+          <p class="text-center text-xs text-gray-500 mt-3">
+            <Icon name="clock" class="w-5 h-5 mr-1" /> 2-hour response guarantee
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold mb-6 text-[#333333] text-center">
+        Cleaning Services for St. Florian Families
+      </h2>
+      <div class="section-divider"></div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          St. Florian is a small, close-knit community in northern Lauderdale County where families know their neighbors, support local businesses, and take pride in their homes. From historic farmhouses passed down through generations to newer family homes, St. Florian properties deserve professional care from people who understand rural Alabama life.
+        </p>
+        <p>
+          Life in St. Florian is busy. Between farming, school activities at St. Florian High School, church commitments, and family responsibilities, there's barely time to keep up with everything. The Valley Clean Team gives St. Florian families their time back. Come home to a clean house instead of a to-do list. Spend your weekends with family instead of scrubbing bathrooms.
+        </p>
+        <p>
+          Our veteran-owned, women-led team brings the values St. Florian families appreciate: honesty, reliability, and hard work. We treat every home with respect, whether it's a modest ranch or a sprawling country estate. Your home is your sanctuary, and we help you keep it that way.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Frequently Asked Questions</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">Also Serving The Shoals Area</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/muscle-shoals" class="neighborhood-badge block text-center">Muscle Shoals</a>
+        <a href="/locations/florence" class="neighborhood-badge block text-center">Florence</a>
+        <a href="/locations/muscle-shoals/killen" class="neighborhood-badge block text-center">Killen</a>
+        <a href="/locations/muscle-shoals/rogersville" class="neighborhood-badge block text-center">Rogersville</a>
+        <a href="/locations/tuscumbia" class="neighborhood-badge block text-center">Tuscumbia</a>
+        <a href="/locations" class="neighborhood-badge block text-center">View All Locations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">
+        St. Florian Families <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Deserve Clean Homes</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        You work hard for your family. Let The Valley Clean Team handle the housework while you enjoy the peace and beauty of St. Florian living.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

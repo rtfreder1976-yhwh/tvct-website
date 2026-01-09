@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+
+const cities = [
+  { name: "Tuscumbia", slug: "/locations/tuscumbia", description: "Helen Keller birthplace & Ivy Green" },
+  { name: "Sheffield", slug: "/locations/muscle-shoals/sheffield", description: "Tennessee River community" },
+  { name: "Muscle Shoals", slug: "/locations/muscle-shoals", description: "Music heritage & FAME Studios" },
+  { name: "Leighton", slug: "/locations/muscle-shoals", description: "La Grange College site" },
+  { name: "Cherokee", slug: "/locations/muscle-shoals", description: "Eastern Colbert County" },
+  { name: "Littleville", slug: "/locations/muscle-shoals", description: "Rural community" }
+];
+
+const faqs = [
+  {
+    question: "What areas of Colbert County do you serve?",
+    answer: "We serve ALL of Colbert County including Tuscumbia, Sheffield, Muscle Shoals (shared with Lauderdale), Leighton, Cherokee, Littleville, and all rural areas. From downtown Tuscumbia to country properties throughout the county, we bring premium cleaning to every home."
+  },
+  {
+    question: "How much does house cleaning cost in Colbert County?",
+    answer: "Pricing varies by home size and service type. Most Colbert County homes range from $150-$400 for regular cleaning. Historic homes in Tuscumbia's Spring Park area or larger properties may be higher. We offer free quotes and discounts for recurring service. Call 256-826-1100 for your personalized estimate."
+  },
+  {
+    question: "Do you clean historic homes near Ivy Green?",
+    answer: "Yes! Tuscumbia and Colbert County have beautiful historic properties. Our team is trained in proper care for antique finishes, original hardwood floors, and delicate architectural details. We use appropriate products that protect historic surfaces while achieving a thorough clean."
+  },
+  {
+    question: "What makes The Valley Clean Team different?",
+    answer: "We're veteran-owned, women-led, and local to The Shoals. Unlike franchise operations, you get the same dedicated team every visit who learn your home and preferences. We're fully insured ($2M liability), background-checked, and offer a 100% satisfaction guarantee."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential & Commercial Cleaning Services",
+  "provider": { "@type": "LocalBusiness", "name": "The Valley Clean Team", "telephone": "+1-256-826-1100" },
+  "areaServed": { "@type": "AdministrativeArea", "name": "Colbert County, Alabama" }
+};
+---
+
+<BaseLayout
+  title="Colbert County Cleaning Services | Tuscumbia, Sheffield | Valley Clean Team"
+  description="Professional cleaning services throughout Colbert County, AL. Serving Tuscumbia, Sheffield, Muscle Shoals & all Shoals communities. Veteran-owned."
+  geoRegion="US-AL"
+  geoPlacename="Colbert County, Alabama"
+  canonicalUrl="https://thevalleycleanteam.com/locations/colbert-county"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto text-center">
+      <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+        <span class="text-gray-900 font-semibold">
+          <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving All of Colbert County
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white max-w-4xl mx-auto">
+        Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Colbert County, Alabama</span>
+      </h1>
+      <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+        Home to Tuscumbia, Sheffield, and rich Shoals heritage, Colbert County families trust The Valley Clean Team for reliable, professional cleaning services. Veteran-owned and committed to our community.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
+        </a>
+        <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition">
+          Get Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cities We Serve -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Communities We Serve in Colbert County</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {cities.map(city => (
+          <a href={city.slug} class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] hover:shadow-lg transition group">
+            <div class="flex items-center mb-3">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition">{city.name}</h3>
+            </div>
+            <p class="text-gray-600 text-sm">{city.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Colbert County -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold mb-6 text-[#333333] text-center">About Colbert County</h2>
+      <div class="section-divider"></div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          Colbert County, located in northwest Alabama, is home to approximately 55,000 residents and includes Tuscumbia (the county seat), Sheffield, and portions of the Muscle Shoals area. The county is renowned for its rich history, including Ivy Green (Helen Keller's birthplace) and significant contributions to American music history.
+        </p>
+        <p>
+          From historic downtown Tuscumbia to family neighborhoods in Sheffield, Colbert County offers diverse communities united by small-town values and Tennessee Valley pride. The Valley Clean Team serves families throughout the county with the same dedication to quality that this community deserves.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Colbert County Cleaning FAQs</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">
+        Ready for a Cleaner Home in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Colbert County</span>?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Join Shoals families who trust The Valley Clean Team. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

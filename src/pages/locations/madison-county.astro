@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+
+const cities = [
+  { name: "Huntsville", slug: "/locations/huntsville", description: "Rocket City & county seat" },
+  { name: "Madison", slug: "/locations/madison", description: "Fast-growing family city" },
+  { name: "Hampton Cove", slug: "/locations/huntsville/hampton-cove", description: "Golf community & estates" },
+  { name: "Owens Cross Roads", slug: "/locations/huntsville/owens-cross-roads", description: "Eastern Madison County" },
+  { name: "Harvest", slug: "/locations/huntsville/harvest", description: "Northern community" },
+  { name: "Meridianville", slug: "/locations/huntsville/meridianville", description: "Growing residential area" },
+  { name: "The Ledges", slug: "/locations/huntsville/the-ledges", description: "Luxury gated community" },
+  { name: "Monte Sano", slug: "/locations/huntsville/monte-sano", description: "Mountain living" },
+  { name: "Jones Valley", slug: "/locations/huntsville/jones-valley", description: "South Huntsville" },
+  { name: "Big Cove", slug: "/locations/huntsville/big-cove", description: "Scenic valley homes" },
+  { name: "Twickenham", slug: "/locations/huntsville/twickenham", description: "Historic district" },
+  { name: "Research Park", slug: "/locations/huntsville/research-park", description: "Tech corridor area" }
+];
+
+const faqs = [
+  {
+    question: "What areas of Madison County do you serve?",
+    answer: "We serve ALL of Madison County including Huntsville, Madison, Hampton Cove, Owens Cross Roads, Harvest, Meridianville, The Ledges, Monte Sano, Jones Valley, Big Cove, Twickenham Historic District, and all surrounding communities. From downtown Huntsville to rural estates, we bring premium cleaning throughout the county."
+  },
+  {
+    question: "How much does house cleaning cost in Madison County?",
+    answer: "Pricing varies by home size and service type. Most Madison County homes range from $150-$500 for regular cleaning. Larger estates in Hampton Cove or The Ledges may be higher. We offer free quotes and discounts for recurring service. Call 256-826-1100 for your personalized estimate."
+  },
+  {
+    question: "Do you serve military families near Redstone Arsenal?",
+    answer: "Absolutely! As a veteran-owned company, we're proud to serve military families throughout Madison County. We understand PCS schedules, security requirements, and the unique needs of defense contractor families. Military discounts available."
+  },
+  {
+    question: "What makes The Valley Clean Team different?",
+    answer: "We're veteran-owned, women-led, and local. Unlike franchise operations, you get the same dedicated team every visit who learn your home and preferences. We're fully insured ($2M liability), background-checked, and offer a 100% satisfaction guarantee."
+  },
+  {
+    question: "Do you clean historic homes in Twickenham?",
+    answer: "Yes! Madison County has beautiful historic properties, especially in Twickenham and Old Town. Our team is trained in proper care for antebellum homes, original hardwood floors, and delicate architectural details. We use appropriate products that protect historic surfaces."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential & Commercial Cleaning Services",
+  "provider": { "@type": "LocalBusiness", "name": "The Valley Clean Team", "telephone": "+1-256-826-1100" },
+  "areaServed": { "@type": "AdministrativeArea", "name": "Madison County, Alabama" }
+};
+---
+
+<BaseLayout
+  title="Madison County Cleaning Services | Huntsville, Madison, Hampton Cove | Valley Clean Team"
+  description="Professional cleaning services throughout Madison County, AL. Serving Huntsville, Madison, Hampton Cove, The Ledges & all communities. Veteran-owned."
+  geoRegion="US-AL"
+  geoPlacename="Madison County, Alabama"
+  canonicalUrl="https://thevalleycleanteam.com/locations/madison-county"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto text-center">
+      <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+        <span class="text-gray-900 font-semibold">
+          <Icon name="rocket" class="w-5 h-5 mr-2" />Serving All of Madison County
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white max-w-4xl mx-auto">
+        Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Madison County, Alabama</span>
+      </h1>
+      <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+        Home to Rocket City and one of America's fastest-growing metros, Madison County families and professionals trust The Valley Clean Team for reliable, premium cleaning services.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
+        </a>
+        <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition">
+          Get Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cities We Serve -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Communities We Serve in Madison County</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        {cities.map(city => (
+          <a href={city.slug} class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] hover:shadow-lg transition group">
+            <div class="flex items-center mb-3">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985] transition">{city.name}</h3>
+            </div>
+            <p class="text-gray-600 text-sm">{city.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Madison County -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold mb-6 text-[#333333] text-center">About Madison County</h2>
+      <div class="section-divider"></div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          Madison County, with Huntsville as its county seat, is the heart of North Alabama's technology and aerospace corridor. Home to over 400,000 residents, the county includes thriving communities like Madison, Hampton Cove, and dozens of unique neighborhoods ranging from historic Twickenham to luxury gated communities like The Ledges.
+        </p>
+        <p>
+          The county attracts aerospace engineers, defense contractors, researchers, and families seeking excellent schools and quality of life. The Valley Clean Team serves this diverse community with premium cleaning services tailored to busy professional households, military families, and everyone who wants more time for what matters.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Madison County Cleaning FAQs</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">
+        Ready for a Cleaner Home in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Madison County</span>?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Join hundreds of Rocket City families who trust The Valley Clean Team. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

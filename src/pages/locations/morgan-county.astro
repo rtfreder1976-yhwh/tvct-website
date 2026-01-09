@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+
+const cities = [
+  { name: "Decatur", slug: "/locations/decatur", description: "County seat & River City" },
+  { name: "Hartselle", slug: "/locations/decatur/hartselle", description: "Family-friendly community" },
+  { name: "Priceville", slug: "/locations/decatur/priceville", description: "Northern Morgan County" },
+  { name: "Trinity", slug: "/locations/decatur/trinity", description: "Growing residential area" },
+  { name: "Somerville", slug: "/locations/decatur/somerville", description: "Eastern Morgan County" },
+  { name: "Danville", slug: "/locations/decatur/danville", description: "Southern community" },
+  { name: "Austinville", slug: "/locations/decatur/austinville", description: "Suburban neighborhood" },
+  { name: "Point Mallard", slug: "/locations/decatur/point-mallard", description: "Recreation & waterfront" }
+];
+
+const faqs = [
+  {
+    question: "What areas of Morgan County do you serve?",
+    answer: "We serve ALL of Morgan County including Decatur, Hartselle, Priceville, Trinity, Somerville, Danville, Austinville, and all rural areas. From downtown Decatur to country properties throughout the county, we bring premium cleaning to every home."
+  },
+  {
+    question: "How much does house cleaning cost in Morgan County?",
+    answer: "Pricing varies by home size and service type. Most Morgan County homes range from $150-$400 for regular cleaning. We offer free quotes and discounts for recurring service. Call 256-826-1100 for your personalized estimate."
+  },
+  {
+    question: "Do you serve the Point Mallard area?",
+    answer: "Yes! We serve homes near Point Mallard and throughout the Decatur waterfront area. Whether you live near the park or in surrounding neighborhoods, we bring the same quality cleaning service to your door."
+  },
+  {
+    question: "What makes The Valley Clean Team different?",
+    answer: "We're veteran-owned, women-led, and local. Unlike franchise operations, you get the same dedicated team every visit who learn your home and preferences. We're fully insured ($2M liability), background-checked, and offer a 100% satisfaction guarantee."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential & Commercial Cleaning Services",
+  "provider": { "@type": "LocalBusiness", "name": "The Valley Clean Team", "telephone": "+1-256-826-1100" },
+  "areaServed": { "@type": "AdministrativeArea", "name": "Morgan County, Alabama" }
+};
+---
+
+<BaseLayout
+  title="Morgan County Cleaning Services | Decatur, Hartselle, Priceville | Valley Clean Team"
+  description="Professional cleaning services throughout Morgan County, AL. Serving Decatur, Hartselle, Priceville, Trinity & all communities. Veteran-owned."
+  geoRegion="US-AL"
+  geoPlacename="Morgan County, Alabama"
+  canonicalUrl="https://thevalleycleanteam.com/locations/morgan-county"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto text-center">
+      <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+        <span class="text-gray-900 font-semibold">
+          <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving All of Morgan County
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white max-w-4xl mx-auto">
+        Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Morgan County, Alabama</span>
+      </h1>
+      <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+        From the Tennessee River to family neighborhoods throughout the county, Morgan County families trust The Valley Clean Team for reliable, professional cleaning services.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105">
+          <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
+        </a>
+        <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition">
+          Get Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cities We Serve -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Communities We Serve in Morgan County</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        {cities.map(city => (
+          <a href={city.slug} class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] hover:shadow-lg transition group">
+            <div class="flex items-center mb-3">
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-3" />
+              <h3 class="text-lg font-bold text-[#333333] group-hover:text-[#FFA985] transition">{city.name}</h3>
+            </div>
+            <p class="text-gray-600 text-sm">{city.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Morgan County -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold mb-6 text-[#333333] text-center">About Morgan County</h2>
+      <div class="section-divider"></div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          Morgan County, with Decatur as its county seat, sits along the Tennessee River in North Alabama. Home to approximately 120,000 residents, the county includes thriving communities like Hartselle, Priceville, and Trinity, along with scenic areas near Point Mallard Park.
+        </p>
+        <p>
+          Known as "The River City," Decatur offers affordable housing, excellent schools, and easy access to both Huntsville and Birmingham. The Valley Clean Team serves Morgan County families with the reliable, professional cleaning services that busy households need.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Morgan County Cleaning FAQs</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">
+        Ready for a Cleaner Home in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Morgan County</span>?
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Join Morgan County families who trust The Valley Clean Team. Call now for your free quote.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>

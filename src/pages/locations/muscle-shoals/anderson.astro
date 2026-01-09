@@ -1,0 +1,267 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Footer from '../../../components/Footer.astro';
+import Icon from '../../../components/Icon.astro';
+
+const faqs = [
+  {
+    question: "What areas of Anderson do you serve?",
+    answer: "We serve all of Anderson and the surrounding Lauderdale County area, including downtown Anderson, properties along Highway 207, rural homes and farms, and the neighborhoods extending toward Rogersville and Killen. Whether you're in the heart of Anderson or on a quiet country road, we bring premium cleaning to your door."
+  },
+  {
+    question: "How does pricing work for Anderson homes?",
+    answer: "Most Anderson homes range from $150-$350 for regular cleaning depending on square footage and service frequency. Larger country homes and properties may be higher due to size. Deep cleaning runs approximately 50% more than regular service. We offer discounts for recurring weekly and bi-weekly clients. Call 256-826-1100 for your personalized quote."
+  },
+  {
+    question: "Do you serve the rural areas around Anderson?",
+    answer: "Absolutely! Anderson sits in the scenic Lauderdale County countryside, and many residents live on larger properties outside the town center. We serve farmhouses, country homes, and rural residences throughout the Anderson area. Travel time may affect scheduling, but we're committed to serving this community."
+  },
+  {
+    question: "Can you work around unpredictable schedules?",
+    answer: "Yes! We understand that Anderson families often have demanding schedules between work, farming, and family activities. We offer flexible scheduling and can provide access code entry so we can clean while you're away. Your convenience is our priority."
+  },
+  {
+    question: "Do you use pet-safe cleaning products?",
+    answer: "Yes! Many Anderson homes have dogs, cats, and other pets. We use products that are safe for animals and families. We can also accommodate any specific product preferences or sensitivities. Just let us know your needs when scheduling."
+  },
+  {
+    question: "What's included in your regular cleaning service?",
+    answer: "Our regular cleaning includes all bedrooms, bathrooms, kitchen, living areas, dusting, vacuuming, mopping, and surface cleaning throughout. We focus on high-traffic areas and maintain your home week-to-week. Bathrooms are scrubbed and sanitized, kitchens receive detailed attention, and all living spaces are left fresh and clean."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Residential Cleaning Services",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "The Valley Clean Team",
+    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "telephone": "+1-256-826-1100",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Anderson",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    },
+    "priceRange": "$$"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Anderson, Alabama",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "34.9287",
+      "longitude": "-87.2539"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Anderson",
+      "addressRegion": "AL",
+      "addressCountry": "US"
+    }
+  },
+  "description": "Professional house cleaning services for Anderson, Alabama homes. Regular maintenance, deep cleaning, and rural property cleaning for Lauderdale County families.",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock"
+  }
+};
+---
+
+<BaseLayout
+  title="House Cleaning Anderson, AL | Valley Clean Team"
+  description="House cleaning for Anderson, Alabama homes. Rural properties, farmhouses & family homes. Veteran-owned cleaning for Lauderdale County."
+  geoRegion="US-AL"
+  geoPlacename="Anderson, Alabama"
+  geoPosition="34.9287;-87.2539"
+  canonicalUrl="https://thevalleycleanteam.com/locations/muscle-shoals/anderson"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <Icon name="home" class="w-5 h-5 mr-2" />Serving Anderson & Lauderdale County
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Anderson, Alabama</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Anderson is a peaceful community in eastern Lauderdale County where families enjoy rural living and close-knit neighborhood bonds. The Valley Clean Team brings reliable, professional cleaning to Anderson homes so you can spend more time enjoying country life and less time on housework.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="home" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Country</p>
+              <p class="text-gray-400 text-xs">Homes</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="shield-alt" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Licensed</p>
+              <p class="text-gray-400 text-xs">& Insured</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="medal" class="w-8 h-8 text-[#FFA985] mb-2" />
+              <p class="text-white font-semibold text-sm">Veteran</p>
+              <p class="text-gray-400 text-xs">Owned</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
+            </a>
+            <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Get Free Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <h2 class="text-2xl font-bold text-[#333333] mb-6 text-center">Anderson Cleaning Services</h2>
+
+          <div class="space-y-4 mb-6">
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="redo" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Regular Maintenance</h3>
+                <p class="text-sm text-gray-600">Weekly or bi-weekly cleaning service</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="sparkles" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Deep Cleaning</h3>
+                <p class="text-sm text-gray-600">Thorough top-to-bottom cleaning</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="truck" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Move In/Out</h3>
+                <p class="text-sm text-gray-600">Complete cleaning for relocating families</p>
+              </div>
+            </div>
+            <div class="flex items-start p-4 bg-gray-50 rounded-xl">
+              <Icon name="hammer" class="w-6 h-6 text-[#FFA985] mr-4 mt-1" />
+              <div>
+                <h3 class="font-bold text-[#333333]">Post-Construction</h3>
+                <p class="text-sm text-gray-600">Cleaning after renovations or new builds</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="tel:2568261100" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
+          </a>
+          <p class="text-center text-xs text-gray-500 mt-3">
+            <Icon name="clock" class="w-5 h-5 mr-1" /> 2-hour response guarantee
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-4xl font-bold mb-6 text-[#333333] text-center">
+        Cleaning Services for Anderson Families
+      </h2>
+      <div class="section-divider"></div>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <p>
+          Anderson is a quiet, friendly community in Lauderdale County where neighbors still wave as they pass and families enjoy the slower pace of rural Alabama life. Situated between Rogersville and Killen, Anderson offers easy access to The Shoals while maintaining the peaceful character that makes small-town living special.
+        </p>
+        <p>
+          Anderson families work hard, whether commuting to jobs in Florence, farming the beautiful Lauderdale County land, or managing busy households. The last thing you need after a long day is to come home to cleaning chores. The Valley Clean Team takes housework off your plate so you can relax and enjoy your home.
+        </p>
+        <p>
+          Our veteran-owned, women-led company brings professionalism and reliability to every Anderson home we clean. We treat your property with the same respect and care we'd give our own. From cozy family homes to larger country properties, we provide thorough, consistent cleaning you can count on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4 text-[#333333]">Frequently Asked Questions</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map((faq) => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area Links -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">Also Serving The Shoals Area</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/locations/muscle-shoals" class="neighborhood-badge block text-center">Muscle Shoals</a>
+        <a href="/locations/florence" class="neighborhood-badge block text-center">Florence</a>
+        <a href="/locations/muscle-shoals/killen" class="neighborhood-badge block text-center">Killen</a>
+        <a href="/locations/muscle-shoals/rogersville" class="neighborhood-badge block text-center">Rogersville</a>
+        <a href="/locations/tuscumbia" class="neighborhood-badge block text-center">Tuscumbia</a>
+        <a href="/locations" class="neighborhood-badge block text-center">View All Locations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl font-bold mb-6 text-white">
+        Anderson Homes <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Deserve Professional Care</span>
+      </h2>
+      <p class="text-xl text-gray-300 mb-8">
+        Enjoy the peace and beauty of Anderson living. Let The Valley Clean Team handle the housework while you focus on what matters most.
+      </p>
+      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
