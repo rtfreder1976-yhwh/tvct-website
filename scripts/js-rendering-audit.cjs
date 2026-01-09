@@ -7,6 +7,7 @@
  */
 
 const puppeteer = require('puppeteer');
+const { JSDOM } = require('jsdom');
 
 // Pages to audit (add more as needed)
 const DEFAULT_PAGES = [
@@ -45,6 +46,14 @@ function extractContent(html) {
     return matches;
   };
 
+  const dom = new JSDOM(html);
+  const document = dom.window.document;
+  const rawTextContent =
+    (document.body && document.body.textContent) ||
+    (document.documentElement && document.documentElement.textContent) ||
+    '';
+  const normalizedText = rawTextContent.replace(/\s+/g, ' ').trim();
+
   return {
     title: getMatch(/<title[^>]*>([^<]+)<\/title>/i),
     metaDescription: getMatch(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i),
@@ -58,7 +67,7 @@ function extractContent(html) {
     // Check for content that might be JS-dependent
     hasDataAttributes: (html.match(/data-[a-z]+-content/gi) || []).length,
     hasVueReact: /\b(v-if|v-for|ng-|data-reactroot)\b/i.test(html),
-    bodyTextLength: html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').length
+    bodyTextLength: normalizedText.length
   };
 }
 
