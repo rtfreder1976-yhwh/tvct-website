@@ -551,10 +551,13 @@ const topPages = [
     const Dashboard = {
       // Fetch live data from API routes
       async fetchData() {
+        // Analytics endpoints require Authorization: Bearer <token> (ANALYTICS_API_TOKEN).
+        const analyticsToken = window.ANALYTICS_API_TOKEN || localStorage.getItem('analyticsApiToken');
+        const authHeaders = analyticsToken ? { Authorization: `Bearer ${analyticsToken}` } : {};
         const [rankingsRes, trafficRes, leadsRes] = await Promise.allSettled([
-          fetch('/api/rankings').then(r => r.json()),
-          fetch('/api/traffic').then(r => r.json()),
-          fetch('/api/leads').then(r => r.json())
+          fetch('/api/rankings', { headers: authHeaders }).then(r => r.json()),
+          fetch('/api/traffic', { headers: authHeaders }).then(r => r.json()),
+          fetch('/api/leads', { headers: authHeaders }).then(r => r.json())
         ]);
 
         return {
