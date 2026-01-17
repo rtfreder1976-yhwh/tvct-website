@@ -1,0 +1,117 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  formId?: string;
+  city?: string;
+  state?: string;
+  serviceName?: string;
+  subtitle?: string;
+  phone?: string;
+}
+
+const {
+  formId = 'quote-form',
+  city = '',
+  state = 'AL',
+  serviceName = '',
+  subtitle = "Trusted cleaning professionals",
+  phone = '(256) 826-1100'
+} = Astro.props;
+
+const locationValue = city ? `${city}, ${state}` : '';
+const sourceValue = serviceName ? `${serviceName} - ${city}` : city ? `${city} Landing Page` : 'Website';
+const buttonText = city ? `Get My Free ${city} Quote` : 'Get My Free Quote';
+---
+
+<form id={formId} class="quote-form">
+  <div class="mb-4">
+    <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+  </div>
+  <div class="mb-4">
+    <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+  </div>
+  <div class="mb-4">
+    <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+  </div>
+  <div class="mb-4">
+    <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+      <option value="">Select Service Type *</option>
+      <option value="Deep Cleaning">Deep Cleaning</option>
+      <option value="Regular Cleaning">Regular Cleaning</option>
+      <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
+      <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
+      <option value="Airbnb Cleaning">Airbnb Cleaning</option>
+      <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+      <option value="Green Cleaning">Green Cleaning</option>
+      <option value="Event Cleaning">Event Cleaning</option>
+    </select>
+  </div>
+  <input type="hidden" name="location" value={locationValue}>
+  <input type="hidden" name="source" value={sourceValue}>
+  <button type="submit" class="quote-submit-btn btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+    {buttonText}
+  </button>
+  <p class="text-center text-xs text-gray-500 mt-3">
+    <Icon name="clock" class="w-4 h-4 inline-block mr-1" /> Response within 2 hours
+  </p>
+  <div class="quote-form-message hidden text-center p-4 rounded-lg mt-3"></div>
+</form>
+
+<script>
+  document.querySelectorAll('.quote-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = form.querySelector('.quote-submit-btn');
+      const messageDiv = form.querySelector('.quote-form-message');
+      const originalText = submitBtn?.textContent || 'Get My Free Quote';
+
+      const formData = {
+        name: form.name?.value || '',
+        email: form.email?.value || '',
+        phone: form.phone?.value || '',
+        service: form.service?.value || '',
+        location: form.location?.value || '',
+        source: form.source?.value || 'Website',
+        page_url: window.location.href
+      };
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+      }
+
+      try {
+        const response = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (messageDiv) {
+            messageDiv.className = 'quote-form-message text-center p-4 rounded-lg bg-green-100 text-green-800';
+            messageDiv.innerHTML = '✓ Thank you! We\'ll be in touch within 2 hours.';
+            messageDiv.classList.remove('hidden');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        if (messageDiv) {
+          messageDiv.className = 'quote-form-message text-center p-4 rounded-lg bg-red-100 text-red-800';
+          messageDiv.innerHTML = '⚠ Something went wrong. Please call us directly.';
+          messageDiv.classList.remove('hidden');
+        }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  });
+</script>
