@@ -35,7 +35,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Send to GHL webhook for CRM integration
-    const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/d0fbfbba-a109-42a7-a96e-f7879ec64279';
+    const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/9d907336-a868-4d75-94a8-720a364c56fd';
 
     try {
       await fetch(ghlWebhookUrl, {
