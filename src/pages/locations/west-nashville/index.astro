@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Navigation from '../../../components/Navigation.astro';
-import Footer from '../../../components/Footer.astro';
 import SchemaMarkup from '../../../components/SchemaMarkup.astro';
 import { westNashvilleTestimonials } from '../../../data/testimonials';
 import Icon from '../../../components/Icon.astro';
@@ -106,8 +104,7 @@ const testimonials = westNashvilleTestimonials.map(t => ({
 >
   <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <Navigation />
-
+  
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
@@ -157,23 +154,28 @@ const testimonials = westNashvilleTestimonials.map(t => ({
 
         <!-- Right Column - Quote Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free West Nashville Quote</h3>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free West Nashville Quote</h2>
           <p class="text-gray-600 mb-6 text-center">Serving Belle Meade, Sylvan Park & West Nashville</p>
           <form id="location-quote-form">
             <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+              <label for="loc-name" class="sr-only">Your Name</label>
+              <input type="text" id="loc-name" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
             </div>
             <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+              <label for="loc-email" class="sr-only">Email Address</label>
+              <input type="email" id="loc-email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
             </div>
             <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+              <label for="loc-phone" class="sr-only">Phone Number</label>
+              <input type="tel" id="loc-phone" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
             </div>
             <div class="mb-4">
-              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="West Nashville Address/Neighborhood" value="West Nashville, Tennessee" required>
+              <label for="loc-address" class="sr-only">Address/Neighborhood</label>
+              <input type="text" id="loc-address" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="West Nashville Address/Neighborhood" value="West Nashville, Tennessee" required>
             </div>
             <div class="mb-4">
-              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+              <label for="loc-service" class="sr-only">Select Service Type</label>
+              <select id="loc-service" name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
                 <option value="">Select Service Type *</option>
                 <option value="Deep Cleaning">Deep Cleaning</option>
                 <option value="Regular Cleaning">Regular Cleaning</option>
@@ -686,8 +688,7 @@ const testimonials = westNashvilleTestimonials.map(t => ({
     </div>
   </section>
 
-  <Footer />
-
+  
   <script>
     document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -725,7 +726,7 @@ const testimonials = westNashvilleTestimonials.map(t => ({
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error | 'Submission failed');
+          throw new Error(result.error || 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

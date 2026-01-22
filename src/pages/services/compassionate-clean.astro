@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Navigation from '../../components/Navigation.astro';
-import Footer from '../../components/Footer.astro';
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
 import TrustBadges from '../../components/TrustBadges.astro';
 import Icon from '../../components/Icon.astro';
@@ -169,8 +167,7 @@ const ourApproach = [
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <Navigation />
-
+  
   <!-- Hero Section -->
   <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#4a5568] to-[#2d3748]">
     <div class="container mx-auto">
@@ -410,8 +407,7 @@ const ourApproach = [
     </div>
   </section>
 
-  <Footer />
-
+  
   <script>
     document.getElementById('compassionate-form')?.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -447,7 +443,7 @@ const ourApproach = [
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error | 'Submission failed');
+          throw new Error(result.error || 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

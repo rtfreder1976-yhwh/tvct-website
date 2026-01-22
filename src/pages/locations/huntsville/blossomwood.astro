@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Navigation from '../../../components/Navigation.astro';
-import Footer from '../../../components/Footer.astro';
+
+
 import Icon from '../../../components/Icon.astro';
 
 const faqs = [
@@ -102,7 +102,7 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  <Navigation />
+  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
@@ -156,7 +156,7 @@ const serviceSchema = {
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h3>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
           <p class="text-gray-600 mb-6 text-center">Serving Blossomwood's historic homes</p>
           <form id="blossomwood-form">
             <div class="mb-4">
@@ -556,7 +556,7 @@ const serviceSchema = {
     </div>
   </section>
 
-  <Footer />
+  
 
   <script>
     document.getElementById('blossomwood-form')?.addEventListener('submit', async function(e) {
@@ -595,7 +595,7 @@ const serviceSchema = {
           }
           form.reset();
         } else {
-          throw new Error(result.error | 'Submission failed');
+          throw new Error(result.error || 'Submission failed');
         }
       } catch (error) {
         if (messageDiv) {

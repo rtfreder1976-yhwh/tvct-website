@@ -1,17 +1,17 @@
 ---
-import Icon from './Icon.astro';
-import { homepageTestimonials } from '../data/testimonials';
+import Icon from "./Icon.astro";
+import { homepageTestimonials } from "../data/testimonials";
 
 // Map centralized testimonials to component format
-const testimonials = homepageTestimonials.map(t => ({
+const testimonials = homepageTestimonials.map((t) => ({
   name: t.name,
   initial: t.initial,
-  location: t.location || 'Alabama/Tennessee',
+  location: t.location || "Alabama/Tennessee",
   rating: 5,
   text: t.text,
-  service: t.service || 'House Cleaning',
+  service: t.service || "House Cleaning",
   date: t.date,
-  source: t.source
+  source: t.source,
 }));
 ---
 
@@ -22,7 +22,9 @@ const testimonials = homepageTestimonials.map(t => ({
         What Our Customers Say
       </h2>
       <div class="section-divider"></div>
-      <p class="text-xl text-gray-600">Real reviews from real customers across Alabama & Tennessee</p>
+      <p class="text-xl text-gray-600">
+        Real reviews from real customers across Alabama & Tennessee
+      </p>
       <div class="flex items-center justify-center gap-2 mt-4">
         <div class="flex text-[#FFA985]">
           <Icon name="star" class="w-5 h-5" fill="currentColor" />
@@ -37,33 +39,44 @@ const testimonials = homepageTestimonials.map(t => ({
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {testimonials.slice(0, 8).map((testimonial) => (
-        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-lg">
-              {testimonial.initial}
+      {
+        testimonials.slice(0, 8).map((testimonial) => (
+          <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-lg">
+                {testimonial.initial}
+              </div>
+              <div class="ml-3">
+                <h3 class="font-bold text-[#333333]">{testimonial.name}</h3>
+                <p class="text-xs text-gray-500">{testimonial.source}</p>
+              </div>
             </div>
-            <div class="ml-3">
-              <h4 class="font-bold text-[#333333]">{testimonial.name}</h4>
-              <p class="text-xs text-gray-500">{testimonial.source}</p>
+            <div class="flex text-[#FFA985] text-sm mb-3">
+              {[...Array(testimonial.rating)].map(() => (
+                <Icon name="star" class="w-4 h-4" fill="currentColor" />
+              ))}
+            </div>
+            <p class="text-gray-700 text-sm mb-4 line-clamp-4">
+              "{testimonial.text}"
+            </p>
+            <div class="flex items-center justify-between text-xs text-gray-500">
+              <span class="bg-[#FFA985]/10 text-[#FFA985] px-2 py-1 rounded-full">
+                {testimonial.service}
+              </span>
+              <span>{testimonial.date}</span>
             </div>
           </div>
-          <div class="flex text-[#FFA985] text-sm mb-3">
-            {[...Array(testimonial.rating)].map(() => (
-              <Icon name="star" class="w-4 h-4" fill="currentColor" />
-            ))}
-          </div>
-          <p class="text-gray-700 text-sm mb-4 line-clamp-4">"{testimonial.text}"</p>
-          <div class="flex items-center justify-between text-xs text-gray-500">
-            <span class="bg-[#FFA985]/10 text-[#FFA985] px-2 py-1 rounded-full">{testimonial.service}</span>
-            <span>{testimonial.date}</span>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
 
     <div class="text-center mt-12">
-      <a href="https://g.page/r/thevalleycleanteam/review" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+      <a
+        href="https://g.page/r/thevalleycleanteam/review"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center text-[#FFA985] font-semibold hover:underline"
+      >
         <Icon name="google" class="w-5 h-5 mr-2" />
         Read More Reviews on Google
         <Icon name="external-link-alt" class="w-4 h-4 ml-2" />

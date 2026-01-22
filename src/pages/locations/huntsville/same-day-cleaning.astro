@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Navigation from '../../../components/Navigation.astro';
-import Footer from '../../../components/Footer.astro';
 import SchemaMarkup from '../../../components/SchemaMarkup.astro';
 import Icon from '../../../components/Icon.astro';
 
@@ -60,8 +58,7 @@ const faqSchema = {
 >
   <SchemaMarkup type="local" city="Huntsville" state="Alabama" />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <Navigation />
-
+  
   <!-- Urgent Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-red-50 to-orange-50">
     <div class="container mx-auto">
@@ -421,8 +418,7 @@ const faqSchema = {
     </div>
   </section>
 
-  <Footer />
-
+  
   <script>
     document.getElementById('same-day-form')?.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -455,7 +451,7 @@ const faqSchema = {
           messageDiv.classList.remove('hidden');
           form.reset();
         } else {
-          throw new Error(result.error | 'Submission failed');
+          throw new Error(result.error || 'Submission failed');
         }
       } catch (error) {
         messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';

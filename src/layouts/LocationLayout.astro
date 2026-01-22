@@ -1,9 +1,7 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
-import SchemaMarkup from '../components/SchemaMarkup.astro';
-import Icon from '../components/Icon.astro';
+import BaseLayout from "./BaseLayout.astro";
+import SchemaMarkup from "../components/SchemaMarkup.astro";
+import Icon from "../components/Icon.astro";
 
 interface Props {
   title: string;
@@ -24,118 +22,147 @@ interface Props {
   canonicalSlug?: string;
 }
 
-const { title, description, city, state, region, tagline, heroDescription, features, testimonials, neighborhoods = [], canonicalSlug } = Astro.props;
+const {
+  title,
+  description,
+  city,
+  state,
+  region,
+  tagline,
+  heroDescription,
+  features,
+  testimonials,
+  neighborhoods = [],
+  canonicalSlug,
+} = Astro.props;
 
 // Generate canonical URL for location pages
 // Use explicit canonicalSlug if provided, otherwise generate from city name
-const citySlug = canonicalSlug || city.toLowerCase().replace(/\s+/g, '-');
+const citySlug = canonicalSlug || city.toLowerCase().replace(/\s+/g, "-");
 const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}`;
 
 // Geographic data for location-specific meta tags
-const geoData: Record<string, { region: string; position: string; image: string }> = {
-  "Huntsville": {
+const geoData: Record<
+  string,
+  { region: string; position: string; image: string }
+> = {
+  Huntsville: {
     region: "US-AL",
     position: "34.7304;-86.5861",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
   },
-  "Birmingham": {
+  Birmingham: {
     region: "US-AL",
     position: "33.5186;-86.8104",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp",
   },
-  "Nashville": {
+  Nashville: {
     region: "US-TN",
     position: "36.1627;-86.7816",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp",
   },
-  "Madison": {
+  Madison: {
     region: "US-AL",
     position: "34.6993;-86.7483",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
   },
-  "Athens": {
+  Athens: {
     region: "US-AL",
     position: "34.8026;-86.9717",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
   },
   "Mountain Brook": {
     region: "US-AL",
     position: "33.4940;-86.7419",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp",
   },
   "Muscle Shoals": {
     region: "US-AL",
     position: "34.7448;-87.6675",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
   },
   "The Shoals": {
     region: "US-AL",
     position: "34.8197;-87.6772",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
   },
-  "Florence": {
+  Florence: {
     region: "US-AL",
     position: "34.7998;-87.6773",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
   },
   "West Nashville": {
     region: "US-TN",
     position: "36.1489;-86.8900",
-    image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
-  }
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp",
+  },
 };
 
-const cityGeo = geoData[city] || { region: "US-AL", position: "34.7304;-86.5861", image: "" };
+const cityGeo = geoData[city] || {
+  region: "US-AL",
+  position: "34.7304;-86.5861",
+  image: "",
+};
 const geoPlacename = `${city}, ${state}`;
 
 // Generate city-specific FAQs
 const faqs = [
   {
     question: `How much does house cleaning cost in ${city}?`,
-    answer: `House cleaning in ${city} typically ranges from $99-$350+ depending on your home size and service type. Regular cleaning starts at $99, deep cleaning starts at $175, and move-in/out cleaning starts at $225. We provide free, no-obligation quotes tailored to your specific needs. Call 256-826-1100 for an instant estimate.`
+    answer: `House cleaning in ${city} typically ranges from $99-$350+ depending on your home size and service type. Regular cleaning starts at $99, deep cleaning starts at $175, and move-in/out cleaning starts at $225. We provide free, no-obligation quotes tailored to your specific needs. Call 256-826-1100 for an instant estimate.`,
   },
   {
     question: `Do you offer same-day cleaning service in ${city}?`,
-    answer: `Yes! We offer same-day cleaning service in ${city} and throughout ${region} based on availability. For same-day requests, we recommend calling us directly at 256-826-1100 as early as possible. We'll do our best to accommodate urgent cleaning needs.`
+    answer: `Yes! We offer same-day cleaning service in ${city} and throughout ${region} based on availability. For same-day requests, we recommend calling us directly at 256-826-1100 as early as possible. We'll do our best to accommodate urgent cleaning needs.`,
   },
   {
     question: `Are your ${city} cleaners background checked and insured?`,
-    answer: `Absolutely. Every member of The Valley Clean Team is thoroughly background checked, professionally trained, and fully insured with $2 million in liability coverage. We're also bonded for your complete peace of mind. As a veteran-owned business, we hold ourselves to the highest standards.`
+    answer: `Absolutely. Every member of The Valley Clean Team is thoroughly background checked, professionally trained, and fully insured with $2 million in liability coverage. We're also bonded for your complete peace of mind. As a veteran-owned business, we hold ourselves to the highest standards.`,
   },
   {
     question: `What areas of ${city} do you serve?`,
-    answer: `We serve all of ${city} and the surrounding ${region} area. This includes all neighborhoods, subdivisions, and communities. If you're unsure if we cover your specific location, give us a call at 256-826-1100 - we likely do!`
+    answer: `We serve all of ${city} and the surrounding ${region} area. This includes all neighborhoods, subdivisions, and communities. If you're unsure if we cover your specific location, give us a call at 256-826-1100 - we likely do!`,
   },
   {
     question: `Do you bring your own cleaning supplies to ${city} homes?`,
-    answer: `Yes, we bring all necessary cleaning supplies and equipment to every job. We use professional-grade, eco-friendly products that are safe for children, pets, and the environment. If you have specific product preferences or allergies, just let us know and we'll accommodate your needs.`
+    answer: `Yes, we bring all necessary cleaning supplies and equipment to every job. We use professional-grade, eco-friendly products that are safe for children, pets, and the environment. If you have specific product preferences or allergies, just let us know and we'll accommodate your needs.`,
   },
   {
     question: `How do I book a cleaning service in ${city}?`,
-    answer: `Booking is easy! You can call us directly at 256-826-1100 for immediate assistance, or fill out our online quote form. Most quotes are replied to within 2 hours. We offer flexible scheduling including weekends and can often accommodate last-minute requests.`
+    answer: `Booking is easy! You can call us directly at 256-826-1100 for immediate assistance, or fill out our online quote form. Most quotes are replied to within 2 hours. We offer flexible scheduling including weekends and can often accommodate last-minute requests.`,
   },
   {
     question: `Do you offer recurring cleaning services in ${city}?`,
-    answer: `Yes! We offer weekly, bi-weekly, and monthly recurring cleaning services in ${city}. Recurring customers enjoy discounted rates: up to 20% off for weekly service, 15% off for bi-weekly, and 10% off for monthly cleanings. It's the best way to keep your home consistently clean.`
+    answer: `Yes! We offer weekly, bi-weekly, and monthly recurring cleaning services in ${city}. Recurring customers enjoy discounted rates: up to 20% off for weekly service, 15% off for bi-weekly, and 10% off for monthly cleanings. It's the best way to keep your home consistently clean.`,
   },
   {
     question: `What's included in a deep cleaning in ${city}?`,
-    answer: `Our ${city} deep cleaning service includes everything in a regular cleaning PLUS: inside appliances, baseboards and door frames, light fixtures and ceiling fans, window sills and blinds, cabinet fronts, and behind furniture cleaning. It's perfect for first-time customers, seasonal cleaning, or homes that need extra attention.`
-  }
+    answer: `Our ${city} deep cleaning service includes everything in a regular cleaning PLUS: inside appliances, baseboards and door frames, light fixtures and ceiling fans, window sills and blinds, cabinet fronts, and behind furniture cleaning. It's perfect for first-time customers, seasonal cleaning, or homes that need extra attention.`,
+  },
 ];
 
 // Schema for FAQPage
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 ---
 
@@ -148,89 +175,186 @@ const faqSchema = {
   geoPlacename={geoPlacename}
   geoPosition={cityGeo.position}
 >
-  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <SchemaMarkup
+    type="local"
+    city={city}
+    state={state}
+    neighborhoods={neighborhoods}
+  />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <Navigation />
-
+  
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="map-marker-alt" class="w-4 h-4 inline-block mr-2" />{tagline}
+              <Icon name="map-marker-alt" class="w-4 h-4 inline-block mr-2" />{
+                tagline
+              }
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Professional Cleaning Services in <span class="gold-gradient">{city}, {state}</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Professional Cleaning Services in <span class="gold-gradient"
+              >{city}, {state}</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">{heroDescription}</p>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
-            {features.map((feature) => (
-              <div class="flex items-center text-gray-700">
-                <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
-                <span>{feature}</span>
-              </div>
-            ))}
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6"
+          >
+            {
+              features.map((feature) => (
+                <div class="flex items-center text-gray-700">
+                  <Icon
+                    name="check-circle"
+                    class="w-5 h-5 text-[#FFA985] mr-2"
+                  />
+                  <span>{feature}</span>
+                </div>
+              ))
+            }
           </div>
 
           <!-- Urgency Badge -->
-          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+          <div
+            class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6"
+          >
             <span class="text-green-700 font-semibold">
-              <Icon name="calendar-check" class="w-5 h-5 text-green-600 inline-block mr-2" />Same-Week Availability
+              <Icon
+                name="calendar-check"
+                class="w-5 h-5 text-green-600 inline-block mr-2"
+              />Same-Week Availability
             </span>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition inline-flex items-center">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition inline-flex items-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
             </a>
-            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
-              <Icon name="calendar" class="w-5 h-5 inline-block mr-2" />Book Your Consultation
+            <a
+              href="/contact"
+              class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+            >
+              <Icon name="calendar" class="w-5 h-5 inline-block mr-2" />Book
+              Your Consultation
             </a>
           </div>
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free {city} Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving all {city} neighborhoods</p>
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free {city} Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving all {city} neighborhoods
+          </p>
           <form id="location-quote-form">
             <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
+              <label for="loc-name" class="sr-only">Your Name</label>
+              <input
+                type="text"
+                id="loc-name"
+                name="name"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
+                placeholder="Your Name *"
+                required
+              />
             </div>
             <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
+              <label for="loc-email" class="sr-only">Email Address</label>
+              <input
+                type="email"
+                id="loc-email"
+                name="email"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
+                placeholder="Email Address *"
+                required
+              />
             </div>
             <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
+              <label for="loc-phone" class="sr-only">Phone Number</label>
+              <input
+                type="tel"
+                id="loc-phone"
+                name="phone"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
+                placeholder="Phone Number *"
+                required
+              />
             </div>
             <div class="mb-4">
-              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder={`${city} Address/Neighborhood`} value={`${city}, ${state}`} required>
+              <label for="loc-address" class="sr-only"
+                >Address/Neighborhood</label
+              >
+              <input
+                type="text"
+                id="loc-address"
+                name="location"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
+                placeholder={`${city} Address/Neighborhood`}
+                value={`${city}, ${state}`}
+                required
+              />
             </div>
             <div class="mb-4">
-              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
+              <label for="loc-service" class="sr-only"
+                >Select Service Type</label
+              >
+              <select
+                id="loc-service"
+                name="service"
+                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
+                required
+              >
                 <option value="">Select Service Type *</option>
                 <option value="Deep Cleaning">Deep Cleaning</option>
                 <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
+                <option value="Move In/Out Cleaning"
+                  >Move In/Out Cleaning</option
+                >
+                <option value="Commercial/Office Cleaning"
+                  >Commercial/Office Cleaning</option
+                >
                 <option value="Event Cleaning">Event Cleaning</option>
                 <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
+                <option value="Post-Construction Cleaning"
+                  >Post-Construction Cleaning</option
+                >
               </select>
             </div>
-            <input type="hidden" name="city" value={city}>
-            <input type="hidden" name="state" value={state}>
-            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+            <input type="hidden" name="city" value={city} />
+            <input type="hidden" name="state" value={state} />
+            <button
+              type="submit"
+              id="location-submit-btn"
+              class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg"
+            >
               Get My Free {city} Quote
             </button>
             <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-4 h-4 inline-block mr-1" /> Response within 2 hours for {city} customers
+              <Icon name="clock" class="w-4 h-4 inline-block mr-1" /> Response within
+              2 hours for {city} customers
             </p>
-            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
+            <div
+              id="location-form-message"
+              class="hidden text-center p-4 rounded-lg mt-3"
+            >
+            </div>
           </form>
         </div>
       </div>
@@ -260,31 +384,49 @@ const faqSchema = {
       </div>
       <!-- Trust Badges -->
       <div class="flex flex-wrap justify-center gap-4">
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">$2M Liability Insurance</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >$2M Liability Insurance</span
+          >
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="medal" class="w-5 h-5 text-[#FFA985] mr-2" />
           <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="venus" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">Women-Led Business</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >Women-Led Business</span
+          >
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="user-check" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">Background-Checked Team</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >Background-Checked Team</span
+          >
         </div>
       </div>
     </div>
   </section>
 
   <!-- Pricing Quick View -->
-  <section class="py-12 px-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10">
+  <section
+    class="py-12 px-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10"
+  >
     <div class="container mx-auto">
       <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-[#333333] mb-2">{city} Cleaning Prices</h2>
+        <h2 class="text-3xl font-bold text-[#333333] mb-2">
+          {city} Cleaning Prices
+        </h2>
         <p class="text-gray-600">Transparent pricing - no hidden fees</p>
       </div>
       <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -293,13 +435,18 @@ const faqSchema = {
           <h3 class="font-bold text-[#333333]">Regular Cleaning</h3>
           <p class="text-2xl font-bold text-[#FFA985] mt-2">From $99</p>
         </div>
-        <div class="bg-white rounded-xl p-6 shadow-md text-center border-2 border-[#FFA985]">
+        <div
+          class="bg-white rounded-xl p-6 shadow-md text-center border-2 border-[#FFA985]"
+        >
           <Icon name="sparkles" class="w-8 h-8 text-[#FFA985] mx-auto mb-3" />
           <h3 class="font-bold text-[#333333]">Deep Cleaning</h3>
           <p class="text-2xl font-bold text-[#FFA985] mt-2">From $175</p>
         </div>
         <div class="bg-white rounded-xl p-6 shadow-md text-center">
-          <Icon name="truck-moving" class="w-8 h-8 text-[#FFA985] mx-auto mb-3" />
+          <Icon
+            name="truck-moving"
+            class="w-8 h-8 text-[#FFA985] mx-auto mb-3"
+          />
           <h3 class="font-bold text-[#333333]">Move In/Out</h3>
           <p class="text-2xl font-bold text-[#FFA985] mt-2">From $225</p>
         </div>
@@ -311,7 +458,10 @@ const faqSchema = {
       </div>
       <div class="text-center mt-6">
         <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline">
-          View Full Pricing Details <Icon name="arrow-right" class="w-4 h-4 inline-block ml-1" />
+          View Full Pricing Details <Icon
+            name="arrow-right"
+            class="w-4 h-4 inline-block ml-1"
+          />
         </a>
       </div>
     </div>
@@ -322,9 +472,23 @@ const faqSchema = {
     <div class="container mx-auto text-center">
       <p class="text-lg text-gray-700 mb-2">
         <Icon name="heart" class="w-5 h-5 text-red-500 inline-block mr-2" />
-        <strong>{city === "Nashville" || city === "West Nashville" ? "Trusted by families in Belle Meade, Green Hills, and Brentwood" : city === "Birmingham" || city === "Mountain Brook" ? "Trusted by families in Mountain Brook, Vestavia Hills, and Homewood" : (city === "The Shoals" || city === "Muscle Shoals" || city === "Florence") ? "Trusted by families in Wilson Lake, Walnut Street Historic, and Shoals Creek" : "Trusted by families in The Ledges, Hampton Cove, and Twickenham"}</strong>
+        <strong
+          >{
+            city === "Nashville" || city === "West Nashville"
+              ? "Trusted by families in Belle Meade, Green Hills, and Brentwood"
+              : city === "Birmingham" || city === "Mountain Brook"
+                ? "Trusted by families in Mountain Brook, Vestavia Hills, and Homewood"
+                : city === "The Shoals" ||
+                    city === "Muscle Shoals" ||
+                    city === "Florence"
+                  ? "Trusted by families in Wilson Lake, Walnut Street Historic, and Shoals Creek"
+                  : "Trusted by families in The Ledges, Hampton Cove, and Twickenham"
+          }</strong
+        >
       </p>
-      <p class="text-gray-600">Your neighbors choose us for professional, reliable cleaning service</p>
+      <p class="text-gray-600">
+        Your neighbors choose us for professional, reliable cleaning service
+      </p>
     </div>
   </section>
 
@@ -335,48 +499,114 @@ const faqSchema = {
         <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
           Services Available in {city}
         </h2>
-        <p class="text-gray-600">All services fully available - book any service today</p>
+        <p class="text-gray-600">
+          All services fully available - book any service today
+        </p>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-        <a href="/services/deep-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="sparkles" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services/deep-cleaning"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="sparkles"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Deep Cleaning</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
-        <a href="/services/regular-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="home" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services/regular-cleaning"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="home"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Regular Cleaning</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
-        <a href="/services/move-in-out-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="truck-moving" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services/move-in-out-cleaning"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="truck-moving"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Move In/Out</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
-        <a href="/services/post-construction-cleaning" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="hammer" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services/post-construction-cleaning"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="hammer"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Post-Construction</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
-        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="key" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="key"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Airbnb Cleaning</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
-        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="building" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="building"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Commercial</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
-        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="leaf" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="leaf"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Green Cleaning</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
-        <a href="/services" class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
-          <Icon name="calendar-alt" class="w-6 h-6 text-[#FFA985]  mb-2 group-hover:scale-110 transition" />
+        <a
+          href="/services"
+          class="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
+          <Icon
+            name="calendar-alt"
+            class="w-6 h-6 text-[#FFA985] mb-2 group-hover:scale-110 transition"
+          />
           <p class="font-semibold text-[#333333] text-sm">Event Cleaning</p>
-          <span class="text-xs text-green-600"><Icon name="check" class="w-5 h-5 mr-1" />Available</span>
+          <span class="text-xs text-green-600"
+            ><Icon name="check" class="w-5 h-5 mr-1" />Available</span
+          >
         </a>
       </div>
       <div class="text-center mt-8">
@@ -385,10 +615,16 @@ const faqSchema = {
           Same-week service available in {city} - call for availability
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center shadow-lg">
+          <a
+            href="tel:2568261100"
+            class="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center shadow-lg"
+          >
             <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
           </a>
-          <a href="/contact" class="px-8 py-4 rounded-full font-semibold inline-block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+          <a
+            href="/contact"
+            class="px-8 py-4 rounded-full font-semibold inline-block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
+          >
             <Icon name="calendar" class="w-5 h-5 mr-2" />Book Your Consultation
           </a>
         </div>
@@ -405,41 +641,86 @@ const faqSchema = {
             Professional House Cleaning Services Throughout {city}
           </h2>
           <p class="text-gray-700 mb-4">
-            The Valley Clean Team has been proudly serving {city} and the greater {region} area with exceptional residential and commercial cleaning services. Our team of trained professionals understands the unique needs of local homeowners and businesses, delivering consistent quality that exceeds expectations every time.
+            The Valley Clean Team has been proudly serving {city} and the greater
+            {region} area with exceptional residential and commercial cleaning services.
+            Our team of trained professionals understands the unique needs of local
+            homeowners and businesses, delivering consistent quality that exceeds
+            expectations every time.
           </p>
           <p class="text-gray-700 mb-4">
-            Whether you need a one-time deep clean, regular weekly maintenance, or specialized services like move in/out cleaning, our {city} team is equipped to handle it all. We use professional-grade equipment and eco-friendly products that are safe for your family, pets, and the environment.
+            Whether you need a one-time deep clean, regular weekly maintenance,
+            or specialized services like move in/out cleaning, our {city} team is
+            equipped to handle it all. We use professional-grade equipment and eco-friendly
+            products that are safe for your family, pets, and the environment.
           </p>
           <p class="text-gray-700">
-            As a veteran-owned business, we bring military precision and attention to detail to every job. Our cleaners are background-checked, fully insured, and committed to treating your home with the respect it deserves. That's why {city} families continue to trust The Valley Clean Team for all their cleaning needs.
+            As a veteran-owned business, we bring military precision and
+            attention to detail to every job. Our cleaners are
+            background-checked, fully insured, and committed to treating your
+            home with the respect it deserves. That's why {city} families continue
+            to trust The Valley Clean Team for all their cleaning needs.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Why {city} Homeowners Choose Us</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Why {city} Homeowners Choose Us
+          </h3>
           <ul class="space-y-4">
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1" />
-              <span class="text-gray-700">Locally operated team that knows {city} neighborhoods</span>
+              <Icon
+                name="check-circle"
+                class="w-5 h-5 text-green-500 mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Locally operated team that knows {city} neighborhoods</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1" />
-              <span class="text-gray-700">Consistent, reliable service week after week</span>
+              <Icon
+                name="check-circle"
+                class="w-5 h-5 text-green-500 mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Consistent, reliable service week after week</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1" />
-              <span class="text-gray-700">Flexible scheduling including same-day availability</span>
+              <Icon
+                name="check-circle"
+                class="w-5 h-5 text-green-500 mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Flexible scheduling including same-day availability</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1" />
-              <span class="text-gray-700">Transparent pricing with no hidden fees</span>
+              <Icon
+                name="check-circle"
+                class="w-5 h-5 text-green-500 mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Transparent pricing with no hidden fees</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1" />
-              <span class="text-gray-700">100% satisfaction guarantee on every clean</span>
+              <Icon
+                name="check-circle"
+                class="w-5 h-5 text-green-500 mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >100% satisfaction guarantee on every clean</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-1" />
-              <span class="text-gray-700">Professional team with $2M liability insurance</span>
+              <Icon
+                name="check-circle"
+                class="w-5 h-5 text-green-500 mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Professional team with $2M liability insurance</span
+              >
             </li>
           </ul>
         </div>
@@ -455,29 +736,61 @@ const faqSchema = {
           How Our {city} Cleaning Service Works
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Simple booking process, exceptional results</p>
+        <p class="text-xl text-gray-600">
+          Simple booking process, exceptional results
+        </p>
       </div>
 
       <div class="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto">
         <div class="text-center">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold">1</div>
+          <div
+            class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold"
+          >
+            1
+          </div>
           <h3 class="text-lg font-bold mb-2 text-[#333333]">Get Your Quote</h3>
-          <p class="text-gray-600 text-sm">Call us or fill out our online form. We'll provide a transparent quote based on your {city} home's size and needs.</p>
+          <p class="text-gray-600 text-sm">
+            Call us or fill out our online form. We'll provide a transparent
+            quote based on your {city} home's size and needs.
+          </p>
         </div>
         <div class="text-center">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold">2</div>
-          <h3 class="text-lg font-bold mb-2 text-[#333333]">Schedule Service</h3>
-          <p class="text-gray-600 text-sm">Pick a date and time that works for you. We offer flexible scheduling including weekends and same-day availability.</p>
+          <div
+            class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold"
+          >
+            2
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-[#333333]">
+            Schedule Service
+          </h3>
+          <p class="text-gray-600 text-sm">
+            Pick a date and time that works for you. We offer flexible
+            scheduling including weekends and same-day availability.
+          </p>
         </div>
         <div class="text-center">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold">3</div>
+          <div
+            class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold"
+          >
+            3
+          </div>
           <h3 class="text-lg font-bold mb-2 text-[#333333]">We Clean</h3>
-          <p class="text-gray-600 text-sm">Our professional team arrives on time and transforms your home using our proven cleaning methods and quality products.</p>
+          <p class="text-gray-600 text-sm">
+            Our professional team arrives on time and transforms your home using
+            our proven cleaning methods and quality products.
+          </p>
         </div>
         <div class="text-center">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold">4</div>
+          <div
+            class="w-16 h-16 mx-auto mb-4 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-2xl font-bold"
+          >
+            4
+          </div>
           <h3 class="text-lg font-bold mb-2 text-[#333333]">Enjoy Your Home</h3>
-          <p class="text-gray-600 text-sm">Come home to a spotless, fresh-smelling house. Not satisfied? Let us know and we'll re-clean for free.</p>
+          <p class="text-gray-600 text-sm">
+            Come home to a spotless, fresh-smelling house. Not satisfied? Let us
+            know and we'll re-clean for free.
+          </p>
         </div>
       </div>
     </div>
@@ -491,85 +804,182 @@ const faqSchema = {
           Our {city} Cleaning Services
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Professional cleaning solutions for every {city} home and business</p>
+        <p class="text-xl text-gray-600">
+          Professional cleaning solutions for every {city} home and business
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+        <div
+          class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200"
+        >
           <div class="h-48 overflow-hidden">
-            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp" alt="Deep Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img
+              src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+              alt="Deep Cleaning Service"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="192"
+            />
           </div>
           <div class="p-8">
-            <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
+            <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+              Deep Cleaning
+            </h3>
             <p class="text-gray-600 mb-4">
-              Thorough deep cleaning for {city} homes. Perfect for spring cleaning or getting your home spotless.
+              Thorough deep cleaning for {city} homes. Perfect for spring cleaning
+              or getting your home spotless.
             </p>
-            <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now →</a>
+            <a
+              href="/contact"
+              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+            >
           </div>
         </div>
 
-        <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+        <div
+          class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200"
+        >
           <div class="h-48 overflow-hidden">
-            <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp" alt="Regular Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img
+              src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+              alt="Regular Cleaning Service"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="192"
+            />
           </div>
           <div class="p-8">
-            <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular Cleaning</h3>
+            <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+              Regular Cleaning
+            </h3>
             <p class="text-gray-600 mb-4">
-              Weekly or bi-weekly cleaning services to keep your {city} home consistently fresh and clean.
+              Weekly or bi-weekly cleaning services to keep your {city} home consistently
+              fresh and clean.
             </p>
-            <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now →</a>
+            <a
+              href="/contact"
+              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+            >
           </div>
         </div>
 
-        <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+        <div
+          class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200"
+        >
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg" alt="Move In/Out Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img
+              src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg"
+              alt="Move In/Out Cleaning Service"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="192"
+            />
           </div>
           <div class="p-8">
-            <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out Cleaning</h3>
+            <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+              Move In/Out Cleaning
+            </h3>
             <p class="text-gray-600 mb-4">
-              Moving in {city}? We ensure your new home is spotless or help you get your deposit back.
+              Moving in {city}? We ensure your new home is spotless or help you
+              get your deposit back.
             </p>
-            <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now →</a>
+            <a
+              href="/contact"
+              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+            >
           </div>
         </div>
 
-        <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+        <div
+          class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200"
+        >
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp" alt="Commercial/Office Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img
+              src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp"
+              alt="Commercial/Office Cleaning Service"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="192"
+            />
           </div>
           <div class="p-8">
-            <h3 class="text-2xl font-bold mb-3 text-[#333333]">Commercial/Office Cleaning</h3>
+            <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+              Commercial/Office Cleaning
+            </h3>
             <p class="text-gray-600 mb-4">
               Professional commercial cleaning for {city} businesses of all sizes.
             </p>
-            <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now →</a>
+            <a
+              href="/contact"
+              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+            >
           </div>
         </div>
 
-        <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+        <div
+          class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200"
+        >
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e69af8fa3b6226330f2d.jpg" alt="Airbnb Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img
+              src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920e69af8fa3b6226330f2d.jpg"
+              alt="Airbnb Cleaning Service"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="192"
+            />
           </div>
           <div class="p-8">
-            <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb Cleaning</h3>
+            <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+              Airbnb Cleaning
+            </h3>
             <p class="text-gray-600 mb-4">
-              Fast turnaround cleaning for {city} vacation rental hosts. Same-day service available.
+              Fast turnaround cleaning for {city} vacation rental hosts. Same-day
+              service available.
             </p>
-            <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now →</a>
+            <a
+              href="/contact"
+              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+            >
           </div>
         </div>
 
-        <div class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200">
+        <div
+          class="service-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200"
+        >
           <div class="h-48 overflow-hidden">
-            <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp" alt="Post-Construction Cleaning Service" class="w-full h-full object-cover" loading="lazy" decoding="async" width="400" height="192">
+            <img
+              src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp"
+              alt="Post-Construction Cleaning Service"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+              width="400"
+              height="192"
+            />
           </div>
           <div class="p-8">
-            <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction Cleaning</h3>
+            <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+              Post-Construction Cleaning
+            </h3>
             <p class="text-gray-600 mb-4">
-              Completed a renovation in {city}? We handle the dust, debris, and detail work.
+              Completed a renovation in {city}? We handle the dust, debris, and
+              detail work.
             </p>
-            <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now →</a>
+            <a
+              href="/contact"
+              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+            >
           </div>
         </div>
       </div>
@@ -584,56 +994,110 @@ const faqSchema = {
           Why {city} Chooses The Valley Clean Team
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Your trusted partner for professional cleaning services</p>
+        <p class="text-xl text-gray-600">
+          Your trusted partner for professional cleaning services
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="medal" class="w-6 h-6 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Veteran Owned</h3>
-          <p class="text-gray-600">Military precision and dedication in every clean. Proudly serving our community with excellence.</p>
+          <p class="text-gray-600">
+            Military precision and dedication in every clean. Proudly serving
+            our community with excellence.
+          </p>
         </div>
 
-        <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="shield-alt" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Insured & Bonded</h3>
-          <p class="text-gray-600">Fully licensed, insured with $2M coverage, and bonded for your complete peace of mind.</p>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Insured & Bonded
+          </h3>
+          <p class="text-gray-600">
+            Fully licensed, insured with $2M coverage, and bonded for your
+            complete peace of mind.
+          </p>
         </div>
 
-        <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="clock" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Same-Day Available</h3>
-          <p class="text-gray-600">Need cleaning today? We offer same-day service for {city} residents based on availability.</p>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Same-Day Available
+          </h3>
+          <p class="text-gray-600">
+            Need cleaning today? We offer same-day service for {city} residents based
+            on availability.
+          </p>
         </div>
 
-        <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <Icon name="star" class="w-6 h-6 text-[#333333]" fill="currentColor" />
+        <div
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
+            <Icon
+              name="star"
+              class="w-6 h-6 text-[#333333]"
+              fill="currentColor"
+            />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">5-Star Rated</h3>
-          <p class="text-gray-600">130+ verified 5-star reviews from satisfied customers across all our service areas.</p>
+          <p class="text-gray-600">
+            130+ verified 5-star reviews from satisfied customers across all our
+            service areas.
+          </p>
         </div>
 
-        <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="leaf" class="w-6 h-6 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Eco-Friendly</h3>
-          <p class="text-gray-600">Green cleaning options using safe, non-toxic products. Perfect for families and pets.</p>
+          <p class="text-gray-600">
+            Green cleaning options using safe, non-toxic products. Perfect for
+            families and pets.
+          </p>
         </div>
 
-        <div class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="redo" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Satisfaction Guarantee</h3>
-          <p class="text-gray-600">Not satisfied? We'll re-clean for free, no questions asked. That's our promise to you.</p>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Satisfaction Guarantee
+          </h3>
+          <p class="text-gray-600">
+            Not satisfied? We'll re-clean for free, no questions asked. That's
+            our promise to you.
+          </p>
         </div>
       </div>
     </div>
@@ -648,7 +1112,14 @@ const faqSchema = {
         </h2>
         <div class="section-divider"></div>
         <div class="flex items-center justify-center gap-2 mt-4">
-          <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png" alt="Google" class="h-6" width="92" height="30" loading="lazy" />
+          <img
+            src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png"
+            alt="Google"
+            class="h-6"
+            width="92"
+            height="30"
+            loading="lazy"
+          />
           <span class="text-xl text-gray-600">Reviews</span>
           <span class="text-[#FFA985] font-bold">4.9</span>
           <div class="text-[#FFA985] text-sm">
@@ -663,62 +1134,86 @@ const faqSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial) => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
-                {testimonial.initial}
-              </div>
-              <div class="ml-4">
-                <h3 class="font-bold">{testimonial.name}</h3>
-                <p class="text-sm text-gray-600">{testimonial.area}</p>
-                <div class="text-[#FFA985]">
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
+        {
+          testimonials.map((testimonial) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                  {testimonial.initial}
+                </div>
+                <div class="ml-4">
+                  <h3 class="font-bold">{testimonial.name}</h3>
+                  <p class="text-sm text-gray-600">{testimonial.area}</p>
+                  <div class="text-[#FFA985]">
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                  </div>
                 </div>
               </div>
+              <p class="text-gray-700">"{testimonial.text}"</p>
             </div>
-            <p class="text-gray-700">"{testimonial.text}"</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <div class="text-center mt-8">
-        <a href="https://www.google.com/maps?cid=2354162289321042477" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
-          <Icon name="google" class="w-5 h-5 mr-2" />See All Google Reviews <Icon name="external-link-alt" class="w-4 h-4 ml-2" />
+        <a
+          href="https://www.google.com/maps?cid=2354162289321042477"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center text-[#FFA985] font-semibold hover:underline"
+        >
+          <Icon name="google" class="w-5 h-5 mr-2" />See All Google Reviews <Icon
+            name="external-link-alt"
+            class="w-4 h-4 ml-2"
+          />
         </a>
       </div>
     </div>
   </section>
 
   <!-- Neighborhoods Section (if provided) -->
-  {neighborhoods.length > 0 && (
-    <section class="py-16 px-6">
-      <div class="container mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
-            {city} Neighborhoods We Serve
-          </h2>
-          <div class="section-divider"></div>
-          <p class="text-xl text-gray-600">Professional cleaning services throughout {city}</p>
+  {
+    neighborhoods.length > 0 && (
+      <section class="py-16 px-6">
+        <div class="container mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+              {city} Neighborhoods We Serve
+            </h2>
+            <div class="section-divider" />
+            <p class="text-xl text-gray-600">
+              Professional cleaning services throughout {city}
+            </p>
+          </div>
+          <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {neighborhoods.map((neighborhood) => (
+              <span class="neighborhood-badge">
+                <Icon
+                  name="map-marker-alt"
+                  class="w-5 h-5 text-[#FFA985] mr-2"
+                />
+                {neighborhood}
+              </span>
+            ))}
+          </div>
+          <p class="text-center text-gray-600 mt-8">
+            Don't see your neighborhood? We likely serve it too!{" "}
+            <a
+              href="tel:2568261100"
+              class="text-[#FFA985] font-semibold hover:underline"
+            >
+              Call 256-826-1100
+            </a>{" "}
+            to confirm.
+          </p>
         </div>
-        <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-          {neighborhoods.map((neighborhood) => (
-            <span class="neighborhood-badge">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
-              {neighborhood}
-            </span>
-          ))}
-        </div>
-        <p class="text-center text-gray-600 mt-8">
-          Don't see your neighborhood? We likely serve it too! <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">Call 256-826-1100</a> to confirm.
-        </p>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 
   <!-- FAQ Section -->
   <section class="py-20 px-6 bg-gray-50">
@@ -728,27 +1223,40 @@ const faqSchema = {
           {city} Cleaning Service FAQs
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Common questions about our {city} cleaning services</p>
+        <p class="text-xl text-gray-600">
+          Common questions about our {city} cleaning services
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Contact/Final CTA -->
-  <section id="contact" class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+  <section
+    id="contact"
+    class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100"
+  >
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
         Ready to Book Your {city} Cleaning?
@@ -756,16 +1264,29 @@ const faqSchema = {
       <p class="text-xl text-gray-600 mb-4">
         Join hundreds of satisfied {city} homeowners who trust The Valley Clean Team
       </p>
-      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+      <div
+        class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8"
+      >
         <span class="text-green-700 font-semibold text-lg">
-          <Icon name="calendar-check" class="w-5 h-5 text-green-600 mr-2" />Same-Week Availability - Call Today!
+          <Icon
+            name="calendar-check"
+            class="w-5 h-5 text-green-600 mr-2"
+          />Same-Week Availability - Call Today!
         </span>
       </div>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-flex items-center shadow-lg hover:shadow-xl transition">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-flex items-center shadow-lg hover:shadow-xl transition"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
         </a>
-        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+        <a
+          href="/contact"
+          class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md"
+        >
           <Icon name="calendar" class="w-5 h-5 mr-2" />Book Your Consultation
         </a>
       </div>
@@ -773,7 +1294,10 @@ const faqSchema = {
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <h3 class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </h3>
             <p class="text-gray-600">All of {city} and surrounding {region}</p>
           </div>
@@ -781,73 +1305,82 @@ const faqSchema = {
             <h3 class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </h3>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <h3 class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </h3>
-            <p class="text-gray-600">256-826-1100<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              256-826-1100<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <Footer />
-
+  
   <script>
-    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    document
+      .getElementById("location-quote-form")
+      ?.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-      const submitBtn = document.getElementById('location-submit-btn');
-      const messageDiv = document.getElementById('location-form-message');
-      const form = e.target;
+        const submitBtn = document.getElementById("location-submit-btn");
+        const messageDiv = document.getElementById("location-form-message");
+        const form = e.target;
 
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        state: form.state?.value || '',
-        source: 'Location Page - ' + (form.city?.value || ''),
-        page_url: window.location.href
-      };
+        const formData = {
+          name: form.name?.value || "",
+          email: form.email?.value || "",
+          phone: form.phone?.value || "",
+          service: form.service?.value || "",
+          location: form.location?.value || "",
+          city: form.city?.value || "",
+          state: form.state?.value || "",
+          source: "Location Page - " + (form.city?.value || ""),
+          page_url: window.location.href,
+        };
 
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
 
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
+        try {
+          const response = await fetch("/api/submit-form", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
 
-        const result = await response.json();
+          const result = await response.json();
 
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '✓ Thank you! We\'ll be in touch within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
+          if (response.ok && result.success) {
+            messageDiv.className =
+              "text-center p-4 rounded-lg bg-green-100 text-green-800";
+            messageDiv.innerHTML =
+              "✓ Thank you! We'll be in touch within 2 hours.";
+            messageDiv.classList.remove("hidden");
+            form.reset();
+          } else {
+            throw new Error(result.error || "Submission failed");
+          }
+        } catch (error) {
+          messageDiv.className =
+            "text-center p-4 rounded-lg bg-red-100 text-red-800";
+          messageDiv.innerHTML =
+            "⚠ Something went wrong. Please call us at 256-826-1100.";
+          messageDiv.classList.remove("hidden");
         }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '⚠ Something went wrong. Please call us at 256-826-1100.';
-        messageDiv.classList.remove('hidden');
-      }
 
-      submitBtn.disabled = false;
-      submitBtn.textContent = submitBtn.dataset.originalText || 'Get Quote';
-    });
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitBtn.dataset.originalText || "Get Quote";
+      });
 
     // Store original button text
-    const btn = document.getElementById('location-submit-btn');
+    const btn = document.getElementById("location-submit-btn");
     if (btn) btn.dataset.originalText = btn.textContent;
   </script>
 </BaseLayout>

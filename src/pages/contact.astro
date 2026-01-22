@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Navigation from '../components/Navigation.astro';
-import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 
 // LocalBusiness schema for Contact page
@@ -43,8 +41,7 @@ const localBusinessSchema = {
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
 >
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
-  <Navigation />
-
+  
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto max-w-4xl">
@@ -188,7 +185,7 @@ const localBusinessSchema = {
                   formMessage.classList.remove('hidden');
                   form.reset();
                 } else {
-                  throw new Error(result.error | 'Submission failed');
+                  throw new Error(result.error || 'Submission failed');
                 }
               } catch (error) {
                 formMessage.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
@@ -304,5 +301,4 @@ const localBusinessSchema = {
     </div>
   </section>
 
-  <Footer />
-</BaseLayout>
+  </BaseLayout>

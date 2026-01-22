@@ -1,7 +1,9 @@
 ---
-import SpeedInsights from '@vercel/speed-insights/astro';
-import Analytics from '@vercel/analytics/astro';
-import SchemaMarkup from '../components/SchemaMarkup.astro';
+import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
+import SchemaMarkup from "../components/SchemaMarkup.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
   title: string;
@@ -9,10 +11,12 @@ interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   noindex?: boolean;
+  showNav?: boolean;
+  showFooter?: boolean;
   // Optional geo meta tags for location pages
-  geoRegion?: string;      // e.g., "US-AL" or "US-TN"
-  geoPlacename?: string;   // e.g., "Huntsville, Alabama"
-  geoPosition?: string;    // e.g., "34.7304;-86.5861"
+  geoRegion?: string; // e.g., "US-AL" or "US-TN"
+  geoPlacename?: string; // e.g., "Huntsville, Alabama"
+  geoPosition?: string; // e.g., "34.7304;-86.5861"
 }
 
 const {
@@ -21,73 +25,128 @@ const {
   canonicalUrl,
   ogImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
   noindex = false,
+  showNav = true,
+  showFooter = true,
   geoRegion,
   geoPlacename,
-  geoPosition
+  geoPosition,
 } = Astro.props;
 
 // Generate canonical URL from current page if not provided
 const siteUrl = "https://thevalleycleanteam.com";
 const currentPath = Astro.url.pathname;
-const canonical = canonicalUrl || `${siteUrl}${currentPath === '/' ? '' : currentPath.replace(/\/$/, '')}`;
+const canonical =
+  canonicalUrl ||
+  `${siteUrl}${currentPath === "/" ? "" : currentPath.replace(/\/$/, "")}`;
 
 // Ensure title has brand name
-const fullTitle = title.includes('Valley Clean Team') ? title : `${title} | Valley Clean Team`;
+const fullTitle = title.includes("Valley Clean Team")
+  ? title
+  : `${title} | Valley Clean Team`;
 
 // Truncate description if too long (max 160 chars for SEO)
-const metaDescription = description.length > 160 ? description.substring(0, 157) + '...' : description;
+const metaDescription =
+  description.length > 160
+    ? description.substring(0, 157) + "..."
+    : description;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Preconnect to critical third-party origins (before scripts for maximum benefit) -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://www.googletagmanager.com"
+      crossorigin
+    />
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 
     <!-- Google Analytics 4 - Runs in web worker via Partytown (off main thread) -->
-    <script type="text/partytown" src="https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T"></script>
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T"></script>
     <script type="text/partytown">
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-LXHE2DSZ7T');
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-LXHE2DSZ7T");
     </script>
 
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
       })(window, document, "clarity", "script", "uwwxu9stzh");
     </script>
 
     <!-- Meta Pixel Code -->
-    <script>
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '1628116715040596');
-      fbq('track', 'PageView');
+    <script is:inline>
+      //@ts-ignore
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          //@ts-ignore
+          n.callMethod
+            ? //@ts-ignore
+              n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js",
+      );
+      //@ts-ignore
+      fbq("init", "1628116715040596");
+      //@ts-ignore
+      fbq("track", "PageView");
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1628116715040596&ev=PageView&noscript=1"
-    alt=""
-    /></noscript>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=1628116715040596&ev=PageView&noscript=1"
+        alt=""
+      /></noscript
+    >
     <!-- End Meta Pixel Code -->
 
     <!-- Preload self-hosted critical font for LCP (H1 uses Playfair Display Bold) -->
-    <link rel="preload" href="/fonts/playfair-display-700.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="/fonts/playfair-display-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- DNS Prefetch for additional resources -->
     <link rel="dns-prefetch" href="https://storage.googleapis.com" />
@@ -108,23 +167,35 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <meta name="title" content={fullTitle} />
     <meta name="description" content={metaDescription} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    {!noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
+    {
+      !noindex && (
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+      )
+    }
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonical} />
 
     <!-- Sitemap -->
-    <link rel="sitemap" href="https://thevalleycleanteam.com/sitemap-index.xml" />
+    <link
+      rel="sitemap"
+      href="https://thevalleycleanteam.com/sitemap-index.xml"
+    />
 
     <!-- Geographic Meta Tags (only rendered for location-specific pages) -->
     {geoRegion && <meta name="geo.region" content={geoRegion} />}
     {geoPlacename && <meta name="geo.placename" content={geoPlacename} />}
-    {geoPosition && (
-      <>
-        <meta name="geo.position" content={geoPosition} />
-        <meta name="ICBM" content={geoPosition.replace(';', ', ')} />
-      </>
-    )}
+    {
+      geoPosition && (
+        <>
+          <meta name="geo.position" content={geoPosition} />
+          <meta name="ICBM" content={geoPosition.replace(";", ", ")} />
+        </>
+      )
+    }
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -163,102 +234,339 @@ const metaDescription = description.length > 160 ? description.substring(0, 157)
     <!-- Critical CSS - Inlined for fastest FCP/LCP -->
     <style is:inline>
       /* Critical CSS - Above the fold styles */
-      *,*::before,*::after{box-sizing:border-box}
-      body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;color:#333;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-      h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0 0 1rem;line-height:1.2}
-      img{max-width:100%;height:auto;display:block}
-      a{color:inherit;text-decoration:none}
-      .gradient-bg{background:linear-gradient(135deg,#fff 0%,#f8f9fa 100%);min-height:100vh}
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        color: #333;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", Georgia, serif;
+        margin: 0 0 1rem;
+        line-height: 1.2;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .gradient-bg {
+        background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+        min-height: 100vh;
+      }
 
       /* Navigation critical styles */
-      nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .3s ease}
-      .nav-scrolled{background:rgba(255,255,255,.95);backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        transition: all 0.3s ease;
+      }
+      .nav-scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
 
       /* Hero section critical styles */
-      .pt-32{padding-top:8rem}
-      .pb-20{padding-bottom:5rem}
-      .px-6{padding-left:1.5rem;padding-right:1.5rem}
-      .container{width:100%;max-width:1280px;margin:0 auto}
-      .text-center{text-align:center}
-      .text-4xl{font-size:2.25rem;line-height:2.5rem}
-      .text-xl{font-size:1.25rem;line-height:1.75rem}
-      .font-bold{font-weight:700}
-      .mb-4{margin-bottom:1rem}
-      .mb-6{margin-bottom:1.5rem}
+      .pt-32 {
+        padding-top: 8rem;
+      }
+      .pb-20 {
+        padding-bottom: 5rem;
+      }
+      .px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .container {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .text-center {
+        text-align: center;
+      }
+      .text-4xl {
+        font-size: 2.25rem;
+        line-height: 2.5rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+      .font-bold {
+        font-weight: 700;
+      }
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
 
       /* Button critical styles */
-      .btn-primary{background:linear-gradient(135deg,#FFA985 0%,#FFC67D 100%);color:#333;padding:1rem 2rem;border-radius:9999px;font-weight:600;display:inline-block;transition:transform .3s,box-shadow .3s}
-      .btn-primary:hover{transform:scale(1.05);box-shadow:0 10px 25px rgba(212,175,55,.3)}
+      .btn-primary {
+        background: linear-gradient(135deg, #ffa985 0%, #ffc67d 100%);
+        color: #333;
+        padding: 1rem 2rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        display: inline-block;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .btn-primary:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+      }
 
       /* Spinner animation for loading states */
-      @keyframes spin{to{transform:rotate(360deg)}}
-      .spinner{display:inline-block;width:1.25rem;height:1.25rem;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .75s linear infinite;vertical-align:middle;margin-right:0.5rem}
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .spinner {
+        display: inline-block;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+      }
 
       /* Grid system */
-      .grid{display:grid;gap:1.5rem}
-      @media(min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,1fr)}}
-      @media(min-width:1024px){.lg\:grid-cols-2{grid-template-columns:repeat(2,1fr)}.lg\:grid-cols-3{grid-template-columns:repeat(3,1fr)}}
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      @media (min-width: 768px) {
+        .md\:grid-cols-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:grid-cols-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .lg\:grid-cols-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
 
       /* Flexbox utilities */
-      .flex{display:flex}
-      .items-center{align-items:center}
-      .justify-between{justify-content:space-between}
-      .justify-center{justify-content:center}
-      .space-x-4>*+*{margin-left:1rem}
-      .gap-4{gap:1rem}
-      .gap-8{gap:2rem}
+      .flex {
+        display: flex;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .justify-between {
+        justify-content: space-between;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .space-x-4 > * + * {
+        margin-left: 1rem;
+      }
+      .gap-4 {
+        gap: 1rem;
+      }
+      .gap-8 {
+        gap: 2rem;
+      }
 
       /* Colors */
-      .text-white{color:#fff}
-      .text-gray-600{color:#4b5563}
-      .text-gray-700{color:#374151}
-      .bg-white{background-color:#fff}
+      .text-white {
+        color: #fff;
+      }
+      .text-gray-600 {
+        color: #4b5563;
+      }
+      .text-gray-700 {
+        color: #374151;
+      }
+      .bg-white {
+        background-color: #fff;
+      }
 
       /* Spacing */
-      .p-6{padding:1.5rem}
-      .p-8{padding:2rem}
-      .py-20{padding-top:5rem;padding-bottom:5rem}
+      .p-6 {
+        padding: 1.5rem;
+      }
+      .p-8 {
+        padding: 2rem;
+      }
+      .py-20 {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+      }
 
       /* Border radius */
-      .rounded-lg{border-radius:.5rem}
-      .rounded-xl{border-radius:.75rem}
-      .rounded-2xl{border-radius:1rem}
-      .rounded-full{border-radius:9999px}
+      .rounded-lg {
+        border-radius: 0.5rem;
+      }
+      .rounded-xl {
+        border-radius: 0.75rem;
+      }
+      .rounded-2xl {
+        border-radius: 1rem;
+      }
+      .rounded-full {
+        border-radius: 9999px;
+      }
 
       /* Shadows */
-      .shadow-lg{box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05)}
-      .shadow-xl{box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04)}
+      .shadow-lg {
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      .shadow-xl {
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
 
       /* Section divider */
-      .section-divider{width:80px;height:4px;background:linear-gradient(90deg,#FFA985 0%,#FFC67D 100%);margin:0 auto 2rem}
+      .section-divider {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #ffa985 0%, #ffc67d 100%);
+        margin: 0 auto 2rem;
+      }
 
       /* Hide on mobile/desktop */
-      .hidden{display:none}
-      @media(min-width:768px){.md\:flex{display:flex}.md\:hidden{display:none}}
-      @media(min-width:1024px){.lg\:text-left{text-align:left}.lg\:text-6xl{font-size:3.75rem;line-height:1}.lg\:hidden{display:none}}
+      .hidden {
+        display: none;
+      }
+      @media (min-width: 768px) {
+        .md\:flex {
+          display: flex;
+        }
+        .md\:hidden {
+          display: none;
+        }
+      }
+      @media (min-width: 1024px) {
+        .lg\:text-left {
+          text-align: left;
+        }
+        .lg\:text-6xl {
+          font-size: 3.75rem;
+          line-height: 1;
+        }
+        .lg\:hidden {
+          display: none;
+        }
+      }
 
       /* Prevent layout shift for images */
-      img{aspect-ratio:attr(width)/attr(height)}
+      img {
+        aspect-ratio: attr(width) / attr(height);
+      }
 
       /* Critical font declarations - use preloaded self-hosted fonts immediately */
-      @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/playfair-display-700.woff2) format('woff2')}
-      @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/inter-variable.woff2) format('woff2')}
+      @font-face {
+        font-family: "Playfair Display";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(/fonts/playfair-display-700.woff2) format("woff2");
+      }
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url(/fonts/inter-variable.woff2) format("woff2");
+      }
     </style>
 
     <!-- Preload Inter variable font for faster body text rendering -->
-    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="/fonts/inter-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!-- Non-critical styles - loaded asynchronously for better performance -->
-    <link rel="preload" href="/styles/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link
+      rel="preload"
+      href="/styles/main.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
     <noscript><link rel="stylesheet" href="/styles/main.css" /></noscript>
   </head>
   <body class="gradient-bg">
-    <!-- Skip link for keyboard navigation -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:rounded focus:shadow-lg focus:text-[#333333]">Skip to main content</a>
-    <slot />
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-[#FFA985] focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:ring-offset-2"
+    >
+      Skip to main content
+    </a>
+
+    {showNav && <Navigation />}
+    <main id="main-content" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    {showFooter && <Footer />}
+
     <SpeedInsights />
     <Analytics />
 
-    <script is:inline>(function(){var navEl=document.querySelector('nav');if(navEl){var ticking=false,scrollPos=0;window.addEventListener('scroll',function(){scrollPos=window.scrollY;if(!ticking){requestAnimationFrame(function(){scrollPos>50?navEl.classList.add('nav-scrolled'):navEl.classList.remove('nav-scrolled');ticking=false});ticking=true}},{passive:true})}})();</script>
+    <script is:inline>
+      (function () {
+        var navEl = document.querySelector("nav");
+        if (navEl) {
+          var ticking = false,
+            scrollPos = 0;
+          window.addEventListener(
+            "scroll",
+            function () {
+              scrollPos = window.scrollY;
+              if (!ticking) {
+                requestAnimationFrame(function () {
+                  scrollPos > 50
+                    ? navEl.classList.add("nav-scrolled")
+                    : navEl.classList.remove("nav-scrolled");
+                  ticking = false;
+                });
+                ticking = true;
+              }
+            },
+            { passive: true },
+          );
+        }
+      })();
+    </script>
   </body>
 </html>
