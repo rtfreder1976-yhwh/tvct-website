@@ -1,94 +1,103 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "Do you serve all of Franklin and Williamson County?",
-    answer: "Yes! We serve all of Franklin including Downtown Franklin, Cool Springs, Westhaven, Fieldstone Farms, Sullivan Farms, McKay's Mill, and all Williamson County communities. Whether you're near The Factory, historic Main Street, or in a newer subdivision, we've got you covered."
+    answer:
+      "Yes! We serve all of Franklin including Downtown Franklin, Cool Springs, Westhaven, Fieldstone Farms, Sullivan Farms, McKay's Mill, and all Williamson County communities. Whether you're near The Factory, historic Main Street, or in a newer subdivision, we've got you covered.",
   },
   {
     question: "What size homes do you typically clean in Franklin?",
-    answer: "Franklin homes range from 2,000 sq ft townhomes to 5,000+ sq ft executive homes. We're experienced with the larger custom homes in Westhaven, the established neighborhoods near downtown, and everything in between. We customize pricing based on your specific home."
+    answer:
+      "Franklin homes range from 2,000 sq ft townhomes to 5,000+ sq ft executive homes. We're experienced with the larger custom homes in Westhaven, the established neighborhoods near downtown, and everything in between. We customize pricing based on your specific home.",
   },
   {
     question: "Can you clean during the day while we're at work?",
-    answer: "Absolutely! Many Franklin residents commute to Nashville or work in Cool Springs. Provide us with a garage code or key, and we'll clean while you're at work. Come home to a spotless house without sacrificing your evenings or weekends."
+    answer:
+      "Absolutely! Many Franklin residents commute to Nashville or work in Cool Springs. Provide us with a garage code or key, and we'll clean while you're at work. Come home to a spotless house without sacrificing your evenings or weekends.",
   },
   {
     question: "What's included in regular maintenance cleaning?",
-    answer: "Our regular service (weekly or bi-weekly) includes all living areas, bedrooms, bathrooms, kitchen, dusting, vacuuming, mopping, and tidying. You'll have the same team each visit who learns your home and preferences. Consistent service that keeps your Franklin home guest-ready."
+    answer:
+      "Our regular service (weekly or bi-weekly) includes all living areas, bedrooms, bathrooms, kitchen, dusting, vacuuming, mopping, and tidying. You'll have the same team each visit who learns your home and preferences. Consistent service that keeps your Franklin home guest-ready.",
   },
   {
     question: "Do you offer move-in/move-out cleaning in Franklin?",
-    answer: "Yes! Franklin's real estate market is very active. We offer move-out cleaning to help you get your deposit back or prepare for buyers, and move-in cleaning so you can start fresh. We clean inside appliances, cabinets, closets - everything."
+    answer:
+      "Yes! Franklin's real estate market is very active. We offer move-out cleaning to help you get your deposit back or prepare for buyers, and move-in cleaning so you can start fresh. We clean inside appliances, cabinets, closets - everything.",
   },
   {
     question: "Are your products safe for kids and pets?",
-    answer: "Yes! We use eco-friendly, non-toxic cleaning products that are safe for children, pets, and the environment. Franklin families trust us around their kids and furry friends. No harsh chemical residues left behind."
+    answer:
+      "Yes! We use eco-friendly, non-toxic cleaning products that are safe for children, pets, and the environment. Franklin families trust us around their kids and furry friends. No harsh chemical residues left behind.",
   },
   {
     question: "How quickly can you start service in Franklin?",
-    answer: "We can often start within a few days, and same-day service is available for urgent needs. Call 615-510-1427 and we'll work to accommodate your schedule. Franklin is one of our primary Nashville-area service areas."
+    answer:
+      "We can often start within a few days, and same-day service is available for urgent needs. Call 615-510-1427 and we'll work to accommodate your schedule. Franklin is one of our primary Nashville-area service areas.",
   },
   {
     question: "Do you serve Cool Springs and Brentwood too?",
-    answer: "Yes! We serve Franklin, Cool Springs, Brentwood, Spring Hill, and all of Williamson County. Our Nashville-area teams are familiar with the region and can easily accommodate homes throughout Middle Tennessee."
-  }
+    answer:
+      "Yes! We serve Franklin, Cool Springs, Brentwood, Spring Hill, and all of Williamson County. Our Nashville-area teams are familiar with the region and can easily accommodate homes throughout Middle Tennessee.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Residential Cleaning Services",
-  "provider": {
+  serviceType: "Residential Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "+1-615-510-1427",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "+1-615-510-1427",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Nashville",
-      "addressRegion": "TN",
-      "addressCountry": "US"
+      addressLocality: "Nashville",
+      addressRegion: "TN",
+      addressCountry: "US",
     },
-    "priceRange": "$$$"
+    priceRange: "$$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Franklin, Tennessee",
-    "geo": {
+    name: "Franklin, Tennessee",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "35.9251",
-      "longitude": "-86.8689"
+      latitude: "35.9251",
+      longitude: "-86.8689",
     },
-    "address": {
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Franklin",
-      "addressRegion": "TN",
-      "postalCode": "37064",
-      "addressCountry": "US"
-    }
+      addressLocality: "Franklin",
+      addressRegion: "TN",
+      postalCode: "37064",
+      addressCountry: "US",
+    },
   },
-  "description": "Professional house cleaning services for Franklin families. Regular maintenance, deep cleaning, move-in/out services for homes in Williamson County, Tennessee.",
-  "offers": {
+  description:
+    "Professional house cleaning services for Franklin families. Regular maintenance, deep cleaning, move-in/out services for homes in Williamson County, Tennessee.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -102,23 +111,33 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="landmark" class="w-5 h-5 mr-2" />Historic Williamson County
+              <Icon name="landmark" class="w-5 h-5 mr-2" />Historic Williamson
+              County
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Franklin, TN</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            House Cleaning in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Franklin, TN</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Franklin families enjoy charming Main Street, excellent schools, and beautiful neighborhoods. But busy schedules leave little time for housework. Let The Valley Clean Team keep your home spotless while you enjoy everything Franklin has to offer.
+            Franklin families enjoy charming Main Street, excellent schools, and
+            beautiful neighborhoods. But busy schedules leave little time for
+            housework. Let The Valley Clean Team keep your home spotless while
+            you enjoy everything Franklin has to offer.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -139,11 +158,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:6155101427" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:6155101427"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -152,53 +179,24 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving Franklin & Williamson County</p>
-          <form id="franklin-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Post-Construction">Post-Construction</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
-                <option value="2,000 - 3,000 sq ft">2,000 - 3,000 sq ft</option>
-                <option value="3,000 - 4,000 sq ft">3,000 - 4,000 sq ft</option>
-                <option value="4,000 - 5,000 sq ft">4,000 - 5,000 sq ft</option>
-                <option value="Over 5,000 sq ft">Over 5,000 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Neighborhood or additional details" rows="2"></textarea>
-            </div>
-            <button type="submit" id="franklin-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Licensed, bonded & insured
-            </p>
-            <div id="franklin-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving Franklin & Williamson County
+          </p>
+          <QuoteForm
+            formId="franklin-form"
+            city="Franklin"
+            state="TN"
+            source="Franklin Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -210,53 +208,109 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Cleaning Services for<br>Franklin Families
+            Cleaning Services for<br />Franklin Families
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Franklin is one of Tennessee's most desirable communities - and for good reason. Historic Main Street, award-winning Williamson County Schools, beautiful neighborhoods, and that small-town charm make it perfect for families. The city spans zip codes 37064, 37067, and 37069.
+            Franklin is one of Tennessee's most desirable communities - and for
+            good reason. Historic Main Street, award-winning Williamson County
+            Schools, beautiful neighborhoods, and that small-town charm make it
+            perfect for families. The city spans zip codes 37064, 37067, and
+            37069.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            From established homes near downtown to master-planned communities like Westhaven, Fieldstone Farms, and McKay's Mill, Franklin offers diverse housing from charming bungalows to expansive custom estates. Many residents work in Nashville or Cool Springs while enjoying Franklin's exceptional quality of life.
+            From established homes near downtown to master-planned communities
+            like Westhaven, Fieldstone Farms, and McKay's Mill, Franklin offers
+            diverse housing from charming bungalows to expansive custom estates.
+            Many residents work in Nashville or Cool Springs while enjoying
+            Franklin's exceptional quality of life.
           </p>
           <p class="text-lg text-gray-700">
-            Whether you need weekly maintenance to keep up with busy family schedules, a deep clean before hosting, or move-in cleaning for your new Franklin home, The Valley Clean Team delivers reliable, professional service. We're a veteran-owned company trusted by Franklin families.
+            Whether you need weekly maintenance to keep up with busy family
+            schedules, a deep clean before hosting, or move-in cleaning for your
+            new Franklin home, The Valley Clean Team delivers reliable,
+            professional service. We're a veteran-owned company trusted by
+            Franklin families.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Franklin Neighborhoods We Serve:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Franklin Neighborhoods We Serve:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Downtown Franklin</strong> - historic charm</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Downtown Franklin</strong> - historic charm</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Westhaven</strong> - master-planned community</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Westhaven</strong> - master-planned community</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Cool Springs</strong> - shopping & business hub</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Cool Springs</strong> - shopping & business hub</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Fieldstone Farms</strong> - family neighborhood</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Fieldstone Farms</strong> - family neighborhood</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Sullivan Farms</strong> - established community</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Sullivan Farms</strong> - established community</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>McKay's Mill</strong> - newer homes</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>McKay's Mill</strong> - newer homes</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Ladd Park</strong> - growing area</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Ladd Park</strong> - growing area</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>All 37064, 37067, 37069</strong> zip codes</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>All 37064, 37067, 37069</strong> zip codes</span
+              >
             </li>
           </ul>
         </div>
@@ -277,9 +331,18 @@ const serviceSchema = {
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Cleaning</h3>
-          <p class="text-gray-600 mb-6">Weekly or bi-weekly cleaning keeps your Franklin home consistently clean. Same team every visit, flexible scheduling. Reclaim your weekends for Main Street and family time.</p>
-          <a href="tel:6155101427" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Regular Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Weekly or bi-weekly cleaning keeps your Franklin home consistently
+            clean. Same team every visit, flexible scheduling. Reclaim your
+            weekends for Main Street and family time.
+          </p>
+          <a
+            href="tel:6155101427"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Get Started
           </a>
         </div>
@@ -287,8 +350,15 @@ const serviceSchema = {
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
           <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning</h3>
-          <p class="text-gray-600 mb-6">Top-to-bottom detailed cleaning including baseboards, ceiling fans, inside appliances, and all those neglected areas. Perfect for seasonal refresh or before hosting.</p>
-          <a href="tel:6155101427" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <p class="text-gray-600 mb-6">
+            Top-to-bottom detailed cleaning including baseboards, ceiling fans,
+            inside appliances, and all those neglected areas. Perfect for
+            seasonal refresh or before hosting.
+          </p>
+          <a
+            href="tel:6155101427"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Book Deep Clean
           </a>
         </div>
@@ -296,8 +366,15 @@ const serviceSchema = {
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <Icon name="truck" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
           <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out</h3>
-          <p class="text-gray-600 mb-6">Moving to or from Franklin? We'll deep clean every surface, inside cabinets and appliances, so you get your deposit back or start fresh in your new home.</p>
-          <a href="tel:6155101427" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <p class="text-gray-600 mb-6">
+            Moving to or from Franklin? We'll deep clean every surface, inside
+            cabinets and appliances, so you get your deposit back or start fresh
+            in your new home.
+          </p>
+          <a
+            href="tel:6155101427"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Schedule Move Clean
           </a>
         </div>
@@ -316,17 +393,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-gray-50 rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-gray-50 rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -338,19 +423,34 @@ const serviceSchema = {
         Also Serving Nearby Communities
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/nashville/brentwood" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/nashville/brentwood"
+          class="neighborhood-badge block text-center"
+        >
           Brentwood
         </a>
-        <a href="/locations/nashville/belle-meade" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/nashville/belle-meade"
+          class="neighborhood-badge block text-center"
+        >
           Belle Meade
         </a>
-        <a href="/locations/nashville/green-hills" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/nashville/green-hills"
+          class="neighborhood-badge block text-center"
+        >
           Green Hills
         </a>
-        <a href="/locations/nashville" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/nashville"
+          class="neighborhood-badge block text-center"
+        >
           Nashville
         </a>
-        <a href="/locations/nashville/forest-hills" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/nashville/forest-hills"
+          class="neighborhood-badge block text-center"
+        >
           Forest Hills
         </a>
         <a href="/locations" class="neighborhood-badge block text-center">
@@ -364,71 +464,25 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Ready for a <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Cleaner Home?</span>
+        Ready for a <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Cleaner Home?</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Stop spending your weekends cleaning. Franklin families trust The Valley Clean Team to keep their homes spotless. Call now for your free quote.
+        Stop spending your weekends cleaning. Franklin families trust The Valley
+        Clean Team to keep their homes spotless. Call now for your free quote.
       </p>
-      <a href="tel:6155101427" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:6155101427"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />615-510-1427
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service available | 2-hour response guarantee
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service
+        available | 2-hour response guarantee
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('franklin-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('franklin-submit-btn');
-      const messageDiv = document.getElementById('franklin-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Franklin, TN',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Franklin Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 615-510-1427.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

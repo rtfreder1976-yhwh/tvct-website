@@ -1,8 +1,9 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import SchemaMarkup from '../components/SchemaMarkup.astro';
-import Icon from '../components/Icon.astro';
-import { getTestimonialsByService } from '../data/testimonials';
+import BaseLayout from "./BaseLayout.astro";
+import SchemaMarkup from "../components/SchemaMarkup.astro";
+import Icon from "../components/Icon.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import { getTestimonialsByService } from "../data/testimonials";
 
 interface Props {
   title: string;
@@ -23,7 +24,7 @@ interface Props {
   }>;
   // NEW: Extended content props for better text-to-HTML ratio
   localContext?: string[]; // Array of paragraphs about local context
-  neighborhoodsServed?: Array<{name: string; zipCodes?: string[]}>; // Neighborhoods with zip codes
+  neighborhoodsServed?: Array<{ name: string; zipCodes?: string[] }>; // Neighborhoods with zip codes
   whyChooseContent?: string[]; // Extended why choose us paragraphs
   serviceHighlights?: string[]; // Additional service highlights/features
   countyName?: string; // County name for local SEO
@@ -47,7 +48,7 @@ const {
   neighborhoodsServed = [],
   whyChooseContent = [],
   serviceHighlights = [],
-  countyName = ''
+  countyName = "",
 } = Astro.props;
 
 // Get service-specific testimonials
@@ -55,301 +56,563 @@ const serviceTestimonials = getTestimonialsByService(serviceSlug);
 
 // Related services mapping - each service links to 2-3 related services
 // Expanded to improve internal linking between all service pages
-const relatedServicesMap: Record<string, Array<{slug: string, name: string, description: string}>> = {
-  'deep-cleaning': [
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Thorough cleaning for moving' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Maintain your clean home' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent cleaning needs' }
+const relatedServicesMap: Record<
+  string,
+  Array<{ slug: string; name: string; description: string }>
+> = {
+  "deep-cleaning": [
+    {
+      slug: "move-out-cleaning",
+      name: "Move-Out Cleaning",
+      description: "Thorough cleaning for moving",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Maintain your clean home",
+    },
+    {
+      slug: "same-day-cleaning",
+      name: "Same-Day Cleaning",
+      description: "Urgent cleaning needs",
+    },
   ],
-  'move-out-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' },
-    { slug: 'post-construction-cleaning', name: 'Post-Construction', description: 'After renovations' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent move cleaning' }
+  "move-out-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Top-to-bottom cleaning",
+    },
+    {
+      slug: "post-construction-cleaning",
+      name: "Post-Construction",
+      description: "After renovations",
+    },
+    {
+      slug: "same-day-cleaning",
+      name: "Same-Day Cleaning",
+      description: "Urgent move cleaning",
+    },
   ],
-  'recurring-maid-service': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Start fresh before recurring' },
-    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Consistent weekly service' },
-    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Compassionate care' }
+  "recurring-maid-service": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Start fresh before recurring",
+    },
+    {
+      slug: "weekly-cleaning",
+      name: "Weekly Cleaning",
+      description: "Consistent weekly service",
+    },
+    {
+      slug: "senior-cleaning",
+      name: "Senior Cleaning",
+      description: "Compassionate care",
+    },
   ],
-  'weekly-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Flexible scheduling' },
-    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Gentle, reliable service' }
+  "weekly-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Initial deep clean",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Flexible scheduling",
+    },
+    {
+      slug: "senior-cleaning",
+      name: "Senior Cleaning",
+      description: "Gentle, reliable service",
+    },
   ],
-  'biweekly-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Initial deep clean' },
-    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'More frequent service' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Flexible options' }
+  "biweekly-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Initial deep clean",
+    },
+    {
+      slug: "weekly-cleaning",
+      name: "Weekly Cleaning",
+      description: "More frequent service",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Flexible options",
+    },
   ],
-  'airbnb-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Between long-term guests' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Quick turnovers' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'End of rental cleaning' }
+  "airbnb-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Between long-term guests",
+    },
+    {
+      slug: "same-day-cleaning",
+      name: "Same-Day Cleaning",
+      description: "Quick turnovers",
+    },
+    {
+      slug: "move-out-cleaning",
+      name: "Move-Out Cleaning",
+      description: "End of rental cleaning",
+    },
   ],
-  'same-day-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough urgent cleaning' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Urgent move cleaning' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Prevent future emergencies' }
+  "same-day-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough urgent cleaning",
+    },
+    {
+      slug: "move-out-cleaning",
+      name: "Move-Out Cleaning",
+      description: "Urgent move cleaning",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Prevent future emergencies",
+    },
   ],
-  'post-construction-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Follow-up deep clean' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'After renovation' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent project cleanup' }
+  "post-construction-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Follow-up deep clean",
+    },
+    {
+      slug: "move-out-cleaning",
+      name: "Move-Out Cleaning",
+      description: "After renovation",
+    },
+    {
+      slug: "same-day-cleaning",
+      name: "Same-Day Cleaning",
+      description: "Urgent project cleanup",
+    },
   ],
-  'senior-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough home cleaning' },
-    { slug: 'weekly-cleaning', name: 'Weekly Cleaning', description: 'Consistent care' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular assistance' }
+  "senior-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough home cleaning",
+    },
+    {
+      slug: "weekly-cleaning",
+      name: "Weekly Cleaning",
+      description: "Consistent care",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Regular assistance",
+    },
   ],
-  'office-cleaning': [
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Full commercial service' },
-    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare facilities' },
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'One-time office deep clean' }
+  "office-cleaning": [
+    {
+      slug: "commercial-cleaning",
+      name: "Commercial Cleaning",
+      description: "Full commercial service",
+    },
+    {
+      slug: "medical-office-cleaning",
+      name: "Medical Office",
+      description: "Healthcare facilities",
+    },
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "One-time office deep clean",
+    },
   ],
-  'commercial-cleaning': [
-    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
-    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare cleaning' },
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough one-time cleaning' }
+  "commercial-cleaning": [
+    {
+      slug: "office-cleaning",
+      name: "Office Cleaning",
+      description: "Professional offices",
+    },
+    {
+      slug: "medical-office-cleaning",
+      name: "Medical Office",
+      description: "Healthcare cleaning",
+    },
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough one-time cleaning",
+    },
   ],
-  'medical-office-cleaning': [
-    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'General office cleaning' },
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
-    { slug: 'dental-office-cleaning', name: 'Dental Office', description: 'Dental practice cleaning' }
+  "medical-office-cleaning": [
+    {
+      slug: "office-cleaning",
+      name: "Office Cleaning",
+      description: "General office cleaning",
+    },
+    {
+      slug: "commercial-cleaning",
+      name: "Commercial Cleaning",
+      description: "Business cleaning",
+    },
+    {
+      slug: "dental-office-cleaning",
+      name: "Dental Office",
+      description: "Dental practice cleaning",
+    },
   ],
-  'house-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough house cleaning' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular maintenance' },
-    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Compassionate care' }
+  "house-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough house cleaning",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Regular maintenance",
+    },
+    {
+      slug: "senior-cleaning",
+      name: "Senior Cleaning",
+      description: "Compassionate care",
+    },
   ],
-  'luxury-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough luxury cleaning' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular maintenance' },
-    { slug: 'house-cleaning', name: 'House Cleaning', description: 'Residential service' }
+  "luxury-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough luxury cleaning",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Regular maintenance",
+    },
+    {
+      slug: "house-cleaning",
+      name: "House Cleaning",
+      description: "Residential service",
+    },
   ],
-  'restaurant-cleaning': [
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough kitchen cleaning' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent restaurant needs' }
+  "restaurant-cleaning": [
+    {
+      slug: "commercial-cleaning",
+      name: "Commercial Cleaning",
+      description: "Business cleaning",
+    },
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough kitchen cleaning",
+    },
+    {
+      slug: "same-day-cleaning",
+      name: "Same-Day Cleaning",
+      description: "Urgent restaurant needs",
+    },
   ],
-  'retail-cleaning': [
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' },
-    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional cleaning' },
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough store cleaning' }
+  "retail-cleaning": [
+    {
+      slug: "commercial-cleaning",
+      name: "Commercial Cleaning",
+      description: "Business cleaning",
+    },
+    {
+      slug: "office-cleaning",
+      name: "Office Cleaning",
+      description: "Professional cleaning",
+    },
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough store cleaning",
+    },
   ],
-  'event-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough cleaning' },
-    { slug: 'same-day-cleaning', name: 'Same-Day Cleaning', description: 'Urgent event needs' },
-    { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Post-event cleanup' }
+  "event-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough cleaning",
+    },
+    {
+      slug: "same-day-cleaning",
+      name: "Same-Day Cleaning",
+      description: "Urgent event needs",
+    },
+    {
+      slug: "move-out-cleaning",
+      name: "Move-Out Cleaning",
+      description: "Post-event cleanup",
+    },
   ],
-  'green-cleaning': [
-    { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Thorough eco cleaning' },
-    { slug: 'recurring-maid-service', name: 'Recurring Service', description: 'Regular eco cleaning' },
-    { slug: 'senior-cleaning', name: 'Senior Cleaning', description: 'Gentle, safe products' }
+  "green-cleaning": [
+    {
+      slug: "deep-cleaning",
+      name: "Deep Cleaning",
+      description: "Thorough eco cleaning",
+    },
+    {
+      slug: "recurring-maid-service",
+      name: "Recurring Service",
+      description: "Regular eco cleaning",
+    },
+    {
+      slug: "senior-cleaning",
+      name: "Senior Cleaning",
+      description: "Gentle, safe products",
+    },
   ],
-  'dental-office-cleaning': [
-    { slug: 'medical-office-cleaning', name: 'Medical Office', description: 'Healthcare cleaning' },
-    { slug: 'office-cleaning', name: 'Office Cleaning', description: 'Professional offices' },
-    { slug: 'commercial-cleaning', name: 'Commercial Cleaning', description: 'Business cleaning' }
-  ]
+  "dental-office-cleaning": [
+    {
+      slug: "medical-office-cleaning",
+      name: "Medical Office",
+      description: "Healthcare cleaning",
+    },
+    {
+      slug: "office-cleaning",
+      name: "Office Cleaning",
+      description: "Professional offices",
+    },
+    {
+      slug: "commercial-cleaning",
+      name: "Commercial Cleaning",
+      description: "Business cleaning",
+    },
+  ],
 };
 
 // Get related services for current service, default to common ones if not mapped
 // Default uses only pages that exist in ALL locations (deep-cleaning and move-out-cleaning)
 const relatedServices = relatedServicesMap[serviceSlug] || [
-  { slug: 'deep-cleaning', name: 'Deep Cleaning', description: 'Top-to-bottom cleaning' },
-  { slug: 'move-out-cleaning', name: 'Move-Out Cleaning', description: 'Moving services' }
+  {
+    slug: "deep-cleaning",
+    name: "Deep Cleaning",
+    description: "Top-to-bottom cleaning",
+  },
+  {
+    slug: "move-out-cleaning",
+    name: "Move-Out Cleaning",
+    description: "Moving services",
+  },
 ];
 
 // Generate canonical URL
 const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}/${serviceSlug}`;
 
 // Schema for Service with enhanced areaServed
-const areaServedSchema = citySlug === 'mountain-brook' && neighborhoods.length > 0 ? [
-  {
-    "@type": "City",
-    "name": city,
-    "containedInPlace": { "@type": "State", "name": state }
-  },
-  ...neighborhoods.map(neighborhood => ({
-    "@type": "Place",
-    "name": neighborhood,
-    "containedInPlace": {
-      "@type": "City",
-      "name": city,
-      "containedInPlace": { "@type": "State", "name": state }
-    }
-  }))
-] : citySlug === 'muscle-shoals' ? [
-  {
-    "@type": "City",
-    "name": "Muscle Shoals",
-    "containedInPlace": { "@type": "State", "name": "Alabama" }
-  },
-  {
-    "@type": "City",
-    "name": "Florence",
-    "containedInPlace": { "@type": "State", "name": "Alabama" }
-  },
-  {
-    "@type": "City",
-    "name": "Sheffield",
-    "containedInPlace": { "@type": "State", "name": "Alabama" }
-  },
-  {
-    "@type": "City",
-    "name": "Tuscumbia",
-    "containedInPlace": { "@type": "State", "name": "Alabama" }
-  },
-  {
-    "@type": "Place",
-    "name": "Walnut Street Historic District",
-    "containedInPlace": { "@type": "City", "name": "Florence", "containedInPlace": { "@type": "State", "name": "Alabama" } }
-  },
-  {
-    "@type": "Place",
-    "name": "Wilson Lake",
-    "containedInPlace": { "@type": "State", "name": "Alabama" }
-  },
-  {
-    "@type": "Place",
-    "name": "Shoals Creek",
-    "containedInPlace": { "@type": "State", "name": "Alabama" }
-  },
-  {
-    "@type": "Place",
-    "name": "Killen",
-    "containedInPlace": { "@type": "State", "name": "Alabama" }
-  }
-] : {
-  "@type": "City",
-  "name": city,
-  "containedInPlace": {
-    "@type": "State",
-    "name": state
-  }
-};
+const areaServedSchema =
+  citySlug === "mountain-brook" && neighborhoods.length > 0
+    ? [
+        {
+          "@type": "City",
+          name: city,
+          containedInPlace: { "@type": "State", name: state },
+        },
+        ...neighborhoods.map((neighborhood) => ({
+          "@type": "Place",
+          name: neighborhood,
+          containedInPlace: {
+            "@type": "City",
+            name: city,
+            containedInPlace: { "@type": "State", name: state },
+          },
+        })),
+      ]
+    : citySlug === "muscle-shoals"
+      ? [
+          {
+            "@type": "City",
+            name: "Muscle Shoals",
+            containedInPlace: { "@type": "State", name: "Alabama" },
+          },
+          {
+            "@type": "City",
+            name: "Florence",
+            containedInPlace: { "@type": "State", name: "Alabama" },
+          },
+          {
+            "@type": "City",
+            name: "Sheffield",
+            containedInPlace: { "@type": "State", name: "Alabama" },
+          },
+          {
+            "@type": "City",
+            name: "Tuscumbia",
+            containedInPlace: { "@type": "State", name: "Alabama" },
+          },
+          {
+            "@type": "Place",
+            name: "Walnut Street Historic District",
+            containedInPlace: {
+              "@type": "City",
+              name: "Florence",
+              containedInPlace: { "@type": "State", name: "Alabama" },
+            },
+          },
+          {
+            "@type": "Place",
+            name: "Wilson Lake",
+            containedInPlace: { "@type": "State", name: "Alabama" },
+          },
+          {
+            "@type": "Place",
+            name: "Shoals Creek",
+            containedInPlace: { "@type": "State", name: "Alabama" },
+          },
+          {
+            "@type": "Place",
+            name: "Killen",
+            containedInPlace: { "@type": "State", name: "Alabama" },
+          },
+        ]
+      : {
+          "@type": "City",
+          name: city,
+          containedInPlace: {
+            "@type": "State",
+            name: state,
+          },
+        };
 
 // Schema for Service
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": service,
-  "provider": {
+  serviceType: service,
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": city,
-      "addressRegion": state,
-      "addressCountry": "US"
-    }
+      addressLocality: city,
+      addressRegion: state,
+      addressCountry: "US",
+    },
   },
-  "areaServed": areaServedSchema,
-  "description": serviceDescription,
-  "offers": {
+  areaServed: areaServedSchema,
+  description: serviceDescription,
+  offers: {
     "@type": "Offer",
-    "priceSpecification": {
+    priceSpecification: {
       "@type": "PriceSpecification",
-      "price": price.replace(/[^0-9]/g, ''),
-      "priceCurrency": "USD",
-      "unitText": "per service"
-    }
-  }
+      price: price.replace(/[^0-9]/g, ""),
+      priceCurrency: "USD",
+      unitText: "per service",
+    },
+  },
 };
 
 // FAQ Schema
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 ---
 
 <BaseLayout title={title} description={description} canonicalUrl={canonicalUrl}>
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving {city}, {state}
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving {city}, {
+                state
+              }
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
             {service} in <span class="gold-gradient">{city}, {state}</span>
           </h1>
           <p class="text-xl text-gray-700 mb-6">{serviceDescription}</p>
 
-          <div class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 mb-6">
+          <div
+            class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 mb-6"
+          >
             <div class="flex items-center justify-between">
               <div>
                 <p class="text-gray-600 text-sm">Starting at</p>
                 <p class="text-4xl font-bold text-[#333333]">{price}</p>
               </div>
               <div class="text-right">
-                <p class="text-green-600 font-semibold"><Icon name="check-circle" class="w-5 h-5 mr-1" /> Free Quotes</p>
-                <p class="text-green-600 font-semibold"><Icon name="check-circle" class="w-5 h-5 mr-1" /> Same-Day Available</p>
+                <p class="text-green-600 font-semibold">
+                  <Icon name="check-circle" class="w-5 h-5 mr-1" /> Free Quotes
+                </p>
+                <p class="text-green-600 font-semibold">
+                  <Icon name="check-circle" class="w-5 h-5 mr-1" /> Same-Day Available
+                </p>
               </div>
             </div>
           </div>
 
           <!-- Urgency Badge -->
-          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+          <div
+            class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6"
+          >
             <span class="text-green-700 font-semibold">
-              <Icon name="calendar-check" class="w-5 h-5 text-green-600 mr-2" />Same-Week Availability
+              <Icon
+                name="calendar-check"
+                class="w-5 h-5 text-green-600 mr-2"
+              />Same-Week Availability
             </span>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
             </a>
-            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
-              <Icon name="calendar" class="w-5 h-5 mr-2" />Book Your Consultation
+            <a
+              href="/contact"
+              class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+            >
+              <Icon name="calendar" class="w-5 h-5 mr-2" />Book Your
+              Consultation
             </a>
           </div>
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
           <p class="text-gray-600 mb-6 text-center">{service} in {city}</p>
-          <form id="service-location-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder={`${city} Address/Zip Code`} required>
-            </div>
-            <input type="hidden" name="service" value={service}>
-            <input type="hidden" name="city" value={city}>
-            <button type="submit" id="service-location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free {service} Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours
-            </p>
-            <div id="service-location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <QuoteForm
+            formId="service-location-form"
+            city={city}
+            state={state}
+            serviceName={service}
+            source={`Service Location Page - ${service} in ${city}`}
+          />
         </div>
       </div>
     </div>
@@ -359,31 +622,57 @@ const faqSchema = {
   <section class="py-6 px-6 bg-gray-50">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-center gap-4 mb-4">
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">$2M Liability Insurance</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >$2M Liability Insurance</span
+          >
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="medal" class="w-5 h-5 text-[#FFA985] mr-2" />
           <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="venus" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">Women-Led Business</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >Women-Led Business</span
+          >
         </div>
       </div>
       <div class="flex flex-wrap justify-center gap-4">
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
-          <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />
-          <span class="text-sm font-semibold text-gray-700">130+ Five-Star Reviews</span>
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
+          <Icon
+            name="star"
+            class="w-5 h-5 text-[#FFA985] mr-2"
+            fill="currentColor"
+          />
+          <span class="text-sm font-semibold text-gray-700"
+            >130+ Five-Star Reviews</span
+          >
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="user-check" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">Background-Checked Team</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >Background-Checked Team</span
+          >
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">1,047+ Homes Cleaned</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >1,047+ Homes Cleaned</span
+          >
         </div>
       </div>
     </div>
@@ -394,9 +683,31 @@ const faqSchema = {
     <div class="container mx-auto text-center">
       <p class="text-lg text-gray-700 mb-2">
         <Icon name="heart" class="w-5 h-5 text-red-500 mr-2" />
-        <strong>{city === "Nashville" || city === "West Nashville" ? "Trusted by families in Belle Meade, Green Hills, and Brentwood" : city === "Birmingham" || city === "Mountain Brook" ? "Trusted by families in Mountain Brook, Vestavia Hills, and Homewood" : city === "Florence" || city === "Muscle Shoals" || city === "Sheffield" || city === "Tuscumbia" || city === "The Shoals" ? "Trusted by families in Downtown Florence, Killen, and Wilson Lake" : city === "Athens" ? "Trusted by families in East Limestone, Lindsay Lane, and Belle Mina" : city === "Decatur" ? "Trusted by families in Southwest Decatur, Brookmeade, and Priceville" : city === "Madison" ? "Trusted by families in Madison, Limestone County, and Research Park" : "Trusted by families in The Ledges, Hampton Cove, and Twickenham"}</strong>
+        <strong
+          >{
+            city === "Nashville" || city === "West Nashville"
+              ? "Trusted by families in Belle Meade, Green Hills, and Brentwood"
+              : city === "Birmingham" || city === "Mountain Brook"
+                ? "Trusted by families in Mountain Brook, Vestavia Hills, and Homewood"
+                : city === "Florence" ||
+                    city === "Muscle Shoals" ||
+                    city === "Sheffield" ||
+                    city === "Tuscumbia" ||
+                    city === "The Shoals"
+                  ? "Trusted by families in Downtown Florence, Killen, and Wilson Lake"
+                  : city === "Athens"
+                    ? "Trusted by families in East Limestone, Lindsay Lane, and Belle Mina"
+                    : city === "Decatur"
+                      ? "Trusted by families in Southwest Decatur, Brookmeade, and Priceville"
+                      : city === "Madison"
+                        ? "Trusted by families in Madison, Limestone County, and Research Park"
+                        : "Trusted by families in The Ledges, Hampton Cove, and Twickenham"
+          }</strong
+        >
       </p>
-      <p class="text-gray-600">Your neighbors choose us for {service.toLowerCase()}</p>
+      <p class="text-gray-600">
+        Your neighbors choose us for {service.toLowerCase()}
+      </p>
     </div>
   </section>
 
@@ -405,38 +716,58 @@ const faqSchema = {
     <div class="container mx-auto max-w-5xl">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          What's Included in Our {city} {service}
+          What's Included in Our {city}
+          {service}
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Comprehensive cleaning tailored to {city} homes</p>
+        <p class="text-xl text-gray-600">
+          Comprehensive cleaning tailored to {city} homes
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <h3 class="text-2xl font-bold mb-6 text-[#333333]">
-            <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-2" />Service Includes
+            <Icon
+              name="check-circle"
+              class="w-5 h-5 text-green-500 mr-2"
+            />Service Includes
           </h3>
           <ul class="space-y-4">
-            {includes.map((item) => (
-              <li class="flex items-start">
-                <Icon name="check" class="w-5 h-5 text-green-500 mr-3 mt-1" />
-                <span class="text-gray-700">{item}</span>
-              </li>
-            ))}
+            {
+              includes.map((item) => (
+                <li class="flex items-start">
+                  <Icon name="check" class="w-5 h-5 text-green-500 mr-3 mt-1" />
+                  <span class="text-gray-700">{item}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
           <h3 class="text-2xl font-bold mb-6 text-[#333333]">
-            <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />Why {city} Chooses Us
+            <Icon
+              name="star"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+              fill="currentColor"
+            />Why {city} Chooses Us
           </h3>
           <ul class="space-y-4">
-            {benefits.map((benefit) => (
-              <li class="flex items-start">
-                <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" fill="currentColor" />
-                <span class="text-gray-700">{benefit}</span>
-              </li>
-            ))}
+            {
+              benefits.map((benefit) => (
+                <li class="flex items-start">
+                  <Icon
+                    name="star"
+                    class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+                    fill="currentColor"
+                  />
+                  <span class="text-gray-700">{benefit}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -465,34 +796,45 @@ const faqSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        {serviceTestimonials.slice(0, 3).map((testimonial) => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-lg">
-                {testimonial.initial}
+        {
+          serviceTestimonials.slice(0, 3).map((testimonial) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-lg">
+                  {testimonial.initial}
+                </div>
+                <div class="ml-3">
+                  <p class="font-bold text-[#333333]">{testimonial.name}</p>
+                  <p class="text-xs text-gray-500">{testimonial.source}</p>
+                </div>
               </div>
-              <div class="ml-3">
-                <p class="font-bold text-[#333333]">{testimonial.name}</p>
-                <p class="text-xs text-gray-500">{testimonial.source}</p>
+              <div class="flex text-[#FFA985] text-sm mb-3">
+                <Icon name="star" class="w-4 h-4" fill="currentColor" />
+                <Icon name="star" class="w-4 h-4" fill="currentColor" />
+                <Icon name="star" class="w-4 h-4" fill="currentColor" />
+                <Icon name="star" class="w-4 h-4" fill="currentColor" />
+                <Icon name="star" class="w-4 h-4" fill="currentColor" />
+              </div>
+              <p class="text-gray-700 text-sm line-clamp-4">
+                "{testimonial.text}"
+              </p>
+              <div class="mt-3">
+                <span class="bg-[#FFA985]/10 text-[#FFA985] text-xs px-2 py-1 rounded-full">
+                  {testimonial.service || service}
+                </span>
               </div>
             </div>
-            <div class="flex text-[#FFA985] text-sm mb-3">
-              <Icon name="star" class="w-4 h-4" fill="currentColor" />
-              <Icon name="star" class="w-4 h-4" fill="currentColor" />
-              <Icon name="star" class="w-4 h-4" fill="currentColor" />
-              <Icon name="star" class="w-4 h-4" fill="currentColor" />
-              <Icon name="star" class="w-4 h-4" fill="currentColor" />
-            </div>
-            <p class="text-gray-700 text-sm line-clamp-4">"{testimonial.text}"</p>
-            <div class="mt-3">
-              <span class="bg-[#FFA985]/10 text-[#FFA985] text-xs px-2 py-1 rounded-full">{testimonial.service || service}</span>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <div class="text-center mt-8">
-        <a href="https://g.page/r/thevalleycleanteam/review" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
+        <a
+          href="https://g.page/r/thevalleycleanteam/review"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center text-[#FFA985] font-semibold hover:underline"
+        >
           <Icon name="google" class="w-5 h-5 mr-2" />
           Read More Reviews on Google
           <Icon name="external-link-alt" class="w-4 h-4 ml-2" />
@@ -502,61 +844,81 @@ const faqSchema = {
   </section>
 
   <!-- Local Context Section - SEO-rich content about the local area -->
-  {localContext.length > 0 && (
-    <section class="py-16 px-6 bg-white">
-      <div class="container mx-auto max-w-4xl">
-        <h2 class="text-3xl font-bold mb-6 text-[#333333] text-center">
-          {service} Services for {city}{countyName ? `, ${countyName}` : ''} Residents
-        </h2>
-        <div class="section-divider"></div>
-        <div class="prose prose-lg max-w-none text-gray-700 space-y-4 mt-8">
-          {localContext.map((paragraph) => (
-            <p class="text-gray-700 leading-relaxed">{paragraph}</p>
-          ))}
-        </div>
-        {serviceHighlights.length > 0 && (
-          <div class="mt-8 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5 rounded-xl p-6 border border-[#FFA985]/20">
-            <h3 class="text-xl font-bold mb-4 text-[#333333]">What Sets Our {city} {service} Apart</h3>
-            <ul class="grid md:grid-cols-2 gap-3">
-              {serviceHighlights.map((highlight) => (
-                <li class="flex items-start">
-                  <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                  <span class="text-gray-700">{highlight}</span>
-                </li>
-              ))}
-            </ul>
+  {
+    localContext.length > 0 && (
+      <section class="py-16 px-6 bg-white">
+        <div class="container mx-auto max-w-4xl">
+          <h2 class="text-3xl font-bold mb-6 text-[#333333] text-center">
+            {service} Services for {city}
+            {countyName ? `, ${countyName}` : ""} Residents
+          </h2>
+          <div class="section-divider" />
+          <div class="prose prose-lg max-w-none text-gray-700 space-y-4 mt-8">
+            {localContext.map((paragraph) => (
+              <p class="text-gray-700 leading-relaxed">{paragraph}</p>
+            ))}
           </div>
-        )}
-      </div>
-    </section>
-  )}
+          {serviceHighlights.length > 0 && (
+            <div class="mt-8 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5 rounded-xl p-6 border border-[#FFA985]/20">
+              <h3 class="text-xl font-bold mb-4 text-[#333333]">
+                What Sets Our {city} {service} Apart
+              </h3>
+              <ul class="grid md:grid-cols-2 gap-3">
+                {serviceHighlights.map((highlight) => (
+                  <li class="flex items-start">
+                    <Icon
+                      name="check-circle"
+                      class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0"
+                    />
+                    <span class="text-gray-700">{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
 
   <!-- Neighborhoods Served Section -->
-  {neighborhoodsServed.length > 0 && (
-    <section class="py-12 px-6 bg-gray-50">
-      <div class="container mx-auto max-w-4xl">
-        <h2 class="text-2xl font-bold mb-6 text-[#333333] text-center">
-          Areas We Serve for {service} Near {city}
-        </h2>
-        <p class="text-center text-gray-600 mb-8">
-          Our {service.toLowerCase()} team proudly serves {city} and these surrounding communities{countyName ? ` in ${countyName}` : ''}:
-        </p>
-        <div class="grid md:grid-cols-3 gap-4">
-          {neighborhoodsServed.map((area) => (
-            <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-              <h3 class="font-semibold text-[#333333] mb-1">{area.name}</h3>
-              {area.zipCodes && area.zipCodes.length > 0 && (
-                <p class="text-sm text-gray-500">ZIP: {area.zipCodes.join(', ')}</p>
-              )}
-            </div>
-          ))}
+  {
+    neighborhoodsServed.length > 0 && (
+      <section class="py-12 px-6 bg-gray-50">
+        <div class="container mx-auto max-w-4xl">
+          <h2 class="text-2xl font-bold mb-6 text-[#333333] text-center">
+            Areas We Serve for {service} Near {city}
+          </h2>
+          <p class="text-center text-gray-600 mb-8">
+            Our {service.toLowerCase()} team proudly serves {city} and these
+            surrounding communities{countyName ? ` in ${countyName}` : ""}:
+          </p>
+          <div class="grid md:grid-cols-3 gap-4">
+            {neighborhoodsServed.map((area) => (
+              <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+                <h3 class="font-semibold text-[#333333] mb-1">{area.name}</h3>
+                {area.zipCodes && area.zipCodes.length > 0 && (
+                  <p class="text-sm text-gray-500">
+                    ZIP: {area.zipCodes.join(", ")}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+          <p class="text-center text-gray-600 mt-6 text-sm">
+            Don't see your neighborhood? Call us at{" "}
+            <a
+              href="tel:2568261100"
+              class="text-[#FFA985] font-semibold hover:underline"
+            >
+              256-826-1100
+            </a>{" "}
+            — we likely serve your area too!
+          </p>
         </div>
-        <p class="text-center text-gray-600 mt-6 text-sm">
-          Don't see your neighborhood? Call us at <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> — we likely serve your area too!
-        </p>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 
   <!-- About This Service -->
   <section class="py-16 px-6">
@@ -566,53 +928,90 @@ const faqSchema = {
           <h2 class="text-3xl font-bold mb-6 text-[#333333]">
             About Our {service} in {city}
           </h2>
-          {whyChooseContent.length > 0 ? (
-            whyChooseContent.map((paragraph) => (
-              <p class="text-gray-700 mb-4">{paragraph}</p>
-            ))
-          ) : (
-            <>
-              <p class="text-gray-700 mb-4">
-                The Valley Clean Team provides professional {service.toLowerCase()} throughout {city}, {state} and surrounding areas. Our trained cleaning specialists understand the unique needs of local homeowners, delivering consistent quality that exceeds expectations every time.
-              </p>
-              <p class="text-gray-700 mb-4">
-                We use professional-grade equipment and eco-friendly products that are safe for your family, pets, and the environment. Our {city} team is fully insured with $2 million in liability coverage, background-checked, and committed to treating your home with the respect it deserves.
-              </p>
-              <p class="text-gray-700">
-                As a veteran-owned business, we bring military precision and attention to detail to every job. Whether you're a busy professional, a growing family, or simply want more time to enjoy life, our {service.toLowerCase()} is designed to give you back the gift of a clean home without the hassle.
-              </p>
-            </>
-          )}
+          {
+            whyChooseContent.length > 0 ? (
+              whyChooseContent.map((paragraph) => (
+                <p class="text-gray-700 mb-4">{paragraph}</p>
+              ))
+            ) : (
+              <>
+                <p class="text-gray-700 mb-4">
+                  The Valley Clean Team provides professional{" "}
+                  {service.toLowerCase()} throughout {city}, {state} and
+                  surrounding areas. Our trained cleaning specialists understand
+                  the unique needs of local homeowners, delivering consistent
+                  quality that exceeds expectations every time.
+                </p>
+                <p class="text-gray-700 mb-4">
+                  We use professional-grade equipment and eco-friendly products
+                  that are safe for your family, pets, and the environment. Our{" "}
+                  {city} team is fully insured with $2 million in liability
+                  coverage, background-checked, and committed to treating your
+                  home with the respect it deserves.
+                </p>
+                <p class="text-gray-700">
+                  As a veteran-owned business, we bring military precision and
+                  attention to detail to every job. Whether you're a busy
+                  professional, a growing family, or simply want more time to
+                  enjoy life, our {service.toLowerCase()} is designed to give
+                  you back the gift of a clean home without the hassle.
+                </p>
+              </>
+            )
+          }
         </div>
         <div class="bg-white rounded-2xl p-8 shadow-lg">
-          <h3 class="text-xl font-bold mb-6 text-[#333333]">Our {city} Service Guarantee</h3>
+          <h3 class="text-xl font-bold mb-6 text-[#333333]">
+            Our {city} Service Guarantee
+          </h3>
           <ul class="space-y-4">
             <li class="flex items-start">
-              <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="shield-alt"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">100% Satisfaction</span>
-                <p class="text-gray-600 text-sm">Not happy? We'll re-clean for free</p>
+                <span class="font-semibold text-[#333333]"
+                  >100% Satisfaction</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Not happy? We'll re-clean for free
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="user-check" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="user-check"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">Vetted Professionals</span>
-                <p class="text-gray-600 text-sm">Background-checked, trained team members</p>
+                <span class="font-semibold text-[#333333]"
+                  >Vetted Professionals</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Background-checked, trained team members
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">On-Time Arrival</span>
-                <p class="text-gray-600 text-sm">We respect your schedule and time</p>
+                <span class="font-semibold text-[#333333]">On-Time Arrival</span
+                >
+                <p class="text-gray-600 text-sm">
+                  We respect your schedule and time
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="leaf" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Eco-Friendly Products</span>
-                <p class="text-gray-600 text-sm">Safe for your family and pets</p>
+                <span class="font-semibold text-[#333333]"
+                  >Eco-Friendly Products</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Safe for your family and pets
+                </p>
               </div>
             </li>
           </ul>
@@ -633,24 +1032,48 @@ const faqSchema = {
 
       <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
         <div class="text-center">
-          <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold">1</div>
+          <div
+            class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold"
+          >
+            1
+          </div>
           <h3 class="font-bold mb-2 text-[#333333]">Request Quote</h3>
-          <p class="text-gray-600 text-sm">Call 256-826-1100 or fill out our form for a free {city} estimate.</p>
+          <p class="text-gray-600 text-sm">
+            Call 256-826-1100 or fill out our form for a free {city} estimate.
+          </p>
         </div>
         <div class="text-center">
-          <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold">2</div>
+          <div
+            class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold"
+          >
+            2
+          </div>
           <h3 class="font-bold mb-2 text-[#333333]">Schedule</h3>
-          <p class="text-gray-600 text-sm">Pick a date and time. Same-day service often available.</p>
+          <p class="text-gray-600 text-sm">
+            Pick a date and time. Same-day service often available.
+          </p>
         </div>
         <div class="text-center">
-          <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold">3</div>
+          <div
+            class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold"
+          >
+            3
+          </div>
           <h3 class="font-bold mb-2 text-[#333333]">We Clean</h3>
-          <p class="text-gray-600 text-sm">Our team arrives on time and delivers exceptional results.</p>
+          <p class="text-gray-600 text-sm">
+            Our team arrives on time and delivers exceptional results.
+          </p>
         </div>
         <div class="text-center">
-          <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold">4</div>
+          <div
+            class="w-14 h-14 mx-auto mb-3 rounded-full bg-[#FFA985] text-white flex items-center justify-center text-xl font-bold"
+          >
+            4
+          </div>
           <h3 class="font-bold mb-2 text-[#333333]">Enjoy</h3>
-          <p class="text-gray-600 text-sm">Relax in your spotless {city} home. Satisfaction guaranteed.</p>
+          <p class="text-gray-600 text-sm">
+            Relax in your spotless {city} home. Satisfaction guaranteed.
+          </p>
         </div>
       </div>
     </div>
@@ -662,20 +1085,31 @@ const faqSchema = {
       <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#FFA985]">
         <div class="grid md:grid-cols-2 gap-8 items-center">
           <div class="text-center md:text-left">
-            <h3 class="text-3xl font-bold text-[#333333] mb-2">{service} in {city}</h3>
-            <p class="text-gray-600 mb-4">Professional service with transparent pricing</p>
+            <h3 class="text-3xl font-bold text-[#333333] mb-2">
+              {service} in {city}
+            </h3>
+            <p class="text-gray-600 mb-4">
+              Professional service with transparent pricing
+            </p>
             <div class="text-5xl font-bold text-[#FFA985] mb-2">{price}</div>
             <p class="text-gray-500">Starting price • Exact quote provided</p>
           </div>
           <div class="space-y-3">
-            <a href="tel:2568261100" class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg">
+            <a
+              href="tel:2568261100"
+              class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Instant Quote
             </a>
-            <a href="/contact" class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition">
+            <a
+              href="/contact"
+              class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
+            >
               <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Online
             </a>
             <p class="text-center text-sm text-gray-500">
-              <Icon name="tag" class="w-5 h-5 mr-1" /> Recurring service discounts available
+              <Icon name="tag" class="w-5 h-5 mr-1" /> Recurring service discounts
+              available
             </p>
           </div>
         </div>
@@ -691,21 +1125,33 @@ const faqSchema = {
           {service} FAQs for {city}
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Common questions about {service.toLowerCase()} in {city}</p>
+        <p class="text-xl text-gray-600">
+          Common questions about {service.toLowerCase()} in {city}
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -714,30 +1160,62 @@ const faqSchema = {
   <section class="py-16 px-6 bg-gray-50">
     <div class="container mx-auto max-w-5xl">
       <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-[#333333] mb-4">Related {city} Cleaning Services</h2>
-        <p class="text-gray-600">Explore related professional cleaning solutions in {city}</p>
+        <h2 class="text-3xl font-bold text-[#333333] mb-4">
+          Related {city} Cleaning Services
+        </h2>
+        <p class="text-gray-600">
+          Explore related professional cleaning solutions in {city}
+        </p>
       </div>
       <div class="grid md:grid-cols-3 gap-6 mb-8">
-        {relatedServices.map((related) => (
-          <a href={`/locations/${citySlug}/${related.slug}`} class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition group">
-            <Icon name="check-circle" class="w-8 h-8 text-[#FFA985] mb-3" />
-            <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985] mb-2 text-base">{related.name} in {city}</h3>
-            <p class="text-gray-600 text-sm">{related.description}</p>
-          </a>
-        ))}
+        {
+          relatedServices.map((related) => (
+            <a
+              href={`/locations/${citySlug}/${related.slug}`}
+              class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition group"
+            >
+              <Icon name="check-circle" class="w-8 h-8 text-[#FFA985] mb-3" />
+              <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985] mb-2 text-base">
+                {related.name} in {city}
+              </h3>
+              <p class="text-gray-600 text-sm">{related.description}</p>
+            </a>
+          ))
+        }
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <a href={`/${citySlug}-cleaning`} class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+        <a
+          href={`/${citySlug}-cleaning`}
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
           <Icon name="home" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985] text-base">All {city} Services</h3>
+          <h3
+            class="font-bold text-[#333333] group-hover:text-[#FFA985] text-base"
+          >
+            All {city} Services
+          </h3>
         </a>
-        <a href="/services" class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+        <a
+          href="/services"
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
           <Icon name="list" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985] text-base">View All Services</h3>
+          <h3
+            class="font-bold text-[#333333] group-hover:text-[#FFA985] text-base"
+          >
+            View All Services
+          </h3>
         </a>
-        <a href="/pricing" class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group">
+        <a
+          href="/pricing"
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition text-center group"
+        >
           <Icon name="tag" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985] text-base">Full Pricing</h3>
+          <h3
+            class="font-bold text-[#333333] group-hover:text-[#FFA985] text-base"
+          >
+            Full Pricing
+          </h3>
         </a>
       </div>
     </div>
@@ -752,76 +1230,32 @@ const faqSchema = {
       <p class="text-xl text-gray-600 mb-4">
         Get your free quote today. Most responses within 2 hours!
       </p>
-      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+      <div
+        class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8"
+      >
         <span class="text-green-700 font-semibold text-lg">
-          <Icon name="calendar-check" class="w-5 h-5 text-green-600 mr-2" />Same-Week Availability - Call Today!
+          <Icon
+            name="calendar-check"
+            class="w-5 h-5 text-green-600 mr-2"
+          />Same-Week Availability - Call Today!
         </span>
       </div>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:2568261100" class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition">
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
         </a>
-        <a href="/contact" class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md">
+        <a
+          href="/contact"
+          class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
+        >
           <Icon name="calendar" class="w-5 h-5 mr-2" />Book Your Consultation
         </a>
       </div>
     </div>
   </section>
-
-  
-  <script>
-    document.getElementById('service-location-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('service-location-submit-btn');
-      const messageDiv = document.getElementById('service-location-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        source: 'Service Location Page - ' + (form.service?.value || '') + ' in ' + (form.city?.value || ''),
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '✓ Thank you! We\'ll be in touch within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '⚠ Something went wrong. Please call us at 256-826-1100.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = submitBtn.dataset.originalText || 'Get Quote';
-    });
-
-    // Store original button text
-    const btn = document.getElementById('service-location-submit-btn');
-    if (btn) btn.dataset.originalText = btn.textContent;
-  </script>
 
   <style>
     .line-clamp-4 {

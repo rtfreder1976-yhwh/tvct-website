@@ -1,9 +1,10 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../../components/SchemaMarkup.astro';
-import { florenceTestimonials } from '../../../data/testimonials';
-import Icon from '../../../components/Icon.astro';
-import LocationGoogleMap from '../../../components/LocationGoogleMap.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import { florenceTestimonials } from "../../../data/testimonials";
+import Icon from "../../../components/Icon.astro";
+import LocationGoogleMap from "../../../components/LocationGoogleMap.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "Florence";
 const state = "Alabama";
@@ -13,7 +14,8 @@ const region = "The Shoals Area";
 const geoData = {
   region: "US-AL",
   position: "34.7996;-87.6772",
-  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+  image:
+    "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
 };
 
 // Neighborhoods and areas served
@@ -25,57 +27,66 @@ const neighborhoods = [
   "Killen",
   "Muscle Shoals",
   "Sheffield",
-  "Tuscumbia"
+  "Tuscumbia",
 ];
 
 // Florence-specific FAQs
 const faqs = [
   {
-    question: "Do you clean historic Victorian homes in the Walnut Street District?",
-    answer: "Absolutely. We specialize in caring for Florence's beautiful historic properties, including the renowned Victorian homes of Walnut Street. Our team is trained in gentle cleaning techniques required for historic architecture—proper care for original hardwood floors, antique fixtures, delicate moldings, and period architectural details. We use pH-neutral, non-abrasive products that preserve these irreplaceable homes while achieving pristine cleanliness. Whether your home dates to the antebellum period or the Victorian era, our preservation-minded approach protects your investment while maintaining modern cleanliness standards."
+    question:
+      "Do you clean historic Victorian homes in the Walnut Street District?",
+    answer:
+      "Absolutely. We specialize in caring for Florence's beautiful historic properties, including the renowned Victorian homes of Walnut Street. Our team is trained in gentle cleaning techniques required for historic architecture—proper care for original hardwood floors, antique fixtures, delicate moldings, and period architectural details. We use pH-neutral, non-abrasive products that preserve these irreplaceable homes while achieving pristine cleanliness. Whether your home dates to the antebellum period or the Victorian era, our preservation-minded approach protects your investment while maintaining modern cleanliness standards.",
   },
   {
-    question: "Can you handle vacation rental turnovers for Wilson Lake properties?",
-    answer: "Yes, vacation rental turnover is one of our specialty services in Florence. Wilson Lake attracts visitors year-round, and we understand the importance of fast, reliable cleaning between guests. We offer same-day service for urgent turnovers, ensuring your property is pristine before your next guests arrive. Our service includes complete linen changes, kitchen and bathroom sanitization, thorough dusting and vacuuming, and restocking of supplies. We know five-star reviews depend on spotless properties, and we deliver the white-glove service that keeps your bookings strong."
+    question:
+      "Can you handle vacation rental turnovers for Wilson Lake properties?",
+    answer:
+      "Yes, vacation rental turnover is one of our specialty services in Florence. Wilson Lake attracts visitors year-round, and we understand the importance of fast, reliable cleaning between guests. We offer same-day service for urgent turnovers, ensuring your property is pristine before your next guests arrive. Our service includes complete linen changes, kitchen and bathroom sanitization, thorough dusting and vacuuming, and restocking of supplies. We know five-star reviews depend on spotless properties, and we deliver the white-glove service that keeps your bookings strong.",
   },
   {
-    question: "Do you serve UNA faculty and healthcare professionals in Florence?",
-    answer: "Absolutely. Many of our Florence clients are University of North Alabama faculty members and healthcare professionals from North Alabama Medical Center and ECM Hospital. We understand the demanding schedules of educators and medical professionals, which is why we offer flexible scheduling including early mornings, evenings, and weekends. Our reliable service gives you back valuable time for research, teaching, patient care, and personal life. We're proud to support the professionals who serve our Shoals community."
+    question:
+      "Do you serve UNA faculty and healthcare professionals in Florence?",
+    answer:
+      "Absolutely. Many of our Florence clients are University of North Alabama faculty members and healthcare professionals from North Alabama Medical Center and ECM Hospital. We understand the demanding schedules of educators and medical professionals, which is why we offer flexible scheduling including early mornings, evenings, and weekends. Our reliable service gives you back valuable time for research, teaching, patient care, and personal life. We're proud to support the professionals who serve our Shoals community.",
   },
   {
     question: "What neighborhoods in Florence and The Shoals do you serve?",
-    answer: "We serve all Florence neighborhoods including the Walnut Street Historic District, Wilson Lake waterfront properties, Shoals Creek Golf Community, and Downtown Florence. Our service extends throughout The Shoals including Killen, Muscle Shoals, Sheffield, and Tuscumbia. Whether you're in a historic Victorian home, a modern waterfront estate, or a golf community property, we bring the same premium white-glove service to every home. Call 256-826-1100 to confirm service for your specific location."
+    answer:
+      "We serve all Florence neighborhoods including the Walnut Street Historic District, Wilson Lake waterfront properties, Shoals Creek Golf Community, and Downtown Florence. Our service extends throughout The Shoals including Killen, Muscle Shoals, Sheffield, and Tuscumbia. Whether you're in a historic Victorian home, a modern waterfront estate, or a golf community property, we bring the same premium white-glove service to every home. Call 256-826-1100 to confirm service for your specific location.",
   },
   {
     question: "Are you insured to work in luxury waterfront estates?",
-    answer: "Yes, we carry $2 million in liability insurance and are fully bonded. Our team is background-checked and trained to care for high-end properties, luxury finishes, and valuable furnishings. Wilson Lake estates often feature premium finishes, waterfront views, and sophisticated entertaining spaces. We're experts in caring for these luxury surfaces—from quartz and granite countertops to floor-to-ceiling windows and custom cabinetry. Your waterfront investment is in expert, insured hands."
+    answer:
+      "Yes, we carry $2 million in liability insurance and are fully bonded. Our team is background-checked and trained to care for high-end properties, luxury finishes, and valuable furnishings. Wilson Lake estates often feature premium finishes, waterfront views, and sophisticated entertaining spaces. We're experts in caring for these luxury surfaces—from quartz and granite countertops to floor-to-ceiling windows and custom cabinetry. Your waterfront investment is in expert, insured hands.",
   },
   {
     question: "Do you accommodate schedules for music industry professionals?",
-    answer: "Absolutely. Florence and The Shoals are legendary for music history—from FAME Studios to Muscle Shoals Sound. We serve music industry professionals, recording artists, producers, and studio owners who keep irregular hours. We offer flexible scheduling that works around recording sessions, tours, and creative schedules. Many of our music industry clients prefer service during specific windows when studios are quiet, and we're happy to accommodate these unique needs while maintaining confidentiality."
-  }
+    answer:
+      "Absolutely. Florence and The Shoals are legendary for music history—from FAME Studios to Muscle Shoals Sound. We serve music industry professionals, recording artists, producers, and studio owners who keep irregular hours. We offer flexible scheduling that works around recording sessions, tours, and creative schedules. Many of our music industry clients prefer service during specific windows when studios are quiet, and we're happy to accommodate these unique needs while maintaining confidentiality.",
+  },
 ];
 
 // Schema for FAQPage
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 // Testimonials - imported from centralized data
-const testimonials = florenceTestimonials.map(t => ({
+const testimonials = florenceTestimonials.map((t) => ({
   initial: t.initial,
   name: t.name,
   area: t.source,
-  text: t.text
+  text: t.text,
 }));
 ---
 
@@ -87,25 +98,40 @@ const testimonials = florenceTestimonials.map(t => ({
   geoPlacename={`${city}, ${state}`}
   geoPosition={geoData.position}
 >
-  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <SchemaMarkup
+    type="local"
+    city={city}
+    state={state}
+    neighborhoods={neighborhoods}
+  />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Proudly Serving The Shoals
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Proudly Serving
+              The Shoals
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Luxury Cleaning Services in <span class="gold-gradient">Florence, Alabama</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Luxury Cleaning Services in <span class="gold-gradient"
+              >Florence, Alabama</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            The Shoals' premier white-glove cleaning service. Trusted by historic home owners, Wilson Lake estate residents, UNA faculty, and music industry professionals throughout Florence and The Shoals area.
+            The Shoals' premier white-glove cleaning service. Trusted by
+            historic home owners, Wilson Lake estate residents, UNA faculty, and
+            music industry professionals throughout Florence and The Shoals
+            area.
           </p>
           <div class="flex flex-wrap items-center lg:items-start gap-4 mb-6">
             <div class="flex items-center text-gray-700">
@@ -117,7 +143,11 @@ const testimonials = florenceTestimonials.map(t => ({
               <span>$2M Insured</span>
             </div>
             <div class="flex items-center text-gray-700">
-              <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />
+              <Icon
+                name="star"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+                fill="currentColor"
+              />
               <span>130+ Five-Star Reviews</span>
             </div>
             <div class="flex items-center text-gray-700">
@@ -125,12 +155,20 @@ const testimonials = florenceTestimonials.map(t => ({
               <span>Women-Led Business</span>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:2568261100" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:2568261100"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="phone" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">256-826-1100</span>
             </a>
-            <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+            <a
+              href="mailto:hello@thevalleycleanteam.com"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="envelope" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">Email Us</span>
             </a>
@@ -138,49 +176,21 @@ const testimonials = florenceTestimonials.map(t => ({
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Florence Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving Florence & The Shoals</p>
-          <form id="location-quote-form">
-            <div class="mb-4">
-              <label for="loc-name" class="sr-only">Your Name</label>
-              <input type="text" id="loc-name" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-email" class="sr-only">Email Address</label>
-              <input type="email" id="loc-email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-phone" class="sr-only">Phone Number</label>
-              <input type="tel" id="loc-phone" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-address" class="sr-only">Address/Neighborhood</label>
-              <input type="text" id="loc-address" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Florence Address/Neighborhood" value="Florence, Alabama" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-service" class="sr-only">Select Service Type</label>
-              <select id="loc-service" name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-                <option value="Vacation Rental Cleaning">Vacation Rental Cleaning</option>
-                <option value="Historic Home Cleaning">Historic Home Cleaning</option>
-                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-              </select>
-            </div>
-            <input type="hidden" name="city" value="Florence">
-            <input type="hidden" name="state" value="Alabama">
-            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free Florence Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours for Florence customers
-            </p>
-            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Florence Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving Florence & The Shoals
+          </p>
+          <QuoteForm
+            formId="location-quote-form"
+            city={city}
+            state={state}
+            source={`Location Page - ${city}`}
+          />
         </div>
       </div>
     </div>
@@ -222,64 +232,129 @@ const testimonials = florenceTestimonials.map(t => ({
 
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <div>
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Understanding Florence's Unique Community</h3>
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Understanding Florence's Unique Community
+          </h3>
           <p class="text-gray-700 mb-4">
-            Florence isn't just any Alabama town. It's the cultural heart of The Shoals—home to the University of North Alabama, the birthplace of the legendary Muscle Shoals Sound, and custodian of some of Alabama's finest Victorian and antebellum architecture. The Valley Clean Team understands the unique character of Florence residents—from UNA faculty balancing teaching and research, to healthcare professionals serving at North Alabama Medical Center and ECM Hospital, to music industry professionals continuing The Shoals' legendary recording tradition, to Wilson Lake vacation rental owners managing premium properties.
+            Florence isn't just any Alabama town. It's the cultural heart of The
+            Shoals—home to the University of North Alabama, the birthplace of
+            the legendary Muscle Shoals Sound, and custodian of some of
+            Alabama's finest Victorian and antebellum architecture. The Valley
+            Clean Team understands the unique character of Florence
+            residents—from UNA faculty balancing teaching and research, to
+            healthcare professionals serving at North Alabama Medical Center and
+            ECM Hospital, to music industry professionals continuing The Shoals'
+            legendary recording tradition, to Wilson Lake vacation rental owners
+            managing premium properties.
           </p>
           <p class="text-gray-700 mb-4">
-            As a veteran-owned business, we bring discipline and attention to detail to every home we serve. Our women-led team combines meticulous care with genuine respect for your property and privacy. We're not a budget service rotating different workers each visit. We're your dedicated cleaning partner, learning your home's unique needs and exceeding your expectations with consistency and professionalism.
+            As a veteran-owned business, we bring discipline and attention to
+            detail to every home we serve. Our women-led team combines
+            meticulous care with genuine respect for your property and privacy.
+            We're not a budget service rotating different workers each visit.
+            We're your dedicated cleaning partner, learning your home's unique
+            needs and exceeding your expectations with consistency and
+            professionalism.
           </p>
           <p class="text-gray-700 mb-4">
-            Whether you own a historic Victorian home on Walnut Street requiring preservation-minded cleaning, a Wilson Lake waterfront estate with luxury finishes and vacation rental demands, a Shoals Creek golf community property, or a modern family home near UNA, our team arrives fully equipped with professional-grade supplies and the expertise to handle every surface properly. We understand that whether you're teaching classes, treating patients, recording music, or managing rental properties, your home should be your sanctuary—not another item on your to-do list.
+            Whether you own a historic Victorian home on Walnut Street requiring
+            preservation-minded cleaning, a Wilson Lake waterfront estate with
+            luxury finishes and vacation rental demands, a Shoals Creek golf
+            community property, or a modern family home near UNA, our team
+            arrives fully equipped with professional-grade supplies and the
+            expertise to handle every surface properly. We understand that
+            whether you're teaching classes, treating patients, recording music,
+            or managing rental properties, your home should be your
+            sanctuary—not another item on your to-do list.
           </p>
           <p class="text-gray-700">
-            We accommodate The Shoals' diverse schedules with flexible booking including early mornings, evenings, weekends, and same-day service for vacation rental turnovers. Our team respects the confidentiality needed for home offices and creative spaces. We're honored to serve the community that gave the world its sound and continues to blend small-town Southern values with cultural sophistication.
+            We accommodate The Shoals' diverse schedules with flexible booking
+            including early mornings, evenings, weekends, and same-day service
+            for vacation rental turnovers. Our team respects the confidentiality
+            needed for home offices and creative spaces. We're honored to serve
+            the community that gave the world its sound and continues to blend
+            small-town Southern values with cultural sophistication.
           </p>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">The Valley Clean Team Difference</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            The Valley Clean Team Difference
+          </h3>
           <ul class="space-y-4">
             <li class="flex items-start">
               <Icon name="medal" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Veteran-Owned Excellence</span>
-                <p class="text-gray-600 text-sm">Military precision meets Southern hospitality and luxury standards</p>
+                <span class="font-semibold text-[#333333]"
+                  >Veteran-Owned Excellence</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Military precision meets Southern hospitality and luxury
+                  standards
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="shield-alt" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="shield-alt"
+                class="w-6 h-6 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">$2 Million Insurance Coverage</span>
-                <p class="text-gray-600 text-sm">Complete protection for historic properties and waterfront estates</p>
+                <span class="font-semibold text-[#333333]"
+                  >$2 Million Insurance Coverage</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Complete protection for historic properties and waterfront
+                  estates
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="landmark" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Historic Home Expertise</span>
-                <p class="text-gray-600 text-sm">Specialized care for Walnut Street Victorian and antebellum architecture</p>
+                <span class="font-semibold text-[#333333]"
+                  >Historic Home Expertise</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Specialized care for Walnut Street Victorian and antebellum
+                  architecture
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="water" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Vacation Rental Specialists</span>
-                <p class="text-gray-600 text-sm">Fast, reliable turnover service for Wilson Lake properties</p>
+                <span class="font-semibold text-[#333333]"
+                  >Vacation Rental Specialists</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Fast, reliable turnover service for Wilson Lake properties
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="music" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Music Industry Awareness</span>
-                <p class="text-gray-600 text-sm">Flexible scheduling and confidentiality for creative professionals</p>
+                <span class="font-semibold text-[#333333]"
+                  >Music Industry Awareness</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Flexible scheduling and confidentiality for creative
+                  professionals
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="award" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Women-Led Business</span>
-                <p class="text-gray-600 text-sm">Supporting local female entrepreneurship in The Shoals</p>
+                <span class="font-semibold text-[#333333]"
+                  >Women-Led Business</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Supporting local female entrepreneurship in The Shoals
+                </p>
               </div>
             </li>
           </ul>
@@ -296,47 +371,86 @@ const testimonials = florenceTestimonials.map(t => ({
           Florence & Shoals Areas We Serve
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Premium cleaning services throughout The Shoals region</p>
+        <p class="text-xl text-gray-600">
+          Premium cleaning services throughout The Shoals region
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Walnut Street Historic District -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Walnut Street Historic District
+            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Walnut
+            Street Historic District
           </h3>
           <p class="text-gray-700">
-            This treasured neighborhood showcases Florence's finest Victorian and antebellum architecture. These irreplaceable homes require specialized cleaning expertise—gentle care for original hardwood floors, antique fixtures, historic moldings, and period architectural details. We use pH-neutral, non-abrasive products specifically chosen to preserve historic surfaces while achieving modern cleanliness standards. Our team understands that these homes are living pieces of Alabama history deserving preservation-minded treatment. Whether your home dates to the 1820s or the Victorian era, we bring the expertise needed to maintain its beauty and integrity for future generations.
+            This treasured neighborhood showcases Florence's finest Victorian
+            and antebellum architecture. These irreplaceable homes require
+            specialized cleaning expertise—gentle care for original hardwood
+            floors, antique fixtures, historic moldings, and period
+            architectural details. We use pH-neutral, non-abrasive products
+            specifically chosen to preserve historic surfaces while achieving
+            modern cleanliness standards. Our team understands that these homes
+            are living pieces of Alabama history deserving preservation-minded
+            treatment. Whether your home dates to the 1820s or the Victorian
+            era, we bring the expertise needed to maintain its beauty and
+            integrity for future generations.
           </p>
         </div>
 
         <!-- Wilson Lake -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Wilson Lake Waterfront Properties
+            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Wilson Lake
+            Waterfront Properties
           </h3>
           <p class="text-gray-700">
-            Wilson Lake is one of Alabama's premier waterfront destinations, attracting visitors year-round for boating, fishing, and relaxation. If you own a Wilson Lake vacation rental or second home, you understand the importance of immaculate presentation and fast turnover. We specialize in vacation rental cleaning with same-day service availability, complete linen changes, thorough sanitization, and the attention to detail that earns five-star reviews. Our service ensures your waterfront property remains pristine between guests, protecting your investment and rental income. We also serve primary residence waterfront estates requiring regular luxury maintenance.
+            Wilson Lake is one of Alabama's premier waterfront destinations,
+            attracting visitors year-round for boating, fishing, and relaxation.
+            If you own a Wilson Lake vacation rental or second home, you
+            understand the importance of immaculate presentation and fast
+            turnover. We specialize in vacation rental cleaning with same-day
+            service availability, complete linen changes, thorough sanitization,
+            and the attention to detail that earns five-star reviews. Our
+            service ensures your waterfront property remains pristine between
+            guests, protecting your investment and rental income. We also serve
+            primary residence waterfront estates requiring regular luxury
+            maintenance.
           </p>
         </div>
 
         <!-- Shoals Creek Golf Community -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="golf-ball" class="w-5 h-5 text-[#FFA985] mr-2" />Shoals Creek Golf Community
+            <Icon name="golf-ball" class="w-5 h-5 text-[#FFA985] mr-2" />Shoals
+            Creek Golf Community
           </h3>
           <p class="text-gray-700">
-            This prestigious golf community features upscale homes with views of beautifully maintained fairways. Residents expect the same excellence in home cleaning that they experience on the course. We provide white-glove service for expansive floor plans, golf course windows requiring streak-free perfection, gourmet kitchens with high-end appliances, and luxury primary suites. Our service respects the privacy and tranquility that makes Shoals Creek such a desirable address.
+            This prestigious golf community features upscale homes with views of
+            beautifully maintained fairways. Residents expect the same
+            excellence in home cleaning that they experience on the course. We
+            provide white-glove service for expansive floor plans, golf course
+            windows requiring streak-free perfection, gourmet kitchens with
+            high-end appliances, and luxury primary suites. Our service respects
+            the privacy and tranquility that makes Shoals Creek such a desirable
+            address.
           </p>
         </div>
 
         <!-- Downtown Florence -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="city" class="w-5 h-5 text-[#FFA985] mr-2" />Downtown Florence
+            <Icon name="city" class="w-5 h-5 text-[#FFA985] mr-2" />Downtown
+            Florence
           </h3>
           <p class="text-gray-700">
-            Downtown Florence blends historic charm with modern vibrancy. Whether you live in a renovated historic building, a modern loft, or near the UNA campus, our service accommodates urban living with flexible scheduling, discrete service, and the thoroughness expected by professionals and families alike. We're familiar with downtown parking, building access protocols, and the unique character of Florence's walkable historic core.
+            Downtown Florence blends historic charm with modern vibrancy.
+            Whether you live in a renovated historic building, a modern loft, or
+            near the UNA campus, our service accommodates urban living with
+            flexible scheduling, discrete service, and the thoroughness expected
+            by professionals and families alike. We're familiar with downtown
+            parking, building access protocols, and the unique character of
+            Florence's walkable historic core.
           </p>
         </div>
 
@@ -346,37 +460,64 @@ const testimonials = florenceTestimonials.map(t => ({
             <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Killen
           </h3>
           <p class="text-gray-700">
-            This growing community offers family-friendly neighborhoods with modern homes and Southern charm. Killen residents appreciate reliable, thorough cleaning that makes busy family life more manageable. We provide flexible scheduling for working parents, pet-friendly cleaning with attention to fur and dander, and consistent service you can depend on week after week.
+            This growing community offers family-friendly neighborhoods with
+            modern homes and Southern charm. Killen residents appreciate
+            reliable, thorough cleaning that makes busy family life more
+            manageable. We provide flexible scheduling for working parents,
+            pet-friendly cleaning with attention to fur and dander, and
+            consistent service you can depend on week after week.
           </p>
         </div>
 
         <!-- Muscle Shoals -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="music" class="w-5 h-5 text-[#FFA985] mr-2" />Muscle Shoals
+            <Icon name="music" class="w-5 h-5 text-[#FFA985] mr-2" />Muscle
+            Shoals
           </h3>
           <p class="text-gray-700">
-            Home to FAME Studios and Muscle Shoals Sound Studio, this legendary music town attracts creative professionals and music tourism. We serve recording studios, music industry professionals, and homes throughout Muscle Shoals with discretion and professionalism. Our flexible scheduling works around recording sessions and touring schedules, ensuring your space remains pristine without disrupting creative work.
+            Home to FAME Studios and Muscle Shoals Sound Studio, this legendary
+            music town attracts creative professionals and music tourism. We
+            serve recording studios, music industry professionals, and homes
+            throughout Muscle Shoals with discretion and professionalism. Our
+            flexible scheduling works around recording sessions and touring
+            schedules, ensuring your space remains pristine without disrupting
+            creative work.
           </p>
         </div>
 
         <!-- Sheffield & Tuscumbia -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="map-marked-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Sheffield & Tuscumbia
+            <Icon
+              name="map-marked-alt"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Sheffield & Tuscumbia
           </h3>
           <p class="text-gray-700">
-            Completing The Shoals' historic Quad Cities, Sheffield and Tuscumbia offer diverse neighborhoods from historic homes to modern developments. We serve both communities with the same premium service Florence residents enjoy. Whether you're near Spring Park, historic downtown areas, or newer subdivisions, we bring professional white-glove cleaning throughout The Shoals region. Call 256-826-1100 to confirm service for your specific location.
+            Completing The Shoals' historic Quad Cities, Sheffield and Tuscumbia
+            offer diverse neighborhoods from historic homes to modern
+            developments. We serve both communities with the same premium
+            service Florence residents enjoy. Whether you're near Spring Park,
+            historic downtown areas, or newer subdivisions, we bring
+            professional white-glove cleaning throughout The Shoals region. Call
+            256-826-1100 to confirm service for your specific location.
           </p>
         </div>
 
         <!-- Additional Areas -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="map" class="w-5 h-5 text-[#FFA985] mr-2" />Additional Shoals Areas
+            <Icon name="map" class="w-5 h-5 text-[#FFA985] mr-2" />Additional
+            Shoals Areas
           </h3>
           <p class="text-gray-700">
-            Our service radius covers the entire Shoals region including areas near UNA, North Alabama Medical Center, ECM Hospital, Cane Creek, Cox Creek, and surrounding Lauderdale and Colbert County communities. We're committed to serving The Shoals comprehensively. Contact us to confirm availability for your neighborhood—we're continuously expanding to serve more Shoals families and properties.
+            Our service radius covers the entire Shoals region including areas
+            near UNA, North Alabama Medical Center, ECM Hospital, Cane Creek,
+            Cox Creek, and surrounding Lauderdale and Colbert County
+            communities. We're committed to serving The Shoals comprehensively.
+            Contact us to confirm availability for your neighborhood—we're
+            continuously expanding to serve more Shoals families and properties.
           </p>
         </div>
       </div>
@@ -391,7 +532,9 @@ const testimonials = florenceTestimonials.map(t => ({
           Our {city} Service Area
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Proudly serving {city} and surrounding {region} communities</p>
+        <p class="text-xl text-gray-600">
+          Proudly serving {city} and surrounding {region} communities
+        </p>
       </div>
 
       <LocationGoogleMap
@@ -408,8 +551,12 @@ const testimonials = florenceTestimonials.map(t => ({
         <p class="text-gray-600 mb-4">
           Don't see your area on the map? We may still serve your location.
         </p>
-        <a href="tel:2568261100" class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center">
-          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm: 256-826-1100
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm:
+          256-826-1100
         </a>
       </div>
     </div>
@@ -423,171 +570,319 @@ const testimonials = florenceTestimonials.map(t => ({
           Complete Cleaning Services for Florence & The Shoals
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">From historic home care to vacation rental turnover</p>
+        <p class="text-xl text-gray-600">
+          From historic home care to vacation rental turnover
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 mb-12">
         <!-- Deep Cleaning -->
-        <a href="/locations/florence/deep-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/deep-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="sparkles" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            The ultimate top-to-bottom estate clean. Perfect for historic Walnut Street homes preparing for events, Wilson Lake vacation rentals between seasons, or Shoals Creek properties needing comprehensive refreshing. Includes baseboards, ceiling fans, inside appliances, and behind-furniture cleaning.
+            The ultimate top-to-bottom estate clean. Perfect for historic Walnut
+            Street homes preparing for events, Wilson Lake vacation rentals
+            between seasons, or Shoals Creek properties needing comprehensive
+            refreshing. Includes baseboards, ceiling fans, inside appliances,
+            and behind-furniture cleaning.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Recurring Maid Service -->
-        <a href="/locations/florence/recurring-maid-service" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/recurring-maid-service"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Recurring Maid Service</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Recurring Maid Service
+          </h3>
           <p class="text-gray-700 mb-4">
-            Consistent weekly or bi-weekly service keeps your Florence home effortlessly maintained. Perfect for busy UNA faculty, healthcare professionals, and families. Enjoy up to 20% recurring service discounts. Your home stays pristine without lifting a finger.
+            Consistent weekly or bi-weekly service keeps your Florence home
+            effortlessly maintained. Perfect for busy UNA faculty, healthcare
+            professionals, and families. Enjoy up to 20% recurring service
+            discounts. Your home stays pristine without lifting a finger.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Vacation Rental Cleaning -->
-        <a href="/locations/florence/airbnb-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/airbnb-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="key" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Vacation Rental Turnover</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Vacation Rental Turnover
+          </h3>
           <p class="text-gray-700 mb-4">
-            Specialized service for Wilson Lake vacation rentals and Shoals Airbnb properties. Same-day service available. Complete linen changes, thorough sanitization, restocking, and the five-star presentation that keeps your booking calendar full and reviews glowing.
+            Specialized service for Wilson Lake vacation rentals and Shoals
+            Airbnb properties. Same-day service available. Complete linen
+            changes, thorough sanitization, restocking, and the five-star
+            presentation that keeps your booking calendar full and reviews
+            glowing.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Move Out Cleaning -->
-        <a href="/locations/florence/move-out-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/move-out-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="truck-moving" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Move In/Out Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Essential for UNA students and faculty relocations. Secure your deposit or start fresh in your new Shoals home. Deep cleaning of kitchens, bathrooms, and all living spaces to ensure a spotless transition.
+            Essential for UNA students and faculty relocations. Secure your
+            deposit or start fresh in your new Shoals home. Deep cleaning of
+            kitchens, bathrooms, and all living spaces to ensure a spotless
+            transition.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Commercial Cleaning -->
-        <a href="/locations/florence/commercial-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/commercial-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="building" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Commercial Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Commercial Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Professional office cleaning for Shoals businesses throughout Florence, Muscle Shoals, Sheffield & Tuscumbia. After-hours service available. Medical offices, retail, and professional spaces.
+            Professional office cleaning for Shoals businesses throughout
+            Florence, Muscle Shoals, Sheffield & Tuscumbia. After-hours service
+            available. Medical offices, retail, and professional spaces.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Event Cleaning -->
-        <a href="/locations/florence/event-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/event-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="glass-cheers" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Event Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            Before and after party cleanup for Wilson Lake weddings, corporate events, and Shoals celebrations. Same-day service available for last-minute needs.
+            Before and after party cleanup for Wilson Lake weddings, corporate
+            events, and Shoals celebrations. Same-day service available for
+            last-minute needs.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Green Cleaning -->
-        <a href="/locations/florence/green-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/green-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="leaf" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Green Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            Eco-friendly cleaning with plant-based, non-toxic products. Safe for children, pets, and allergy sufferers. Same thorough results without harsh chemicals.
+            Eco-friendly cleaning with plant-based, non-toxic products. Safe for
+            children, pets, and allergy sufferers. Same thorough results without
+            harsh chemicals.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Post-Construction -->
-        <a href="/locations/florence/post-construction-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/post-construction-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="hammer" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Post-Construction
+          </h3>
           <p class="text-gray-700 mb-4">
-            Completed a renovation? We handle construction dust, debris, and detailed cleaning before you enjoy your beautiful new Florence space.
+            Completed a renovation? We handle construction dust, debris, and
+            detailed cleaning before you enjoy your beautiful new Florence
+            space.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Office Cleaning -->
-        <a href="/locations/florence/office-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/office-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="briefcase" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Office Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Office Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Professional office cleaning for executive suites and small businesses throughout The Shoals. Confidentiality guaranteed.
+            Professional office cleaning for executive suites and small
+            businesses throughout The Shoals. Confidentiality guaranteed.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Weekly Cleaning -->
-        <a href="/locations/florence/weekly-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/weekly-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="calendar-week" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Weekly Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Weekly Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Consistent weekly service for busy Florence families. Same team every week, save 20% with recurring service.
+            Consistent weekly service for busy Florence families. Same team
+            every week, save 20% with recurring service.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Senior Cleaning -->
-        <a href="/locations/florence/senior-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/senior-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="heart" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Senior Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Senior Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Compassionate cleaning services for Florence seniors. Flexible scheduling and reliable service for elderly residents.
+            Compassionate cleaning services for Florence seniors. Flexible
+            scheduling and reliable service for elderly residents.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Medical Office Cleaning -->
-        <a href="/locations/florence/medical-office-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/medical-office-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="stethoscope" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Medical Office Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Medical Office Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Healthcare-grade cleaning for Florence clinics, medical practices, and healthcare facilities. OSHA-compliant protocols.
+            Healthcare-grade cleaning for Florence clinics, medical practices,
+            and healthcare facilities. OSHA-compliant protocols.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Dental Office Cleaning -->
-        <a href="/locations/florence/dental-office-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/florence/dental-office-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="tooth" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Dental Office Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Dental Office Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Specialized dental practice cleaning throughout The Shoals. Operatory sanitation, waiting rooms, clinical-grade disinfection.
+            Specialized dental practice cleaning throughout The Shoals.
+            Operatory sanitation, waiting rooms, clinical-grade disinfection.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
       </div>
 
       <div class="text-center">
-        <p class="text-gray-600 mb-4 text-lg">Most popular in Florence: Vacation Rental Turnover for Wilson Lake, Historic Home Cleaning for Walnut Street, Regular Cleaning for UNA community</p>
-        <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg">
-          <Icon name="phone" class="w-5 h-5 mr-2" />Book Florence Service: 256-826-1100
+        <p class="text-gray-600 mb-4 text-lg">
+          Most popular in Florence: Vacation Rental Turnover for Wilson Lake,
+          Historic Home Cleaning for Walnut Street, Regular Cleaning for UNA
+          community
+        </p>
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Book Florence Service:
+          256-826-1100
         </a>
       </div>
     </div>
@@ -606,37 +901,63 @@ const testimonials = florenceTestimonials.map(t => ({
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Historic Victorian & Antebellum Homes
+            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Historic
+            Victorian & Antebellum Homes
           </h3>
           <p class="text-gray-700">
-            The crown jewels of Florence's Walnut Street and downtown historic districts. These irreplaceable properties require preservation-minded cleaning expertise. We use gentle, pH-neutral products safe for original hardwood floors, antique fixtures, historic plaster walls, and period architectural details. Our team understands these homes are living pieces of Alabama history deserving specialized care that protects their beauty and integrity.
+            The crown jewels of Florence's Walnut Street and downtown historic
+            districts. These irreplaceable properties require
+            preservation-minded cleaning expertise. We use gentle, pH-neutral
+            products safe for original hardwood floors, antique fixtures,
+            historic plaster walls, and period architectural details. Our team
+            understands these homes are living pieces of Alabama history
+            deserving specialized care that protects their beauty and integrity.
           </p>
         </div>
 
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Waterfront & Vacation Properties
+            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Waterfront
+            & Vacation Properties
           </h3>
           <p class="text-gray-700">
-            Wilson Lake estates and vacation rentals demand fast, reliable service with attention to detail. Whether you're managing a vacation rental requiring quick turnovers or own a waterfront primary residence, we provide the white-glove cleaning that protects your lakefront investment. Floor-to-ceiling windows showcase views—we ensure they're spotless. Premium finishes require expert care—we deliver it consistently.
+            Wilson Lake estates and vacation rentals demand fast, reliable
+            service with attention to detail. Whether you're managing a vacation
+            rental requiring quick turnovers or own a waterfront primary
+            residence, we provide the white-glove cleaning that protects your
+            lakefront investment. Floor-to-ceiling windows showcase views—we
+            ensure they're spotless. Premium finishes require expert care—we
+            deliver it consistently.
           </p>
         </div>
 
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="golf-ball" class="w-5 h-5 text-[#FFA985] mr-2" />Golf Community Estates
+            <Icon name="golf-ball" class="w-5 h-5 text-[#FFA985] mr-2" />Golf
+            Community Estates
           </h3>
           <p class="text-gray-700">
-            Shoals Creek and similar golf communities feature luxury homes with expansive floor plans, gourmet kitchens, primary suites, and views deserving streak-free windows. We're experts in caring for contemporary upscale finishes—quartz and granite countertops, stainless appliances, engineered hardwood, luxury tile. Your investment in premium living deserves premium cleaning service.
+            Shoals Creek and similar golf communities feature luxury homes with
+            expansive floor plans, gourmet kitchens, primary suites, and views
+            deserving streak-free windows. We're experts in caring for
+            contemporary upscale finishes—quartz and granite countertops,
+            stainless appliances, engineered hardwood, luxury tile. Your
+            investment in premium living deserves premium cleaning service.
           </p>
         </div>
 
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Modern Family Homes
+            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Modern
+            Family Homes
           </h3>
           <p class="text-gray-700">
-            Whether near UNA, in Killen, or throughout Florence neighborhoods, modern family homes benefit from consistent, reliable cleaning that makes busy life manageable. We accommodate working parents' schedules, provide pet-friendly cleaning that addresses fur and dander, and deliver the dependability Florence families appreciate. Enjoy more time with family, less time cleaning.
+            Whether near UNA, in Killen, or throughout Florence neighborhoods,
+            modern family homes benefit from consistent, reliable cleaning that
+            makes busy life manageable. We accommodate working parents'
+            schedules, provide pet-friendly cleaning that addresses fur and
+            dander, and deliver the dependability Florence families appreciate.
+            Enjoy more time with family, less time cleaning.
           </p>
         </div>
       </div>
@@ -652,7 +973,14 @@ const testimonials = florenceTestimonials.map(t => ({
         </h2>
         <div class="section-divider"></div>
         <div class="flex items-center justify-center gap-2 mt-4">
-          <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png" alt="Google" class="h-6" width="92" height="30" loading="lazy" />
+          <img
+            src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png"
+            alt="Google"
+            class="h-6"
+            width="92"
+            height="30"
+            loading="lazy"
+          />
           <span class="text-xl text-gray-600">Reviews</span>
           <span class="text-[#FFA985] font-bold">4.9</span>
           <div class="text-[#FFA985] text-sm">
@@ -667,32 +995,42 @@ const testimonials = florenceTestimonials.map(t => ({
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial) => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
-                {testimonial.initial}
-              </div>
-              <div class="ml-4">
-                <p class="font-bold">{testimonial.name}</p>
-                <p class="text-sm text-gray-600">{testimonial.area}</p>
-                <div class="text-[#FFA985]">
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
+        {
+          testimonials.map((testimonial) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                  {testimonial.initial}
+                </div>
+                <div class="ml-4">
+                  <p class="font-bold">{testimonial.name}</p>
+                  <p class="text-sm text-gray-600">{testimonial.area}</p>
+                  <div class="text-[#FFA985]">
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                  </div>
                 </div>
               </div>
+              <p class="text-gray-700">"{testimonial.text}"</p>
             </div>
-            <p class="text-gray-700">"{testimonial.text}"</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <div class="text-center mt-8">
-        <a href="https://www.google.com/maps/place/The+Valley+Clean+Team" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
-          <Icon name="google" class="w-5 h-5 mr-2" />Read All Shoals Reviews <Icon name="external-link-alt" class="w-4 h-4 ml-2" />
+        <a
+          href="https://www.google.com/maps/place/The+Valley+Clean+Team"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center text-[#FFA985] font-semibold hover:underline"
+        >
+          <Icon name="google" class="w-5 h-5 mr-2" />Read All Shoals Reviews <Icon
+            name="external-link-alt"
+            class="w-4 h-4 ml-2"
+          />
         </a>
       </div>
     </div>
@@ -706,39 +1044,63 @@ const testimonials = florenceTestimonials.map(t => ({
           Florence Cleaning Service FAQs
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Common questions from Florence and Shoals residents</p>
+        <p class="text-xl text-gray-600">
+          Common questions from Florence and Shoals residents
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section id="contact" class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+  <section
+    id="contact"
+    class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100"
+  >
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
         Book Your Florence Consultation Today
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Join hundreds of satisfied Florence and Shoals families who trust The Valley Clean Team for premium white-glove cleaning services.
+        Join hundreds of satisfied Florence and Shoals families who trust The
+        Valley Clean Team for premium white-glove cleaning services.
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
         </a>
-        <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+        <a
+          href="mailto:hello@thevalleycleanteam.com"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
           <Icon name="envelope" class="w-5 h-5 mr-2" />Email for Quote
         </a>
       </div>
@@ -746,80 +1108,40 @@ const testimonials = florenceTestimonials.map(t => ({
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <p class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </p>
-            <p class="text-gray-600">Florence, Killen, Muscle Shoals, Sheffield, Tuscumbia, and all of The Shoals region</p>
+            <p class="text-gray-600">
+              Florence, Killen, Muscle Shoals, Sheffield, Tuscumbia, and all of
+              The Shoals region
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </p>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </p>
-            <p class="text-gray-600">256-826-1100<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              256-826-1100<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
       <div class="mt-8">
         <p class="text-sm text-gray-500">
-          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led | $2M Insured | Background-Checked Team | Serving The Shoals Since 2021
+          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led
+          | $2M Insured | Background-Checked Team | Serving The Shoals Since 2021
         </p>
       </div>
     </div>
   </section>
-
-  
-  <script>
-    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('location-submit-btn');
-      const messageDiv = document.getElementById('location-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        state: form.state?.value || '',
-        source: 'Location Page - Florence',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll be in touch within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Get My Free Florence Quote';
-    });
-  </script>
 </BaseLayout>

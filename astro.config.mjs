@@ -2,10 +2,12 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
+import node from '@astrojs/node';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
   trailingSlash: 'never',
+
   integrations: [
     tailwind(),
     partytown({
@@ -54,30 +56,30 @@ export default defineConfig({
 
         // Service + location combo pages (high commercial value)
         if (url.includes('weekly-cleaning') ||
-            url.includes('recurring-maid') ||
-            url.includes('same-day-cleaning') ||
-            url.includes('move-out-cleaning') ||
-            url.includes('deep-cleaning')) {
+          url.includes('recurring-maid') ||
+          url.includes('same-day-cleaning') ||
+          url.includes('move-out-cleaning') ||
+          url.includes('deep-cleaning')) {
           return { ...item, priority: 0.8, changefreq: 'weekly' };
         }
 
         // Neighborhood pages
         if (url.includes('hampton-cove') ||
-            url.includes('jones-valley') ||
-            url.includes('belle-meade') ||
-            url.includes('green-hills') ||
-            url.includes('crestline') ||
-            url.includes('limestone-county') ||
-            url.includes('tanner-elkmont')) {
+          url.includes('jones-valley') ||
+          url.includes('belle-meade') ||
+          url.includes('green-hills') ||
+          url.includes('crestline') ||
+          url.includes('limestone-county') ||
+          url.includes('tanner-elkmont')) {
           return { ...item, priority: 0.75, changefreq: 'weekly' };
         }
 
         // Specialty service pages
         if (url.includes('airbnb-cleaning') ||
-            url.includes('office-cleaning') ||
-            url.includes('post-construction') ||
-            url.includes('senior-cleaning') ||
-            url.includes('luxury-cleaning')) {
+          url.includes('office-cleaning') ||
+          url.includes('post-construction') ||
+          url.includes('senior-cleaning') ||
+          url.includes('luxury-cleaning')) {
           return { ...item, priority: 0.7, changefreq: 'weekly' };
         }
 
@@ -96,8 +98,13 @@ export default defineConfig({
       }
     })
   ],
+
   build: {
     format: 'directory',
     inlineStylesheets: 'always'
-  }
+  },
+
+  adapter: node({
+    mode: 'standalone'
+  })
 });

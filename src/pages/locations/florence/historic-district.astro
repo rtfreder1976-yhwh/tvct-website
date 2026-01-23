@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 
 import Icon from '../../../components/Icon.astro';
+import QuoteForm from '../../../components/QuoteForm.astro';
 
 const faqs = [
   {
@@ -157,47 +158,13 @@ const serviceSchema = {
           </div>
           <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
           <p class="text-gray-600 mb-6 text-center">Specialized care for historic Walnut Street homes</p>
-          <form id="historic-district-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Regular Historic Home Cleaning">Regular Historic Home Cleaning</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Post-Renovation">Post-Renovation Cleaning</option>
-                <option value="One-Time Service">One-Time Service</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
-                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
-                <option value="2,500 - 3,000 sq ft">2,500 - 3,000 sq ft</option>
-                <option value="3,000 - 4,000 sq ft">3,000 - 4,000 sq ft</option>
-                <option value="Over 4,000 sq ft">Over 4,000 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Tell us about your historic home (era, special features, concerns)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="historic-district-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="award" class="w-5 h-5 mr-1" /> Preservation-safe cleaning specialists
-            </p>
-            <div id="historic-district-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <QuoteForm 
+            formId="historic-district-quote-form"
+            city="Historic District"
+            state="Alabama"
+            serviceName="Deep Cleaning"
+            source="Historic District Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -517,56 +484,5 @@ const serviceSchema = {
 
   
 
-  <script>
-    document.getElementById('historic-district-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('historic-district-submit-btn');
-      const messageDiv = document.getElementById('historic-district-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Walnut Street Historic District - Florence',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Historic District Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
+  
 </BaseLayout>

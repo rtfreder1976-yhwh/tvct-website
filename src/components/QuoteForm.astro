@@ -1,5 +1,5 @@
 ---
-import Icon from './Icon.astro';
+import Icon from "./Icon.astro";
 
 interface Props {
   formId?: string;
@@ -7,139 +7,296 @@ interface Props {
   state?: string;
   serviceName?: string;
   subtitle?: string;
+  source?: string;
+  urgentMode?: boolean;
 }
 
 const {
-  formId = 'quote-form',
-  city = '',
-  state = 'AL',
-  serviceName = '',
-  subtitle = "Fill out in 60 seconds"
+  formId = "quote-form",
+  city = "",
+  state = "AL",
+  serviceName = "",
+  subtitle = "Fill out in 60 seconds",
+  source = "",
+  urgentMode = false,
 } = Astro.props;
 
-const locationValue = city ? `${city}, ${state}` : '';
-const sourceValue = serviceName ? `${serviceName} - ${city}` : city ? `${city} Landing Page` : 'Website';
-const buttonText = city ? `Get My Free ${city} Quote` : 'Get My Free Quote';
-const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, '-');
+const locationValue = city ? (state ? `${city}, ${state}` : city) : "";
+const sourceValue =
+  source ||
+  (serviceName
+    ? `${serviceName} - ${city}`
+    : city
+      ? `${city} Landing Page`
+      : "Website Form");
+const buttonText = "Get My Free Quote";
+const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
 ---
 
-<form id={formId} class="quote-form">
+<form id={formId} class="quote-form-component bg-white">
+  {
+    urgentMode && (
+      <div class="mb-6 bg-red-50 border border-red-200 p-3 rounded-lg flex items-center animate-pulse">
+        <Icon name="clock" class="w-5 h-5 text-red-600 mr-2" />
+        <span class="text-red-700 font-bold text-sm uppercase tracking-wider">
+          Priority - Same Day Response
+        </span>
+      </div>
+    )
+  }
   <div class="mb-4">
-    <label for={`${uniqueId}-phone`} class="block text-gray-700 mb-2">Phone <span class="text-[#FFA985]">*</span></label>
-    <input type="tel" id={`${uniqueId}-phone`} name="phone" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="(555) 123-4567" required aria-required="true" />
+    <label
+      for={`${uniqueId}-phone`}
+      class="block text-gray-700 mb-2 font-semibold"
+      >Phone <span class="text-[#FFA985]">*</span></label
+    >
+    <input
+      type="tel"
+      id={`${uniqueId}-phone`}
+      name="phone"
+      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+      placeholder="256-826-1100"
+      required
+      aria-required="true"
+    />
   </div>
+
   <div class="mb-4">
-    <label for={`${uniqueId}-service`} class="block text-gray-700 mb-2">Service Type <span class="text-[#FFA985]">*</span></label>
-    <select id={`${uniqueId}-service`} name="service" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required aria-required="true">
+    <label
+      for={`${uniqueId}-service`}
+      class="block text-gray-700 mb-2 font-semibold"
+      >Service Type <span class="text-[#FFA985]">*</span></label
+    >
+    <select
+      id={`${uniqueId}-service`}
+      name="service"
+      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+      required
+      aria-required="true"
+    >
       <option value="">Select a Service</option>
-      <option value="Deep Cleaning">Deep Cleaning</option>
-      <option value="Regular Cleaning">Regular Cleaning</option>
-      <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-      <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-      <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
-      <option value="Event Cleaning">Event Cleaning</option>
-      <option value="Green Cleaning">Green Cleaning</option>
-      <option value="Airbnb Cleaning">Airbnb Cleaning</option>
+      <option value="Deep Cleaning" selected={serviceName.includes("Deep")}
+        >Deep Cleaning</option
+      >
+      <option
+        value="Regular Cleaning"
+        selected={serviceName.includes("Regular") ||
+          serviceName.includes("Recurring")}>Regular Cleaning</option
+      >
+      <option
+        value="Move In/Out Cleaning"
+        selected={serviceName.includes("Move")}>Move In/Out Cleaning</option
+      >
+      <option
+        value="Post-Construction Cleaning"
+        selected={serviceName.includes("Construction")}
+        >Post-Construction Cleaning</option
+      >
+      <option
+        value="Commercial/Office Cleaning"
+        selected={serviceName.includes("Commercial") ||
+          serviceName.includes("Office")}>Commercial/Office Cleaning</option
+      >
+      <option value="Event Cleaning" selected={serviceName.includes("Event")}
+        >Event Cleaning</option
+      >
+      <option value="Green Cleaning" selected={serviceName.includes("Green")}
+        >Green Cleaning</option
+      >
+      <option value="Airbnb Cleaning" selected={serviceName.includes("Airbnb")}
+        >Airbnb Cleaning</option
+      >
     </select>
   </div>
+
   <div class="mb-4">
-    <label for={`${uniqueId}-sqft`} class="block text-gray-700 mb-2">Square Footage <span class="text-[#FFA985]">*</span></label>
-    <select id={`${uniqueId}-sqft`} name="square_footage" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required aria-required="true">
-      <option value="">Select Home Size</option>
-      <option value="Under 1,000 sq ft">Under 1,000 sq ft</option>
-      <option value="1,000 - 1,500 sq ft">1,000 - 1,500 sq ft</option>
-      <option value="1,500 - 2,000 sq ft">1,500 - 2,000 sq ft</option>
-      <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
-      <option value="2,500 - 3,000 sq ft">2,500 - 3,000 sq ft</option>
-      <option value="3,000 - 4,000 sq ft">3,000 - 4,000 sq ft</option>
-      <option value="4,000 - 5,000 sq ft">4,000 - 5,000 sq ft</option>
-      <option value="Over 5,000 sq ft">Over 5,000 sq ft</option>
-    </select>
+    <label
+      for={`${uniqueId}-sqft`}
+      class="block text-gray-700 mb-2 font-semibold"
+      >Estimated Square Footage <span class="text-[#FFA985]">*</span></label
+    >
+    <input
+      type="number"
+      id={`${uniqueId}-sqft`}
+      name="square_footage"
+      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+      placeholder="e.g. 2500"
+      required
+      aria-required="true"
+    />
   </div>
+
   <div class="mb-4">
-    <label for={`${uniqueId}-name`} class="block text-gray-700 mb-2">Name <span class="text-[#FFA985]">*</span></label>
-    <input type="text" id={`${uniqueId}-name`} name="name" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name" required aria-required="true" />
+    <label
+      for={`${uniqueId}-name`}
+      class="block text-gray-700 mb-2 font-semibold"
+      >Name <span class="text-[#FFA985]">*</span></label
+    >
+    <input
+      type="text"
+      id={`${uniqueId}-name`}
+      name="name"
+      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+      placeholder="Your Name"
+      required
+      aria-required="true"
+    />
   </div>
+
   <div class="mb-4">
-    <label for={`${uniqueId}-email`} class="block text-gray-700 mb-2">Email <span class="text-gray-400 text-sm">(optional)</span></label>
-    <input type="email" id={`${uniqueId}-email`} name="email" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="your@email.com" />
+    <label
+      for={`${uniqueId}-email`}
+      class="block text-gray-700 mb-2 font-semibold"
+      >Email <span class="text-gray-400 text-sm font-normal">(optional)</span
+      ></label
+    >
+    <input
+      type="email"
+      id={`${uniqueId}-email`}
+      name="email"
+      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+      placeholder="your@email.com"
+    />
   </div>
+
   <div class="mb-4">
-    <label for={`${uniqueId}-date`} class="block text-gray-700 mb-2">Preferred Date <span class="text-gray-400 text-sm">(optional)</span></label>
-    <input type="date" id={`${uniqueId}-date`} name="preferred_date" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" />
+    <label
+      for={`${uniqueId}-date`}
+      class="block text-gray-700 mb-2 font-semibold"
+      >Preferred Date <span class="text-gray-400 text-sm font-normal"
+        >(optional)</span
+      ></label
+    >
+    <input
+      type="date"
+      id={`${uniqueId}-date`}
+      name="preferred_date"
+      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+    />
   </div>
+
   <div class="mb-4">
-    <label for={`${uniqueId}-message`} class="block text-gray-700 mb-2">Additional Details <span class="text-gray-400 text-sm">(optional)</span></label>
-    <textarea id={`${uniqueId}-message`} name="message" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" rows="2" placeholder="Tell us about your home..."></textarea>
+    <label
+      for={`${uniqueId}-message`}
+      class="block text-gray-700 mb-2 font-semibold"
+      >Additional Details <span class="text-gray-400 text-sm font-normal"
+        >(optional)</span
+      ></label
+    >
+    <textarea
+      id={`${uniqueId}-message`}
+      name="message"
+      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+      rows="2"
+      placeholder="Tell us about your home..."></textarea>
   </div>
-  <input type="hidden" name="location" value={locationValue}>
-  <input type="hidden" name="source" value={sourceValue}>
-  <button type="submit" class="quote-submit-btn btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
+
+  <input type="hidden" name="location" value={locationValue} />
+  <input type="hidden" name="source" value={sourceValue} />
+  <input type="hidden" name="is_urgent" value={urgentMode ? "true" : "false"} />
+
+  <button
+    type="submit"
+    class="quote-submit-btn btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+  >
     {buttonText}
   </button>
-  <p class="text-center text-xs text-gray-500 mt-3">
-    <Icon name="lock" class="w-3 h-3 mr-1 inline" /> Your information is secure. We'll call within 2 hours.
+
+  <p
+    class="text-center text-xs text-gray-500 mt-3 flex items-center justify-center"
+  >
+    <Icon name="lock" class="w-3 h-3 mr-1" /> Your information is secure. We'll call
+    within 2 hours.
   </p>
-  <div class="quote-form-message hidden text-center p-4 rounded-lg mt-3"></div>
+
+  <div
+    class="quote-form-message hidden text-center p-4 rounded-lg mt-3 font-semibold"
+  >
+  </div>
 </form>
 
 <script>
-  document.querySelectorAll('.quote-form').forEach(form => {
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = form.querySelector('.quote-submit-btn');
-      const messageDiv = form.querySelector('.quote-form-message');
-      const originalText = submitBtn?.textContent || 'Get My Free Quote';
+  function setupQuoteForms() {
+    const forms = document.querySelectorAll(".quote-form-component");
 
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        square_footage: form.square_footage?.value || '',
-        location: form.location?.value || '',
-        preferred_date: form.preferred_date?.value || '',
-        message: form.message?.value || '',
-        source: form.source?.value || 'Website',
-        page_url: window.location.href
-      };
+    forms.forEach((form) => {
+      // Check if already initialized to avoid double listeners
+      if ((form as any)._initialized) return;
+      (form as any)._initialized = true;
 
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const f = e.target as HTMLFormElement;
+        const submitBtn = f.querySelector(
+          ".quote-submit-btn",
+        ) as HTMLButtonElement;
+        const messageDiv = f.querySelector(
+          ".quote-form-message",
+        ) as HTMLElement;
+        const originalBtnHtml = submitBtn.innerHTML;
 
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
+        const formDataObj = new FormData(f);
+        const data = {
+          name: formDataObj.get("name"),
+          email: formDataObj.get("email"),
+          phone: formDataObj.get("phone"),
+          service: formDataObj.get("service"),
+          square_footage: formDataObj.get("square_footage"),
+          location: formDataObj.get("location") || "",
+          preferred_date: formDataObj.get("preferred_date") || "",
+          message: formDataObj.get("message") || "",
+          is_urgent: formDataObj.get("is_urgent"),
+          source: formDataObj.get("source") || "Website Form",
+          page_url: window.location.href,
+        };
 
-        const result = await response.json();
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<svg class="inline w-4 h-4 mr-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Sending...';
+        }
 
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'quote-form-message text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '✓ Thank you! We\'ll be in touch within 2 hours.';
-            messageDiv.classList.remove('hidden');
+        try {
+          const response = await fetch("/api/submit-form", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            if (messageDiv) {
+              messageDiv.className =
+                "quote-form-message text-center p-4 rounded-lg bg-green-100 text-green-800 mt-3 block";
+              messageDiv.innerHTML =
+                "✓ Thank you! We'll be in touch within 2 hours.";
+              messageDiv.classList.remove("hidden");
+            }
+            f.reset();
+          } else {
+            throw new Error(result.error || "Submission failed");
           }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
+        } catch (error) {
+          if (messageDiv) {
+            messageDiv.className =
+              "quote-form-message text-center p-4 rounded-lg bg-red-100 text-red-800 mt-3 block";
+            messageDiv.innerHTML =
+              "⚠ Something went wrong. Please call us at 256-826-1100.";
+            messageDiv.classList.remove("hidden");
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHtml;
+          }
         }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'quote-form-message text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '⚠ Something went wrong. Please call us directly.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-      }
+      });
     });
-  });
+  }
+
+  // Initialize on load
+  setupQuoteForms();
+  // Support Astro view transitions
+  document.addEventListener("astro:page-load", setupQuoteForms);
 </script>

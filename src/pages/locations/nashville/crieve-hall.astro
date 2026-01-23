@@ -1,84 +1,95 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Icon from '../../../components/Icon.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const title = "House Cleaning in Crieve Hall, TN | Valley Clean Team";
-const description = "Professional house cleaning in Crieve Hall, Nashville. Serving 37220. Veteran-owned, insured. Family-friendly cleaning for South Nashville homes. Free quotes!";
+const description =
+  "Professional house cleaning in Crieve Hall, Nashville. Serving 37220. Veteran-owned, insured. Family-friendly cleaning for South Nashville homes. Free quotes!";
 
 const faqs = [
   {
     question: "Do you provide house cleaning in Crieve Hall?",
-    answer: "Yes! We provide comprehensive house cleaning services throughout Crieve Hall and the 37220 zip code, including homes near Radnor Lake, Granny White Pike, and the Crieve Hall Elementary area."
+    answer:
+      "Yes! We provide comprehensive house cleaning services throughout Crieve Hall and the 37220 zip code, including homes near Radnor Lake, Granny White Pike, and the Crieve Hall Elementary area.",
   },
   {
     question: "What cleaning services do you offer in Crieve Hall?",
-    answer: "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, and special occasion cleaning for Crieve Hall homes."
+    answer:
+      "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, and special occasion cleaning for Crieve Hall homes.",
   },
   {
     question: "How much does house cleaning cost in Crieve Hall?",
-    answer: "Crieve Hall home cleaning typically starts at $150-$250 for standard cleaning, depending on home size and condition. We provide free, detailed quotes with transparent pricing."
+    answer:
+      "Crieve Hall home cleaning typically starts at $150-$250 for standard cleaning, depending on home size and condition. We provide free, detailed quotes with transparent pricing.",
   },
   {
     question: "Are your cleaners background-checked and insured?",
-    answer: "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your peace of mind."
+    answer:
+      "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your peace of mind.",
   },
   {
     question: "Do you clean homes with pets?",
-    answer: "Yes! We love homes with pets. Our teams are experienced with pet-friendly cleaning and pay special attention to pet hair, dander, and high-traffic pet areas."
+    answer:
+      "Yes! We love homes with pets. Our teams are experienced with pet-friendly cleaning and pay special attention to pet hair, dander, and high-traffic pet areas.",
   },
   {
     question: "Can I get the same cleaning team each visit?",
-    answer: "Yes! We assign dedicated teams to Crieve Hall clients. You'll see the same familiar faces who learn your home's specific needs and preferences."
+    answer:
+      "Yes! We assign dedicated teams to Crieve Hall clients. You'll see the same familiar faces who learn your home's specific needs and preferences.",
   },
   {
     question: "Do you work around family schedules?",
-    answer: "Absolutely. We understand busy family life in Crieve Hall. We can clean while you're at work, during school hours, or whenever works best for your family."
+    answer:
+      "Absolutely. We understand busy family life in Crieve Hall. We can clean while you're at work, during school hours, or whenever works best for your family.",
   },
   {
     question: "How do I book cleaning for my Crieve Hall home?",
-    answer: "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and can often accommodate same-week appointments."
-  }
+    answer:
+      "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and can often accommodate same-week appointments.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "House Cleaning Service",
-  "provider": {
+  serviceType: "House Cleaning Service",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "+1-615-510-1427",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "+1-615-510-1427",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Nashville",
-      "addressRegion": "TN",
-      "postalCode": "37220",
-      "addressCountry": "US"
-    }
+      addressLocality: "Nashville",
+      addressRegion: "TN",
+      postalCode: "37220",
+      addressCountry: "US",
+    },
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Crieve Hall, Nashville, TN",
-    "geo": {
+    name: "Crieve Hall, Nashville, TN",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "36.0692",
-      "longitude": "-86.7819"
-    }
+      latitude: "36.0692",
+      longitude: "-86.7819",
+    },
   },
-  "description": "Professional house cleaning services in Crieve Hall, Nashville, Tennessee."
+  description:
+    "Professional house cleaning services in Crieve Hall, Nashville, Tennessee.",
 };
 ---
 
@@ -88,7 +99,10 @@ const serviceSchema = {
     <meta name="geo.placename" content="Crieve Hall, Nashville" />
     <meta name="geo.position" content="36.0692;-86.7819" />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(serviceSchema)}
+    />
   </Fragment>
 
   <!-- Hero Section -->
@@ -97,48 +111,29 @@ const serviceSchema = {
     <div class="hero-content">
       <div class="hero-text">
         <h1>House Cleaning Services in Crieve Hall, Nashville</h1>
-        <p class="hero-subtitle">Family-focused cleaning for South Nashville's favorite neighborhood near Radnor Lake</p>
+        <p class="hero-subtitle">
+          Family-focused cleaning for South Nashville's favorite neighborhood
+          near Radnor Lake
+        </p>
         <div class="trust-badges">
-          <span class="badge"><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span>
-          <span class="badge"><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span>
-          <span class="badge"><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span>
+          <span class="badge"
+            ><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span
+          >
+          <span class="badge"
+            ><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span
+          >
+          <span class="badge"
+            ><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span
+          >
         </div>
       </div>
       <div class="hero-form">
-        <h2>Get Your Free Quote</h2>
-        <form id="quote-form" action="/api/submit-form" method="POST">
-          <input type="hidden" name="source" value="crieve-hall-neighborhood" />
-          <input type="hidden" name="city" value="Crieve Hall" />
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name" required />
-          </div>
-          <div class="form-group">
-            <input type="tel" name="phone" placeholder="Phone Number" required />
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Email Address" required />
-          </div>
-          <div class="form-group">
-            <select name="service" required>
-              <option value="">Select Service...</option>
-              <option value="recurring">Recurring Cleaning</option>
-              <option value="deep-clean">Deep Cleaning</option>
-              <option value="move-in-out">Move In/Out Cleaning</option>
-              <option value="one-time">One-Time Cleaning</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <select name="bedrooms" required>
-              <option value="">Bedrooms...</option>
-              <option value="1-2">1-2 Bedrooms</option>
-              <option value="3">3 Bedrooms</option>
-              <option value="4">4 Bedrooms</option>
-              <option value="5+">5+ Bedrooms</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-primary">Get Free Quote</button>
-        </form>
-        <p class="form-note"><Icon name="clock" class="w-5 h-5" /> Response within 15 minutes</p>
+        <QuoteForm
+          formId="quote-form"
+          city="Crieve Hall"
+          state="TN"
+          source="Location Page - Crieve Hall"
+        />
       </div>
     </div>
   </section>
@@ -148,9 +143,25 @@ const serviceSchema = {
     <div class="container">
       <div class="intro-content">
         <h2>Professional Cleaning for Crieve Hall Families</h2>
-        <p>Crieve Hall is one of South Nashville's most beloved neighborhoods—a tight-knit community where families put down roots, kids walk to school, and neighbors know each other by name. Our cleaning team understands what makes this neighborhood special and provides service that fits the family-friendly lifestyle.</p>
-        <p>Located near Radnor Lake State Park and along the Granny White Pike corridor, Crieve Hall homes deserve care that matches the community's character. Whether you're a busy parent juggling school activities, a professional working from home, or enjoying retirement, we're here to give you back your weekends.</p>
-        <p>As a veteran-owned company serving the 37220 zip code, we bring the same dedication to your home that we brought to our service. Reliable scheduling, consistent teams, and cleaning you can trust.</p>
+        <p>
+          Crieve Hall is one of South Nashville's most beloved neighborhoods—a
+          tight-knit community where families put down roots, kids walk to
+          school, and neighbors know each other by name. Our cleaning team
+          understands what makes this neighborhood special and provides service
+          that fits the family-friendly lifestyle.
+        </p>
+        <p>
+          Located near Radnor Lake State Park and along the Granny White Pike
+          corridor, Crieve Hall homes deserve care that matches the community's
+          character. Whether you're a busy parent juggling school activities, a
+          professional working from home, or enjoying retirement, we're here to
+          give you back your weekends.
+        </p>
+        <p>
+          As a veteran-owned company serving the 37220 zip code, we bring the
+          same dedication to your home that we brought to our service. Reliable
+          scheduling, consistent teams, and cleaning you can trust.
+        </p>
       </div>
     </div>
   </section>
@@ -163,7 +174,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="home" class="w-5 h-5" /></div>
           <h3>Regular House Cleaning</h3>
-          <p>Weekly, biweekly, or monthly cleaning to keep your Crieve Hall home consistently clean. Perfect for busy families.</p>
+          <p>
+            Weekly, biweekly, or monthly cleaning to keep your Crieve Hall home
+            consistently clean. Perfect for busy families.
+          </p>
           <ul>
             <li>All rooms dusted and vacuumed</li>
             <li>Kitchens and bathrooms sanitized</li>
@@ -172,9 +186,14 @@ const serviceSchema = {
           </ul>
         </div>
         <div class="service-card">
-          <div class="service-icon"><Icon name="sparkles" class="w-5 h-5" /></div>
+          <div class="service-icon">
+            <Icon name="sparkles" class="w-5 h-5" />
+          </div>
           <h3>Deep Cleaning</h3>
-          <p>Thorough cleaning that reaches everywhere. Great for seasonal refreshes or before special occasions.</p>
+          <p>
+            Thorough cleaning that reaches everywhere. Great for seasonal
+            refreshes or before special occasions.
+          </p>
           <ul>
             <li>Inside appliances and cabinets</li>
             <li>Baseboards and door frames</li>
@@ -185,7 +204,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="box" class="w-5 h-5" /></div>
           <h3>Move In/Out Cleaning</h3>
-          <p>Complete cleaning for Crieve Hall real estate transactions. We help secure deposits and smooth moves.</p>
+          <p>
+            Complete cleaning for Crieve Hall real estate transactions. We help
+            secure deposits and smooth moves.
+          </p>
           <ul>
             <li>Every surface detailed</li>
             <li>Appliances cleaned inside/out</li>
@@ -205,22 +227,34 @@ const serviceSchema = {
         <div class="feature">
           <Icon name="users" class="w-5 h-5" />
           <h3>Same Team Every Time</h3>
-          <p>Your dedicated team gets to know your home, your family, and your pets. Consistent results every visit.</p>
+          <p>
+            Your dedicated team gets to know your home, your family, and your
+            pets. Consistent results every visit.
+          </p>
         </div>
         <div class="feature">
           <Icon name="paw" class="w-5 h-5" />
           <h3>Pet-Friendly Service</h3>
-          <p>We love your furry family members! Our teams are trained for homes with dogs, cats, and other pets.</p>
+          <p>
+            We love your furry family members! Our teams are trained for homes
+            with dogs, cats, and other pets.
+          </p>
         </div>
         <div class="feature">
           <Icon name="shield-alt" class="w-5 h-5" />
           <h3>Fully Insured</h3>
-          <p>$2 million liability coverage means complete protection for your home and peace of mind for you.</p>
+          <p>
+            $2 million liability coverage means complete protection for your
+            home and peace of mind for you.
+          </p>
         </div>
         <div class="feature">
           <Icon name="calendar-check" class="w-5 h-5" />
           <h3>Flexible Scheduling</h3>
-          <p>We work around your family's schedule—while you're at work, during school, or whenever suits you.</p>
+          <p>
+            We work around your family's schedule—while you're at work, during
+            school, or whenever suits you.
+          </p>
         </div>
       </div>
     </div>
@@ -230,7 +264,10 @@ const serviceSchema = {
   <section class="areas-section">
     <div class="container">
       <h2>Serving Crieve Hall & South Nashville</h2>
-      <p>Our Crieve Hall cleaning service covers the 37220 zip code and surrounding South Nashville areas:</p>
+      <p>
+        Our Crieve Hall cleaning service covers the 37220 zip code and
+        surrounding South Nashville areas:
+      </p>
       <div class="areas-grid">
         <div class="area-item">
           <h4>Crieve Hall Areas</h4>
@@ -268,12 +305,14 @@ const serviceSchema = {
     <div class="container">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-grid">
-        {faqs.map((faq) => (
-          <div class="faq-item">
-            <h3>{faq.question}</h3>
-            <p>{faq.answer}</p>
-          </div>
-        ))}
+        {
+          faqs.map((faq) => (
+            <div class="faq-item">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -282,9 +321,14 @@ const serviceSchema = {
   <section class="cta-section">
     <div class="container">
       <h2>Ready for a Cleaner Crieve Hall Home?</h2>
-      <p>Join your neighbors who trust The Valley Clean Team for reliable, family-friendly cleaning service.</p>
+      <p>
+        Join your neighbors who trust The Valley Clean Team for reliable,
+        family-friendly cleaning service.
+      </p>
       <div class="cta-buttons">
-        <a href="tel:+16155101427" class="btn-primary"><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a>
+        <a href="tel:+16155101427" class="btn-primary"
+          ><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a
+        >
         <a href="/contact" class="btn-secondary">Get Free Quote</a>
       </div>
     </div>
@@ -304,7 +348,11 @@ const serviceSchema = {
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(30,58,95,0.3) 0%, rgba(45,90,135,0.2) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(30, 58, 95, 0.3) 0%,
+      rgba(45, 90, 135, 0.2) 100%
+    );
   }
 
   .hero-content {
@@ -340,7 +388,7 @@ const serviceSchema = {
   }
 
   .badge {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     padding: 8px 16px;
     border-radius: 50px;
     font-size: 0.9rem;
@@ -354,7 +402,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
 
   .hero-form h3 {
@@ -444,7 +492,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #eee;
   }
 
@@ -665,28 +713,3 @@ const serviceSchema = {
     }
   }
 </style>
-
-<script>
-  const form = document.getElementById('quote-form');
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          window.location.href = '/thank-you/';
-        }
-      } catch (error) {
-        console.error('Form submission error:', error);
-      }
-    });
-  }
-</script>

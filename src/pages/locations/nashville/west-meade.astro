@@ -1,84 +1,95 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Icon from '../../../components/Icon.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const title = "House Cleaning in West Meade, TN | Valley Clean Team";
-const description = "Professional house cleaning in West Meade, Nashville. Serving 37205. Veteran-owned, insured. White-glove service for West Nashville's finest homes. Free quotes!";
+const description =
+  "Professional house cleaning in West Meade, Nashville. Serving 37205. Veteran-owned, insured. White-glove service for West Nashville's finest homes. Free quotes!";
 
 const faqs = [
   {
     question: "Do you provide house cleaning in West Meade?",
-    answer: "Yes! We provide comprehensive house cleaning services throughout West Meade and the 37205 zip code, including homes near Percy Warner Park, Belle Meade Boulevard, and the Harding Road corridor."
+    answer:
+      "Yes! We provide comprehensive house cleaning services throughout West Meade and the 37205 zip code, including homes near Percy Warner Park, Belle Meade Boulevard, and the Harding Road corridor.",
   },
   {
     question: "What cleaning services do you offer in West Meade?",
-    answer: "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, and special occasion cleaning for West Meade homes."
+    answer:
+      "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, and special occasion cleaning for West Meade homes.",
   },
   {
     question: "How much does house cleaning cost in West Meade?",
-    answer: "West Meade home cleaning typically starts at $180-$280 for standard cleaning, depending on home size and condition. We provide free, detailed quotes with transparent pricing."
+    answer:
+      "West Meade home cleaning typically starts at $180-$280 for standard cleaning, depending on home size and condition. We provide free, detailed quotes with transparent pricing.",
   },
   {
     question: "Are your cleaners background-checked and insured?",
-    answer: "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your peace of mind."
+    answer:
+      "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your peace of mind.",
   },
   {
     question: "Do you clean large estate homes in West Meade?",
-    answer: "Yes! We specialize in larger homes common to West Meade. Our teams are experienced with estate properties, multi-level homes, and high-end finishes."
+    answer:
+      "Yes! We specialize in larger homes common to West Meade. Our teams are experienced with estate properties, multi-level homes, and high-end finishes.",
   },
   {
     question: "Can I get the same cleaning team each visit?",
-    answer: "Yes! We assign dedicated teams to West Meade clients. You'll see the same familiar faces who learn your home's specific needs and preferences."
+    answer:
+      "Yes! We assign dedicated teams to West Meade clients. You'll see the same familiar faces who learn your home's specific needs and preferences.",
   },
   {
     question: "Do you use eco-friendly cleaning products?",
-    answer: "We offer green cleaning options using EPA Safer Choice products. Just let us know your preferences when booking your West Meade cleaning service."
+    answer:
+      "We offer green cleaning options using EPA Safer Choice products. Just let us know your preferences when booking your West Meade cleaning service.",
   },
   {
     question: "How do I book cleaning for my West Meade home?",
-    answer: "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and can often accommodate same-week appointments."
-  }
+    answer:
+      "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and can often accommodate same-week appointments.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "House Cleaning Service",
-  "provider": {
+  serviceType: "House Cleaning Service",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "+1-615-510-1427",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "+1-615-510-1427",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Nashville",
-      "addressRegion": "TN",
-      "postalCode": "37205",
-      "addressCountry": "US"
-    }
+      addressLocality: "Nashville",
+      addressRegion: "TN",
+      postalCode: "37205",
+      addressCountry: "US",
+    },
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "West Meade, Nashville, TN",
-    "geo": {
+    name: "West Meade, Nashville, TN",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "36.1048",
-      "longitude": "-86.8967"
-    }
+      latitude: "36.1048",
+      longitude: "-86.8967",
+    },
   },
-  "description": "Professional house cleaning services in West Meade, Nashville, Tennessee."
+  description:
+    "Professional house cleaning services in West Meade, Nashville, Tennessee.",
 };
 ---
 
@@ -88,7 +99,10 @@ const serviceSchema = {
     <meta name="geo.placename" content="West Meade, Nashville" />
     <meta name="geo.position" content="36.1048;-86.8967" />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(serviceSchema)}
+    />
   </Fragment>
 
   <!-- Hero Section -->
@@ -97,48 +111,33 @@ const serviceSchema = {
     <div class="hero-content">
       <div class="hero-text">
         <h1>House Cleaning Services in West Meade, Nashville</h1>
-        <p class="hero-subtitle">Premium cleaning for West Nashville's most distinguished homes near Percy Warner Park</p>
+        <p class="hero-subtitle">
+          Premium cleaning for West Nashville's most distinguished homes near
+          Percy Warner Park
+        </p>
         <div class="trust-badges">
-          <span class="badge"><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span>
-          <span class="badge"><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span>
-          <span class="badge"><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span>
+          <span class="badge"
+            ><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span
+          >
+          <span class="badge"
+            ><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span
+          >
+          <span class="badge"
+            ><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span
+          >
         </div>
       </div>
       <div class="hero-form">
-        <h2>Get Your Free Quote</h2>
-        <form id="quote-form" action="/api/submit-form" method="POST">
-          <input type="hidden" name="source" value="west-meade-neighborhood" />
-          <input type="hidden" name="city" value="West Meade" />
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name" required />
-          </div>
-          <div class="form-group">
-            <input type="tel" name="phone" placeholder="Phone Number" required />
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Email Address" required />
-          </div>
-          <div class="form-group">
-            <select name="service" required>
-              <option value="">Select Service...</option>
-              <option value="recurring">Recurring Cleaning</option>
-              <option value="deep-clean">Deep Cleaning</option>
-              <option value="move-in-out">Move In/Out Cleaning</option>
-              <option value="one-time">One-Time Cleaning</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <select name="bedrooms" required>
-              <option value="">Bedrooms...</option>
-              <option value="1-2">1-2 Bedrooms</option>
-              <option value="3">3 Bedrooms</option>
-              <option value="4">4 Bedrooms</option>
-              <option value="5+">5+ Bedrooms</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-primary">Get Free Quote</button>
-        </form>
-        <p class="form-note"><Icon name="clock" class="w-5 h-5" /> Response within 15 minutes</p>
+        <QuoteForm
+          formId="west-meade-quote-form"
+          city="West Meade, Nashville"
+          state="TN"
+          source="Location Page - West Meade"
+          subtitle="Get Your Free Quote"
+        />
+        <p class="form-note">
+          <Icon name="clock" class="w-5 h-5" /> Response within 15 minutes
+        </p>
       </div>
     </div>
   </section>
@@ -148,9 +147,24 @@ const serviceSchema = {
     <div class="container">
       <div class="intro-content">
         <h2>Professional Cleaning for West Meade Homes</h2>
-        <p>West Meade represents the best of West Nashville—established neighborhoods with mature trees, elegant homes, and proximity to Percy Warner Park's natural beauty. Our cleaning team understands the character of these classic Nashville homes and delivers service that matches their distinction.</p>
-        <p>As a veteran-owned company, we bring discipline and attention to detail to every West Meade home we clean. From the historic properties along Belle Meade Boulevard to the family homes near Harding Academy, we provide consistent, reliable cleaning you can count on.</p>
-        <p>Serving the 37205 zip code, our dedicated teams become familiar with your home, your preferences, and your expectations—delivering the same exceptional results visit after visit.</p>
+        <p>
+          West Meade represents the best of West Nashville—established
+          neighborhoods with mature trees, elegant homes, and proximity to Percy
+          Warner Park's natural beauty. Our cleaning team understands the
+          character of these classic Nashville homes and delivers service that
+          matches their distinction.
+        </p>
+        <p>
+          As a veteran-owned company, we bring discipline and attention to
+          detail to every West Meade home we clean. From the historic properties
+          along Belle Meade Boulevard to the family homes near Harding Academy,
+          we provide consistent, reliable cleaning you can count on.
+        </p>
+        <p>
+          Serving the 37205 zip code, our dedicated teams become familiar with
+          your home, your preferences, and your expectations—delivering the same
+          exceptional results visit after visit.
+        </p>
       </div>
     </div>
   </section>
@@ -163,7 +177,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="home" class="w-5 h-5" /></div>
           <h3>Regular House Cleaning</h3>
-          <p>Weekly, biweekly, or monthly cleaning to keep your West Meade home consistently pristine. Same team every visit.</p>
+          <p>
+            Weekly, biweekly, or monthly cleaning to keep your West Meade home
+            consistently pristine. Same team every visit.
+          </p>
           <ul>
             <li>All rooms dusted and vacuumed</li>
             <li>Kitchens and bathrooms sanitized</li>
@@ -172,9 +189,14 @@ const serviceSchema = {
           </ul>
         </div>
         <div class="service-card">
-          <div class="service-icon"><Icon name="sparkles" class="w-5 h-5" /></div>
+          <div class="service-icon">
+            <Icon name="sparkles" class="w-5 h-5" />
+          </div>
           <h3>Deep Cleaning</h3>
-          <p>Comprehensive cleaning reaching every corner of your home. Perfect for seasonal refreshes or first-time service.</p>
+          <p>
+            Comprehensive cleaning reaching every corner of your home. Perfect
+            for seasonal refreshes or first-time service.
+          </p>
           <ul>
             <li>Inside cabinets and appliances</li>
             <li>Baseboards and crown molding</li>
@@ -185,7 +207,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="box" class="w-5 h-5" /></div>
           <h3>Move In/Out Cleaning</h3>
-          <p>Thorough cleaning for West Meade real estate transactions. We help ensure deposits and smooth closings.</p>
+          <p>
+            Thorough cleaning for West Meade real estate transactions. We help
+            ensure deposits and smooth closings.
+          </p>
           <ul>
             <li>Complete interior detailed</li>
             <li>Appliances cleaned inside/out</li>
@@ -205,22 +230,34 @@ const serviceSchema = {
         <div class="feature">
           <Icon name="users" class="w-5 h-5" />
           <h3>Consistent Teams</h3>
-          <p>Your dedicated team learns your home and preferences, delivering personalized service every visit.</p>
+          <p>
+            Your dedicated team learns your home and preferences, delivering
+            personalized service every visit.
+          </p>
         </div>
         <div class="feature">
           <Icon name="shield-alt" class="w-5 h-5" />
           <h3>Fully Insured</h3>
-          <p>$2 million liability coverage protects your home and valuables. Complete peace of mind.</p>
+          <p>
+            $2 million liability coverage protects your home and valuables.
+            Complete peace of mind.
+          </p>
         </div>
         <div class="feature">
           <Icon name="medal" class="w-5 h-5" />
           <h3>Veteran Values</h3>
-          <p>Military discipline means reliability, punctuality, and attention to detail in every clean.</p>
+          <p>
+            Military discipline means reliability, punctuality, and attention to
+            detail in every clean.
+          </p>
         </div>
         <div class="feature">
           <Icon name="check-double" class="w-5 h-5" />
           <h3>Satisfaction Guaranteed</h3>
-          <p>Not 100% satisfied? We'll return within 24 hours to address any concerns at no charge.</p>
+          <p>
+            Not 100% satisfied? We'll return within 24 hours to address any
+            concerns at no charge.
+          </p>
         </div>
       </div>
     </div>
@@ -230,7 +267,10 @@ const serviceSchema = {
   <section class="areas-section">
     <div class="container">
       <h2>Serving All of West Meade & Nearby Areas</h2>
-      <p>Our West Meade cleaning service covers the entire 37205 zip code and surrounding West Nashville neighborhoods:</p>
+      <p>
+        Our West Meade cleaning service covers the entire 37205 zip code and
+        surrounding West Nashville neighborhoods:
+      </p>
       <div class="areas-grid">
         <div class="area-item">
           <h4>West Meade Areas</h4>
@@ -268,12 +308,14 @@ const serviceSchema = {
     <div class="container">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-grid">
-        {faqs.map((faq) => (
-          <div class="faq-item">
-            <h3>{faq.question}</h3>
-            <p>{faq.answer}</p>
-          </div>
-        ))}
+        {
+          faqs.map((faq) => (
+            <div class="faq-item">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -282,9 +324,14 @@ const serviceSchema = {
   <section class="cta-section">
     <div class="container">
       <h2>Ready for a Cleaner West Meade Home?</h2>
-      <p>Join your neighbors who trust The Valley Clean Team for reliable, professional cleaning service.</p>
+      <p>
+        Join your neighbors who trust The Valley Clean Team for reliable,
+        professional cleaning service.
+      </p>
       <div class="cta-buttons">
-        <a href="tel:+16155101427" class="btn-primary"><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a>
+        <a href="tel:+16155101427" class="btn-primary"
+          ><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a
+        >
         <a href="/contact" class="btn-secondary">Get Free Quote</a>
       </div>
     </div>
@@ -304,7 +351,11 @@ const serviceSchema = {
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(30,58,95,0.3) 0%, rgba(45,90,135,0.2) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(30, 58, 95, 0.3) 0%,
+      rgba(45, 90, 135, 0.2) 100%
+    );
   }
 
   .hero-content {
@@ -340,7 +391,7 @@ const serviceSchema = {
   }
 
   .badge {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     padding: 8px 16px;
     border-radius: 50px;
     font-size: 0.9rem;
@@ -354,7 +405,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
 
   .hero-form h3 {
@@ -444,7 +495,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #eee;
   }
 
@@ -665,28 +716,3 @@ const serviceSchema = {
     }
   }
 </style>
-
-<script>
-  const form = document.getElementById('quote-form');
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          window.location.href = '/thank-you/';
-        }
-      } catch (error) {
-        console.error('Form submission error:', error);
-      }
-    });
-  }
-</script>

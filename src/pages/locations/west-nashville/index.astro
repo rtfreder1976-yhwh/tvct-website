@@ -1,8 +1,9 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../../components/SchemaMarkup.astro';
-import { westNashvilleTestimonials } from '../../../data/testimonials';
-import Icon from '../../../components/Icon.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import { westNashvilleTestimonials } from "../../../data/testimonials";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "West Nashville";
 const state = "Tennessee";
@@ -12,7 +13,8 @@ const region = "Davidson County";
 const geoData = {
   region: "US-TN",
   position: "36.1527;-86.8816",
-  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+  image:
+    "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp",
 };
 
 // Neighborhoods served
@@ -32,65 +34,74 @@ const neighborhoods = [
   "Murphy Road Area",
   "Centennial Park Area",
   "Green Hills",
-  "Forest Hills"
+  "Forest Hills",
 ];
 
 // West Nashville-specific FAQs
 const faqs = [
   {
     question: "Do you clean luxury estates in Belle Meade?",
-    answer: "Absolutely. Belle Meade is Nashville's most prestigious address, with median household income exceeding $195,000 and home prices averaging $2.88 million. Our team specializes in caring for Belle Meade's grand estates, antebellum architecture, and manicured grounds. We understand the discretion, professionalism, and attention to detail that Belle Meade residents expect. Many celebrities and executives trust us with their most valuable properties."
+    answer:
+      "Absolutely. Belle Meade is Nashville's most prestigious address, with median household income exceeding $195,000 and home prices averaging $2.88 million. Our team specializes in caring for Belle Meade's grand estates, antebellum architecture, and manicured grounds. We understand the discretion, professionalism, and attention to detail that Belle Meade residents expect. Many celebrities and executives trust us with their most valuable properties.",
   },
   {
     question: "What makes Sylvan Park special for cleaning services?",
-    answer: "Sylvan Park is one of Nashville's wealthiest neighborhoods with median household income over $103,700 and home values exceeding $1.1 million. The neighborhood's mix of historic and contemporary homes along tree-lined streets requires specialized care. From Murphy Road boutiques to McCabe Park, Sylvan Park residents appreciate our consistent, high-quality service that matches their neighborhood's refined character."
+    answer:
+      "Sylvan Park is one of Nashville's wealthiest neighborhoods with median household income over $103,700 and home values exceeding $1.1 million. The neighborhood's mix of historic and contemporary homes along tree-lined streets requires specialized care. From Murphy Road boutiques to McCabe Park, Sylvan Park residents appreciate our consistent, high-quality service that matches their neighborhood's refined character.",
   },
   {
     question: "Do you serve The Nations and Charlotte Park?",
-    answer: "Yes, The Nations and Charlotte Park represent West Nashville's exciting transformation. Once industrial areas, these neighborhoods now feature converted warehouses, modern lofts, trendy breweries like Fat Bottom Brewing, and new construction. We serve both longtime residents and newcomers attracted to The Nations' creative energy. Home values around $600,000 reflect the area's desirability."
+    answer:
+      "Yes, The Nations and Charlotte Park represent West Nashville's exciting transformation. Once industrial areas, these neighborhoods now feature converted warehouses, modern lofts, trendy breweries like Fat Bottom Brewing, and new construction. We serve both longtime residents and newcomers attracted to The Nations' creative energy. Home values around $600,000 reflect the area's desirability.",
   },
   {
-    question: "Can you accommodate music industry professionals in West Nashville?",
-    answer: "Absolutely. West Nashville is home to many musicians, producers, and industry executives drawn by proximity to Music Row and the creative community. We understand irregular schedules, the need for discretion, and respect for creative spaces. Our team is background-checked and confidentiality-conscious—essential for high-profile clients in the entertainment industry."
+    question:
+      "Can you accommodate music industry professionals in West Nashville?",
+    answer:
+      "Absolutely. West Nashville is home to many musicians, producers, and industry executives drawn by proximity to Music Row and the creative community. We understand irregular schedules, the need for discretion, and respect for creative spaces. Our team is background-checked and confidentiality-conscious—essential for high-profile clients in the entertainment industry.",
   },
   {
     question: "What neighborhoods do you serve in West Nashville?",
-    answer: "We proudly serve all West Nashville neighborhoods including Belle Meade, Sylvan Park, The Nations, West Meade, Charlotte Park, Sylvan Heights, Cherokee Park, Richland Park, White Bridge, Hillwood, Hillwood Estates, West End, and areas near Centennial Park. Our service extends to neighboring Green Hills and Forest Hills. Call to confirm service for your specific address."
+    answer:
+      "We proudly serve all West Nashville neighborhoods including Belle Meade, Sylvan Park, The Nations, West Meade, Charlotte Park, Sylvan Heights, Cherokee Park, Richland Park, White Bridge, Hillwood, Hillwood Estates, West End, and areas near Centennial Park. Our service extends to neighboring Green Hills and Forest Hills. Call to confirm service for your specific address.",
   },
   {
     question: "Do you clean near Centennial Park and the Parthenon?",
-    answer: "Yes, we serve the prestigious neighborhoods surrounding Centennial Park and Nashville's iconic Parthenon replica. The West End and nearby areas feature beautiful homes, easy access to Vanderbilt, and walkable amenities. We accommodate busy professionals who want to enjoy Nashville's cultural attractions without worrying about home maintenance."
+    answer:
+      "Yes, we serve the prestigious neighborhoods surrounding Centennial Park and Nashville's iconic Parthenon replica. The West End and nearby areas feature beautiful homes, easy access to Vanderbilt, and walkable amenities. We accommodate busy professionals who want to enjoy Nashville's cultural attractions without worrying about home maintenance.",
   },
   {
     question: "How do you handle West Meade's historic properties?",
-    answer: "West Meade was built on land that was once part of the Belle Meade Plantation, and its homes reflect that historic pedigree. With median household income over $100,000 and property values approaching $1 million, West Meade residents expect expert care for their tree-lined properties. Our team uses gentle, pH-neutral products appropriate for historic homes while achieving pristine results."
+    answer:
+      "West Meade was built on land that was once part of the Belle Meade Plantation, and its homes reflect that historic pedigree. With median household income over $100,000 and property values approaching $1 million, West Meade residents expect expert care for their tree-lined properties. Our team uses gentle, pH-neutral products appropriate for historic homes while achieving pristine results.",
   },
   {
     question: "Are you insured to work in Nashville's most expensive homes?",
-    answer: "Absolutely. We carry $2 million in liability insurance and are fully bonded. From Belle Meade estates valued at $3+ million to Sylvan Park renovations and West Meade family homes, your property is protected. All team members are background-checked and professionally trained. Nashville's wealthiest neighborhoods trust our veteran-owned, women-led company."
-  }
+    answer:
+      "Absolutely. We carry $2 million in liability insurance and are fully bonded. From Belle Meade estates valued at $3+ million to Sylvan Park renovations and West Meade family homes, your property is protected. All team members are background-checked and professionally trained. Nashville's wealthiest neighborhoods trust our veteran-owned, women-led company.",
+  },
 ];
 
 // Schema for FAQPage
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 // Testimonials - imported from centralized data
-const testimonials = westNashvilleTestimonials.map(t => ({
+const testimonials = westNashvilleTestimonials.map((t) => ({
   initial: t.initial,
   name: t.name,
   area: t.source,
-  text: t.text
+  text: t.text,
 }));
 ---
 
@@ -102,25 +113,40 @@ const testimonials = westNashvilleTestimonials.map(t => ({
   geoPlacename={`${city}, ${state}`}
   geoPosition={geoData.position}
 >
-  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <SchemaMarkup
+    type="local"
+    city={city}
+    state={state}
+    neighborhoods={neighborhoods}
+  />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving Nashville's Most Prestigious Neighborhoods
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Serving
+              Nashville's Most Prestigious Neighborhoods
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Luxury Cleaning for <span class="gold-gradient">West Nashville's</span> Finest Homes
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Luxury Cleaning for <span class="gold-gradient"
+              >West Nashville's</span
+            > Finest Homes
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            From Belle Meade's $3 million estates to Sylvan Park's charming bungalows, West Nashville represents the pinnacle of Music City living. We deliver the premium white-glove service these exceptional neighborhoods deserve.
+            From Belle Meade's $3 million estates to Sylvan Park's charming
+            bungalows, West Nashville represents the pinnacle of Music City
+            living. We deliver the premium white-glove service these exceptional
+            neighborhoods deserve.
           </p>
           <div class="flex flex-wrap items-center lg:items-start gap-4 mb-6">
             <div class="flex items-center text-gray-700">
@@ -132,7 +158,11 @@ const testimonials = westNashvilleTestimonials.map(t => ({
               <span>$2M Insured</span>
             </div>
             <div class="flex items-center text-gray-700">
-              <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />
+              <Icon
+                name="star"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+                fill="currentColor"
+              />
               <span>130+ Five-Star Reviews</span>
             </div>
             <div class="flex items-center text-gray-700">
@@ -140,12 +170,20 @@ const testimonials = westNashvilleTestimonials.map(t => ({
               <span>Women-Led Business</span>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:6155101427" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:6155101427"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="phone" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">615-510-1427</span>
             </a>
-            <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+            <a
+              href="mailto:hello@thevalleycleanteam.com"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="envelope" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">Email Us</span>
             </a>
@@ -153,49 +191,21 @@ const testimonials = westNashvilleTestimonials.map(t => ({
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free West Nashville Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving Belle Meade, Sylvan Park & West Nashville</p>
-          <form id="location-quote-form">
-            <div class="mb-4">
-              <label for="loc-name" class="sr-only">Your Name</label>
-              <input type="text" id="loc-name" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-email" class="sr-only">Email Address</label>
-              <input type="email" id="loc-email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-phone" class="sr-only">Phone Number</label>
-              <input type="tel" id="loc-phone" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-address" class="sr-only">Address/Neighborhood</label>
-              <input type="text" id="loc-address" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="West Nashville Address/Neighborhood" value="West Nashville, Tennessee" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-service" class="sr-only">Select Service Type</label>
-              <select id="loc-service" name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
-                <option value="Event Cleaning">Event Cleaning</option>
-                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-              </select>
-            </div>
-            <input type="hidden" name="city" value="West Nashville">
-            <input type="hidden" name="state" value="Tennessee">
-            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free West Nashville Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours for West Nashville customers
-            </p>
-            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free West Nashville Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving Belle Meade, Sylvan Park & West Nashville
+          </p>
+          <QuoteForm
+            formId="west-nashville-quote-form"
+            city="West Nashville"
+            state="TN"
+            source="Location Page - West Nashville"
+          />
         </div>
       </div>
     </div>
@@ -237,64 +247,121 @@ const testimonials = westNashvilleTestimonials.map(t => ({
 
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <div>
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Where Nashville's Elite Call Home</h3>
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Where Nashville's Elite Call Home
+          </h3>
           <p class="text-gray-700 mb-4">
-            West Nashville isn't just a direction—it's a destination. This prestigious quadrant of Music City encompasses some of the most sought-after addresses in the entire Southeast. From the gated estates of Belle Meade where celebrities and business titans reside, to the charming tree-lined streets of Sylvan Park where Nashville's creative class has settled, West Nashville represents the pinnacle of Southern living.
+            West Nashville isn't just a direction—it's a destination. This
+            prestigious quadrant of Music City encompasses some of the most
+            sought-after addresses in the entire Southeast. From the gated
+            estates of Belle Meade where celebrities and business titans reside,
+            to the charming tree-lined streets of Sylvan Park where Nashville's
+            creative class has settled, West Nashville represents the pinnacle
+            of Southern living.
           </p>
           <p class="text-gray-700 mb-4">
-            Belle Meade stands alone as Nashville's most exclusive enclave—an independent city-within-a-city where median household income exceeds $195,000 and homes average $2.88 million. The neighborhood's history traces to the famous Belle Meade Plantation, and today it's home to Nicole Kidman, Keith Urban, and numerous CEOs and executives who value privacy, prestige, and impeccable grounds.
+            Belle Meade stands alone as Nashville's most exclusive enclave—an
+            independent city-within-a-city where median household income exceeds
+            $195,000 and homes average $2.88 million. The neighborhood's history
+            traces to the famous Belle Meade Plantation, and today it's home to
+            Nicole Kidman, Keith Urban, and numerous CEOs and executives who
+            value privacy, prestige, and impeccable grounds.
           </p>
           <p class="text-gray-700 mb-4">
-            Sylvan Park offers a different but equally refined lifestyle. This urban village combines $1.1 million homes with walkable Murphy Road boutiques, farm-to-table restaurants, and a genuine sense of community. Cherokee Park, Richland Park, and Sylvan Heights round out a collection of West Nashville neighborhoods where wealth meets warmth.
+            Sylvan Park offers a different but equally refined lifestyle. This
+            urban village combines $1.1 million homes with walkable Murphy Road
+            boutiques, farm-to-table restaurants, and a genuine sense of
+            community. Cherokee Park, Richland Park, and Sylvan Heights round
+            out a collection of West Nashville neighborhoods where wealth meets
+            warmth.
           </p>
           <p class="text-gray-700">
-            The Valley Clean Team has earned the trust of West Nashville's most discerning homeowners. Our veteran-owned, women-led company understands that these exceptional homes require exceptional care. We bring military precision, absolute discretion, and $2 million in insurance coverage to every property—because Nashville's finest deserve nothing less.
+            The Valley Clean Team has earned the trust of West Nashville's most
+            discerning homeowners. Our veteran-owned, women-led company
+            understands that these exceptional homes require exceptional care.
+            We bring military precision, absolute discretion, and $2 million in
+            insurance coverage to every property—because Nashville's finest
+            deserve nothing less.
           </p>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Why West Nashville Trusts Us</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Why West Nashville Trusts Us
+          </h3>
           <ul class="space-y-4">
             <li class="flex items-start">
               <Icon name="gem" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Luxury Home Specialists</span>
-                <p class="text-gray-600 text-sm">Trained for $1M-$10M+ properties</p>
+                <span class="font-semibold text-[#333333]"
+                  >Luxury Home Specialists</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Trained for $1M-$10M+ properties
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="user-secret" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="user-secret"
+                class="w-6 h-6 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">Celebrity-Level Discretion</span>
-                <p class="text-gray-600 text-sm">Confidentiality for high-profile clients</p>
+                <span class="font-semibold text-[#333333]"
+                  >Celebrity-Level Discretion</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Confidentiality for high-profile clients
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="shield-alt" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="shield-alt"
+                class="w-6 h-6 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">$2 Million Insurance</span>
-                <p class="text-gray-600 text-sm">Complete protection for valuable properties</p>
+                <span class="font-semibold text-[#333333]"
+                  >$2 Million Insurance</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Complete protection for valuable properties
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="medal" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Veteran-Owned Excellence</span>
-                <p class="text-gray-600 text-sm">Military precision in every detail</p>
+                <span class="font-semibold text-[#333333]"
+                  >Veteran-Owned Excellence</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Military precision in every detail
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="landmark" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Historic Home Care</span>
-                <p class="text-gray-600 text-sm">Gentle techniques for antebellum properties</p>
+                <span class="font-semibold text-[#333333]"
+                  >Historic Home Care</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Gentle techniques for antebellum properties
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="award" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Women-Led Business</span>
-                <p class="text-gray-600 text-sm">Attention to detail in every home</p>
+                <span class="font-semibold text-[#333333]"
+                  >Women-Led Business</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Attention to detail in every home
+                </p>
               </div>
             </li>
           </ul>
@@ -311,7 +378,9 @@ const testimonials = westNashvilleTestimonials.map(t => ({
           West Nashville's Premier Neighborhoods
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Luxury cleaning for Nashville's most prestigious addresses</p>
+        <p class="text-xl text-gray-600">
+          Luxury cleaning for Nashville's most prestigious addresses
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
@@ -320,12 +389,22 @@ const testimonials = westNashvilleTestimonials.map(t => ({
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
             <Icon name="crown" class="w-5 h-5 text-[#FFA985] mr-2" />Belle Meade
           </h3>
-          <p class="text-sm text-[#FFA985] font-semibold mb-4">Median Income: $195,000+ | Avg Home: $2.88M</p>
+          <p class="text-sm text-[#FFA985] font-semibold mb-4">
+            Median Income: $195,000+ | Avg Home: $2.88M
+          </p>
           <p class="text-gray-700 mb-4">
-            Nashville's most prestigious independent city—home to celebrities, CEOs, and old Southern money. Grand estates, tree-lined boulevards, and proximity to Belle Meade Country Club define this exclusive community. The Belle Meade Historic Site & Winery preserves the neighborhood's plantation heritage.
+            Nashville's most prestigious independent city—home to celebrities,
+            CEOs, and old Southern money. Grand estates, tree-lined boulevards,
+            and proximity to Belle Meade Country Club define this exclusive
+            community. The Belle Meade Historic Site & Winery preserves the
+            neighborhood's plantation heritage.
           </p>
           <p class="text-gray-700">
-            Our team is trained for the exacting standards Belle Meade residents expect. From 10,000+ square foot estates to historic mansions, we provide discreet, thorough service worthy of Nashville's finest address. Many celebrity clients trust us with their most valuable properties.
+            Our team is trained for the exacting standards Belle Meade residents
+            expect. From 10,000+ square foot estates to historic mansions, we
+            provide discreet, thorough service worthy of Nashville's finest
+            address. Many celebrity clients trust us with their most valuable
+            properties.
           </p>
         </div>
 
@@ -334,12 +413,21 @@ const testimonials = westNashvilleTestimonials.map(t => ({
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
             <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />Sylvan Park
           </h3>
-          <p class="text-sm text-[#FFA985] font-semibold mb-4">Median Income: $103,700+ | Avg Home: $1.1M+</p>
+          <p class="text-sm text-[#FFA985] font-semibold mb-4">
+            Median Income: $103,700+ | Avg Home: $1.1M+
+          </p>
           <p class="text-gray-700 mb-4">
-            One of Nashville's richest neighborhoods combining walkable urban charm with million-dollar homes. Murphy Road features boutique shops, farm-to-table restaurants, and L&L Market. McCabe Park offers 18-hole and 9-hole golf courses plus tennis. The Sylvan Supply mixed-use development adds modern amenities.
+            One of Nashville's richest neighborhoods combining walkable urban
+            charm with million-dollar homes. Murphy Road features boutique
+            shops, farm-to-table restaurants, and L&L Market. McCabe Park offers
+            18-hole and 9-hole golf courses plus tennis. The Sylvan Supply
+            mixed-use development adds modern amenities.
           </p>
           <p class="text-gray-700">
-            Sylvan Park's mix of historic bungalows, Tudor homes, and contemporary renovations requires versatile expertise. Our team adapts to each property's unique character while maintaining the consistent, high-quality service this discerning community expects.
+            Sylvan Park's mix of historic bungalows, Tudor homes, and
+            contemporary renovations requires versatile expertise. Our team
+            adapts to each property's unique character while maintaining the
+            consistent, high-quality service this discerning community expects.
           </p>
         </div>
 
@@ -348,26 +436,45 @@ const testimonials = westNashvilleTestimonials.map(t => ({
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
             <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />West Meade
           </h3>
-          <p class="text-sm text-[#FFA985] font-semibold mb-4">Median Income: $100,000+ | Avg Home: ~$1M</p>
+          <p class="text-sm text-[#FFA985] font-semibold mb-4">
+            Median Income: $100,000+ | Avg Home: ~$1M
+          </p>
           <p class="text-gray-700 mb-4">
-            Built on the western portion of the original Belle Meade Plantation, West Meade features large homes on tree-lined streets with a serene, established character. Low crime, excellent schools, and proximity to downtown make this one of Nashville's most desirable family neighborhoods.
+            Built on the western portion of the original Belle Meade Plantation,
+            West Meade features large homes on tree-lined streets with a serene,
+            established character. Low crime, excellent schools, and proximity
+            to downtown make this one of Nashville's most desirable family
+            neighborhoods.
           </p>
           <p class="text-gray-700">
-            The Belle Meade Historic Site and Winery, plus Adventure Park at Nashville, are nearby attractions. We serve West Meade families and professionals who value reliability, privacy, and exceptional cleaning quality.
+            The Belle Meade Historic Site and Winery, plus Adventure Park at
+            Nashville, are nearby attractions. We serve West Meade families and
+            professionals who value reliability, privacy, and exceptional
+            cleaning quality.
           </p>
         </div>
 
         <!-- The Nations -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="industry" class="w-5 h-5 text-[#FFA985] mr-2" />The Nations
+            <Icon name="industry" class="w-5 h-5 text-[#FFA985] mr-2" />The
+            Nations
           </h3>
-          <p class="text-sm text-[#FFA985] font-semibold mb-4">Median Home: ~$600,000 | Rapidly Appreciating</p>
+          <p class="text-sm text-[#FFA985] font-semibold mb-4">
+            Median Home: ~$600,000 | Rapidly Appreciating
+          </p>
           <p class="text-gray-700 mb-4">
-            Once industrial, The Nations has transformed into one of Nashville's hottest neighborhoods. Converted warehouses, modern lofts, craft breweries like Fat Bottom Brewing, and restaurants like Nicky's Coal Fired line the streets. The industrial-chic aesthetic attracts creatives, young professionals, and investors.
+            Once industrial, The Nations has transformed into one of Nashville's
+            hottest neighborhoods. Converted warehouses, modern lofts, craft
+            breweries like Fat Bottom Brewing, and restaurants like Nicky's Coal
+            Fired line the streets. The industrial-chic aesthetic attracts
+            creatives, young professionals, and investors.
           </p>
           <p class="text-gray-700">
-            New construction and renovations create strong demand for move-in cleaning and regular service. We serve both longtime residents and the wave of newcomers drawn to The Nations' creative energy and investment potential.
+            New construction and renovations create strong demand for move-in
+            cleaning and regular service. We serve both longtime residents and
+            the wave of newcomers drawn to The Nations' creative energy and
+            investment potential.
           </p>
         </div>
       </div>
@@ -387,55 +494,83 @@ const testimonials = westNashvilleTestimonials.map(t => ({
       <div class="grid md:grid-cols-3 gap-6">
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Charlotte Park
+            <Icon
+              name="map-marker-alt"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Charlotte Park
           </h3>
           <p class="text-gray-700">
-            A rapidly growing area adjacent to The Nations, Charlotte Park features new developments and proximity to West Nashville's hottest dining and entertainment. Young families and professionals are drawn to its value and potential.
+            A rapidly growing area adjacent to The Nations, Charlotte Park
+            features new developments and proximity to West Nashville's hottest
+            dining and entertainment. Young families and professionals are drawn
+            to its value and potential.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Cherokee & Richland Park
+            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Cherokee &
+            Richland Park
           </h3>
           <p class="text-gray-700">
-            These established neighborhoods feature charming bungalows, tree-lined streets, and a tranquil atmosphere. Close to Sylvan Park amenities but with quieter, more residential character. Perfect for families seeking West Nashville living at accessible price points.
+            These established neighborhoods feature charming bungalows,
+            tree-lined streets, and a tranquil atmosphere. Close to Sylvan Park
+            amenities but with quieter, more residential character. Perfect for
+            families seeking West Nashville living at accessible price points.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="golf-ball" class="w-5 h-5 text-[#FFA985] mr-2" />Hillwood & Hillwood Estates
+            <Icon
+              name="golf-ball"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Hillwood & Hillwood Estates
           </h3>
           <p class="text-gray-700">
-            Home to Hillwood Country Club with its Dick Wilson-designed golf course, tennis courts, and swimming pool. Median household income of $112,600 and gorgeous Cumberland River proximity make this one of Nashville's most desirable areas.
+            Home to Hillwood Country Club with its Dick Wilson-designed golf
+            course, tennis courts, and swimming pool. Median household income of
+            $112,600 and gorgeous Cumberland River proximity make this one of
+            Nashville's most desirable areas.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />White Bridge Area
+            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />White
+            Bridge Area
           </h3>
           <p class="text-gray-700">
-            Spacious homes and convenient access to local amenities define this residential area. White Bridge Road offers shopping and services while maintaining a neighborhood feel. We serve busy families who value reliability.
+            Spacious homes and convenient access to local amenities define this
+            residential area. White Bridge Road offers shopping and services
+            while maintaining a neighborhood feel. We serve busy families who
+            value reliability.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="university" class="w-5 h-5 text-[#FFA985] mr-2" />West End & Centennial
+            <Icon name="university" class="w-5 h-5 text-[#FFA985] mr-2" />West
+            End & Centennial
           </h3>
           <p class="text-gray-700">
-            Near Vanderbilt University and Nashville's iconic Parthenon in Centennial Park, this area offers urban convenience with cultural amenities. Popular with professionals, academics, and anyone who values walkability to Nashville's best attractions.
+            Near Vanderbilt University and Nashville's iconic Parthenon in
+            Centennial Park, this area offers urban convenience with cultural
+            amenities. Popular with professionals, academics, and anyone who
+            values walkability to Nashville's best attractions.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />Green Hills & Forest Hills
+            <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />Green Hills
+            & Forest Hills
           </h3>
           <p class="text-gray-700">
-            Premium shopping at The Mall at Green Hills and Forest Hills' secluded estates attract Nashville's affluent residents. We extend service to these neighboring areas for deep cleaning, regular maintenance, and special projects.
+            Premium shopping at The Mall at Green Hills and Forest Hills'
+            secluded estates attract Nashville's affluent residents. We extend
+            service to these neighboring areas for deep cleaning, regular
+            maintenance, and special projects.
           </p>
         </div>
       </div>
@@ -450,110 +585,181 @@ const testimonials = westNashvilleTestimonials.map(t => ({
           Complete Cleaning Services for West Nashville
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">From weekly maintenance to estate-level deep cleaning</p>
+        <p class="text-xl text-gray-600">
+          From weekly maintenance to estate-level deep cleaning
+        </p>
       </div>
 
       <div class="grid md:grid-cols-4 gap-6 mb-12">
         <!-- Recurring Maid Service -->
-        <a href="/locations/west-nashville/recurring-maid-service" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/recurring-maid-service"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="calendar-check" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-xl font-bold mb-2 text-[#333333]">Recurring Service</h3>
+          <h3 class="text-xl font-bold mb-2 text-[#333333]">
+            Recurring Service
+          </h3>
           <p class="text-gray-700 text-sm mb-3">
-            Weekly, biweekly, or monthly cleaning. Save up to 20% with consistent service.
+            Weekly, biweekly, or monthly cleaning. Save up to 20% with
+            consistent service.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Deep Cleaning -->
-        <a href="/locations/west-nashville/deep-cleaning" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/deep-cleaning"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="sparkles" class="w-6 h-6 text-[#333333]" />
           </div>
           <h3 class="text-xl font-bold mb-2 text-[#333333]">Deep Cleaning</h3>
           <p class="text-gray-700 text-sm mb-3">
-            Top-to-bottom intensive clean for Belle Meade estates and Sylvan Park homes.
+            Top-to-bottom intensive clean for Belle Meade estates and Sylvan
+            Park homes.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Move-Out Cleaning -->
-        <a href="/locations/west-nashville/move-out-cleaning" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/move-out-cleaning"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="box" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-xl font-bold mb-2 text-[#333333]">Move-Out Cleaning</h3>
+          <h3 class="text-xl font-bold mb-2 text-[#333333]">
+            Move-Out Cleaning
+          </h3>
           <p class="text-gray-700 text-sm mb-3">
-            Get your deposit back. Perfect for West Nashville's active rental market.
+            Get your deposit back. Perfect for West Nashville's active rental
+            market.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Post-Construction -->
-        <a href="/locations/west-nashville/post-construction-cleaning" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/post-construction-cleaning"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="hard-hat" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-xl font-bold mb-2 text-[#333333]">Post-Construction</h3>
+          <h3 class="text-xl font-bold mb-2 text-[#333333]">
+            Post-Construction
+          </h3>
           <p class="text-gray-700 text-sm mb-3">
             New builds and renovations in The Nations, Sylvan Park, and beyond.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Airbnb Cleaning -->
-        <a href="/locations/west-nashville/airbnb-cleaning" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/airbnb-cleaning"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="key" class="w-6 h-6 text-[#333333]" />
           </div>
           <h3 class="text-xl font-bold mb-2 text-[#333333]">Airbnb Turnover</h3>
           <p class="text-gray-700 text-sm mb-3">
             Fast turnovers for short-term rentals. Keep your 5-star rating.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Commercial Cleaning -->
-        <a href="/locations/west-nashville/commercial-cleaning" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/commercial-cleaning"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="building" class="w-6 h-6 text-[#333333]" />
           </div>
           <h3 class="text-xl font-bold mb-2 text-[#333333]">Commercial</h3>
           <p class="text-gray-700 text-sm mb-3">
             Offices, studios, and businesses. After-hours available.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Event Cleaning -->
-        <a href="/locations/west-nashville/event-cleaning" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/event-cleaning"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="glass-cheers" class="w-6 h-6 text-[#333333]" />
           </div>
           <h3 class="text-xl font-bold mb-2 text-[#333333]">Event Cleaning</h3>
           <p class="text-gray-700 text-sm mb-3">
             Pre-event prep and post-party cleanup for entertaining.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Green Cleaning -->
-        <a href="/locations/west-nashville/green-cleaning" class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/west-nashville/green-cleaning"
+          class="service-card bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="leaf" class="w-6 h-6 text-[#333333]" />
           </div>
           <h3 class="text-xl font-bold mb-2 text-[#333333]">Green Cleaning</h3>
           <p class="text-gray-700 text-sm mb-3">
             Eco-friendly, non-toxic cleaning at no extra cost.
           </p>
-          <span class="text-[#FFA985] font-semibold text-sm">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold text-sm"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
       </div>
 
       <div class="text-center">
-        <a href="tel:6155101427" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg">
-          <Icon name="phone" class="w-5 h-5 mr-2" />Book West Nashville Service: 615-510-1427
+        <a
+          href="tel:6155101427"
+          class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Book West Nashville Service:
+          615-510-1427
         </a>
       </div>
     </div>
@@ -568,7 +774,14 @@ const testimonials = westNashvilleTestimonials.map(t => ({
         </h2>
         <div class="section-divider"></div>
         <div class="flex items-center justify-center gap-2 mt-4">
-          <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png" alt="Google" class="h-6" width="92" height="30" loading="lazy" />
+          <img
+            src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png"
+            alt="Google"
+            class="h-6"
+            width="92"
+            height="30"
+            loading="lazy"
+          />
           <span class="text-xl text-gray-600">Reviews</span>
           <span class="text-[#FFA985] font-bold">4.9</span>
           <div class="text-[#FFA985] text-sm">
@@ -583,32 +796,42 @@ const testimonials = westNashvilleTestimonials.map(t => ({
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial) => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
-                {testimonial.initial}
-              </div>
-              <div class="ml-4">
-                <p class="font-bold">{testimonial.name}</p>
-                <p class="text-sm text-gray-600">{testimonial.area}</p>
-                <div class="text-[#FFA985]">
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
+        {
+          testimonials.map((testimonial) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                  {testimonial.initial}
+                </div>
+                <div class="ml-4">
+                  <p class="font-bold">{testimonial.name}</p>
+                  <p class="text-sm text-gray-600">{testimonial.area}</p>
+                  <div class="text-[#FFA985]">
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                  </div>
                 </div>
               </div>
+              <p class="text-gray-700">"{testimonial.text}"</p>
             </div>
-            <p class="text-gray-700">"{testimonial.text}"</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <div class="text-center mt-8">
-        <a href="https://www.google.com/maps?cid=2354162289321042477" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
-          <Icon name="google" class="w-5 h-5 mr-2" />Read All Nashville Reviews <Icon name="external-link-alt" class="w-4 h-4 ml-2" />
+        <a
+          href="https://www.google.com/maps?cid=2354162289321042477"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center text-[#FFA985] font-semibold hover:underline"
+        >
+          <Icon name="google" class="w-5 h-5 mr-2" />Read All Nashville Reviews <Icon
+            name="external-link-alt"
+            class="w-4 h-4 ml-2"
+          />
         </a>
       </div>
     </div>
@@ -622,39 +845,64 @@ const testimonials = westNashvilleTestimonials.map(t => ({
           West Nashville Cleaning Service FAQs
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Common questions from West Nashville residents</p>
+        <p class="text-xl text-gray-600">
+          Common questions from West Nashville residents
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section id="contact" class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+  <section
+    id="contact"
+    class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100"
+  >
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
         Book Your West Nashville Consultation Today
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Join Belle Meade, Sylvan Park, and West Nashville's most discerning homeowners who trust The Valley Clean Team for premium white-glove cleaning in Music City's finest neighborhoods.
+        Join Belle Meade, Sylvan Park, and West Nashville's most discerning
+        homeowners who trust The Valley Clean Team for premium white-glove
+        cleaning in Music City's finest neighborhoods.
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:6155101427" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:6155101427"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 615-510-1427
         </a>
-        <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+        <a
+          href="mailto:hello@thevalleycleanteam.com"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
           <Icon name="envelope" class="w-5 h-5 mr-2" />Email for Quote
         </a>
       </div>
@@ -662,80 +910,40 @@ const testimonials = westNashvilleTestimonials.map(t => ({
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <p class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </p>
-            <p class="text-gray-600">Belle Meade, Sylvan Park, The Nations, West Meade, Green Hills & all West Nashville</p>
+            <p class="text-gray-600">
+              Belle Meade, Sylvan Park, The Nations, West Meade, Green Hills &
+              all West Nashville
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </p>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </p>
-            <p class="text-gray-600">615-510-1427<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              615-510-1427<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
       <div class="mt-8">
         <p class="text-sm text-gray-500">
-          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led | $2M Insured | Background-Checked Team | 100% Satisfaction Guarantee
+          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led
+          | $2M Insured | Background-Checked Team | 100% Satisfaction Guarantee
         </p>
       </div>
     </div>
   </section>
-
-  
-  <script>
-    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('location-submit-btn');
-      const messageDiv = document.getElementById('location-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        state: form.state?.value || '',
-        source: 'Location Page - West Nashville',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll be in touch within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 615-510-1427.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Get My Free West Nashville Quote';
-    });
-  </script>
 </BaseLayout>

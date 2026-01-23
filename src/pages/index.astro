@@ -7,6 +7,7 @@ import ServiceAreaMap from "../components/ServiceAreaMap.astro";
 import TrustBadges from "../components/TrustBadges.astro";
 import ResponseTimeStats from "../components/ResponseTimeStats.astro";
 import Icon from "../components/Icon.astro";
+import QuoteForm from "../components/QuoteForm.astro";
 ---
 
 <BaseLayout
@@ -131,119 +132,7 @@ import Icon from "../components/Icon.astro";
             Get Your Free Quote
           </h2>
           <p class="text-gray-600 mb-6 text-center">Fill out in 60 seconds</p>
-          <form id="hero-quote-form">
-            <div class="mb-4">
-              <label for="hero-phone" class="block text-gray-700 mb-2"
-                >Phone <span class="text-[#FFA985]">*</span></label
-              >
-              <input
-                type="tel"
-                id="hero-phone"
-                name="phone"
-                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                placeholder="256-826-1100"
-                required
-                aria-required="true"
-              />
-            </div>
-            <div class="mb-4">
-              <label for="hero-service" class="block text-gray-700 mb-2"
-                >Service Type <span class="text-[#FFA985]">*</span></label
-              >
-              <select
-                id="hero-service"
-                name="service"
-                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                required
-                aria-required="true"
-              >
-                <option value="">Select a Service</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning"
-                  >Move In/Out Cleaning</option
-                >
-                <option value="Post-Construction Cleaning"
-                  >Post-Construction Cleaning</option
-                >
-                <option value="Commercial/Office Cleaning"
-                  >Commercial/Office Cleaning</option
-                >
-                <option value="Event Cleaning">Event Cleaning</option>
-                <option value="Green Cleaning">Green Cleaning</option>
-                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <label for="hero-name" class="block text-gray-700 mb-2"
-                >Name <span class="text-[#FFA985]">*</span></label
-              >
-              <input
-                type="text"
-                id="hero-name"
-                name="name"
-                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                placeholder="Your Name"
-                required
-                aria-required="true"
-              />
-            </div>
-            <div class="mb-4">
-              <label for="hero-email" class="block text-gray-700 mb-2"
-                >Email <span class="text-gray-400 text-sm">(optional)</span
-                ></label
-              >
-              <input
-                type="email"
-                id="hero-email"
-                name="email"
-                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                placeholder="your@email.com"
-              />
-            </div>
-            <div class="mb-4">
-              <label for="hero-date" class="block text-gray-700 mb-2"
-                >Preferred Date <span class="text-gray-400 text-sm"
-                  >(optional)</span
-                ></label
-              >
-              <input
-                type="date"
-                id="hero-date"
-                name="preferred_date"
-                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-              />
-            </div>
-            <div class="mb-4">
-              <label for="hero-message" class="block text-gray-700 mb-2"
-                >Additional Details <span class="text-gray-400 text-sm"
-                  >(optional)</span
-                ></label
-              >
-              <textarea
-                id="hero-message"
-                name="message"
-                class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                rows="2"
-                placeholder="Tell us about your home..."></textarea>
-            </div>
-            <button
-              type="submit"
-              id="hero-submit-btn"
-              class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg"
-            >
-              Get My Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="lock" class="w-3 h-3 mr-1 inline" /> Your information is
-              secure. We'll call within 2 hours.
-            </p>
-            <div
-              id="hero-form-message"
-              class="hidden text-center p-4 rounded-lg mt-3"
-            >
-            </div>
-          </form>
+          <QuoteForm formId="hero-quote-form" source="Homepage Hero Form" />
         </div>
       </div>
 
@@ -928,80 +817,6 @@ import Icon from "../components/Icon.astro";
     </div>
   </section>
 </BaseLayout>
-
-<script>
-  async function handleFormSubmit(
-    form: HTMLFormElement,
-    submitBtn: HTMLButtonElement,
-    messageDiv: HTMLElement,
-    sourceName: string,
-  ) {
-    const formData = {
-      name: (form.elements.namedItem("name") as HTMLInputElement)?.value || "",
-      email:
-        (form.elements.namedItem("email") as HTMLInputElement)?.value || "",
-      phone:
-        (form.elements.namedItem("phone") as HTMLInputElement)?.value || "",
-      service:
-        (form.elements.namedItem("service") as HTMLSelectElement)?.value || "",
-      preferred_date:
-        (form.elements.namedItem("preferred_date") as HTMLInputElement)
-          ?.value || "",
-      message:
-        (form.elements.namedItem("message") as HTMLTextAreaElement)?.value ||
-        "",
-      source: sourceName,
-      page_url: window.location.href,
-    };
-
-    submitBtn.disabled = true;
-    submitBtn.innerHTML =
-      '<svg class="inline w-4 h-4 mr-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Sending...';
-
-    try {
-      const response = await fetch("/api/submit-form", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        messageDiv.className =
-          "text-center p-4 rounded-lg bg-green-100 text-green-800";
-        messageDiv.innerHTML = "✓ Thank you! We'll be in touch within 2 hours.";
-        messageDiv.classList.remove("hidden");
-        form.reset();
-      } else {
-        throw new Error(result.error || "Submission failed");
-      }
-    } catch (error) {
-      messageDiv.className =
-        "text-center p-4 rounded-lg bg-red-100 text-red-800";
-      messageDiv.innerHTML =
-        "⚠ Something went wrong. Please call us at 256-826-1100.";
-      messageDiv.classList.remove("hidden");
-    }
-
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = "Get My Free Quote";
-  }
-
-  document
-    .getElementById("hero-quote-form")
-    ?.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
-      const submitBtn = document.getElementById(
-        "hero-submit-btn",
-      ) as HTMLButtonElement;
-      const messageDiv = document.getElementById(
-        "hero-form-message",
-      ) as HTMLElement;
-      await handleFormSubmit(form, submitBtn, messageDiv, "Homepage Hero Form");
-    });
-</script>
 
 <!-- Sticky Get Quote Button -->
 <button

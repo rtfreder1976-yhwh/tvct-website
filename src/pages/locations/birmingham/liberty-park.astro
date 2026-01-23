@@ -1,96 +1,108 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "What makes Liberty Park special in the Vestavia Hills area?",
-    answer: "Liberty Park is a premier recreational complex and surrounding neighborhood in Vestavia Hills, featuring 120+ acres with athletic fields, swimming facilities, walking trails, and community gathering spaces. The area attracts active families who value outdoor recreation, excellent schools, and a strong sense of community. Homes near Liberty Park typically range from 2,500 to 4,500 square feet and appeal to families prioritizing lifestyle and recreation."
+    answer:
+      "Liberty Park is a premier recreational complex and surrounding neighborhood in Vestavia Hills, featuring 120+ acres with athletic fields, swimming facilities, walking trails, and community gathering spaces. The area attracts active families who value outdoor recreation, excellent schools, and a strong sense of community. Homes near Liberty Park typically range from 2,500 to 4,500 square feet and appeal to families prioritizing lifestyle and recreation.",
   },
   {
     question: "Do you clean homes in the Liberty Park neighborhood area?",
-    answer: "Yes! We regularly serve families throughout the Liberty Park area of Vestavia Hills. Whether you live in one of the newer subdivisions near the park or an established neighborhood nearby, we understand the cleaning needs of active families with children involved in sports, swimming, and outdoor activities. Grass stains, pool gear, and busy schedules are no match for our thorough service."
+    answer:
+      "Yes! We regularly serve families throughout the Liberty Park area of Vestavia Hills. Whether you live in one of the newer subdivisions near the park or an established neighborhood nearby, we understand the cleaning needs of active families with children involved in sports, swimming, and outdoor activities. Grass stains, pool gear, and busy schedules are no match for our thorough service.",
   },
   {
-    question: "How do you handle homes with active families and sports equipment?",
-    answer: "Liberty Park area families are active, and we get it. We're experienced with muddy cleats, swim gear, athletic bags, and the general chaos that comes with sports schedules. We work around your family's routine, clean efficiently while kids are at practice or school, and ensure high-traffic areas get the attention they need."
+    question:
+      "How do you handle homes with active families and sports equipment?",
+    answer:
+      "Liberty Park area families are active, and we get it. We're experienced with muddy cleats, swim gear, athletic bags, and the general chaos that comes with sports schedules. We work around your family's routine, clean efficiently while kids are at practice or school, and ensure high-traffic areas get the attention they need.",
   },
   {
-    question: "What's included in your regular cleaning service for Liberty Park area homes?",
-    answer: "Our regular service covers all living areas, bedrooms, and bathrooms. We thoroughly clean kitchens, dust all surfaces, vacuum and mop all floors, handle baseboards, and maintain consistency. For Liberty Park families, this means coming home after a busy day of activities to a clean, organized home where you can actually relax."
+    question:
+      "What's included in your regular cleaning service for Liberty Park area homes?",
+    answer:
+      "Our regular service covers all living areas, bedrooms, and bathrooms. We thoroughly clean kitchens, dust all surfaces, vacuum and mop all floors, handle baseboards, and maintain consistency. For Liberty Park families, this means coming home after a busy day of activities to a clean, organized home where you can actually relax.",
   },
   {
     question: "Can you accommodate sports and activity schedules?",
-    answer: "Absolutely. Liberty Park families have packed calendars - school, practice, games, swim meets. We offer flexible scheduling including early morning, mid-day, or afternoon cleaning while you're at work or kids are at school. You pick what works best for your family's schedule, and we deliver consistent, reliable service around your routine."
+    answer:
+      "Absolutely. Liberty Park families have packed calendars - school, practice, games, swim meets. We offer flexible scheduling including early morning, mid-day, or afternoon cleaning while you're at work or kids are at school. You pick what works best for your family's schedule, and we deliver consistent, reliable service around your routine.",
   },
   {
     question: "Do you use products safe for children and pets?",
-    answer: "Yes, always. Vestavia Hills and Liberty Park area families prioritize health and safety. We use eco-friendly, non-toxic products that are safe for children, pets, and family members with sensitivities. Clean and healthy shouldn't be a tradeoff - you get both with our service."
+    answer:
+      "Yes, always. Vestavia Hills and Liberty Park area families prioritize health and safety. We use eco-friendly, non-toxic products that are safe for children, pets, and family members with sensitivities. Clean and healthy shouldn't be a tradeoff - you get both with our service.",
   },
   {
     question: "What areas around Liberty Park do you serve?",
-    answer: "We serve the entire Liberty Park area and all of Vestavia Hills including neighborhoods near Wald Park, Altadena Valley, Rocky Ridge, Cahaba Heights, and throughout the city limits. We also serve nearby Homewood, Hoover, Mountain Brook, and all Birmingham neighborhoods. If you're in the area, we've got you covered."
+    answer:
+      "We serve the entire Liberty Park area and all of Vestavia Hills including neighborhoods near Wald Park, Altadena Valley, Rocky Ridge, Cahaba Heights, and throughout the city limits. We also serve nearby Homewood, Hoover, Mountain Brook, and all Birmingham neighborhoods. If you're in the area, we've got you covered.",
   },
   {
     question: "How quickly can you start service for Liberty Park area homes?",
-    answer: "We typically schedule new clients within 3-5 business days for regular service. If you need something sooner, we offer same-day and next-day deep cleaning when available. Call us at 256-826-1100 and we'll find a time that works for your busy schedule."
-  }
+    answer:
+      "We typically schedule new clients within 3-5 business days for regular service. If you need something sooner, we offer same-day and next-day deep cleaning when available. Call us at 256-826-1100 and we'll find a time that works for your busy schedule.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Residential Cleaning Services",
-  "provider": {
+  serviceType: "Residential Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Vestavia Hills",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Vestavia Hills",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$$"
+    priceRange: "$$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Liberty Park - Vestavia Hills, Alabama",
-    "geo": {
+    name: "Liberty Park - Vestavia Hills, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "33.4404",
-      "longitude": "-86.7466"
+      latitude: "33.4404",
+      longitude: "-86.7466",
     },
-    "containedInPlace": {
+    containedInPlace: {
       "@type": "City",
-      "name": "Birmingham",
-      "containedInPlace": {
+      name: "Birmingham",
+      containedInPlace: {
         "@type": "State",
-        "name": "Alabama"
-      }
-    }
+        name: "Alabama",
+      },
+    },
   },
-  "description": "Professional house cleaning services for Liberty Park area homes in Vestavia Hills, Birmingham. Trusted by active families who value recreation, community, and a clean home to come back to.",
-  "offers": {
+  description:
+    "Professional house cleaning services for Liberty Park area homes in Vestavia Hills, Birmingham. Trusted by active families who value recreation, community, and a clean home to come back to.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -104,23 +116,35 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="running" class="w-5 h-5 mr-2" />Active Living, Clean Homes
+              <Icon name="running" class="w-5 h-5 mr-2" />Active Living, Clean
+              Homes
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            House Cleaning Near <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Liberty Park</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            House Cleaning Near <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Liberty Park</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Liberty Park represents the best of Vestavia Hills living - world-class recreation, strong schools, and active families. When you're busy with swim meets, sports practices, and weekend adventures, your home deserves professional cleaning that keeps up. We provide trusted, thorough service for Liberty Park area families who want to enjoy their time together, not spend it scrubbing.
+            Liberty Park represents the best of Vestavia Hills living -
+            world-class recreation, strong schools, and active families. When
+            you're busy with swim meets, sports practices, and weekend
+            adventures, your home deserves professional cleaning that keeps up.
+            We provide trusted, thorough service for Liberty Park area families
+            who want to enjoy their time together, not spend it scrubbing.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -141,11 +165,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -154,53 +186,25 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving Liberty Park area families</p>
-          <form id="liberty-park-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Weekly Cleaning">Weekly Cleaning</option>
-                <option value="Bi-Weekly Cleaning">Bi-Weekly Cleaning</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
-                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
-                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
-                <option value="3,500 - 4,500 sq ft">3,500 - 4,500 sq ft</option>
-                <option value="Over 4,500 sq ft">Over 4,500 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Any special requests? (kids, pets, sports schedules)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="liberty-park-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Trusted by Liberty Park families
-            </p>
-            <div id="liberty-park-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving Liberty Park area families
+          </p>
+          <QuoteForm
+            formId="liberty-park-quote-form"
+            city="Vestavia Hills"
+            state="Alabama"
+            serviceName="General Cleaning"
+            source="Liberty Park Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -212,56 +216,119 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Cleaning for Active<br>Liberty Park Families
+            Cleaning for Active<br />Liberty Park Families
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Liberty Park is more than a recreational facility - it's the heart of Vestavia Hills family life. With 120+ acres featuring aquatic centers, athletic fields, walking trails, tennis courts, and community gathering spaces, Liberty Park represents the active lifestyle that defines this area. Families here prioritize health, recreation, and community engagement.
+            Liberty Park is more than a recreational facility - it's the heart
+            of Vestavia Hills family life. With 120+ acres featuring aquatic
+            centers, athletic fields, walking trails, tennis courts, and
+            community gathering spaces, Liberty Park represents the active
+            lifestyle that defines this area. Families here prioritize health,
+            recreation, and community engagement.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            The neighborhoods surrounding Liberty Park reflect these values. Homes typically range from 2,500 to 4,500 square feet, built in the 1990s through today, featuring open floor plans perfect for family living. Many properties have finished basements (great for teen hangouts and playrooms), multi-car garages (essential for all that sports equipment), and outdoor spaces for backyard gatherings.
+            The neighborhoods surrounding Liberty Park reflect these values.
+            Homes typically range from 2,500 to 4,500 square feet, built in the
+            1990s through today, featuring open floor plans perfect for family
+            living. Many properties have finished basements (great for teen
+            hangouts and playrooms), multi-car garages (essential for all that
+            sports equipment), and outdoor spaces for backyard gatherings.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            Liberty Park area residents are professionals, business owners, UAB physicians, and corporate leaders who value Vestavia Hills schools and the community-oriented lifestyle. They're busy managing careers, coordinating sports schedules, shuttling to swim meets, attending school events, and actually using that park membership they invested in.
+            Liberty Park area residents are professionals, business owners, UAB
+            physicians, and corporate leaders who value Vestavia Hills schools
+            and the community-oriented lifestyle. They're busy managing careers,
+            coordinating sports schedules, shuttling to swim meets, attending
+            school events, and actually using that park membership they invested
+            in.
           </p>
           <p class="text-lg text-gray-700">
-            When life is this full, cleaning shouldn't be one more thing on your to-do list. We provide consistent, thorough service that lets you focus on what matters - being present for your family's active life while maintaining a home that's actually clean when you walk through the door.
+            When life is this full, cleaning shouldn't be one more thing on your
+            to-do list. We provide consistent, thorough service that lets you
+            focus on what matters - being present for your family's active life
+            while maintaining a home that's actually clean when you walk through
+            the door.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Liberty Park Area Features:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Liberty Park Area Features:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>World-class recreation</strong> at Liberty Park</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>World-class recreation</strong> at Liberty Park</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Top-rated schools</strong> in Vestavia Hills</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Top-rated schools</strong> in Vestavia Hills</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Family homes</strong> 2,500-4,500 sq ft</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Family homes</strong> 2,500-4,500 sq ft</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Active families</strong> with packed schedules</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Active families</strong> with packed schedules</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Open floor plans</strong> for family living</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Open floor plans</strong> for family living</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Finished basements</strong> and bonus rooms</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Finished basements</strong> and bonus rooms</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Community focus</strong> on health and wellness</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Community focus</strong> on health and wellness</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Convenient location</strong> in Vestavia Hills</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Convenient location</strong> in Vestavia Hills</span
+              >
             </li>
           </ul>
         </div>
@@ -277,56 +344,124 @@ const serviceSchema = {
           Why Liberty Park Families Choose Us
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Reliable cleaning for active lifestyles</p>
+        <p class="text-xl text-gray-600">
+          Reliable cleaning for active lifestyles
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="calendar-alt" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Works Around Your Schedule</h3>
-          <p class="text-gray-600">Between swim practice, soccer games, school events, and work, you're busy. We clean while kids are at school or you're at the office. Flexible scheduling that adapts to sports seasons, school calendars, and your real life.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Works Around Your Schedule
+          </h3>
+          <p class="text-gray-600">
+            Between swim practice, soccer games, school events, and work, you're
+            busy. We clean while kids are at school or you're at the office.
+            Flexible scheduling that adapts to sports seasons, school calendars,
+            and your real life.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="baby" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Safe for Kids & Pets</h3>
-          <p class="text-gray-600">Active families with children and pets need safe cleaning products. We use eco-friendly, non-toxic solutions that are tough on dirt but safe for everyone. Clean floors your kids can play on, surfaces your pets can be near.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Safe for Kids & Pets
+          </h3>
+          <p class="text-gray-600">
+            Active families with children and pets need safe cleaning products.
+            We use eco-friendly, non-toxic solutions that are tough on dirt but
+            safe for everyone. Clean floors your kids can play on, surfaces your
+            pets can be near.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Handles High-Traffic Areas</h3>
-          <p class="text-gray-600">Liberty Park families track in grass, mud, pool chemicals, and all the wonderful mess of active living. We pay special attention to entryways, mudrooms, kitchens, and high-traffic zones that take the most beating in busy households.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Handles High-Traffic Areas
+          </h3>
+          <p class="text-gray-600">
+            Liberty Park families track in grass, mud, pool chemicals, and all
+            the wonderful mess of active living. We pay special attention to
+            entryways, mudrooms, kitchens, and high-traffic zones that take the
+            most beating in busy households.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-friends" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Consistency</h3>
-          <p class="text-gray-600">You'll have the same cleaning team every visit. They learn where the sports equipment goes, understand your family's routine, and become a reliable part of your household management. No strangers, just familiar faces doing great work.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same Team Consistency
+          </h3>
+          <p class="text-gray-600">
+            You'll have the same cleaning team every visit. They learn where the
+            sports equipment goes, understand your family's routine, and become
+            a reliable part of your household management. No strangers, just
+            familiar faces doing great work.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="shield-alt" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Fully Insured & Vetted</h3>
-          <p class="text-gray-600">Every team member passes background checks and is bonded and insured with $2M liability coverage. We treat your home like our own - with respect, professionalism, and accountability. Your family's safety comes first.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Fully Insured & Vetted
+          </h3>
+          <p class="text-gray-600">
+            Every team member passes background checks and is bonded and insured
+            with $2M liability coverage. We treat your home like our own - with
+            respect, professionalism, and accountability. Your family's safety
+            comes first.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="medal" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Excellence</h3>
-          <p class="text-gray-600">Military discipline meets Southern hospitality. We're punctual, thorough, and detail-oriented. Show up on time, do the job right, leave your home spotless. The same values that served our country now serve Liberty Park families.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Veteran-Owned Excellence
+          </h3>
+          <p class="text-gray-600">
+            Military discipline meets Southern hospitality. We're punctual,
+            thorough, and detail-oriented. Show up on time, do the job right,
+            leave your home spotless. The same values that served our country
+            now serve Liberty Park families.
+          </p>
         </div>
       </div>
     </div>
@@ -343,79 +478,144 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Recurring Cleaning</h3>
-          <p class="text-gray-600 mb-6">Weekly or bi-weekly service that keeps your Liberty Park area home consistently clean. Same team learns your home and routine. Perfect for busy families who want one less thing to manage.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Recurring Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Weekly or bi-weekly service that keeps your Liberty Park area home
+            consistently clean. Same team learns your home and routine. Perfect
+            for busy families who want one less thing to manage.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All bedrooms and living areas</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Kitchen thoroughly cleaned</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All bathrooms sanitized</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Floors vacuumed and mopped</span>
             </li>
           </ul>
-          <a href="/locations/birmingham/recurring-maid-service" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/birmingham/recurring-maid-service"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
           <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning</h3>
-          <p class="text-gray-600 mb-6">Top-to-bottom cleaning for seasonal refresh, first-time service, or whenever your active household needs a reset. We reach everywhere regular cleaning doesn't.</p>
+          <p class="text-gray-600 mb-6">
+            Top-to-bottom cleaning for seasonal refresh, first-time service, or
+            whenever your active household needs a reset. We reach everywhere
+            regular cleaning doesn't.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Everything in regular clean PLUS</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Baseboards and door frames</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Light fixtures and ceiling fans</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Inside appliances and cabinets</span>
             </li>
           </ul>
-          <a href="/locations/birmingham/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/birmingham/deep-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="truck" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
           <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out</h3>
-          <p class="text-gray-600 mb-6">Complete cleaning for Vestavia Hills home transitions. Perfect for sellers, buyers, renters, and landlords. Get deposits back or impress new buyers.</p>
+          <p class="text-gray-600 mb-6">
+            Complete cleaning for Vestavia Hills home transitions. Perfect for
+            sellers, buyers, renters, and landlords. Get deposits back or
+            impress new buyers.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Complete empty home cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Inside all cabinets and closets</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Appliances cleaned inside/out</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Realtor approved results</span>
             </li>
           </ul>
-          <a href="/locations/birmingham/move-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/birmingham/move-out-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
       </div>
     </div>
@@ -432,17 +632,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -454,22 +662,40 @@ const serviceSchema = {
         Also Serving Nearby Birmingham Communities
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/birmingham/vestavia-hills" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/vestavia-hills"
+          class="neighborhood-badge block text-center"
+        >
           Vestavia Hills
         </a>
-        <a href="/locations/birmingham/homewood" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/homewood"
+          class="neighborhood-badge block text-center"
+        >
           Homewood
         </a>
-        <a href="/locations/birmingham/mountain-brook" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/mountain-brook"
+          class="neighborhood-badge block text-center"
+        >
           Mountain Brook
         </a>
-        <a href="/locations/birmingham/hoover" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/hoover"
+          class="neighborhood-badge block text-center"
+        >
           Hoover
         </a>
-        <a href="/locations/birmingham/cahaba-heights" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/cahaba-heights"
+          class="neighborhood-badge block text-center"
+        >
           Cahaba Heights
         </a>
-        <a href="/locations/birmingham" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham"
+          class="neighborhood-badge block text-center"
+        >
           All Birmingham Areas
         </a>
       </div>
@@ -480,72 +706,25 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        More Time at Liberty Park, <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Less Time Cleaning</span>
+        More Time at Liberty Park, <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Less Time Cleaning</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Join your neighbors who trust us to keep their homes clean while they enjoy everything Vestavia Hills offers. Call now for a free quote.
+        Join your neighbors who trust us to keep their homes clean while they
+        enjoy everything Vestavia Hills offers. Call now for a free quote.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service available | 2-hour response
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service
+        available | 2-hour response
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('liberty-park-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('liberty-park-submit-btn');
-      const messageDiv = document.getElementById('liberty-park-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Liberty Park - Vestavia Hills',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Liberty Park Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you within 2 hours.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

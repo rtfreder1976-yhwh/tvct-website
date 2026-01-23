@@ -2,6 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
+import QuoteForm from "../components/QuoteForm.astro";
 
 interface Props {
   title: string;
@@ -182,7 +183,7 @@ const faqSchema = {
     neighborhoods={neighborhoods}
   />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
@@ -263,99 +264,12 @@ const faqSchema = {
           <p class="text-gray-600 mb-6 text-center">
             Serving all {city} neighborhoods
           </p>
-          <form id="location-quote-form">
-            <div class="mb-4">
-              <label for="loc-name" class="sr-only">Your Name</label>
-              <input
-                type="text"
-                id="loc-name"
-                name="name"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                placeholder="Your Name *"
-                required
-              />
-            </div>
-            <div class="mb-4">
-              <label for="loc-email" class="sr-only">Email Address</label>
-              <input
-                type="email"
-                id="loc-email"
-                name="email"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                placeholder="Email Address *"
-                required
-              />
-            </div>
-            <div class="mb-4">
-              <label for="loc-phone" class="sr-only">Phone Number</label>
-              <input
-                type="tel"
-                id="loc-phone"
-                name="phone"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                placeholder="Phone Number *"
-                required
-              />
-            </div>
-            <div class="mb-4">
-              <label for="loc-address" class="sr-only"
-                >Address/Neighborhood</label
-              >
-              <input
-                type="text"
-                id="loc-address"
-                name="location"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                placeholder={`${city} Address/Neighborhood`}
-                value={`${city}, ${state}`}
-                required
-              />
-            </div>
-            <div class="mb-4">
-              <label for="loc-service" class="sr-only"
-                >Select Service Type</label
-              >
-              <select
-                id="loc-service"
-                name="service"
-                class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
-                required
-              >
-                <option value="">Select Service Type *</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning"
-                  >Move In/Out Cleaning</option
-                >
-                <option value="Commercial/Office Cleaning"
-                  >Commercial/Office Cleaning</option
-                >
-                <option value="Event Cleaning">Event Cleaning</option>
-                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-                <option value="Post-Construction Cleaning"
-                  >Post-Construction Cleaning</option
-                >
-              </select>
-            </div>
-            <input type="hidden" name="city" value={city} />
-            <input type="hidden" name="state" value={state} />
-            <button
-              type="submit"
-              id="location-submit-btn"
-              class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg"
-            >
-              Get My Free {city} Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-4 h-4 inline-block mr-1" /> Response within
-              2 hours for {city} customers
-            </p>
-            <div
-              id="location-form-message"
-              class="hidden text-center p-4 rounded-lg mt-3"
-            >
-            </div>
-          </form>
+          <QuoteForm
+            formId="location-quote-form"
+            city={city}
+            state={state}
+            source={`Location Page - ${city}`}
+          />
         </div>
       </div>
     </div>
@@ -1321,66 +1235,4 @@ const faqSchema = {
       </div>
     </div>
   </section>
-
-  
-  <script>
-    document
-      .getElementById("location-quote-form")
-      ?.addEventListener("submit", async function (e) {
-        e.preventDefault();
-
-        const submitBtn = document.getElementById("location-submit-btn");
-        const messageDiv = document.getElementById("location-form-message");
-        const form = e.target;
-
-        const formData = {
-          name: form.name?.value || "",
-          email: form.email?.value || "",
-          phone: form.phone?.value || "",
-          service: form.service?.value || "",
-          location: form.location?.value || "",
-          city: form.city?.value || "",
-          state: form.state?.value || "",
-          source: "Location Page - " + (form.city?.value || ""),
-          page_url: window.location.href,
-        };
-
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-        try {
-          const response = await fetch("/api/submit-form", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-          });
-
-          const result = await response.json();
-
-          if (response.ok && result.success) {
-            messageDiv.className =
-              "text-center p-4 rounded-lg bg-green-100 text-green-800";
-            messageDiv.innerHTML =
-              "✓ Thank you! We'll be in touch within 2 hours.";
-            messageDiv.classList.remove("hidden");
-            form.reset();
-          } else {
-            throw new Error(result.error || "Submission failed");
-          }
-        } catch (error) {
-          messageDiv.className =
-            "text-center p-4 rounded-lg bg-red-100 text-red-800";
-          messageDiv.innerHTML =
-            "⚠ Something went wrong. Please call us at 256-826-1100.";
-          messageDiv.classList.remove("hidden");
-        }
-
-        submitBtn.disabled = false;
-        submitBtn.textContent = submitBtn.dataset.originalText || "Get Quote";
-      });
-
-    // Store original button text
-    const btn = document.getElementById("location-submit-btn");
-    if (btn) btn.dataset.originalText = btn.textContent;
-  </script>
 </BaseLayout>

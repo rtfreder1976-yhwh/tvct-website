@@ -1,96 +1,106 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "What makes Mountain Brook Village unique for cleaning services?",
-    answer: "Mountain Brook Village represents the walkable heart of Mountain Brook - a rare Southern lifestyle where residents can stroll to upscale boutiques, fine dining, and services. Homes range from $500,000 to $2 million+, mixing character properties with modern renovations. Many are updated cottages, European-inspired residences, and architect-designed homes. The Village lifestyle means homeowners value their time and prefer professionals who understand quality."
+    answer:
+      "Mountain Brook Village represents the walkable heart of Mountain Brook - a rare Southern lifestyle where residents can stroll to upscale boutiques, fine dining, and services. Homes range from $500,000 to $2 million+, mixing character properties with modern renovations. Many are updated cottages, European-inspired residences, and architect-designed homes. The Village lifestyle means homeowners value their time and prefer professionals who understand quality.",
   },
   {
     question: "Can you accommodate young professionals with busy schedules?",
-    answer: "Absolutely. Mountain Brook Village attracts successful young professionals and dual-income couples who work demanding jobs. We clean while you're at the office, provide key or smart lock access, and lock up securely when finished. Many clients schedule bi-weekly or weekly service so they can actually enjoy their evenings and weekends instead of cleaning."
+    answer:
+      "Absolutely. Mountain Brook Village attracts successful young professionals and dual-income couples who work demanding jobs. We clean while you're at the office, provide key or smart lock access, and lock up securely when finished. Many clients schedule bi-weekly or weekly service so they can actually enjoy their evenings and weekends instead of cleaning.",
   },
   {
     question: "Do you clean renovated historic homes and cottages?",
-    answer: "Yes! The Village has many beautifully renovated properties - updated 1930s-1950s homes with modern kitchens, renovated baths, and preserved character details. We understand how to care for both the historic charm (original hardwoods, vintage tile, built-ins) and modern finishes (quartz counters, new appliances, contemporary fixtures). Best of both worlds requires specialized knowledge."
+    answer:
+      "Yes! The Village has many beautifully renovated properties - updated 1930s-1950s homes with modern kitchens, renovated baths, and preserved character details. We understand how to care for both the historic charm (original hardwoods, vintage tile, built-ins) and modern finishes (quartz counters, new appliances, contemporary fixtures). Best of both worlds requires specialized knowledge.",
   },
   {
     question: "How do you handle homes close to the Village shopping area?",
-    answer: "Many Village homes are within walking distance of shops and restaurants - that's the appeal! We're experienced with tighter parking situations, coordinate arrival times to avoid disruption, and maintain quiet, professional operations that respect your neighbors. We understand urban-adjacent living requires consideration."
+    answer:
+      "Many Village homes are within walking distance of shops and restaurants - that's the appeal! We're experienced with tighter parking situations, coordinate arrival times to avoid disruption, and maintain quiet, professional operations that respect your neighbors. We understand urban-adjacent living requires consideration.",
   },
   {
     question: "What's included in regular maintenance for Village homes?",
-    answer: "Our regular service (weekly or bi-weekly) covers all living areas, bedrooms, bathrooms, kitchen, dusting, vacuuming, mopping, and general tidying. We focus on keeping your home company-ready for the entertaining lifestyle the Village encourages. Same team every visit means consistency and efficiency - they know your preferences and your home's quirks."
+    answer:
+      "Our regular service (weekly or bi-weekly) covers all living areas, bedrooms, bathrooms, kitchen, dusting, vacuuming, mopping, and general tidying. We focus on keeping your home company-ready for the entertaining lifestyle the Village encourages. Same team every visit means consistency and efficiency - they know your preferences and your home's quirks.",
   },
   {
     question: "Can you help with pre-party cleaning and post-event cleanup?",
-    answer: "Definitely! Village residents love to entertain - dinner parties, book clubs, holiday gatherings. We provide pre-event deep cleaning to ensure your home sparkles, and post-event cleanup to restore order. Living in the Village means spontaneous entertaining - we help make it effortless rather than stressful."
+    answer:
+      "Definitely! Village residents love to entertain - dinner parties, book clubs, holiday gatherings. We provide pre-event deep cleaning to ensure your home sparkles, and post-event cleanup to restore order. Living in the Village means spontaneous entertaining - we help make it effortless rather than stressful.",
   },
   {
     question: "Do you work with empty nesters downsizing to the Village?",
-    answer: "Yes, many empty nesters move to the Village for walkability, convenience, and community. Whether you're downsizing from a larger estate or renovating a Village cottage, we provide move-in cleaning, regular maintenance, and the reliability that makes smaller-home living truly liberating. Less house, more life - we handle the cleaning."
+    answer:
+      "Yes, many empty nesters move to the Village for walkability, convenience, and community. Whether you're downsizing from a larger estate or renovating a Village cottage, we provide move-in cleaning, regular maintenance, and the reliability that makes smaller-home living truly liberating. Less house, more life - we handle the cleaning.",
   },
   {
     question: "How do you protect hardwood floors and original details?",
-    answer: "Many Village homes have beautiful original hardwood floors, vintage tile in bathrooms, and architectural details worth preserving. We use appropriate products for aged wood, gentle cleaners for vintage materials, and techniques that protect rather than damage character features. Your home's charm is preserved with every visit."
-  }
+    answer:
+      "Many Village homes have beautiful original hardwood floors, vintage tile in bathrooms, and architectural details worth preserving. We use appropriate products for aged wood, gentle cleaners for vintage materials, and techniques that protect rather than damage character features. Your home's charm is preserved with every visit.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Premium Residential Cleaning Services",
-  "provider": {
+  serviceType: "Premium Residential Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Mountain Brook",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Mountain Brook",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$"
+    priceRange: "$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Mountain Brook Village - Mountain Brook, Alabama",
-    "geo": {
+    name: "Mountain Brook Village - Mountain Brook, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "33.5011",
-      "longitude": "-86.7536"
+      latitude: "33.5011",
+      longitude: "-86.7536",
     },
-    "containedInPlace": {
+    containedInPlace: {
       "@type": "City",
-      "name": "Mountain Brook",
-      "containedInPlace": {
+      name: "Mountain Brook",
+      containedInPlace: {
         "@type": "State",
-        "name": "Alabama"
-      }
-    }
+        name: "Alabama",
+      },
+    },
   },
-  "description": "Premium house cleaning for Mountain Brook Village homes. Regular maintenance, deep cleaning, and event preparation for walkable village lifestyle.",
-  "offers": {
+  description:
+    "Premium house cleaning for Mountain Brook Village homes. Regular maintenance, deep cleaning, and event preparation for walkable village lifestyle.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -103,23 +113,34 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="walking" class="w-5 h-5 mr-2" />Walkable Village Lifestyle
+              <Icon name="walking" class="w-5 h-5 mr-2" />Walkable Village
+              Lifestyle
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            Premium Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Mountain Brook Village</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            Premium Cleaning in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Mountain Brook Village</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            You chose the Village for its walkability, character, and lifestyle. Why spend your free time cleaning? Mountain Brook Village residents trust us to keep their homes pristine - from renovated cottages near the shops to updated character homes on tree-lined streets. Come home to a spotless house and actually enjoy your evenings.
+            You chose the Village for its walkability, character, and lifestyle.
+            Why spend your free time cleaning? Mountain Brook Village residents
+            trust us to keep their homes pristine - from renovated cottages near
+            the shops to updated character homes on tree-lined streets. Come
+            home to a spotless house and actually enjoy your evenings.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -140,11 +161,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -153,54 +182,25 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving Mountain Brook Village since day one</p>
-          <form id="village-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Weekly Cleaning">Weekly Cleaning</option>
-                <option value="Bi-Weekly Cleaning">Bi-Weekly Cleaning</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Pre/Post Event">Pre/Post Event Cleaning</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
-                <option value="2,000 - 3,000 sq ft">2,000 - 3,000 sq ft</option>
-                <option value="3,000 - 4,000 sq ft">3,000 - 4,000 sq ft</option>
-                <option value="4,000 - 5,000 sq ft">4,000 - 5,000 sq ft</option>
-                <option value="Over 5,000 sq ft">Over 5,000 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (parking instructions, pets, special requests)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="village-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Licensed, bonded & insured
-            </p>
-            <div id="village-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving Mountain Brook Village since day one
+          </p>
+          <QuoteForm
+            formId="village-form"
+            city="Mountain Brook"
+            state="AL"
+            serviceName="Village Lifestyle Cleaning"
+            source="Mountain Brook Village Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -212,56 +212,119 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Cleaning Services for<br>Village Lifestyle Living
+            Cleaning Services for<br />Village Lifestyle Living
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Mountain Brook Village isn't just a neighborhood - it's a lifestyle. This is Mountain Brook's walkable heart, where residents can stroll to upscale boutiques like Gus Mayer and Soca, grab coffee at O'Henry's, enjoy fine dining at Chez Fonfon or Vecchia, and walk home carrying their shopping bags. It's a rare Southern community designed for pedestrians, not just cars.
+            Mountain Brook Village isn't just a neighborhood - it's a lifestyle.
+            This is Mountain Brook's walkable heart, where residents can stroll
+            to upscale boutiques like Gus Mayer and Soca, grab coffee at
+            O'Henry's, enjoy fine dining at Chez Fonfon or Vecchia, and walk
+            home carrying their shopping bags. It's a rare Southern community
+            designed for pedestrians, not just cars.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            Homes in the Village range from $500,000 to over $2 million, mixing updated cottages from the 1930s-1950s with architect-designed modern residences. Many feature renovated kitchens with high-end appliances, preserved hardwood floors, European-inspired design elements, and outdoor living spaces perfect for entertaining. These properties attract successful young professionals, empty nesters seeking walkability, and families who value community.
+            Homes in the Village range from $500,000 to over $2 million, mixing
+            updated cottages from the 1930s-1950s with architect-designed modern
+            residences. Many feature renovated kitchens with high-end
+            appliances, preserved hardwood floors, European-inspired design
+            elements, and outdoor living spaces perfect for entertaining. These
+            properties attract successful young professionals, empty nesters
+            seeking walkability, and families who value community.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            The Village lifestyle means you're busy - working demanding jobs, enjoying restaurants and events, entertaining friends, participating in community activities. You didn't move here to spend weekends scrubbing bathrooms. You moved here for quality of life, convenience, and the ability to walk to everything you need.
+            The Village lifestyle means you're busy - working demanding jobs,
+            enjoying restaurants and events, entertaining friends, participating
+            in community activities. You didn't move here to spend weekends
+            scrubbing bathrooms. You moved here for quality of life,
+            convenience, and the ability to walk to everything you need.
           </p>
           <p class="text-lg text-gray-700">
-            That's where we come in. Whether you need weekly maintenance to stay ahead of busy life, or deep cleaning before hosting a dinner party, The Valley Clean Team understands Village homeowners. You value your time, expect quality, and appreciate professionals who just get it done right. We deliver exactly that - every single time.
+            That's where we come in. Whether you need weekly maintenance to stay
+            ahead of busy life, or deep cleaning before hosting a dinner party,
+            The Valley Clean Team understands Village homeowners. You value your
+            time, expect quality, and appreciate professionals who just get it
+            done right. We deliver exactly that - every single time.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Village Home Features:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Village Home Features:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Character properties</strong> with modern updates</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Character properties</strong> with modern updates</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Renovated kitchens</strong> and updated baths</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Renovated kitchens</strong> and updated baths</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Original hardwood</strong> floors preserved</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Original hardwood</strong> floors preserved</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Walking distance</strong> to shops and dining</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Walking distance</strong> to shops and dining</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Outdoor living spaces</strong> for entertaining</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Outdoor living spaces</strong> for entertaining</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Tree-lined streets</strong> and mature landscaping</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Tree-lined streets</strong> and mature landscaping</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>European-inspired</strong> design elements</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>European-inspired</strong> design elements</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Cottage charm</strong> meets modern luxury</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Cottage charm</strong> meets modern luxury</span
+              >
             </li>
           </ul>
         </div>
@@ -277,56 +340,127 @@ const serviceSchema = {
           Why Village Residents Choose Us
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Reliable service for busy professionals and active lifestyles</p>
+        <p class="text-xl text-gray-600">
+          Reliable service for busy professionals and active lifestyles
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="briefcase" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Work-Schedule Friendly</h3>
-          <p class="text-gray-600">We understand Village residents are busy professionals. We clean while you're at work - provide a key or smart lock code, and we'll lock up securely when finished. Come home to a pristine house instead of spending your evening cleaning. Life's too short for that.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Work-Schedule Friendly
+          </h3>
+          <p class="text-gray-600">
+            We understand Village residents are busy professionals. We clean
+            while you're at work - provide a key or smart lock code, and we'll
+            lock up securely when finished. Come home to a pristine house
+            instead of spending your evening cleaning. Life's too short for
+            that.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-friends" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Time</h3>
-          <p class="text-gray-600">You'll have the same cleaning team every visit. They learn your home's quirks, your preferences, your parking situation, and where you hide the spare key. Consistency builds trust, efficiency, and results. It's like having cleaning friends, not just a service.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same Team Every Time
+          </h3>
+          <p class="text-gray-600">
+            You'll have the same cleaning team every visit. They learn your
+            home's quirks, your preferences, your parking situation, and where
+            you hide the spare key. Consistency builds trust, efficiency, and
+            results. It's like having cleaning friends, not just a service.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home-heart" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Character Home Expertise</h3>
-          <p class="text-gray-600">Many Village homes blend historic charm with modern updates - original hardwoods meet new quartz counters, vintage tile alongside contemporary fixtures. We understand how to care for both the character details you love and the modern finishes you've invested in. Best of both worlds.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Character Home Expertise
+          </h3>
+          <p class="text-gray-600">
+            Many Village homes blend historic charm with modern updates -
+            original hardwoods meet new quartz counters, vintage tile alongside
+            contemporary fixtures. We understand how to care for both the
+            character details you love and the modern finishes you've invested
+            in. Best of both worlds.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="glass-cheers" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Entertaining Ready</h3>
-          <p class="text-gray-600">The Village lifestyle means impromptu dinner parties, book clubs, and social gatherings. We provide pre-event deep cleaning and post-party cleanup. Your home is always guest-ready, so you can say "yes" to hosting without the cleaning stress. Entertaining should be fun, not work.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Entertaining Ready
+          </h3>
+          <p class="text-gray-600">
+            The Village lifestyle means impromptu dinner parties, book clubs,
+            and social gatherings. We provide pre-event deep cleaning and
+            post-party cleanup. Your home is always guest-ready, so you can say
+            "yes" to hosting without the cleaning stress. Entertaining should be
+            fun, not work.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="bolt" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same-Day Service Available</h3>
-          <p class="text-gray-600">Last-minute guests? Surprise party invitation? Need help fast? We offer same-day service when you're in a pinch. Just call before noon and we'll do our best to fit you in. Village living means spontaneity - your cleaning service should keep up.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same-Day Service Available
+          </h3>
+          <p class="text-gray-600">
+            Last-minute guests? Surprise party invitation? Need help fast? We
+            offer same-day service when you're in a pinch. Just call before noon
+            and we'll do our best to fit you in. Village living means
+            spontaneity - your cleaning service should keep up.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="medal" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran Owned & Trusted</h3>
-          <p class="text-gray-600">Military discipline meets Southern hospitality. We're punctual, detail-oriented, and treat your home with respect. Licensed, bonded, and insured with background-checked team members. The same integrity that served our country now serves Mountain Brook Village.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Veteran Owned & Trusted
+          </h3>
+          <p class="text-gray-600">
+            Military discipline meets Southern hospitality. We're punctual,
+            detail-oriented, and treat your home with respect. Licensed, bonded,
+            and insured with background-checked team members. The same integrity
+            that served our country now serves Mountain Brook Village.
+          </p>
         </div>
       </div>
     </div>
@@ -343,95 +477,177 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
-          <p class="text-gray-600 mb-6">Our most popular service for Village residents. Weekly or bi-weekly cleaning keeps your home consistently pristine. Stop spending evenings and weekends cleaning. Start living the lifestyle you moved to the Village for.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Regular Maintenance Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Our most popular service for Village residents. Weekly or bi-weekly
+            cleaning keeps your home consistently pristine. Stop spending
+            evenings and weekends cleaning. Start living the lifestyle you moved
+            to the Village for.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All living areas and bedrooms</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Kitchens and bathrooms deep cleaned</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Dusting, vacuuming, mopping throughout</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Same team learns your preferences</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Preferred pricing for recurring clients</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Get Started
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
-          <p class="text-gray-600 mb-6">Top-to-bottom detailed cleaning for your entire home. Perfect for first-time service, seasonal refresh, or before hosting a big event. We tackle everything that doesn't get attention in regular cleaning.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Deep Cleaning Service
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Top-to-bottom detailed cleaning for your entire home. Perfect for
+            first-time service, seasonal refresh, or before hosting a big event.
+            We tackle everything that doesn't get attention in regular cleaning.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Everything in regular clean PLUS</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Baseboards, ceiling fans, light fixtures</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Interior windows and tracks</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Appliance exteriors and detailing</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Cabinet fronts and door frames</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Book Deep Clean
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <Icon name="glass-cheers" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Event Cleaning Services</h3>
-          <p class="text-gray-600 mb-6">Village residents love to entertain. We make hosting effortless with pre-event deep cleaning and post-party restoration. Say yes to hosting without the cleaning stress.</p>
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
+          <Icon
+            name="glass-cheers"
+            class="w-5 h-5 text-[#FFA985] text-4xl mb-4"
+          />
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Event Cleaning Services
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Village residents love to entertain. We make hosting effortless with
+            pre-event deep cleaning and post-party restoration. Say yes to
+            hosting without the cleaning stress.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Pre-event deep cleaning and prep</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Post-party cleanup and restoration</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Outdoor living space cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Flexible timing around your event</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Make hosting effortless, not stressful</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Schedule Event Clean
           </a>
         </div>
@@ -439,7 +655,15 @@ const serviceSchema = {
 
       <div class="mt-8 text-center">
         <p class="text-gray-600 mb-4">
-          Need <a href="/locations/mountain-brook/luxury-cleaning" class="text-[#FFA985] hover:underline font-semibold">luxury estate services</a> or explore <a href="/locations/mountain-brook" class="text-[#FFA985] hover:underline font-semibold">all Mountain Brook services</a>?
+          Need <a
+            href="/locations/mountain-brook/luxury-cleaning"
+            class="text-[#FFA985] hover:underline font-semibold"
+            >luxury estate services</a
+          > or explore <a
+            href="/locations/mountain-brook"
+            class="text-[#FFA985] hover:underline font-semibold"
+            >all Mountain Brook services</a
+          >?
         </p>
       </div>
     </div>
@@ -458,7 +682,9 @@ const serviceSchema = {
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               K
             </div>
             <div>
@@ -467,20 +693,44 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
+            "I was very pleased with Brittany and the job she did for us. She
+            was always punctual and her supervisor always made contact to keep
+            us updated. We will definitely use them again!"
           </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               E
             </div>
             <div>
@@ -489,14 +739,36 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+            "Cindy and Stephanie are very impressive technicians. My home smells
+            so good and is very clean. I am very hard to please when it comes to
+            my home - they met every expectation!"
           </p>
         </div>
       </div>
@@ -514,17 +786,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -536,19 +816,34 @@ const serviceSchema = {
         Also Serving Mountain Brook Neighborhoods
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/mountain-brook/cherokee-bend" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook/cherokee-bend"
+          class="neighborhood-badge block text-center"
+        >
           Cherokee Bend
         </a>
-        <a href="/locations/mountain-brook/english-village" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook/english-village"
+          class="neighborhood-badge block text-center"
+        >
           English Village
         </a>
-        <a href="/locations/mountain-brook" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook"
+          class="neighborhood-badge block text-center"
+        >
           All Mountain Brook Areas
         </a>
-        <a href="/locations/birmingham" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham"
+          class="neighborhood-badge block text-center"
+        >
           Birmingham
         </a>
-        <a href="/locations/mountain-brook/luxury-cleaning" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook/luxury-cleaning"
+          class="neighborhood-badge block text-center"
+        >
           Luxury Cleaning Services
         </a>
         <a href="/locations" class="neighborhood-badge block text-center">
@@ -562,72 +857,25 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Ready to Enjoy <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Village Living?</span>
+        Ready to Enjoy <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Village Living?</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Stop cleaning, start living. Join your neighbors who trust us to keep their Village homes pristine. Call now for your free quote.
+        Stop cleaning, start living. Join your neighbors who trust us to keep
+        their Village homes pristine. Call now for your free quote.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service available | 2-hour response guarantee
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service
+        available | 2-hour response guarantee
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('village-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('village-submit-btn');
-      const messageDiv = document.getElementById('village-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Mountain Brook Village - Mountain Brook',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Mountain Brook Village Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

@@ -1,92 +1,103 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
-import TrustBadges from '../../components/TrustBadges.astro';
-import Icon from '../../components/Icon.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import TrustBadges from "../../components/TrustBadges.astro";
+import Icon from "../../components/Icon.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
 
 const title = "Eco-Friendly Green Cleaning Services";
-const description = "Eco-friendly green cleaning in AL & TN. Non-toxic, plant-based products safe for kids, pets & allergies. Veteran-owned, insured.";
+const description =
+  "Eco-friendly green cleaning in AL & TN. Non-toxic, plant-based products safe for kids, pets & allergies. Veteran-owned, insured.";
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Green Cleaning Service",
-  "description": "Eco-friendly house cleaning using non-toxic, plant-based products. Safe for children, pets, and those with chemical sensitivities.",
-  "provider": {
+  name: "Green Cleaning Service",
+  description:
+    "Eco-friendly house cleaning using non-toxic, plant-based products. Safe for children, pets, and those with chemical sensitivities.",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "256-826-1100",
-    "email": "hello@thevalleycleanteam.com",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "256-826-1100",
+    email: "hello@thevalleycleanteam.com",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
-  },
-  "areaServed": [
-    { "@type": "State", "name": "Alabama" },
-    { "@type": "State", "name": "Tennessee" }
-  ],
-  "serviceType": "Green Cleaning",
-  "offers": {
-    "@type": "Offer",
-    "priceSpecification": {
-      "@type": "PriceSpecification",
-      "price": "125",
-      "priceCurrency": "USD",
-      "minPrice": "125"
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "availability": "https://schema.org/InStock"
-  }
+  },
+  areaServed: [
+    { "@type": "State", name: "Alabama" },
+    { "@type": "State", name: "Tennessee" },
+  ],
+  serviceType: "Green Cleaning",
+  offers: {
+    "@type": "Offer",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: "125",
+      priceCurrency: "USD",
+      minPrice: "125",
+    },
+    availability: "https://schema.org/InStock",
+  },
 };
 
 const faqs = [
   {
     question: "What makes your cleaning 'green'?",
-    answer: "We use plant-based, biodegradable cleaning products that are free from harsh chemicals, synthetic fragrances, chlorine, ammonia, and other toxic ingredients. Our products are EPA Safer Choice certified or equivalent."
+    answer:
+      "We use plant-based, biodegradable cleaning products that are free from harsh chemicals, synthetic fragrances, chlorine, ammonia, and other toxic ingredients. Our products are EPA Safer Choice certified or equivalent.",
   },
   {
     question: "Are green cleaning products as effective?",
-    answer: "Yes! Modern eco-friendly products clean just as effectively as conventional cleaners. We wouldn't use them if they didn't deliver excellent results. Some stubborn stains may require extra attention, but we get the job done."
+    answer:
+      "Yes! Modern eco-friendly products clean just as effectively as conventional cleaners. We wouldn't use them if they didn't deliver excellent results. Some stubborn stains may require extra attention, but we get the job done.",
   },
   {
     question: "Is green cleaning safe for my pets?",
-    answer: "Absolutely. Our products are specifically chosen to be safe for pets. No toxic residues on floors they walk on, no harmful fumes, no chemical risks if they lick surfaces."
+    answer:
+      "Absolutely. Our products are specifically chosen to be safe for pets. No toxic residues on floors they walk on, no harmful fumes, no chemical risks if they lick surfaces.",
   },
   {
     question: "I have chemical sensitivities. Can you help?",
-    answer: "Yes, this is exactly why we offer green cleaning. Many clients with MCS (Multiple Chemical Sensitivity), asthma, or allergies choose our green service to avoid triggering reactions."
+    answer:
+      "Yes, this is exactly why we offer green cleaning. Many clients with MCS (Multiple Chemical Sensitivity), asthma, or allergies choose our green service to avoid triggering reactions.",
   },
   {
     question: "Does green cleaning cost more?",
-    answer: "There's a small premium for eco-friendly products, typically 10-15% more than standard cleaning. Many clients find the health benefits well worth the difference."
+    answer:
+      "There's a small premium for eco-friendly products, typically 10-15% more than standard cleaning. Many clients find the health benefits well worth the difference.",
   },
   {
     question: "Can I request specific products?",
-    answer: "Of course. If you have preferred brands or products you know work for your sensitivities, we're happy to use them. Just let us know your preferences."
+    answer:
+      "Of course. If you have preferred brands or products you know work for your sensitivities, we're happy to use them. Just let us know your preferences.",
   },
   {
     question: "Do you use microfiber cloths?",
-    answer: "Yes! Microfiber is a key part of green cleaning. It captures more dirt and bacteria than traditional cloths and reduces the need for chemical cleaners. We wash and reuse them, reducing waste."
+    answer:
+      "Yes! Microfiber is a key part of green cleaning. It captures more dirt and bacteria than traditional cloths and reduces the need for chemical cleaners. We wash and reuse them, reducing waste.",
   },
   {
     question: "Is green cleaning available for all services?",
-    answer: "Yes, we offer green cleaning for regular cleaning, deep cleaning, move-in/out cleaning, and more. Just request the green option when booking."
-  }
+    answer:
+      "Yes, we offer green cleaning for regular cleaning, deep cleaning, move-in/out cleaning, and more. Just request the green option when booking.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const whatWeAvoid = [
@@ -96,64 +107,77 @@ const whatWeAvoid = [
   { chemical: "Triclosan", risk: "Antibacterial linked to health issues" },
   { chemical: "Quaternary Ammonium", risk: "Skin irritant, asthma trigger" },
   { chemical: "2-Butoxyethanol", risk: "Liver and kidney damage" },
-  { chemical: "Synthetic Fragrances", risk: "Allergies, headaches, sensitivities" },
-  { chemical: "Formaldehyde", risk: "Carcinogen, respiratory issues" }
+  {
+    chemical: "Synthetic Fragrances",
+    risk: "Allergies, headaches, sensitivities",
+  },
+  { chemical: "Formaldehyde", risk: "Carcinogen, respiratory issues" },
 ];
 
 const benefits = [
   {
     icon: "baby",
     title: "Safe for Children",
-    description: "No toxic residues on floors, toys, or surfaces. Peace of mind for families with little ones exploring the world."
+    description:
+      "No toxic residues on floors, toys, or surfaces. Peace of mind for families with little ones exploring the world.",
   },
   {
     icon: "paw",
     title: "Pet-Friendly",
-    description: "Non-toxic products mean no danger to pets who walk on floors and groom themselves. Safe for all furry family members."
+    description:
+      "Non-toxic products mean no danger to pets who walk on floors and groom themselves. Safe for all furry family members.",
   },
   {
     icon: "lungs",
     title: "Better Air Quality",
-    description: "No harsh chemical fumes means fresher, cleaner indoor air. Especially important for those with asthma or allergies."
+    description:
+      "No harsh chemical fumes means fresher, cleaner indoor air. Especially important for those with asthma or allergies.",
   },
   {
     icon: "leaf",
     title: "Environmentally Responsible",
-    description: "Biodegradable products don't pollute waterways. Reduce your household's environmental footprint."
+    description:
+      "Biodegradable products don't pollute waterways. Reduce your household's environmental footprint.",
   },
   {
     icon: "allergies",
     title: "Allergy & Sensitivity Friendly",
-    description: "Fragrance-free and hypoallergenic options for those with chemical sensitivities or MCS."
+    description:
+      "Fragrance-free and hypoallergenic options for those with chemical sensitivities or MCS.",
   },
   {
     icon: "heart",
     title: "Healthier Long-Term",
-    description: "Reduce cumulative exposure to toxic chemicals. Your home should be a healthy haven, not a source of chemical exposure."
-  }
+    description:
+      "Reduce cumulative exposure to toxic chemicals. Your home should be a healthy haven, not a source of chemical exposure.",
+  },
 ];
 
 const greenPractices = [
   {
     icon: "spray-can-sparkles",
     title: "Certified Green Products",
-    description: "EPA Safer Choice and equivalent certified cleaning solutions that are tough on dirt, gentle on health."
+    description:
+      "EPA Safer Choice and equivalent certified cleaning solutions that are tough on dirt, gentle on health.",
   },
   {
     icon: "tint",
     title: "Concentrated Formulas",
-    description: "Less packaging, less waste. Concentrated products reduce plastic use and transportation emissions."
+    description:
+      "Less packaging, less waste. Concentrated products reduce plastic use and transportation emissions.",
   },
   {
     icon: "recycle",
     title: "Reusable Supplies",
-    description: "Microfiber cloths instead of paper towels. Washed and reused to minimize waste."
+    description:
+      "Microfiber cloths instead of paper towels. Washed and reused to minimize waste.",
   },
   {
     icon: "wind",
     title: "HEPA Filtration",
-    description: "Vacuums with HEPA filters capture 99.97% of particles, improving air quality as we clean."
-  }
+    description:
+      "Vacuums with HEPA filters capture 99.97% of particles, improving air quality as we clean.",
+  },
 ];
 
 const idealFor = [
@@ -164,7 +188,7 @@ const idealFor = [
   "Pregnant women",
   "Immune-compromised individuals",
   "Health-conscious households",
-  "Environmentally-minded clients"
+  "Environmentally-minded clients",
 ];
 
 const serviceAreas = [
@@ -175,7 +199,7 @@ const serviceAreas = [
   { name: "Decatur", link: "/locations/decatur/green-cleaning" },
   { name: "Birmingham", link: "/locations/birmingham/green-cleaning" },
   { name: "Nashville", link: "/locations/nashville/green-cleaning" },
-  { name: "West Nashville", link: "/locations/west-nashville/green-cleaning" }
+  { name: "West Nashville", link: "/locations/west-nashville/green-cleaning" },
 ];
 ---
 
@@ -183,22 +207,29 @@ const serviceAreas = [
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <div class="inline-block bg-gradient-to-r from-green-100 to-green-50 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-green-100 to-green-50 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-green-700 font-semibold">
               <Icon name="leaf" class="w-5 h-5 mr-2" />Eco-Friendly & Non-Toxic
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
             <span class="gold-gradient">Green Cleaning</span> Services
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            A cleaner home shouldn't come at the cost of your health or the environment. Our green cleaning service uses plant-based, non-toxic products that are safe for your family, pets, and planet—without sacrificing cleaning power.
+            A cleaner home shouldn't come at the cost of your health or the
+            environment. Our green cleaning service uses plant-based, non-toxic
+            products that are safe for your family, pets, and planet—without
+            sacrificing cleaning power.
           </p>
           <div class="flex flex-wrap gap-4 mb-8">
             <div class="flex items-center text-gray-700">
@@ -215,47 +246,62 @@ const serviceAreas = [
             </div>
           </div>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
             </a>
-            <a href="/#hero-quote-form" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+            <a
+              href="/#hero-quote-form"
+              class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center"
+            >
               Get Free Quote
             </a>
           </div>
         </div>
 
         <!-- Info Card -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-green-200">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-green-200"
+        >
           <div class="text-center mb-6">
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+            <div
+              class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center"
+            >
               <Icon name="seedling" class="w-8 h-8 text-white" />
             </div>
-            <h3 class="text-2xl font-bold text-[#333333] mb-2">Go Green Today</h3>
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">
+              Go Green Today
+            </h3>
             <p class="text-gray-600">Healthier cleaning for your home</p>
           </div>
 
           <div class="space-y-4 mb-6">
             <div class="flex items-center p-4 bg-green-50 rounded-xl">
-              <Icon name="baby" class="w-5 h-5 text-green-600  mr-4" />
+              <Icon name="baby" class="w-5 h-5 text-green-600 mr-4" />
               <span class="text-gray-700">Safe for babies & children</span>
             </div>
             <div class="flex items-center p-4 bg-green-50 rounded-xl">
-              <Icon name="paw" class="w-5 h-5 text-green-600  mr-4" />
+              <Icon name="paw" class="w-5 h-5 text-green-600 mr-4" />
               <span class="text-gray-700">Pet-friendly products</span>
             </div>
             <div class="flex items-center p-4 bg-green-50 rounded-xl">
-              <Icon name="lungs" class="w-5 h-5 text-green-600  mr-4" />
+              <Icon name="lungs" class="w-5 h-5 text-green-600 mr-4" />
               <span class="text-gray-700">No harsh chemical fumes</span>
             </div>
             <div class="flex items-center p-4 bg-green-50 rounded-xl">
-              <Icon name="globe-americas" class="w-5 h-5 text-green-600  mr-4" />
+              <Icon name="globe-americas" class="w-5 h-5 text-green-600 mr-4" />
               <span class="text-gray-700">Environmentally responsible</span>
             </div>
           </div>
 
-          <a href="/#hero-quote-form" class="bg-gradient-to-r from-green-500 to-green-600 text-white w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg hover:from-green-600 hover:to-green-700 transition">
-            Request Green Cleaning
-          </a>
+          <QuoteForm
+            formId="green-cleaning-quote-form"
+            serviceName="Green Cleaning"
+            source="Service Page - Green Cleaning"
+            subtitle="Request Green Cleaning"
+          />
         </div>
       </div>
     </div>
@@ -282,15 +328,19 @@ const serviceAreas = [
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {benefits.map(benefit => (
-          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-4">
-              <Icon name={benefit.icon} class="w-8 h-8 text-white" />
+        {
+          benefits.map((benefit) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mb-4">
+                <Icon name={benefit.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                {benefit.title}
+              </h3>
+              <p class="text-gray-600">{benefit.description}</p>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-[#333333]">{benefit.title}</h3>
-            <p class="text-gray-600">{benefit.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -304,22 +354,25 @@ const serviceAreas = [
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          These common cleaning chemicals are found in many household products—but never in ours
+          These common cleaning chemicals are found in many household
+          products—but never in ours
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-        {whatWeAvoid.map(item => (
-          <div class="bg-white rounded-xl p-4 shadow-md border border-red-100">
-            <div class="flex items-start">
-              <Icon name="ban" class="w-5 h-5 text-red-500 mt-1 mr-3" />
-              <div>
-                <h4 class="font-bold text-[#333333]">{item.chemical}</h4>
-                <p class="text-sm text-gray-600">{item.risk}</p>
+        {
+          whatWeAvoid.map((item) => (
+            <div class="bg-white rounded-xl p-4 shadow-md border border-red-100">
+              <div class="flex items-start">
+                <Icon name="ban" class="w-5 h-5 text-red-500 mt-1 mr-3" />
+                <div>
+                  <h4 class="font-bold text-[#333333]">{item.chemical}</h4>
+                  <p class="text-sm text-gray-600">{item.risk}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -335,21 +388,27 @@ const serviceAreas = [
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {greenPractices.map(practice => (
-          <div class="text-center">
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-              <Icon name={practice.icon} class="w-10 h-10 text-white" />
+        {
+          greenPractices.map((practice) => (
+            <div class="text-center">
+              <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
+                <Icon name={practice.icon} class="w-10 h-10 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                {practice.title}
+              </h3>
+              <p class="text-gray-600">{practice.description}</p>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-[#333333]">{practice.title}</h3>
-            <p class="text-gray-600">{practice.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Ideal For -->
-  <section class="py-20 px-6 bg-gradient-to-r from-green-50 to-green-100 content-visibility-auto">
+  <section
+    class="py-20 px-6 bg-gradient-to-r from-green-50 to-green-100 content-visibility-auto"
+  >
     <div class="container mx-auto max-w-4xl">
       <div class="text-center mb-12">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
@@ -359,12 +418,14 @@ const serviceAreas = [
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {idealFor.map(item => (
-          <div class="bg-white rounded-xl p-4 shadow-md text-center">
-            <Icon name="check-circle" class="w-5 h-5 text-green-600  mb-2" />
-            <p class="text-gray-700 font-medium text-sm">{item}</p>
-          </div>
-        ))}
+        {
+          idealFor.map((item) => (
+            <div class="bg-white rounded-xl p-4 shadow-md text-center">
+              <Icon name="check-circle" class="w-5 h-5 text-green-600  mb-2" />
+              <p class="text-gray-700 font-medium text-sm">{item}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -380,18 +441,28 @@ const serviceAreas = [
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
-        {serviceAreas.map(area => (
-          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-green-500 hover:shadow-lg transition group">
-            <Icon name="map-marker-alt" class="w-5 h-5 text-green-600 mb-2" />
-            <p class="font-semibold text-[#333333] group-hover:text-green-600 transition">{area.name}</p>
-          </a>
-        ))}
+        {
+          serviceAreas.map((area) => (
+            <a
+              href={area.link}
+              class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-green-500 hover:shadow-lg transition group"
+            >
+              <Icon name="map-marker-alt" class="w-5 h-5 text-green-600 mb-2" />
+              <p class="font-semibold text-[#333333] group-hover:text-green-600 transition">
+                {area.name}
+              </p>
+            </a>
+          ))
+        }
       </div>
 
       <div class="text-center">
         <p class="text-gray-600">
           <Icon name="phone" class="w-5 h-5 text-green-600 mr-2" />
-          Don't see your area? Call <a href="tel:2568261100" class="text-green-600 font-semibold hover:underline">256-826-1100</a>
+          Don't see your area? Call <a
+            href="tel:2568261100"
+            class="text-green-600 font-semibold hover:underline">256-826-1100</a
+          >
         </p>
       </div>
     </div>
@@ -408,17 +479,25 @@ const serviceAreas = [
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-green-600 faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-green-600 faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -432,11 +511,19 @@ const serviceAreas = [
       <p class="text-xl text-gray-600 mb-8">
         Experience the difference of truly safe, eco-friendly cleaning
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
         </a>
-        <a href="/#hero-quote-form" class="flex items-center text-gray-700 hover:text-green-600 transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+        <a
+          href="/#hero-quote-form"
+          class="flex items-center text-gray-700 hover:text-green-600 transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
           <Icon name="envelope" class="w-5 h-5 mr-2" />Get Free Quote
         </a>
       </div>
@@ -446,5 +533,4 @@ const serviceAreas = [
       </p>
     </div>
   </section>
-
-  </BaseLayout>
+</BaseLayout>

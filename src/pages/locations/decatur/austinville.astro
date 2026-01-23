@@ -1,128 +1,138 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "What house cleaning services do you offer in Austinville?",
-    answer: "We offer comprehensive residential cleaning including deep cleaning, recurring maid service (weekly, biweekly, monthly), move-in/move-out cleaning, and post-construction cleaning. Our team knows the established Austinville neighborhood well."
+    answer:
+      "We offer comprehensive residential cleaning including deep cleaning, recurring maid service (weekly, biweekly, monthly), move-in/move-out cleaning, and post-construction cleaning. Our team knows the established Austinville neighborhood well.",
   },
   {
     question: "Do you provide commercial cleaning in Austinville and Decatur?",
-    answer: "Yes! We provide professional office cleaning, business cleaning, and janitorial services throughout Decatur and the Austinville area. We can work around your schedule including evenings and weekends."
+    answer:
+      "Yes! We provide professional office cleaning, business cleaning, and janitorial services throughout Decatur and the Austinville area. We can work around your schedule including evenings and weekends.",
   },
   {
     question: "How much does house cleaning cost in Austinville?",
-    answer: "Pricing depends on your home's size and cleaning needs. Most Austinville homes range from $130-$300 for standard cleaning. We provide free, no-obligation quotes and the price we quote is the price you pay."
+    answer:
+      "Pricing depends on your home's size and cleaning needs. Most Austinville homes range from $130-$300 for standard cleaning. We provide free, no-obligation quotes and the price we quote is the price you pay.",
   },
   {
     question: "Are your cleaners insured and background checked?",
-    answer: "Absolutely. Every team member is fully insured, bonded, and has passed a comprehensive background check. As a veteran-owned business, we hold ourselves to the highest standards of trust and integrity."
+    answer:
+      "Absolutely. Every team member is fully insured, bonded, and has passed a comprehensive background check. As a veteran-owned business, we hold ourselves to the highest standards of trust and integrity.",
   },
   {
     question: "Do you offer same-day cleaning in Austinville?",
-    answer: "Yes, we offer emergency and same-day cleaning services when availability allows. Call us at 256-826-1100 and we'll do our best to accommodate urgent requests for Austinville homes."
+    answer:
+      "Yes, we offer emergency and same-day cleaning services when availability allows. Call us at 256-826-1100 and we'll do our best to accommodate urgent requests for Austinville homes.",
   },
   {
     question: "How often should I schedule recurring cleaning?",
-    answer: "It depends on your household and lifestyle. Families with kids or pets often prefer weekly or biweekly service. Many Austinville homeowners choose biweekly cleaning to maintain a consistently clean home without the hassle."
+    answer:
+      "It depends on your household and lifestyle. Families with kids or pets often prefer weekly or biweekly service. Many Austinville homeowners choose biweekly cleaning to maintain a consistently clean home without the hassle.",
   },
   {
     question: "How do I schedule a cleaning in Austinville?",
-    answer: "You can book online through our website, call us at 256-826-1100, or text us. We'll schedule a time that works for you and provide a detailed quote before any work begins."
+    answer:
+      "You can book online through our website, call us at 256-826-1100, or text us. We'll schedule a time that works for you and provide a detailed quote before any work begins.",
   },
   {
     question: "What areas near Austinville do you also serve?",
-    answer: "We serve all of the Decatur area including Priceville, Hartselle, Trinity, Point Mallard, Danville, and Somerville. Our team knows Morgan County well and provides reliable service throughout."
-  }
+    answer:
+      "We serve all of the Decatur area including Priceville, Hartselle, Trinity, Point Mallard, Danville, and Somerville. Our team knows Morgan County well and provides reliable service throughout.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": "https://thevalleycleanteam.com/locations/decatur/austinville",
-  "name": "The Valley Clean Team - Austinville",
-  "image": "https://thevalleycleanteam.com/images/valley-clean-team-logo.png",
-  "description": "Quality house cleaning and commercial cleaning in Austinville, Decatur, Alabama. Veteran-owned, insured, and bonded.",
-  "telephone": "+1-256-826-1100",
-  "email": "hello@thevalleycleanteam.com",
-  "url": "https://thevalleycleanteam.com/locations/decatur/austinville",
-  "address": {
+  name: "The Valley Clean Team - Austinville",
+  image: "https://thevalleycleanteam.com/images/valley-clean-team-logo.png",
+  description:
+    "Quality house cleaning and commercial cleaning in Austinville, Decatur, Alabama. Veteran-owned, insured, and bonded.",
+  telephone: "+1-256-826-1100",
+  email: "hello@thevalleycleanteam.com",
+  url: "https://thevalleycleanteam.com/locations/decatur/austinville",
+  address: {
     "@type": "PostalAddress",
-    "addressLocality": "Decatur",
-    "addressRegion": "AL",
-    "postalCode": "35601",
-    "addressCountry": "US"
+    addressLocality: "Decatur",
+    addressRegion: "AL",
+    postalCode: "35601",
+    addressCountry: "US",
   },
-  "geo": {
+  geo: {
     "@type": "GeoCoordinates",
-    "latitude": 34.5831,
-    "longitude": -86.9506
+    latitude: 34.5831,
+    longitude: -86.9506,
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Austinville, Decatur, Alabama"
+    name: "Austinville, Decatur, Alabama",
   },
-  "priceRange": "$$",
-  "openingHoursSpecification": [
+  priceRange: "$$",
+  openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "08:00",
-      "closes": "18:00"
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "18:00",
     },
     {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "09:00",
-      "closes": "16:00"
-    }
+      dayOfWeek: "Saturday",
+      opens: "09:00",
+      closes: "16:00",
+    },
   ],
-  "hasOfferCatalog": {
+  hasOfferCatalog: {
     "@type": "OfferCatalog",
-    "name": "Cleaning Services",
-    "itemListElement": [
+    name: "Cleaning Services",
+    itemListElement: [
       {
         "@type": "Offer",
-        "itemOffered": {
+        itemOffered: {
           "@type": "Service",
-          "name": "Residential Cleaning",
-          "description": "Professional house cleaning services for Austinville homes"
-        }
+          name: "Residential Cleaning",
+          description:
+            "Professional house cleaning services for Austinville homes",
+        },
       },
       {
         "@type": "Offer",
-        "itemOffered": {
+        itemOffered: {
           "@type": "Service",
-          "name": "Commercial Cleaning",
-          "description": "Office and business cleaning services in Decatur"
-        }
+          name: "Commercial Cleaning",
+          description: "Office and business cleaning services in Decatur",
+        },
       },
       {
         "@type": "Offer",
-        "itemOffered": {
+        itemOffered: {
           "@type": "Service",
-          "name": "Deep Cleaning",
-          "description": "Thorough deep cleaning services for Austinville homes"
-        }
-      }
-    ]
-  }
+          name: "Deep Cleaning",
+          description: "Thorough deep cleaning services for Austinville homes",
+        },
+      },
+    ],
+  },
 };
 ---
 
@@ -133,34 +143,55 @@ const serviceSchema = {
   geoPlacename="Decatur, Alabama"
   geoPosition="34.5831;-86.9506"
 >
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
-  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} slot="head" />
-  
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(faqSchema)}
+    slot="head"
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(serviceSchema)}
+    slot="head"
+  />
 
   <!-- Hero Section -->
-  <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+  <section
+    class="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+  >
     <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#FFA985]/20 to-[#FFDBC8]/30"></div>
-      <div class="absolute top-20 right-20 w-72 h-72 bg-[#FFA985]/20 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-20 left-20 w-96 h-96 bg-[#FFDBC8]/30 rounded-full blur-3xl"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-[#FFA985]/20 to-[#FFDBC8]/30"
+      >
+      </div>
+      <div
+        class="absolute top-20 right-20 w-72 h-72 bg-[#FFA985]/20 rounded-full blur-3xl"
+      >
+      </div>
+      <div
+        class="absolute bottom-20 left-20 w-96 h-96 bg-[#FFDBC8]/30 rounded-full blur-3xl"
+      >
+      </div>
     </div>
 
     <div class="container mx-auto px-6 relative z-10 text-center">
-      <p class="text-[#FFA985] font-medium tracking-wide uppercase mb-4">Austinville • Decatur, Alabama</p>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-[#333333]">
+      <p class="text-[#FFA985] font-medium tracking-wide uppercase mb-4">
+        Austinville • Decatur, Alabama
+      </p>
+      <h1
+        class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-[#333333]"
+      >
         Quality House Cleaning in Austinville
       </h1>
       <p class="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8">
-        Veteran-owned cleaning service for Decatur's established Austinville neighborhood. The price you see is the price you pay.
+        Veteran-owned cleaning service for Decatur's established Austinville
+        neighborhood. The price you see is the price you pay.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="tel:2568261100" class="btn-primary">
           <Icon name="phone" class="w-5 h-5" />
           (256) 826-1100
         </a>
-        <a href="#quote" class="btn-secondary">
-          Get Free Quote
-        </a>
+        <a href="#quote" class="btn-secondary"> Get Free Quote </a>
       </div>
     </div>
   </section>
@@ -202,13 +233,25 @@ const serviceSchema = {
 
         <div class="prose prose-lg max-w-none text-gray-600">
           <p>
-            Austinville is an established Decatur neighborhood known for its mature trees, well-maintained homes, and strong community ties. This family-friendly area offers a convenient location with easy access to downtown Decatur and major employers, making it a sought-after place to call home.
+            Austinville is an established Decatur neighborhood known for its
+            mature trees, well-maintained homes, and strong community ties. This
+            family-friendly area offers a convenient location with easy access
+            to downtown Decatur and major employers, making it a sought-after
+            place to call home.
           </p>
           <p>
-            The Valley Clean Team is proud to serve Austinville families with professional house cleaning services. Whether you live in one of the neighborhood's classic homes or a more recent addition, our veteran-owned team delivers quality results with the care and attention your home deserves.
+            The Valley Clean Team is proud to serve Austinville families with
+            professional house cleaning services. Whether you live in one of the
+            neighborhood's classic homes or a more recent addition, our
+            veteran-owned team delivers quality results with the care and
+            attention your home deserves.
           </p>
           <p>
-            We understand that Austinville homeowners take pride in their properties. That's why we send the same trusted team to your home every visit, use professional-grade equipment, and follow our detailed 49-point cleaning checklist to ensure thorough, consistent results every time.
+            We understand that Austinville homeowners take pride in their
+            properties. That's why we send the same trusted team to your home
+            every visit, use professional-grade equipment, and follow our
+            detailed 49-point cleaning checklist to ensure thorough, consistent
+            results every time.
           </p>
         </div>
       </div>
@@ -223,44 +266,86 @@ const serviceSchema = {
           Residential Cleaning in Austinville
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Professional maid service for Decatur families</p>
+        <p class="text-xl text-gray-600">
+          Professional maid service for Decatur families
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100"
+        >
           <Icon name="home" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Recurring Maid Service</h3>
-          <p class="text-gray-600">Weekly, biweekly, or monthly cleaning to keep your Austinville home consistently spotless. Same team every visit.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Recurring Maid Service
+          </h3>
+          <p class="text-gray-600">
+            Weekly, biweekly, or monthly cleaning to keep your Austinville home
+            consistently spotless. Same team every visit.
+          </p>
         </div>
 
-        <div class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100"
+        >
           <Icon name="sparkles" class="w-12 h-12 text-[#FFA985] mb-4" />
           <h3 class="text-xl font-bold text-[#333333] mb-3">Deep Cleaning</h3>
-          <p class="text-gray-600">Thorough top-to-bottom cleaning that reaches every corner. Perfect for seasonal refreshes or special occasions.</p>
+          <p class="text-gray-600">
+            Thorough top-to-bottom cleaning that reaches every corner. Perfect
+            for seasonal refreshes or special occasions.
+          </p>
         </div>
 
-        <div class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100"
+        >
           <Icon name="truck" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Move-In/Move-Out</h3>
-          <p class="text-gray-600">Comprehensive cleaning for real estate transactions. We ensure homes are spotless for new occupants.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Move-In/Move-Out
+          </h3>
+          <p class="text-gray-600">
+            Comprehensive cleaning for real estate transactions. We ensure homes
+            are spotless for new occupants.
+          </p>
         </div>
 
-        <div class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100"
+        >
           <Icon name="bolt" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same-Day Service</h3>
-          <p class="text-gray-600">Emergency cleaning when you need it most. Unexpected guests? We're here to help on short notice.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same-Day Service
+          </h3>
+          <p class="text-gray-600">
+            Emergency cleaning when you need it most. Unexpected guests? We're
+            here to help on short notice.
+          </p>
         </div>
 
-        <div class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100"
+        >
           <Icon name="wrench" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Post-Construction</h3>
-          <p class="text-gray-600">Professional cleanup after renovations or new construction. We remove dust, debris, and builder's residue.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Post-Construction
+          </h3>
+          <p class="text-gray-600">
+            Professional cleanup after renovations or new construction. We
+            remove dust, debris, and builder's residue.
+          </p>
         </div>
 
-        <div class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-gray-100"
+        >
           <Icon name="calendar" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">One-Time Cleaning</h3>
-          <p class="text-gray-600">No commitment required. Try our service for a special event, holiday preparation, or whenever you need a fresh start.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            One-Time Cleaning
+          </h3>
+          <p class="text-gray-600">
+            No commitment required. Try our service for a special event, holiday
+            preparation, or whenever you need a fresh start.
+          </p>
         </div>
       </div>
     </div>
@@ -274,26 +359,42 @@ const serviceSchema = {
           Commercial Cleaning in Austinville
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Professional janitorial and office cleaning services</p>
+        <p class="text-xl text-gray-600">
+          Professional janitorial and office cleaning services
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <Icon name="building" class="w-12 h-12 text-[#FFA985] mb-4" />
           <h3 class="text-xl font-bold text-[#333333] mb-3">Office Cleaning</h3>
-          <p class="text-gray-600">Daily, weekly, or monthly office cleaning for Decatur businesses. We work around your schedule - evenings and weekends available.</p>
+          <p class="text-gray-600">
+            Daily, weekly, or monthly office cleaning for Decatur businesses. We
+            work around your schedule - evenings and weekends available.
+          </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <Icon name="store" class="w-12 h-12 text-[#FFA985] mb-4" />
           <h3 class="text-xl font-bold text-[#333333] mb-3">Retail Cleaning</h3>
-          <p class="text-gray-600">Keep your Decatur storefront spotless for customers. Floor care, window cleaning, restroom sanitation, and more.</p>
+          <p class="text-gray-600">
+            Keep your Decatur storefront spotless for customers. Floor care,
+            window cleaning, restroom sanitation, and more.
+          </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <Icon name="briefcase-medical" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Medical Office Cleaning</h3>
-          <p class="text-gray-600">OSHA-compliant cleaning for medical and dental practices. Proper sanitization protocols for healthcare environments.</p>
+          <Icon
+            name="briefcase-medical"
+            class="w-12 h-12 text-[#FFA985] mb-4"
+          />
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Medical Office Cleaning
+          </h3>
+          <p class="text-gray-600">
+            OSHA-compliant cleaning for medical and dental practices. Proper
+            sanitization protocols for healthcare environments.
+          </p>
         </div>
       </div>
 
@@ -317,35 +418,63 @@ const serviceSchema = {
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <Icon name="users" class="w-8 h-8 text-[#FFA985]" />
           </div>
-          <h3 class="text-lg font-bold text-[#333333] mb-2">Same Team Every Time</h3>
-          <p class="text-gray-600">Consistency builds trust. You'll see the same familiar faces at each visit.</p>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">
+            Same Team Every Time
+          </h3>
+          <p class="text-gray-600">
+            Consistency builds trust. You'll see the same familiar faces at each
+            visit.
+          </p>
         </div>
 
         <div class="text-center">
-          <div class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <Icon name="currency-dollar" class="w-8 h-8 text-[#FFA985]" />
           </div>
-          <h3 class="text-lg font-bold text-[#333333] mb-2">Transparent Pricing</h3>
-          <p class="text-gray-600">The price we quote is the price you pay. No hidden fees or surprises.</p>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">
+            Transparent Pricing
+          </h3>
+          <p class="text-gray-600">
+            The price we quote is the price you pay. No hidden fees or
+            surprises.
+          </p>
         </div>
 
         <div class="text-center">
-          <div class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <Icon name="clipboard-check" class="w-8 h-8 text-[#FFA985]" />
           </div>
-          <h3 class="text-lg font-bold text-[#333333] mb-2">49-Point Checklist</h3>
-          <p class="text-gray-600">Every clean follows our detailed checklist with post-clean photo verification.</p>
+          <h3 class="text-lg font-bold text-[#333333] mb-2">
+            49-Point Checklist
+          </h3>
+          <p class="text-gray-600">
+            Every clean follows our detailed checklist with post-clean photo
+            verification.
+          </p>
         </div>
 
         <div class="text-center">
-          <div class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Icon name="chat-bubble-left-right" class="w-8 h-8 text-[#FFA985]" />
+          <div
+            class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <Icon
+              name="chat-bubble-left-right"
+              class="w-8 h-8 text-[#FFA985]"
+            />
           </div>
           <h3 class="text-lg font-bold text-[#333333] mb-2">Fast Response</h3>
-          <p class="text-gray-600">We respond in minutes, not days. Your time matters to us.</p>
+          <p class="text-gray-600">
+            We respond in minutes, not days. Your time matters to us.
+          </p>
         </div>
       </div>
     </div>
@@ -356,8 +485,12 @@ const serviceSchema = {
     <div class="container mx-auto">
       <div class="max-w-4xl mx-auto text-center">
         <Icon name="star" class="w-12 h-12 text-[#FFA985] mx-auto mb-6" />
-        <blockquote class="text-2xl md:text-3xl text-white font-light mb-8 leading-relaxed">
-          "We've lived in Austinville for over 15 years and have tried several cleaning services. The Valley Clean Team is by far the best. They're reliable, thorough, and treat our home like their own."
+        <blockquote
+          class="text-2xl md:text-3xl text-white font-light mb-8 leading-relaxed"
+        >
+          "We've lived in Austinville for over 15 years and have tried several
+          cleaning services. The Valley Clean Team is by far the best. They're
+          reliable, thorough, and treat our home like their own."
         </blockquote>
         <p class="text-[#FFA985] font-medium">— Austinville Resident</p>
       </div>
@@ -372,19 +505,26 @@ const serviceSchema = {
           Frequently Asked Questions
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Common questions about our Austinville cleaning services</p>
+        <p class="text-xl text-gray-600">
+          Common questions about our Austinville cleaning services
+        </p>
       </div>
 
       <div class="max-w-3xl mx-auto space-y-6">
-        {faqs.map((faq) => (
-          <details class="group bg-gray-50 rounded-2xl p-6 cursor-pointer">
-            <summary class="flex justify-between items-center font-semibold text-[#333333] text-lg list-none">
-              {faq.question}
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] group-open:rotate-180 transition-transform" />
-            </summary>
-            <p class="mt-4 text-gray-600 leading-relaxed">{faq.answer}</p>
-          </details>
-        ))}
+        {
+          faqs.map((faq) => (
+            <details class="group bg-gray-50 rounded-2xl p-6 cursor-pointer">
+              <summary class="flex justify-between items-center font-semibold text-[#333333] text-lg list-none">
+                {faq.question}
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] group-open:rotate-180 transition-transform"
+                />
+              </summary>
+              <p class="mt-4 text-gray-600 leading-relaxed">{faq.answer}</p>
+            </details>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -397,36 +537,67 @@ const serviceSchema = {
           Nearby Service Areas
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">We also serve these Decatur area communities</p>
+        <p class="text-xl text-gray-600">
+          We also serve these Decatur area communities
+        </p>
       </div>
 
       <div class="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-        <a href="/locations/decatur" class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200">
+        <a
+          href="/locations/decatur"
+          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200"
+        >
           Decatur
         </a>
-        <a href="/locations/decatur/priceville" class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200">
+        <a
+          href="/locations/decatur/priceville"
+          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200"
+        >
           Priceville
         </a>
-        <a href="/locations/decatur/hartselle" class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200">
+        <a
+          href="/locations/decatur/hartselle"
+          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200"
+        >
           Hartselle
         </a>
-        <a href="/locations/decatur/trinity" class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200">
+        <a
+          href="/locations/decatur/trinity"
+          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200"
+        >
           Trinity
         </a>
-        <a href="/locations/decatur/point-mallard" class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200">
+        <a
+          href="/locations/decatur/point-mallard"
+          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200"
+        >
           Point Mallard
         </a>
-        <a href="/locations/decatur/danville" class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200">
+        <a
+          href="/locations/decatur/danville"
+          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200"
+        >
           Danville
         </a>
-        <a href="/locations/decatur/somerville" class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200">
+        <a
+          href="/locations/decatur/somerville"
+          class="px-6 py-3 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow text-[#333333] font-medium border border-gray-200"
+        >
           Somerville
         </a>
       </div>
 
       <div class="text-center mt-8">
-        <a href="/locations/decatur/deep-cleaning" class="text-[#FFA985] hover:underline font-medium mr-6">Deep Cleaning in Decatur →</a>
-        <a href="/locations/decatur/recurring-maid-service" class="text-[#FFA985] hover:underline font-medium">Recurring Maid Service →</a>
+        <a
+          href="/locations/decatur/deep-cleaning"
+          class="text-[#FFA985] hover:underline font-medium mr-6"
+          >Deep Cleaning in Decatur →</a
+        >
+        <a
+          href="/locations/decatur/recurring-maid-service"
+          class="text-[#FFA985] hover:underline font-medium"
+          >Recurring Maid Service →</a
+        >
       </div>
     </div>
   </section>
@@ -440,50 +611,18 @@ const serviceSchema = {
             Get Your Free Quote
           </h2>
           <div class="section-divider"></div>
-          <p class="text-xl text-gray-600">Austinville's trusted cleaning professionals</p>
+          <p class="text-xl text-gray-600">
+            Austinville's trusted cleaning professionals
+          </p>
         </div>
 
-        <form action="/api/submit-form" method="POST" class="space-y-6">
-          <input type="hidden" name="source" value="austinville-page" />
-          <input type="hidden" name="service_area" value="Austinville, Decatur" />
-
-          <div class="grid md:grid-cols-2 gap-6">
-            <div>
-              <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
-              <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
-            </div>
-            <div>
-              <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-              <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
-            </div>
-          </div>
-
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
-          </div>
-
-          <div>
-            <label for="service" class="block text-sm font-medium text-gray-700 mb-2">Service Needed</label>
-            <select id="service" name="service" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#FFA985] focus:border-transparent">
-              <option value="">Select a service...</option>
-              <option value="recurring">Recurring Maid Service</option>
-              <option value="deep-cleaning">Deep Cleaning</option>
-              <option value="move-in-out">Move-In/Move-Out</option>
-              <option value="commercial">Commercial Cleaning</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Tell Us About Your Space</label>
-            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#FFA985] focus:border-transparent"></textarea>
-          </div>
-
-          <button type="submit" class="w-full btn-primary">
-            Get My Free Quote
-          </button>
-        </form>
+        <QuoteForm
+          formId="austinville-quote-form"
+          city="Austinville"
+          state="Alabama"
+          serviceName="General Cleaning"
+          source="Austinville Landing Page"
+        />
       </div>
     </div>
   </section>
@@ -497,12 +636,13 @@ const serviceSchema = {
       <p class="text-xl text-white/90 mb-8">
         Call now for same-day quotes and flexible scheduling
       </p>
-      <a href="tel:2568261100" class="inline-flex items-center gap-2 bg-white text-[#333333] px-8 py-4 rounded-full font-semibold hover:shadow-lg transition-shadow">
+      <a
+        href="tel:2568261100"
+        class="inline-flex items-center gap-2 bg-white text-[#333333] px-8 py-4 rounded-full font-semibold hover:shadow-lg transition-shadow"
+      >
         <Icon name="phone" class="w-5 h-5" />
         (256) 826-1100
       </a>
     </div>
   </section>
-
-  
 </BaseLayout>

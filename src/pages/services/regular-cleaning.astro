@@ -1,92 +1,103 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
-import TrustBadges from '../../components/TrustBadges.astro';
-import Icon from '../../components/Icon.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import TrustBadges from "../../components/TrustBadges.astro";
+import Icon from "../../components/Icon.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
 
 const title = "Regular Cleaning Services | Valley Clean Team";
-const description = "Weekly, bi-weekly & monthly house cleaning in AL & TN. Veteran-owned, insured. Save 20% with recurring service. Call 256-826-1100.";
+const description =
+  "Weekly, bi-weekly & monthly house cleaning in AL & TN. Veteran-owned, insured. Save 20% with recurring service. Call 256-826-1100.";
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Regular Cleaning Service",
-  "description": "Professional recurring house cleaning services with weekly, bi-weekly, and monthly options. Consistent, reliable cleaning to maintain your home.",
-  "provider": {
+  name: "Regular Cleaning Service",
+  description:
+    "Professional recurring house cleaning services with weekly, bi-weekly, and monthly options. Consistent, reliable cleaning to maintain your home.",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "256-826-1100",
-    "email": "hello@thevalleycleanteam.com",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "256-826-1100",
+    email: "hello@thevalleycleanteam.com",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
-  },
-  "areaServed": [
-    { "@type": "State", "name": "Alabama" },
-    { "@type": "State", "name": "Tennessee" }
-  ],
-  "serviceType": "Regular Cleaning",
-  "offers": {
-    "@type": "Offer",
-    "priceSpecification": {
-      "@type": "PriceSpecification",
-      "price": "99",
-      "priceCurrency": "USD",
-      "minPrice": "99"
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "availability": "https://schema.org/InStock"
-  }
+  },
+  areaServed: [
+    { "@type": "State", name: "Alabama" },
+    { "@type": "State", name: "Tennessee" },
+  ],
+  serviceType: "Regular Cleaning",
+  offers: {
+    "@type": "Offer",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: "99",
+      priceCurrency: "USD",
+      minPrice: "99",
+    },
+    availability: "https://schema.org/InStock",
+  },
 };
 
 const faqs = [
   {
     question: "How often should I schedule regular cleaning?",
-    answer: "It depends on your lifestyle. Families with kids or pets benefit from weekly cleaning. Most households do well with bi-weekly service. Monthly works for smaller homes or those who maintain well between visits."
+    answer:
+      "It depends on your lifestyle. Families with kids or pets benefit from weekly cleaning. Most households do well with bi-weekly service. Monthly works for smaller homes or those who maintain well between visits.",
   },
   {
     question: "What's included in regular cleaning?",
-    answer: "Regular cleaning covers all essential areas: vacuuming, mopping, dusting, bathroom sanitizing, kitchen cleaning, and trash removal. It maintains your home's cleanliness between deep cleans."
+    answer:
+      "Regular cleaning covers all essential areas: vacuuming, mopping, dusting, bathroom sanitizing, kitchen cleaning, and trash removal. It maintains your home's cleanliness between deep cleans.",
   },
   {
     question: "Can I customize my regular cleaning service?",
-    answer: "Absolutely! We tailor each visit to your priorities. Focus on certain rooms, add specific tasks, or skip areas you handle yourself. Your cleaning, your way."
+    answer:
+      "Absolutely! We tailor each visit to your priorities. Focus on certain rooms, add specific tasks, or skip areas you handle yourself. Your cleaning, your way.",
   },
   {
     question: "Do I need a deep clean first?",
-    answer: "We recommend starting with a deep clean if your home hasn't been professionally cleaned recently. This gives us a clean baseline, making regular maintenance more effective."
+    answer:
+      "We recommend starting with a deep clean if your home hasn't been professionally cleaned recently. This gives us a clean baseline, making regular maintenance more effective.",
   },
   {
     question: "What if I need to skip or reschedule?",
-    answer: "Life happens! Just give us 24-48 hours notice and we'll reschedule at no charge. We're flexible and understand schedules change."
+    answer:
+      "Life happens! Just give us 24-48 hours notice and we'll reschedule at no charge. We're flexible and understand schedules change.",
   },
   {
     question: "Will I have the same cleaner each time?",
-    answer: "We prioritize consistency. You'll typically have the same cleaner or team for each visit, so they learn your home and preferences."
+    answer:
+      "We prioritize consistency. You'll typically have the same cleaner or team for each visit, so they learn your home and preferences.",
   },
   {
     question: "How do I save with recurring service?",
-    answer: "Weekly service saves 20%, bi-weekly saves 15%, and monthly saves 10% compared to one-time cleaning rates. The more frequent, the bigger the discount."
+    answer:
+      "Weekly service saves 20%, bi-weekly saves 15%, and monthly saves 10% compared to one-time cleaning rates. The more frequent, the bigger the discount.",
   },
   {
     question: "Are your cleaners background checked?",
-    answer: "Yes, every team member undergoes thorough background checks. We're also fully insured with $2M liability coverage and bonded for your protection."
-  }
+    answer:
+      "Yes, every team member undergoes thorough background checks. We're also fully insured with $2M liability coverage and bonded for your protection.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const cleaningTasks = [
@@ -101,8 +112,8 @@ const cleaningTasks = [
       "Clean kitchen counters and appliances",
       "Empty trash bins",
       "Make beds",
-      "Wipe mirrors and glass"
-    ]
+      "Wipe mirrors and glass",
+    ],
   },
   {
     section: "Kitchen Focus",
@@ -113,8 +124,8 @@ const cleaningTasks = [
       "Microwave interior and exterior",
       "Sink scrubbed and sanitized",
       "Appliance exteriors wiped",
-      "Cabinet fronts cleaned"
-    ]
+      "Cabinet fronts cleaned",
+    ],
   },
   {
     section: "Bathroom Focus",
@@ -125,8 +136,8 @@ const cleaningTasks = [
       "Vanity and sink cleaned",
       "Mirrors polished",
       "Floors mopped",
-      "Fixtures polished"
-    ]
+      "Fixtures polished",
+    ],
   },
   {
     section: "Living Areas",
@@ -137,9 +148,9 @@ const cleaningTasks = [
       "Dust blinds and windowsills",
       "Clean light switches",
       "Organize cushions",
-      "Dust decor items"
-    ]
-  }
+      "Dust decor items",
+    ],
+  },
 ];
 
 const pricingPlans = [
@@ -147,56 +158,77 @@ const pricingPlans = [
     name: "Weekly",
     discount: "20% OFF",
     description: "Best for families, pet owners, or busy households",
-    features: ["Same cleaner each week", "Priority scheduling", "Maximum savings", "Always guest-ready"],
-    popular: false
+    features: [
+      "Same cleaner each week",
+      "Priority scheduling",
+      "Maximum savings",
+      "Always guest-ready",
+    ],
+    popular: false,
   },
   {
     name: "Bi-Weekly",
     discount: "15% OFF",
     description: "Most popular - perfect balance of clean and cost",
-    features: ["Consistent cleaner", "Flexible scheduling", "Great savings", "Maintains cleanliness"],
-    popular: true
+    features: [
+      "Consistent cleaner",
+      "Flexible scheduling",
+      "Great savings",
+      "Maintains cleanliness",
+    ],
+    popular: true,
   },
   {
     name: "Monthly",
     discount: "10% OFF",
     description: "Ideal for smaller homes or light maintenance",
-    features: ["Thorough monthly reset", "Budget-friendly", "Easy scheduling", "Refreshes your space"],
-    popular: false
-  }
+    features: [
+      "Thorough monthly reset",
+      "Budget-friendly",
+      "Easy scheduling",
+      "Refreshes your space",
+    ],
+    popular: false,
+  },
 ];
 
 const benefits = [
   {
     icon: "clock",
     title: "Reclaim Your Time",
-    description: "Stop spending weekends cleaning. We handle it so you can enjoy life."
+    description:
+      "Stop spending weekends cleaning. We handle it so you can enjoy life.",
   },
   {
     icon: "heart",
     title: "Healthier Home",
-    description: "Regular cleaning reduces allergens, dust, and bacteria for a healthier environment."
+    description:
+      "Regular cleaning reduces allergens, dust, and bacteria for a healthier environment.",
   },
   {
     icon: "smile",
     title: "Less Stress",
-    description: "Come home to a clean house every time. No more cleaning guilt or overwhelm."
+    description:
+      "Come home to a clean house every time. No more cleaning guilt or overwhelm.",
   },
   {
     icon: "piggy-bank",
     title: "Save Money",
-    description: "Regular maintenance extends the life of carpets, floors, and fixtures."
+    description:
+      "Regular maintenance extends the life of carpets, floors, and fixtures.",
   },
   {
     icon: "users",
     title: "Always Guest-Ready",
-    description: "Unexpected visitors? No problem. Your home is always presentable."
+    description:
+      "Unexpected visitors? No problem. Your home is always presentable.",
   },
   {
     icon: "leaf",
     title: "Eco-Friendly Options",
-    description: "Green cleaning products available upon request for sensitive households."
-  }
+    description:
+      "Green cleaning products available upon request for sensitive households.",
+  },
 ];
 
 const serviceAreas = [
@@ -205,11 +237,20 @@ const serviceAreas = [
   { name: "Athens", link: "/locations/athens/recurring-maid-service" },
   { name: "Florence", link: "/locations/florence/recurring-maid-service" },
   { name: "Decatur", link: "/locations/decatur/recurring-maid-service" },
-  { name: "Muscle Shoals", link: "/locations/muscle-shoals/recurring-maid-service" },
+  {
+    name: "Muscle Shoals",
+    link: "/locations/muscle-shoals/recurring-maid-service",
+  },
   { name: "Birmingham", link: "/locations/birmingham/recurring-maid-service" },
-  { name: "Mountain Brook", link: "/locations/mountain-brook/recurring-maid-service" },
+  {
+    name: "Mountain Brook",
+    link: "/locations/mountain-brook/recurring-maid-service",
+  },
   { name: "Nashville", link: "/locations/nashville/recurring-maid-service" },
-  { name: "West Nashville", link: "/locations/west-nashville/recurring-maid-service" }
+  {
+    name: "West Nashville",
+    link: "/locations/west-nashville/recurring-maid-service",
+  },
 ];
 ---
 
@@ -217,22 +258,29 @@ const serviceAreas = [
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Save Up to 20% with Recurring Service
+              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Save Up to 20%
+              with Recurring Service
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
             Professional <span class="gold-gradient">Regular Cleaning</span> Services
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            Keep your home consistently clean with our reliable recurring cleaning service. Weekly, bi-weekly, or monthly visits tailored to your lifestyle and budget. Never come home to a messy house again.
+            Keep your home consistently clean with our reliable recurring
+            cleaning service. Weekly, bi-weekly, or monthly visits tailored to
+            your lifestyle and budget. Never come home to a messy house again.
           </p>
           <div class="flex flex-wrap gap-4 mb-8">
             <div class="flex items-center text-gray-700">
@@ -249,24 +297,36 @@ const serviceAreas = [
             </div>
           </div>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
             </a>
-            <a href="/#hero-quote-form" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+            <a
+              href="/#hero-quote-form"
+              class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center"
+            >
               Get Free Quote
             </a>
           </div>
         </div>
 
         <!-- Pricing Card -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
           <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-[#333333] mb-2">Regular Cleaning Pricing</h3>
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">
+              Regular Cleaning Pricing
+            </h3>
             <p class="text-gray-600">Affordable plans for every budget</p>
           </div>
 
           <div class="space-y-4 mb-6">
-            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+            <div
+              class="flex justify-between items-center p-4 bg-gray-50 rounded-xl"
+            >
               <div>
                 <h4 class="font-bold text-[#333333]">Small Home</h4>
                 <p class="text-sm text-gray-600">Up to 1,500 sq ft</p>
@@ -276,7 +336,9 @@ const serviceAreas = [
               </div>
             </div>
 
-            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]">
+            <div
+              class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]"
+            >
               <div>
                 <h4 class="font-bold text-[#333333]">Medium Home</h4>
                 <p class="text-sm text-gray-600">1,500 - 2,500 sq ft</p>
@@ -287,7 +349,9 @@ const serviceAreas = [
               </div>
             </div>
 
-            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+            <div
+              class="flex justify-between items-center p-4 bg-gray-50 rounded-xl"
+            >
               <div>
                 <h4 class="font-bold text-[#333333]">Large Home</h4>
                 <p class="text-sm text-gray-600">2,500 - 4,000 sq ft</p>
@@ -297,7 +361,9 @@ const serviceAreas = [
               </div>
             </div>
 
-            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+            <div
+              class="flex justify-between items-center p-4 bg-gray-50 rounded-xl"
+            >
               <div>
                 <h4 class="font-bold text-[#333333]">XL Home</h4>
                 <p class="text-sm text-gray-600">4,000+ sq ft</p>
@@ -311,16 +377,17 @@ const serviceAreas = [
           <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
             <p class="text-green-800 text-sm text-center">
               <Icon name="tag" class="w-5 h-5 mr-2" />
-              <strong>Weekly = 20% OFF</strong> | Bi-Weekly = 15% OFF | Monthly = 10% OFF
+              <strong>Weekly = 20% OFF</strong> | Bi-Weekly = 15% OFF | Monthly =
+              10% OFF
             </p>
           </div>
 
-          <a href="/#hero-quote-form" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
-            Start Your Regular Service
-          </a>
-          <p class="text-center text-xs text-gray-500 mt-3">
-            <Icon name="ban" class="w-5 h-5 mr-1" /> No long-term contracts required
-          </p>
+          <QuoteForm
+            formId="regular-cleaning-quote-form"
+            serviceName="Regular Cleaning"
+            source="Service Page - Regular Cleaning"
+            subtitle="Start Your Regular Service"
+          />
         </div>
       </div>
     </div>
@@ -342,40 +409,50 @@ const serviceAreas = [
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Pick the frequency that works for your lifestyle. All plans include our full regular cleaning service.
+          Pick the frequency that works for your lifestyle. All plans include
+          our full regular cleaning service.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        {pricingPlans.map(plan => (
-          <div class={`bg-white rounded-2xl p-8 shadow-lg border-2 ${plan.popular ? 'border-[#FFA985] relative' : 'border-gray-200'} hover:shadow-xl transition-shadow`}>
-            {plan.popular && (
-              <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white px-4 py-1 rounded-full text-sm font-bold">
-                  Most Popular
-                </span>
+        {
+          pricingPlans.map((plan) => (
+            <div
+              class={`bg-white rounded-2xl p-8 shadow-lg border-2 ${plan.popular ? "border-[#FFA985] relative" : "border-gray-200"} hover:shadow-xl transition-shadow`}
+            >
+              {plan.popular && (
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white px-4 py-1 rounded-full text-sm font-bold">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+              <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-[#333333] mb-2">
+                  {plan.name}
+                </h3>
+                <div class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold mb-3">
+                  {plan.discount}
+                </div>
+                <p class="text-gray-600 text-sm">{plan.description}</p>
               </div>
-            )}
-            <div class="text-center mb-6">
-              <h3 class="text-2xl font-bold text-[#333333] mb-2">{plan.name}</h3>
-              <div class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold mb-3">
-                {plan.discount}
-              </div>
-              <p class="text-gray-600 text-sm">{plan.description}</p>
+              <ul class="space-y-3 mb-8">
+                {plan.features.map((feature) => (
+                  <li class="flex items-center text-gray-700">
+                    <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-3" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/#hero-quote-form"
+                class={`w-full py-3 rounded-lg text-center block font-semibold ${plan.popular ? "btn-primary" : "btn-secondary"}`}
+              >
+                Get Started
+              </a>
             </div>
-            <ul class="space-y-3 mb-8">
-              {plan.features.map(feature => (
-                <li class="flex items-center text-gray-700">
-                  <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-3" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-            <a href="/#hero-quote-form" class={`w-full py-3 rounded-lg text-center block font-semibold ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}>
-              Get Started
-            </a>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -389,27 +466,35 @@ const serviceAreas = [
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Every regular cleaning visit covers all the essentials to keep your home fresh and tidy
+          Every regular cleaning visit covers all the essentials to keep your
+          home fresh and tidy
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {cleaningTasks.map(room => (
-          <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-              <Icon name={room.icon} class="w-6 h-6 text-white" />
+        {
+          cleaningTasks.map((room) => (
+            <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={room.icon} class="w-6 h-6 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-4 text-[#333333]">
+                {room.section}
+              </h3>
+              <ul class="space-y-2">
+                {room.tasks.map((task) => (
+                  <li class="flex items-start text-gray-600 text-sm">
+                    <Icon
+                      name="check"
+                      class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+                    />
+                    <span>{task}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 class="text-xl font-bold mb-4 text-[#333333]">{room.section}</h3>
-            <ul class="space-y-2">
-              {room.tasks.map(task => (
-                <li class="flex items-start text-gray-600 text-sm">
-                  <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
-                  <span>{task}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -428,15 +513,19 @@ const serviceAreas = [
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {benefits.map(benefit => (
-          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-              <Icon name={benefit.icon} class="w-8 h-8 text-white" />
+        {
+          benefits.map((benefit) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={benefit.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                {benefit.title}
+              </h3>
+              <p class="text-gray-600">{benefit.description}</p>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-[#333333]">{benefit.title}</h3>
-            <p class="text-gray-600">{benefit.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -453,31 +542,67 @@ const serviceAreas = [
 
       <div class="space-y-8">
         <div class="flex items-start gap-6">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0">1</div>
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0"
+          >
+            1
+          </div>
           <div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Book Your First Clean</h3>
-            <p class="text-gray-600">Call us or fill out our online form. We'll discuss your home, preferences, and schedule a time that works for you.</p>
+            <h3 class="text-xl font-bold text-[#333333] mb-2">
+              Book Your First Clean
+            </h3>
+            <p class="text-gray-600">
+              Call us or fill out our online form. We'll discuss your home,
+              preferences, and schedule a time that works for you.
+            </p>
           </div>
         </div>
         <div class="flex items-start gap-6">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0"
+          >
+            2
+          </div>
           <div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Initial Deep Clean (Recommended)</h3>
-            <p class="text-gray-600">We start with a deep clean to establish a baseline. This makes regular maintenance more effective and efficient.</p>
+            <h3 class="text-xl font-bold text-[#333333] mb-2">
+              Initial Deep Clean (Recommended)
+            </h3>
+            <p class="text-gray-600">
+              We start with a deep clean to establish a baseline. This makes
+              regular maintenance more effective and efficient.
+            </p>
           </div>
         </div>
         <div class="flex items-start gap-6">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0">3</div>
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0"
+          >
+            3
+          </div>
           <div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Regular Visits Begin</h3>
-            <p class="text-gray-600">Your assigned cleaner arrives on schedule. Same person, same day, same great results every time.</p>
+            <h3 class="text-xl font-bold text-[#333333] mb-2">
+              Regular Visits Begin
+            </h3>
+            <p class="text-gray-600">
+              Your assigned cleaner arrives on schedule. Same person, same day,
+              same great results every time.
+            </p>
           </div>
         </div>
         <div class="flex items-start gap-6">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0">4</div>
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl flex-shrink-0"
+          >
+            4
+          </div>
           <div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Enjoy Your Clean Home</h3>
-            <p class="text-gray-600">Come home to a consistently clean, fresh-smelling home. No more weekend cleaning sessions!</p>
+            <h3 class="text-xl font-bold text-[#333333] mb-2">
+              Enjoy Your Clean Home
+            </h3>
+            <p class="text-gray-600">
+              Come home to a consistently clean, fresh-smelling home. No more
+              weekend cleaning sessions!
+            </p>
           </div>
         </div>
       </div>
@@ -494,19 +619,31 @@ const serviceAreas = [
         <div class="section-divider"></div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto mb-8">
-        {serviceAreas.map(area => (
-          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
-            <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
-            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
-          </a>
-        ))}
+      <div
+        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-4xl mx-auto mb-8"
+      >
+        {
+          serviceAreas.map((area) => (
+            <a
+              href={area.link}
+              class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group"
+            >
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
+              <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">
+                {area.name}
+              </p>
+            </a>
+          ))
+        }
       </div>
 
       <div class="text-center">
         <p class="text-gray-600">
           <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
-          Don't see your area? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a>
+          Don't see your area? Call <a
+            href="tel:2568261100"
+            class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a
+          >
         </p>
       </div>
     </div>
@@ -523,17 +660,25 @@ const serviceAreas = [
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -547,11 +692,19 @@ const serviceAreas = [
       <p class="text-xl text-gray-600 mb-8">
         Start your regular cleaning service today and reclaim your weekends
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
         </a>
-        <a href="/#hero-quote-form" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+        <a
+          href="/#hero-quote-form"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
           <Icon name="envelope" class="w-5 h-5 mr-2" />Get Free Quote
         </a>
       </div>
@@ -561,5 +714,4 @@ const serviceAreas = [
       </p>
     </div>
   </section>
-
-  </BaseLayout>
+</BaseLayout>

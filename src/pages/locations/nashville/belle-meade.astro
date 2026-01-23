@@ -1,109 +1,126 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import TrustBadges from '../../../components/TrustBadges.astro';
-import Icon from '../../../components/Icon.astro';
+import TrustBadges from "../../../components/TrustBadges.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const title = "Estate Cleaning Belle Meade Nashville TN";
-const description = "Premier estate cleaning services for Belle Meade's finest homes. White-glove service for historic mansions, antique care, and discretion you can trust. Serving Belle Meade estates since 2021.";
+const description =
+  "Premier estate cleaning services for Belle Meade's finest homes. White-glove service for historic mansions, antique care, and discretion you can trust. Serving Belle Meade estates since 2021.";
 
 // Service schema for Belle Meade
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Estate Cleaning Services in Belle Meade",
-  "description": "Premium estate cleaning services for Belle Meade's luxury homes and historic mansions. Specialized in antique care, fine art handling, and discretion.",
-  "provider": {
+  name: "Estate Cleaning Services in Belle Meade",
+  description:
+    "Premium estate cleaning services for Belle Meade's luxury homes and historic mansions. Specialized in antique care, fine art handling, and discretion.",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "615-510-1427",
-    "email": "hello@thevalleycleanteam.com",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "615-510-1427",
+    email: "hello@thevalleycleanteam.com",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Nashville",
-      "addressRegion": "TN"
-    }
+      addressLocality: "Nashville",
+      addressRegion: "TN",
+    },
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Belle Meade, Nashville, TN",
-    "geo": {
+    name: "Belle Meade, Nashville, TN",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "36.0986",
-      "longitude": "-86.8639"
-    }
+      latitude: "36.0986",
+      longitude: "-86.8639",
+    },
   },
-  "serviceType": "Estate Cleaning"
+  serviceType: "Estate Cleaning",
 };
 
 // LocalBusiness schema
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "The Valley Clean Team - Belle Meade",
-  "description": "Premier estate cleaning services for Belle Meade's luxury homes",
-  "telephone": "615-510-1427",
-  "email": "hello@thevalleycleanteam.com",
-  "address": {
+  name: "The Valley Clean Team - Belle Meade",
+  description:
+    "Premier estate cleaning services for Belle Meade's luxury homes",
+  telephone: "615-510-1427",
+  email: "hello@thevalleycleanteam.com",
+  address: {
     "@type": "PostalAddress",
-    "addressLocality": "Nashville",
-    "addressRegion": "TN",
-    "addressCountry": "US"
+    addressLocality: "Nashville",
+    addressRegion: "TN",
+    addressCountry: "US",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Belle Meade, Nashville, TN"
-  }
+    name: "Belle Meade, Nashville, TN",
+  },
 };
 
 // FAQ Schema specific to Belle Meade estates
 const faqs = [
   {
     question: "Do you have experience cleaning historic Belle Meade estates?",
-    answer: "Yes, our team is specially trained in cleaning historic homes and handling valuable antiques. We understand the unique needs of Belle Meade's historic mansions, from proper care of original hardwoods and vintage fixtures to gentle cleaning of antique furnishings. Our white-glove approach ensures your estate receives the respectful, meticulous care it deserves."
+    answer:
+      "Yes, our team is specially trained in cleaning historic homes and handling valuable antiques. We understand the unique needs of Belle Meade's historic mansions, from proper care of original hardwoods and vintage fixtures to gentle cleaning of antique furnishings. Our white-glove approach ensures your estate receives the respectful, meticulous care it deserves.",
   },
   {
-    question: "How do you ensure discretion and privacy for Belle Meade estates?",
-    answer: "Discretion is paramount in Belle Meade. All team members sign strict confidentiality agreements and are thoroughly background-checked. We work quietly and efficiently, respecting your privacy and security. Many of our Belle Meade clients provide gate codes and prefer us to work when they're away - we're fully bonded and insured with $2M coverage for your complete peace of mind."
+    question:
+      "How do you ensure discretion and privacy for Belle Meade estates?",
+    answer:
+      "Discretion is paramount in Belle Meade. All team members sign strict confidentiality agreements and are thoroughly background-checked. We work quietly and efficiently, respecting your privacy and security. Many of our Belle Meade clients provide gate codes and prefer us to work when they're away - we're fully bonded and insured with $2M coverage for your complete peace of mind.",
   },
   {
-    question: "Can you handle cleaning around fine art and valuable collections?",
-    answer: "Absolutely. Our team is trained in cleaning around fine art, antiques, and valuable collections. We use appropriate cleaning methods for different surfaces and never touch or move valuable items without explicit permission. We understand that Belle Meade homes often contain irreplaceable heirlooms and priceless collections, and we treat everything with the utmost care and respect."
+    question:
+      "Can you handle cleaning around fine art and valuable collections?",
+    answer:
+      "Absolutely. Our team is trained in cleaning around fine art, antiques, and valuable collections. We use appropriate cleaning methods for different surfaces and never touch or move valuable items without explicit permission. We understand that Belle Meade homes often contain irreplaceable heirlooms and priceless collections, and we treat everything with the utmost care and respect.",
   },
   {
     question: "What's the cost of estate cleaning in Belle Meade?",
-    answer: "Belle Meade estate cleaning typically starts at $400-$800+ depending on square footage, specific needs, and frequency. Most Belle Meade estates range from 4,000-10,000+ sq ft and require specialized attention. We provide customized quotes after an in-home consultation to understand your specific requirements. Call 615-510-1427 for a confidential consultation."
+    answer:
+      "Belle Meade estate cleaning typically starts at $400-$800+ depending on square footage, specific needs, and frequency. Most Belle Meade estates range from 4,000-10,000+ sq ft and require specialized attention. We provide customized quotes after an in-home consultation to understand your specific requirements. Call 615-510-1427 for a confidential consultation.",
   },
   {
-    question: "Do you offer regular maintenance cleaning for Belle Meade estates?",
-    answer: "Yes, most of our Belle Meade clients prefer weekly or bi-weekly recurring service to maintain their estates in pristine condition. We assign the same dedicated team to your home each visit, ensuring consistency and familiarity with your preferences. Recurring clients receive priority scheduling and preferred rates."
+    question:
+      "Do you offer regular maintenance cleaning for Belle Meade estates?",
+    answer:
+      "Yes, most of our Belle Meade clients prefer weekly or bi-weekly recurring service to maintain their estates in pristine condition. We assign the same dedicated team to your home each visit, ensuring consistency and familiarity with your preferences. Recurring clients receive priority scheduling and preferred rates.",
   },
   {
-    question: "Can you clean large acreage properties and formal gardens in Belle Meade?",
-    answer: "While we focus on interior estate cleaning, we can coordinate with trusted local partners for exterior estate maintenance, garden care, and grounds keeping. Our goal is to be your single point of contact for maintaining your entire Belle Meade estate in immaculate condition."
+    question:
+      "Can you clean large acreage properties and formal gardens in Belle Meade?",
+    answer:
+      "While we focus on interior estate cleaning, we can coordinate with trusted local partners for exterior estate maintenance, garden care, and grounds keeping. Our goal is to be your single point of contact for maintaining your entire Belle Meade estate in immaculate condition.",
   },
   {
-    question: "Do you provide cleaning for special events at Belle Meade estates?",
-    answer: "Yes, we specialize in pre-event deep cleaning and post-event cleanup for Belle Meade estates. Whether you're hosting a charity gala, wedding reception, or intimate dinner party, we ensure your home is flawless for guests and restored to perfection afterward. We can also provide same-day or next-day service for last-minute events."
+    question:
+      "Do you provide cleaning for special events at Belle Meade estates?",
+    answer:
+      "Yes, we specialize in pre-event deep cleaning and post-event cleanup for Belle Meade estates. Whether you're hosting a charity gala, wedding reception, or intimate dinner party, we ensure your home is flawless for guests and restored to perfection afterward. We can also provide same-day or next-day service for last-minute events.",
   },
   {
-    question: "Are your cleaners bonded and insured for high-value Belle Meade homes?",
-    answer: "Yes, we carry $2 million in liability insurance and are fully bonded. Every team member undergoes thorough background checks and professional training. As a veteran-owned business, we uphold the highest standards of integrity, professionalism, and trustworthiness - qualities that Belle Meade homeowners expect and deserve."
-  }
+    question:
+      "Are your cleaners bonded and insured for high-value Belle Meade homes?",
+    answer:
+      "Yes, we carry $2 million in liability insurance and are fully bonded. Every team member undergoes thorough background checks and professional training. As a veteran-owned business, we uphold the highest standards of integrity, professionalism, and trustworthiness - qualities that Belle Meade homeowners expect and deserve.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 ---
 
@@ -116,9 +133,11 @@ const faqSchema = {
   geoPosition="36.0986;-86.8639"
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
@@ -126,18 +145,32 @@ const faqSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="home-lg-alt" class="w-5 h-5 mr-2" />Nashville's Premier Estate Cleaning
+              <Icon name="home-lg-alt" class="w-5 h-5 mr-2" />Nashville's
+              Premier Estate Cleaning
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Estate Cleaning Services in <span class="gold-gradient">Belle Meade, Nashville</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Estate Cleaning Services in <span class="gold-gradient"
+              >Belle Meade, Nashville</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            The Valley Clean Team provides white-glove estate cleaning services for Belle Meade's most distinguished homes. From historic mansions on Belle Meade Boulevard to prestigious properties throughout this exclusive Nashville neighborhood, we deliver the discretion, expertise, and meticulous attention to detail that Belle Meade estates demand.
+            The Valley Clean Team provides white-glove estate cleaning services
+            for Belle Meade's most distinguished homes. From historic mansions
+            on Belle Meade Boulevard to prestigious properties throughout this
+            exclusive Nashville neighborhood, we deliver the discretion,
+            expertise, and meticulous attention to detail that Belle Meade
+            estates demand.
           </p>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6"
+          >
             <div class="flex items-center text-gray-700">
               <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
               <span>$2M Liability Insurance</span>
@@ -152,54 +185,33 @@ const faqSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:6155101427" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:6155101427"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
             </a>
-            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+            <a
+              href="/contact"
+              class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+            >
               <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Consultation
             </a>
           </div>
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Belle Meade Estate Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Confidential consultation for your estate</p>
-          <form id="belle-meade-quote-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="text" name="property_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Approximate Square Footage">
-            </div>
-            <div class="mb-4">
-              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
-                <option value="Estate Regular Cleaning">Regular Estate Maintenance</option>
-                <option value="Estate Deep Cleaning">Estate Deep Cleaning</option>
-                <option value="Pre-Event Preparation">Pre-Event Preparation</option>
-                <option value="Post-Event Cleanup">Post-Event Cleanup</option>
-                <option value="Seasonal Deep Clean">Seasonal Deep Clean</option>
-              </select>
-            </div>
-            <input type="hidden" name="location" value="Belle Meade, Nashville, TN">
-            <input type="hidden" name="neighborhood" value="Belle Meade">
-            <button type="submit" id="belle-meade-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Request Confidential Consultation
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="lock" class="w-5 h-5 mr-1" /> Confidential - Response within 2 hours
-            </p>
-            <div id="belle-meade-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
-        </div>
+        <QuoteForm
+          formId="belle-meade-quote-form"
+          city="Belle Meade, Nashville"
+          state="TN"
+          neighborhood="Belle Meade"
+          source="Location Page - Belle Meade"
+          subtitle="Confidential consultation for your estate"
+        />
       </div>
     </div>
   </section>
@@ -217,60 +229,105 @@ const faqSchema = {
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
-            Understanding Belle Meade's <span class="gold-gradient">Unique Estate Needs</span>
+            Understanding Belle Meade's <span class="gold-gradient"
+              >Unique Estate Needs</span
+            >
           </h2>
           <p class="text-gray-700 mb-4">
-            Belle Meade isn't just a Nashville neighborhood - it's an institution. As one of Tennessee's wealthiest and most historic communities, Belle Meade estates represent a unique combination of old-world elegance, Southern charm, and modern luxury that requires specialized cleaning expertise.
+            Belle Meade isn't just a Nashville neighborhood - it's an
+            institution. As one of Tennessee's wealthiest and most historic
+            communities, Belle Meade estates represent a unique combination of
+            old-world elegance, Southern charm, and modern luxury that requires
+            specialized cleaning expertise.
           </p>
           <p class="text-gray-700 mb-4">
-            From sprawling historic mansions dating back to the early 1900s to newly constructed custom estates, Belle Meade homes range from $1 million to over $10 million. These properties feature architectural details, antique furnishings, fine art collections, and luxury finishes that demand more than standard cleaning - they require the white-glove estate service that The Valley Clean Team provides.
+            From sprawling historic mansions dating back to the early 1900s to
+            newly constructed custom estates, Belle Meade homes range from $1
+            million to over $10 million. These properties feature architectural
+            details, antique furnishings, fine art collections, and luxury
+            finishes that demand more than standard cleaning - they require the
+            white-glove estate service that The Valley Clean Team provides.
           </p>
           <p class="text-gray-700 mb-4">
-            Our Belle Meade clients include executives, entertainment industry professionals, physicians, attorneys, and established Nashville families who expect discretion, consistency, and perfection. We understand that your estate is more than just a home - it's a legacy, an investment, and a reflection of your family's success.
+            Our Belle Meade clients include executives, entertainment industry
+            professionals, physicians, attorneys, and established Nashville
+            families who expect discretion, consistency, and perfection. We
+            understand that your estate is more than just a home - it's a
+            legacy, an investment, and a reflection of your family's success.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Belle Meade Estate Features We Specialize In</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Belle Meade Estate Features We Specialize In
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
               <Icon name="crown" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Historic mansions with original architectural details</span>
+              <span class="text-gray-700"
+                >Historic mansions with original architectural details</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="palette" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Fine art collections and gallery-quality displays</span>
+              <span class="text-gray-700"
+                >Fine art collections and gallery-quality displays</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="chair" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Antique furniture and heirloom pieces</span>
+              <span class="text-gray-700"
+                >Antique furniture and heirloom pieces</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="gem" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Marble, travertine, and luxury stone surfaces</span>
+              <span class="text-gray-700"
+                >Marble, travertine, and luxury stone surfaces</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Original hardwood flooring requiring specialized care</span>
+              <span class="text-gray-700"
+                >Original hardwood flooring requiring specialized care</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="book" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Extensive libraries and book collections</span>
+              <span class="text-gray-700"
+                >Extensive libraries and book collections</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="wine-glass" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Wine cellars and climate-controlled storage</span>
+              <Icon
+                name="wine-glass"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Wine cellars and climate-controlled storage</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="chandelier" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Crystal chandeliers and luxury lighting fixtures</span>
+              <Icon
+                name="chandelier"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Crystal chandeliers and luxury lighting fixtures</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="couch" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Formal living spaces and entertainment areas</span>
+              <span class="text-gray-700"
+                >Formal living spaces and entertainment areas</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Multi-story estates with grand staircases</span>
+              <span class="text-gray-700"
+                >Multi-story estates with grand staircases</span
+              >
             </li>
           </ul>
         </div>
@@ -283,185 +340,315 @@ const faqSchema = {
     <div class="container mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Estate Cleaning <span class="gold-gradient">Services for Belle Meade</span>
+          Estate Cleaning <span class="gold-gradient"
+            >Services for Belle Meade</span
+          >
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Comprehensive estate maintenance tailored to your needs</p>
+        <p class="text-xl text-gray-600">
+          Comprehensive estate maintenance tailored to your needs
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular Estate Maintenance</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Regular Estate Maintenance
+          </h3>
           <p class="text-gray-600 mb-4">
-            Weekly or bi-weekly service to keep your Belle Meade estate in pristine condition. Same dedicated team, consistent results, complete discretion.
+            Weekly or bi-weekly service to keep your Belle Meade estate in
+            pristine condition. Same dedicated team, consistent results,
+            complete discretion.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>All living spaces meticulously cleaned</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Kitchen and bathrooms sanitized</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Dusting of art and collectibles</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Premium hardwood floor care</span>
             </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Schedule Service →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Schedule Service →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="sparkles" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Estate Deep Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Estate Deep Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Comprehensive deep cleaning perfect for seasonal refreshes, pre-listing preparation, or restoring your estate to showroom condition.
+            Comprehensive deep cleaning perfect for seasonal refreshes,
+            pre-listing preparation, or restoring your estate to showroom
+            condition.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Top-to-bottom detailed cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Baseboards, crown molding, trim work</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Chandelier and fixture cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Window cleaning (interior)</span>
             </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Request Quote →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Request Quote →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="champagne-glasses" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Special Event Preparation</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Special Event Preparation
+          </h3>
           <p class="text-gray-600 mb-4">
-            Hosting a gala, wedding reception, or intimate dinner party? We ensure your Belle Meade estate is flawless for your guests.
+            Hosting a gala, wedding reception, or intimate dinner party? We
+            ensure your Belle Meade estate is flawless for your guests.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Pre-event deep cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Post-event restoration</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Same-day availability</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Flexible scheduling around your event</span>
             </li>
           </ul>
-          <a href="tel:6155101427" class="text-[#FFA985] font-semibold hover:underline">Call: 615-510-1427 →</a>
+          <a
+            href="tel:6155101427"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Call: 615-510-1427 →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="truck-moving" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move-In/Move-Out Estate Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Move-In/Move-Out Estate Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Transitioning to or from your Belle Meade estate? We ensure every surface is immaculate for the next chapter.
+            Transitioning to or from your Belle Meade estate? We ensure every
+            surface is immaculate for the next chapter.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Complete estate cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Inside cabinets and closets</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Appliance deep cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Ready for inspection or listing photos</span>
             </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Get Quote →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline">Get Quote →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="hammer" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Renovation Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Post-Renovation Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            After estate renovations or remodeling, we remove construction dust and debris to reveal your refreshed spaces.
+            After estate renovations or remodeling, we remove construction dust
+            and debris to reveal your refreshed spaces.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Construction dust removal</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Surface protection and detailing</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>HVAC vent cleaning coordination</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Final walk-through inspection</span>
             </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Schedule Service →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Schedule Service →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="snowflake" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Seasonal Estate Refresh</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Seasonal Estate Refresh
+          </h3>
           <p class="text-gray-600 mb-4">
-            Spring and fall deep cleaning to refresh your estate for the changing seasons and upcoming holidays.
+            Spring and fall deep cleaning to refresh your estate for the
+            changing seasons and upcoming holidays.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Seasonal deep cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Window and drapery attention</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Outdoor living space cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Holiday preparation services</span>
             </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Book Now →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+          >
         </div>
       </div>
     </div>
@@ -472,92 +659,155 @@ const faqSchema = {
     <div class="container mx-auto max-w-5xl">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Why Belle Meade <span class="gold-gradient">Trusts The Valley Clean Team</span>
+          Why Belle Meade <span class="gold-gradient"
+            >Trusts The Valley Clean Team</span
+          >
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">The qualities that matter most to discerning Belle Meade homeowners</p>
+        <p class="text-xl text-gray-600">
+          The qualities that matter most to discerning Belle Meade homeowners
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="user-lock" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Absolute Discretion</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Absolute Discretion
+              </h3>
               <p class="text-gray-700">
-                We understand that privacy is paramount in Belle Meade. All team members sign comprehensive confidentiality agreements, undergo thorough background checks, and are trained to respect your privacy, security, and peace of mind. Your trust is our most valuable asset.
+                We understand that privacy is paramount in Belle Meade. All team
+                members sign comprehensive confidentiality agreements, undergo
+                thorough background checks, and are trained to respect your
+                privacy, security, and peace of mind. Your trust is our most
+                valuable asset.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="gem" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Antique & Fine Art Expertise</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Antique & Fine Art Expertise
+              </h3>
               <p class="text-gray-700">
-                Our team receives specialized training in caring for antiques, fine art, and valuable collectibles. We understand appropriate cleaning methods for different materials, from delicate porcelain to oil paintings, ensuring your treasures receive the gentle, expert care they deserve.
+                Our team receives specialized training in caring for antiques,
+                fine art, and valuable collectibles. We understand appropriate
+                cleaning methods for different materials, from delicate
+                porcelain to oil paintings, ensuring your treasures receive the
+                gentle, expert care they deserve.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="users" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Dedicated Estate Team</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Dedicated Estate Team
+              </h3>
               <p class="text-gray-700">
-                We assign the same professional cleaning team to your estate for every visit. This consistency means they become familiar with your preferences, your home's unique features, and your family's routine - delivering increasingly personalized service with each visit.
+                We assign the same professional cleaning team to your estate for
+                every visit. This consistency means they become familiar with
+                your preferences, your home's unique features, and your family's
+                routine - delivering increasingly personalized service with each
+                visit.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="shield-alt" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">$2M Insurance Coverage</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                $2M Insurance Coverage
+              </h3>
               <p class="text-gray-700">
-                We carry $2 million in liability insurance and are fully bonded - far exceeding industry standards. This comprehensive coverage protects your valuable estate and provides the peace of mind you expect when inviting service professionals into your Belle Meade home.
+                We carry $2 million in liability insurance and are fully bonded
+                - far exceeding industry standards. This comprehensive coverage
+                protects your valuable estate and provides the peace of mind you
+                expect when inviting service professionals into your Belle Meade
+                home.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="clock" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Flexible Scheduling</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Flexible Scheduling
+              </h3>
               <p class="text-gray-700">
-                We work around your schedule, not the other way around. Prefer us to clean while you're away? Need us here before a dinner party? Require service on specific days? We accommodate your preferences and maintain your routine without disruption.
+                We work around your schedule, not the other way around. Prefer
+                us to clean while you're away? Need us here before a dinner
+                party? Require service on specific days? We accommodate your
+                preferences and maintain your routine without disruption.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="medal" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Veteran-Owned Excellence</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Veteran-Owned Excellence
+              </h3>
               <p class="text-gray-700">
-                As a veteran-owned business, we bring military values to every service: attention to detail, commitment to excellence, integrity, and unwavering reliability. These principles align perfectly with the standards Belle Meade homeowners demand and deserve.
+                As a veteran-owned business, we bring military values to every
+                service: attention to detail, commitment to excellence,
+                integrity, and unwavering reliability. These principles align
+                perfectly with the standards Belle Meade homeowners demand and
+                deserve.
               </p>
             </div>
           </div>
@@ -574,7 +824,9 @@ const faqSchema = {
           Serving All of <span class="gold-gradient">Belle Meade</span>
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Premium estate cleaning throughout Belle Meade's finest areas</p>
+        <p class="text-xl text-gray-600">
+          Premium estate cleaning throughout Belle Meade's finest areas
+        </p>
       </div>
       <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
         <span class="neighborhood-badge">
@@ -603,9 +855,18 @@ const faqSchema = {
         </span>
       </div>
       <p class="text-center text-gray-600 mt-8">
-        Also serving nearby: <a href="/locations/nashville/green-hills" class="text-[#FFA985] font-semibold hover:underline">Green Hills</a>,
-        <a href="/locations/nashville" class="text-[#FFA985] font-semibold hover:underline ml-2">West End</a>, and
-        <a href="/locations/nashville/brentwood" class="text-[#FFA985] font-semibold hover:underline ml-2">Brentwood</a>
+        Also serving nearby: <a
+          href="/locations/nashville/green-hills"
+          class="text-[#FFA985] font-semibold hover:underline">Green Hills</a
+        >,
+        <a
+          href="/locations/nashville"
+          class="text-[#FFA985] font-semibold hover:underline ml-2">West End</a
+        >, and
+        <a
+          href="/locations/nashville/brentwood"
+          class="text-[#FFA985] font-semibold hover:underline ml-2">Brentwood</a
+        >
       </p>
     </div>
   </section>
@@ -618,21 +879,33 @@ const faqSchema = {
           Belle Meade Estate Cleaning <span class="gold-gradient">FAQs</span>
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Questions from Belle Meade homeowners</p>
+        <p class="text-xl text-gray-600">
+          Questions from Belle Meade homeowners
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -641,16 +914,27 @@ const faqSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-        Ready to Experience <span class="gold-gradient">White-Glove Estate Service</span>?
+        Ready to Experience <span class="gold-gradient"
+          >White-Glove Estate Service</span
+        >?
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Join Belle Meade's most distinguished families who trust The Valley Clean Team for exceptional estate care
+        Join Belle Meade's most distinguished families who trust The Valley
+        Clean Team for exceptional estate care
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:6155101427" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:6155101427"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
         </a>
-        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+        <a
+          href="/contact"
+          class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md"
+        >
           <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Consultation
         </a>
       </div>
@@ -658,76 +942,33 @@ const faqSchema = {
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <p class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </p>
-            <p class="text-gray-600">Belle Meade, Nashville, TN and surrounding areas</p>
+            <p class="text-gray-600">
+              Belle Meade, Nashville, TN and surrounding areas
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </p>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </p>
-            <p class="text-gray-600">615-510-1427<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              615-510-1427<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('belle-meade-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('belle-meade-submit-btn');
-      const messageDiv = document.getElementById('belle-meade-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        property_size: form.property_size?.value || '',
-        location: form.location?.value || '',
-        neighborhood: form.neighborhood?.value || '',
-        source: 'Belle Meade Landing Page',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll contact you within 2 hours with your confidential consultation.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Please call us at 615-510-1427 for immediate assistance.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Request Confidential Consultation';
-    });
-  </script>
 </BaseLayout>

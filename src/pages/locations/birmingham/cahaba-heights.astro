@@ -1,96 +1,109 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "Do you serve all areas of Cahaba Heights?",
-    answer: "Yes, we serve all of Cahaba Heights including the areas bordering Mountain Brook, homes along Cahaba River, properties near Dolly Ridge Road, and the neighborhoods around Cahaba Heights Elementary. Whether you're in the established sections or newer developments, we provide comprehensive cleaning services throughout this desirable unincorporated community."
+    answer:
+      "Yes, we serve all of Cahaba Heights including the areas bordering Mountain Brook, homes along Cahaba River, properties near Dolly Ridge Road, and the neighborhoods around Cahaba Heights Elementary. Whether you're in the established sections or newer developments, we provide comprehensive cleaning services throughout this desirable unincorporated community.",
   },
   {
-    question: "How do you handle homes with river views and outdoor living spaces?",
-    answer: "Cahaba Heights homes often feature beautiful outdoor living areas, screened porches, and spaces that blend indoor and outdoor living. We clean interior spaces thoroughly while paying special attention to transition areas like sunrooms, three-season rooms, and enclosed porches. We also ensure glass doors and windows are spotless so you can enjoy those gorgeous Cahaba River and mountain views."
+    question:
+      "How do you handle homes with river views and outdoor living spaces?",
+    answer:
+      "Cahaba Heights homes often feature beautiful outdoor living areas, screened porches, and spaces that blend indoor and outdoor living. We clean interior spaces thoroughly while paying special attention to transition areas like sunrooms, three-season rooms, and enclosed porches. We also ensure glass doors and windows are spotless so you can enjoy those gorgeous Cahaba River and mountain views.",
   },
   {
     question: "What size homes do you typically clean in Cahaba Heights?",
-    answer: "We clean homes of all sizes in Cahaba Heights, from 2,500 sq ft family homes to 5,000+ sq ft custom estates. Many properties in this area feature multiple living levels, home offices, bonus rooms, and finished basements. We customize our approach based on your home's specific layout and your priorities."
+    answer:
+      "We clean homes of all sizes in Cahaba Heights, from 2,500 sq ft family homes to 5,000+ sq ft custom estates. Many properties in this area feature multiple living levels, home offices, bonus rooms, and finished basements. We customize our approach based on your home's specific layout and your priorities.",
   },
   {
     question: "Can you work around my family's schedule?",
-    answer: "Absolutely. Cahaba Heights is home to many busy professionals and families with children. We offer flexible scheduling including while you're at work, after school drop-off, or on specific days that work for your routine. Many clients give us a key or garage code for secure access while they're away."
+    answer:
+      "Absolutely. Cahaba Heights is home to many busy professionals and families with children. We offer flexible scheduling including while you're at work, after school drop-off, or on specific days that work for your routine. Many clients give us a key or garage code for secure access while they're away.",
   },
   {
     question: "How do you handle homes with pets?",
-    answer: "We love pets and many Cahaba Heights families have dogs, cats, or both. Just let us know about your pets and any specific concerns. We use pet-safe cleaning products, can work around pet areas, and are experienced with curious cats and friendly dogs. We'll always ensure doors stay secured to keep your pets safe."
+    answer:
+      "We love pets and many Cahaba Heights families have dogs, cats, or both. Just let us know about your pets and any specific concerns. We use pet-safe cleaning products, can work around pet areas, and are experienced with curious cats and friendly dogs. We'll always ensure doors stay secured to keep your pets safe.",
   },
   {
-    question: "What's the difference between regular cleaning and deep cleaning?",
-    answer: "Regular cleaning maintains your home's cleanliness with consistent weekly or bi-weekly visits covering all standard areas. Deep cleaning is more intensive - we clean inside appliances, detail baseboards, wash interior windows, clean light fixtures, and address areas that accumulate grime over time. Most Cahaba Heights clients start with a deep clean, then maintain with regular service."
+    question:
+      "What's the difference between regular cleaning and deep cleaning?",
+    answer:
+      "Regular cleaning maintains your home's cleanliness with consistent weekly or bi-weekly visits covering all standard areas. Deep cleaning is more intensive - we clean inside appliances, detail baseboards, wash interior windows, clean light fixtures, and address areas that accumulate grime over time. Most Cahaba Heights clients start with a deep clean, then maintain with regular service.",
   },
   {
-    question: "Are your cleaning products safe for hardwood floors and natural stone?",
-    answer: "Yes, we use pH-balanced, high-quality products that are safe for hardwood floors, marble, granite, and other natural surfaces common in Cahaba Heights homes. We understand these are significant investments and use appropriate products and techniques for each surface type. If you have specific product preferences, we're happy to accommodate."
+    question:
+      "Are your cleaning products safe for hardwood floors and natural stone?",
+    answer:
+      "Yes, we use pH-balanced, high-quality products that are safe for hardwood floors, marble, granite, and other natural surfaces common in Cahaba Heights homes. We understand these are significant investments and use appropriate products and techniques for each surface type. If you have specific product preferences, we're happy to accommodate.",
   },
   {
     question: "What areas do you cover beyond Cahaba Heights?",
-    answer: "We serve all of greater Birmingham including Mountain Brook, Vestavia Hills, Homewood, Hoover, and downtown Birmingham. Many of our clients have recommended us to friends and family in neighboring communities. We're fully insured and our team is trained to the same high standards regardless of which neighborhood we're serving."
-  }
+    answer:
+      "We serve all of greater Birmingham including Mountain Brook, Vestavia Hills, Homewood, Hoover, and downtown Birmingham. Many of our clients have recommended us to friends and family in neighboring communities. We're fully insured and our team is trained to the same high standards regardless of which neighborhood we're serving.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "House Cleaning Services",
-  "provider": {
+  serviceType: "House Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Birmingham",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Birmingham",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$"
+    priceRange: "$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Cahaba Heights, Birmingham, Alabama",
-    "geo": {
+    name: "Cahaba Heights, Birmingham, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "33.4609",
-      "longitude": "-86.7347"
+      latitude: "33.4609",
+      longitude: "-86.7347",
     },
-    "containedInPlace": {
+    containedInPlace: {
       "@type": "City",
-      "name": "Birmingham",
-      "containedInPlace": {
+      name: "Birmingham",
+      containedInPlace: {
         "@type": "State",
-        "name": "Alabama"
-      }
-    }
+        name: "Alabama",
+      },
+    },
   },
-  "description": "Professional house cleaning services for Cahaba Heights homes. Regular cleaning, deep cleaning, and move in/out services for this desirable Birmingham community.",
-  "offers": {
+  description:
+    "Professional house cleaning services for Cahaba Heights homes. Regular cleaning, deep cleaning, and move in/out services for this desirable Birmingham community.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -104,23 +117,34 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Where Mountain Views Meet River Living
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Where Mountain
+              Views Meet River Living
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Cahaba Heights</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            House Cleaning in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Cahaba Heights</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Your Cahaba Heights home deserves exceptional care. Nestled between Mountain Brook and the beautiful Cahaba River, this established community features stunning homes with views, spacious layouts, and families who appreciate quality. We provide premium cleaning services designed for discerning Cahaba Heights homeowners.
+            Your Cahaba Heights home deserves exceptional care. Nestled between
+            Mountain Brook and the beautiful Cahaba River, this established
+            community features stunning homes with views, spacious layouts, and
+            families who appreciate quality. We provide premium cleaning
+            services designed for discerning Cahaba Heights homeowners.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -130,7 +154,11 @@ const serviceSchema = {
               <p class="text-gray-400 text-xs">& Bonded</p>
             </div>
             <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
-              <Icon name="star" class="w-8 h-8 text-[#FFA985] mb-2" fill="currentColor" />
+              <Icon
+                name="star"
+                class="w-8 h-8 text-[#FFA985] mb-2"
+                fill="currentColor"
+              />
               <p class="text-white font-semibold text-sm">5-Star</p>
               <p class="text-gray-400 text-xs">Rated</p>
             </div>
@@ -141,11 +169,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Get Free Quote
             </a>
-            <a href="/contact" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/contact"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -154,52 +190,25 @@ const serviceSchema = {
         <!-- Quote Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="gift" class="w-5 h-5 mr-1" /> FREE QUOTE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Cahaba Heights Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Professional cleaning tailored to your home</p>
-          <form id="cahaba-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
-                <option value="2,000 - 3,000 sq ft">2,000 - 3,000 sq ft</option>
-                <option value="3,000 - 4,000 sq ft">3,000 - 4,000 sq ft</option>
-                <option value="4,000 - 5,000 sq ft">4,000 - 5,000 sq ft</option>
-                <option value="Over 5,000 sq ft">Over 5,000 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Service Type *</option>
-                <option value="Regular Cleaning">Regular Cleaning (Weekly/Bi-Weekly)</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Tell us about your home (pets, special requests, preferred schedule)" rows="3"></textarea>
-            </div>
-            <button type="submit" id="cahaba-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="lock" class="w-5 h-5 mr-1" /> Your information is secure and never shared
-            </p>
-            <div id="cahaba-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Cahaba Heights Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Professional cleaning tailored to your home
+          </p>
+          <QuoteForm
+            formId="cahaba-heights-quote-form"
+            city="Cahaba Heights"
+            state="Alabama"
+            serviceName="General Cleaning"
+            source="Cahaba Heights Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -211,56 +220,119 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Professional Cleaning for<br>Cahaba Heights Homes
+            Professional Cleaning for<br />Cahaba Heights Homes
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Cahaba Heights is one of Birmingham's most desirable communities - an unincorporated gem nestled between Mountain Brook and the scenic Cahaba River. This established neighborhood attracts professionals, families, and those who appreciate quality living without the formality of a gated community. Homes here range from charming mid-century builds to spacious custom estates, typically between 2,500 and 5,000+ square feet.
+            Cahaba Heights is one of Birmingham's most desirable communities -
+            an unincorporated gem nestled between Mountain Brook and the scenic
+            Cahaba River. This established neighborhood attracts professionals,
+            families, and those who appreciate quality living without the
+            formality of a gated community. Homes here range from charming
+            mid-century builds to spacious custom estates, typically between
+            2,500 and 5,000+ square feet.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            What makes Cahaba Heights special is the sense of community combined with natural beauty. Many homes feature stunning views of the surrounding mountains, mature tree canopies, and proximity to the Cahaba River - Alabama's longest free-flowing river and a treasured natural resource. Outdoor living spaces, screened porches, and homes designed to embrace the landscape are common throughout the neighborhood.
+            What makes Cahaba Heights special is the sense of community combined
+            with natural beauty. Many homes feature stunning views of the
+            surrounding mountains, mature tree canopies, and proximity to the
+            Cahaba River - Alabama's longest free-flowing river and a treasured
+            natural resource. Outdoor living spaces, screened porches, and homes
+            designed to embrace the landscape are common throughout the
+            neighborhood.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            The residents of Cahaba Heights are discerning - they chose this community for its character, convenience, and quality of life. They expect service providers who understand their homes and respect their time. That's exactly what we deliver: professional, thorough cleaning from a team that treats your home like our own.
+            The residents of Cahaba Heights are discerning - they chose this
+            community for its character, convenience, and quality of life. They
+            expect service providers who understand their homes and respect
+            their time. That's exactly what we deliver: professional, thorough
+            cleaning from a team that treats your home like our own.
           </p>
           <p class="text-lg text-gray-700">
-            Whether you live in a cozy family home near Cahaba Heights Elementary or a sprawling property with river views, we customize our service to your home's unique needs and your family's priorities.
+            Whether you live in a cozy family home near Cahaba Heights
+            Elementary or a sprawling property with river views, we customize
+            our service to your home's unique needs and your family's
+            priorities.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Cahaba Heights Home Features:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Cahaba Heights Home Features:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Spacious homes</strong> typically 2,500-5,000+ sq ft</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Spacious homes</strong> typically 2,500-5,000+ sq ft</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Mountain and river views</strong> from many properties</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Mountain and river views</strong> from many properties</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Established neighborhood</strong> with mature landscaping</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Established neighborhood</strong> with mature landscaping</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Multiple living levels</strong> and bonus rooms</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Multiple living levels</strong> and bonus rooms</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Outdoor living spaces</strong> and screened porches</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Outdoor living spaces</strong> and screened porches</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Mountain Brook border</strong> with convenient access</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Mountain Brook border</strong> with convenient access</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Cahaba River proximity</strong> - natural beauty</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Cahaba River proximity</strong> - natural beauty</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Family-friendly</strong> with excellent schools nearby</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Family-friendly</strong> with excellent schools nearby</span
+              >
             </li>
           </ul>
         </div>
@@ -276,56 +348,101 @@ const serviceSchema = {
           Why Cahaba Heights Families Choose Us
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Trusted cleaning for your home and family</p>
+        <p class="text-xl text-gray-600">
+          Trusted cleaning for your home and family
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-check" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Background-Checked Team</h3>
-          <p class="text-gray-600">Every team member passes comprehensive background checks before entering your home. We're fully insured and bonded for your peace of mind. Trust isn't given - it's earned, and we take that seriously.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Background-Checked Team
+          </h3>
+          <p class="text-gray-600">
+            Every team member passes comprehensive background checks before
+            entering your home. We're fully insured and bonded for your peace of
+            mind. Trust isn't given - it's earned, and we take that seriously.
+          </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="clock" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Flexible Scheduling</h3>
-          <p class="text-gray-600">We work around your family's busy life. Whether you need us while you're at work, after school drop-off, or on specific days, we accommodate your schedule. Secure key and code access available.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Flexible Scheduling
+          </h3>
+          <p class="text-gray-600">
+            We work around your family's busy life. Whether you need us while
+            you're at work, after school drop-off, or on specific days, we
+            accommodate your schedule. Secure key and code access available.
+          </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="users" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Consistent Team</h3>
-          <p class="text-gray-600">You'll see the same friendly faces each visit. Your dedicated team learns your home's layout, your preferences, and your priorities. No strangers, no surprises - just reliable, quality service every time.</p>
+          <p class="text-gray-600">
+            You'll see the same friendly faces each visit. Your dedicated team
+            learns your home's layout, your preferences, and your priorities. No
+            strangers, no surprises - just reliable, quality service every time.
+          </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="leaf" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Safe Products</h3>
-          <p class="text-gray-600">We use high-quality, eco-friendly products that are safe for your family, pets, and home surfaces. Safe for hardwood, marble, granite, and all the quality finishes in your Cahaba Heights home.</p>
+          <p class="text-gray-600">
+            We use high-quality, eco-friendly products that are safe for your
+            family, pets, and home surfaces. Safe for hardwood, marble, granite,
+            and all the quality finishes in your Cahaba Heights home.
+          </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="dollar-sign" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Transparent Pricing</h3>
-          <p class="text-gray-600">No hidden fees, no surprise charges. We provide upfront quotes based on your home's size and service needs. You know exactly what you're paying for before we start.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Transparent Pricing
+          </h3>
+          <p class="text-gray-600">
+            No hidden fees, no surprise charges. We provide upfront quotes based
+            on your home's size and service needs. You know exactly what you're
+            paying for before we start.
+          </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="medal" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned</h3>
-          <p class="text-gray-600">Military discipline meets exceptional service. We're punctual, detail-oriented, and take pride in our work. The same values that served our country now serve your home with integrity and excellence.</p>
+          <p class="text-gray-600">
+            Military discipline meets exceptional service. We're punctual,
+            detail-oriented, and take pride in our work. The same values that
+            served our country now serve your home with integrity and
+            excellence.
+          </p>
         </div>
       </div>
     </div>
@@ -342,12 +459,16 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-[#FFA985]">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border-2 border-[#FFA985]"
+        >
           <h3 class="text-2xl font-bold text-[#333333] mb-6">
-            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Regular Cleaning
+            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Regular
+            Cleaning
           </h3>
           <p class="text-gray-600 mb-6">
-            Weekly or bi-weekly service to keep your Cahaba Heights home consistently clean and comfortable. Same dedicated team every visit.
+            Weekly or bi-weekly service to keep your Cahaba Heights home
+            consistently clean and comfortable. Same dedicated team every visit.
           </p>
           <ul class="space-y-3">
             <li class="flex items-start">
@@ -377,17 +498,22 @@ const serviceSchema = {
           </ul>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200"
+        >
           <h3 class="text-2xl font-bold text-[#333333] mb-6">
-            <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] mr-2" />Deep Cleaning
+            <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] mr-2" />Deep
+            Cleaning
           </h3>
           <p class="text-gray-600 mb-6">
-            Intensive top-to-bottom cleaning that reaches every corner. Perfect for first-time clients or seasonal refreshes.
+            Intensive top-to-bottom cleaning that reaches every corner. Perfect
+            for first-time clients or seasonal refreshes.
           </p>
           <ul class="space-y-3">
             <li class="flex items-start">
               <Icon name="plus" class="w-5 h-5 text-[#FFA985] mt-1 mr-3" />
-              <span class="text-gray-700">Inside appliances (oven, fridge)</span>
+              <span class="text-gray-700">Inside appliances (oven, fridge)</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="plus" class="w-5 h-5 text-[#FFA985] mt-1 mr-3" />
@@ -412,12 +538,16 @@ const serviceSchema = {
           </ul>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200"
+        >
           <h3 class="text-2xl font-bold text-[#333333] mb-6">
-            <Icon name="truck-moving" class="w-5 h-5 text-[#FFA985] mr-2" />Move In/Out
+            <Icon name="truck-moving" class="w-5 h-5 text-[#FFA985] mr-2" />Move
+            In/Out
           </h3>
           <p class="text-gray-600 mb-6">
-            Comprehensive cleaning for real estate transactions. Get your deposit back or welcome new owners properly.
+            Comprehensive cleaning for real estate transactions. Get your
+            deposit back or welcome new owners properly.
           </p>
           <ul class="space-y-3">
             <li class="flex items-start">
@@ -450,7 +580,15 @@ const serviceSchema = {
 
       <div class="mt-8 text-center">
         <p class="text-gray-600 mb-4">
-          Looking for <a href="/locations/birmingham" class="text-[#FFA985] hover:underline font-semibold">all Birmingham area services</a> or <a href="/services" class="text-[#FFA985] hover:underline font-semibold">our full service menu</a>?
+          Looking for <a
+            href="/locations/birmingham"
+            class="text-[#FFA985] hover:underline font-semibold"
+            >all Birmingham area services</a
+          > or <a
+            href="/services"
+            class="text-[#FFA985] hover:underline font-semibold"
+            >our full service menu</a
+          >?
         </p>
       </div>
     </div>
@@ -478,10 +616,16 @@ const serviceSchema = {
             </div>
           </div>
           <p class="text-gray-700 mb-6 italic">
-            "We've lived in Cahaba Heights for 15 years and have tried several cleaning services. The Valley Clean Team is hands-down the best. They're thorough, reliable, and our house has never looked better. They even handle our screened porch and sunroom without being asked. Highly recommend!"
+            "We've lived in Cahaba Heights for 15 years and have tried several
+            cleaning services. The Valley Clean Team is hands-down the best.
+            They're thorough, reliable, and our house has never looked better.
+            They even handle our screened porch and sunroom without being asked.
+            Highly recommend!"
           </p>
           <div class="flex items-center">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mr-4"
+            >
               <span class="text-white font-bold">SH</span>
             </div>
             <div>
@@ -502,10 +646,16 @@ const serviceSchema = {
             </div>
           </div>
           <p class="text-gray-700 mb-6 italic">
-            "With three kids and two dogs, our house gets messy fast. The team comes every two weeks and transforms our home. They're great with our pets, flexible with our crazy schedule, and always leave everything spotless. Worth every penny for the time it gives back to our family."
+            "With three kids and two dogs, our house gets messy fast. The team
+            comes every two weeks and transforms our home. They're great with
+            our pets, flexible with our crazy schedule, and always leave
+            everything spotless. Worth every penny for the time it gives back to
+            our family."
           </p>
           <div class="flex items-center">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center mr-4"
+            >
               <span class="text-white font-bold">MJ</span>
             </div>
             <div>
@@ -529,17 +679,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-gray-50 rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-gray-50 rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -551,19 +709,34 @@ const serviceSchema = {
         Also Serving Birmingham Area Neighborhoods
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/mountain-brook" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook"
+          class="neighborhood-badge block text-center"
+        >
           Mountain Brook
         </a>
-        <a href="/locations/birmingham" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham"
+          class="neighborhood-badge block text-center"
+        >
           Birmingham
         </a>
-        <a href="/locations/birmingham/vestavia-hills" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/vestavia-hills"
+          class="neighborhood-badge block text-center"
+        >
           Vestavia Hills
         </a>
-        <a href="/locations/birmingham/homewood" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/homewood"
+          class="neighborhood-badge block text-center"
+        >
           Homewood
         </a>
-        <a href="/locations/birmingham/hoover" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/hoover"
+          class="neighborhood-badge block text-center"
+        >
           Hoover
         </a>
         <a href="/locations" class="neighborhood-badge block text-center">
@@ -577,72 +750,26 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Ready for a <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Cleaner Home</span>?
+        Ready for a <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Cleaner Home</span
+        >?
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Join your Cahaba Heights neighbors who trust us with their homes. Get your free quote today and experience the difference professional cleaning makes.
+        Join your Cahaba Heights neighbors who trust us with their homes. Get
+        your free quote today and experience the difference professional
+        cleaning makes.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-check" class="w-5 h-5 mr-2" />Free quotes | Flexible scheduling | No obligation
+        <Icon name="calendar-check" class="w-5 h-5 mr-2" />Free quotes |
+        Flexible scheduling | No obligation
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('cahaba-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('cahaba-submit-btn');
-      const messageDiv = document.getElementById('cahaba-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Cahaba Heights - Birmingham',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Cahaba Heights Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll contact you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Please call us directly at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

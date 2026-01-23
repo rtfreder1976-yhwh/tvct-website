@@ -1,84 +1,95 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Icon from '../../../components/Icon.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const title = "House Cleaning in The Nations, Nashville | Valley Clean Team";
-const description = "Professional house cleaning in The Nations, Nashville. Serving 37209. Veteran-owned, insured. Modern cleaning for West Nashville's trendiest neighborhood. Free quotes!";
+const description =
+  "Professional house cleaning in The Nations, Nashville. Serving 37209. Veteran-owned, insured. Modern cleaning for West Nashville's trendiest neighborhood. Free quotes!";
 
 const faqs = [
   {
     question: "Do you provide house cleaning in The Nations?",
-    answer: "Yes! We provide comprehensive house cleaning services throughout The Nations and the 37209 zip code, including the Centennial Park area, 51st Avenue corridor, and Charlotte Pike vicinity."
+    answer:
+      "Yes! We provide comprehensive house cleaning services throughout The Nations and the 37209 zip code, including the Centennial Park area, 51st Avenue corridor, and Charlotte Pike vicinity.",
   },
   {
     question: "What cleaning services do you offer in The Nations?",
-    answer: "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, Airbnb turnover cleaning, and one-time cleaning for Nations homes."
+    answer:
+      "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, Airbnb turnover cleaning, and one-time cleaning for Nations homes.",
   },
   {
     question: "How much does house cleaning cost in The Nations?",
-    answer: "The Nations home cleaning typically starts at $140-$220 for standard cleaning, depending on home size and condition. We provide free quotes with transparent, upfront pricing."
+    answer:
+      "The Nations home cleaning typically starts at $140-$220 for standard cleaning, depending on home size and condition. We provide free quotes with transparent, upfront pricing.",
   },
   {
     question: "Are your cleaners background-checked and insured?",
-    answer: "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your protection."
+    answer:
+      "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your protection.",
   },
   {
     question: "Do you clean Airbnb and short-term rentals?",
-    answer: "Yes! We specialize in short-term rental turnovers in The Nations. Quick, thorough cleaning between guests with flexible scheduling to match your booking calendar."
+    answer:
+      "Yes! We specialize in short-term rental turnovers in The Nations. Quick, thorough cleaning between guests with flexible scheduling to match your booking calendar.",
   },
   {
     question: "Can I get the same cleaning team each visit?",
-    answer: "Yes! We assign dedicated teams to Nations clients. Consistency means better results because your team knows your space and preferences."
+    answer:
+      "Yes! We assign dedicated teams to Nations clients. Consistency means better results because your team knows your space and preferences.",
   },
   {
     question: "Do you clean new construction and renovated homes?",
-    answer: "Yes! With all the development in The Nations, we frequently handle post-construction cleaning and move-in cleaning for newly renovated homes."
+    answer:
+      "Yes! With all the development in The Nations, we frequently handle post-construction cleaning and move-in cleaning for newly renovated homes.",
   },
   {
     question: "How do I book cleaning for my Nations home?",
-    answer: "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and offer flexible scheduling."
-  }
+    answer:
+      "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and offer flexible scheduling.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "House Cleaning Service",
-  "provider": {
+  serviceType: "House Cleaning Service",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "+1-615-510-1427",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "+1-615-510-1427",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Nashville",
-      "addressRegion": "TN",
-      "postalCode": "37209",
-      "addressCountry": "US"
-    }
+      addressLocality: "Nashville",
+      addressRegion: "TN",
+      postalCode: "37209",
+      addressCountry: "US",
+    },
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "The Nations, Nashville, TN",
-    "geo": {
+    name: "The Nations, Nashville, TN",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "36.1548",
-      "longitude": "-86.8467"
-    }
+      latitude: "36.1548",
+      longitude: "-86.8467",
+    },
   },
-  "description": "Professional house cleaning services in The Nations, Nashville, Tennessee."
+  description:
+    "Professional house cleaning services in The Nations, Nashville, Tennessee.",
 };
 ---
 
@@ -88,7 +99,10 @@ const serviceSchema = {
     <meta name="geo.placename" content="The Nations, Nashville" />
     <meta name="geo.position" content="36.1548;-86.8467" />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(serviceSchema)}
+    />
   </Fragment>
 
   <!-- Hero Section -->
@@ -97,49 +111,32 @@ const serviceSchema = {
     <div class="hero-content">
       <div class="hero-text">
         <h1>House Cleaning Services in The Nations, Nashville</h1>
-        <p class="hero-subtitle">Modern cleaning for West Nashville's most dynamic neighborhood</p>
+        <p class="hero-subtitle">
+          Modern cleaning for West Nashville's most dynamic neighborhood
+        </p>
         <div class="trust-badges">
-          <span class="badge"><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span>
-          <span class="badge"><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span>
-          <span class="badge"><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span>
+          <span class="badge"
+            ><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span
+          >
+          <span class="badge"
+            ><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span
+          >
+          <span class="badge"
+            ><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span
+          >
         </div>
       </div>
       <div class="hero-form">
-        <h2>Get Your Free Quote</h2>
-        <form id="quote-form" action="/api/submit-form" method="POST">
-          <input type="hidden" name="source" value="the-nations-neighborhood" />
-          <input type="hidden" name="city" value="The Nations" />
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name" required />
-          </div>
-          <div class="form-group">
-            <input type="tel" name="phone" placeholder="Phone Number" required />
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Email Address" required />
-          </div>
-          <div class="form-group">
-            <select name="service" required>
-              <option value="">Select Service...</option>
-              <option value="recurring">Recurring Cleaning</option>
-              <option value="deep-clean">Deep Cleaning</option>
-              <option value="move-in-out">Move In/Out Cleaning</option>
-              <option value="airbnb">Airbnb Turnover</option>
-              <option value="one-time">One-Time Cleaning</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <select name="bedrooms" required>
-              <option value="">Bedrooms...</option>
-              <option value="1-2">1-2 Bedrooms</option>
-              <option value="3">3 Bedrooms</option>
-              <option value="4">4 Bedrooms</option>
-              <option value="5+">5+ Bedrooms</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-primary">Get Free Quote</button>
-        </form>
-        <p class="form-note"><Icon name="clock" class="w-5 h-5" /> Response within 15 minutes</p>
+        <QuoteForm
+          formId="nations-quote-form"
+          city="The Nations, Nashville"
+          state="TN"
+          source="Location Page - The Nations"
+          subtitle="Get Your Free Quote"
+        />
+        <p class="form-note">
+          <Icon name="clock" class="w-5 h-5" /> Response within 15 minutes
+        </p>
       </div>
     </div>
   </section>
@@ -149,9 +146,23 @@ const serviceSchema = {
     <div class="container">
       <div class="intro-content">
         <h2>Professional Cleaning for The Nations</h2>
-        <p>The Nations has transformed from a quiet industrial area into one of Nashville's hottest neighborhoods. With new construction, trendy restaurants, and an influx of young professionals, this West Nashville community represents the best of modern Nashville living.</p>
-        <p>Whether you're in a renovated bungalow, a sleek new build, or managing an Airbnb near 51st Avenue, our cleaning team understands the unique needs of Nations residents. We work around busy schedules, accommodate last-minute rental turnovers, and keep your space looking its best.</p>
-        <p>As a veteran-owned company serving the 37209 zip code, we bring reliability and efficiency to every clean. No-nonsense service that respects your time and your space.</p>
+        <p>
+          The Nations has transformed from a quiet industrial area into one of
+          Nashville's hottest neighborhoods. With new construction, trendy
+          restaurants, and an influx of young professionals, this West Nashville
+          community represents the best of modern Nashville living.
+        </p>
+        <p>
+          Whether you're in a renovated bungalow, a sleek new build, or managing
+          an Airbnb near 51st Avenue, our cleaning team understands the unique
+          needs of Nations residents. We work around busy schedules, accommodate
+          last-minute rental turnovers, and keep your space looking its best.
+        </p>
+        <p>
+          As a veteran-owned company serving the 37209 zip code, we bring
+          reliability and efficiency to every clean. No-nonsense service that
+          respects your time and your space.
+        </p>
       </div>
     </div>
   </section>
@@ -164,7 +175,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="home" class="w-5 h-5" /></div>
           <h3>Regular House Cleaning</h3>
-          <p>Weekly, biweekly, or monthly cleaning to keep your Nations home consistently spotless.</p>
+          <p>
+            Weekly, biweekly, or monthly cleaning to keep your Nations home
+            consistently spotless.
+          </p>
           <ul>
             <li>All rooms dusted and vacuumed</li>
             <li>Kitchens and bathrooms sanitized</li>
@@ -175,7 +189,10 @@ const serviceSchema = {
         <div class="service-card featured">
           <div class="service-icon"><Icon name="key" class="w-5 h-5" /></div>
           <h3>Airbnb Turnover</h3>
-          <p>Quick, thorough cleaning between guests. Flexible scheduling for your booking calendar.</p>
+          <p>
+            Quick, thorough cleaning between guests. Flexible scheduling for
+            your booking calendar.
+          </p>
           <ul>
             <li>Linens changed and beds made</li>
             <li>Bathrooms restocked and sanitized</li>
@@ -186,7 +203,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="box" class="w-5 h-5" /></div>
           <h3>Move In/Out Cleaning</h3>
-          <p>Complete cleaning for moves. Essential for The Nations' active real estate market.</p>
+          <p>
+            Complete cleaning for moves. Essential for The Nations' active real
+            estate market.
+          </p>
           <ul>
             <li>Every surface detailed</li>
             <li>Appliances inside and out</li>
@@ -206,17 +226,25 @@ const serviceSchema = {
         <div class="feature">
           <Icon name="bolt" class="w-5 h-5" />
           <h3>Fast Turnarounds</h3>
-          <p>Same-day and next-day availability for busy schedules and Airbnb turnovers.</p>
+          <p>
+            Same-day and next-day availability for busy schedules and Airbnb
+            turnovers.
+          </p>
         </div>
         <div class="feature">
           <Icon name="users" class="w-5 h-5" />
           <h3>Consistent Teams</h3>
-          <p>Your dedicated team returns each visit. They know your space and preferences.</p>
+          <p>
+            Your dedicated team returns each visit. They know your space and
+            preferences.
+          </p>
         </div>
         <div class="feature">
           <Icon name="shield-alt" class="w-5 h-5" />
           <h3>Fully Insured</h3>
-          <p>$2 million liability coverage protects you. Complete peace of mind.</p>
+          <p>
+            $2 million liability coverage protects you. Complete peace of mind.
+          </p>
         </div>
         <div class="feature">
           <Icon name="mobile-alt" class="w-5 h-5" />
@@ -231,7 +259,10 @@ const serviceSchema = {
   <section class="areas-section">
     <div class="container">
       <h2>Serving The Nations & West Nashville</h2>
-      <p>Our Nations cleaning service covers the 37209 zip code and surrounding West Nashville areas:</p>
+      <p>
+        Our Nations cleaning service covers the 37209 zip code and surrounding
+        West Nashville areas:
+      </p>
       <div class="areas-grid">
         <div class="area-item">
           <h4>The Nations Areas</h4>
@@ -269,12 +300,14 @@ const serviceSchema = {
     <div class="container">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-grid">
-        {faqs.map((faq) => (
-          <div class="faq-item">
-            <h3>{faq.question}</h3>
-            <p>{faq.answer}</p>
-          </div>
-        ))}
+        {
+          faqs.map((faq) => (
+            <div class="faq-item">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -283,9 +316,14 @@ const serviceSchema = {
   <section class="cta-section">
     <div class="container">
       <h2>Ready for a Cleaner Nations Home?</h2>
-      <p>Join your neighbors who trust The Valley Clean Team for reliable, professional cleaning.</p>
+      <p>
+        Join your neighbors who trust The Valley Clean Team for reliable,
+        professional cleaning.
+      </p>
       <div class="cta-buttons">
-        <a href="tel:+16155101427" class="btn-primary"><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a>
+        <a href="tel:+16155101427" class="btn-primary"
+          ><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a
+        >
         <a href="/contact" class="btn-secondary">Get Free Quote</a>
       </div>
     </div>
@@ -305,7 +343,11 @@ const serviceSchema = {
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(30,58,95,0.3) 0%, rgba(45,90,135,0.2) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(30, 58, 95, 0.3) 0%,
+      rgba(45, 90, 135, 0.2) 100%
+    );
   }
 
   .hero-content {
@@ -341,7 +383,7 @@ const serviceSchema = {
   }
 
   .badge {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     padding: 8px 16px;
     border-radius: 50px;
     font-size: 0.9rem;
@@ -355,7 +397,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
 
   .hero-form h3 {
@@ -445,7 +487,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #eee;
   }
 
@@ -684,28 +726,3 @@ const serviceSchema = {
     }
   }
 </style>
-
-<script>
-  const form = document.getElementById('quote-form');
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          window.location.href = '/thank-you/';
-        }
-      } catch (error) {
-        console.error('Form submission error:', error);
-      }
-    });
-  }
-</script>

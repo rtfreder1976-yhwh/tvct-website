@@ -1,94 +1,109 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "What areas of Blossomwood do you serve?",
-    answer: "We serve all of Blossomwood and the surrounding historic neighborhoods near downtown Huntsville, including Blossomwood proper, the areas around Blossomwood Elementary, Locust Street corridor, Whitesburg Drive vicinity, and the connected historic neighborhoods south of downtown. From cottages to larger family homes, we bring premium service throughout this beloved community."
+    answer:
+      "We serve all of Blossomwood and the surrounding historic neighborhoods near downtown Huntsville, including Blossomwood proper, the areas around Blossomwood Elementary, Locust Street corridor, Whitesburg Drive vicinity, and the connected historic neighborhoods south of downtown. From cottages to larger family homes, we bring premium service throughout this beloved community.",
   },
   {
     question: "How do you care for historic and mid-century homes?",
-    answer: "Blossomwood homes span from the 1920s through 1960s, featuring solid construction, original hardwood floors, plaster walls, built-in features, and craftsmanship rarely found in newer builds. We use appropriate products for vintage surfaces - gentle care for original hardwood, proper techniques for plaster, and respect for architectural details. Your home's character is preserved while becoming spotless."
+    answer:
+      "Blossomwood homes span from the 1920s through 1960s, featuring solid construction, original hardwood floors, plaster walls, built-in features, and craftsmanship rarely found in newer builds. We use appropriate products for vintage surfaces - gentle care for original hardwood, proper techniques for plaster, and respect for architectural details. Your home's character is preserved while becoming spotless.",
   },
   {
-    question: "Can you handle smaller cottage-style homes as well as larger properties?",
-    answer: "Absolutely! Blossomwood features everything from charming 1,200 square foot cottages to spacious 3,000+ square foot family homes. We customize our service to your home's size and needs. Smaller homes receive the same attention to detail as larger properties - often they require even more careful attention to maximize every square foot."
+    question:
+      "Can you handle smaller cottage-style homes as well as larger properties?",
+    answer:
+      "Absolutely! Blossomwood features everything from charming 1,200 square foot cottages to spacious 3,000+ square foot family homes. We customize our service to your home's size and needs. Smaller homes receive the same attention to detail as larger properties - often they require even more careful attention to maximize every square foot.",
   },
   {
-    question: "Do you work around original features like built-in bookshelves and china cabinets?",
-    answer: "Yes! We love Blossomwood's architectural character - built-in bookcases, original china cabinets, window seats, and millwork details. We carefully dust and clean around these features, treating them with the respect they deserve. These elements make your home special, and we enhance them rather than ignore them."
+    question:
+      "Do you work around original features like built-in bookshelves and china cabinets?",
+    answer:
+      "Yes! We love Blossomwood's architectural character - built-in bookcases, original china cabinets, window seats, and millwork details. We carefully dust and clean around these features, treating them with the respect they deserve. These elements make your home special, and we enhance them rather than ignore them.",
   },
   {
     question: "How do you handle older kitchens and bathrooms?",
-    answer: "Blossomwood kitchens range from beautifully preserved vintage style to completely renovated modern spaces. Same with bathrooms - some retain charming original tile, others are fully updated. We adapt our approach to what you have, using appropriate products and techniques for both vintage and contemporary surfaces."
+    answer:
+      "Blossomwood kitchens range from beautifully preserved vintage style to completely renovated modern spaces. Same with bathrooms - some retain charming original tile, others are fully updated. We adapt our approach to what you have, using appropriate products and techniques for both vintage and contemporary surfaces.",
   },
   {
-    question: "Can you work around our home-based business or work-from-home schedule?",
-    answer: "Many Blossomwood residents work from home or run small businesses from their properties. We can absolutely work around your schedule - clean during specific hours, avoid your office space during calls, or focus on certain rooms while you work in others. We're flexible and understand the work-from-home lifestyle."
+    question:
+      "Can you work around our home-based business or work-from-home schedule?",
+    answer:
+      "Many Blossomwood residents work from home or run small businesses from their properties. We can absolutely work around your schedule - clean during specific hours, avoid your office space during calls, or focus on certain rooms while you work in others. We're flexible and understand the work-from-home lifestyle.",
   },
   {
-    question: "What about homes with established gardens and lots of plants inside?",
-    answer: "Blossomwood is known for its beautiful landscaping and many homeowners bring that love of plants indoors. We're careful around houseplants, won't damage delicate arrangements, and can clean around even elaborate indoor gardens. Your green thumb's efforts remain intact while everything else gets pristine."
+    question:
+      "What about homes with established gardens and lots of plants inside?",
+    answer:
+      "Blossomwood is known for its beautiful landscaping and many homeowners bring that love of plants indoors. We're careful around houseplants, won't damage delicate arrangements, and can clean around even elaborate indoor gardens. Your green thumb's efforts remain intact while everything else gets pristine.",
   },
   {
-    question: "Do you serve the rental properties and Airbnbs in the Blossomwood area?",
-    answer: "Yes! Blossomwood's walkability to downtown makes it popular for short-term rentals. We provide turnover cleaning for Airbnb hosts and property owners, as well as regular maintenance for rental properties. Quick turnarounds, attention to guest-ready details, and reliable scheduling keep your rental performing well."
-  }
+    question:
+      "Do you serve the rental properties and Airbnbs in the Blossomwood area?",
+    answer:
+      "Yes! Blossomwood's walkability to downtown makes it popular for short-term rentals. We provide turnover cleaning for Airbnb hosts and property owners, as well as regular maintenance for rental properties. Quick turnarounds, attention to guest-ready details, and reliable scheduling keep your rental performing well.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Premium Residential Cleaning Services",
-  "provider": {
+  serviceType: "Premium Residential Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$$"
+    priceRange: "$$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Blossomwood - Huntsville, Alabama",
-    "geo": {
+    name: "Blossomwood - Huntsville, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "34.7386",
-      "longitude": "-86.6360"
+      latitude: "34.7386",
+      longitude: "-86.6360",
     },
-    "address": {
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
+    },
   },
-  "description": "Professional house cleaning services for Blossomwood historic homes. Expert care for mid-century properties, original hardwood, and character homes near downtown Huntsville.",
-  "offers": {
+  description:
+    "Professional house cleaning services for Blossomwood historic homes. Expert care for mid-century properties, original hardwood, and character homes near downtown Huntsville.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -102,23 +117,34 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="landmark" class="w-5 h-5 mr-2" />Historic Huntsville Neighborhood
+              <Icon name="landmark" class="w-5 h-5 mr-2" />Historic Huntsville
+              Neighborhood
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Blossomwood</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            House Cleaning in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Blossomwood</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Blossomwood's tree-lined streets and character homes represent the best of intown Huntsville living. Your historic home with its original hardwood, built-in features, and mid-century charm deserves cleaning service that appreciates what makes it special. We understand vintage homes and bring meticulous care to every detail.
+            Blossomwood's tree-lined streets and character homes represent the
+            best of intown Huntsville living. Your historic home with its
+            original hardwood, built-in features, and mid-century charm deserves
+            cleaning service that appreciates what makes it special. We
+            understand vintage homes and bring meticulous care to every detail.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -139,11 +165,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -152,53 +186,25 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving Blossomwood's historic homes</p>
-          <form id="blossomwood-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Airbnb/Rental Turnover">Airbnb/Rental Turnover</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 1,500 sq ft">Under 1,500 sq ft</option>
-                <option value="1,500 - 2,000 sq ft">1,500 - 2,000 sq ft</option>
-                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
-                <option value="2,500 - 3,000 sq ft">2,500 - 3,000 sq ft</option>
-                <option value="Over 3,000 sq ft">Over 3,000 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (home era, special features, pets, etc.)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="blossomwood-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Licensed, bonded & insured
-            </p>
-            <div id="blossomwood-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving Blossomwood's historic homes
+          </p>
+          <QuoteForm
+            formId="blossomwood-quote-form"
+            serviceName="Blossomwood House Cleaning"
+            city="Huntsville"
+            state="AL"
+            source="Blossomwood Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -210,56 +216,120 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Expert Care for<br>Blossomwood's Character Homes
+            Expert Care for<br />Blossomwood's Character Homes
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Blossomwood stands as one of Huntsville's most cherished intown neighborhoods. Developed from the 1920s through the 1960s, this community south of downtown offers what modern subdivisions simply cannot replicate: mature trees creating canopy-covered streets, architectural variety that tells the story of each era, and the walkable lifestyle that today's homebuyers increasingly seek.
+            Blossomwood stands as one of Huntsville's most cherished intown
+            neighborhoods. Developed from the 1920s through the 1960s, this
+            community south of downtown offers what modern subdivisions simply
+            cannot replicate: mature trees creating canopy-covered streets,
+            architectural variety that tells the story of each era, and the
+            walkable lifestyle that today's homebuyers increasingly seek.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            Home values in Blossomwood range from $275,000 for charming cottages to $600,000+ for larger, renovated properties. The neighborhood attracts professionals who work downtown, young families who value walkability to Blossomwood Elementary, and those who appreciate historic architecture over cookie-cutter construction. It's a community where neighbors know each other and homes have stories.
+            Home values in Blossomwood range from $275,000 for charming cottages
+            to $600,000+ for larger, renovated properties. The neighborhood
+            attracts professionals who work downtown, young families who value
+            walkability to Blossomwood Elementary, and those who appreciate
+            historic architecture over cookie-cutter construction. It's a
+            community where neighbors know each other and homes have stories.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            These homes feature the solid construction of their eras - original hardwood floors that have weathered decades, plaster walls with character, built-in bookcases and china cabinets, substantial woodwork and millwork. Some owners preserve these vintage features; others have tastefully updated while honoring the home's heritage. Either approach creates homes that demand more than ordinary cleaning.
+            These homes feature the solid construction of their eras - original
+            hardwood floors that have weathered decades, plaster walls with
+            character, built-in bookcases and china cabinets, substantial
+            woodwork and millwork. Some owners preserve these vintage features;
+            others have tastefully updated while honoring the home's heritage.
+            Either approach creates homes that demand more than ordinary
+            cleaning.
           </p>
           <p class="text-lg text-gray-700">
-            The Valley Clean Team appreciates what makes Blossomwood special. We understand that your home's character features deserve careful attention, not just a quick once-over. Whether your cottage retains its 1940s charm or showcases a modern kitchen alongside original built-ins, we bring the expertise historic homes require.
+            The Valley Clean Team appreciates what makes Blossomwood special. We
+            understand that your home's character features deserve careful
+            attention, not just a quick once-over. Whether your cottage retains
+            its 1940s charm or showcases a modern kitchen alongside original
+            built-ins, we bring the expertise historic homes require.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Blossomwood Home Features:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Blossomwood Home Features:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>1,200-3,000+ sq ft</strong> cottages to larger homes</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>1,200-3,000+ sq ft</strong> cottages to larger homes</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Original hardwood floors</strong> throughout</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Original hardwood floors</strong> throughout</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Built-in bookcases</strong> and china cabinets</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Built-in bookcases</strong> and china cabinets</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Plaster walls</strong> with vintage character</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Plaster walls</strong> with vintage character</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>2-4 bedrooms</strong> in classic layouts</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>2-4 bedrooms</strong> in classic layouts</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Original tile</strong> in vintage bathrooms</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Original tile</strong> in vintage bathrooms</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Covered porches</strong> and sunrooms</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Covered porches</strong> and sunrooms</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Updated kitchens</strong> with modern amenities</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Updated kitchens</strong> with modern amenities</span
+              >
             </li>
           </ul>
         </div>
@@ -275,56 +345,127 @@ const serviceSchema = {
           Why Blossomwood Residents Choose Us
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Historic home expertise for intown living</p>
+        <p class="text-xl text-gray-600">
+          Historic home expertise for intown living
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="landmark" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Home Expertise</h3>
-          <p class="text-gray-600">We understand vintage construction - original hardwood needs gentle care, plaster walls require attention, built-in features deserve dusting, not ignoring. We use appropriate products for historic surfaces and treat your home's character features with the respect they've earned over decades.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Historic Home Expertise
+          </h3>
+          <p class="text-gray-600">
+            We understand vintage construction - original hardwood needs gentle
+            care, plaster walls require attention, built-in features deserve
+            dusting, not ignoring. We use appropriate products for historic
+            surfaces and treat your home's character features with the respect
+            they've earned over decades.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-friends" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Visit</h3>
-          <p class="text-gray-600">Your dedicated cleaning team learns your home's unique features - which built-ins need extra attention, how the light catches dust in those tall windows, your preferences for every room. Consistency matters in character homes where one-size-fits-all approaches don't work.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same Team Every Visit
+          </h3>
+          <p class="text-gray-600">
+            Your dedicated cleaning team learns your home's unique features -
+            which built-ins need extra attention, how the light catches dust in
+            those tall windows, your preferences for every room. Consistency
+            matters in character homes where one-size-fits-all approaches don't
+            work.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="walking" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Intown Living Ready</h3>
-          <p class="text-gray-600">Blossomwood's walkable lifestyle means you might be home during cleaning or step out for coffee. We work around your intown routine - whether you're working from the back porch, heading to the brewery, or running errands downtown. Flexible service for flexible living.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Intown Living Ready
+          </h3>
+          <p class="text-gray-600">
+            Blossomwood's walkable lifestyle means you might be home during
+            cleaning or step out for coffee. We work around your intown routine
+            - whether you're working from the back porch, heading to the
+            brewery, or running errands downtown. Flexible service for flexible
+            living.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="seedling" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Plant & Garden Friendly</h3>
-          <p class="text-gray-600">Blossomwood residents love their indoor plants and gardens. We're careful around houseplants, won't damage arrangements, and respect the green spaces you've cultivated. Your botanical efforts remain beautiful while we make everything else spotless.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Plant & Garden Friendly
+          </h3>
+          <p class="text-gray-600">
+            Blossomwood residents love their indoor plants and gardens. We're
+            careful around houseplants, won't damage arrangements, and respect
+            the green spaces you've cultivated. Your botanical efforts remain
+            beautiful while we make everything else spotless.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="key" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Airbnb & Rental Service</h3>
-          <p class="text-gray-600">Blossomwood's downtown proximity makes it perfect for short-term rentals. We provide turnover cleaning that keeps your property guest-ready - quick turnarounds, attention to details guests notice, and reliable scheduling. Keep those five-star reviews coming.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Airbnb & Rental Service
+          </h3>
+          <p class="text-gray-600">
+            Blossomwood's downtown proximity makes it perfect for short-term
+            rentals. We provide turnover cleaning that keeps your property
+            guest-ready - quick turnarounds, attention to details guests notice,
+            and reliable scheduling. Keep those five-star reviews coming.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="shield-alt" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Insured & Trustworthy</h3>
-          <p class="text-gray-600">Your vintage home contains irreplaceable features and cherished belongings. We carry comprehensive insurance, and every team member is background-checked. Trust is essential in close-knit neighborhoods like Blossomwood, and we earn it every visit.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Insured & Trustworthy
+          </h3>
+          <p class="text-gray-600">
+            Your vintage home contains irreplaceable features and cherished
+            belongings. We carry comprehensive insurance, and every team member
+            is background-checked. Trust is essential in close-knit
+            neighborhoods like Blossomwood, and we earn it every visit.
+          </p>
         </div>
       </div>
     </div>
@@ -341,83 +482,155 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
-          <p class="text-gray-600 mb-6">Our most popular service for Blossomwood homeowners. Weekly or bi-weekly cleaning maintains your character home's sparkle. The same team who knows your home's unique features returns each visit for consistent, quality service.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Regular Maintenance Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Our most popular service for Blossomwood homeowners. Weekly or
+            bi-weekly cleaning maintains your character home's sparkle. The same
+            team who knows your home's unique features returns each visit for
+            consistent, quality service.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All rooms cleaned thoroughly</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Hardwood floor care included</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Built-in features dusted</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Preferred rates for recurring clients</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Get Started
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
-          <p class="text-gray-600 mb-6">Comprehensive cleaning for your entire home. Perfect for first-time service, seasonal refresh, or when your character home needs top-to-bottom attention. We detail every feature that makes your Blossomwood home special.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Deep Cleaning Service
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Comprehensive cleaning for your entire home. Perfect for first-time
+            service, seasonal refresh, or when your character home needs
+            top-to-bottom attention. We detail every feature that makes your
+            Blossomwood home special.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Everything in regular clean PLUS</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Baseboards, moldings, millwork</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Interior windows and sills</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Built-in cabinets and shelving</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Book Deep Clean
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="bed" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Airbnb/Rental Turnover</h3>
-          <p class="text-gray-600 mb-6">Keep your short-term rental performing with reliable turnover cleaning. We handle the details guests notice - fresh linens ready, bathrooms pristine, kitchen spotless. Quick turnarounds between bookings keep your calendar full.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Airbnb/Rental Turnover
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Keep your short-term rental performing with reliable turnover
+            cleaning. We handle the details guests notice - fresh linens ready,
+            bathrooms pristine, kitchen spotless. Quick turnarounds between
+            bookings keep your calendar full.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Guest-ready cleaning standards</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Linen service coordination</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Same-day turnaround available</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Reliable scheduling</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Rental Service Info
           </a>
         </div>
@@ -438,7 +651,9 @@ const serviceSchema = {
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               E
             </div>
             <div>
@@ -447,20 +662,44 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+            "Cindy and Stephanie are very impressive technicians. My home smells
+            so good and is very clean. I am very hard to please when it comes to
+            my home - they met every expectation!"
           </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               K
             </div>
             <div>
@@ -469,14 +708,36 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+            "The team was incredibly professional and personable. They did an
+            absolutely thorough deep clean, paying attention to every detail. My
+            Mom's home looks and smells amazing - every room was left shining!"
           </p>
         </div>
       </div>
@@ -494,17 +755,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -516,19 +785,34 @@ const serviceSchema = {
         Also Serving Nearby Communities
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/huntsville/twickenham" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville/twickenham"
+          class="neighborhood-badge block text-center"
+        >
           Twickenham Historic
         </a>
-        <a href="/locations/huntsville" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville"
+          class="neighborhood-badge block text-center"
+        >
           Downtown Huntsville
         </a>
-        <a href="/locations/huntsville/jones-valley" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville/jones-valley"
+          class="neighborhood-badge block text-center"
+        >
           Jones Valley
         </a>
-        <a href="/locations/huntsville/monte-sano" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville/monte-sano"
+          class="neighborhood-badge block text-center"
+        >
           Monte Sano
         </a>
-        <a href="/locations/madison" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/madison"
+          class="neighborhood-badge block text-center"
+        >
           Madison
         </a>
         <a href="/locations" class="neighborhood-badge block text-center">
@@ -542,72 +826,26 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Your Character Home <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Deserves Better</span>
+        Your Character Home <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Deserves Better</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Blossomwood's historic homes deserve cleaning service that understands their value. Let us care for your character home while you enjoy the walkable, intown lifestyle you chose. Call now for your free quote.
+        Blossomwood's historic homes deserve cleaning service that understands
+        their value. Let us care for your character home while you enjoy the
+        walkable, intown lifestyle you chose. Call now for your free quote.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service available | 2-hour response guarantee
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service
+        available | 2-hour response guarantee
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('blossomwood-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('blossomwood-submit-btn');
-      const messageDiv = document.getElementById('blossomwood-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Blossomwood - Huntsville',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Blossomwood Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

@@ -26,7 +26,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const resend = new Resend(resendApiKey);
 
-    const { name, email, phone, service, location, preferred_date, message, source, page_url } = req.body;
+    const { name, email, phone, service, location, preferred_date, message, source, page_url, is_urgent, square_footage } = req.body;
 
     if (!phone) {
       return res.status(400).json({
@@ -47,10 +47,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           phone: phone,
           service: service || '',
           location: location || '',
+          square_footage: square_footage || '',
           preferred_date: preferred_date || '',
           message: message || '',
           source: source || 'Website',
           page_url: page_url || '',
+          is_urgent: is_urgent === 'true',
           submitted_at: new Date().toISOString()
         })
       });
@@ -63,7 +65,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%); padding: 20px; text-align: center;">
-          <h1 style="color: #333; margin: 0;">New Lead from Website</h1>
+          <h1 style="color: #333; margin: 0;">${is_urgent === 'true' ? '🚀 PRIORITY - ' : ''}New Lead from Website</h1>
         </div>
 
         <div style="padding: 30px; background: #f9f9f9;">
@@ -85,6 +87,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             <tr>
               <td style="padding: 10px 0; font-weight: bold; color: #555;">Service Requested:</td>
               <td style="padding: 10px 0; color: #333;">${service || 'Not specified'}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; font-weight: bold; color: #555;">Square Footage:</td>
+              <td style="padding: 10px 0; color: #333;">${square_footage || 'Not provided'} sq ft</td>
             </tr>
             ${location ? `
             <tr>
@@ -110,6 +116,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           <div style="margin-top: 30px; padding: 15px; background: #fff; border-radius: 8px; font-size: 12px; color: #666;">
             <p style="margin: 5px 0;"><strong>Source:</strong> ${source || 'Website'}</p>
             <p style="margin: 5px 0;"><strong>Page:</strong> ${page_url || 'Unknown'}</p>
+            <p style="margin: 5px 0;"><strong>Priority:</strong> ${is_urgent === 'true' ? '<span style="color: #e11d48; font-weight: bold;">URGENT (Same Day/Next Day Request)</span>' : 'Standard'}</p>
             <p style="margin: 5px 0;"><strong>Time:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}</p>
           </div>
         </div>
@@ -127,6 +134,7 @@ Name: ${name || 'Not provided'}
 Phone: ${phone}
 Email: ${email || 'Not provided'}
 Service: ${service || 'Not specified'}
+Square Footage: ${square_footage || 'Not provided'} sq ft
 ${location ? `Location: ${location}` : ''}
 ${preferred_date ? `Preferred Date: ${preferred_date}` : ''}
 ${message ? `\nMessage:\n${message}` : ''}
@@ -141,7 +149,7 @@ Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
     const { data, error } = await resend.emails.send({
       from: 'The Valley Clean Team <hello@thevalleycleanteam.com>',
       to: ['hello@thevalleycleanteam.com'],
-      subject: `New Lead: ${service || 'Cleaning Service'} - ${name || phone}`,
+      subject: `${is_urgent === 'true' ? '🚀 URGENT: ' : ''}New Lead: ${service || 'Cleaning Service'} - ${name || phone}`,
       html: emailHtml,
       text: emailText,
       replyTo: email || undefined

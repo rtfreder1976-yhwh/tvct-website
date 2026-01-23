@@ -1,96 +1,108 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "What makes Tudor homes in English Village unique for cleaning?",
-    answer: "English Village features distinctive Tudor Revival and English cottage architecture from the 1920s-1950s. These charming homes have unique elements - leaded glass windows, dark wood trim, arched doorways, exposed beams, and original hardwood floors. Cleaning Tudor architecture requires understanding how to care for aged wood, preserve leaded glass, and protect architectural details that give these homes their character."
+    answer:
+      "English Village features distinctive Tudor Revival and English cottage architecture from the 1920s-1950s. These charming homes have unique elements - leaded glass windows, dark wood trim, arched doorways, exposed beams, and original hardwood floors. Cleaning Tudor architecture requires understanding how to care for aged wood, preserve leaded glass, and protect architectural details that give these homes their character.",
   },
   {
     question: "How do you protect leaded glass windows and vintage details?",
-    answer: "Leaded glass windows are treasures that require gentle care. We use appropriate cleaners that won't damage lead cames or weaken old putty, clean with soft cloths to avoid scratching, and never use harsh chemicals or abrasive materials. The same careful approach applies to all vintage details - original tile, period hardware, and architectural elements that make English Village homes special."
+    answer:
+      "Leaded glass windows are treasures that require gentle care. We use appropriate cleaners that won't damage lead cames or weaken old putty, clean with soft cloths to avoid scratching, and never use harsh chemicals or abrasive materials. The same careful approach applies to all vintage details - original tile, period hardware, and architectural elements that make English Village homes special.",
   },
   {
-    question: "Can you handle homes with both historic charm and modern updates?",
-    answer: "Absolutely. Many English Village homes blend period character with modern conveniences - original hardwoods alongside renovated kitchens, vintage tile with new appliances, Tudor exteriors with updated interiors. We understand how to care for both the historic features you cherish and the modern finishes you've invested in. Best of both requires specialized knowledge."
+    question:
+      "Can you handle homes with both historic charm and modern updates?",
+    answer:
+      "Absolutely. Many English Village homes blend period character with modern conveniences - original hardwoods alongside renovated kitchens, vintage tile with new appliances, Tudor exteriors with updated interiors. We understand how to care for both the historic features you cherish and the modern finishes you've invested in. Best of both requires specialized knowledge.",
   },
   {
     question: "Do you understand care for dark wood trim and paneling?",
-    answer: "Yes. Tudor homes feature dark-stained wood trim, wainscoting, and sometimes full paneling. We use appropriate products that clean without damaging the finish, enhance rather than dull the wood, and respect the aged patina that gives these homes character. We never use products that leave residue or damage vintage finishes."
+    answer:
+      "Yes. Tudor homes feature dark-stained wood trim, wainscoting, and sometimes full paneling. We use appropriate products that clean without damaging the finish, enhance rather than dull the wood, and respect the aged patina that gives these homes character. We never use products that leave residue or damage vintage finishes.",
   },
   {
     question: "What's included in regular cleaning for English Village homes?",
-    answer: "Our regular service (weekly or bi-weekly) covers all living areas, bedrooms, bathrooms, kitchen, dusting of wood trim and built-ins, careful cleaning of vintage details, vacuuming and appropriate care for original hardwood floors, and general tidying. Same team every visit means they learn your home's character and your preferences."
+    answer:
+      "Our regular service (weekly or bi-weekly) covers all living areas, bedrooms, bathrooms, kitchen, dusting of wood trim and built-ins, careful cleaning of vintage details, vacuuming and appropriate care for original hardwood floors, and general tidying. Same team every visit means they learn your home's character and your preferences.",
   },
   {
     question: "How do you handle original hardwood floors?",
-    answer: "Many English Village homes have beautiful original hardwood from the 1920s-1950s. We use pH-neutral cleaners appropriate for aged wood, avoid excessive water that can damage vintage floors, employ techniques that preserve the finish rather than wear it down, and respect that these floors are irreplaceable treasures, not just surfaces to clean."
+    answer:
+      "Many English Village homes have beautiful original hardwood from the 1920s-1950s. We use pH-neutral cleaners appropriate for aged wood, avoid excessive water that can damage vintage floors, employ techniques that preserve the finish rather than wear it down, and respect that these floors are irreplaceable treasures, not just surfaces to clean.",
   },
   {
     question: "Can you clean compact Tudor cottages efficiently?",
-    answer: "Definitely. English Village has many charming compact Tudor cottages - smaller square footage but packed with character. We're experienced with efficient cleaning in cozy spaces, navigating tighter floor plans and smaller rooms, and ensuring every corner of your cottage shines. Small doesn't mean less thorough - it means more attention per square foot."
+    answer:
+      "Definitely. English Village has many charming compact Tudor cottages - smaller square footage but packed with character. We're experienced with efficient cleaning in cozy spaces, navigating tighter floor plans and smaller rooms, and ensuring every corner of your cottage shines. Small doesn't mean less thorough - it means more attention per square foot.",
   },
   {
-    question: "Do you serve the English Village shopping area and nearby homes?",
-    answer: "Yes! We serve all English Village - from homes directly adjacent to the shopping district on Montevallo Road to Tudor residences on surrounding streets. We're familiar with parking in this area, coordinate arrival times, and work efficiently to minimize disruption in this walkable, community-oriented neighborhood."
-  }
+    question:
+      "Do you serve the English Village shopping area and nearby homes?",
+    answer:
+      "Yes! We serve all English Village - from homes directly adjacent to the shopping district on Montevallo Road to Tudor residences on surrounding streets. We're familiar with parking in this area, coordinate arrival times, and work efficiently to minimize disruption in this walkable, community-oriented neighborhood.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Tudor Home Cleaning Services",
-  "provider": {
+  serviceType: "Tudor Home Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Mountain Brook",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Mountain Brook",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$"
+    priceRange: "$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "English Village - Mountain Brook, Alabama",
-    "geo": {
+    name: "English Village - Mountain Brook, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "33.4789",
-      "longitude": "-86.7598"
+      latitude: "33.4789",
+      longitude: "-86.7598",
     },
-    "containedInPlace": {
+    containedInPlace: {
       "@type": "City",
-      "name": "Mountain Brook",
-      "containedInPlace": {
+      name: "Mountain Brook",
+      containedInPlace: {
         "@type": "State",
-        "name": "Alabama"
-      }
-    }
+        name: "Alabama",
+      },
+    },
   },
-  "description": "Specialized cleaning for English Village Tudor homes. Expert care for leaded glass, hardwood preservation, and historic architectural details.",
-  "offers": {
+  description:
+    "Specialized cleaning for English Village Tudor homes. Expert care for leaded glass, hardwood preservation, and historic architectural details.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -103,23 +115,35 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="landmark" class="w-5 h-5 mr-2" />Historic Tudor Architecture
+              <Icon name="landmark" class="w-5 h-5 mr-2" />Historic Tudor
+              Architecture
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            Tudor Home Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">English Village</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            Tudor Home Cleaning in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >English Village</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Your English Village Tudor home has character, charm, and history that standard cleaning companies don't understand. From leaded glass windows to dark wood trim, original hardwood floors to vintage architectural details - we provide specialized cleaning that preserves what makes your home special. Mountain Brook's most charming neighborhood deserves expert care.
+            Your English Village Tudor home has character, charm, and history
+            that standard cleaning companies don't understand. From leaded glass
+            windows to dark wood trim, original hardwood floors to vintage
+            architectural details - we provide specialized cleaning that
+            preserves what makes your home special. Mountain Brook's most
+            charming neighborhood deserves expert care.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -140,11 +164,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -153,54 +185,25 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving English Village Tudor homes with care</p>
-          <form id="english-village-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Weekly Cleaning">Weekly Cleaning</option>
-                <option value="Bi-Weekly Cleaning">Bi-Weekly Cleaning</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Tudor Home Specialty Clean">Tudor Home Specialty Clean</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,000 sq ft">Under 2,000 sq ft</option>
-                <option value="2,000 - 2,500 sq ft">2,000 - 2,500 sq ft</option>
-                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
-                <option value="3,500 - 5,000 sq ft">3,500 - 5,000 sq ft</option>
-                <option value="Over 5,000 sq ft">Over 5,000 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Special details (leaded glass, wood paneling, vintage features to protect)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="english-village-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Licensed, bonded & insured
-            </p>
-            <div id="english-village-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving English Village Tudor homes with care
+          </p>
+          <QuoteForm
+            formId="english-village-form"
+            city="Mountain Brook"
+            state="AL"
+            serviceName="Tudor Home Cleaning"
+            source="English Village Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -212,56 +215,122 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Specialized Cleaning for<br>Tudor Architecture & Charm
+            Specialized Cleaning for<br />Tudor Architecture & Charm
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            English Village stands as one of Mountain Brook's most distinctive neighborhoods - a charming enclave of Tudor Revival and English cottage architecture centered around the upscale English Village shopping district on Montevallo Road. Built primarily in the 1920s through 1950s, these homes exude character, craftsmanship, and Old World charm rarely found in modern construction.
+            English Village stands as one of Mountain Brook's most distinctive
+            neighborhoods - a charming enclave of Tudor Revival and English
+            cottage architecture centered around the upscale English Village
+            shopping district on Montevallo Road. Built primarily in the 1920s
+            through 1950s, these homes exude character, craftsmanship, and Old
+            World charm rarely found in modern construction.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            Properties in English Village range from $400,000 to $1.5 million, featuring Tudor half-timbering, steep gabled roofs, leaded glass windows, arched doorways, dark wood trim and wainscoting, exposed ceiling beams, original hardwood floors, and vintage tile bathrooms. Many homes have been thoughtfully updated - modern kitchens and baths while preserving the architectural details that make them special.
+            Properties in English Village range from $400,000 to $1.5 million,
+            featuring Tudor half-timbering, steep gabled roofs, leaded glass
+            windows, arched doorways, dark wood trim and wainscoting, exposed
+            ceiling beams, original hardwood floors, and vintage tile bathrooms.
+            Many homes have been thoughtfully updated - modern kitchens and
+            baths while preserving the architectural details that make them
+            special.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            The neighborhood attracts homeowners who appreciate quality, character, and craftsmanship - young professionals who love the walkable lifestyle, families drawn to the community feel, and empty nesters downsizing from larger estates but unwilling to sacrifice charm. These are people who chose English Village specifically for its character, not despite it.
+            The neighborhood attracts homeowners who appreciate quality,
+            character, and craftsmanship - young professionals who love the
+            walkable lifestyle, families drawn to the community feel, and empty
+            nesters downsizing from larger estates but unwilling to sacrifice
+            charm. These are people who chose English Village specifically for
+            its character, not despite it.
           </p>
           <p class="text-lg text-gray-700">
-            Your Tudor home isn't just another house - it's a piece of history, a work of craftsmanship, and likely your pride and joy. Standard cleaning companies don't understand leaded glass care, vintage wood preservation, or how to protect aged architectural details. We do. Every team member is trained in caring for period homes, because your English Village Tudor deserves specialized expertise, not generic service.
+            Your Tudor home isn't just another house - it's a piece of history,
+            a work of craftsmanship, and likely your pride and joy. Standard
+            cleaning companies don't understand leaded glass care, vintage wood
+            preservation, or how to protect aged architectural details. We do.
+            Every team member is trained in caring for period homes, because
+            your English Village Tudor deserves specialized expertise, not
+            generic service.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">English Village Tudor Features:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            English Village Tudor Features:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Tudor architecture</strong> from 1920s-1950s</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Tudor architecture</strong> from 1920s-1950s</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Leaded glass windows</strong> requiring gentle care</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Leaded glass windows</strong> requiring gentle care</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Dark wood trim</strong> and wainscoting</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Dark wood trim</strong> and wainscoting</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Original hardwood floors</strong> to preserve</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Original hardwood floors</strong> to preserve</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Arched doorways</strong> and period details</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Arched doorways</strong> and period details</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Vintage tile bathrooms</strong> with character</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Vintage tile bathrooms</strong> with character</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Updated kitchens</strong> in historic shells</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Updated kitchens</strong> in historic shells</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Walkable to shops</strong> and restaurants</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Walkable to shops</strong> and restaurants</span
+              >
             </li>
           </ul>
         </div>
@@ -277,56 +346,130 @@ const serviceSchema = {
           Why English Village Homeowners Trust Us
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Specialized care for Tudor homes and period architecture</p>
+        <p class="text-xl text-gray-600">
+          Specialized care for Tudor homes and period architecture
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="drafting-compass" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Tudor Architecture Expertise</h3>
-          <p class="text-gray-600">We understand Tudor homes aren't standard construction. Leaded glass windows need gentle care, dark wood trim requires appropriate products, original hardwood floors demand preservation techniques. Our teams are trained specifically for period homes - protecting what makes them special, not damaging it.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Tudor Architecture Expertise
+          </h3>
+          <p class="text-gray-600">
+            We understand Tudor homes aren't standard construction. Leaded glass
+            windows need gentle care, dark wood trim requires appropriate
+            products, original hardwood floors demand preservation techniques.
+            Our teams are trained specifically for period homes - protecting
+            what makes them special, not damaging it.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="feather" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Gentle on Vintage Details</h3>
-          <p class="text-gray-600">Leaded glass, vintage tile, aged wood trim, original hardware - these details are irreplaceable. We use pH-neutral cleaners safe for aged materials, soft cloths that won't scratch delicate surfaces, and techniques that preserve rather than wear down. Your character features are protected, not put at risk.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Gentle on Vintage Details
+          </h3>
+          <p class="text-gray-600">
+            Leaded glass, vintage tile, aged wood trim, original hardware -
+            these details are irreplaceable. We use pH-neutral cleaners safe for
+            aged materials, soft cloths that won't scratch delicate surfaces,
+            and techniques that preserve rather than wear down. Your character
+            features are protected, not put at risk.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="balance-scale" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Historic Meets Modern Care</h3>
-          <p class="text-gray-600">Many English Village homes blend period charm with modern updates - original hardwood meets new kitchen, vintage tile alongside renovated baths. We understand both worlds. We protect your character details while properly caring for modern finishes. Best of both requires specialized knowledge.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Historic Meets Modern Care
+          </h3>
+          <p class="text-gray-600">
+            Many English Village homes blend period charm with modern updates -
+            original hardwood meets new kitchen, vintage tile alongside
+            renovated baths. We understand both worlds. We protect your
+            character details while properly caring for modern finishes. Best of
+            both requires specialized knowledge.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-friends" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team, Every Visit</h3>
-          <p class="text-gray-600">You'll have the same cleaning team every visit. They learn your home's unique features, your vintage details to protect, your preferences, and the quirks that make your Tudor special. Consistency builds trust, efficiency, and results. It's like having cleaning friends who love your home too.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same Team, Every Visit
+          </h3>
+          <p class="text-gray-600">
+            You'll have the same cleaning team every visit. They learn your
+            home's unique features, your vintage details to protect, your
+            preferences, and the quirks that make your Tudor special.
+            Consistency builds trust, efficiency, and results. It's like having
+            cleaning friends who love your home too.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="briefcase" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Work-Schedule Friendly</h3>
-          <p class="text-gray-600">English Village attracts busy professionals who value their time. We clean while you're at work - provide a key or smart lock code, we'll lock up securely when finished. Come home to a pristine Tudor cottage instead of spending your evening cleaning. Enjoy your character home, don't work on it.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Work-Schedule Friendly
+          </h3>
+          <p class="text-gray-600">
+            English Village attracts busy professionals who value their time. We
+            clean while you're at work - provide a key or smart lock code, we'll
+            lock up securely when finished. Come home to a pristine Tudor
+            cottage instead of spending your evening cleaning. Enjoy your
+            character home, don't work on it.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="medal" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Integrity</h3>
-          <p class="text-gray-600">Military discipline meets appreciation for craftsmanship. We're punctual, detail-oriented, and treat your period home with the respect it deserves. Licensed, bonded, and insured with background-checked teams. The same integrity that served our country now serves English Village.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Veteran-Owned Integrity
+          </h3>
+          <p class="text-gray-600">
+            Military discipline meets appreciation for craftsmanship. We're
+            punctual, detail-oriented, and treat your period home with the
+            respect it deserves. Licensed, bonded, and insured with
+            background-checked teams. The same integrity that served our country
+            now serves English Village.
+          </p>
         </div>
       </div>
     </div>
@@ -343,95 +486,175 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Tudor Home Care</h3>
-          <p class="text-gray-600 mb-6">Weekly or bi-weekly cleaning designed for period architecture. We clean all living spaces while protecting your vintage details, wood trim, and character features. Same team learns your home and delivers consistency.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Regular Tudor Home Care
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Weekly or bi-weekly cleaning designed for period architecture. We
+            clean all living spaces while protecting your vintage details, wood
+            trim, and character features. Same team learns your home and
+            delivers consistency.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All rooms cleaned thoroughly</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Gentle care for leaded glass windows</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Appropriate products for wood trim</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Original hardwood floor preservation</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Vintage tile bathroom care</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Get Started
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
-          <p class="text-gray-600 mb-6">Top-to-bottom cleaning that respects your Tudor's character. Perfect for first service, seasonal refresh, or before selling/renting. We detail all those unique architectural elements standard services overlook.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Deep Cleaning Service
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Top-to-bottom cleaning that respects your Tudor's character. Perfect
+            for first service, seasonal refresh, or before selling/renting. We
+            detail all those unique architectural elements standard services
+            overlook.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Everything in regular clean PLUS</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Detailed wood trim and paneling care</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Careful leaded glass detailing</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Baseboards, ceiling beams, built-ins</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Arched doorways and period details</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Book Deep Clean
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="truck" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
-          <p class="text-gray-600 mb-6">English Village homes sell fast when they shine. Whether you're moving in or out, we provide complete cleaning that showcases your Tudor's character and ensures a smooth transition.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Move In/Out Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            English Village homes sell fast when they shine. Whether you're
+            moving in or out, we provide complete cleaning that showcases your
+            Tudor's character and ensures a smooth transition.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Complete empty home deep clean</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Inside cabinets and closets</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All windows and leaded glass</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Hardwood floor conditioning</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Get deposit back or impress buyers</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Schedule Move Clean
           </a>
         </div>
@@ -439,7 +662,15 @@ const serviceSchema = {
 
       <div class="mt-8 text-center">
         <p class="text-gray-600 mb-4">
-          Also explore <a href="/locations/mountain-brook/luxury-cleaning" class="text-[#FFA985] hover:underline font-semibold">luxury cleaning services</a> or view <a href="/locations/mountain-brook" class="text-[#FFA985] hover:underline font-semibold">all Mountain Brook services</a>
+          Also explore <a
+            href="/locations/mountain-brook/luxury-cleaning"
+            class="text-[#FFA985] hover:underline font-semibold"
+            >luxury cleaning services</a
+          > or view <a
+            href="/locations/mountain-brook"
+            class="text-[#FFA985] hover:underline font-semibold"
+            >all Mountain Brook services</a
+          >
         </p>
       </div>
     </div>
@@ -458,7 +689,9 @@ const serviceSchema = {
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               K
             </div>
             <div>
@@ -467,20 +700,44 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. My Mom's home looks and smells amazing - every room was left shining!"
+            "The team was incredibly professional and personable. They did an
+            absolutely thorough deep clean, paying attention to every detail. My
+            Mom's home looks and smells amazing - every room was left shining!"
           </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               E
             </div>
             <div>
@@ -489,14 +746,36 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+            "Cindy and Stephanie are very impressive technicians. My home smells
+            so good and is very clean. I am very hard to please when it comes to
+            my home - they met every expectation!"
           </p>
         </div>
       </div>
@@ -514,17 +793,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -536,19 +823,34 @@ const serviceSchema = {
         Also Serving Mountain Brook Neighborhoods
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/mountain-brook/cherokee-bend" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook/cherokee-bend"
+          class="neighborhood-badge block text-center"
+        >
           Cherokee Bend
         </a>
-        <a href="/locations/mountain-brook/village" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook/village"
+          class="neighborhood-badge block text-center"
+        >
           Mountain Brook Village
         </a>
-        <a href="/locations/mountain-brook" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook"
+          class="neighborhood-badge block text-center"
+        >
           All Mountain Brook Areas
         </a>
-        <a href="/locations/birmingham" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham"
+          class="neighborhood-badge block text-center"
+        >
           Birmingham
         </a>
-        <a href="/locations/mountain-brook/luxury-cleaning" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/mountain-brook/luxury-cleaning"
+          class="neighborhood-badge block text-center"
+        >
           Luxury Cleaning Services
         </a>
         <a href="/locations" class="neighborhood-badge block text-center">
@@ -562,72 +864,25 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Your Tudor Deserves <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Specialized Care</span>
+        Your Tudor Deserves <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Specialized Care</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Join English Village neighbors who trust us with their character homes. Call now for expert Tudor home cleaning.
+        Join English Village neighbors who trust us with their character homes.
+        Call now for expert Tudor home cleaning.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service available | 2-hour response guarantee
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service
+        available | 2-hour response guarantee
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('english-village-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('english-village-submit-btn');
-      const messageDiv = document.getElementById('english-village-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'English Village - Mountain Brook',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'English Village Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

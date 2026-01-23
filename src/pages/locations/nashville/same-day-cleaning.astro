@@ -1,54 +1,63 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../../components/SchemaMarkup.astro';
-import Icon from '../../../components/Icon.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "Can I really get same-day cleaning service in Nashville?",
-    answer: "Yes! We offer same-day cleaning service in Nashville based on availability. For the best chance of same-day service, call us at 615-510-1427 as early as possible - ideally before 10 AM. We'll do everything we can to accommodate urgent requests."
+    answer:
+      "Yes! We offer same-day cleaning service in Nashville based on availability. For the best chance of same-day service, call us at 615-510-1427 as early as possible - ideally before 10 AM. We'll do everything we can to accommodate urgent requests.",
   },
   {
     question: "How much does same-day cleaning cost in Nashville?",
-    answer: "Same-day cleaning in Nashville is priced the same as our regular services - no rush fees or emergency charges. Deep cleaning starts at $175, regular cleaning at $99. We believe urgent needs shouldn't come with penalty pricing."
+    answer:
+      "Same-day cleaning in Nashville is priced the same as our regular services - no rush fees or emergency charges. Deep cleaning starts at $175, regular cleaning at $99. We believe urgent needs shouldn't come with penalty pricing.",
   },
   {
     question: "What if I need cleaning service today for unexpected guests?",
-    answer: "Call us immediately at 615-510-1427! Unexpected guests are one of the most common reasons for same-day requests. We understand the stress and will do our best to get your Nashville home guest-ready quickly. We can often have a team there within hours."
+    answer:
+      "Call us immediately at 615-510-1427! Unexpected guests are one of the most common reasons for same-day requests. We understand the stress and will do our best to get your Nashville home guest-ready quickly. We can often have a team there within hours.",
   },
   {
     question: "Do you offer emergency move-out cleaning in Nashville?",
-    answer: "Yes! We handle emergency move-out cleaning when you're in a time crunch. Whether your walkthrough got moved up or you forgot to schedule cleaning, call us. We've helped many Nashville residents get their deposits back with last-minute service."
+    answer:
+      "Yes! We handle emergency move-out cleaning when you're in a time crunch. Whether your walkthrough got moved up or you forgot to schedule cleaning, call us. We've helped many Nashville residents get their deposits back with last-minute service.",
   },
   {
     question: "What areas of Nashville do you cover for same-day service?",
-    answer: "We offer same-day service throughout Nashville including Belle Meade, Green Hills, Sylvan Park, The Nations, 12 South, East Nashville, Germantown, West End, Bellevue, and surrounding areas. We also serve Brentwood, Franklin, and Hendersonville."
+    answer:
+      "We offer same-day service throughout Nashville including Belle Meade, Green Hills, Sylvan Park, The Nations, 12 South, East Nashville, Germantown, West End, Bellevue, and surrounding areas. We also serve Brentwood, Franklin, and Hendersonville.",
   },
   {
     question: "How quickly can you arrive for same-day cleaning?",
-    answer: "Depending on our schedule and your location in Nashville, we can often arrive within 2-4 hours of your call. Morning calls have the best availability. For afternoon or evening same-day service, call as early as you can to reserve your spot."
+    answer:
+      "Depending on our schedule and your location in Nashville, we can often arrive within 2-4 hours of your call. Morning calls have the best availability. For afternoon or evening same-day service, call as early as you can to reserve your spot.",
   },
   {
     question: "What types of cleaning can you do same-day?",
-    answer: "We can do any type of cleaning same-day: deep cleaning, regular cleaning, move-out cleaning, post-party cleanup, pre-event cleaning, or Airbnb turnovers. Just tell us what you need and we'll make it happen."
+    answer:
+      "We can do any type of cleaning same-day: deep cleaning, regular cleaning, move-out cleaning, post-party cleanup, pre-event cleaning, or Airbnb turnovers. Just tell us what you need and we'll make it happen.",
   },
   {
     question: "What if same-day isn't available?",
-    answer: "If we can't accommodate same-day, we'll offer you the next available slot - often next-day service. We prioritize urgent requests and will do everything possible to help. Call us and we'll find a solution that works."
-  }
+    answer:
+      "If we can't accommodate same-day, we'll offer you the next available slot - often next-day service. We prioritize urgent requests and will do everything possible to help. Call us and we'll find a solution that works.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 ---
 
@@ -58,25 +67,35 @@ const faqSchema = {
 >
   <SchemaMarkup type="local" city="Nashville" state="Tennessee" />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Urgent Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-red-50 to-orange-50">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-red-100 px-4 py-2 rounded-full mb-4 animate-pulse">
+          <div
+            class="inline-block bg-red-100 px-4 py-2 rounded-full mb-4 animate-pulse"
+          >
             <span class="text-red-700 font-semibold">
-              <Icon name="bolt" class="w-5 h-5 mr-2" />Same-Day Service Available Today
+              <Icon name="bolt" class="w-5 h-5 mr-2" />Same-Day Service
+              Available Today
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
             Need Cleaning <span class="text-red-600">TODAY</span> in Nashville?
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            Unexpected guests? Last-minute showing? Emergency move-out? Don't panic - we've got you covered. Our same-day cleaning service gets your Nashville home spotless fast, with no rush fees or emergency charges.
+            Unexpected guests? Last-minute showing? Emergency move-out? Don't
+            panic - we've got you covered. Our same-day cleaning service gets
+            your Nashville home spotless fast, with no rush fees or emergency
+            charges.
           </p>
 
-          <div class="bg-white rounded-xl p-6 shadow-lg border-2 border-red-200 mb-6">
+          <div
+            class="bg-white rounded-xl p-6 shadow-lg border-2 border-red-200 mb-6"
+          >
             <div class="flex items-center justify-center space-x-4">
               <div class="text-center">
                 <Icon name="clock" class="w-5 h-5 text-red-600 text-3xl mb-2" />
@@ -91,72 +110,56 @@ const faqSchema = {
               </div>
               <div class="w-px h-16 bg-gray-300"></div>
               <div class="text-center">
-                <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] text-3xl mb-2" />
+                <Icon
+                  name="check-circle"
+                  class="w-5 h-5 text-[#FFA985] text-3xl mb-2"
+                />
                 <p class="font-bold text-[#333333]">Guaranteed</p>
                 <p class="text-sm text-gray-600">Satisfaction</p>
               </div>
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:6155101427" class="bg-red-600 hover:bg-red-700 text-white px-8 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:6155101427"
+              class="bg-red-600 hover:bg-red-700 text-white px-8 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />CALL NOW: 615-510-1427
             </a>
           </div>
           <p class="text-sm text-gray-600 mt-4 lg:text-left text-center">
-            <Icon name="info-circle" class="w-5 h-5 mr-1" /> Call before 10 AM for best same-day availability
+            <Icon name="info-circle" class="w-5 h-5 mr-1" /> Call before 10 AM for
+            best same-day availability
           </p>
         </div>
 
         <!-- Urgent Contact Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-red-200">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-red-200"
+        >
           <div class="text-center mb-6">
-            <span class="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="bolt" class="w-5 h-5 mr-1" /> URGENT REQUEST
             </span>
           </div>
-          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">Need Cleaning Today?</h3>
-          <p class="text-gray-600 mb-6 text-center">Fill out this form for fastest response</p>
-          <form id="same-day-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="text" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20" placeholder="Nashville Address/Zip *" required>
-            </div>
-            <div class="mb-4">
-              <select name="urgency_reason" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20" required>
-                <option value="">Why do you need cleaning today? *</option>
-                <option value="Unexpected guests coming">Unexpected guests coming</option>
-                <option value="Home showing/open house">Home showing/open house</option>
-                <option value="Move-out emergency">Move-out emergency</option>
-                <option value="Post-party cleanup">Post-party cleanup</option>
-                <option value="Airbnb turnover">Airbnb turnover</option>
-                <option value="Just need it done ASAP">Just need it done ASAP</option>
-                <option value="Other urgent reason">Other urgent reason</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="timeline" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20" required>
-                <option value="">When do you need us? *</option>
-                <option value="As soon as possible!">As soon as possible!</option>
-                <option value="Within 2 hours">Within 2 hours</option>
-                <option value="This afternoon">This afternoon</option>
-                <option value="This evening">This evening</option>
-                <option value="Tomorrow morning">Tomorrow morning</option>
-              </select>
-            </div>
-            <button type="submit" id="same-day-submit-btn" class="bg-red-600 hover:bg-red-700 text-white w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition">
-              <Icon name="bolt" class="w-5 h-5 mr-2" />Request Same-Day Service
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="phone" class="w-5 h-5 mr-1" /> For fastest response, call 615-510-1427
-            </p>
-            <div id="same-day-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Need Cleaning Today?
+          </h3>
+          <p class="text-gray-600 mb-6 text-center">
+            Fill out this form for fastest response
+          </p>
+          <QuoteForm
+            formId="same-day-quote-form"
+            serviceName="Same-Day Cleaning"
+            city="Nashville"
+            state="TN"
+            source="Same Day Cleaning Page"
+          />
         </div>
       </div>
     </div>
@@ -185,21 +188,35 @@ const faqSchema = {
       </div>
       <!-- Trust Badges -->
       <div class="flex flex-wrap justify-center gap-4">
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">$2M Liability Insurance</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >$2M Liability Insurance</span
+          >
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="medal" class="w-5 h-5 text-[#FFA985] mr-2" />
           <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="venus" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">Women-Led Business</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >Women-Led Business</span
+          >
         </div>
-        <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+        <div
+          class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+        >
           <Icon name="user-check" class="w-5 h-5 text-[#FFA985] mr-2" />
-          <span class="text-sm font-semibold text-gray-700">Background-Checked Team</span>
+          <span class="text-sm font-semibold text-gray-700"
+            >Background-Checked Team</span
+          >
         </div>
       </div>
     </div>
@@ -210,9 +227,13 @@ const faqSchema = {
     <div class="container mx-auto text-center">
       <p class="text-lg text-gray-700 mb-2">
         <Icon name="heart" class="w-5 h-5 text-red-500 mr-2" />
-        <strong>Trusted by families in Belle Meade, Green Hills, and Brentwood</strong>
+        <strong
+          >Trusted by families in Belle Meade, Green Hills, and Brentwood</strong
+        >
       </p>
-      <p class="text-gray-600">Your neighbors choose us for emergency same-day cleaning</p>
+      <p class="text-gray-600">
+        Your neighbors choose us for emergency same-day cleaning
+      </p>
     </div>
   </section>
 
@@ -224,56 +245,106 @@ const faqSchema = {
           We Handle Nashville's Cleaning Emergencies
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Whatever the reason, we're here to help - fast</p>
+        <p class="text-xl text-gray-600">
+          Whatever the reason, we're here to help - fast
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4"
+          >
             <Icon name="users" class="w-8 h-8 text-red-600" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Unexpected Guests</h3>
-          <p class="text-gray-600">In-laws calling? Friends dropping by? We'll get your Nashville home guest-ready in hours.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Unexpected Guests
+          </h3>
+          <p class="text-gray-600">
+            In-laws calling? Friends dropping by? We'll get your Nashville home
+            guest-ready in hours.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-blue-600" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Home Showing</h3>
-          <p class="text-gray-600">Realtor called with a last-minute showing? We'll make your home shine for potential buyers.</p>
+          <p class="text-gray-600">
+            Realtor called with a last-minute showing? We'll make your home
+            shine for potential buyers.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4"
+          >
             <Icon name="truck-moving" class="w-8 h-8 text-green-600" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Move-Out Emergency</h3>
-          <p class="text-gray-600">Walkthrough moved up? Forgot to schedule? We'll help you get your deposit back.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Move-Out Emergency
+          </h3>
+          <p class="text-gray-600">
+            Walkthrough moved up? Forgot to schedule? We'll help you get your
+            deposit back.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-4"
+          >
             <Icon name="glass-cheers" class="w-8 h-8 text-purple-600" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Post-Party Cleanup</h3>
-          <p class="text-gray-600">Great party, big mess? We'll restore order so you can recover in peace.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Post-Party Cleanup
+          </h3>
+          <p class="text-gray-600">
+            Great party, big mess? We'll restore order so you can recover in
+            peace.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-4"
+          >
             <Icon name="key" class="w-8 h-8 text-orange-600" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Airbnb Turnover</h3>
-          <p class="text-gray-600">Back-to-back bookings? Guest checking in soon? We specialize in fast turnovers.</p>
+          <p class="text-gray-600">
+            Back-to-back bookings? Guest checking in soon? We specialize in fast
+            turnovers.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-4"
+          >
             <Icon name="exclamation-circle" class="w-8 h-8 text-yellow-600" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Any Urgent Need</h3>
-          <p class="text-gray-600">Whatever the reason you need cleaning today, we're here to help. Just call!</p>
+          <p class="text-gray-600">
+            Whatever the reason you need cleaning today, we're here to help.
+            Just call!
+          </p>
         </div>
       </div>
     </div>
@@ -291,34 +362,71 @@ const faqSchema = {
 
       <div class="space-y-8">
         <div class="flex items-start space-x-6">
-          <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0">1</div>
+          <div
+            class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0"
+          >
+            1
+          </div>
           <div>
             <h3 class="text-xl font-bold text-[#333333] mb-2">Call Us ASAP</h3>
-            <p class="text-gray-600">Call 615-510-1427 as early as possible. Before 10 AM gives you the best chance for same-day availability. Tell us your situation and what you need.</p>
+            <p class="text-gray-600">
+              Call 615-510-1427 as early as possible. Before 10 AM gives you the
+              best chance for same-day availability. Tell us your situation and
+              what you need.
+            </p>
           </div>
         </div>
 
         <div class="flex items-start space-x-6">
-          <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0">2</div>
+          <div
+            class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0"
+          >
+            2
+          </div>
           <div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">We Check Availability</h3>
-            <p class="text-gray-600">We'll immediately check our Nashville teams' schedules. If same-day is available, we'll confirm your time slot. If not, we'll offer the next best option.</p>
+            <h3 class="text-xl font-bold text-[#333333] mb-2">
+              We Check Availability
+            </h3>
+            <p class="text-gray-600">
+              We'll immediately check our Nashville teams' schedules. If
+              same-day is available, we'll confirm your time slot. If not, we'll
+              offer the next best option.
+            </p>
           </div>
         </div>
 
         <div class="flex items-start space-x-6">
-          <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0">3</div>
+          <div
+            class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0"
+          >
+            3
+          </div>
           <div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Team Arrives Fast</h3>
-            <p class="text-gray-600">Our professional, background-checked team arrives at your Nashville home ready to work. We bring all supplies and equipment needed.</p>
+            <h3 class="text-xl font-bold text-[#333333] mb-2">
+              Team Arrives Fast
+            </h3>
+            <p class="text-gray-600">
+              Our professional, background-checked team arrives at your
+              Nashville home ready to work. We bring all supplies and equipment
+              needed.
+            </p>
           </div>
         </div>
 
         <div class="flex items-start space-x-6">
-          <div class="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0">4</div>
+          <div
+            class="w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center font-bold text-xl flex-shrink-0"
+          >
+            4
+          </div>
           <div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Home Transformed</h3>
-            <p class="text-gray-600">Your home is cleaned to our high standards - spotless, fresh, and ready for whatever you need. Crisis averted!</p>
+            <h3 class="text-xl font-bold text-[#333333] mb-2">
+              Home Transformed
+            </h3>
+            <p class="text-gray-600">
+              Your home is cleaned to our high standards - spotless, fresh, and
+              ready for whatever you need. Crisis averted!
+            </p>
           </div>
         </div>
       </div>
@@ -329,10 +437,12 @@ const faqSchema = {
   <section class="py-12 px-6 bg-gradient-to-r from-green-500 to-green-600">
     <div class="container mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-        <Icon name="tag" class="w-5 h-5 mr-3" />No Rush Fees. No Emergency Charges. Ever.
+        <Icon name="tag" class="w-5 h-5 mr-3" />No Rush Fees. No Emergency
+        Charges. Ever.
       </h2>
       <p class="text-xl text-white/90 max-w-2xl mx-auto">
-        We believe urgent needs shouldn't come with penalty pricing. Same-day cleaning is priced the same as our regular services.
+        We believe urgent needs shouldn't come with penalty pricing. Same-day
+        cleaning is priced the same as our regular services.
       </p>
     </div>
   </section>
@@ -348,17 +458,25 @@ const faqSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -370,34 +488,72 @@ const faqSchema = {
         Other Nashville <span class="gold-gradient">Cleaning Services</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <a href="/locations/nashville/deep-cleaning" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group">
+        <a
+          href="/locations/nashville/deep-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
           <Icon name="sparkles" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">Deep Cleaning</h3>
-          <p class="text-sm text-gray-600 mt-2">Top-to-bottom thorough cleaning</p>
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Deep Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Top-to-bottom thorough cleaning
+          </p>
         </a>
-        <a href="/locations/nashville/weekly-cleaning" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group">
+        <a
+          href="/locations/nashville/weekly-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
           <Icon name="calendar-week" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">Weekly Cleaning</h3>
-          <p class="text-sm text-gray-600 mt-2">Consistent weekly maid service</p>
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Weekly Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Consistent weekly maid service
+          </p>
         </a>
-        <a href="/locations/nashville/senior-cleaning" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group">
+        <a
+          href="/locations/nashville/senior-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
           <Icon name="heart" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">Senior Cleaning</h3>
-          <p class="text-sm text-gray-600 mt-2">Compassionate care for seniors</p>
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Senior Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Compassionate care for seniors
+          </p>
         </a>
-        <a href="/locations/nashville/office-cleaning" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group">
+        <a
+          href="/locations/nashville/office-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
           <Icon name="building" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">Office Cleaning</h3>
-          <p class="text-sm text-gray-600 mt-2">Professional workspace cleaning</p>
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Office Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Professional workspace cleaning
+          </p>
         </a>
-        <a href="/locations/nashville/move-out-cleaning" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group">
+        <a
+          href="/locations/nashville/move-out-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
           <Icon name="box" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">Move-Out Cleaning</h3>
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Move-Out Cleaning
+          </h3>
           <p class="text-sm text-gray-600 mt-2">Get your deposit back</p>
         </a>
-        <a href="/locations/nashville" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group">
+        <a
+          href="/locations/nashville"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
           <Icon name="map-marker-alt" class="w-8 h-8 text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">All Nashville Services</h3>
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            All Nashville Services
+          </h3>
           <p class="text-sm text-gray-600 mt-2">View all cleaning options</p>
         </a>
       </div>
@@ -411,59 +567,19 @@ const faqSchema = {
         Don't Wait - Call Now!
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Every minute counts when you need same-day cleaning. The earlier you call, the better your chances.
+        Every minute counts when you need same-day cleaning. The earlier you
+        call, the better your chances.
       </p>
-      <a href="tel:6155101427" class="bg-red-600 hover:bg-red-700 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:6155101427"
+        class="bg-red-600 hover:bg-red-700 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />615-510-1427
       </a>
       <p class="text-gray-600 mt-6">
-        <Icon name="clock" class="w-5 h-5 mr-2" />Available 7 days a week | Same-day service based on availability
+        <Icon name="clock" class="w-5 h-5 mr-2" />Available 7 days a week |
+        Same-day service based on availability
       </p>
     </div>
   </section>
-
-  
-  <script>
-    document.getElementById('same-day-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('same-day-submit-btn');
-      const messageDiv = document.getElementById('same-day-form-message');
-      const form = e.target;
-      const formData = {
-        name: form.name?.value || '',
-        phone: form.phone?.value || '',
-        service: 'Same-Day Cleaning',
-        location: form.location?.value || '',
-        urgency_reason: form.urgency_reason?.value || '',
-        timeline: form.timeline?.value || '',
-        source: 'Nashville Same-Day Cleaning Page',
-        page_url: window.location.href
-      };
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you ASAP!';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 615-510-1427.';
-        messageDiv.classList.remove('hidden');
-      }
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<Icon name="bolt" class="w-5 h-5 mr-2" />Request Same-Day Service';
-    });
-  </script>
 </BaseLayout>

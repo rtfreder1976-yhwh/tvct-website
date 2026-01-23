@@ -1,114 +1,132 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import TrustBadges from '../../../components/TrustBadges.astro';
-import Icon from '../../../components/Icon.astro';
+import TrustBadges from "../../../components/TrustBadges.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const title = "House Cleaning Germantown Nashville TN";
-const description = "Premium house cleaning services for Germantown Nashville. Historic home care, loft cleaning, and Airbnb turnover. Veteran-owned, $2M insured. Call 615-510-1427.";
+const description =
+  "Premium house cleaning services for Germantown Nashville. Historic home care, loft cleaning, and Airbnb turnover. Veteran-owned, $2M insured. Call 615-510-1427.";
 
 // Service schema for Germantown
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "House Cleaning Services in Germantown Nashville",
-  "description": "Premium house cleaning services for Germantown's historic row houses, converted lofts, and modern townhomes. Specialized in original hardwood care, exposed brick maintenance, and high-ceiling cleaning.",
-  "provider": {
+  name: "House Cleaning Services in Germantown Nashville",
+  description:
+    "Premium house cleaning services for Germantown's historic row houses, converted lofts, and modern townhomes. Specialized in original hardwood care, exposed brick maintenance, and high-ceiling cleaning.",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "615-510-1427",
-    "email": "hello@thevalleycleanteam.com",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "615-510-1427",
+    email: "hello@thevalleycleanteam.com",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Nashville",
-      "addressRegion": "TN"
-    }
+      addressLocality: "Nashville",
+      addressRegion: "TN",
+    },
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Germantown, Nashville, TN",
-    "geo": {
+    name: "Germantown, Nashville, TN",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "36.1772",
-      "longitude": "-86.7932"
-    }
+      latitude: "36.1772",
+      longitude: "-86.7932",
+    },
   },
-  "serviceType": "House Cleaning"
+  serviceType: "House Cleaning",
 };
 
 // LocalBusiness schema
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "The Valley Clean Team - Germantown Nashville",
-  "description": "Premium house cleaning services for Germantown's historic homes and urban residences",
-  "telephone": "615-510-1427",
-  "email": "hello@thevalleycleanteam.com",
-  "address": {
+  name: "The Valley Clean Team - Germantown Nashville",
+  description:
+    "Premium house cleaning services for Germantown's historic homes and urban residences",
+  telephone: "615-510-1427",
+  email: "hello@thevalleycleanteam.com",
+  address: {
     "@type": "PostalAddress",
-    "addressLocality": "Nashville",
-    "addressRegion": "TN",
-    "addressCountry": "US"
+    addressLocality: "Nashville",
+    addressRegion: "TN",
+    addressCountry: "US",
   },
-  "geo": {
+  geo: {
     "@type": "GeoCoordinates",
-    "latitude": "36.1772",
-    "longitude": "-86.7932"
+    latitude: "36.1772",
+    longitude: "-86.7932",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Germantown, Nashville, TN"
-  }
+    name: "Germantown, Nashville, TN",
+  },
 };
 
 // FAQ Schema specific to Germantown urban living
 const faqs = [
   {
-    question: "Do you have experience cleaning historic Germantown row houses and lofts?",
-    answer: "Absolutely. Our team is specially trained in caring for Germantown's unique architectural features. We understand the proper care of original hardwood floors, exposed brick walls, high tin ceilings, and vintage fixtures found in historic row houses and converted lofts. We use appropriate cleaning methods for each surface type to preserve the character and integrity of your historic home."
+    question:
+      "Do you have experience cleaning historic Germantown row houses and lofts?",
+    answer:
+      "Absolutely. Our team is specially trained in caring for Germantown's unique architectural features. We understand the proper care of original hardwood floors, exposed brick walls, high tin ceilings, and vintage fixtures found in historic row houses and converted lofts. We use appropriate cleaning methods for each surface type to preserve the character and integrity of your historic home.",
   },
   {
-    question: "How do you handle cleaning high ceilings and exposed ductwork in converted lofts?",
-    answer: "We bring specialized equipment for high-ceiling cleaning, including extension dusters, professional ladders, and HEPA vacuums with extended attachments. For exposed ductwork, beams, and pipes common in Germantown lofts, we carefully remove dust and cobwebs without damaging the industrial finishes. Our team is experienced with the unique challenges of loft spaces and open floor plans."
+    question:
+      "How do you handle cleaning high ceilings and exposed ductwork in converted lofts?",
+    answer:
+      "We bring specialized equipment for high-ceiling cleaning, including extension dusters, professional ladders, and HEPA vacuums with extended attachments. For exposed ductwork, beams, and pipes common in Germantown lofts, we carefully remove dust and cobwebs without damaging the industrial finishes. Our team is experienced with the unique challenges of loft spaces and open floor plans.",
   },
   {
-    question: "Do you offer Airbnb and short-term rental turnover cleaning in Germantown?",
-    answer: "Yes, we specialize in short-term rental turnover cleaning for Germantown's thriving vacation rental market. We offer same-day and next-day turnovers, hotel-quality bed making, restocking services, and detailed cleaning that earns five-star guest reviews. Many Germantown hosts rely on us for consistent, reliable service between guests."
+    question:
+      "Do you offer Airbnb and short-term rental turnover cleaning in Germantown?",
+    answer:
+      "Yes, we specialize in short-term rental turnover cleaning for Germantown's thriving vacation rental market. We offer same-day and next-day turnovers, hotel-quality bed making, restocking services, and detailed cleaning that earns five-star guest reviews. Many Germantown hosts rely on us for consistent, reliable service between guests.",
   },
   {
-    question: "Can you clean small urban spaces efficiently without feeling intrusive?",
-    answer: "We understand that Germantown homes range from compact row houses to open-concept lofts where space is at a premium. Our team works efficiently and respectfully, using compact equipment suited to smaller spaces. We're mindful of noise levels, respect your neighbors in shared buildings, and complete our work without disrupting your urban lifestyle."
+    question:
+      "Can you clean small urban spaces efficiently without feeling intrusive?",
+    answer:
+      "We understand that Germantown homes range from compact row houses to open-concept lofts where space is at a premium. Our team works efficiently and respectfully, using compact equipment suited to smaller spaces. We're mindful of noise levels, respect your neighbors in shared buildings, and complete our work without disrupting your urban lifestyle.",
   },
   {
     question: "What's the cost of house cleaning in Germantown Nashville?",
-    answer: "Germantown house cleaning typically ranges from $150-$350 depending on square footage, home type, and service frequency. Loft cleaning, row houses, and townhomes each have different requirements. Regular recurring clients (weekly or bi-weekly) receive preferred rates. Call 615-510-1427 for a personalized quote based on your specific home and needs."
+    answer:
+      "Germantown house cleaning typically ranges from $150-$350 depending on square footage, home type, and service frequency. Loft cleaning, row houses, and townhomes each have different requirements. Regular recurring clients (weekly or bi-weekly) receive preferred rates. Call 615-510-1427 for a personalized quote based on your specific home and needs.",
   },
   {
-    question: "Do you clean exposed brick walls and original hardwood floors properly?",
-    answer: "Yes, these are signature features of Germantown homes and require specialized care. For exposed brick, we use dry dusting and gentle techniques to remove dust without damaging mortar or finishes. For original hardwoods, we use pH-neutral cleaners that clean effectively without stripping finishes or leaving residue. We never use harsh chemicals that could damage these irreplaceable historic elements."
+    question:
+      "Do you clean exposed brick walls and original hardwood floors properly?",
+    answer:
+      "Yes, these are signature features of Germantown homes and require specialized care. For exposed brick, we use dry dusting and gentle techniques to remove dust without damaging mortar or finishes. For original hardwoods, we use pH-neutral cleaners that clean effectively without stripping finishes or leaving residue. We never use harsh chemicals that could damage these irreplaceable historic elements.",
   },
   {
-    question: "Can you accommodate flexible scheduling for busy young professionals?",
-    answer: "Absolutely. We understand that Germantown residents lead busy lives with demanding careers and active social schedules. We offer flexible scheduling including early morning, evening, and weekend appointments. Many clients provide entry codes or smart lock access so we can clean while they're at work, ensuring their home is fresh and welcoming when they return."
+    question:
+      "Can you accommodate flexible scheduling for busy young professionals?",
+    answer:
+      "Absolutely. We understand that Germantown residents lead busy lives with demanding careers and active social schedules. We offer flexible scheduling including early morning, evening, and weekend appointments. Many clients provide entry codes or smart lock access so we can clean while they're at work, ensuring their home is fresh and welcoming when they return.",
   },
   {
-    question: "Are you insured for cleaning in high-rise condos and multi-unit buildings?",
-    answer: "Yes, we carry $2 million in liability insurance and are fully bonded, which meets or exceeds the requirements of any Germantown condo association or building management. We're experienced with building access protocols, freight elevators, and the specific requirements of multi-unit properties. Our team members are all background-checked and professional."
-  }
+    question:
+      "Are you insured for cleaning in high-rise condos and multi-unit buildings?",
+    answer:
+      "Yes, we carry $2 million in liability insurance and are fully bonded, which meets or exceeds the requirements of any Germantown condo association or building management. We're experienced with building access protocols, freight elevators, and the specific requirements of multi-unit properties. Our team members are all background-checked and professional.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 ---
 
@@ -121,9 +139,11 @@ const faqSchema = {
   geoPosition="36.1772;-86.7932"
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
@@ -131,18 +151,31 @@ const faqSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="home-lg-alt" class="w-5 h-5 mr-2" />Historic Charm Meets Urban Living
+              <Icon name="home-lg-alt" class="w-5 h-5 mr-2" />Historic Charm
+              Meets Urban Living
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            House Cleaning Services in <span class="gold-gradient">Germantown, Nashville</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            House Cleaning Services in <span class="gold-gradient"
+              >Germantown, Nashville</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            The Valley Clean Team provides premium house cleaning services for Germantown's distinctive homes. From historic row houses along the tree-lined streets to converted industrial lofts and modern townhomes, we deliver the meticulous care that preserves your home's character while fitting your urban lifestyle.
+            The Valley Clean Team provides premium house cleaning services for
+            Germantown's distinctive homes. From historic row houses along the
+            tree-lined streets to converted industrial lofts and modern
+            townhomes, we deliver the meticulous care that preserves your home's
+            character while fitting your urban lifestyle.
           </p>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6"
+          >
             <div class="flex items-center text-gray-700">
               <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
               <span>$2M Liability Insurance</span>
@@ -157,61 +190,33 @@ const faqSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:6155101427" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:6155101427"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
             </a>
-            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+            <a
+              href="/contact"
+              class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+            >
               <Icon name="calendar" class="w-5 h-5 mr-2" />Get Your Free Quote
             </a>
           </div>
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Germantown Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Free estimate for your home</p>
-          <form id="germantown-quote-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <select name="home_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20">
-                <option value="">Home Type (Optional)</option>
-                <option value="Historic Row House">Historic Row House</option>
-                <option value="Converted Loft">Converted Loft</option>
-                <option value="Modern Townhome">Modern Townhome</option>
-                <option value="Condo">Condo</option>
-                <option value="Single Family Home">Single Family Home</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
-                <option value="Regular Cleaning">Regular Cleaning (Weekly/Bi-weekly)</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move-In/Move-Out">Move-In/Move-Out Cleaning</option>
-                <option value="Airbnb Turnover">Airbnb/Short-Term Rental Turnover</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <input type="hidden" name="location" value="Germantown, Nashville, TN">
-            <input type="hidden" name="neighborhood" value="Germantown">
-            <button type="submit" id="germantown-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours
-            </p>
-            <div id="germantown-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
-        </div>
+        <QuoteForm
+          formId="germantown-quote-form"
+          city="Germantown, Nashville"
+          state="TN"
+          neighborhood="Germantown"
+          source="Location Page - Germantown"
+          subtitle="Free estimate for your home"
+        />
       </div>
     </div>
   </section>
@@ -229,60 +234,112 @@ const faqSchema = {
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
-            Understanding Germantown's <span class="gold-gradient">Unique Character</span>
+            Understanding Germantown's <span class="gold-gradient"
+              >Unique Character</span
+            >
           </h2>
           <p class="text-gray-700 mb-4">
-            Germantown stands as one of Nashville's oldest and most storied neighborhoods. Founded by German immigrants in the mid-1800s, this walkable enclave north of downtown has evolved into a vibrant mix of historic preservation and contemporary urban living that attracts design-conscious professionals, foodies, and urban pioneers.
+            Germantown stands as one of Nashville's oldest and most storied
+            neighborhoods. Founded by German immigrants in the mid-1800s, this
+            walkable enclave north of downtown has evolved into a vibrant mix of
+            historic preservation and contemporary urban living that attracts
+            design-conscious professionals, foodies, and urban pioneers.
           </p>
           <p class="text-gray-700 mb-4">
-            From the tree-lined streets of the Historic District to the trendy restaurants like Rolf and Daughters and Henrietta Red, Germantown embodies Nashville's transformation while honoring its past. Home values range from $500,000 to over $1.2 million, reflecting the neighborhood's desirability among discerning buyers who appreciate walkability, character, and community.
+            From the tree-lined streets of the Historic District to the trendy
+            restaurants like Rolf and Daughters and Henrietta Red, Germantown
+            embodies Nashville's transformation while honoring its past. Home
+            values range from $500,000 to over $1.2 million, reflecting the
+            neighborhood's desirability among discerning buyers who appreciate
+            walkability, character, and community.
           </p>
           <p class="text-gray-700 mb-4">
-            Our Germantown clients include young professionals working downtown, remote workers who need a clean home office, Airbnb hosts in the hospitality business, and design enthusiasts who've carefully curated their historic spaces. They expect cleaning service that respects their home's character while fitting seamlessly into their busy urban lives.
+            Our Germantown clients include young professionals working downtown,
+            remote workers who need a clean home office, Airbnb hosts in the
+            hospitality business, and design enthusiasts who've carefully
+            curated their historic spaces. They expect cleaning service that
+            respects their home's character while fitting seamlessly into their
+            busy urban lives.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Germantown Home Features We Specialize In</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Germantown Home Features We Specialize In
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
               <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Historic row houses with original architectural details</span>
+              <span class="text-gray-700"
+                >Historic row houses with original architectural details</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Converted industrial lofts with high ceilings</span>
+              <span class="text-gray-700"
+                >Converted industrial lofts with high ceilings</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="bricks" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Exposed brick walls and original masonry</span>
+              <span class="text-gray-700"
+                >Exposed brick walls and original masonry</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Original hardwood flooring (often 100+ years old)</span>
+              <span class="text-gray-700"
+                >Original hardwood flooring (often 100+ years old)</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="arrows-alt-v" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">High tin ceilings and exposed ductwork</span>
+              <Icon
+                name="arrows-alt-v"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >High tin ceilings and exposed ductwork</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="door-open" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Open floor plans and modern minimalist interiors</span>
+              <span class="text-gray-700"
+                >Open floor plans and modern minimalist interiors</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="window-maximize" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Large industrial windows and natural light</span>
+              <Icon
+                name="window-maximize"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Large industrial windows and natural light</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="laptop-house" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Home offices and creative workspaces</span>
+              <Icon
+                name="laptop-house"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Home offices and creative workspaces</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="concierge-bell" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Short-term rental and Airbnb properties</span>
+              <Icon
+                name="concierge-bell"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                >Short-term rental and Airbnb properties</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="city" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700">Modern new-construction townhomes</span>
+              <span class="text-gray-700"
+                >Modern new-construction townhomes</span
+              >
             </li>
           </ul>
         </div>
@@ -295,185 +352,311 @@ const faqSchema = {
     <div class="container mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          House Cleaning <span class="gold-gradient">Services for Germantown</span>
+          House Cleaning <span class="gold-gradient"
+            >Services for Germantown</span
+          >
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Comprehensive cleaning tailored to urban living</p>
+        <p class="text-xl text-gray-600">
+          Comprehensive cleaning tailored to urban living
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Regular House Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Regular House Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Weekly or bi-weekly service to keep your Germantown home fresh and welcoming. Perfect for busy professionals who want to come home to a clean space.
+            Weekly or bi-weekly service to keep your Germantown home fresh and
+            welcoming. Perfect for busy professionals who want to come home to a
+            clean space.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>All rooms thoroughly cleaned</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Kitchen and bathrooms sanitized</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Hardwood floor care</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Same team every visit</span>
             </li>
           </ul>
-          <a href="/services/recurring-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/services/recurring-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="sparkles" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
           <p class="text-gray-600 mb-4">
-            Comprehensive deep cleaning for historic homes and lofts. We reach every corner, including those high ceilings and exposed architectural features.
+            Comprehensive deep cleaning for historic homes and lofts. We reach
+            every corner, including those high ceilings and exposed
+            architectural features.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Top-to-bottom detailed cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>High ceiling and beam dusting</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Exposed brick careful cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Interior window cleaning</span>
             </li>
           </ul>
-          <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/services/deep-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="key" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb Turnover Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Airbnb Turnover Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Quick turnovers for Germantown's vacation rentals. Hotel-quality cleaning that earns five-star reviews from your guests.
+            Quick turnovers for Germantown's vacation rentals. Hotel-quality
+            cleaning that earns five-star reviews from your guests.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Same-day turnover available</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Hotel-quality bed making</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Restocking services available</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Damage reporting</span>
             </li>
           </ul>
-          <a href="/locations/nashville/airbnb-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/nashville/airbnb-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="truck-moving" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move-In/Move-Out Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Move-In/Move-Out Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Moving to or from Germantown? We ensure every surface is spotless for the transition, meeting landlord and property management standards.
+            Moving to or from Germantown? We ensure every surface is spotless
+            for the transition, meeting landlord and property management
+            standards.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Complete home cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Inside cabinets and closets</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Appliance deep cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Security deposit protection</span>
             </li>
           </ul>
-          <a href="/locations/nashville/move-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/nashville/move-out-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="hammer" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Post-Construction Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            After renovations or new construction, we remove all dust and debris to reveal your refreshed Germantown space.
+            After renovations or new construction, we remove all dust and debris
+            to reveal your refreshed Germantown space.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Construction dust removal</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Fixture and surface detailing</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>New home ready preparation</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Final walk-through inspection</span>
             </li>
           </ul>
-          <a href="/locations/nashville/post-construction-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/nashville/post-construction-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="clock" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Same-Day Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Same-Day Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Need your Germantown home cleaned today? We offer same-day service for unexpected guests, last-minute showings, or just because life happens.
+            Need your Germantown home cleaned today? We offer same-day service
+            for unexpected guests, last-minute showings, or just because life
+            happens.
           </p>
           <ul class="space-y-2 mb-4">
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Available 7 days a week</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Book by phone for fastest service</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Full or focused cleaning options</span>
             </li>
             <li class="flex items-start text-sm text-gray-600">
-              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+              />
               <span>Subject to availability</span>
             </li>
           </ul>
-          <a href="/locations/nashville/same-day-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/nashville/same-day-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
       </div>
     </div>
@@ -484,92 +667,156 @@ const faqSchema = {
     <div class="container mx-auto max-w-5xl">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Why Germantown <span class="gold-gradient">Trusts The Valley Clean Team</span>
+          Why Germantown <span class="gold-gradient"
+            >Trusts The Valley Clean Team</span
+          >
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">The qualities that matter most to Germantown residents</p>
+        <p class="text-xl text-gray-600">
+          The qualities that matter most to Germantown residents
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="landmark" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Historic Home Expertise</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Historic Home Expertise
+              </h3>
               <p class="text-gray-700">
-                We understand the unique requirements of Germantown's historic architecture. Our team is trained in proper care for original hardwoods, exposed brick, tin ceilings, and vintage fixtures. We use appropriate cleaning methods that preserve character while delivering spotless results.
+                We understand the unique requirements of Germantown's historic
+                architecture. Our team is trained in proper care for original
+                hardwoods, exposed brick, tin ceilings, and vintage fixtures. We
+                use appropriate cleaning methods that preserve character while
+                delivering spotless results.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="leaf" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Eco-Friendly Products</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Eco-Friendly Products
+              </h3>
               <p class="text-gray-700">
-                Germantown residents care about sustainability. We use premium eco-friendly cleaning products that are tough on dirt but gentle on the environment, your family, and your pets. No harsh chemicals means healthier indoor air quality for your urban home.
+                Germantown residents care about sustainability. We use premium
+                eco-friendly cleaning products that are tough on dirt but gentle
+                on the environment, your family, and your pets. No harsh
+                chemicals means healthier indoor air quality for your urban
+                home.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="calendar-check" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Flexible Urban Scheduling</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Flexible Urban Scheduling
+              </h3>
               <p class="text-gray-700">
-                We understand the demands of urban professional life. Whether you need early morning service before work, evening appointments, or weekend availability, we accommodate your schedule. Smart lock access means we can clean while you're out enjoying all Germantown has to offer.
+                We understand the demands of urban professional life. Whether
+                you need early morning service before work, evening
+                appointments, or weekend availability, we accommodate your
+                schedule. Smart lock access means we can clean while you're out
+                enjoying all Germantown has to offer.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="shield-alt" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">$2M Insurance Coverage</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                $2M Insurance Coverage
+              </h3>
               <p class="text-gray-700">
-                We carry $2 million in liability insurance and are fully bonded. This comprehensive coverage protects your investment and satisfies the requirements of any Germantown condo association or property management company. Every team member is background-checked and professionally trained.
+                We carry $2 million in liability insurance and are fully bonded.
+                This comprehensive coverage protects your investment and
+                satisfies the requirements of any Germantown condo association
+                or property management company. Every team member is
+                background-checked and professionally trained.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="users" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Consistent Team Assignment</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Consistent Team Assignment
+              </h3>
               <p class="text-gray-700">
-                You'll see the same friendly faces at every visit. Our team assignment system ensures consistency, familiarity with your preferences, and the peace of mind that comes from knowing exactly who will be in your home. They learn your space and your standards.
+                You'll see the same friendly faces at every visit. Our team
+                assignment system ensures consistency, familiarity with your
+                preferences, and the peace of mind that comes from knowing
+                exactly who will be in your home. They learn your space and your
+                standards.
               </p>
             </div>
           </div>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
           <div class="flex items-start mb-4">
-            <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center flex-shrink-0"
+            >
               <Icon name="medal" class="w-6 h-6 text-white" />
             </div>
             <div class="ml-4">
-              <h3 class="text-xl font-bold mb-2 text-[#333333]">Veteran-Owned Excellence</h3>
+              <h3 class="text-xl font-bold mb-2 text-[#333333]">
+                Veteran-Owned Excellence
+              </h3>
               <p class="text-gray-700">
-                As a veteran-owned and women-led business, we bring military precision and attention to detail to every cleaning. Our commitment to excellence, integrity, and reliability means you get consistent, professional service that exceeds expectations every time.
+                As a veteran-owned and women-led business, we bring military
+                precision and attention to detail to every cleaning. Our
+                commitment to excellence, integrity, and reliability means you
+                get consistent, professional service that exceeds expectations
+                every time.
               </p>
             </div>
           </div>
@@ -586,7 +833,9 @@ const faqSchema = {
           Serving All of <span class="gold-gradient">Germantown</span>
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Premium house cleaning throughout Germantown and nearby areas</p>
+        <p class="text-xl text-gray-600">
+          Premium house cleaning throughout Germantown and nearby areas
+        </p>
       </div>
       <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
         <span class="neighborhood-badge">
@@ -615,10 +864,24 @@ const faqSchema = {
         </span>
       </div>
       <p class="text-center text-gray-600 mt-8">
-        Also serving nearby: <a href="/locations/nashville/the-nations" class="text-[#FFA985] font-semibold hover:underline">The Nations</a>,
-        <a href="/locations/nashville/12-south" class="text-[#FFA985] font-semibold hover:underline ml-2">12 South</a>,
-        <a href="/locations/nashville/sylvan-park" class="text-[#FFA985] font-semibold hover:underline ml-2">Sylvan Park</a>, and
-        <a href="/locations/nashville" class="text-[#FFA985] font-semibold hover:underline ml-2">all of Nashville</a>
+        Also serving nearby: <a
+          href="/locations/nashville/the-nations"
+          class="text-[#FFA985] font-semibold hover:underline">The Nations</a
+        >,
+        <a
+          href="/locations/nashville/12-south"
+          class="text-[#FFA985] font-semibold hover:underline ml-2">12 South</a
+        >,
+        <a
+          href="/locations/nashville/sylvan-park"
+          class="text-[#FFA985] font-semibold hover:underline ml-2"
+          >Sylvan Park</a
+        >, and
+        <a
+          href="/locations/nashville"
+          class="text-[#FFA985] font-semibold hover:underline ml-2"
+          >all of Nashville</a
+        >
       </p>
     </div>
   </section>
@@ -635,17 +898,27 @@ const faqSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -657,13 +930,22 @@ const faqSchema = {
         Ready for a <span class="gold-gradient">Cleaner Germantown Home</span>?
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Join your neighbors who trust The Valley Clean Team to keep their historic homes and urban spaces spotless
+        Join your neighbors who trust The Valley Clean Team to keep their
+        historic homes and urban spaces spotless
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:6155101427" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:6155101427"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
         </a>
-        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+        <a
+          href="/contact"
+          class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md"
+        >
           <Icon name="calendar" class="w-5 h-5 mr-2" />Get Your Free Quote
         </a>
       </div>
@@ -671,76 +953,33 @@ const faqSchema = {
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <p class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </p>
-            <p class="text-gray-600">Germantown, Nashville, TN and surrounding neighborhoods</p>
+            <p class="text-gray-600">
+              Germantown, Nashville, TN and surrounding neighborhoods
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </p>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </p>
-            <p class="text-gray-600">615-510-1427<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              615-510-1427<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('germantown-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('germantown-submit-btn');
-      const messageDiv = document.getElementById('germantown-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        home_type: form.home_type?.value || '',
-        location: form.location?.value || '',
-        neighborhood: form.neighborhood?.value || '',
-        source: 'Germantown Landing Page',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll contact you within 2 hours with your free quote.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Please call us at 615-510-1427 for immediate assistance.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Get My Free Quote';
-    });
-  </script>
 </BaseLayout>

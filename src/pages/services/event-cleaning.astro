@@ -1,103 +1,134 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
-import TrustBadges from '../../components/TrustBadges.astro';
-import Icon from '../../components/Icon.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import TrustBadges from "../../components/TrustBadges.astro";
+import Icon from "../../components/Icon.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
 
 const title = "Event Cleaning Services | Valley Clean Team";
-const description = "Professional event cleanup services in Alabama & Tennessee. Pre-event prep, during-event support & post-event cleaning for weddings, parties & corporate events.";
+const description =
+  "Professional event cleanup services in Alabama & Tennessee. Pre-event prep, during-event support & post-event cleaning for weddings, parties & corporate events.";
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Event Cleaning Service",
-  "description": "Professional cleaning services for events including pre-event preparation, during-event maintenance, and post-event cleanup.",
-  "provider": {
+  name: "Event Cleaning Service",
+  description:
+    "Professional cleaning services for events including pre-event preparation, during-event maintenance, and post-event cleanup.",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "256-826-1100",
-    "email": "hello@thevalleycleanteam.com",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "256-826-1100",
+    email: "hello@thevalleycleanteam.com",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
-  },
-  "areaServed": [
-    { "@type": "State", "name": "Alabama" },
-    { "@type": "State", "name": "Tennessee" }
-  ],
-  "serviceType": "Event Cleaning",
-  "offers": {
-    "@type": "Offer",
-    "priceSpecification": {
-      "@type": "PriceSpecification",
-      "price": "200",
-      "priceCurrency": "USD",
-      "minPrice": "200"
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "availability": "https://schema.org/InStock"
-  }
+  },
+  areaServed: [
+    { "@type": "State", name: "Alabama" },
+    { "@type": "State", name: "Tennessee" },
+  ],
+  serviceType: "Event Cleaning",
+  offers: {
+    "@type": "Offer",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: "200",
+      priceCurrency: "USD",
+      minPrice: "200",
+    },
+    availability: "https://schema.org/InStock",
+  },
 };
 
 const faqs = [
   {
     question: "How far in advance should I book event cleaning?",
-    answer: "We recommend booking at least 1-2 weeks in advance for most events. For weddings or large corporate events, 4-6 weeks notice is ideal. However, we do accommodate last-minute requests when possible."
+    answer:
+      "We recommend booking at least 1-2 weeks in advance for most events. For weddings or large corporate events, 4-6 weeks notice is ideal. However, we do accommodate last-minute requests when possible.",
   },
   {
     question: "Do you provide cleaning during the event?",
-    answer: "Yes! We offer during-event maintenance to keep restrooms stocked, clean up spills, empty trash, and ensure your venue stays presentable throughout your gathering."
+    answer:
+      "Yes! We offer during-event maintenance to keep restrooms stocked, clean up spills, empty trash, and ensure your venue stays presentable throughout your gathering.",
   },
   {
     question: "What's included in post-event cleanup?",
-    answer: "Complete cleanup including trash removal, floor cleaning, restroom sanitation, surface wiping, kitchen cleanup, and returning the space to its original condition."
+    answer:
+      "Complete cleanup including trash removal, floor cleaning, restroom sanitation, surface wiping, kitchen cleanup, and returning the space to its original condition.",
   },
   {
     question: "Can you clean my home before a party?",
-    answer: "Absolutely! Pre-event home cleaning is one of our most popular services. We deep clean so your home is guest-ready and you can focus on other preparations."
+    answer:
+      "Absolutely! Pre-event home cleaning is one of our most popular services. We deep clean so your home is guest-ready and you can focus on other preparations.",
   },
   {
     question: "Do you clean outdoor event spaces?",
-    answer: "Yes, we handle outdoor areas including patios, decks, and outdoor venues. This includes trash collection, surface cleaning, and general tidying."
+    answer:
+      "Yes, we handle outdoor areas including patios, decks, and outdoor venues. This includes trash collection, surface cleaning, and general tidying.",
   },
   {
     question: "What events do you typically clean for?",
-    answer: "We clean for birthday parties, holiday gatherings, weddings, corporate events, graduation parties, baby showers, open houses, fundraisers, and any other gathering."
+    answer:
+      "We clean for birthday parties, holiday gatherings, weddings, corporate events, graduation parties, baby showers, open houses, fundraisers, and any other gathering.",
   },
   {
     question: "How is event cleaning priced?",
-    answer: "Pricing depends on venue size, event type, and services needed. Pre-event cleaning starts at $200, during-event service is hourly, and post-event cleanup is based on the scope of work."
+    answer:
+      "Pricing depends on venue size, event type, and services needed. Pre-event cleaning starts at $200, during-event service is hourly, and post-event cleanup is based on the scope of work.",
   },
   {
     question: "Can you work with my venue's requirements?",
-    answer: "Yes, we coordinate with venue managers and follow their specific requirements. We've worked with many venues and understand their expectations."
-  }
+    answer:
+      "Yes, we coordinate with venue managers and follow their specific requirements. We've worked with many venues and understand their expectations.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const eventTypes = [
-  { icon: "birthday-cake", name: "Birthday Parties", description: "Kid or adult celebrations" },
+  {
+    icon: "birthday-cake",
+    name: "Birthday Parties",
+    description: "Kid or adult celebrations",
+  },
   { icon: "ring", name: "Weddings", description: "Venue prep and cleanup" },
-  { icon: "briefcase", name: "Corporate Events", description: "Meetings and conferences" },
-  { icon: "graduation-cap", name: "Graduations", description: "Celebrate achievements" },
-  { icon: "tree", name: "Holiday Gatherings", description: "Thanksgiving, Christmas, etc." },
+  {
+    icon: "briefcase",
+    name: "Corporate Events",
+    description: "Meetings and conferences",
+  },
+  {
+    icon: "graduation-cap",
+    name: "Graduations",
+    description: "Celebrate achievements",
+  },
+  {
+    icon: "tree",
+    name: "Holiday Gatherings",
+    description: "Thanksgiving, Christmas, etc.",
+  },
   { icon: "baby", name: "Baby Showers", description: "Welcome new arrivals" },
-  { icon: "champagne-glasses", name: "Dinner Parties", description: "Elegant entertaining" },
-  { icon: "handshake", name: "Open Houses", description: "Real estate events" }
+  {
+    icon: "champagne-glasses",
+    name: "Dinner Parties",
+    description: "Elegant entertaining",
+  },
+  { icon: "handshake", name: "Open Houses", description: "Real estate events" },
 ];
 
 const servicePhases = [
@@ -113,9 +144,9 @@ const servicePhases = [
       "Organize and declutter",
       "Kitchen deep clean",
       "Outdoor area prep",
-      "Final walkthrough"
+      "Final walkthrough",
     ],
-    timing: "1-3 days before event"
+    timing: "1-3 days before event",
   },
   {
     phase: "During-Event Service",
@@ -129,9 +160,9 @@ const servicePhases = [
       "General tidying",
       "Kitchen assistance",
       "Maintain cleanliness",
-      "Discreet presence"
+      "Discreet presence",
     ],
-    timing: "Throughout your event"
+    timing: "Throughout your event",
   },
   {
     phase: "Post-Event Cleanup",
@@ -145,43 +176,45 @@ const servicePhases = [
       "Bathroom deep clean",
       "Furniture reset",
       "Outdoor cleanup",
-      "Return to pre-event condition"
+      "Return to pre-event condition",
     ],
-    timing: "Same night or next morning"
-  }
+    timing: "Same night or next morning",
+  },
 ];
 
 const whyChooseUs = [
   {
     icon: "clock",
     title: "Flexible Scheduling",
-    description: "Early morning, late night, weekends—we work when you need us."
+    description:
+      "Early morning, late night, weekends—we work when you need us.",
   },
   {
     icon: "users",
     title: "Scalable Teams",
-    description: "Small gathering or large gala, we have the staff to handle it."
+    description:
+      "Small gathering or large gala, we have the staff to handle it.",
   },
   {
     icon: "eye-slash",
     title: "Discreet Service",
-    description: "During-event cleaning that's professional and unobtrusive."
+    description: "During-event cleaning that's professional and unobtrusive.",
   },
   {
     icon: "shield-alt",
     title: "Fully Insured",
-    description: "$2M liability coverage for your peace of mind."
+    description: "$2M liability coverage for your peace of mind.",
   },
   {
     icon: "redo",
     title: "Reliable & Punctual",
-    description: "We show up on time, every time. Your event depends on it."
+    description: "We show up on time, every time. Your event depends on it.",
   },
   {
     icon: "star",
     title: "Experienced Team",
-    description: "We've cleaned hundreds of events and know what to expect."
-  }
+    description: "We've cleaned hundreds of events and know what to expect.",
+  },
 ];
 
 const serviceAreas = [
@@ -192,7 +225,7 @@ const serviceAreas = [
   { name: "Decatur", link: "/locations/decatur/event-cleaning" },
   { name: "Birmingham", link: "/locations/birmingham/event-cleaning" },
   { name: "Nashville", link: "/locations/nashville/event-cleaning" },
-  { name: "West Nashville", link: "/locations/west-nashville/event-cleaning" }
+  { name: "West Nashville", link: "/locations/west-nashville/event-cleaning" },
 ];
 ---
 
@@ -200,22 +233,29 @@ const serviceAreas = [
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="champagne-glasses" class="w-5 h-5 mr-2" />Before, During & After
+              <Icon name="champagne-glasses" class="w-5 h-5 mr-2" />Before,
+              During & After
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
             Professional <span class="gold-gradient">Event Cleaning</span> Services
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            Host the perfect event without the cleanup stress. From pre-event preparation to post-party cleanup, we handle every phase so you can focus on your guests and enjoy the celebration.
+            Host the perfect event without the cleanup stress. From pre-event
+            preparation to post-party cleanup, we handle every phase so you can
+            focus on your guests and enjoy the celebration.
           </p>
           <div class="flex flex-wrap gap-4 mb-8">
             <div class="flex items-center text-gray-700">
@@ -232,24 +272,36 @@ const serviceAreas = [
             </div>
           </div>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg">
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
             </a>
-            <a href="/#hero-quote-form" class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center">
+            <a
+              href="/#hero-quote-form"
+              class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center"
+            >
               Get Free Quote
             </a>
           </div>
         </div>
 
         <!-- Pricing Card -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
           <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-[#333333] mb-2">Event Cleaning Options</h3>
+            <h3 class="text-2xl font-bold text-[#333333] mb-2">
+              Event Cleaning Options
+            </h3>
             <p class="text-gray-600">Choose the services you need</p>
           </div>
 
           <div class="space-y-4 mb-6">
-            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+            <div
+              class="flex justify-between items-center p-4 bg-gray-50 rounded-xl"
+            >
               <div>
                 <h4 class="font-bold text-[#333333]">Pre-Event Cleaning</h4>
                 <p class="text-sm text-gray-600">Get guest-ready</p>
@@ -259,7 +311,9 @@ const serviceAreas = [
               </div>
             </div>
 
-            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]">
+            <div
+              class="flex justify-between items-center p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl border-2 border-[#FFA985]"
+            >
               <div>
                 <h4 class="font-bold text-[#333333]">During-Event Service</h4>
                 <p class="text-sm text-gray-600">Maintain cleanliness</p>
@@ -269,7 +323,9 @@ const serviceAreas = [
               </div>
             </div>
 
-            <div class="flex justify-between items-center p-4 bg-gray-50 rounded-xl">
+            <div
+              class="flex justify-between items-center p-4 bg-gray-50 rounded-xl"
+            >
               <div>
                 <h4 class="font-bold text-[#333333]">Post-Event Cleanup</h4>
                 <p class="text-sm text-gray-600">Complete restoration</p>
@@ -287,9 +343,12 @@ const serviceAreas = [
             </p>
           </div>
 
-          <a href="/#hero-quote-form" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold text-center block shadow-lg">
-            Plan Your Event Cleaning
-          </a>
+          <QuoteForm
+            formId="event-cleaning-quote-form"
+            serviceName="Event Cleaning"
+            source="Service Page - Event Cleaning"
+            subtitle="Plan Your Event Cleaning"
+          />
         </div>
       </div>
     </div>
@@ -316,15 +375,19 @@ const serviceAreas = [
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {eventTypes.map(event => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:shadow-xl hover:border-[#FFA985] transition-all text-center">
-            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-              <Icon name={event.icon} class="w-8 h-8 text-white" />
+        {
+          eventTypes.map((event) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:shadow-xl hover:border-[#FFA985] transition-all text-center">
+              <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={event.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-[#333333]">
+                {event.name}
+              </h3>
+              <p class="text-gray-600 text-sm">{event.description}</p>
             </div>
-            <h3 class="text-lg font-bold mb-2 text-[#333333]">{event.name}</h3>
-            <p class="text-gray-600 text-sm">{event.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -340,28 +403,35 @@ const serviceAreas = [
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        {servicePhases.map((phase, index) => (
-          <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition-all">
-            <div class="flex items-center mb-6">
-              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
-                <Icon name={phase.icon} class="w-6 h-6 text-white" />
+        {
+          servicePhases.map((phase, index) => (
+            <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition-all">
+              <div class="flex items-center mb-6">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+                  <Icon name={phase.icon} class="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-[#333333]">
+                    {phase.phase}
+                  </h3>
+                  <p class="text-sm text-[#FFA985]">{phase.timing}</p>
+                </div>
               </div>
-              <div>
-                <h3 class="text-xl font-bold text-[#333333]">{phase.phase}</h3>
-                <p class="text-sm text-[#FFA985]">{phase.timing}</p>
-              </div>
+              <p class="text-gray-600 mb-6">{phase.description}</p>
+              <ul class="space-y-2">
+                {phase.tasks.map((task) => (
+                  <li class="flex items-start text-gray-600 text-sm">
+                    <Icon
+                      name="check"
+                      class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+                    />
+                    <span>{task}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <p class="text-gray-600 mb-6">{phase.description}</p>
-            <ul class="space-y-2">
-              {phase.tasks.map(task => (
-                <li class="flex items-start text-gray-600 text-sm">
-                  <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0" />
-                  <span>{task}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -377,15 +447,19 @@ const serviceAreas = [
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {whyChooseUs.map(item => (
-          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
-            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-              <Icon name={item.icon} class="w-8 h-8 text-white" />
+        {
+          whyChooseUs.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                {item.title}
+              </h3>
+              <p class="text-gray-600">{item.description}</p>
             </div>
-            <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.title}</h3>
-            <p class="text-gray-600">{item.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -401,18 +475,28 @@ const serviceAreas = [
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
-        {serviceAreas.map(area => (
-          <a href={area.link} class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group">
-            <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
-            <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">{area.name}</p>
-          </a>
-        ))}
+        {
+          serviceAreas.map((area) => (
+            <a
+              href={area.link}
+              class="bg-white rounded-xl p-4 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition group"
+            >
+              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
+              <p class="font-semibold text-[#333333] group-hover:text-[#FFA985] transition">
+                {area.name}
+              </p>
+            </a>
+          ))
+        }
       </div>
 
       <div class="text-center">
         <p class="text-gray-600">
           <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
-          Event at another location? Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a>
+          Event at another location? Call <a
+            href="tel:2568261100"
+            class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a
+          >
         </p>
       </div>
     </div>
@@ -429,17 +513,25 @@ const serviceAreas = [
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -453,11 +545,19 @@ const serviceAreas = [
       <p class="text-xl text-gray-600 mb-8">
         Let us handle the cleaning so you can enjoy the celebration
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
         </a>
-        <a href="/#hero-quote-form" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+        <a
+          href="/#hero-quote-form"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
           <Icon name="envelope" class="w-5 h-5 mr-2" />Get Free Quote
         </a>
       </div>
@@ -467,5 +567,4 @@ const serviceAreas = [
       </p>
     </div>
   </section>
-
-  </BaseLayout>
+</BaseLayout>

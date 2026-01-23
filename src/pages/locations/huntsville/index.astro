@@ -1,9 +1,10 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../../components/SchemaMarkup.astro';
-import { huntsvilleTestimonials } from '../../../data/testimonials';
-import Icon from '../../../components/Icon.astro';
-import LocationGoogleMap from '../../../components/LocationGoogleMap.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import { huntsvilleTestimonials } from "../../../data/testimonials";
+import Icon from "../../../components/Icon.astro";
+import LocationGoogleMap from "../../../components/LocationGoogleMap.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "Huntsville";
 const state = "Alabama";
@@ -13,7 +14,8 @@ const region = "Madison County";
 const geoData = {
   region: "US-AL",
   position: "34.7304;-86.5861",
-  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+  image:
+    "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
 };
 
 // Neighborhoods served
@@ -24,43 +26,49 @@ const neighborhoods = [
   "Jones Valley",
   "Monte Sano",
   "Big Cove",
-  "Madison"
+  "Madison",
 ];
 
 // Huntsville-specific FAQs
 const faqs = [
   {
     question: "Do you serve military families near Redstone Arsenal?",
-    answer: "Absolutely. As a veteran-owned company, we're proud to serve our military community near Redstone Arsenal. We understand the unique needs of military families, including flexible scheduling for PCS moves, security clearance awareness, and respect for the demands of defense contractor schedules. We offer military discounts and same-day service when needed."
+    answer:
+      "Absolutely. As a veteran-owned company, we're proud to serve our military community near Redstone Arsenal. We understand the unique needs of military families, including flexible scheduling for PCS moves, security clearance awareness, and respect for the demands of defense contractor schedules. We offer military discounts and same-day service when needed.",
   },
   {
     question: "Can you handle historic homes in Twickenham District?",
-    answer: "Yes, we specialize in caring for Huntsville's beautiful historic properties. Our team is trained in the gentle cleaning techniques required for antebellum homes, including proper care for original hardwood floors, antique fixtures, and delicate architectural details. We use pH-neutral products that won't damage historic surfaces."
+    answer:
+      "Yes, we specialize in caring for Huntsville's beautiful historic properties. Our team is trained in the gentle cleaning techniques required for antebellum homes, including proper care for original hardwood floors, antique fixtures, and delicate architectural details. We use pH-neutral products that won't damage historic surfaces.",
   },
   {
     question: "What neighborhoods in Huntsville do you serve?",
-    answer: "We serve all Huntsville neighborhoods including The Ledges, Hampton Cove, Twickenham Historic District, Jones Valley, Monte Sano, Big Cove, Providence, Blossomwood, and Madison. Whether you're in a golf community estate or a mountain property, we bring the same white-glove service to every home."
+    answer:
+      "We serve all Huntsville neighborhoods including The Ledges, Hampton Cove, Twickenham Historic District, Jones Valley, Monte Sano, Big Cove, Providence, Blossomwood, and Madison. Whether you're in a golf community estate or a mountain property, we bring the same white-glove service to every home.",
   },
   {
     question: "Do you accommodate schedules for aerospace professionals?",
-    answer: "Yes, we understand that many Huntsville residents work demanding schedules in aerospace, defense, and research. We offer flexible scheduling including early morning, evening, and weekend appointments. Same-day service is available for those unexpected needs. Your busy schedule is exactly why premium cleaning services exist."
+    answer:
+      "Yes, we understand that many Huntsville residents work demanding schedules in aerospace, defense, and research. We offer flexible scheduling including early morning, evening, and weekend appointments. Same-day service is available for those unexpected needs. Your busy schedule is exactly why premium cleaning services exist.",
   },
   {
     question: "Are you insured to work in luxury estates?",
-    answer: "Absolutely. We carry $2 million in liability insurance and are fully bonded. Our team is background-checked and trained to care for high-end properties, luxury finishes, and valuable furnishings. From Hampton Cove golf estates to Monte Sano mountain homes, your property is in expert hands."
+    answer:
+      "Absolutely. We carry $2 million in liability insurance and are fully bonded. Our team is background-checked and trained to care for high-end properties, luxury finishes, and valuable furnishings. From Hampton Cove golf estates to Monte Sano mountain homes, your property is in expert hands.",
   },
   {
     question: "Do you clean executive home offices for remote workers?",
-    answer: "Yes, many Huntsville professionals work from home in aerospace, technology, and defense sectors. We provide specialized cleaning for home offices, ensuring your workspace remains professional and pristine. We can work around your schedule and maintain confidentiality for any sensitive work areas."
-  }
+    answer:
+      "Yes, many Huntsville professionals work from home in aerospace, technology, and defense sectors. We provide specialized cleaning for home offices, ensuring your workspace remains professional and pristine. We can work around your schedule and maintain confidentiality for any sensitive work areas.",
+  },
 ];
 
 // Testimonials - imported from centralized data
-const testimonials = huntsvilleTestimonials.map(t => ({
+const testimonials = huntsvilleTestimonials.map((t) => ({
   initial: t.initial,
   name: t.name,
   area: t.source,
-  text: t.text
+  text: t.text,
 }));
 ---
 
@@ -72,24 +80,38 @@ const testimonials = huntsvilleTestimonials.map(t => ({
   geoPlacename={`${city}, ${state}`}
   geoPosition={geoData.position}
 >
-  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
-  
+  <SchemaMarkup
+    type="local"
+    city={city}
+    state={state}
+    neighborhoods={neighborhoods}
+  />
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Proudly Serving Rocket City
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Proudly Serving
+              Rocket City
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Luxury Cleaning Services in <span class="gold-gradient">Huntsville, Alabama</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Luxury Cleaning Services in <span class="gold-gradient"
+              >Huntsville, Alabama</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            Rocket City's premier white-glove cleaning service. Trusted by military families, aerospace professionals, and luxury estates throughout Huntsville and Madison County.
+            Rocket City's premier white-glove cleaning service. Trusted by
+            military families, aerospace professionals, and luxury estates
+            throughout Huntsville and Madison County.
           </p>
           <div class="flex flex-wrap items-center lg:items-start gap-4 mb-6">
             <div class="flex items-center text-gray-700">
@@ -101,7 +123,11 @@ const testimonials = huntsvilleTestimonials.map(t => ({
               <span>$2M Insured</span>
             </div>
             <div class="flex items-center text-gray-700">
-              <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />
+              <Icon
+                name="star"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+                fill="currentColor"
+              />
               <span>130+ Five-Star Reviews</span>
             </div>
             <div class="flex items-center text-gray-700">
@@ -109,12 +135,20 @@ const testimonials = huntsvilleTestimonials.map(t => ({
               <span>Women-Led Business</span>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:2568261100" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:2568261100"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="phone" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">256-826-1100</span>
             </a>
-            <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+            <a
+              href="mailto:hello@thevalleycleanteam.com"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="envelope" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">Email Us</span>
             </a>
@@ -122,49 +156,21 @@ const testimonials = huntsvilleTestimonials.map(t => ({
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Huntsville Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving all Huntsville neighborhoods</p>
-          <form id="location-quote-form">
-            <div class="mb-4">
-              <label for="loc-name" class="sr-only">Your Name</label>
-              <input type="text" id="loc-name" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-email" class="sr-only">Email Address</label>
-              <input type="email" id="loc-email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-phone" class="sr-only">Phone Number</label>
-              <input type="tel" id="loc-phone" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-address" class="sr-only">Address/Neighborhood</label>
-              <input type="text" id="loc-address" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Huntsville Address/Neighborhood" value="Huntsville, Alabama" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-service" class="sr-only">Select Service Type</label>
-              <select id="loc-service" name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
-                <option value="Event Cleaning">Event Cleaning</option>
-                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-              </select>
-            </div>
-            <input type="hidden" name="city" value="Huntsville">
-            <input type="hidden" name="state" value="Alabama">
-            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free Huntsville Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours for Huntsville customers
-            </p>
-            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Huntsville Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving all Huntsville neighborhoods
+          </p>
+          <QuoteForm
+            formId="location-quote-form"
+            city={city}
+            state={state}
+            source={`Location Page - ${city}`}
+          />
         </div>
       </div>
     </div>
@@ -206,64 +212,121 @@ const testimonials = huntsvilleTestimonials.map(t => ({
 
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <div>
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Understanding Rocket City's Unique Community</h3>
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Understanding Rocket City's Unique Community
+          </h3>
           <p class="text-gray-700 mb-4">
-            Huntsville isn't just any city. It's home to Redstone Arsenal, NASA's Marshall Space Flight Center, and the nation's second-largest research park. The Valley Clean Team understands the unique lifestyle of Rocket City residents—from military families managing frequent relocations to aerospace professionals working demanding schedules, from UAH faculty requiring quiet service hours to defense contractors needing security-conscious cleaning teams.
+            Huntsville isn't just any city. It's home to Redstone Arsenal,
+            NASA's Marshall Space Flight Center, and the nation's second-largest
+            research park. The Valley Clean Team understands the unique
+            lifestyle of Rocket City residents—from military families managing
+            frequent relocations to aerospace professionals working demanding
+            schedules, from UAH faculty requiring quiet service hours to defense
+            contractors needing security-conscious cleaning teams.
           </p>
           <p class="text-gray-700 mb-4">
-            As a veteran-owned business, we bring military precision to every estate clean. Our women-led team combines attention to detail with genuine respect for your property. We're not a budget service sending different workers each week. We're your dedicated cleaning partner, learning your preferences and exceeding your expectations consistently.
+            As a veteran-owned business, we bring military precision to every
+            estate clean. Our women-led team combines attention to detail with
+            genuine respect for your property. We're not a budget service
+            sending different workers each week. We're your dedicated cleaning
+            partner, learning your preferences and exceeding your expectations
+            consistently.
           </p>
           <p class="text-gray-700 mb-4">
-            Whether you live in a historic Twickenham antebellum home requiring gentle care, a Hampton Cove golf estate with luxury finishes, or a Monte Sano mountain property with unique cleaning challenges, our team arrives fully equipped with professional-grade supplies and the expertise to handle premium surfaces. We understand that your home is your sanctuary from demanding careers, and we're honored to maintain that peace.
+            Whether you live in a historic Twickenham antebellum home requiring
+            gentle care, a Hampton Cove golf estate with luxury finishes, or a
+            Monte Sano mountain property with unique cleaning challenges, our
+            team arrives fully equipped with professional-grade supplies and the
+            expertise to handle premium surfaces. We understand that your home
+            is your sanctuary from demanding careers, and we're honored to
+            maintain that peace.
           </p>
           <p class="text-gray-700">
-            We accommodate the schedules of busy professionals with flexible booking including early mornings, evenings, weekends, and same-day service when needed. Security clearance awareness means we respect confidentiality for home offices and sensitive work areas. Military discounts honor those who serve our nation.
+            We accommodate the schedules of busy professionals with flexible
+            booking including early mornings, evenings, weekends, and same-day
+            service when needed. Security clearance awareness means we respect
+            confidentiality for home offices and sensitive work areas. Military
+            discounts honor those who serve our nation.
           </p>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">The Valley Clean Team Difference</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            The Valley Clean Team Difference
+          </h3>
           <ul class="space-y-4">
             <li class="flex items-start">
               <Icon name="medal" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Veteran-Owned Excellence</span>
-                <p class="text-gray-600 text-sm">Military discipline meets luxury service standards</p>
+                <span class="font-semibold text-[#333333]"
+                  >Veteran-Owned Excellence</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Military discipline meets luxury service standards
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="shield-alt" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="shield-alt"
+                class="w-6 h-6 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">$2 Million Insurance Coverage</span>
-                <p class="text-gray-600 text-sm">Complete protection for high-end properties and estates</p>
+                <span class="font-semibold text-[#333333]"
+                  >$2 Million Insurance Coverage</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Complete protection for high-end properties and estates
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="user-check" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="user-check"
+                class="w-6 h-6 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">Background-Checked Team</span>
-                <p class="text-gray-600 text-sm">Security-conscious screening for defense contractor homes</p>
+                <span class="font-semibold text-[#333333]"
+                  >Background-Checked Team</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Security-conscious screening for defense contractor homes
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="clock" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Flexible Scheduling</span>
-                <p class="text-gray-600 text-sm">Accommodating aerospace and defense work schedules</p>
+                <span class="font-semibold text-[#333333]"
+                  >Flexible Scheduling</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Accommodating aerospace and defense work schedules
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="home" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Historic Home Expertise</span>
-                <p class="text-gray-600 text-sm">Specialized care for Twickenham antebellum properties</p>
+                <span class="font-semibold text-[#333333]"
+                  >Historic Home Expertise</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Specialized care for Twickenham antebellum properties
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="award" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Women-Led Business</span>
-                <p class="text-gray-600 text-sm">Supporting local female entrepreneurship in Rocket City</p>
+                <span class="font-semibold text-[#333333]"
+                  >Women-Led Business</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Supporting local female entrepreneurship in Rocket City
+                </p>
               </div>
             </li>
           </ul>
@@ -280,37 +343,59 @@ const testimonials = huntsvilleTestimonials.map(t => ({
           Huntsville Neighborhoods We Serve
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Premium cleaning services throughout Madison County</p>
+        <p class="text-xl text-gray-600">
+          Premium cleaning services throughout Madison County
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- The Ledges -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="mountain" class="w-5 h-5 text-[#FFA985] mr-2" />The Ledges
+            <Icon name="mountain" class="w-5 h-5 text-[#FFA985] mr-2" />The
+            Ledges
           </h3>
           <p class="text-gray-700">
-            This prestigious golf community features estate homes with breathtaking mountain views and luxury finishes. We understand the high standards expected in The Ledges, providing white-glove service for expansive floor plans, golf course windows requiring streak-free cleaning, and premium hardwood and tile surfaces. Our team respects the privacy and tranquility of this exclusive community.
+            This prestigious golf community features estate homes with
+            breathtaking mountain views and luxury finishes. We understand the
+            high standards expected in The Ledges, providing white-glove service
+            for expansive floor plans, golf course windows requiring streak-free
+            cleaning, and premium hardwood and tile surfaces. Our team respects
+            the privacy and tranquility of this exclusive community.
           </p>
         </div>
 
         <!-- Hampton Cove -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="golf-ball" class="w-5 h-5 text-[#FFA985] mr-2" />Hampton Cove
+            <Icon name="golf-ball" class="w-5 h-5 text-[#FFA985] mr-2" />Hampton
+            Cove
           </h3>
           <p class="text-gray-700">
-            Home to the renowned Robert Trent Jones Golf Trail, Hampton Cove estates demand exceptional care. We specialize in cleaning luxury properties with vaulted ceilings, floor-to-ceiling windows showcasing golf course views, gourmet kitchens with high-end appliances, and spacious master suites. Our service matches the premium lifestyle this community represents.
+            Home to the renowned Robert Trent Jones Golf Trail, Hampton Cove
+            estates demand exceptional care. We specialize in cleaning luxury
+            properties with vaulted ceilings, floor-to-ceiling windows
+            showcasing golf course views, gourmet kitchens with high-end
+            appliances, and spacious master suites. Our service matches the
+            premium lifestyle this community represents.
           </p>
         </div>
 
         <!-- Twickenham Historic District -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Twickenham Historic District
+            <Icon
+              name="landmark"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Twickenham Historic District
           </h3>
           <p class="text-gray-700">
-            Huntsville's treasure of antebellum architecture requires specialized cleaning expertise. Our team is trained in caring for original hardwood floors, antique fixtures, historic moldings, and delicate architectural details. We use pH-neutral, non-abrasive products that preserve these irreplaceable homes while achieving pristine cleanliness. Historic preservation meets modern standards.
+            Huntsville's treasure of antebellum architecture requires
+            specialized cleaning expertise. Our team is trained in caring for
+            original hardwood floors, antique fixtures, historic moldings, and
+            delicate architectural details. We use pH-neutral, non-abrasive
+            products that preserve these irreplaceable homes while achieving
+            pristine cleanliness. Historic preservation meets modern standards.
           </p>
         </div>
 
@@ -320,7 +405,12 @@ const testimonials = huntsvilleTestimonials.map(t => ({
             <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Jones Valley
           </h3>
           <p class="text-gray-700">
-            This established neighborhood is home to growing families and professionals who value consistent, reliable service. We provide flexible scheduling for busy households, thorough cleaning that creates healthy living spaces for children and pets, and the dependability Jones Valley families deserve. Regular service keeps your home effortlessly maintained.
+            This established neighborhood is home to growing families and
+            professionals who value consistent, reliable service. We provide
+            flexible scheduling for busy households, thorough cleaning that
+            creates healthy living spaces for children and pets, and the
+            dependability Jones Valley families deserve. Regular service keeps
+            your home effortlessly maintained.
           </p>
         </div>
 
@@ -330,17 +420,28 @@ const testimonials = huntsvilleTestimonials.map(t => ({
             <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />Monte Sano
           </h3>
           <p class="text-gray-700">
-            Mountain living comes with unique challenges—extra dust from unpaved roads, pollen from surrounding forests, and often larger properties with multiple levels. Our Monte Sano service addresses these specific needs with thorough dusting, window cleaning to showcase mountain views, and attention to outdoor living spaces. We bring valley-level service to the mountain.
+            Mountain living comes with unique challenges—extra dust from unpaved
+            roads, pollen from surrounding forests, and often larger properties
+            with multiple levels. Our Monte Sano service addresses these
+            specific needs with thorough dusting, window cleaning to showcase
+            mountain views, and attention to outdoor living spaces. We bring
+            valley-level service to the mountain.
           </p>
         </div>
 
         <!-- Big Cove -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="house-user" class="w-5 h-5 text-[#FFA985] mr-2" />Big Cove
+            <Icon name="house-user" class="w-5 h-5 text-[#FFA985] mr-2" />Big
+            Cove
           </h3>
           <p class="text-gray-700">
-            Rural luxury estates in Big Cove often feature extensive square footage, acreage properties, and executive home offices for professionals working remotely. We accommodate larger properties with appropriately sized teams, respect confidentiality for home-based defense contractors, and provide the thoroughness expected for premium rural estates.
+            Rural luxury estates in Big Cove often feature extensive square
+            footage, acreage properties, and executive home offices for
+            professionals working remotely. We accommodate larger properties
+            with appropriately sized teams, respect confidentiality for
+            home-based defense contractors, and provide the thoroughness
+            expected for premium rural estates.
           </p>
         </div>
 
@@ -350,17 +451,29 @@ const testimonials = huntsvilleTestimonials.map(t => ({
             <Icon name="city" class="w-5 h-5 text-[#FFA985] mr-2" />Madison
           </h3>
           <p class="text-gray-700">
-            As Huntsville's growing affluent suburb, Madison features newer construction with modern finishes and open floor plans. We're experts in caring for contemporary luxury homes with quartz countertops, stainless appliances, engineered hardwood, and the latest smart home features. Madison families appreciate our reliable scheduling and consistent quality.
+            As Huntsville's growing affluent suburb, Madison features newer
+            construction with modern finishes and open floor plans. We're
+            experts in caring for contemporary luxury homes with quartz
+            countertops, stainless appliances, engineered hardwood, and the
+            latest smart home features. Madison families appreciate our reliable
+            scheduling and consistent quality.
           </p>
         </div>
 
         <!-- Additional Areas -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="map-marked-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Additional Service Areas
+            <Icon
+              name="map-marked-alt"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Additional Service Areas
           </h3>
           <p class="text-gray-700">
-            We also proudly serve Providence, Blossomwood, Five Points, Medical District, West Huntsville, and surrounding Madison County communities. Whether you're near UAH, Cummings Research Park, Bridge Street, or MidCity, our service radius covers your neighborhood. Call 256-826-1100 to confirm service availability.
+            We also proudly serve Providence, Blossomwood, Five Points, Medical
+            District, West Huntsville, and surrounding Madison County
+            communities. Whether you're near UAH, Cummings Research Park, Bridge
+            Street, or MidCity, our service radius covers your neighborhood.
+            Call 256-826-1100 to confirm service availability.
           </p>
         </div>
       </div>
@@ -375,7 +488,9 @@ const testimonials = huntsvilleTestimonials.map(t => ({
           Our {city} Service Area
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Proudly serving {city} and surrounding {region} communities</p>
+        <p class="text-xl text-gray-600">
+          Proudly serving {city} and surrounding {region} communities
+        </p>
       </div>
 
       <LocationGoogleMap
@@ -392,8 +507,12 @@ const testimonials = huntsvilleTestimonials.map(t => ({
         <p class="text-gray-600 mb-4">
           Don't see your area on the map? We may still serve your location.
         </p>
-        <a href="tel:2568261100" class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center">
-          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm: 256-826-1100
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm:
+          256-826-1100
         </a>
       </div>
     </div>
@@ -407,183 +526,324 @@ const testimonials = huntsvilleTestimonials.map(t => ({
           Complete Cleaning Services for Huntsville
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">From regular maintenance to specialized estate services</p>
+        <p class="text-xl text-gray-600">
+          From regular maintenance to specialized estate services
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 mb-12">
         <!-- Deep Cleaning -->
-        <a href="/locations/huntsville/deep-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/deep-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="sparkles" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            The ultimate top-to-bottom estate clean. Popular with Hampton Cove and Ledges properties preparing for events or seasonal refreshes.
+            The ultimate top-to-bottom estate clean. Popular with Hampton Cove
+            and Ledges properties preparing for events or seasonal refreshes.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Regular Cleaning -->
-        <a href="/locations/huntsville/recurring-maid-service" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/recurring-maid-service"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Recurring Maid Service</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Recurring Maid Service
+          </h3>
           <p class="text-gray-700 mb-4">
-            Weekly or bi-weekly service keeps your Huntsville home effortlessly maintained. Perfect for busy aerospace professionals.
+            Weekly or bi-weekly service keeps your Huntsville home effortlessly
+            maintained. Perfect for busy aerospace professionals.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Move In/Out Cleaning -->
-        <a href="/locations/huntsville/move-out-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/move-out-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="truck-moving" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out</h3>
           <p class="text-gray-700 mb-4">
-            Essential for military families PCS-ing from Redstone Arsenal. Secure your deposit when departing.
+            Essential for military families PCS-ing from Redstone Arsenal.
+            Secure your deposit when departing.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Commercial Cleaning -->
-        <a href="/locations/huntsville/commercial-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/commercial-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="building" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Commercial Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Commercial Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Research Park offices, aerospace contractors, medical facilities. After-hours available. Background-checked team.
+            Research Park offices, aerospace contractors, medical facilities.
+            After-hours available. Background-checked team.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Event Cleaning -->
-        <a href="/locations/huntsville/event-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/event-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="glass-cheers" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Event Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            Pre-party prep & post-event cleanup. Game days, corporate events, celebrations. Bundle & save 10-15%.
+            Pre-party prep & post-event cleanup. Game days, corporate events,
+            celebrations. Bundle & save 10-15%.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Green Cleaning -->
-        <a href="/locations/huntsville/green-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/green-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center mb-4"
+          >
             <Icon name="leaf" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Green Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            Eco-friendly, non-toxic cleaning at NO EXTRA COST. Safe for children, pets, and allergies.
+            Eco-friendly, non-toxic cleaning at NO EXTRA COST. Safe for
+            children, pets, and allergies.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Post-Construction -->
-        <a href="/locations/huntsville/post-construction-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/post-construction-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="hammer" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Post-Construction
+          </h3>
           <p class="text-gray-700 mb-4">
-            Completed a renovation? We handle construction dust, debris, and detailed cleaning before move-in.
+            Completed a renovation? We handle construction dust, debris, and
+            detailed cleaning before move-in.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Airbnb Cleaning -->
-        <a href="/locations/huntsville/airbnb-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/airbnb-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="key" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb Turnover</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Airbnb Turnover
+          </h3>
           <p class="text-gray-700 mb-4">
-            Fast, reliable cleaning for vacation rental hosts. Same-day service for tight turnover schedules.
+            Fast, reliable cleaning for vacation rental hosts. Same-day service
+            for tight turnover schedules.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Office Cleaning -->
-        <a href="/locations/huntsville/office-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/office-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="briefcase" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Office Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Office Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Professional office cleaning for executive suites and small businesses. Confidentiality guaranteed.
+            Professional office cleaning for executive suites and small
+            businesses. Confidentiality guaranteed.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Same-Day Cleaning -->
-        <a href="/locations/huntsville/same-day-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/same-day-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="clock" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Same-Day Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Same-Day Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Emergency cleaning when you need it most. Unexpected guests or last-minute showing? We've got Huntsville covered.
+            Emergency cleaning when you need it most. Unexpected guests or
+            last-minute showing? We've got Huntsville covered.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Weekly Cleaning -->
-        <a href="/locations/huntsville/weekly-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/weekly-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="calendar-week" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Weekly Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Weekly Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Consistent weekly service for busy Huntsville families. Keep your home perpetually guest-ready with our weekly maid service.
+            Consistent weekly service for busy Huntsville families. Keep your
+            home perpetually guest-ready with our weekly maid service.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Senior Cleaning -->
-        <a href="/locations/huntsville/senior-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/senior-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="heart" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Senior Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Senior Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Compassionate cleaning services for Huntsville seniors. Flexible scheduling and reliable service for elderly residents.
+            Compassionate cleaning services for Huntsville seniors. Flexible
+            scheduling and reliable service for elderly residents.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Medical Office Cleaning -->
-        <a href="/locations/huntsville/medical-office-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/medical-office-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="stethoscope" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Medical Office Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Medical Office Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Healthcare-grade cleaning for Huntsville clinics and medical practices. OSHA-compliant protocols and after-hours availability.
+            Healthcare-grade cleaning for Huntsville clinics and medical
+            practices. OSHA-compliant protocols and after-hours availability.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Dental Office Cleaning -->
-        <a href="/locations/huntsville/dental-office-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/huntsville/dental-office-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="tooth" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Dental Office Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Dental Office Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Specialized dental practice cleaning in Huntsville. Operatory sanitation, waiting rooms, and clinical-grade disinfection.
+            Specialized dental practice cleaning in Huntsville. Operatory
+            sanitation, waiting rooms, and clinical-grade disinfection.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
       </div>
 
       <div class="text-center">
-        <p class="text-gray-600 mb-4 text-lg">Most popular in Huntsville: Deep Cleaning for luxury estates, Regular Cleaning for busy professionals, Move In/Out for military families</p>
-        <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg">
-          <Icon name="phone" class="w-5 h-5 mr-2" />Book Huntsville Service: 256-826-1100
+        <p class="text-gray-600 mb-4 text-lg">
+          Most popular in Huntsville: Deep Cleaning for luxury estates, Regular
+          Cleaning for busy professionals, Move In/Out for military families
+        </p>
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Book Huntsville Service:
+          256-826-1100
         </a>
       </div>
     </div>
@@ -602,37 +862,60 @@ const testimonials = huntsvilleTestimonials.map(t => ({
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Historic Homes
+            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Historic
+            Homes
           </h3>
           <p class="text-gray-700">
-            Twickenham's antebellum properties and Old Town historic homes receive specialized care. Our team uses gentle, pH-neutral products safe for original hardwood floors, antique fixtures, historic plaster walls, and irreplaceable architectural details. We understand these homes are Huntsville treasures requiring preservation-minded cleaning.
+            Twickenham's antebellum properties and Old Town historic homes
+            receive specialized care. Our team uses gentle, pH-neutral products
+            safe for original hardwood floors, antique fixtures, historic
+            plaster walls, and irreplaceable architectural details. We
+            understand these homes are Huntsville treasures requiring
+            preservation-minded cleaning.
           </p>
         </div>
 
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Modern Estates
+            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Modern
+            Estates
           </h3>
           <p class="text-gray-700">
-            Hampton Cove golf estates, Ledges properties, and Madison luxury homes feature contemporary finishes—quartz countertops, stainless appliances, floor-to-ceiling windows, vaulted ceilings. We're experts in caring for these premium surfaces and achieving the spotless results that match your investment.
+            Hampton Cove golf estates, Ledges properties, and Madison luxury
+            homes feature contemporary finishes—quartz countertops, stainless
+            appliances, floor-to-ceiling windows, vaulted ceilings. We're
+            experts in caring for these premium surfaces and achieving the
+            spotless results that match your investment.
           </p>
         </div>
 
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-2" />Luxury Condos
+            <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-2" />Luxury
+            Condos
           </h3>
           <p class="text-gray-700">
-            Downtown Huntsville and MidCity luxury condominiums require discrete, efficient service. We respect building policies, coordinate with concierge services, and provide the white-glove cleaning urban professionals expect. Flexible scheduling accommodates your lifestyle without disruption.
+            Downtown Huntsville and MidCity luxury condominiums require
+            discrete, efficient service. We respect building policies,
+            coordinate with concierge services, and provide the white-glove
+            cleaning urban professionals expect. Flexible scheduling
+            accommodates your lifestyle without disruption.
           </p>
         </div>
 
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="laptop-house" class="w-5 h-5 text-[#FFA985] mr-2" />Executive Home Offices
+            <Icon
+              name="laptop-house"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Executive Home Offices
           </h3>
           <p class="text-gray-700">
-            Many Huntsville aerospace, defense, and technology professionals maintain home offices requiring confidential treatment. We provide specialized cleaning for work-from-home spaces, respecting sensitive materials and maintaining professionalism. Security clearance awareness is standard for our veteran-owned team.
+            Many Huntsville aerospace, defense, and technology professionals
+            maintain home offices requiring confidential treatment. We provide
+            specialized cleaning for work-from-home spaces, respecting sensitive
+            materials and maintaining professionalism. Security clearance
+            awareness is standard for our veteran-owned team.
           </p>
         </div>
       </div>
@@ -648,7 +931,14 @@ const testimonials = huntsvilleTestimonials.map(t => ({
         </h2>
         <div class="section-divider"></div>
         <div class="flex items-center justify-center gap-2 mt-4">
-          <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png" alt="Google" class="h-6" width="92" height="30" loading="lazy" />
+          <img
+            src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png"
+            alt="Google"
+            class="h-6"
+            width="92"
+            height="30"
+            loading="lazy"
+          />
           <span class="text-xl text-gray-600">Reviews</span>
           <span class="text-[#FFA985] font-bold">4.9</span>
           <div class="text-[#FFA985] text-sm">
@@ -663,32 +953,42 @@ const testimonials = huntsvilleTestimonials.map(t => ({
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial) => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
-                {testimonial.initial}
-              </div>
-              <div class="ml-4">
-                <p class="font-bold">{testimonial.name}</p>
-                <p class="text-sm text-gray-600">{testimonial.area}</p>
-                <div class="text-[#FFA985]">
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
+        {
+          testimonials.map((testimonial) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                  {testimonial.initial}
+                </div>
+                <div class="ml-4">
+                  <p class="font-bold">{testimonial.name}</p>
+                  <p class="text-sm text-gray-600">{testimonial.area}</p>
+                  <div class="text-[#FFA985]">
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                  </div>
                 </div>
               </div>
+              <p class="text-gray-700">"{testimonial.text}"</p>
             </div>
-            <p class="text-gray-700">"{testimonial.text}"</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <div class="text-center mt-8">
-        <a href="https://www.google.com/maps?cid=2354162289321042477" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
-          <Icon name="google" class="w-5 h-5 mr-2" />Read All Huntsville Reviews <Icon name="external-link-alt" class="w-4 h-4 ml-2" />
+        <a
+          href="https://www.google.com/maps?cid=2354162289321042477"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center text-[#FFA985] font-semibold hover:underline"
+        >
+          <Icon name="google" class="w-5 h-5 mr-2" />Read All Huntsville Reviews <Icon
+            name="external-link-alt"
+            class="w-4 h-4 ml-2"
+          />
         </a>
       </div>
     </div>
@@ -702,39 +1002,63 @@ const testimonials = huntsvilleTestimonials.map(t => ({
           Huntsville Cleaning Service FAQs
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Common questions from Rocket City residents</p>
+        <p class="text-xl text-gray-600">
+          Common questions from Rocket City residents
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section id="contact" class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+  <section
+    id="contact"
+    class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100"
+  >
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
         Book Your Huntsville Consultation Today
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Join hundreds of satisfied Huntsville families and estates who trust The Valley Clean Team for premium white-glove cleaning services.
+        Join hundreds of satisfied Huntsville families and estates who trust The
+        Valley Clean Team for premium white-glove cleaning services.
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
         </a>
-        <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+        <a
+          href="mailto:hello@thevalleycleanteam.com"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
           <Icon name="envelope" class="w-5 h-5 mr-2" />Email for Quote
         </a>
       </div>
@@ -742,80 +1066,40 @@ const testimonials = huntsvilleTestimonials.map(t => ({
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <p class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </p>
-            <p class="text-gray-600">All Huntsville neighborhoods, Madison, and surrounding Madison County</p>
+            <p class="text-gray-600">
+              All Huntsville neighborhoods, Madison, and surrounding Madison
+              County
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </p>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </p>
-            <p class="text-gray-600">256-826-1100<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              256-826-1100<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
       <div class="mt-8">
         <p class="text-sm text-gray-500">
-          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led | $2M Insured | Background-Checked Team | Military Discounts Available
+          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led
+          | $2M Insured | Background-Checked Team | Military Discounts Available
         </p>
       </div>
     </div>
   </section>
-
-  
-  <script>
-    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('location-submit-btn');
-      const messageDiv = document.getElementById('location-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        state: form.state?.value || '',
-        source: 'Location Page - Huntsville',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll be in touch within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Get My Free Huntsville Quote';
-    });
-  </script>
 </BaseLayout>

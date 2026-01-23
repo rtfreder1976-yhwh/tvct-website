@@ -1,94 +1,105 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "Do you serve all of Tanner and the surrounding area?",
-    answer: "Yes! We serve all of Tanner and the surrounding Limestone County communities between Athens and Decatur. Whether you're near Tanner High School, out in the more rural areas, or anywhere in between, our team covers the entire area with the same quality service."
+    answer:
+      "Yes! We serve all of Tanner and the surrounding Limestone County communities between Athens and Decatur. Whether you're near Tanner High School, out in the more rural areas, or anywhere in between, our team covers the entire area with the same quality service.",
   },
   {
-    question: "What makes Valley Clean Team different from other cleaning services?",
-    answer: "We're veteran-owned, fully insured, and we send the same team to your home every visit. Your cleaners learn your home, your preferences, and your family. No revolving door of strangers - just consistent, reliable service from people you can trust. We also use family-safe, pet-friendly products."
+    question:
+      "What makes Valley Clean Team different from other cleaning services?",
+    answer:
+      "We're veteran-owned, fully insured, and we send the same team to your home every visit. Your cleaners learn your home, your preferences, and your family. No revolving door of strangers - just consistent, reliable service from people you can trust. We also use family-safe, pet-friendly products.",
   },
   {
     question: "Do you offer commercial cleaning for Tanner businesses?",
-    answer: "Absolutely! We provide commercial cleaning services for Tanner businesses of all sizes. From offices to retail spaces to medical facilities, we can clean after hours or on weekends to avoid disrupting your operations. We offer daily, weekly, or monthly commercial cleaning schedules."
+    answer:
+      "Absolutely! We provide commercial cleaning services for Tanner businesses of all sizes. From offices to retail spaces to medical facilities, we can clean after hours or on weekends to avoid disrupting your operations. We offer daily, weekly, or monthly commercial cleaning schedules.",
   },
   {
     question: "How much does house cleaning in Tanner cost?",
-    answer: "Pricing depends on your home's size, condition, and the type of service you need. Most Tanner homes range from $120-$250 for regular maintenance cleaning. We provide free, no-obligation quotes over the phone - just call 256-826-1100 and we'll give you an accurate estimate in minutes."
+    answer:
+      "Pricing depends on your home's size, condition, and the type of service you need. Most Tanner homes range from $120-$250 for regular maintenance cleaning. We provide free, no-obligation quotes over the phone - just call 256-826-1100 and we'll give you an accurate estimate in minutes.",
   },
   {
     question: "Do you offer recurring cleaning schedules?",
-    answer: "Yes! Most of our Tanner clients choose weekly or bi-weekly cleaning. Recurring clients get preferred pricing and scheduling priority. You'll have the same team each visit on the same day, so you always know when to expect us. It's the easiest way to keep your home consistently clean."
+    answer:
+      "Yes! Most of our Tanner clients choose weekly or bi-weekly cleaning. Recurring clients get preferred pricing and scheduling priority. You'll have the same team each visit on the same day, so you always know when to expect us. It's the easiest way to keep your home consistently clean.",
   },
   {
     question: "What's included in a regular cleaning?",
-    answer: "Our regular maintenance cleaning covers all living areas, bedrooms, bathrooms, and kitchen. We dust, vacuum, mop, clean counters, scrub bathrooms, and tidy up. We focus on high-traffic areas that need regular attention. For a deeper clean including baseboards, ceiling fans, and inside appliances, ask about our deep cleaning service."
+    answer:
+      "Our regular maintenance cleaning covers all living areas, bedrooms, bathrooms, and kitchen. We dust, vacuum, mop, clean counters, scrub bathrooms, and tidy up. We focus on high-traffic areas that need regular attention. For a deeper clean including baseboards, ceiling fans, and inside appliances, ask about our deep cleaning service.",
   },
   {
     question: "Can you clean offices and retail spaces in Tanner?",
-    answer: "Yes, we provide janitorial services for offices, retail stores, and other commercial spaces in Tanner. We understand that a clean business environment is essential for employees and customers. We work around your schedule and can clean evenings, early mornings, or weekends."
+    answer:
+      "Yes, we provide janitorial services for offices, retail stores, and other commercial spaces in Tanner. We understand that a clean business environment is essential for employees and customers. We work around your schedule and can clean evenings, early mornings, or weekends.",
   },
   {
     question: "How do I schedule a cleaning?",
-    answer: "Easy! Just call us at 256-826-1100 or fill out the form on this page. We'll discuss your needs, give you a quote, and schedule your first cleaning. Most clients can get on the schedule within a few days. Need same-day service? We'll do our best to accommodate you."
-  }
+    answer:
+      "Easy! Just call us at 256-826-1100 or fill out the form on this page. We'll discuss your needs, give you a quote, and schedule your first cleaning. Most clients can get on the schedule within a few days. Need same-day service? We'll do our best to accommodate you.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "House Cleaning Services",
-  "provider": {
+  serviceType: "House Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Athens",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Athens",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$"
+    priceRange: "$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Tanner, Alabama",
-    "geo": {
+    name: "Tanner, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "34.7315",
-      "longitude": "-86.9706"
+      latitude: "34.7315",
+      longitude: "-86.9706",
     },
-    "address": {
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Tanner",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
+      addressLocality: "Tanner",
+      addressRegion: "AL",
+      addressCountry: "US",
+    },
   },
-  "description": "Trusted cleaning service in Tanner, Alabama. House cleaning, maid service, and commercial cleaning for Limestone County families and businesses.",
-  "offers": {
+  description:
+    "Trusted cleaning service in Tanner, Alabama. House cleaning, maid service, and commercial cleaning for Limestone County families and businesses.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -101,23 +112,33 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Limestone County
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Limestone
+              County
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            Trusted Cleaning Service in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Tanner</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            Trusted Cleaning Service in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Tanner</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Quality cleaning for Tanner homes and businesses. Located between Athens and Decatur, we're perfectly positioned to serve your cleaning needs. From growing families to local businesses, we keep Tanner spaces spotless.
+            Quality cleaning for Tanner homes and businesses. Located between
+            Athens and Decatur, we're perfectly positioned to serve your
+            cleaning needs. From growing families to local businesses, we keep
+            Tanner spaces spotless.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -138,11 +159,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -151,52 +180,25 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> FREE QUOTE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Proudly serving Tanner families & businesses</p>
-          <form id="tanner-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Commercial Cleaning">Commercial Cleaning</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home/Office Size *</option>
-                <option value="Under 1,500 sq ft">Under 1,500 sq ft</option>
-                <option value="1,500 - 2,500 sq ft">1,500 - 2,500 sq ft</option>
-                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
-                <option value="Over 3,500 sq ft">Over 3,500 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (pets, special requests, etc.)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="tanner-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Licensed, bonded & insured
-            </p>
-            <div id="tanner-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Proudly serving Tanner families & businesses
+          </p>
+          <QuoteForm
+            formId="tanner-form"
+            city="Tanner"
+            state="Alabama"
+            serviceName="General Cleaning"
+            source="Tanner Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -208,49 +210,100 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Cleaning Services for<br>Tanner Living
+            Cleaning Services for<br />Tanner Living
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Tanner is an unincorporated community in Limestone County, strategically located between Athens and Decatur. Home to Tanner High School and its proud community, this growing area offers the best of both worlds - rural charm with easy access to two thriving cities.
+            Tanner is an unincorporated community in Limestone County,
+            strategically located between Athens and Decatur. Home to Tanner
+            High School and its proud community, this growing area offers the
+            best of both worlds - rural charm with easy access to two thriving
+            cities.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            The area features a unique mix of working farmland and suburban development. Whether you live on a spacious country lot or in one of the newer subdivisions, we understand the diverse cleaning needs of Tanner properties. From mud rooms to formal living spaces, we've got you covered.
+            The area features a unique mix of working farmland and suburban
+            development. Whether you live on a spacious country lot or in one of
+            the newer subdivisions, we understand the diverse cleaning needs of
+            Tanner properties. From mud rooms to formal living spaces, we've got
+            you covered.
           </p>
           <p class="text-lg text-gray-700">
-            You chose Tanner for the space, the community, and the convenience. Let us help you enjoy it more by handling the cleaning. The Valley Clean Team brings professional cleaning services right to your door, so you can focus on family, work, and making the most of your time.
+            You chose Tanner for the space, the community, and the convenience.
+            Let us help you enjoy it more by handling the cleaning. The Valley
+            Clean Team brings professional cleaning services right to your door,
+            so you can focus on family, work, and making the most of your time.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Why Tanner Residents Choose Us:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Why Tanner Residents Choose Us:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Convenient location</strong> - serving Athens to Decatur corridor</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Convenient location</strong> - serving Athens to Decatur
+                corridor</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Same team</strong> every visit - familiar faces you trust</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Same team</strong> every visit - familiar faces you trust</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Flexible scheduling</strong> that works for your life</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Flexible scheduling</strong> that works for your life</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Pet-friendly</strong> products safe for your animals</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Pet-friendly</strong> products safe for your animals</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Veteran-owned</strong> with military attention to detail</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Veteran-owned</strong> with military attention to detail</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Fully insured</strong> for your peace of mind</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Fully insured</strong> for your peace of mind</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Residential & commercial</strong> services available</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Residential & commercial</strong> services available</span
+              >
             </li>
           </ul>
         </div>
@@ -266,43 +319,99 @@ const serviceSchema = {
           Residential Cleaning in Tanner
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Quality house cleaning and maid service for Tanner families</p>
+        <p class="text-xl text-gray-600">
+          Quality house cleaning and maid service for Tanner families
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <Icon name="redo" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Regular Cleaning</h3>
-          <p class="text-gray-600 mb-4">Weekly or bi-weekly cleaning keeps your Tanner home consistently fresh. Same team, same day each week. Perfect for busy families who want to come home to a clean house.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Regular Cleaning
+          </h3>
+          <p class="text-gray-600 mb-4">
+            Weekly or bi-weekly cleaning keeps your Tanner home consistently
+            fresh. Same team, same day each week. Perfect for busy families who
+            want to come home to a clean house.
+          </p>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />All rooms cleaned</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Bathrooms scrubbed</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Kitchen detailed</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Floors vacuumed & mopped</li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />All rooms
+              cleaned
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Bathrooms
+              scrubbed
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Kitchen
+              detailed
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Floors
+              vacuumed & mopped
+            </li>
           </ul>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <Icon name="sparkles" class="w-12 h-12 text-[#FFA985] mb-4" />
           <h3 class="text-xl font-bold text-[#333333] mb-3">Deep Cleaning</h3>
-          <p class="text-gray-600 mb-4">Top-to-bottom detailed cleaning for your entire home. Great for seasonal refresh, first-time service, or preparing for guests. We tackle the areas regular cleaning doesn't reach.</p>
+          <p class="text-gray-600 mb-4">
+            Top-to-bottom detailed cleaning for your entire home. Great for
+            seasonal refresh, first-time service, or preparing for guests. We
+            tackle the areas regular cleaning doesn't reach.
+          </p>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Baseboards & ceiling fans</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Inside appliances</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Window tracks & blinds</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Cabinet fronts</li>
+            <li class="flex items-center">
+              <Icon
+                name="check"
+                class="w-4 h-4 text-green-500 mr-2"
+              />Baseboards & ceiling fans
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Inside
+              appliances
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Window
+              tracks & blinds
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Cabinet
+              fronts
+            </li>
           </ul>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <Icon name="truck" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Move In/Out Cleaning</h3>
-          <p class="text-gray-600 mb-4">Complete cleaning for empty homes. Whether you're moving to Tanner or relocating, we ensure the property is spotless from top to bottom.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Move In/Out Cleaning
+          </h3>
+          <p class="text-gray-600 mb-4">
+            Complete cleaning for empty homes. Whether you're moving to Tanner
+            or relocating, we ensure the property is spotless from top to
+            bottom.
+          </p>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Empty home deep clean</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />All cabinets & closets</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Appliance interiors</li>
-            <li class="flex items-center"><Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Windows & fixtures</li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Empty
+              home deep clean
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />All
+              cabinets & closets
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Appliance
+              interiors
+            </li>
+            <li class="flex items-center">
+              <Icon name="check" class="w-4 h-4 text-green-500 mr-2" />Windows &
+              fixtures
+            </li>
           </ul>
         </div>
       </div>
@@ -317,31 +426,56 @@ const serviceSchema = {
           Commercial Cleaning in Tanner
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Professional janitorial and office cleaning services</p>
+        <p class="text-xl text-gray-600">
+          Professional janitorial and office cleaning services
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gray-50 rounded-2xl p-8 shadow-lg border border-gray-200">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 shadow-lg border border-gray-200"
+        >
           <Icon name="building" class="w-12 h-12 text-[#FFA985] mb-4" />
           <h3 class="text-xl font-bold text-[#333333] mb-3">Office Cleaning</h3>
-          <p class="text-gray-600">Daily, weekly, or monthly office cleaning for Tanner businesses. We work around your schedule - evenings and weekends available.</p>
+          <p class="text-gray-600">
+            Daily, weekly, or monthly office cleaning for Tanner businesses. We
+            work around your schedule - evenings and weekends available.
+          </p>
         </div>
 
-        <div class="bg-gray-50 rounded-2xl p-8 shadow-lg border border-gray-200">
+        <div
+          class="bg-gray-50 rounded-2xl p-8 shadow-lg border border-gray-200"
+        >
           <Icon name="store" class="w-12 h-12 text-[#FFA985] mb-4" />
           <h3 class="text-xl font-bold text-[#333333] mb-3">Retail Cleaning</h3>
-          <p class="text-gray-600">Keep your Tanner storefront spotless for customers. Floor care, window cleaning, restroom sanitation, and more.</p>
+          <p class="text-gray-600">
+            Keep your Tanner storefront spotless for customers. Floor care,
+            window cleaning, restroom sanitation, and more.
+          </p>
         </div>
 
-        <div class="bg-gray-50 rounded-2xl p-8 shadow-lg border border-gray-200">
-          <Icon name="briefcase-medical" class="w-12 h-12 text-[#FFA985] mb-4" />
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Medical Office Cleaning</h3>
-          <p class="text-gray-600">OSHA-compliant cleaning for Tanner medical and dental practices. Proper sanitization protocols for healthcare environments.</p>
+        <div
+          class="bg-gray-50 rounded-2xl p-8 shadow-lg border border-gray-200"
+        >
+          <Icon
+            name="briefcase-medical"
+            class="w-12 h-12 text-[#FFA985] mb-4"
+          />
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Medical Office Cleaning
+          </h3>
+          <p class="text-gray-600">
+            OSHA-compliant cleaning for Tanner medical and dental practices.
+            Proper sanitization protocols for healthcare environments.
+          </p>
         </div>
       </div>
 
       <div class="text-center mt-12">
-        <a href="tel:2568261100" class="btn-primary inline-block px-8 py-4 rounded-full text-lg font-semibold">
+        <a
+          href="tel:2568261100"
+          class="btn-primary inline-block px-8 py-4 rounded-full text-lg font-semibold"
+        >
           Get Commercial Quote
         </a>
       </div>
@@ -359,52 +493,101 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-friends" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Time</h3>
-          <p class="text-gray-600">No strangers in your home. Your dedicated cleaning team learns your preferences and treats your home with care. Consistency you can count on.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same Team Every Time
+          </h3>
+          <p class="text-gray-600">
+            No strangers in your home. Your dedicated cleaning team learns your
+            preferences and treats your home with care. Consistency you can
+            count on.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="medal" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran Owned</h3>
-          <p class="text-gray-600">Military discipline meets Southern hospitality. We show up on time, do the job right, and stand behind our work. Values you can count on.</p>
+          <p class="text-gray-600">
+            Military discipline meets Southern hospitality. We show up on time,
+            do the job right, and stand behind our work. Values you can count
+            on.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="paw" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Pet Friendly</h3>
-          <p class="text-gray-600">Many Tanner homes have dogs, cats, and farm animals. We use safe products and work comfortably around your pets.</p>
+          <p class="text-gray-600">
+            Many Tanner homes have dogs, cats, and farm animals. We use safe
+            products and work comfortably around your pets.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="shield-alt" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Fully Insured</h3>
-          <p class="text-gray-600">Licensed, bonded, and insured for your protection. Background-checked team members you can trust in your home or business.</p>
+          <p class="text-gray-600">
+            Licensed, bonded, and insured for your protection.
+            Background-checked team members you can trust in your home or
+            business.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="dollar-sign" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Fair Pricing</h3>
-          <p class="text-gray-600">Honest, upfront pricing with no hidden fees. We quote what we charge, and we stand behind our estimates.</p>
+          <p class="text-gray-600">
+            Honest, upfront pricing with no hidden fees. We quote what we
+            charge, and we stand behind our estimates.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="clock" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Flexible Scheduling</h3>
-          <p class="text-gray-600">We work around your schedule, not the other way around. Early morning, afternoon, or weekend appointments available.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Flexible Scheduling
+          </h3>
+          <p class="text-gray-600">
+            We work around your schedule, not the other way around. Early
+            morning, afternoon, or weekend appointments available.
+          </p>
         </div>
       </div>
     </div>
@@ -423,7 +606,9 @@ const serviceSchema = {
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               E
             </div>
             <div>
@@ -432,20 +617,44 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+            "Cindy and Stephanie are very impressive technicians. My home smells
+            so good and is very clean. I am very hard to please when it comes to
+            my home - they met every expectation!"
           </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               K
             </div>
             <div>
@@ -454,14 +663,36 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "The team was incredibly professional and personable. They did an absolutely thorough deep clean, paying attention to every detail. Every room was left shining!"
+            "The team was incredibly professional and personable. They did an
+            absolutely thorough deep clean, paying attention to every detail.
+            Every room was left shining!"
           </p>
         </div>
       </div>
@@ -479,17 +710,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-gray-50 rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-gray-50 rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -501,19 +740,34 @@ const serviceSchema = {
         Also Serving Nearby Communities
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/athens" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/athens"
+          class="neighborhood-badge block text-center"
+        >
           Athens
         </a>
-        <a href="/locations/athens/elkmont" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/athens/elkmont"
+          class="neighborhood-badge block text-center"
+        >
           Elkmont
         </a>
-        <a href="/locations/athens/east-limestone" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/athens/east-limestone"
+          class="neighborhood-badge block text-center"
+        >
           East Limestone
         </a>
-        <a href="/locations/athens/belle-mina" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/athens/belle-mina"
+          class="neighborhood-badge block text-center"
+        >
           Belle Mina
         </a>
-        <a href="/locations/athens/clements" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/athens/clements"
+          class="neighborhood-badge block text-center"
+        >
           Clements
         </a>
         <a href="/locations" class="neighborhood-badge block text-center">
@@ -527,72 +781,25 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Ready for a <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Cleaner Space?</span>
+        Ready for a <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Cleaner Space?</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Join your Tanner neighbors who trust Valley Clean Team for quality cleaning services. Call now for your free, no-obligation quote.
+        Join your Tanner neighbors who trust Valley Clean Team for quality
+        cleaning services. Call now for your free, no-obligation quote.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Free quotes • Flexible scheduling • Satisfaction guaranteed
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Free quotes • Flexible
+        scheduling • Satisfaction guaranteed
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('tanner-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('tanner-submit-btn');
-      const messageDiv = document.getElementById('tanner-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Tanner - Athens',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Tanner Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = 'Thank you! We\'ll call you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = 'Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

@@ -1,94 +1,106 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-
-import Icon from '../../../components/Icon.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "What areas of Big Cove do you serve?",
-    answer: "We serve all of the Big Cove community including homes along Big Cove Road, properties near Monte Sano State Park's eastern boundary, the Dug Hill Road area, and rural acreage throughout southeast Madison County. Whether you're in a neighborhood subdivision or on a private multi-acre estate, we bring the same premium service to every Big Cove residence."
+    answer:
+      "We serve all of the Big Cove community including homes along Big Cove Road, properties near Monte Sano State Park's eastern boundary, the Dug Hill Road area, and rural acreage throughout southeast Madison County. Whether you're in a neighborhood subdivision or on a private multi-acre estate, we bring the same premium service to every Big Cove residence.",
   },
   {
     question: "How do you handle homes on larger properties with acreage?",
-    answer: "Many Big Cove homes sit on 2-10+ acres of land. While we focus on interior cleaning, we understand that rural properties have unique considerations - mudrooms that get heavy use, multiple entry points, and the dust that comes with country living. We're experienced cleaning larger homes on rural properties and can accommodate the extra time these estates require."
+    answer:
+      "Many Big Cove homes sit on 2-10+ acres of land. While we focus on interior cleaning, we understand that rural properties have unique considerations - mudrooms that get heavy use, multiple entry points, and the dust that comes with country living. We're experienced cleaning larger homes on rural properties and can accommodate the extra time these estates require.",
   },
   {
     question: "Can you work around our horses, livestock, or farm operations?",
-    answer: "Absolutely! Big Cove is known for its equestrian properties and hobby farms. We're comfortable working on properties with horses, chickens, goats, and other animals. We'll focus on your home while respecting your land and livestock. Just let us know about any special considerations regarding your property."
+    answer:
+      "Absolutely! Big Cove is known for its equestrian properties and hobby farms. We're comfortable working on properties with horses, chickens, goats, and other animals. We'll focus on your home while respecting your land and livestock. Just let us know about any special considerations regarding your property.",
   },
   {
-    question: "Do you serve homes with workshops, barns converted to living space, or guest houses?",
-    answer: "Yes! Many Big Cove properties include additional structures - barn apartments, converted workshops, mother-in-law suites, or guest houses. We can include these spaces in your service. We'll discuss all the structures you want cleaned during your initial consultation and quote accordingly."
+    question:
+      "Do you serve homes with workshops, barns converted to living space, or guest houses?",
+    answer:
+      "Yes! Many Big Cove properties include additional structures - barn apartments, converted workshops, mother-in-law suites, or guest houses. We can include these spaces in your service. We'll discuss all the structures you want cleaned during your initial consultation and quote accordingly.",
   },
   {
     question: "How do you handle travel to rural Big Cove properties?",
-    answer: "Big Cove's rural location is part of its charm. Our teams regularly serve properties throughout the area and are comfortable navigating country roads and private lanes. Travel time to your property is factored into our scheduling to ensure your cleaning team arrives on time and has adequate time to thoroughly clean your home."
+    answer:
+      "Big Cove's rural location is part of its charm. Our teams regularly serve properties throughout the area and are comfortable navigating country roads and private lanes. Travel time to your property is factored into our scheduling to ensure your cleaning team arrives on time and has adequate time to thoroughly clean your home.",
   },
   {
     question: "What about homes with well water or septic systems?",
-    answer: "Many Big Cove homes use well water and septic systems. We're mindful of these systems when cleaning - using appropriate water quantities and septic-safe products. We understand rural infrastructure and clean accordingly. Your home gets pristine without concerns about system strain."
+    answer:
+      "Many Big Cove homes use well water and septic systems. We're mindful of these systems when cleaning - using appropriate water quantities and septic-safe products. We understand rural infrastructure and clean accordingly. Your home gets pristine without concerns about system strain.",
   },
   {
-    question: "Can you accommodate homes with security systems, gates, or long driveways?",
-    answer: "Certainly! Rural properties often have gates, security systems, and lengthy driveways. We'll work out access arrangements that suit your security preferences - gate codes, key boxes, or coordination with your arrival. We respect your privacy and property security while ensuring reliable service."
+    question:
+      "Can you accommodate homes with security systems, gates, or long driveways?",
+    answer:
+      "Certainly! Rural properties often have gates, security systems, and lengthy driveways. We'll work out access arrangements that suit your security preferences - gate codes, key boxes, or coordination with your arrival. We respect your privacy and property security while ensuring reliable service.",
   },
   {
-    question: "Do you offer services for vacation properties or second homes in Big Cove?",
-    answer: "Yes! Some Big Cove properties serve as weekend retreats or vacation homes. We offer pre-arrival cleaning so your country escape is ready when you arrive, and departure cleaning to leave it pristine. We can coordinate with property caretakers and provide condition reports if needed."
-  }
+    question:
+      "Do you offer services for vacation properties or second homes in Big Cove?",
+    answer:
+      "Yes! Some Big Cove properties serve as weekend retreats or vacation homes. We offer pre-arrival cleaning so your country escape is ready when you arrive, and departure cleaning to leave it pristine. We can coordinate with property caretakers and provide condition reports if needed.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Premium Residential Cleaning Services",
-  "provider": {
+  serviceType: "Premium Residential Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$$"
+    priceRange: "$$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Big Cove - Huntsville, Alabama",
-    "geo": {
+    name: "Big Cove - Huntsville, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "34.6673",
-      "longitude": "-86.4889"
+      latitude: "34.6673",
+      longitude: "-86.4889",
     },
-    "address": {
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
+    },
   },
-  "description": "Professional house cleaning services for Big Cove rural estates and country homes. Serving properties with acreage, equestrian estates, and luxury country living.",
-  "offers": {
+  description:
+    "Professional house cleaning services for Big Cove rural estates and country homes. Serving properties with acreage, equestrian estates, and luxury country living.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -102,23 +114,34 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
               <Icon name="horse" class="w-5 h-5 mr-2" />Big Cove Rural Living
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            Premium House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Big Cove</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            Premium House Cleaning in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Big Cove</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Big Cove offers the rare combination of rural privacy and Huntsville proximity. Sprawling estates, equestrian properties, and country homes on acreage deserve cleaning service that understands rural luxury. We bring professional care to your country retreat, handling the unique needs of homes surrounded by land, horses, and open skies.
+            Big Cove offers the rare combination of rural privacy and Huntsville
+            proximity. Sprawling estates, equestrian properties, and country
+            homes on acreage deserve cleaning service that understands rural
+            luxury. We bring professional care to your country retreat, handling
+            the unique needs of homes surrounded by land, horses, and open
+            skies.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -139,11 +162,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -152,53 +183,18 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving Big Cove estates and country homes</p>
-          <form id="bigcove-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Post-Construction">Post-Construction</option>
-                <option value="Estate/Large Property">Estate/Large Property Service</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,500 sq ft">Under 2,500 sq ft</option>
-                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
-                <option value="3,500 - 5,000 sq ft">3,500 - 5,000 sq ft</option>
-                <option value="5,000 - 7,000 sq ft">5,000 - 7,000 sq ft</option>
-                <option value="Over 7,000 sq ft">Over 7,000 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (acreage, additional structures, gate access, etc.)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="bigcove-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Licensed, bonded & insured
-            </p>
-            <div id="bigcove-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <QuoteForm
+            formId="bigcove-form"
+            city="Big Cove"
+            state="AL"
+            source="Location Page - Big Cove"
+          />
         </div>
       </div>
     </div>
@@ -210,56 +206,120 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Cleaning Excellence for<br>Big Cove Country Living
+            Cleaning Excellence for<br />Big Cove Country Living
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Big Cove represents Huntsville's premier rural residential community - a vast area of rolling hills, pastureland, and wooded estates east of the city and south of Hampton Cove. Here, successful professionals and families have found the perfect balance: country privacy with suburban accessibility. Properties range from $300,000 to well over $700,000, with many estates on significant acreage.
+            Big Cove represents Huntsville's premier rural residential community
+            - a vast area of rolling hills, pastureland, and wooded estates east
+            of the city and south of Hampton Cove. Here, successful
+            professionals and families have found the perfect balance: country
+            privacy with suburban accessibility. Properties range from $300,000
+            to well over $700,000, with many estates on significant acreage.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            This is horse country. Equestrian properties dot the landscape with pastures, barns, and riding arenas. Hobby farms raise everything from chickens to cattle. Garden enthusiasts cultivate extensive landscapes. And families simply enjoy the space that only rural living provides - room for children to roam, room for workshops and hobbies, room to breathe.
+            This is horse country. Equestrian properties dot the landscape with
+            pastures, barns, and riding arenas. Hobby farms raise everything
+            from chickens to cattle. Garden enthusiasts cultivate extensive
+            landscapes. And families simply enjoy the space that only rural
+            living provides - room for children to roam, room for workshops and
+            hobbies, room to breathe.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            Big Cove homes reflect their rural setting. Custom builds often exceed 3,000 square feet with features suited for country life: large mudrooms, spacious garages, wraparound porches, and living spaces oriented toward pastoral views. Many properties include guest houses, workshops, or converted barn spaces. The quality of construction matches the quality of the lifestyle.
+            Big Cove homes reflect their rural setting. Custom builds often
+            exceed 3,000 square feet with features suited for country life:
+            large mudrooms, spacious garages, wraparound porches, and living
+            spaces oriented toward pastoral views. Many properties include guest
+            houses, workshops, or converted barn spaces. The quality of
+            construction matches the quality of the lifestyle.
           </p>
           <p class="text-lg text-gray-700">
-            Country living brings unique cleaning challenges. Dirt roads mean dust. Acreage means multiple entry points tracking in nature. Animals mean extra attention to certain areas. The Valley Clean Team understands Big Cove's specific needs and brings service tailored for rural estate living. Your country home deserves the same premium care as any Huntsville luxury property.
+            Country living brings unique cleaning challenges. Dirt roads mean
+            dust. Acreage means multiple entry points tracking in nature.
+            Animals mean extra attention to certain areas. The Valley Clean Team
+            understands Big Cove's specific needs and brings service tailored
+            for rural estate living. Your country home deserves the same premium
+            care as any Huntsville luxury property.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Big Cove Property Features:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Big Cove Property Features:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Properties on 2-10+ acres</strong> of land</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Properties on 2-10+ acres</strong> of land</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>3,000-7,000+ sq ft</strong> custom homes</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>3,000-7,000+ sq ft</strong> custom homes</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Equestrian facilities</strong> and horse barns</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Equestrian facilities</strong> and horse barns</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Guest houses</strong> and additional structures</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Guest houses</strong> and additional structures</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Large mudrooms</strong> and utility areas</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Large mudrooms</strong> and utility areas</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Wraparound porches</strong> and country views</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Wraparound porches</strong> and country views</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Well water and septic</strong> systems</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Well water and septic</strong> systems</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Private drives</strong> and gated entries</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Private drives</strong> and gated entries</span
+              >
             </li>
           </ul>
         </div>
@@ -275,56 +335,129 @@ const serviceSchema = {
           Why Big Cove Residents Choose Us
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Rural estate expertise for country properties</p>
+        <p class="text-xl text-gray-600">
+          Rural estate expertise for country properties
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Large Estate Experience</h3>
-          <p class="text-gray-600">Big Cove properties aren't typical suburban homes. We're experienced with 5,000+ square foot estates, multiple levels, and the expansive layouts common in rural custom builds. Our teams bring adequate staff and time to thoroughly clean larger properties without rushing through any space.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Large Estate Experience
+          </h3>
+          <p class="text-gray-600">
+            Big Cove properties aren't typical suburban homes. We're experienced
+            with 5,000+ square foot estates, multiple levels, and the expansive
+            layouts common in rural custom builds. Our teams bring adequate
+            staff and time to thoroughly clean larger properties without rushing
+            through any space.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="horse" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Farm & Horse Property Friendly</h3>
-          <p class="text-gray-600">We're comfortable on working properties with horses, livestock, and farm operations. Your animals won't bother us, and we understand the mudroom and entry demands of equestrian life. We focus on your home while respecting your land and the rural lifestyle you've chosen.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Farm & Horse Property Friendly
+          </h3>
+          <p class="text-gray-600">
+            We're comfortable on working properties with horses, livestock, and
+            farm operations. Your animals won't bother us, and we understand the
+            mudroom and entry demands of equestrian life. We focus on your home
+            while respecting your land and the rural lifestyle you've chosen.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="leaf" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Country Cleaning Expertise</h3>
-          <p class="text-gray-600">Rural living means dealing with dust from gravel roads, nature tracking in through multiple doors, and seasonal challenges. We understand these ongoing issues and address them effectively. Regular maintenance keeps your country home pristine despite the challenges of acreage living.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Country Cleaning Expertise
+          </h3>
+          <p class="text-gray-600">
+            Rural living means dealing with dust from gravel roads, nature
+            tracking in through multiple doors, and seasonal challenges. We
+            understand these ongoing issues and address them effectively.
+            Regular maintenance keeps your country home pristine despite the
+            challenges of acreage living.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="building" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Additional Structure Service</h3>
-          <p class="text-gray-600">Guest houses, converted barns, mother-in-law suites, workshops with living space - Big Cove properties often include multiple structures. We can include these in your service. Tell us about all the spaces you need cleaned and we'll provide comprehensive care for your entire property.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Additional Structure Service
+          </h3>
+          <p class="text-gray-600">
+            Guest houses, converted barns, mother-in-law suites, workshops with
+            living space - Big Cove properties often include multiple
+            structures. We can include these in your service. Tell us about all
+            the spaces you need cleaned and we'll provide comprehensive care for
+            your entire property.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="route" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Rural Access Ready</h3>
-          <p class="text-gray-600">Our teams navigate Big Cove's country roads and private lanes without issue. Gate codes, long driveways, and rural locations are no problem. We build travel time into our scheduling and arrive ready to work. Your location shouldn't limit your access to premium cleaning service.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Rural Access Ready
+          </h3>
+          <p class="text-gray-600">
+            Our teams navigate Big Cove's country roads and private lanes
+            without issue. Gate codes, long driveways, and rural locations are
+            no problem. We build travel time into our scheduling and arrive
+            ready to work. Your location shouldn't limit your access to premium
+            cleaning service.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="shield-alt" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Privacy & Security Respected</h3>
-          <p class="text-gray-600">Rural properties often prioritize privacy and security. We work with your security preferences - gates, cameras, access protocols. Our teams are background-checked and understand discretion. Your country sanctuary's privacy is protected, and you control exactly how we access your property.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Privacy & Security Respected
+          </h3>
+          <p class="text-gray-600">
+            Rural properties often prioritize privacy and security. We work with
+            your security preferences - gates, cameras, access protocols. Our
+            teams are background-checked and understand discretion. Your country
+            sanctuary's privacy is protected, and you control exactly how we
+            access your property.
+          </p>
         </div>
       </div>
     </div>
@@ -341,83 +474,155 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
-          <p class="text-gray-600 mb-6">Our most popular service for Big Cove full-time residents. Weekly or bi-weekly cleaning maintains your country estate despite the ongoing challenges of rural living. Same team each visit who learns your home and property.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Regular Maintenance Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Our most popular service for Big Cove full-time residents. Weekly or
+            bi-weekly cleaning maintains your country estate despite the ongoing
+            challenges of rural living. Same team each visit who learns your
+            home and property.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Complete interior cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Mudroom and entry focus</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All living areas and bedrooms</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Preferred rates for recurring service</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Get Started
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
-          <p class="text-gray-600 mb-6">Comprehensive cleaning for your entire estate. Perfect for seasonal refresh, spring cleaning after a long winter, or preparing for visitors. We tackle accumulated dust and every detail throughout your country home.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Deep Cleaning Service
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Comprehensive cleaning for your entire estate. Perfect for seasonal
+            refresh, spring cleaning after a long winter, or preparing for
+            visitors. We tackle accumulated dust and every detail throughout
+            your country home.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Everything in regular clean PLUS</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Baseboards, ceiling fans, fixtures</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Interior windows and tracks</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Detailed attention throughout</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Book Deep Clean
           </a>
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="home" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Estate & Multi-Structure Service</h3>
-          <p class="text-gray-600 mb-6">For Big Cove properties with guest houses, barn apartments, or additional living spaces. We clean your main residence plus additional structures, providing comprehensive care for your entire estate.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Estate & Multi-Structure Service
+          </h3>
+          <p class="text-gray-600 mb-6">
+            For Big Cove properties with guest houses, barn apartments, or
+            additional living spaces. We clean your main residence plus
+            additional structures, providing comprehensive care for your entire
+            estate.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Main residence cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Guest house or apartment</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Converted barn spaces</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Custom pricing for your property</span>
             </li>
           </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
+          <a
+            href="tel:2568261100"
+            class="btn-primary w-full text-center py-3 rounded-lg font-semibold"
+          >
             Get Estate Quote
           </a>
         </div>
@@ -438,7 +643,9 @@ const serviceSchema = {
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               P
             </div>
             <div>
@@ -447,20 +654,44 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."
+            "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3
+            story home in a highly efficient and effective manner. I would not
+            hesitate to recommend the service to others."
           </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               E
             </div>
             <div>
@@ -469,14 +700,36 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "Cindy and Stephanie are very impressive technicians. My home smells so good and is very clean. I am very hard to please when it comes to my home - they met every expectation!"
+            "Cindy and Stephanie are very impressive technicians. My home smells
+            so good and is very clean. I am very hard to please when it comes to
+            my home - they met every expectation!"
           </p>
         </div>
       </div>
@@ -494,17 +747,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -516,19 +777,34 @@ const serviceSchema = {
         Also Serving Nearby Communities
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/huntsville/hampton-cove" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville/hampton-cove"
+          class="neighborhood-badge block text-center"
+        >
           Hampton Cove
         </a>
-        <a href="/locations/huntsville/owens-cross-roads" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville/owens-cross-roads"
+          class="neighborhood-badge block text-center"
+        >
           Owens Cross Roads
         </a>
-        <a href="/locations/huntsville/monte-sano" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville/monte-sano"
+          class="neighborhood-badge block text-center"
+        >
           Monte Sano
         </a>
-        <a href="/locations/huntsville" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville"
+          class="neighborhood-badge block text-center"
+        >
           Downtown Huntsville
         </a>
-        <a href="/locations/huntsville/jones-valley" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/huntsville/jones-valley"
+          class="neighborhood-badge block text-center"
+        >
           Jones Valley
         </a>
         <a href="/locations" class="neighborhood-badge block text-center">
@@ -542,72 +818,26 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Enjoy Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Country Estate</span>
+        Enjoy Your <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Country Estate</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        You chose Big Cove for space, privacy, and the country lifestyle. Let us handle the cleaning while you enjoy your land, your horses, and your rural retreat. Call now for your free estate quote.
+        You chose Big Cove for space, privacy, and the country lifestyle. Let us
+        handle the cleaning while you enjoy your land, your horses, and your
+        rural retreat. Call now for your free estate quote.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Flexible scheduling | Rural property specialists
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Flexible scheduling |
+        Rural property specialists
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('bigcove-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('bigcove-submit-btn');
-      const messageDiv = document.getElementById('bigcove-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Big Cove - Huntsville',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Big Cove Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll call you within 2 hours with your quote.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote';
-      }
-    });
-  </script>
 </BaseLayout>

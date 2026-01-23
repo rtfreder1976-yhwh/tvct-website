@@ -1,93 +1,111 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
-import TrustBadges from '../../components/TrustBadges.astro';
-import Icon from '../../components/Icon.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import TrustBadges from "../../components/TrustBadges.astro";
+import Icon from "../../components/Icon.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
 
-const title = "Compassionate Cleaning | No Judgment Home Reset | Valley Clean Team";
-const description = "Overwhelmed by mess? No judgment here. Compassionate cleaning for depression, ADHD, life transitions & overwhelming situations. Discreet, kind service. We've got this.";
+const title =
+  "Compassionate Cleaning | No Judgment Home Reset | Valley Clean Team";
+const description =
+  "Overwhelmed by mess? No judgment here. Compassionate cleaning for depression, ADHD, life transitions & overwhelming situations. Discreet, kind service. We've got this.";
 
 // Service schema
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "Compassionate Home Cleaning Service",
-  "alternateName": ["No Judgment Cleaning", "Depression Cleaning", "Overwhelm Reset Cleaning"],
-  "description": "Compassionate, judgment-free cleaning service for homes that need extra help. Specializing in overwhelming situations including depression, ADHD, life transitions, elderly assistance, and homes that have gotten away from their owners. Discreet, kind, and thorough.",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "256-826-1100",
-    "email": "hello@thevalleycleanteam.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
-  },
-  "areaServed": [
-    { "@type": "State", "name": "Alabama" },
-    { "@type": "State", "name": "Tennessee" }
+  name: "Compassionate Home Cleaning Service",
+  alternateName: [
+    "No Judgment Cleaning",
+    "Depression Cleaning",
+    "Overwhelm Reset Cleaning",
   ],
-  "serviceType": "Compassionate Home Cleaning"
+  description:
+    "Compassionate, judgment-free cleaning service for homes that need extra help. Specializing in overwhelming situations including depression, ADHD, life transitions, elderly assistance, and homes that have gotten away from their owners. Discreet, kind, and thorough.",
+  provider: {
+    "@type": "LocalBusiness",
+    name: "The Valley Clean Team",
+    telephone: "256-826-1100",
+    email: "hello@thevalleycleanteam.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Huntsville",
+      addressRegion: "AL",
+      addressCountry: "US",
+    },
+  },
+  areaServed: [
+    { "@type": "State", name: "Alabama" },
+    { "@type": "State", name: "Tennessee" },
+  ],
+  serviceType: "Compassionate Home Cleaning",
 };
 
 // FAQ Schema - AEO optimized for AI citation
 const faqs = [
   {
     question: "Do you judge messy houses?",
-    answer: "Absolutely not. The Valley Clean Team was founded on the belief that 'Life is messy. We've got this.' We understand that overwhelming messes happen to good people - depression, illness, caregiving responsibilities, demanding jobs, ADHD, grief, new babies, or simply life getting away from you. We've seen it all, we don't judge, and we're here to help without any shame or embarrassment. Our team is trained in compassionate service, not just cleaning."
+    answer:
+      "Absolutely not. The Valley Clean Team was founded on the belief that 'Life is messy. We've got this.' We understand that overwhelming messes happen to good people - depression, illness, caregiving responsibilities, demanding jobs, ADHD, grief, new babies, or simply life getting away from you. We've seen it all, we don't judge, and we're here to help without any shame or embarrassment. Our team is trained in compassionate service, not just cleaning.",
   },
   {
     question: "Can you help with depression cleaning?",
-    answer: "Yes. Depression can make even basic tasks feel impossible, and when cleaning falls behind, the mess itself can worsen depression - creating a painful cycle. We provide compassionate, non-judgmental cleaning that helps break that cycle. We work at your comfort level, respect your space and privacy, and understand that this isn't about laziness - it's about being human. Many clients tell us getting their home reset was a turning point in their mental health journey."
+    answer:
+      "Yes. Depression can make even basic tasks feel impossible, and when cleaning falls behind, the mess itself can worsen depression - creating a painful cycle. We provide compassionate, non-judgmental cleaning that helps break that cycle. We work at your comfort level, respect your space and privacy, and understand that this isn't about laziness - it's about being human. Many clients tell us getting their home reset was a turning point in their mental health journey.",
   },
   {
     question: "What is a 'home reset' cleaning?",
-    answer: "A home reset is our compassionate deep cleaning service for homes that have become overwhelming. Unlike regular cleaning, we don't assume your home has been maintained - we start from wherever you are and transform your space into a fresh start. This includes decluttering assistance (with your guidance), deep cleaning all surfaces, organizing, and creating a clean foundation you can maintain. It's a judgment-free reset button for your home."
+    answer:
+      "A home reset is our compassionate deep cleaning service for homes that have become overwhelming. Unlike regular cleaning, we don't assume your home has been maintained - we start from wherever you are and transform your space into a fresh start. This includes decluttering assistance (with your guidance), deep cleaning all surfaces, organizing, and creating a clean foundation you can maintain. It's a judgment-free reset button for your home.",
   },
   {
     question: "How much does compassionate cleaning cost?",
-    answer: "Compassionate cleaning is quoted individually because every situation is different. We never charge by the hour for these jobs - you'll know your exact price upfront with no surprises. Generally, home reset cleanings range from $400-$1,200+ depending on home size and condition. We can also create payment plans if needed. The price you see is the price you pay."
+    answer:
+      "Compassionate cleaning is quoted individually because every situation is different. We never charge by the hour for these jobs - you'll know your exact price upfront with no surprises. Generally, home reset cleanings range from $400-$1,200+ depending on home size and condition. We can also create payment plans if needed. The price you see is the price you pay.",
   },
   {
     question: "Will you tell anyone about the condition of my home?",
-    answer: "Never. Confidentiality is absolute. Our team signs confidentiality agreements, we arrive in unmarked vehicles upon request, and we never discuss client situations outside our team. Your privacy is protected. Many of our compassionate cleaning clients are professionals, parents, and people you'd never suspect struggle with home maintenance - and no one will ever know from us."
+    answer:
+      "Never. Confidentiality is absolute. Our team signs confidentiality agreements, we arrive in unmarked vehicles upon request, and we never discuss client situations outside our team. Your privacy is protected. Many of our compassionate cleaning clients are professionals, parents, and people you'd never suspect struggle with home maintenance - and no one will ever know from us.",
   },
   {
     question: "Can you help with hoarding situations?",
-    answer: "We can help with cluttered and overwhelming homes, but clinical hoarding situations often require specialized support beyond cleaning. If your home has significant hoarding, we recommend connecting with a hoarding specialist or therapist first. We're happy to work alongside mental health professionals or after therapeutic intervention to help with the cleaning portion. For moderate clutter and overwhelm that doesn't rise to clinical hoarding, we're here to help."
+    answer:
+      "We can help with cluttered and overwhelming homes, but clinical hoarding situations often require specialized support beyond cleaning. If your home has significant hoarding, we recommend connecting with a hoarding specialist or therapist first. We're happy to work alongside mental health professionals or after therapeutic intervention to help with the cleaning portion. For moderate clutter and overwhelm that doesn't rise to clinical hoarding, we're here to help.",
   },
   {
     question: "Do you help elderly people who can't keep up with cleaning?",
-    answer: "Yes, and this is close to our hearts. Many elderly clients struggle to maintain their homes due to mobility issues, energy limitations, or simply aging. We provide compassionate, respectful service that helps seniors maintain dignity and independence in their homes. We work gently, communicate clearly, and treat your loved ones the way we'd want our own grandparents treated."
+    answer:
+      "Yes, and this is close to our hearts. Many elderly clients struggle to maintain their homes due to mobility issues, energy limitations, or simply aging. We provide compassionate, respectful service that helps seniors maintain dignity and independence in their homes. We work gently, communicate clearly, and treat your loved ones the way we'd want our own grandparents treated.",
   },
   {
     question: "What if I'm embarrassed to let you in?",
-    answer: "We understand, and you're not alone - embarrassment is the #1 reason people delay getting help. But please know: we've seen it all. Truly. Your home won't shock us or change how we treat you. Our team is specifically trained to be warm, non-judgmental, and discreet. Many clients cry with relief during or after our service - not because of the clean home, but because someone finally helped without making them feel worse. You deserve help without shame."
+    answer:
+      "We understand, and you're not alone - embarrassment is the #1 reason people delay getting help. But please know: we've seen it all. Truly. Your home won't shock us or change how we treat you. Our team is specifically trained to be warm, non-judgmental, and discreet. Many clients cry with relief during or after our service - not because of the clean home, but because someone finally helped without making them feel worse. You deserve help without shame.",
   },
   {
     question: "Can you help after illness or surgery recovery?",
-    answer: "Absolutely. When you're recovering from illness, surgery, or medical treatment, cleaning is impossible and coming home to a messy house makes recovery harder. We provide pre-surgery preparation (so you come home to clean) and post-recovery cleanup. We work around your medical equipment, respect your physical limitations, and help create a clean, healing environment."
+    answer:
+      "Absolutely. When you're recovering from illness, surgery, or medical treatment, cleaning is impossible and coming home to a messy house makes recovery harder. We provide pre-surgery preparation (so you come home to clean) and post-recovery cleanup. We work around your medical equipment, respect your physical limitations, and help create a clean, healing environment.",
   },
   {
     question: "Do you work with ADHD clients?",
-    answer: "Yes! ADHD can make home maintenance extraordinarily difficult, even when you desperately want a clean home. Executive function challenges, time blindness, and overwhelm paralysis are real - not character flaws. We provide the external support system that helps bridge the gap. Many of our recurring clients have ADHD and tell us our service gives them the 'reset' their brain needs to function better at home."
-  }
+    answer:
+      "Yes! ADHD can make home maintenance extraordinarily difficult, even when you desperately want a clean home. Executive function challenges, time blindness, and overwhelm paralysis are real - not character flaws. We provide the external support system that helps bridge the gap. Many of our recurring clients have ADHD and tell us our service gives them the 'reset' their brain needs to function better at home.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 // Situations we help with
@@ -95,71 +113,85 @@ const situations = [
   {
     icon: "cloud-rain",
     title: "Depression & Anxiety",
-    description: "When mental health makes everyday tasks impossible, your home can feel like another weight. We help lift that burden without judgment."
+    description:
+      "When mental health makes everyday tasks impossible, your home can feel like another weight. We help lift that burden without judgment.",
   },
   {
     icon: "brain",
     title: "ADHD & Executive Dysfunction",
-    description: "When your brain won't cooperate with your intentions, we provide the external reset that helps you function better in your space."
+    description:
+      "When your brain won't cooperate with your intentions, we provide the external reset that helps you function better in your space.",
   },
   {
     icon: "baby",
     title: "New Parents & Postpartum",
-    description: "A new baby changes everything. We help new parents reclaim their home when there's no time or energy for cleaning."
+    description:
+      "A new baby changes everything. We help new parents reclaim their home when there's no time or energy for cleaning.",
   },
   {
     icon: "heart-crack",
     title: "Grief & Loss",
-    description: "Losing someone you love can make everything feel impossible. We provide gentle help during life's hardest moments."
+    description:
+      "Losing someone you love can make everything feel impossible. We provide gentle help during life's hardest moments.",
   },
   {
     icon: "user-injured",
     title: "Illness & Recovery",
-    description: "Chronic illness, surgery recovery, or medical treatment drains all your energy. We help you heal in a clean environment."
+    description:
+      "Chronic illness, surgery recovery, or medical treatment drains all your energy. We help you heal in a clean environment.",
   },
   {
     icon: "user-clock",
     title: "Elderly & Mobility Issues",
-    description: "When age or mobility makes cleaning difficult, we help seniors maintain dignity and independence in their homes."
+    description:
+      "When age or mobility makes cleaning difficult, we help seniors maintain dignity and independence in their homes.",
   },
   {
     icon: "briefcase",
     title: "Overwhelming Work Demands",
-    description: "When your career consumes all your time and energy, your home pays the price. We help restore balance."
+    description:
+      "When your career consumes all your time and energy, your home pays the price. We help restore balance.",
   },
   {
     icon: "house-crack",
     title: "Life Just Got Away",
-    description: "Sometimes there's no dramatic reason - life just got ahead of you. No explanation needed. We're here to help."
-  }
+    description:
+      "Sometimes there's no dramatic reason - life just got ahead of you. No explanation needed. We're here to help.",
+  },
 ];
 
 // What makes us different
 const ourApproach = [
   {
     title: "Judgment-Free Promise",
-    description: "We will never judge your home, your situation, or you. Our team is trained in compassionate service - not just cleaning techniques. The condition of your home doesn't reflect your worth as a person."
+    description:
+      "We will never judge your home, your situation, or you. Our team is trained in compassionate service - not just cleaning techniques. The condition of your home doesn't reflect your worth as a person.",
   },
   {
     title: "Complete Discretion",
-    description: "Unmarked vehicles available upon request. Confidentiality agreements signed by all staff. We never discuss clients. Your neighbors, family, and friends will never know from us."
+    description:
+      "Unmarked vehicles available upon request. Confidentiality agreements signed by all staff. We never discuss clients. Your neighbors, family, and friends will never know from us.",
   },
   {
     title: "Your Pace, Your Comfort",
-    description: "We work at your comfort level. Need to be present? We'll work around you gently. Need to leave? We'll handle everything. Need to take breaks? No problem. This is your reset."
+    description:
+      "We work at your comfort level. Need to be present? We'll work around you gently. Need to leave? We'll handle everything. Need to take breaks? No problem. This is your reset.",
   },
   {
     title: "Flat-Rate Pricing",
-    description: "No hourly billing that makes you anxious watching the clock. We quote a flat price after understanding your situation - the price you see is the price you pay. Payment plans available."
+    description:
+      "No hourly billing that makes you anxious watching the clock. We quote a flat price after understanding your situation - the price you see is the price you pay. Payment plans available.",
   },
   {
     title: "Clutter Guidance",
-    description: "We can help you make decisions about what to keep, donate, or discard - but only with your explicit guidance. We never throw anything away without your approval. Your belongings are safe with us."
+    description:
+      "We can help you make decisions about what to keep, donate, or discard - but only with your explicit guidance. We never throw anything away without your approval. Your belongings are safe with us.",
   },
   {
     title: "Follow-Up Care",
-    description: "One reset is often not enough. We offer recurring maintenance plans at reduced rates to help you maintain your fresh start. Weekly, bi-weekly, or monthly - whatever helps you thrive."
-  }
+    description:
+      "One reset is often not enough. We offer recurring maintenance plans at reduced rates to help you maintain your fresh start. Weekly, bi-weekly, or monthly - whatever helps you thrive.",
+  },
 ];
 ---
 
@@ -167,40 +199,64 @@ const ourApproach = [
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
-  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#4a5568] to-[#2d3748]">
+  <section
+    class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#4a5568] to-[#2d3748]"
+  >
     <div class="container mx-auto">
       <div class="max-w-4xl mx-auto text-center">
-        <div class="inline-block bg-white/10 backdrop-blur px-6 py-3 rounded-full mb-6">
+        <div
+          class="inline-block bg-white/10 backdrop-blur px-6 py-3 rounded-full mb-6"
+        >
           <span class="text-white font-medium">
-            <Icon name="heart" class="w-5 h-5 mr-2 text-[#FFA985]" />No judgment. Just help.
+            <Icon name="heart" class="w-5 h-5 mr-2 text-[#FFA985]" />No
+            judgment. Just help.
           </span>
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-          Life is messy.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">We've got this.</span>
+        <h1
+          class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+        >
+          Life is messy.<br /><span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+            >We've got this.</span
+          >
         </h1>
         <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-          Overwhelmed? Embarrassed? Struggling to keep up? You're not alone - and you don't have to face it alone. The Valley Clean Team provides compassionate, judgment-free cleaning for homes that need extra help. Whatever brought you here, we're glad you reached out.
+          Overwhelmed? Embarrassed? Struggling to keep up? You're not alone -
+          and you don't have to face it alone. The Valley Clean Team provides
+          compassionate, judgment-free cleaning for homes that need extra help.
+          Whatever brought you here, we're glad you reached out.
         </p>
 
-        <div class="bg-white/10 backdrop-blur rounded-xl p-6 mb-8 max-w-2xl mx-auto">
+        <div
+          class="bg-white/10 backdrop-blur rounded-xl p-6 mb-8 max-w-2xl mx-auto"
+        >
           <p class="text-white text-lg italic">
-            "I cried when I walked in after they finished. Not because of the clean house - but because someone finally helped me without making me feel ashamed."
+            "I cried when I walked in after they finished. Not because of the
+            clean house - but because someone finally helped me without making
+            me feel ashamed."
           </p>
           <p class="text-gray-400 mt-2">— Compassionate Clean client</p>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg text-center transition transform hover:scale-105">
+          <a
+            href="tel:2568261100"
+            class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg text-center transition transform hover:scale-105"
+          >
             <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
           </a>
-          <a href="/#hero-quote-form" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold text-center hover:bg-white hover:text-gray-900 transition">
+          <a
+            href="/#hero-quote-form"
+            class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold text-center hover:bg-white hover:text-gray-900 transition"
+          >
             Request Private Quote
           </a>
         </div>
         <p class="text-gray-400 mt-4 text-sm">
-          <Icon name="lock" class="w-5 h-5 mr-1" />All inquiries are confidential
+          <Icon name="lock" class="w-5 h-5 mr-1" />All inquiries are
+          confidential
         </p>
       </div>
     </div>
@@ -222,20 +278,25 @@ const ourApproach = [
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Life doesn't always go as planned. Whatever brought you here, you deserve help without shame.
+          Life doesn't always go as planned. Whatever brought you here, you
+          deserve help without shame.
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {situations.map(situation => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:shadow-xl hover:border-[#FFA985]/30 transition-all">
-            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985]/20 to-[#FFC67D]/20 flex items-center justify-center mb-4">
-              <Icon name={situation.icon} class="w-6 h-6 text-[#FFA985]" />
+        {
+          situations.map((situation) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200 hover:shadow-xl hover:border-[#FFA985]/30 transition-all">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985]/20 to-[#FFC67D]/20 flex items-center justify-center mb-4">
+                <Icon name={situation.icon} class="w-6 h-6 text-[#FFA985]" />
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-[#333333]">
+                {situation.title}
+              </h3>
+              <p class="text-gray-600 text-sm">{situation.description}</p>
             </div>
-            <h3 class="text-lg font-bold mb-2 text-[#333333]">{situation.title}</h3>
-            <p class="text-gray-600 text-sm">{situation.description}</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -249,17 +310,22 @@ const ourApproach = [
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          We do things differently because your situation deserves more than a standard cleaning service
+          We do things differently because your situation deserves more than a
+          standard cleaning service
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {ourApproach.map(item => (
-          <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-            <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.title}</h3>
-            <p class="text-gray-600">{item.description}</p>
-          </div>
-        ))}
+        {
+          ourApproach.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                {item.title}
+              </h3>
+              <p class="text-gray-600">{item.description}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -273,69 +339,111 @@ const ourApproach = [
             The <span class="gold-gradient">Home Reset</span> Service
           </h2>
           <p class="text-lg text-gray-700 mb-6">
-            Our signature compassionate service for homes that need a fresh start. This isn't regular cleaning - it's a complete transformation designed to give you back your space and your peace of mind.
+            Our signature compassionate service for homes that need a fresh
+            start. This isn't regular cleaning - it's a complete transformation
+            designed to give you back your space and your peace of mind.
           </p>
           <ul class="space-y-4 mb-8">
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Deep clean every surface</strong> - floors, walls, baseboards, fixtures, appliances</span>
+              <Icon
+                name="check-circle"
+                class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Deep clean every surface</strong> - floors, walls, baseboards,
+                fixtures, appliances</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Clutter assistance</strong> - sorting, organizing, donation preparation (with your guidance)</span>
+              <Icon
+                name="check-circle"
+                class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Clutter assistance</strong> - sorting, organizing, donation
+                preparation (with your guidance)</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Kitchen & bathroom restoration</strong> - even heavily neglected spaces</span>
+              <Icon
+                name="check-circle"
+                class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Kitchen & bathroom restoration</strong> - even heavily neglected
+                spaces</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Fresh start organization</strong> - systems you can maintain going forward</span>
+              <Icon
+                name="check-circle"
+                class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Fresh start organization</strong> - systems you can maintain
+                going forward</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Recurring support plan</strong> - optional maintenance to protect your reset</span>
+              <Icon
+                name="check-circle"
+                class="w-6 h-6 text-green-500 mr-3 mt-0.5 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Recurring support plan</strong> - optional maintenance to
+                protect your reset</span
+              >
             </li>
           </ul>
-          <div class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 border border-[#FFA985]/20">
+          <div
+            class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 border border-[#FFA985]/20"
+          >
             <p class="text-gray-700">
-              <strong>Pricing:</strong> Home resets are quoted individually because every situation is different. Generally $400-$1,200+ depending on home size and condition. Flat-rate pricing with no hourly surprises. Payment plans available.
+              <strong>Pricing:</strong> Home resets are quoted individually because
+              every situation is different. Generally $400-$1,200+ depending on home
+              size and condition. Flat-rate pricing with no hourly surprises. Payment
+              plans available.
             </p>
           </div>
         </div>
-        <div class="bg-gradient-to-br from-[#4a5568] to-[#2d3748] rounded-2xl p-8 text-white">
+        <div
+          class="bg-gradient-to-br from-[#4a5568] to-[#2d3748] rounded-2xl p-8 text-white"
+        >
           <h3 class="text-2xl font-bold mb-6">Ready to Reset?</h3>
           <p class="text-gray-300 mb-6">
-            Taking this step takes courage. We promise to meet that courage with compassion, discretion, and genuine help. No judgment. No shame. Just a fresh start.
+            Taking this step takes courage. We promise to meet that courage with
+            compassion, discretion, and genuine help. No judgment. No shame.
+            Just a fresh start.
           </p>
-          <form id="compassionate-form" class="space-y-4">
-            <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required />
-            <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required />
-            <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address" />
-            <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-[#FFA985]" placeholder="Tell us a little about your situation (optional - we'll discuss privately)" rows="3"></textarea>
-            <input type="hidden" name="service" value="Compassionate Clean / Home Reset" />
-            <button type="submit" id="compassionate-submit-btn" class="w-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 py-4 rounded-lg font-semibold transition hover:opacity-90">
-              Request Private Consultation
-            </button>
-            <p class="text-center text-xs text-gray-400">
-              <Icon name="lock" class="w-5 h-5 mr-1" />100% confidential. We'll call you privately.
-            </p>
-            <div id="compassionate-form-message" class="hidden text-center p-4 rounded-lg"></div>
-          </form>
+          <QuoteForm
+            formId="compassionate-quote-form"
+            serviceName="Compassionate Clean"
+            source="Service Page - Compassionate Clean"
+            subtitle="Confidential 2-Hour Response"
+          />
         </div>
       </div>
     </div>
   </section>
 
   <!-- Testimonial Section -->
-  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10">
+  <section
+    class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10"
+  >
     <div class="container mx-auto max-w-4xl">
       <div class="text-center">
         <Icon name="quote-left" class="w-12 h-12 text-[#FFA985] mb-6" />
-        <blockquote class="text-2xl md:text-3xl font-medium text-[#333333] mb-6 italic">
-          "After my husband passed, I couldn't keep up with anything. The house became overwhelming and I was so ashamed. The Valley Clean Team came in without a single look of judgment. They were gentle, kind, and gave me back my home. More importantly, they gave me back some hope."
+        <blockquote
+          class="text-2xl md:text-3xl font-medium text-[#333333] mb-6 italic"
+        >
+          "After my husband passed, I couldn't keep up with anything. The house
+          became overwhelming and I was so ashamed. The Valley Clean Team came
+          in without a single look of judgment. They were gentle, kind, and gave
+          me back my home. More importantly, they gave me back some hope."
         </blockquote>
-        <p class="text-gray-600">— Florence, AL client (name withheld for privacy)</p>
+        <p class="text-gray-600">
+          — Florence, AL client (name withheld for privacy)
+        </p>
       </div>
     </div>
   </section>
@@ -345,24 +453,36 @@ const ourApproach = [
     <div class="container mx-auto max-w-4xl">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Questions About <span class="gold-gradient">Compassionate Cleaning</span>
+          Questions About <span class="gold-gradient"
+            >Compassionate Cleaning</span
+          >
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Honest answers to the questions you might be afraid to ask</p>
+        <p class="text-xl text-gray-600">
+          Honest answers to the questions you might be afraid to ask
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -370,12 +490,16 @@ const ourApproach = [
   <!-- Service Areas -->
   <section class="py-16 px-6 bg-gray-50">
     <div class="container mx-auto text-center">
-      <h3 class="text-2xl font-bold text-[#333333] mb-6">Compassionate Cleaning Available Throughout</h3>
+      <h3 class="text-2xl font-bold text-[#333333] mb-6">
+        Compassionate Cleaning Available Throughout
+      </h3>
       <p class="text-gray-600 mb-4">
-        <strong>Alabama:</strong> Huntsville, Madison, Athens, Decatur, Florence, Muscle Shoals, Birmingham, Mountain Brook
+        <strong>Alabama:</strong> Huntsville, Madison, Athens, Decatur, Florence,
+        Muscle Shoals, Birmingham, Mountain Brook
       </p>
       <p class="text-gray-600 mb-6">
-        <strong>Tennessee:</strong> Nashville, Brentwood, Franklin, Belle Meade, Green Hills
+        <strong>Tennessee:</strong> Nashville, Brentwood, Franklin, Belle Meade, Green
+        Hills
       </p>
       <p class="text-gray-500 text-sm">
         All services are discreet. Unmarked vehicles available upon request.
@@ -387,16 +511,28 @@ const ourApproach = [
   <section class="py-20 px-6 bg-gradient-to-br from-[#4a5568] to-[#2d3748]">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        You Deserve <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Help Without Shame</span>
+        You Deserve <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Help Without Shame</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Taking this step is brave. We promise to honor that bravery with compassion, discretion, and a home you can feel good about again.
+        Taking this step is brave. We promise to honor that bravery with
+        compassion, discretion, and a home you can feel good about again.
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-        <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-10 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-10 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
         </a>
-        <a href="/#hero-quote-form" class="border-2 border-white text-white px-8 py-5 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900 transition">
+        <a
+          href="/#hero-quote-form"
+          class="border-2 border-white text-white px-8 py-5 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-900 transition"
+        >
           Request Private Quote
         </a>
       </div>
@@ -406,53 +542,4 @@ const ourApproach = [
       </p>
     </div>
   </section>
-
-  
-  <script>
-    document.getElementById('compassionate-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('compassionate-submit-btn');
-      const messageDiv = document.getElementById('compassionate-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || 'Compassionate Clean',
-        message: form.message?.value || '',
-        source: 'Compassionate Clean Page',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = 'Thank you for reaching out. We\'ll call you privately within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = 'Something went wrong. Please call us directly at 256-826-1100.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Request Private Consultation';
-    });
-  </script>
 </BaseLayout>

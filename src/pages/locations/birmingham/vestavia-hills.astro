@@ -1,94 +1,107 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import Icon from '../../../components/Icon.astro';
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const faqs = [
   {
     question: "What areas of Vestavia Hills do you serve?",
-    answer: "We serve all of Vestavia Hills and surrounding areas including Liberty Park, Cahaba Heights, Rocky Ridge, Altadena Valley, and neighborhoods throughout the city limits. Whether you live near the Vestavia Hills City Center, along Highway 31, or in the prestigious communities off Dolly Ridge Road, we bring premium cleaning services to every Vestavia Hills residence."
+    answer:
+      "We serve all of Vestavia Hills and surrounding areas including Liberty Park, Cahaba Heights, Rocky Ridge, Altadena Valley, and neighborhoods throughout the city limits. Whether you live near the Vestavia Hills City Center, along Highway 31, or in the prestigious communities off Dolly Ridge Road, we bring premium cleaning services to every Vestavia Hills residence.",
   },
   {
     question: "How do you handle Vestavia Hills homes with multiple levels?",
-    answer: "Many Vestavia Hills homes are built on sloping terrain with multiple levels including finished basements and bonus rooms. We bring adequate staff to thoroughly clean all levels of your home, ensuring no area is overlooked. Our teams are experienced with the split-level and multi-story designs common throughout Vestavia neighborhoods."
+    answer:
+      "Many Vestavia Hills homes are built on sloping terrain with multiple levels including finished basements and bonus rooms. We bring adequate staff to thoroughly clean all levels of your home, ensuring no area is overlooked. Our teams are experienced with the split-level and multi-story designs common throughout Vestavia neighborhoods.",
   },
   {
-    question: "Do you have experience cleaning executive homes in Vestavia Hills?",
-    answer: "Absolutely. Vestavia Hills homes typically range from 2,500 to over 5,000 square feet, and many feature formal living spaces, home offices, media rooms, and expansive master suites. We properly staff and schedule for larger properties, ensuring every room receives thorough attention without rushing through the job."
+    question:
+      "Do you have experience cleaning executive homes in Vestavia Hills?",
+    answer:
+      "Absolutely. Vestavia Hills homes typically range from 2,500 to over 5,000 square feet, and many feature formal living spaces, home offices, media rooms, and expansive master suites. We properly staff and schedule for larger properties, ensuring every room receives thorough attention without rushing through the job.",
   },
   {
     question: "Can you accommodate busy professional and family schedules?",
-    answer: "Yes! Many Vestavia Hills residents are UAB professionals, corporate executives, and busy families with packed schedules. We offer flexible scheduling and can clean while you're at work or during school hours. Most clients provide smart lock or garage code access so they can return home to a spotless house without any scheduling hassles."
+    answer:
+      "Yes! Many Vestavia Hills residents are UAB professionals, corporate executives, and busy families with packed schedules. We offer flexible scheduling and can clean while you're at work or during school hours. Most clients provide smart lock or garage code access so they can return home to a spotless house without any scheduling hassles.",
   },
   {
-    question: "What's included in your regular cleaning service for Vestavia Hills homes?",
-    answer: "Our regular service covers all bedrooms, bathrooms, kitchens, and living areas. We dust all surfaces, vacuum and mop floors, thoroughly clean and sanitize bathrooms, detail kitchens including counters and appliances, and ensure all living spaces are fresh and inviting. For recurring clients, we maintain consistent quality with the same dedicated team each visit."
+    question:
+      "What's included in your regular cleaning service for Vestavia Hills homes?",
+    answer:
+      "Our regular service covers all bedrooms, bathrooms, kitchens, and living areas. We dust all surfaces, vacuum and mop floors, thoroughly clean and sanitize bathrooms, detail kitchens including counters and appliances, and ensure all living spaces are fresh and inviting. For recurring clients, we maintain consistent quality with the same dedicated team each visit.",
   },
   {
     question: "Do you clean home offices and bonus rooms?",
-    answer: "Yes, and this is particularly important for Vestavia Hills clients. Many homes feature dedicated home offices, bonus rooms, and media spaces. We carefully clean around electronics, dust shelving and built-ins, and maintain these areas while being mindful of equipment and documents. Your workspace will be clean and organized."
+    answer:
+      "Yes, and this is particularly important for Vestavia Hills clients. Many homes feature dedicated home offices, bonus rooms, and media spaces. We carefully clean around electronics, dust shelving and built-ins, and maintain these areas while being mindful of equipment and documents. Your workspace will be clean and organized.",
   },
   {
-    question: "How do you handle homes with hardwood floors and specialty surfaces?",
-    answer: "Vestavia Hills homes often feature beautiful hardwood floors, granite countertops, marble bathrooms, and other premium surfaces. Our team is trained to use appropriate cleaning products and techniques for each surface type. We protect your investment while delivering exceptional cleaning results throughout your home."
+    question:
+      "How do you handle homes with hardwood floors and specialty surfaces?",
+    answer:
+      "Vestavia Hills homes often feature beautiful hardwood floors, granite countertops, marble bathrooms, and other premium surfaces. Our team is trained to use appropriate cleaning products and techniques for each surface type. We protect your investment while delivering exceptional cleaning results throughout your home.",
   },
   {
     question: "Can you help prepare our home for entertaining or holidays?",
-    answer: "Absolutely! Vestavia Hills residents frequently host dinners, holiday gatherings, and neighborhood events. Our deep cleaning service gets your home guest-ready, and we offer pre-event and post-event cleaning to handle the extra work that comes with entertaining. Same-day service is often available when you need it most."
-  }
+    answer:
+      "Absolutely! Vestavia Hills residents frequently host dinners, holiday gatherings, and neighborhood events. Our deep cleaning service gets your home guest-ready, and we offer pre-event and post-event cleaning to handle the extra work that comes with entertaining. Same-day service is often available when you need it most.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Premium Residential Cleaning Services",
-  "provider": {
+  serviceType: "Premium Residential Cleaning Services",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
+    name: "The Valley Clean Team",
+    image:
+      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    telephone: "+1-256-826-1100",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Birmingham",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+      addressLocality: "Birmingham",
+      addressRegion: "AL",
+      addressCountry: "US",
     },
-    "priceRange": "$$$"
+    priceRange: "$$$",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Vestavia Hills - Birmingham, Alabama",
-    "geo": {
+    name: "Vestavia Hills - Birmingham, Alabama",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "33.4487",
-      "longitude": "-86.7878"
+      latitude: "33.4487",
+      longitude: "-86.7878",
     },
-    "address": {
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Birmingham",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
+      addressLocality: "Birmingham",
+      addressRegion: "AL",
+      addressCountry: "US",
+    },
   },
-  "description": "Professional house cleaning services for Vestavia Hills executive homes. Regular maintenance, deep cleaning, and specialized services for Birmingham's premier over-the-mountain community.",
-  "offers": {
+  description:
+    "Professional house cleaning services for Vestavia Hills executive homes. Regular maintenance, deep cleaning, and specialized services for Birmingham's premier over-the-mountain community.",
+  offers: {
     "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    availability: "https://schema.org/InStock",
+  },
 };
 ---
 
@@ -102,23 +115,35 @@ const serviceSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-gray-900 font-semibold">
-              <Icon name="mountain" class="w-5 h-5 mr-2" />Birmingham's Premier Over-the-Mountain Community
+              <Icon name="mountain" class="w-5 h-5 mr-2" />Birmingham's Premier
+              Over-the-Mountain Community
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            House Cleaning Services in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Vestavia Hills</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+          >
+            House Cleaning Services in <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+              >Vestavia Hills</span
+            >
           </h1>
           <p class="text-xl text-gray-300 mb-6">
-            Vestavia Hills represents the best of Birmingham's over-the-mountain living. With top-rated schools, beautiful parks, and a thriving community spirit, Vestavia families deserve cleaning services that match their high standards. The Valley Clean Team delivers the reliability, expertise, and meticulous attention that Vestavia Hills homeowners expect.
+            Vestavia Hills represents the best of Birmingham's over-the-mountain
+            living. With top-rated schools, beautiful parks, and a thriving
+            community spirit, Vestavia families deserve cleaning services that
+            match their high standards. The Valley Clean Team delivers the
+            reliability, expertise, and meticulous attention that Vestavia Hills
+            homeowners expect.
           </p>
 
           <div class="grid grid-cols-3 gap-4 mb-8">
@@ -139,11 +164,19 @@ const serviceSchema = {
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="tel:2568261100"
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+            <a
+              href="/booking"
+              class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+            >
               Book Online
             </a>
           </div>
@@ -152,53 +185,25 @@ const serviceSchema = {
         <!-- Contact Form -->
         <div class="bg-white rounded-2xl p-8 shadow-2xl">
           <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+            <span
+              class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+            >
               <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
             </span>
           </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Personalized consultation for Vestavia Hills homes</p>
-          <form id="vestavia-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <select name="service_type" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Select Service *</option>
-                <option value="Regular Cleaning (Weekly/Bi-weekly)">Regular Cleaning (Weekly/Bi-weekly)</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Move In/Out">Move In/Out Cleaning</option>
-                <option value="Post-Construction">Post-Construction</option>
-                <option value="One-Time Cleaning">One-Time Cleaning</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <select name="home_size" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" required>
-                <option value="">Home Size *</option>
-                <option value="Under 2,500 sq ft">Under 2,500 sq ft</option>
-                <option value="2,500 - 3,500 sq ft">2,500 - 3,500 sq ft</option>
-                <option value="3,500 - 4,500 sq ft">3,500 - 4,500 sq ft</option>
-                <option value="4,500 - 5,500 sq ft">4,500 - 5,500 sq ft</option>
-                <option value="Over 5,500 sq ft">Over 5,500 sq ft</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <textarea name="message" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]" placeholder="Additional details (special requests, access info, etc.)" rows="2"></textarea>
-            </div>
-            <button type="submit" id="vestavia-submit-btn" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 w-full py-4 rounded-lg text-lg font-semibold shadow-lg transition hover:opacity-90">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request Consultation
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="lock" class="w-5 h-5 mr-1" /> Your information is secure and confidential
-            </p>
-            <div id="vestavia-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Personalized consultation for Vestavia Hills homes
+          </p>
+          <QuoteForm
+            formId="vestavia-hills-quote-form"
+            city="Vestavia Hills"
+            state="Alabama"
+            serviceName="General Cleaning"
+            source="Vestavia Hills Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -210,56 +215,121 @@ const serviceSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Premium Cleaning for<br>Vestavia Hills Homes
+            Premium Cleaning for<br />Vestavia Hills Homes
           </h2>
           <div class="section-divider" style="margin-left: 0;"></div>
           <p class="text-lg text-gray-700 mb-4">
-            Vestavia Hills stands as one of Birmingham's most desirable communities, consistently ranked among Alabama's best places to live. This thriving over-the-mountain city offers the perfect blend of suburban comfort and urban convenience, with excellent schools, abundant green spaces, and a strong sense of community that makes it ideal for families and professionals alike.
+            Vestavia Hills stands as one of Birmingham's most desirable
+            communities, consistently ranked among Alabama's best places to
+            live. This thriving over-the-mountain city offers the perfect blend
+            of suburban comfort and urban convenience, with excellent schools,
+            abundant green spaces, and a strong sense of community that makes it
+            ideal for families and professionals alike.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            What distinguishes Vestavia Hills from other Birmingham suburbs is its remarkable quality of life. Liberty Park offers world-class recreational facilities, the Cahaba River provides natural beauty along the city's edge, and neighborhoods like Rocky Ridge, Altadena Valley, and those near Wald Park showcase the diverse housing options available. Home values here reflect the exceptional schools, safety, and amenities that residents enjoy.
+            What distinguishes Vestavia Hills from other Birmingham suburbs is
+            its remarkable quality of life. Liberty Park offers world-class
+            recreational facilities, the Cahaba River provides natural beauty
+            along the city's edge, and neighborhoods like Rocky Ridge, Altadena
+            Valley, and those near Wald Park showcase the diverse housing
+            options available. Home values here reflect the exceptional schools,
+            safety, and amenities that residents enjoy.
           </p>
           <p class="text-lg text-gray-700 mb-4">
-            The homes themselves range from well-maintained ranch-style residences to impressive executive estates. Many properties feature open floor plans, hardwood floors throughout, gourmet kitchens, and outdoor living spaces perfect for Birmingham's mild climate. Multi-level homes built into the rolling terrain are common, offering spacious living across finished basements, main floors, and bonus areas above.
+            The homes themselves range from well-maintained ranch-style
+            residences to impressive executive estates. Many properties feature
+            open floor plans, hardwood floors throughout, gourmet kitchens, and
+            outdoor living spaces perfect for Birmingham's mild climate.
+            Multi-level homes built into the rolling terrain are common,
+            offering spacious living across finished basements, main floors, and
+            bonus areas above.
           </p>
           <p class="text-lg text-gray-700">
-            Vestavia Hills residents include UAB physicians and researchers, corporate executives, business owners, and growing families who value education and community. The Valley Clean Team understands these priorities and delivers cleaning services worthy of Vestavia's high standards.
+            Vestavia Hills residents include UAB physicians and researchers,
+            corporate executives, business owners, and growing families who
+            value education and community. The Valley Clean Team understands
+            these priorities and delivers cleaning services worthy of Vestavia's
+            high standards.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Vestavia Hills Home Features:</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20"
+        >
+          <h3 class="text-2xl font-bold text-[#333333] mb-6">
+            Vestavia Hills Home Features:
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>2,500-5,000+ sq ft</strong> executive homes</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>2,500-5,000+ sq ft</strong> executive homes</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Multi-level designs</strong> with finished basements</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Multi-level designs</strong> with finished basements</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Open floor plans</strong> with formal and casual spaces</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Open floor plans</strong> with formal and casual spaces</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Hardwood floors</strong> and premium finishes</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Hardwood floors</strong> and premium finishes</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Home offices</strong> and bonus rooms</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Home offices</strong> and bonus rooms</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Gourmet kitchens</strong> with granite and stainless</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Gourmet kitchens</strong> with granite and stainless</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Spacious master suites</strong> with spa bathrooms</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Spacious master suites</strong> with spa bathrooms</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Outdoor living spaces</strong> and screened porches</span>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0"
+              />
+              <span class="text-gray-700"
+                ><strong>Outdoor living spaces</strong> and screened porches</span
+              >
             </li>
           </ul>
         </div>
@@ -275,56 +345,124 @@ const serviceSchema = {
           Why Vestavia Hills Chooses Us
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Trusted service for Birmingham's most discerning homeowners</p>
+        <p class="text-xl text-gray-600">
+          Trusted service for Birmingham's most discerning homeowners
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-check" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Thoroughly Vetted Team</h3>
-          <p class="text-gray-600">Every team member passes comprehensive background checks and is trained to our exacting standards. You can trust the people in your home, around your family, and with your belongings. Safety and professionalism are non-negotiable.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Thoroughly Vetted Team
+          </h3>
+          <p class="text-gray-600">
+            Every team member passes comprehensive background checks and is
+            trained to our exacting standards. You can trust the people in your
+            home, around your family, and with your belongings. Safety and
+            professionalism are non-negotiable.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="user-friends" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Visit</h3>
-          <p class="text-gray-600">Consistency matters in Vestavia Hills. You'll have the same dedicated cleaning team every visit who learns your home, understands your preferences, and becomes a trusted part of maintaining your household. No surprises, just reliable excellence.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Same Team Every Visit
+          </h3>
+          <p class="text-gray-600">
+            Consistency matters in Vestavia Hills. You'll have the same
+            dedicated cleaning team every visit who learns your home,
+            understands your preferences, and becomes a trusted part of
+            maintaining your household. No surprises, just reliable excellence.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Large Home Expertise</h3>
-          <p class="text-gray-600">Vestavia Hills homes require teams who understand larger properties. We properly staff and schedule for homes over 3,000 square feet, ensuring every level, every room, and every detail receives thorough attention without rushing.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Large Home Expertise
+          </h3>
+          <p class="text-gray-600">
+            Vestavia Hills homes require teams who understand larger properties.
+            We properly staff and schedule for homes over 3,000 square feet,
+            ensuring every level, every room, and every detail receives thorough
+            attention without rushing.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="leaf" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Family-Safe Products</h3>
-          <p class="text-gray-600">Vestavia Hills families trust us with their homes. We use environmentally responsible cleaning products that are safe for children, pets, and everyone in between while delivering exceptional cleaning results throughout your home.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Family-Safe Products
+          </h3>
+          <p class="text-gray-600">
+            Vestavia Hills families trust us with their homes. We use
+            environmentally responsible cleaning products that are safe for
+            children, pets, and everyone in between while delivering exceptional
+            cleaning results throughout your home.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="clock" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Flexible Scheduling</h3>
-          <p class="text-gray-600">Your time is valuable. We offer flexible scheduling that works around work, school pickups, and family activities. Most Vestavia clients prefer cleaning while kids are at school, returning home to a pristine environment ready for family time.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Flexible Scheduling
+          </h3>
+          <p class="text-gray-600">
+            Your time is valuable. We offer flexible scheduling that works
+            around work, school pickups, and family activities. Most Vestavia
+            clients prefer cleaning while kids are at school, returning home to
+            a pristine environment ready for family time.
+          </p>
         </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <div
+          class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="medal" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran-Owned Values</h3>
-          <p class="text-gray-600">Military discipline meets Southern hospitality. We're punctual, thorough, and treat your home with the respect it deserves. Licensed, bonded, and carrying $2M in liability insurance for complete peace of mind.</p>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Veteran-Owned Values
+          </h3>
+          <p class="text-gray-600">
+            Military discipline meets Southern hospitality. We're punctual,
+            thorough, and treat your home with the respect it deserves.
+            Licensed, bonded, and carrying $2M in liability insurance for
+            complete peace of mind.
+          </p>
         </div>
       </div>
     </div>
@@ -341,79 +479,149 @@ const serviceSchema = {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
-          <p class="text-gray-600 mb-6">Our most popular service for Vestavia Hills families. Weekly or bi-weekly cleaning keeps your home consistently pristine. Same team, same day, same excellence that lets you focus on what matters most.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Regular Maintenance Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Our most popular service for Vestavia Hills families. Weekly or
+            bi-weekly cleaning keeps your home consistently pristine. Same team,
+            same day, same excellence that lets you focus on what matters most.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>All living areas and bedrooms</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Kitchens and bathrooms detailed</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Hardwood and specialty floor care</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Preferred rates for recurring service</span>
             </li>
           </ul>
-          <a href="/locations/birmingham/recurring-maid-service" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/birmingham/recurring-maid-service"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
-          <p class="text-gray-600 mb-6">Comprehensive top-to-bottom cleaning for your entire home. Perfect for seasonal refreshes, before hosting gatherings, or as a first-time service to establish your baseline of cleanliness.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Deep Cleaning Service
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Comprehensive top-to-bottom cleaning for your entire home. Perfect
+            for seasonal refreshes, before hosting gatherings, or as a
+            first-time service to establish your baseline of cleanliness.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Everything in regular clean PLUS</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Baseboards, crown molding, trim</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Interior windows and tracks</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Light fixtures and ceiling fans</span>
             </li>
           </ul>
-          <a href="/locations/birmingham/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/birmingham/deep-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
 
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
+        <div
+          class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200"
+        >
           <Icon name="truck" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
-          <p class="text-gray-600 mb-6">Vestavia Hills properties are in high demand and deserve spotless presentation. Whether you're preparing to sell, welcoming new owners, or moving into your new home, we ensure every detail is perfect.</p>
+          <h3 class="text-2xl font-bold text-[#333333] mb-4">
+            Move In/Out Cleaning
+          </h3>
+          <p class="text-gray-600 mb-6">
+            Vestavia Hills properties are in high demand and deserve spotless
+            presentation. Whether you're preparing to sell, welcoming new
+            owners, or moving into your new home, we ensure every detail is
+            perfect.
+          </p>
           <ul class="space-y-2 mb-6">
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Complete property cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Inside all cabinets and closets</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Appliance interior cleaning</span>
             </li>
             <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
+              <Icon
+                name="check"
+                class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0"
+              />
               <span>Ready for showing or move-in</span>
             </li>
           </ul>
-          <a href="/locations/birmingham/move-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Learn More →</a>
+          <a
+            href="/locations/birmingham/move-out-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline">Learn More →</a
+          >
         </div>
       </div>
     </div>
@@ -432,7 +640,9 @@ const serviceSchema = {
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               S
             </div>
             <div>
@@ -441,20 +651,45 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "With three kids and two dogs, our Vestavia home sees a lot of traffic. The Valley Clean Team keeps up beautifully. They're reliable, thorough, and the same wonderful team shows up every time. It's one less thing I have to worry about."
+            "With three kids and two dogs, our Vestavia home sees a lot of
+            traffic. The Valley Clean Team keeps up beautifully. They're
+            reliable, thorough, and the same wonderful team shows up every time.
+            It's one less thing I have to worry about."
           </p>
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4"
+            >
               D
             </div>
             <div>
@@ -463,14 +698,37 @@ const serviceSchema = {
             </div>
           </div>
           <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
+            <Icon
+              name="star"
+              class="w-5 h-5 text-yellow-400"
+              fill="currentColor"
+            />
           </div>
           <p class="text-gray-700 italic">
-            "Long hours at the hospital mean I don't have time for housekeeping. The Valley Clean Team handles everything. They're flexible with my unpredictable schedule, and I come home to a spotless house. Professional service through and through."
+            "Long hours at the hospital mean I don't have time for housekeeping.
+            The Valley Clean Team handles everything. They're flexible with my
+            unpredictable schedule, and I come home to a spotless house.
+            Professional service through and through."
           </p>
         </div>
       </div>
@@ -488,17 +746,25 @@ const serviceSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -510,22 +776,40 @@ const serviceSchema = {
         Also Serving Nearby Birmingham Communities
       </h3>
       <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/birmingham/homewood" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/homewood"
+          class="neighborhood-badge block text-center"
+        >
           Homewood
         </a>
-        <a href="/locations/birmingham/mountain-brook" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/mountain-brook"
+          class="neighborhood-badge block text-center"
+        >
           Mountain Brook
         </a>
-        <a href="/locations/birmingham/hoover" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/hoover"
+          class="neighborhood-badge block text-center"
+        >
           Hoover
         </a>
-        <a href="/locations/birmingham/cahaba-heights" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/cahaba-heights"
+          class="neighborhood-badge block text-center"
+        >
           Cahaba Heights
         </a>
-        <a href="/locations/birmingham/liberty-park" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham/liberty-park"
+          class="neighborhood-badge block text-center"
+        >
           Liberty Park
         </a>
-        <a href="/locations/birmingham" class="neighborhood-badge block text-center">
+        <a
+          href="/locations/birmingham"
+          class="neighborhood-badge block text-center"
+        >
           All Birmingham Areas
         </a>
       </div>
@@ -536,72 +820,26 @@ const serviceSchema = {
   <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="container mx-auto max-w-3xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Ready for <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Vestavia Hills Quality?</span>
+        Ready for <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+          >Vestavia Hills Quality?</span
+        >
       </h2>
       <p class="text-xl text-gray-300 mb-8">
-        Experience cleaning services that match the standards of your Vestavia Hills home. Reliable, professional, and consistently excellent. Call now for your personalized consultation.
+        Experience cleaning services that match the standards of your Vestavia
+        Hills home. Reliable, professional, and consistently excellent. Call now
+        for your personalized consultation.
       </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
+      <a
+        href="tel:2568261100"
+        class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
         <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
       </a>
       <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service available | 2-hour response guarantee
+        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service
+        available | 2-hour response guarantee
       </p>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('vestavia-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('vestavia-submit-btn');
-      const messageDiv = document.getElementById('vestavia-form-message');
-      const form = e.target as HTMLFormElement;
-      const formData = {
-        name: (form.elements.namedItem('name') as HTMLInputElement)?.value || '',
-        phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value || '',
-        email: (form.elements.namedItem('email') as HTMLInputElement)?.value || '',
-        service: (form.elements.namedItem('service_type') as HTMLSelectElement)?.value || '',
-        location: 'Vestavia Hills - Birmingham',
-        home_size: (form.elements.namedItem('home_size') as HTMLSelectElement)?.value || '',
-        message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '',
-        source: 'Vestavia Hills Landing Page',
-        page_url: window.location.href
-      };
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-      }
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll contact you within 2 hours.';
-            messageDiv.classList.remove('hidden');
-          }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<Icon name="calendar-check" class="w-5 h-5 mr-2" />Request Consultation';
-      }
-    });
-  </script>
 </BaseLayout>

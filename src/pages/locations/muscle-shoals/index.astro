@@ -1,9 +1,10 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../../components/SchemaMarkup.astro';
-import { florenceTestimonials } from '../../../data/testimonials';
-import Icon from '../../../components/Icon.astro';
-import LocationGoogleMap from '../../../components/LocationGoogleMap.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import { florenceTestimonials } from "../../../data/testimonials";
+import Icon from "../../../components/Icon.astro";
+import LocationGoogleMap from "../../../components/LocationGoogleMap.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "Muscle Shoals";
 const state = "Alabama";
@@ -13,7 +14,8 @@ const region = "Colbert County";
 const geoData = {
   region: "US-AL",
   position: "34.7448;-87.6675",
-  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+  image:
+    "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
 };
 
 // Neighborhoods and areas served
@@ -33,51 +35,64 @@ const neighborhoods = [
   "Littleville",
   "Russellville",
   "Rogersville",
-  "Waterloo"
+  "Waterloo",
 ];
 
 // Muscle Shoals-specific FAQs
 const faqs = [
   {
-    question: "Do you clean homes near FAME Recording Studios and the music district?",
-    answer: "Absolutely. We're proud to serve the legendary music district that put Muscle Shoals on the map. Whether you live near FAME Studios on Avalon Avenue, work in the recording industry, or simply appreciate the area's rich musical heritage, we understand the unique character of this community. Our discreet service respects the creative environment while keeping homes pristine."
+    question:
+      "Do you clean homes near FAME Recording Studios and the music district?",
+    answer:
+      "Absolutely. We're proud to serve the legendary music district that put Muscle Shoals on the map. Whether you live near FAME Studios on Avalon Avenue, work in the recording industry, or simply appreciate the area's rich musical heritage, we understand the unique character of this community. Our discreet service respects the creative environment while keeping homes pristine.",
   },
   {
-    question: "Can you handle vacation rental turnovers for Tennessee River properties?",
-    answer: "Yes, vacation rental turnover is one of our specialty services in Muscle Shoals. The Tennessee River and Wilson Lake attract visitors year-round, and we understand the importance of fast, reliable cleaning between guests. We offer same-day service for urgent turnovers, complete linen changes, kitchen and bathroom sanitization, and restocking of supplies. Five-star reviews depend on spotless properties."
+    question:
+      "Can you handle vacation rental turnovers for Tennessee River properties?",
+    answer:
+      "Yes, vacation rental turnover is one of our specialty services in Muscle Shoals. The Tennessee River and Wilson Lake attract visitors year-round, and we understand the importance of fast, reliable cleaning between guests. We offer same-day service for urgent turnovers, complete linen changes, kitchen and bathroom sanitization, and restocking of supplies. Five-star reviews depend on spotless properties.",
   },
   {
     question: "Do you serve all four Quad Cities in The Shoals?",
-    answer: "Yes, we proudly serve all four Quad Cities: Muscle Shoals, Florence, Sheffield, and Tuscumbia. Our service extends throughout Colbert and Lauderdale Counties, from Wilson Dam to the Tennessee River waterfront properties. Whether you're in a historic home near 3614 Jackson Highway or a modern development, we bring the same premium service to every home."
+    answer:
+      "Yes, we proudly serve all four Quad Cities: Muscle Shoals, Florence, Sheffield, and Tuscumbia. Our service extends throughout Colbert and Lauderdale Counties, from Wilson Dam to the Tennessee River waterfront properties. Whether you're in a historic home near 3614 Jackson Highway or a modern development, we bring the same premium service to every home.",
   },
   {
-    question: "What makes your service different for music industry professionals?",
-    answer: "As the Hit Recording Capital of the World, Muscle Shoals attracts musicians, producers, and industry professionals from around the globe. We understand irregular schedules, the need for discretion, and respect for creative spaces. Our team is background-checked, confidentiality-conscious, and can work around recording sessions and studio schedules."
+    question:
+      "What makes your service different for music industry professionals?",
+    answer:
+      "As the Hit Recording Capital of the World, Muscle Shoals attracts musicians, producers, and industry professionals from around the globe. We understand irregular schedules, the need for discretion, and respect for creative spaces. Our team is background-checked, confidentiality-conscious, and can work around recording sessions and studio schedules.",
   },
   {
     question: "Do you clean homes near Wilson Dam and TVA facilities?",
-    answer: "Yes, we serve neighborhoods throughout the Wilson Dam area, including TVA employee housing and nearby communities. We understand the schedules of utility and manufacturing professionals and offer flexible booking to accommodate shift work. Our veteran-owned company appreciates the essential work that powers our region."
+    answer:
+      "Yes, we serve neighborhoods throughout the Wilson Dam area, including TVA employee housing and nearby communities. We understand the schedules of utility and manufacturing professionals and offer flexible booking to accommodate shift work. Our veteran-owned company appreciates the essential work that powers our region.",
   },
   {
-    question: "Can you accommodate Airbnb hosts during peak music tourism seasons?",
-    answer: "Absolutely. Muscle Shoals sees increased tourism during events like FAME's anniversary celebrations, the W.C. Handy Music Festival, and Muscle Shoals documentary pilgrimages. We offer priority scheduling for vacation rental hosts during peak seasons, ensuring your property is guest-ready for music lovers visiting from around the world."
+    question:
+      "Can you accommodate Airbnb hosts during peak music tourism seasons?",
+    answer:
+      "Absolutely. Muscle Shoals sees increased tourism during events like FAME's anniversary celebrations, the W.C. Handy Music Festival, and Muscle Shoals documentary pilgrimages. We offer priority scheduling for vacation rental hosts during peak seasons, ensuring your property is guest-ready for music lovers visiting from around the world.",
   },
   {
     question: "Are you insured to work in waterfront and lakefront homes?",
-    answer: "Yes, we carry $2 million in liability insurance and are fully bonded. Wilson Lake and Tennessee River waterfront properties often feature premium finishes and require extra care. Our team is trained to handle luxury surfaces, from floor-to-ceiling windows showcasing river views to boat docks and outdoor living spaces."
+    answer:
+      "Yes, we carry $2 million in liability insurance and are fully bonded. Wilson Lake and Tennessee River waterfront properties often feature premium finishes and require extra care. Our team is trained to handle luxury surfaces, from floor-to-ceiling windows showcasing river views to boat docks and outdoor living spaces.",
   },
   {
-    question: "Do you offer move-in/move-out cleaning for UNA students and faculty?",
-    answer: "Yes, we serve University of North Alabama students, faculty, and staff throughout The Shoals. Move-in and move-out cleaning is essential for apartment turnovers, rental deposits, and fresh starts. We offer same-day service when available and can coordinate with landlords and property managers for seamless transitions."
-  }
+    question:
+      "Do you offer move-in/move-out cleaning for UNA students and faculty?",
+    answer:
+      "Yes, we serve University of North Alabama students, faculty, and staff throughout The Shoals. Move-in and move-out cleaning is essential for apartment turnovers, rental deposits, and fresh starts. We offer same-day service when available and can coordinate with landlords and property managers for seamless transitions.",
+  },
 ];
 
 // Testimonials - imported from centralized data (using Florence/Shoals reviews)
-const testimonials = florenceTestimonials.map(t => ({
+const testimonials = florenceTestimonials.map((t) => ({
   initial: t.initial,
   name: t.name,
   area: t.source,
-  text: t.text
+  text: t.text,
 }));
 ---
 
@@ -89,24 +104,39 @@ const testimonials = florenceTestimonials.map(t => ({
   geoPlacename={`${city}, ${state}`}
   geoPosition={geoData.position}
 >
-  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
-  
+  <SchemaMarkup
+    type="local"
+    city={city}
+    state={state}
+    neighborhoods={neighborhoods}
+  />
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Hit Recording Capital of the World
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Hit Recording
+              Capital of the World
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Premium Cleaning Services in <span class="gold-gradient">Muscle Shoals, Alabama</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Premium Cleaning Services in <span class="gold-gradient"
+              >Muscle Shoals, Alabama</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            Where Aretha Franklin, The Rolling Stones, and Bob Dylan recorded legendary albums, The Valley Clean Team delivers legendary service. Premium white-glove cleaning for the community that created the Muscle Shoals Sound.
+            Where Aretha Franklin, The Rolling Stones, and Bob Dylan recorded
+            legendary albums, The Valley Clean Team delivers legendary service.
+            Premium white-glove cleaning for the community that created the
+            Muscle Shoals Sound.
           </p>
           <div class="flex flex-wrap items-center lg:items-start gap-4 mb-6">
             <div class="flex items-center text-gray-700">
@@ -118,7 +148,11 @@ const testimonials = florenceTestimonials.map(t => ({
               <span>$2M Insured</span>
             </div>
             <div class="flex items-center text-gray-700">
-              <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />
+              <Icon
+                name="star"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+                fill="currentColor"
+              />
               <span>130+ Five-Star Reviews</span>
             </div>
             <div class="flex items-center text-gray-700">
@@ -126,12 +160,20 @@ const testimonials = florenceTestimonials.map(t => ({
               <span>Women-Led Business</span>
             </div>
           </div>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:2568261100" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:2568261100"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="phone" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">256-826-1100</span>
             </a>
-            <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg">
+            <a
+              href="mailto:hello@thevalleycleanteam.com"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
               <Icon name="envelope" class="w-6 h-6 text-[#FFA985] mr-2" />
               <span class="font-semibold">Email Us</span>
             </a>
@@ -139,49 +181,21 @@ const testimonials = florenceTestimonials.map(t => ({
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Muscle Shoals Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Serving The Shoals & Quad Cities</p>
-          <form id="location-quote-form">
-            <div class="mb-4">
-              <label for="loc-name" class="sr-only">Your Name</label>
-              <input type="text" id="loc-name" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-email" class="sr-only">Email Address</label>
-              <input type="email" id="loc-email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-phone" class="sr-only">Phone Number</label>
-              <input type="tel" id="loc-phone" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-address" class="sr-only">Address/Neighborhood</label>
-              <input type="text" id="loc-address" name="location" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Shoals Address/Neighborhood" value="Muscle Shoals, Alabama" required>
-            </div>
-            <div class="mb-4">
-              <label for="loc-service" class="sr-only">Select Service Type</label>
-              <select id="loc-service" name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-                <option value="Commercial/Office Cleaning">Commercial/Office Cleaning</option>
-                <option value="Event Cleaning">Event Cleaning</option>
-                <option value="Airbnb Cleaning">Airbnb Cleaning</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-              </select>
-            </div>
-            <input type="hidden" name="city" value="Muscle Shoals">
-            <input type="hidden" name="state" value="Alabama">
-            <button type="submit" id="location-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free Shoals Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours for Shoals customers
-            </p>
-            <div id="location-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Muscle Shoals Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Serving The Shoals & Quad Cities
+          </p>
+          <QuoteForm
+            formId="location-quote-form"
+            city={city}
+            state={state}
+            source={`Location Page - ${city}`}
+          />
         </div>
       </div>
     </div>
@@ -223,64 +237,119 @@ const testimonials = florenceTestimonials.map(t => ({
 
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <div>
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">A Community Like No Other</h3>
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            A Community Like No Other
+          </h3>
           <p class="text-gray-700 mb-4">
-            Muscle Shoals isn't just a small Alabama city—it's where American music changed forever. This unassuming community along the Tennessee River became a pilgrimage site for the greatest artists of the 20th century. When Atlantic Records' Jerry Wexler brought Aretha Franklin to FAME Studios in 1967, the "Muscle Shoals Sound" was born—that funky, soulful groove that would define generations of music.
+            Muscle Shoals isn't just a small Alabama city—it's where American
+            music changed forever. This unassuming community along the Tennessee
+            River became a pilgrimage site for the greatest artists of the 20th
+            century. When Atlantic Records' Jerry Wexler brought Aretha Franklin
+            to FAME Studios in 1967, the "Muscle Shoals Sound" was born—that
+            funky, soulful groove that would define generations of music.
           </p>
           <p class="text-gray-700 mb-4">
-            The Swampers—Jimmy Johnson, David Hood, Roger Hawkins, and Barry Beckett—created magic in these studios with everyone from Wilson Pickett and Etta James to The Rolling Stones and Bob Dylan. When Lynyrd Skynyrd sang "Now Muscle Shoals has got the Swampers" in "Sweet Home Alabama," they immortalized what the world already knew: this place is special.
+            The Swampers—Jimmy Johnson, David Hood, Roger Hawkins, and Barry
+            Beckett—created magic in these studios with everyone from Wilson
+            Pickett and Etta James to The Rolling Stones and Bob Dylan. When
+            Lynyrd Skynyrd sang "Now Muscle Shoals has got the Swampers" in
+            "Sweet Home Alabama," they immortalized what the world already knew:
+            this place is special.
           </p>
           <p class="text-gray-700 mb-4">
-            Today, FAME Studios on Avalon Avenue and Muscle Shoals Sound Studio at 3614 Jackson Highway remain working studios and beloved tourist destinations. The 2013 documentary "Muscle Shoals" introduced new generations to this incredible history, drawing visitors from around the world. The Country Music Hall of Fame's 2025 exhibit "Muscle Shoals: Low Rhythm Rising" celebrates this legacy.
+            Today, FAME Studios on Avalon Avenue and Muscle Shoals Sound Studio
+            at 3614 Jackson Highway remain working studios and beloved tourist
+            destinations. The 2013 documentary "Muscle Shoals" introduced new
+            generations to this incredible history, drawing visitors from around
+            the world. The Country Music Hall of Fame's 2025 exhibit "Muscle
+            Shoals: Low Rhythm Rising" celebrates this legacy.
           </p>
           <p class="text-gray-700">
-            The Valley Clean Team is proud to serve this unique community. Whether you're a longtime resident, a music industry professional, a vacation rental host welcoming pilgrims to the birthplace of Southern soul, or a newcomer drawn by the river and the rhythm, we deliver the premium service this legendary community deserves.
+            The Valley Clean Team is proud to serve this unique community.
+            Whether you're a longtime resident, a music industry professional, a
+            vacation rental host welcoming pilgrims to the birthplace of
+            Southern soul, or a newcomer drawn by the river and the rhythm, we
+            deliver the premium service this legendary community deserves.
           </p>
         </div>
 
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">The Valley Clean Team Difference</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            The Valley Clean Team Difference
+          </h3>
           <ul class="space-y-4">
             <li class="flex items-start">
               <Icon name="medal" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Veteran-Owned Excellence</span>
-                <p class="text-gray-600 text-sm">Military precision meets Southern hospitality</p>
+                <span class="font-semibold text-[#333333]"
+                  >Veteran-Owned Excellence</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Military precision meets Southern hospitality
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="shield-alt" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="shield-alt"
+                class="w-6 h-6 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">$2 Million Insurance Coverage</span>
-                <p class="text-gray-600 text-sm">Complete protection for waterfront and luxury properties</p>
+                <span class="font-semibold text-[#333333]"
+                  >$2 Million Insurance Coverage</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Complete protection for waterfront and luxury properties
+                </p>
               </div>
             </li>
             <li class="flex items-start">
-              <Icon name="user-check" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
+              <Icon
+                name="user-check"
+                class="w-6 h-6 text-[#FFA985] mr-3 mt-1"
+              />
               <div>
-                <span class="font-semibold text-[#333333]">Background-Checked Team</span>
-                <p class="text-gray-600 text-sm">Discreet service for music industry professionals</p>
+                <span class="font-semibold text-[#333333]"
+                  >Background-Checked Team</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Discreet service for music industry professionals
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="clock" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Flexible Scheduling</span>
-                <p class="text-gray-600 text-sm">Same-day service for vacation rental turnovers</p>
+                <span class="font-semibold text-[#333333]"
+                  >Flexible Scheduling</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Same-day service for vacation rental turnovers
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="water" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Waterfront Property Experts</span>
-                <p class="text-gray-600 text-sm">Tennessee River and Wilson Lake specialists</p>
+                <span class="font-semibold text-[#333333]"
+                  >Waterfront Property Experts</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Tennessee River and Wilson Lake specialists
+                </p>
               </div>
             </li>
             <li class="flex items-start">
               <Icon name="award" class="w-6 h-6 text-[#FFA985] mr-3 mt-1" />
               <div>
-                <span class="font-semibold text-[#333333]">Women-Led Business</span>
-                <p class="text-gray-600 text-sm">Supporting local female entrepreneurship</p>
+                <span class="font-semibold text-[#333333]"
+                  >Women-Led Business</span
+                >
+                <p class="text-gray-600 text-sm">
+                  Supporting local female entrepreneurship
+                </p>
               </div>
             </li>
           </ul>
@@ -297,60 +366,103 @@ const testimonials = florenceTestimonials.map(t => ({
           Serving All Four Quad Cities
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Premium cleaning throughout The Shoals region</p>
+        <p class="text-xl text-gray-600">
+          Premium cleaning throughout The Shoals region
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <!-- Muscle Shoals -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="music" class="w-5 h-5 text-[#FFA985] mr-2" />Muscle Shoals
+            <Icon name="music" class="w-5 h-5 text-[#FFA985] mr-2" />Muscle
+            Shoals
           </h3>
           <p class="text-gray-700 mb-4">
-            The largest city in Colbert County with a population of 17,000+, Muscle Shoals is the heart of the region's musical legacy. FAME Recording Studios on Avalon Avenue continues producing hits today, while the entire community benefits from music tourism and a growing economy.
+            The largest city in Colbert County with a population of 17,000+,
+            Muscle Shoals is the heart of the region's musical legacy. FAME
+            Recording Studios on Avalon Avenue continues producing hits today,
+            while the entire community benefits from music tourism and a growing
+            economy.
           </p>
           <p class="text-gray-700">
-            From homes near the studios to Wilson Dam area residences, we serve Muscle Shoals with premium cleaning that matches the community's legendary status. Median household income of $70,927 reflects a stable, growing community of professionals and families.
+            From homes near the studios to Wilson Dam area residences, we serve
+            Muscle Shoals with premium cleaning that matches the community's
+            legendary status. Median household income of $70,927 reflects a
+            stable, growing community of professionals and families.
           </p>
         </div>
 
         <!-- Florence -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="university" class="w-5 h-5 text-[#FFA985] mr-2" />Florence
+            <Icon
+              name="university"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Florence
           </h3>
           <p class="text-gray-700 mb-4">
-            The largest of the Quad Cities, Florence is home to the University of North Alabama and the stunning Walnut Street Historic District. The birthplace of W.C. Handy, "Father of the Blues," Florence combines academic prestige with musical heritage.
+            The largest of the Quad Cities, Florence is home to the University
+            of North Alabama and the stunning Walnut Street Historic District.
+            The birthplace of W.C. Handy, "Father of the Blues," Florence
+            combines academic prestige with musical heritage.
           </p>
           <p class="text-gray-700">
-            We serve UNA faculty, healthcare professionals at North Alabama Medical Center, historic Victorian homeowners, and Wilson Lake waterfront properties throughout Florence and Lauderdale County.
+            We serve UNA faculty, healthcare professionals at North Alabama
+            Medical Center, historic Victorian homeowners, and Wilson Lake
+            waterfront properties throughout Florence and Lauderdale County.
           </p>
         </div>
 
         <!-- Sheffield -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="record-vinyl" class="w-5 h-5 text-[#FFA985] mr-2" />Sheffield
+            <Icon
+              name="record-vinyl"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Sheffield
           </h3>
           <p class="text-gray-700 mb-4">
-            Home to the legendary Muscle Shoals Sound Studio at 3614 Jackson Highway, Sheffield is where The Swampers created their independent studio in 1969. The Rolling Stones recorded "Wild Horses" and "Brown Sugar" here. Cher's debut album was literally titled "3614 Jackson Highway."
+            Home to the legendary Muscle Shoals Sound Studio at 3614 Jackson
+            Highway, Sheffield is where The Swampers created their independent
+            studio in 1969. The Rolling Stones recorded "Wild Horses" and "Brown
+            Sugar" here. Cher's debut album was literally titled "3614 Jackson
+            Highway."
           </p>
           <p class="text-gray-700 mb-4">
-            Sheffield's Tennessee River waterfront and Cypress Moon Studios (the second Muscle Shoals Sound location) continue the recording tradition. We proudly serve this historic community.
+            Sheffield's Tennessee River waterfront and Cypress Moon Studios (the
+            second Muscle Shoals Sound location) continue the recording
+            tradition. We proudly serve this historic community.
           </p>
-          <a href="/locations/muscle-shoals/sheffield" class="inline-block text-[#FFA985] font-semibold hover:underline">View Sheffield Services <Icon name="arrow-right" class="w-5 h-5 ml-1" /></a>
+          <a
+            href="/locations/muscle-shoals/sheffield"
+            class="inline-block text-[#FFA985] font-semibold hover:underline"
+            >View Sheffield Services <Icon
+              name="arrow-right"
+              class="w-5 h-5 ml-1"
+            /></a
+          >
         </div>
 
         <!-- Tuscumbia -->
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">
-            <Icon name="landmark" class="w-5 h-5 text-[#FFA985] mr-2" />Tuscumbia
+            <Icon
+              name="landmark"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Tuscumbia
           </h3>
           <p class="text-gray-700 mb-4">
-            The Colbert County seat, Tuscumbia is famous as the birthplace of Helen Keller. Ivy Green, her childhood home, draws visitors worldwide. The Alabama Music Hall of Fame preserves the state's incredible musical heritage with memorabilia from Hank Williams to Lionel Richie.
+            The Colbert County seat, Tuscumbia is famous as the birthplace of
+            Helen Keller. Ivy Green, her childhood home, draws visitors
+            worldwide. The Alabama Music Hall of Fame preserves the state's
+            incredible musical heritage with memorabilia from Hank Williams to
+            Lionel Richie.
           </p>
           <p class="text-gray-700">
-            From Spring Park's historic downtown to surrounding neighborhoods, Tuscumbia residents enjoy our premium cleaning service. The annual Helen Keller Festival makes this community a tourism destination.
+            From Spring Park's historic downtown to surrounding neighborhoods,
+            Tuscumbia residents enjoy our premium cleaning service. The annual
+            Helen Keller Festival makes this community a tourism destination.
           </p>
         </div>
       </div>
@@ -373,73 +485,113 @@ const testimonials = florenceTestimonials.map(t => ({
             <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Killen
           </h3>
           <p class="text-gray-700">
-            A growing community between Florence and Muscle Shoals, Killen offers suburban living with easy access to both cities. We serve families and professionals throughout this residential area.
+            A growing community between Florence and Muscle Shoals, Killen
+            offers suburban living with easy access to both cities. We serve
+            families and professionals throughout this residential area.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Wilson Dam Area
+            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Wilson Dam
+            Area
           </h3>
           <p class="text-gray-700">
-            The historic Wilson Dam, completed in 1924, sparked the region's development. TVA employees and waterfront property owners in this area enjoy our premium service.
+            The historic Wilson Dam, completed in 1924, sparked the region's
+            development. TVA employees and waterfront property owners in this
+            area enjoy our premium service.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />Cypress Lakes
+            <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />Cypress
+            Lakes
           </h3>
           <p class="text-gray-700">
-            A premier residential community, Cypress Lakes features modern homes and family-friendly amenities. Our team provides consistent, reliable cleaning for this growing neighborhood.
+            A premier residential community, Cypress Lakes features modern homes
+            and family-friendly amenities. Our team provides consistent,
+            reliable cleaning for this growing neighborhood.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Leighton & Cherokee
+            <Icon
+              name="map-marker-alt"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Leighton & Cherokee
           </h3>
           <p class="text-gray-700">
-            These Colbert County communities offer rural charm with proximity to The Shoals. We extend our service to homeowners throughout the county.
+            These Colbert County communities offer rural charm with proximity to
+            The Shoals. We extend our service to homeowners throughout the
+            county.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-2" />Town Creek
+            <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-2" />Town
+            Creek
           </h3>
           <p class="text-gray-700">
-            Located in Lawrence County, Town Creek is within our service area for residents seeking premium cleaning in this growing community.
+            Located in Lawrence County, Town Creek is within our service area
+            for residents seeking premium cleaning in this growing community.
           </p>
         </div>
 
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
-            <Icon name="mountain" class="w-5 h-5 text-[#FFA985] mr-2" />Russellville & Franklin County
+            <Icon
+              name="mountain"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Russellville & Franklin County
           </h3>
           <p class="text-gray-700">
-            We extend service to Russellville and Franklin County for deep cleaning, move-in/move-out, and special projects. Call to confirm availability for your address.
+            We extend service to Russellville and Franklin County for deep
+            cleaning, move-in/move-out, and special projects. Call to confirm
+            availability for your address.
           </p>
         </div>
 
-        <a href="/locations/muscle-shoals/rogersville" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition block">
+        <a
+          href="/locations/muscle-shoals/rogersville"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition block"
+        >
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
             <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Rogersville
           </h3>
           <p class="text-gray-700 mb-2">
-            A charming Lauderdale County community with historic homes and friendly neighborhoods. We provide premium house cleaning services throughout Rogersville.
+            A charming Lauderdale County community with historic homes and
+            friendly neighborhoods. We provide premium house cleaning services
+            throughout Rogersville.
           </p>
-          <span class="text-[#FFA985] font-semibold">View Rogersville Services <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >View Rogersville Services <Icon
+              name="arrow-right"
+              class="w-5 h-5 ml-1"
+            /></span
+          >
         </a>
 
-        <a href="/locations/muscle-shoals/waterloo" class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition block">
+        <a
+          href="/locations/muscle-shoals/waterloo"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition block"
+        >
           <h3 class="text-xl font-bold mb-3 text-[#333333]">
             <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Waterloo
           </h3>
           <p class="text-gray-700 mb-2">
-            Located along the Tennessee River in Lauderdale County, Waterloo offers scenic waterfront living. Our team serves this historic community with reliable cleaning.
+            Located along the Tennessee River in Lauderdale County, Waterloo
+            offers scenic waterfront living. Our team serves this historic
+            community with reliable cleaning.
           </p>
-          <span class="text-[#FFA985] font-semibold">View Waterloo Services <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >View Waterloo Services <Icon
+              name="arrow-right"
+              class="w-5 h-5 ml-1"
+            /></span
+          >
         </a>
       </div>
     </div>
@@ -453,7 +605,9 @@ const testimonials = florenceTestimonials.map(t => ({
           Our {city} Service Area
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Proudly serving {city} and surrounding {region} communities</p>
+        <p class="text-xl text-gray-600">
+          Proudly serving {city} and surrounding {region} communities
+        </p>
       </div>
 
       <LocationGoogleMap
@@ -470,8 +624,12 @@ const testimonials = florenceTestimonials.map(t => ({
         <p class="text-gray-600 mb-4">
           Don't see your area on the map? We may still serve your location.
         </p>
-        <a href="tel:2568261100" class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center">
-          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm: 256-826-1100
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-6 py-3 rounded-full font-semibold inline-flex items-center"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call to Confirm:
+          256-826-1100
         </a>
       </div>
     </div>
@@ -485,110 +643,203 @@ const testimonials = florenceTestimonials.map(t => ({
           Complete Cleaning Services for The Shoals
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">From regular maintenance to music tourism turnover services</p>
+        <p class="text-xl text-gray-600">
+          From regular maintenance to music tourism turnover services
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 mb-12">
         <!-- Deep Cleaning -->
-        <a href="/locations/muscle-shoals/deep-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/deep-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="sparkles" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
           <p class="text-gray-700 mb-4">
-            The ultimate top-to-bottom clean. Perfect for waterfront properties after summer season, historic homes needing extra care, or preparing for special events. Includes baseboards, ceiling fans, inside appliances, and detailed attention throughout.
+            The ultimate top-to-bottom clean. Perfect for waterfront properties
+            after summer season, historic homes needing extra care, or preparing
+            for special events. Includes baseboards, ceiling fans, inside
+            appliances, and detailed attention throughout.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Recurring Maid Service -->
-        <a href="/locations/muscle-shoals/recurring-maid-service" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/recurring-maid-service"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="home" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Recurring Maid Service</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Recurring Maid Service
+          </h3>
           <p class="text-gray-700 mb-4">
-            Consistent weekly or bi-weekly service keeps your Shoals home effortlessly maintained. Perfect for busy professionals, families, and anyone who values coming home to a pristine space. Enjoy up to 20% recurring service discounts.
+            Consistent weekly or bi-weekly service keeps your Shoals home
+            effortlessly maintained. Perfect for busy professionals, families,
+            and anyone who values coming home to a pristine space. Enjoy up to
+            20% recurring service discounts.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Move In/Out Cleaning -->
-        <a href="/locations/muscle-shoals/move-out-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/move-out-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="truck-moving" class="w-8 h-8 text-[#333333]" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move In/Out</h3>
           <p class="text-gray-700 mb-4">
-            Essential for UNA students, faculty relocations, and anyone moving within The Shoals. Ensure your new home is pristine or secure your deposit when departing. Same-day service often available.
+            Essential for UNA students, faculty relocations, and anyone moving
+            within The Shoals. Ensure your new home is pristine or secure your
+            deposit when departing. Same-day service often available.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Airbnb Cleaning -->
-        <a href="/locations/muscle-shoals/airbnb-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/airbnb-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="key" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Airbnb Turnover</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Airbnb Turnover
+          </h3>
           <p class="text-gray-700 mb-4">
-            Fast, reliable cleaning for Shoals vacation rental hosts. Music tourists visit year-round to see FAME Studios and 3614 Jackson Highway. Same-day service keeps your property guest-ready for pilgrims from around the world.
+            Fast, reliable cleaning for Shoals vacation rental hosts. Music
+            tourists visit year-round to see FAME Studios and 3614 Jackson
+            Highway. Same-day service keeps your property guest-ready for
+            pilgrims from around the world.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Recurring Maid Service -->
-        <a href="/locations/muscle-shoals/recurring-maid-service" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/recurring-maid-service"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="calendar-alt" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Recurring Maid Service</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Recurring Maid Service
+          </h3>
           <p class="text-gray-700 mb-4">
-            Weekly or biweekly cleaning for Shoals families. Same trusted team every visit. Save up to 20% with recurring service and enjoy a consistently clean home without lifting a finger.
+            Weekly or biweekly cleaning for Shoals families. Same trusted team
+            every visit. Save up to 20% with recurring service and enjoy a
+            consistently clean home without lifting a finger.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Same-Day Cleaning -->
-        <a href="/locations/muscle-shoals/same-day-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/same-day-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="clock" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Same-Day Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Same-Day Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Emergency cleaning when you need it most in The Shoals. Unexpected guests arriving or last-minute vacation rental turnover? We offer same-day service when availability permits.
+            Emergency cleaning when you need it most in The Shoals. Unexpected
+            guests arriving or last-minute vacation rental turnover? We offer
+            same-day service when availability permits.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Post-Construction -->
-        <a href="/locations/muscle-shoals/post-construction-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/post-construction-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="hammer" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Post-Construction
+          </h3>
           <p class="text-gray-700 mb-4">
-            Completed a renovation or new construction in The Shoals? We handle construction dust, debris removal, and the detailed cleaning required before move-in or enjoying your updated space.
+            Completed a renovation or new construction in The Shoals? We handle
+            construction dust, debris removal, and the detailed cleaning
+            required before move-in or enjoying your updated space.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
 
         <!-- Senior Cleaning -->
-        <a href="/locations/muscle-shoals/senior-cleaning" class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+        <a
+          href="/locations/muscle-shoals/senior-cleaning"
+          class="service-card bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:border-[#FFA985] transition"
+        >
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="heart" class="w-8 h-8 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Senior Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Senior Cleaning
+          </h3>
           <p class="text-gray-700 mb-4">
-            Compassionate cleaning services for seniors in The Shoals. Flexible scheduling, gentle care, and reliable service for elderly residents who need assistance maintaining their homes.
+            Compassionate cleaning services for seniors in The Shoals. Flexible
+            scheduling, gentle care, and reliable service for elderly residents
+            who need assistance maintaining their homes.
           </p>
-          <span class="text-[#FFA985] font-semibold">Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span>
+          <span class="text-[#FFA985] font-semibold"
+            >Learn More <Icon name="arrow-right" class="w-5 h-5 ml-1" /></span
+          >
         </a>
       </div>
 
       <div class="text-center">
-        <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg">
-          <Icon name="phone" class="w-5 h-5 mr-2" />Book Shoals Service: 256-826-1100
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-8 py-4 rounded-full font-semibold inline-block text-lg"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Book Shoals Service:
+          256-826-1100
         </a>
       </div>
     </div>
@@ -603,7 +854,14 @@ const testimonials = florenceTestimonials.map(t => ({
         </h2>
         <div class="section-divider"></div>
         <div class="flex items-center justify-center gap-2 mt-4">
-          <img src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png" alt="Google" class="h-6" width="92" height="30" loading="lazy" />
+          <img
+            src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_92/https://thevalleycleanteam.com/images/google-logo.png"
+            alt="Google"
+            class="h-6"
+            width="92"
+            height="30"
+            loading="lazy"
+          />
           <span class="text-xl text-gray-600">Reviews</span>
           <span class="text-[#FFA985] font-bold">4.9</span>
           <div class="text-[#FFA985] text-sm">
@@ -618,32 +876,42 @@ const testimonials = florenceTestimonials.map(t => ({
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial) => (
-          <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
-                {testimonial.initial}
-              </div>
-              <div class="ml-4">
-                <p class="font-bold">{testimonial.name}</p>
-                <p class="text-sm text-gray-600">{testimonial.area}</p>
-                <div class="text-[#FFA985]">
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
-                  <Icon name="star" class="w-5 h-5" fill="currentColor" />
+        {
+          testimonials.map((testimonial) => (
+            <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985] flex items-center justify-center text-[#333333] font-bold text-xl">
+                  {testimonial.initial}
+                </div>
+                <div class="ml-4">
+                  <p class="font-bold">{testimonial.name}</p>
+                  <p class="text-sm text-gray-600">{testimonial.area}</p>
+                  <div class="text-[#FFA985]">
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                    <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                  </div>
                 </div>
               </div>
+              <p class="text-gray-700">"{testimonial.text}"</p>
             </div>
-            <p class="text-gray-700">"{testimonial.text}"</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
 
       <div class="text-center mt-8">
-        <a href="https://www.google.com/maps?cid=2354162289321042477" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[#FFA985] font-semibold hover:underline">
-          <Icon name="google" class="w-5 h-5 mr-2" />Read All Reviews <Icon name="external-link-alt" class="w-4 h-4 ml-2" />
+        <a
+          href="https://www.google.com/maps?cid=2354162289321042477"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center text-[#FFA985] font-semibold hover:underline"
+        >
+          <Icon name="google" class="w-5 h-5 mr-2" />Read All Reviews <Icon
+            name="external-link-alt"
+            class="w-4 h-4 ml-2"
+          />
         </a>
       </div>
     </div>
@@ -657,39 +925,64 @@ const testimonials = florenceTestimonials.map(t => ({
           Muscle Shoals Cleaning Service FAQs
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Common questions from Shoals residents</p>
+        <p class="text-xl text-gray-600">
+          Common questions from Shoals residents
+        </p>
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section id="contact" class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+  <section
+    id="contact"
+    class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100"
+  >
     <div class="container mx-auto max-w-4xl text-center">
       <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
         Book Your Shoals Consultation Today
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Join hundreds of satisfied Shoals families who trust The Valley Clean Team for premium white-glove cleaning in the Hit Recording Capital of the World.
+        Join hundreds of satisfied Shoals families who trust The Valley Clean
+        Team for premium white-glove cleaning in the Hit Recording Capital of
+        the World.
       </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:2568261100" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
         </a>
-        <a href="mailto:hello@thevalleycleanteam.com" class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md">
+        <a
+          href="mailto:hello@thevalleycleanteam.com"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
           <Icon name="envelope" class="w-5 h-5 mr-2" />Email for Quote
         </a>
       </div>
@@ -697,80 +990,40 @@ const testimonials = florenceTestimonials.map(t => ({
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <p class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </p>
-            <p class="text-gray-600">All Quad Cities: Muscle Shoals, Florence, Sheffield, Tuscumbia & surrounding areas</p>
+            <p class="text-gray-600">
+              All Quad Cities: Muscle Shoals, Florence, Sheffield, Tuscumbia &
+              surrounding areas
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </p>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </p>
-            <p class="text-gray-600">256-826-1100<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              256-826-1100<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
       <div class="mt-8">
         <p class="text-sm text-gray-500">
-          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led | $2M Insured | Background-Checked Team | 100% Satisfaction Guarantee
+          <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Veteran-Owned | Women-Led
+          | $2M Insured | Background-Checked Team | 100% Satisfaction Guarantee
         </p>
       </div>
     </div>
   </section>
-
-  
-  <script>
-    document.getElementById('location-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('location-submit-btn');
-      const messageDiv = document.getElementById('location-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        location: form.location?.value || '',
-        city: form.city?.value || '',
-        state: form.state?.value || '',
-        source: 'Location Page - Muscle Shoals',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll be in touch within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Something went wrong. Please call us at 256-826-1100.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Get My Free Shoals Quote';
-    });
-  </script>
 </BaseLayout>

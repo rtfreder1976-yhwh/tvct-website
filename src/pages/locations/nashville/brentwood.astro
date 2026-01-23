@@ -1,109 +1,124 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
 
-
-import TrustBadges from '../../../components/TrustBadges.astro';
-import Icon from '../../../components/Icon.astro';
+import TrustBadges from "../../../components/TrustBadges.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const title = "Luxury Home Cleaning in Brentwood, TN | Valley Clean Team";
-const description = "Professional house cleaning services for Brentwood, Tennessee. Serving executive families, top school districts, and new construction homes. Licensed, insured, family-friendly service. Book your Brentwood cleaning today!";
+const description =
+  "Professional house cleaning services for Brentwood, Tennessee. Serving executive families, top school districts, and new construction homes. Licensed, insured, family-friendly service. Book your Brentwood cleaning today!";
 
 // Service schema for Brentwood
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "House Cleaning Services in Brentwood, TN",
-  "description": "Premium residential cleaning services for Brentwood homes. Perfect for executive families, new construction, and homes near top-rated schools.",
-  "provider": {
+  name: "House Cleaning Services in Brentwood, TN",
+  description:
+    "Premium residential cleaning services for Brentwood homes. Perfect for executive families, new construction, and homes near top-rated schools.",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "615-510-1427",
-    "email": "hello@thevalleycleanteam.com",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "615-510-1427",
+    email: "hello@thevalleycleanteam.com",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Brentwood",
-      "addressRegion": "TN"
-    }
+      addressLocality: "Brentwood",
+      addressRegion: "TN",
+    },
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Brentwood, TN",
-    "geo": {
+    name: "Brentwood, TN",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "35.9981",
-      "longitude": "-86.7828"
-    }
+      latitude: "35.9981",
+      longitude: "-86.7828",
+    },
   },
-  "serviceType": "Residential Cleaning"
+  serviceType: "Residential Cleaning",
 };
 
 // LocalBusiness schema
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "The Valley Clean Team - Brentwood",
-  "description": "Premium house cleaning services for Brentwood, TN",
-  "telephone": "615-510-1427",
-  "email": "hello@thevalleycleanteam.com",
-  "address": {
+  name: "The Valley Clean Team - Brentwood",
+  description: "Premium house cleaning services for Brentwood, TN",
+  telephone: "615-510-1427",
+  email: "hello@thevalleycleanteam.com",
+  address: {
     "@type": "PostalAddress",
-    "addressLocality": "Brentwood",
-    "addressRegion": "TN",
-    "addressCountry": "US"
+    addressLocality: "Brentwood",
+    addressRegion: "TN",
+    addressCountry: "US",
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Brentwood, TN"
-  }
+    name: "Brentwood, TN",
+  },
 };
 
 // FAQ Schema specific to Brentwood
 const faqs = [
   {
     question: "How much does house cleaning cost in Brentwood?",
-    answer: "House cleaning in Brentwood typically ranges from $175-$450+ depending on your home size and service type. Most Brentwood homes (2,000-3,500 sq ft) cost $225-$350 for regular cleaning and $325-$550 for deep cleaning. New construction and larger estates may cost more. We provide free, customized quotes based on your specific home. Call 615-510-1427 for an instant Brentwood estimate."
+    answer:
+      "House cleaning in Brentwood typically ranges from $175-$450+ depending on your home size and service type. Most Brentwood homes (2,000-3,500 sq ft) cost $225-$350 for regular cleaning and $325-$550 for deep cleaning. New construction and larger estates may cost more. We provide free, customized quotes based on your specific home. Call 615-510-1427 for an instant Brentwood estimate.",
   },
   {
-    question: "Do you offer post-construction cleaning for new Brentwood homes?",
-    answer: "Yes! Post-construction cleaning is one of our most popular services in Brentwood due to all the new home construction. We remove construction dust, debris, and residue from new builds, ensuring your brand-new Brentwood home is move-in ready. We clean windows, remove stickers from appliances, detail all surfaces, and make your new construction home sparkle before you move in."
+    question:
+      "Do you offer post-construction cleaning for new Brentwood homes?",
+    answer:
+      "Yes! Post-construction cleaning is one of our most popular services in Brentwood due to all the new home construction. We remove construction dust, debris, and residue from new builds, ensuring your brand-new Brentwood home is move-in ready. We clean windows, remove stickers from appliances, detail all surfaces, and make your new construction home sparkle before you move in.",
   },
   {
-    question: "Are your cleaning products safe for children and pets in Brentwood homes?",
-    answer: "Absolutely! We understand Brentwood families prioritize their children's and pets' safety. We use professional-grade, eco-friendly, non-toxic cleaning products that are completely safe for kids and animals. Many Brentwood families specifically request our green cleaning options. If you have specific allergies or sensitivities, we're happy to accommodate your preferences at no extra charge."
+    question:
+      "Are your cleaning products safe for children and pets in Brentwood homes?",
+    answer:
+      "Absolutely! We understand Brentwood families prioritize their children's and pets' safety. We use professional-grade, eco-friendly, non-toxic cleaning products that are completely safe for kids and animals. Many Brentwood families specifically request our green cleaning options. If you have specific allergies or sensitivities, we're happy to accommodate your preferences at no extra charge.",
   },
   {
-    question: "Can you clean our Brentwood pool house and outdoor living spaces?",
-    answer: "Yes! Many Brentwood homes have pool houses, outdoor kitchens, and covered patios that need regular cleaning. We clean pool house bathrooms, kitchenettes, outdoor furniture, and screened porches. This is especially popular during summer months and before pool parties. Just mention your outdoor cleaning needs when you request your quote."
+    question:
+      "Can you clean our Brentwood pool house and outdoor living spaces?",
+    answer:
+      "Yes! Many Brentwood homes have pool houses, outdoor kitchens, and covered patios that need regular cleaning. We clean pool house bathrooms, kitchenettes, outdoor furniture, and screened porches. This is especially popular during summer months and before pool parties. Just mention your outdoor cleaning needs when you request your quote.",
   },
   {
     question: "Do you offer recurring cleaning for busy Brentwood families?",
-    answer: "Yes! Recurring cleaning is our most popular service for Brentwood families. We offer weekly, bi-weekly, and monthly service with discounts up to 20% off. Dual-income executive families love the consistency - same team, same day each week or month, reliable service they can count on. You'll never have to think about cleaning again while your Brentwood home stays pristine."
+    answer:
+      "Yes! Recurring cleaning is our most popular service for Brentwood families. We offer weekly, bi-weekly, and monthly service with discounts up to 20% off. Dual-income executive families love the consistency - same team, same day each week or month, reliable service they can count on. You'll never have to think about cleaning again while your Brentwood home stays pristine.",
   },
   {
-    question: "How do you handle cleaning around Brentwood's top school schedules?",
-    answer: "We're very familiar with Brentwood's school schedules and busy family routines. We can clean while kids are at Brentwood High, Ravenwood, or private schools. Many families prefer afternoon cleaning so they come home to a fresh, clean house. We're also flexible during school breaks, holidays, and summer schedules. Just let us know what works best for your family."
+    question:
+      "How do you handle cleaning around Brentwood's top school schedules?",
+    answer:
+      "We're very familiar with Brentwood's school schedules and busy family routines. We can clean while kids are at Brentwood High, Ravenwood, or private schools. Many families prefer afternoon cleaning so they come home to a fresh, clean house. We're also flexible during school breaks, holidays, and summer schedules. Just let us know what works best for your family.",
   },
   {
     question: "Do you clean homes in Brentwood gated communities?",
-    answer: "Yes, we regularly clean in Brentwood's gated communities including Annandale, Witherspoon, Brentmeade, and others. We're familiar with gate codes, community access procedures, and HOA requirements. Many Brentwood gated community residents use our recurring service and provide us with permanent access codes for seamless, convenient service."
+    answer:
+      "Yes, we regularly clean in Brentwood's gated communities including Annandale, Witherspoon, Brentmeade, and others. We're familiar with gate codes, community access procedures, and HOA requirements. Many Brentwood gated community residents use our recurring service and provide us with permanent access codes for seamless, convenient service.",
   },
   {
-    question: "Can you help with move-in/move-out cleaning for Brentwood relocations?",
-    answer: "Absolutely! Brentwood has a very active real estate market with many executives relocating for work. We provide thorough move-out cleaning to help you get your deposit back or prepare your home for sale, and move-in cleaning to ensure your new Brentwood home is spotless before you unpack. We work with many Brentwood real estate agents and can coordinate timing with your closing date."
-  }
+    question:
+      "Can you help with move-in/move-out cleaning for Brentwood relocations?",
+    answer:
+      "Absolutely! Brentwood has a very active real estate market with many executives relocating for work. We provide thorough move-out cleaning to help you get your deposit back or prepare your home for sale, and move-in cleaning to ensure your new Brentwood home is spotless before you unpack. We work with many Brentwood real estate agents and can coordinate timing with your closing date.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 ---
 
@@ -116,9 +131,11 @@ const faqSchema = {
   geoPosition="35.9981;-86.7828"
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
@@ -126,18 +143,31 @@ const faqSchema = {
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="home-heart" class="w-5 h-5 mr-2" />Brentwood's Family-Friendly Cleaning Service
+              <Icon name="home-heart" class="w-5 h-5 mr-2" />Brentwood's
+              Family-Friendly Cleaning Service
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Luxury Home Cleaning in <span class="gold-gradient">Brentwood, TN</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Luxury Home Cleaning in <span class="gold-gradient"
+              >Brentwood, TN</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            The Valley Clean Team provides premium house cleaning services for Brentwood's executive families and beautiful homes. From new construction in Annandale to established estates in Witherspoon, we deliver the quality cleaning service that Brentwood's top-rated community deserves - reliable, thorough, and family-friendly.
+            The Valley Clean Team provides premium house cleaning services for
+            Brentwood's executive families and beautiful homes. From new
+            construction in Annandale to established estates in Witherspoon, we
+            deliver the quality cleaning service that Brentwood's top-rated
+            community deserves - reliable, thorough, and family-friendly.
           </p>
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4 mb-6"
+          >
             <div class="flex items-center text-gray-700">
               <Icon name="check-circle" class="w-5 h-5 text-[#FFA985] mr-2" />
               <span>Safe for Kids & Pets</span>
@@ -153,59 +183,51 @@ const faqSchema = {
           </div>
 
           <!-- Urgency Badge -->
-          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+          <div
+            class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6"
+          >
             <span class="text-green-700 font-semibold">
-              <Icon name="calendar-check" class="w-5 h-5 text-green-600 mr-2" />Same-Week Service Available in Brentwood
+              <Icon
+                name="calendar-check"
+                class="w-5 h-5 text-green-600 mr-2"
+              />Same-Week Service Available in Brentwood
             </span>
           </div>
 
-          <div class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4">
-            <a href="tel:6155101427" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition">
+          <div
+            class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="tel:6155101427"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
             </a>
-            <a href="/contact" class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md">
+            <a
+              href="/contact"
+              class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+            >
               <Icon name="calendar" class="w-5 h-5 mr-2" />Book Your Cleaning
             </a>
           </div>
         </div>
 
         <!-- Right Column - Quote Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Brentwood Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Fast response for Brentwood families</p>
-          <form id="brentwood-quote-form">
-            <div class="mb-4">
-              <input type="text" name="name" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Your Name *" required>
-            </div>
-            <div class="mb-4">
-              <input type="email" name="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Email Address *" required>
-            </div>
-            <div class="mb-4">
-              <input type="tel" name="phone" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Phone Number *" required>
-            </div>
-            <div class="mb-4">
-              <input type="text" name="address" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" placeholder="Brentwood Address/Community">
-            </div>
-            <div class="mb-4">
-              <select name="service" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-                <option value="">Select Service Type *</option>
-                <option value="Regular Cleaning">Regular Cleaning</option>
-                <option value="Deep Cleaning">Deep Cleaning</option>
-                <option value="Recurring Service">Recurring Service (Weekly/Bi-weekly)</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-                <option value="Move In/Out Cleaning">Move In/Out Cleaning</option>
-              </select>
-            </div>
-            <input type="hidden" name="location" value="Brentwood, TN">
-            <input type="hidden" name="neighborhood" value="Brentwood">
-            <button type="submit" id="brentwood-submit-btn" class="btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg">
-              Get My Free Brentwood Quote
-            </button>
-            <p class="text-center text-xs text-gray-500 mt-3">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> Response within 2 hours for Brentwood families
-            </p>
-            <div id="brentwood-form-message" class="hidden text-center p-4 rounded-lg mt-3"></div>
-          </form>
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+        >
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Free Brentwood Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Fast response for Brentwood families
+          </p>
+          <QuoteForm
+            formId="brentwood-quote-form"
+            city="Brentwood"
+            state="TN"
+            source="Brentwood Landing Page"
+          />
         </div>
       </div>
     </div>
@@ -219,10 +241,14 @@ const faqSchema = {
   </section>
 
   <!-- Brentwood Pricing -->
-  <section class="py-12 px-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10">
+  <section
+    class="py-12 px-6 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10"
+  >
     <div class="container mx-auto">
       <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-[#333333] mb-2">Brentwood Cleaning Prices</h2>
+        <h2 class="text-3xl font-bold text-[#333333] mb-2">
+          Brentwood Cleaning Prices
+        </h2>
         <p class="text-gray-600">Transparent pricing for Brentwood homes</p>
       </div>
       <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -233,7 +259,9 @@ const faqSchema = {
           <p class="text-2xl font-bold text-[#FFA985]">$225-$325</p>
           <p class="text-xs text-gray-500 mt-1">Typical Brentwood home</p>
         </div>
-        <div class="bg-white rounded-xl p-6 shadow-md text-center border-2 border-[#FFA985]">
+        <div
+          class="bg-white rounded-xl p-6 shadow-md text-center border-2 border-[#FFA985]"
+        >
           <Icon name="sparkles" class="w-8 h-8 text-[#FFA985] mb-3" />
           <h3 class="font-bold text-[#333333] text-base">Deep Cleaning</h3>
           <p class="text-sm text-gray-600 mb-2">Top-to-bottom</p>
@@ -257,7 +285,10 @@ const faqSchema = {
       </div>
       <div class="text-center mt-6">
         <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline">
-          View Full Pricing Details <Icon name="arrow-right" class="w-5 h-5 ml-1" />
+          View Full Pricing Details <Icon
+            name="arrow-right"
+            class="w-5 h-5 ml-1"
+          />
         </a>
       </div>
     </div>
@@ -269,55 +300,105 @@ const faqSchema = {
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]">
-            Cleaning Services for <span class="gold-gradient">Brentwood's Premier Community</span>
+            Cleaning Services for <span class="gold-gradient"
+              >Brentwood's Premier Community</span
+            >
           </h2>
           <p class="text-gray-700 mb-4">
-            Brentwood, Tennessee consistently ranks among America's best places to live, and for good reason. With top-rated schools including Brentwood High School and Ravenwood High School, low crime rates, beautiful neighborhoods, and a thriving executive community, Brentwood attracts successful families who demand the best.
+            Brentwood, Tennessee consistently ranks among America's best places
+            to live, and for good reason. With top-rated schools including
+            Brentwood High School and Ravenwood High School, low crime rates,
+            beautiful neighborhoods, and a thriving executive community,
+            Brentwood attracts successful families who demand the best.
           </p>
           <p class="text-gray-700 mb-4">
-            Home values in Brentwood typically range from $500,000 to $3 million+, with many newer construction homes in communities like Annandale, Witherspoon, and Brentmeade. These homes feature modern open floor plans, gourmet kitchens, luxury master suites, home offices, finished basements, and outdoor living spaces with pools and pavilions.
+            Home values in Brentwood typically range from $500,000 to $3
+            million+, with many newer construction homes in communities like
+            Annandale, Witherspoon, and Brentmeade. These homes feature modern
+            open floor plans, gourmet kitchens, luxury master suites, home
+            offices, finished basements, and outdoor living spaces with pools
+            and pavilions.
           </p>
           <p class="text-gray-700 mb-4">
-            The Valley Clean Team understands Brentwood families' needs. You're busy executives, dual-income professionals, and active parents shuttling kids to Brentwood Academy, sports practices, and music lessons. You don't have time for cleaning, but you want your beautiful Brentwood home to always look its best.
+            The Valley Clean Team understands Brentwood families' needs. You're
+            busy executives, dual-income professionals, and active parents
+            shuttling kids to Brentwood Academy, sports practices, and music
+            lessons. You don't have time for cleaning, but you want your
+            beautiful Brentwood home to always look its best.
           </p>
           <p class="text-gray-700">
-            That's where we come in. We provide reliable, thorough, family-friendly cleaning service that lets you focus on your career, your family, and enjoying everything Brentwood has to offer - from shopping at Cool Springs Galleria to dinner at Firebirds to weekend activities at Crockett Park.
+            That's where we come in. We provide reliable, thorough,
+            family-friendly cleaning service that lets you focus on your career,
+            your family, and enjoying everything Brentwood has to offer - from
+            shopping at Cool Springs Galleria to dinner at Firebirds to weekend
+            activities at Crockett Park.
           </p>
         </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8">
-          <h3 class="text-2xl font-bold mb-6 text-[#333333]">Typical Brentwood Home Features</h3>
+        <div
+          class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8"
+        >
+          <h3 class="text-2xl font-bold mb-6 text-[#333333]">
+            Typical Brentwood Home Features
+          </h3>
           <ul class="space-y-3">
             <li class="flex items-start">
               <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>New Construction:</strong> Modern builds in Annandale, Witherspoon, Brentmeade</span>
+              <span class="text-gray-700"
+                ><strong>New Construction:</strong> Modern builds in Annandale, Witherspoon,
+                Brentmeade</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="utensils" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>Gourmet Kitchens:</strong> Granite counters, stainless appliances, large islands</span>
+              <span class="text-gray-700"
+                ><strong>Gourmet Kitchens:</strong> Granite counters, stainless appliances,
+                large islands</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="couch" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>Open Floor Plans:</strong> Great rooms, vaulted ceilings, hardwood floors</span>
+              <span class="text-gray-700"
+                ><strong>Open Floor Plans:</strong> Great rooms, vaulted ceilings,
+                hardwood floors</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="laptop-house" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>Home Offices:</strong> Dedicated workspace for remote professionals</span>
+              <Icon
+                name="laptop-house"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                ><strong>Home Offices:</strong> Dedicated workspace for remote professionals</span
+              >
             </li>
             <li class="flex items-start">
-              <Icon name="swimming-pool" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>Outdoor Living:</strong> Pools, patios, outdoor kitchens, screened porches</span>
+              <Icon
+                name="swimming-pool"
+                class="w-5 h-5 text-[#FFA985] mr-3 mt-1"
+              />
+              <span class="text-gray-700"
+                ><strong>Outdoor Living:</strong> Pools, patios, outdoor kitchens,
+                screened porches</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="stairs" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>Finished Basements:</strong> Rec rooms, home theaters, exercise rooms</span>
+              <span class="text-gray-700"
+                ><strong>Finished Basements:</strong> Rec rooms, home theaters, exercise
+                rooms</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="car" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>Multi-Car Garages:</strong> 2-3 car garages needing organization</span>
+              <span class="text-gray-700"
+                ><strong>Multi-Car Garages:</strong> 2-3 car garages needing organization</span
+              >
             </li>
             <li class="flex items-start">
               <Icon name="door-open" class="w-5 h-5 text-[#FFA985] mr-3 mt-1" />
-              <span class="text-gray-700"><strong>Multiple Bedrooms:</strong> 4-6 bedrooms for growing families</span>
+              <span class="text-gray-700"
+                ><strong>Multiple Bedrooms:</strong> 4-6 bedrooms for growing families</span
+              >
             </li>
           </ul>
         </div>
@@ -330,113 +411,255 @@ const faqSchema = {
     <div class="container mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Cleaning Services for <span class="gold-gradient">Brentwood Families</span>
+          Cleaning Services for <span class="gold-gradient"
+            >Brentwood Families</span
+          >
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Complete home care for your Brentwood property</p>
+        <p class="text-xl text-gray-600">
+          Complete home care for your Brentwood property
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="redo" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Recurring Family Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Recurring Family Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Perfect for busy Brentwood families. Weekly or bi-weekly service keeps your home consistently clean so you can focus on family time, not chores.
+            Perfect for busy Brentwood families. Weekly or bi-weekly service
+            keeps your home consistently clean so you can focus on family time,
+            not chores.
           </p>
           <ul class="space-y-2 mb-4 text-sm text-gray-600">
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Save up to 20% with weekly service</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Same team learns your preferences</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Work around school schedules</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Eco-friendly, kid & pet safe products</li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Save up
+              to 20% with weekly service
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Same team
+              learns your preferences
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Work
+              around school schedules
+            </li>
+            <li>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Eco-friendly, kid & pet safe products
+            </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Start Recurring Service →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Start Recurring Service →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="hammer" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Post-Construction Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Post-Construction Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Brentwood's building boom means lots of new homes. We remove construction dust and make your new house move-in ready and sparkling clean.
+            Brentwood's building boom means lots of new homes. We remove
+            construction dust and make your new house move-in ready and
+            sparkling clean.
           </p>
           <ul class="space-y-2 mb-4 text-sm text-gray-600">
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Construction dust removal</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Window cleaning & sticker removal</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />All surfaces detailed & polished</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Coordinate with your closing date</li>
+            <li>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Construction dust removal
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Window
+              cleaning & sticker removal
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />All
+              surfaces detailed & polished
+            </li>
+            <li>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Coordinate with your closing date
+            </li>
           </ul>
-          <a href="/services/post-construction-cleaning" class="text-[#FFA985] font-semibold hover:underline">View Post-Construction Cleaning Services →</a>
+          <a
+            href="/services/post-construction-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >View Post-Construction Cleaning Services →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="sparkles" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-2xl font-bold mb-3 text-[#333333]">Deep Cleaning</h3>
           <p class="text-gray-600 mb-4">
-            Comprehensive top-to-bottom cleaning perfect for spring cleaning, before holidays, or when your Brentwood home needs extra attention.
+            Comprehensive top-to-bottom cleaning perfect for spring cleaning,
+            before holidays, or when your Brentwood home needs extra attention.
           </p>
           <ul class="space-y-2 mb-4 text-sm text-gray-600">
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Every room thoroughly cleaned</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Baseboards, fans, light fixtures</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Inside appliances and cabinets</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Blinds, window sills, detailed work</li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Every
+              room thoroughly cleaned
+            </li>
+            <li>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Baseboards, fans, light fixtures
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Inside
+              appliances and cabinets
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Blinds,
+              window sills, detailed work
+            </li>
           </ul>
-          <a href="/locations/nashville/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">View Checklist →</a>
+          <a
+            href="/locations/nashville/deep-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >View Checklist →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="truck-moving" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Move-In/Move-Out Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Move-In/Move-Out Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Relocating to or from Brentwood? We ensure homes are spotless for new owners or help you get your deposit back from rentals.
+            Relocating to or from Brentwood? We ensure homes are spotless for
+            new owners or help you get your deposit back from rentals.
           </p>
           <ul class="space-y-2 mb-4 text-sm text-gray-600">
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Empty home deep cleaning</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />All closets and cabinets cleaned</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Coordinate with real estate agents</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Ready for final walk-through</li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Empty
+              home deep cleaning
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />All
+              closets and cabinets cleaned
+            </li>
+            <li>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Coordinate with real estate agents
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Ready for
+              final walk-through
+            </li>
           </ul>
-          <a href="/locations/nashville/move-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">Book Move Cleaning →</a>
+          <a
+            href="/locations/nashville/move-out-cleaning"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Book Move Cleaning →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="swimming-pool" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Pool House & Outdoor Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Pool House & Outdoor Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Many Brentwood homes have pools and outdoor living spaces. We clean pool houses, outdoor kitchens, and screened porches.
+            Many Brentwood homes have pools and outdoor living spaces. We clean
+            pool houses, outdoor kitchens, and screened porches.
           </p>
           <ul class="space-y-2 mb-4 text-sm text-gray-600">
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Pool house bathrooms & kitchenettes</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Outdoor furniture cleaning</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Screened porch cleaning</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Pre-pool party preparation</li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Pool
+              house bathrooms & kitchenettes
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Outdoor
+              furniture cleaning
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Screened
+              porch cleaning
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Pre-pool
+              party preparation
+            </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Request Quote →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Request Quote →</a
+          >
         </div>
 
         <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+          <div
+            class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4"
+          >
             <Icon name="calendar-alt" class="w-8 h-8 text-white" />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Pre/Post Event Cleaning</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">
+            Pre/Post Event Cleaning
+          </h3>
           <p class="text-gray-600 mb-4">
-            Hosting a party, graduation celebration, or holiday gathering? We ensure your Brentwood home is perfect before and after guests.
+            Hosting a party, graduation celebration, or holiday gathering? We
+            ensure your Brentwood home is perfect before and after guests.
           </p>
           <ul class="space-y-2 mb-4 text-sm text-gray-600">
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Pre-event deep cleaning</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Post-party restoration</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Kitchen and bathroom focus</li>
-            <li><Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Next-day service available</li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Pre-event
+              deep cleaning
+            </li>
+            <li>
+              <Icon
+                name="check"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Post-party restoration
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Kitchen
+              and bathroom focus
+            </li>
+            <li>
+              <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-2" />Next-day
+              service available
+            </li>
           </ul>
-          <a href="/contact" class="text-[#FFA985] font-semibold hover:underline">Schedule Event Cleaning →</a>
+          <a
+            href="/contact"
+            class="text-[#FFA985] font-semibold hover:underline"
+            >Schedule Event Cleaning →</a
+          >
         </div>
       </div>
     </div>
@@ -450,78 +673,118 @@ const faqSchema = {
           Why Brentwood Families <span class="gold-gradient">Trust Us</span>
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">The qualities that matter most to Brentwood homeowners</p>
+        <p class="text-xl text-gray-600">
+          The qualities that matter most to Brentwood homeowners
+        </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
         <div class="flex items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0"
+          >
             <Icon name="baby" class="w-6 h-6 text-white" />
           </div>
           <div class="ml-4">
-            <h3 class="text-xl font-bold mb-2 text-[#333333]">Kid & Pet Friendly</h3>
+            <h3 class="text-xl font-bold mb-2 text-[#333333]">
+              Kid & Pet Friendly
+            </h3>
             <p class="text-gray-700">
-              We use eco-friendly, non-toxic cleaning products that are completely safe for children and pets. Brentwood families with young kids and dogs love our green cleaning approach that keeps homes healthy and safe.
+              We use eco-friendly, non-toxic cleaning products that are
+              completely safe for children and pets. Brentwood families with
+              young kids and dogs love our green cleaning approach that keeps
+              homes healthy and safe.
             </p>
           </div>
         </div>
 
         <div class="flex items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0"
+          >
             <Icon name="shield-alt" class="w-6 h-6 text-white" />
           </div>
           <div class="ml-4">
-            <h3 class="text-xl font-bold mb-2 text-[#333333]">Fully Insured & Bonded</h3>
+            <h3 class="text-xl font-bold mb-2 text-[#333333]">
+              Fully Insured & Bonded
+            </h3>
             <p class="text-gray-700">
-              $2 million liability insurance protects your valuable Brentwood home. Every team member is background-checked, professionally trained, and trustworthy. We're bonded for your complete peace of mind.
+              $2 million liability insurance protects your valuable Brentwood
+              home. Every team member is background-checked, professionally
+              trained, and trustworthy. We're bonded for your complete peace of
+              mind.
             </p>
           </div>
         </div>
 
         <div class="flex items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0"
+          >
             <Icon name="users" class="w-6 h-6 text-white" />
           </div>
           <div class="ml-4">
-            <h3 class="text-xl font-bold mb-2 text-[#333333]">Consistent Team</h3>
+            <h3 class="text-xl font-bold mb-2 text-[#333333]">
+              Consistent Team
+            </h3>
             <p class="text-gray-700">
-              Same professional team every visit means they learn your Brentwood home's layout, your family's preferences, and your routine. Consistency leads to better results and builds trust over time.
+              Same professional team every visit means they learn your Brentwood
+              home's layout, your family's preferences, and your routine.
+              Consistency leads to better results and builds trust over time.
             </p>
           </div>
         </div>
 
         <div class="flex items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0"
+          >
             <Icon name="clock" class="w-6 h-6 text-white" />
           </div>
           <div class="ml-4">
-            <h3 class="text-xl font-bold mb-2 text-[#333333]">Flexible Scheduling</h3>
+            <h3 class="text-xl font-bold mb-2 text-[#333333]">
+              Flexible Scheduling
+            </h3>
             <p class="text-gray-700">
-              We work around your family's busy Brentwood schedule. Clean while kids are at Brentwood High, during your work hours, or on weekends. We accommodate your needs, not the other way around.
+              We work around your family's busy Brentwood schedule. Clean while
+              kids are at Brentwood High, during your work hours, or on
+              weekends. We accommodate your needs, not the other way around.
             </p>
           </div>
         </div>
 
         <div class="flex items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0"
+          >
             <Icon name="percent" class="w-6 h-6 text-white" />
           </div>
           <div class="ml-4">
-            <h3 class="text-xl font-bold mb-2 text-[#333333]">Recurring Savings</h3>
+            <h3 class="text-xl font-bold mb-2 text-[#333333]">
+              Recurring Savings
+            </h3>
             <p class="text-gray-700">
-              Save up to 20% with weekly recurring service. Brentwood families love the value and convenience of having their homes professionally cleaned every week without thinking about it.
+              Save up to 20% with weekly recurring service. Brentwood families
+              love the value and convenience of having their homes
+              professionally cleaned every week without thinking about it.
             </p>
           </div>
         </div>
 
         <div class="flex items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-12 h-12 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center flex-shrink-0"
+          >
             <Icon name="medal" class="w-6 h-6 text-white" />
           </div>
           <div class="ml-4">
-            <h3 class="text-xl font-bold mb-2 text-[#333333]">Veteran-Owned Excellence</h3>
+            <h3 class="text-xl font-bold mb-2 text-[#333333]">
+              Veteran-Owned Excellence
+            </h3>
             <p class="text-gray-700">
-              As a veteran-owned business, we bring military values to every Brentwood home: integrity, reliability, attention to detail, and commitment to excellence. Your satisfaction is our mission.
+              As a veteran-owned business, we bring military values to every
+              Brentwood home: integrity, reliability, attention to detail, and
+              commitment to excellence. Your satisfaction is our mission.
             </p>
           </div>
         </div>
@@ -537,7 +800,9 @@ const faqSchema = {
           Serving All <span class="gold-gradient">Brentwood Communities</span>
         </h2>
         <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Professional cleaning throughout Brentwood, TN</p>
+        <p class="text-xl text-gray-600">
+          Professional cleaning throughout Brentwood, TN
+        </p>
       </div>
       <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
         <span class="neighborhood-badge">
@@ -578,9 +843,19 @@ const faqSchema = {
         </span>
       </div>
       <p class="text-center text-gray-600 mt-8">
-        Also serving nearby: <a href="/locations/nashville" class="text-[#FFA985] font-semibold hover:underline">Nashville</a>,
-        <a href="/locations/nashville/green-hills" class="text-[#FFA985] font-semibold hover:underline ml-2">Green Hills</a>, and
-        <a href="/locations/nashville" class="text-[#FFA985] font-semibold hover:underline ml-2">Franklin</a>
+        Also serving nearby: <a
+          href="/locations/nashville"
+          class="text-[#FFA985] font-semibold hover:underline">Nashville</a
+        >,
+        <a
+          href="/locations/nashville/green-hills"
+          class="text-[#FFA985] font-semibold hover:underline ml-2"
+          >Green Hills</a
+        >, and
+        <a
+          href="/locations/nashville"
+          class="text-[#FFA985] font-semibold hover:underline ml-2">Franklin</a
+        >
       </p>
     </div>
   </section>
@@ -597,17 +872,27 @@ const faqSchema = {
       </div>
 
       <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4 text-base">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4 text-base">
+                  {faq.question}
+                </h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -619,18 +904,32 @@ const faqSchema = {
         Ready for a <span class="gold-gradient">Cleaner Brentwood Home</span>?
       </h2>
       <p class="text-xl text-gray-600 mb-4">
-        Join hundreds of Brentwood families who trust The Valley Clean Team for professional, reliable service
+        Join hundreds of Brentwood families who trust The Valley Clean Team for
+        professional, reliable service
       </p>
-      <div class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8">
+      <div
+        class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8"
+      >
         <span class="text-green-700 font-semibold text-lg">
-          <Icon name="calendar-check" class="w-5 h-5 text-green-600 mr-2" />Same-Week Availability in Brentwood!
+          <Icon
+            name="calendar-check"
+            class="w-5 h-5 text-green-600 mr-2"
+          />Same-Week Availability in Brentwood!
         </span>
       </div>
-      <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
-        <a href="tel:6155101427" class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition">
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:6155101427"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg hover:shadow-xl transition"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />Call: 615-510-1427
         </a>
-        <a href="/contact" class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md">
+        <a
+          href="/contact"
+          class="flex items-center text-[#333333] hover:bg-[#333333] hover:text-white transition text-lg font-semibold px-10 py-5 bg-white border-2 border-[#333333] rounded-full shadow-md"
+        >
           <Icon name="calendar" class="w-5 h-5 mr-2" />Get Free Quote
         </a>
       </div>
@@ -638,76 +937,33 @@ const faqSchema = {
         <div class="grid md:grid-cols-3 gap-6 text-left">
           <div>
             <p class="font-bold text-[#333333] mb-2">
-              <Icon name="map-marker-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Service Area
+              <Icon
+                name="map-marker-alt"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+              />Service Area
             </p>
-            <p class="text-gray-600">All of Brentwood, TN and surrounding areas</p>
+            <p class="text-gray-600">
+              All of Brentwood, TN and surrounding areas
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />Hours
             </p>
-            <p class="text-gray-600">Mon-Fri: 9am-5pm<br>Sat & Sun: By appointment</p>
+            <p class="text-gray-600">
+              Mon-Fri: 9am-5pm<br />Sat & Sun: By appointment
+            </p>
           </div>
           <div>
             <p class="font-bold text-[#333333] mb-2">
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </p>
-            <p class="text-gray-600">615-510-1427<br>hello@thevalleycleanteam.com</p>
+            <p class="text-gray-600">
+              615-510-1427<br />hello@thevalleycleanteam.com
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-  
-
-  <script>
-    document.getElementById('brentwood-quote-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById('brentwood-submit-btn');
-      const messageDiv = document.getElementById('brentwood-form-message');
-      const form = e.target;
-
-      const formData = {
-        name: form.name?.value || '',
-        email: form.email?.value || '',
-        phone: form.phone?.value || '',
-        service: form.service?.value || '',
-        address: form.address?.value || '',
-        location: form.location?.value || '',
-        neighborhood: form.neighborhood?.value || '',
-        source: 'Brentwood Landing Page',
-        page_url: window.location.href
-      };
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span class="spinner"></span>Sending...';
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-          messageDiv.innerHTML = '<Icon name="check-circle" class="w-5 h-5 mr-2" />Thank you! We\'ll be in touch within 2 hours.';
-          messageDiv.classList.remove('hidden');
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
-        }
-      } catch (error) {
-        messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-        messageDiv.innerHTML = '<Icon name="exclamation-circle" class="w-5 h-5 mr-2" />Please call us at 615-510-1427 for immediate assistance.';
-        messageDiv.classList.remove('hidden');
-      }
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Get My Free Brentwood Quote';
-    });
-  </script>
 </BaseLayout>

@@ -1,84 +1,95 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Icon from '../../../components/Icon.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const title = "House Cleaning in Woodbine, Nashville | Valley Clean Team";
-const description = "Professional house cleaning in Woodbine, Nashville. Serving 37210, 37211. Veteran-owned, insured. Affordable rates for South Nashville homes. Free quotes!";
+const description =
+  "Professional house cleaning in Woodbine, Nashville. Serving 37210, 37211. Veteran-owned, insured. Affordable rates for South Nashville homes. Free quotes!";
 
 const faqs = [
   {
     question: "Do you provide house cleaning in Woodbine?",
-    answer: "Yes! We provide comprehensive house cleaning services throughout Woodbine and the 37210/37211 zip codes, including the historic Woodbine neighborhood, Nolensville Pike corridor, and areas near the Tennessee State Fairgrounds."
+    answer:
+      "Yes! We provide comprehensive house cleaning services throughout Woodbine and the 37210/37211 zip codes, including the historic Woodbine neighborhood, Nolensville Pike corridor, and areas near the Tennessee State Fairgrounds.",
   },
   {
     question: "What cleaning services do you offer in Woodbine?",
-    answer: "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, and one-time cleaning for Woodbine homes and apartments."
+    answer:
+      "We offer recurring maid service (weekly, biweekly, monthly), deep cleaning, move-in/move-out cleaning, and one-time cleaning for Woodbine homes and apartments.",
   },
   {
     question: "How much does house cleaning cost in Woodbine?",
-    answer: "Woodbine home cleaning starts at $120-$200 for standard cleaning, depending on home size and condition. We offer competitive rates and free quotes with no hidden fees."
+    answer:
+      "Woodbine home cleaning starts at $120-$200 for standard cleaning, depending on home size and condition. We offer competitive rates and free quotes with no hidden fees.",
   },
   {
     question: "Are your cleaners background-checked and insured?",
-    answer: "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your protection."
+    answer:
+      "Absolutely. Every team member passes comprehensive background checks. We carry $2M liability insurance and are fully bonded for your protection.",
   },
   {
     question: "Do you clean apartments and rental properties?",
-    answer: "Yes! We clean single-family homes, apartments, duplexes, and rental properties throughout Woodbine. We also offer move-in/move-out cleaning for landlords and tenants."
+    answer:
+      "Yes! We clean single-family homes, apartments, duplexes, and rental properties throughout Woodbine. We also offer move-in/move-out cleaning for landlords and tenants.",
   },
   {
     question: "Can I get the same cleaning team each visit?",
-    answer: "Yes! We assign dedicated teams to Woodbine clients. Consistency means better results because your team knows your home's specific needs."
+    answer:
+      "Yes! We assign dedicated teams to Woodbine clients. Consistency means better results because your team knows your home's specific needs.",
   },
   {
     question: "Do you offer affordable cleaning options?",
-    answer: "We believe quality cleaning should be accessible. We offer competitive rates, flexible scheduling, and no long-term contracts. Pay only for what you need."
+    answer:
+      "We believe quality cleaning should be accessible. We offer competitive rates, flexible scheduling, and no long-term contracts. Pay only for what you need.",
   },
   {
     question: "How do I book cleaning for my Woodbine home?",
-    answer: "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and offer flexible scheduling."
-  }
+    answer:
+      "Book online, call us at (615) 510-1427, or text us anytime. We typically respond within minutes and offer flexible scheduling.",
+  },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "House Cleaning Service",
-  "provider": {
+  serviceType: "House Cleaning Service",
+  provider: {
     "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "telephone": "+1-615-510-1427",
-    "address": {
+    name: "The Valley Clean Team",
+    telephone: "+1-615-510-1427",
+    address: {
       "@type": "PostalAddress",
-      "addressLocality": "Nashville",
-      "addressRegion": "TN",
-      "postalCode": "37211",
-      "addressCountry": "US"
-    }
+      addressLocality: "Nashville",
+      addressRegion: "TN",
+      postalCode: "37211",
+      addressCountry: "US",
+    },
   },
-  "areaServed": {
+  areaServed: {
     "@type": "Place",
-    "name": "Woodbine, Nashville, TN",
-    "geo": {
+    name: "Woodbine, Nashville, TN",
+    geo: {
       "@type": "GeoCoordinates",
-      "latitude": "36.1162",
-      "longitude": "-86.7442"
-    }
+      latitude: "36.1162",
+      longitude: "-86.7442",
+    },
   },
-  "description": "Professional house cleaning services in Woodbine, Nashville, Tennessee."
+  description:
+    "Professional house cleaning services in Woodbine, Nashville, Tennessee.",
 };
 ---
 
@@ -88,7 +99,10 @@ const serviceSchema = {
     <meta name="geo.placename" content="Woodbine, Nashville" />
     <meta name="geo.position" content="36.1162;-86.7442" />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(serviceSchema)}
+    />
   </Fragment>
 
   <!-- Hero Section -->
@@ -97,48 +111,33 @@ const serviceSchema = {
     <div class="hero-content">
       <div class="hero-text">
         <h1>House Cleaning Services in Woodbine, Nashville</h1>
-        <p class="hero-subtitle">Quality cleaning at honest prices for South Nashville's diverse, vibrant community</p>
+        <p class="hero-subtitle">
+          Quality cleaning at honest prices for South Nashville's diverse,
+          vibrant community
+        </p>
         <div class="trust-badges">
-          <span class="badge"><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span>
-          <span class="badge"><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span>
-          <span class="badge"><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span>
+          <span class="badge"
+            ><Icon name="shield-alt" class="w-5 h-5" /> $2M Insured</span
+          >
+          <span class="badge"
+            ><Icon name="medal" class="w-5 h-5" /> Veteran-Owned</span
+          >
+          <span class="badge"
+            ><Icon name="star" class="w-5 h-5" fill="currentColor" /> 5-Star Rated</span
+          >
         </div>
       </div>
       <div class="hero-form">
-        <h2>Get Your Free Quote</h2>
-        <form id="quote-form" action="/api/submit-form" method="POST">
-          <input type="hidden" name="source" value="woodbine-neighborhood" />
-          <input type="hidden" name="city" value="Woodbine" />
-          <div class="form-group">
-            <input type="text" name="name" placeholder="Your Name" required />
-          </div>
-          <div class="form-group">
-            <input type="tel" name="phone" placeholder="Phone Number" required />
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Email Address" required />
-          </div>
-          <div class="form-group">
-            <select name="service" required>
-              <option value="">Select Service...</option>
-              <option value="recurring">Recurring Cleaning</option>
-              <option value="deep-clean">Deep Cleaning</option>
-              <option value="move-in-out">Move In/Out Cleaning</option>
-              <option value="one-time">One-Time Cleaning</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <select name="bedrooms" required>
-              <option value="">Bedrooms...</option>
-              <option value="1-2">1-2 Bedrooms</option>
-              <option value="3">3 Bedrooms</option>
-              <option value="4">4 Bedrooms</option>
-              <option value="5+">5+ Bedrooms</option>
-            </select>
-          </div>
-          <button type="submit" class="btn-primary">Get Free Quote</button>
-        </form>
-        <p class="form-note"><Icon name="clock" class="w-5 h-5" /> Response within 15 minutes</p>
+        <QuoteForm
+          formId="woodbine-quote-form"
+          city="Woodbine, Nashville"
+          state="TN"
+          source="Location Page - Woodbine"
+          subtitle="Get Your Free Quote"
+        />
+        <p class="form-note">
+          <Icon name="clock" class="w-5 h-5" /> Response within 15 minutes
+        </p>
       </div>
     </div>
   </section>
@@ -148,9 +147,24 @@ const serviceSchema = {
     <div class="container">
       <div class="intro-content">
         <h2>Professional Cleaning for Woodbine Homes</h2>
-        <p>Woodbine is one of Nashville's most dynamic neighborhoods—a diverse community with deep roots and exciting growth. From the historic homes near the Fairgrounds to the new developments along Nolensville Pike, we provide cleaning services that fit the real needs of Woodbine residents.</p>
-        <p>We believe everyone deserves a clean home, regardless of budget. That's why we offer competitive, honest pricing without sacrificing quality. No fancy upsells, no hidden fees—just reliable cleaning from a team you can trust.</p>
-        <p>As a veteran-owned company serving the 37210 and 37211 zip codes, we bring discipline and work ethic to every home we clean. Whether you rent or own, live in a house or apartment, we're here to help.</p>
+        <p>
+          Woodbine is one of Nashville's most dynamic neighborhoods—a diverse
+          community with deep roots and exciting growth. From the historic homes
+          near the Fairgrounds to the new developments along Nolensville Pike,
+          we provide cleaning services that fit the real needs of Woodbine
+          residents.
+        </p>
+        <p>
+          We believe everyone deserves a clean home, regardless of budget.
+          That's why we offer competitive, honest pricing without sacrificing
+          quality. No fancy upsells, no hidden fees—just reliable cleaning from
+          a team you can trust.
+        </p>
+        <p>
+          As a veteran-owned company serving the 37210 and 37211 zip codes, we
+          bring discipline and work ethic to every home we clean. Whether you
+          rent or own, live in a house or apartment, we're here to help.
+        </p>
       </div>
     </div>
   </section>
@@ -163,7 +177,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="home" class="w-5 h-5" /></div>
           <h3>Regular House Cleaning</h3>
-          <p>Weekly, biweekly, or monthly cleaning to maintain a consistently clean home. Flexible scheduling.</p>
+          <p>
+            Weekly, biweekly, or monthly cleaning to maintain a consistently
+            clean home. Flexible scheduling.
+          </p>
           <ul>
             <li>All rooms dusted and vacuumed</li>
             <li>Kitchens and bathrooms cleaned</li>
@@ -172,9 +189,14 @@ const serviceSchema = {
           </ul>
         </div>
         <div class="service-card">
-          <div class="service-icon"><Icon name="sparkles" class="w-5 h-5" /></div>
+          <div class="service-icon">
+            <Icon name="sparkles" class="w-5 h-5" />
+          </div>
           <h3>Deep Cleaning</h3>
-          <p>Thorough top-to-bottom cleaning. Perfect for first-time service or seasonal refreshes.</p>
+          <p>
+            Thorough top-to-bottom cleaning. Perfect for first-time service or
+            seasonal refreshes.
+          </p>
           <ul>
             <li>Inside appliances cleaned</li>
             <li>Baseboards and door frames</li>
@@ -185,7 +207,10 @@ const serviceSchema = {
         <div class="service-card">
           <div class="service-icon"><Icon name="box" class="w-5 h-5" /></div>
           <h3>Move In/Out Cleaning</h3>
-          <p>Complete cleaning for moves and rentals. Help secure deposits and start fresh.</p>
+          <p>
+            Complete cleaning for moves and rentals. Help secure deposits and
+            start fresh.
+          </p>
           <ul>
             <li>Every surface detailed</li>
             <li>Appliances inside and out</li>
@@ -205,22 +230,32 @@ const serviceSchema = {
         <div class="feature">
           <Icon name="dollar-sign" class="w-5 h-5" />
           <h3>Honest Pricing</h3>
-          <p>Competitive rates with no hidden fees. Quality cleaning that fits your budget.</p>
+          <p>
+            Competitive rates with no hidden fees. Quality cleaning that fits
+            your budget.
+          </p>
         </div>
         <div class="feature">
           <Icon name="users" class="w-5 h-5" />
           <h3>Same Team</h3>
-          <p>Your dedicated team returns each visit. They know your home and your preferences.</p>
+          <p>
+            Your dedicated team returns each visit. They know your home and your
+            preferences.
+          </p>
         </div>
         <div class="feature">
           <Icon name="shield-alt" class="w-5 h-5" />
           <h3>Fully Insured</h3>
-          <p>$2 million liability coverage protects you. Peace of mind included.</p>
+          <p>
+            $2 million liability coverage protects you. Peace of mind included.
+          </p>
         </div>
         <div class="feature">
           <Icon name="handshake" class="w-5 h-5" />
           <h3>No Contracts</h3>
-          <p>No long-term commitments required. Flexible service on your terms.</p>
+          <p>
+            No long-term commitments required. Flexible service on your terms.
+          </p>
         </div>
       </div>
     </div>
@@ -230,7 +265,10 @@ const serviceSchema = {
   <section class="areas-section">
     <div class="container">
       <h2>Serving Woodbine & South Nashville</h2>
-      <p>Our Woodbine cleaning service covers the 37210 and 37211 zip codes and surrounding areas:</p>
+      <p>
+        Our Woodbine cleaning service covers the 37210 and 37211 zip codes and
+        surrounding areas:
+      </p>
       <div class="areas-grid">
         <div class="area-item">
           <h4>Woodbine Areas</h4>
@@ -268,12 +306,14 @@ const serviceSchema = {
     <div class="container">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-grid">
-        {faqs.map((faq) => (
-          <div class="faq-item">
-            <h3>{faq.question}</h3>
-            <p>{faq.answer}</p>
-          </div>
-        ))}
+        {
+          faqs.map((faq) => (
+            <div class="faq-item">
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -282,9 +322,14 @@ const serviceSchema = {
   <section class="cta-section">
     <div class="container">
       <h2>Ready for a Cleaner Woodbine Home?</h2>
-      <p>Get quality cleaning at honest prices. Join your neighbors who trust The Valley Clean Team.</p>
+      <p>
+        Get quality cleaning at honest prices. Join your neighbors who trust The
+        Valley Clean Team.
+      </p>
       <div class="cta-buttons">
-        <a href="tel:+16155101427" class="btn-primary"><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a>
+        <a href="tel:+16155101427" class="btn-primary"
+          ><Icon name="phone" class="w-5 h-5" /> (615) 510-1427</a
+        >
         <a href="/contact" class="btn-secondary">Get Free Quote</a>
       </div>
     </div>
@@ -304,7 +349,11 @@ const serviceSchema = {
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(30,58,95,0.3) 0%, rgba(45,90,135,0.2) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(30, 58, 95, 0.3) 0%,
+      rgba(45, 90, 135, 0.2) 100%
+    );
   }
 
   .hero-content {
@@ -340,7 +389,7 @@ const serviceSchema = {
   }
 
   .badge {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     padding: 8px 16px;
     border-radius: 50px;
     font-size: 0.9rem;
@@ -354,7 +403,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
 
   .hero-form h3 {
@@ -444,7 +493,7 @@ const serviceSchema = {
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #eee;
   }
 
@@ -665,28 +714,3 @@ const serviceSchema = {
     }
   }
 </style>
-
-<script>
-  const form = document.getElementById('quote-form');
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-
-        if (response.ok) {
-          window.location.href = '/thank-you/';
-        }
-      } catch (error) {
-        console.error('Form submission error:', error);
-      }
-    });
-  }
-</script>
