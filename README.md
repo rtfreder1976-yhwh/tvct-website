@@ -44,6 +44,9 @@ npm run preview
 │   │   └── BaseLayout.astro
 │   └── pages/
 │       └── index.astro
+├── public/
+│   └── images/
+│       └── gallery/      # Before/After transformation images
 ├── astro.config.mjs
 ├── package.json
 └── tailwind.config.mjs
