@@ -6,30 +6,30 @@ const galleryItems = [
   {
     title: "Kitchen Deep Clean",
     location: "Huntsville, AL",
-    description: "Grease buildup removed, appliances cleaned inside and out, counters sanitized",
-    beforeImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
-    afterImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp"
+    description: "Deep grease removal from stovetops and backsplashes, sanitized surfaces, and polished appliances.",
+    image: "/images/gallery/kitchen.jpg",
+    type: "grid"
   },
   {
     title: "Bathroom Transformation",
     location: "Madison, AL",
-    description: "Hard water stains removed, grout scrubbed, fixtures polished to shine",
-    beforeImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp",
-    afterImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+    description: "Intensive soap scum removal, grout whitening, and chrome polishing for a hotel-fresh finish.",
+    image: "/images/gallery/bathroom.png",
+    type: "split"
   },
   {
     title: "Move-Out Cleaning",
     location: "Nashville, TN",
-    description: "Full apartment cleaned to landlord standards - deposit returned!",
-    beforeImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg",
-    afterImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802af8fa3bc14e23e27e.jpg"
+    description: "Detailed restoration of floors, baseboards, and walls to ensure full security deposit return.",
+    image: "/images/gallery/move_out.png",
+    type: "split"
   },
   {
     title: "Post-Construction",
     location: "Mountain Brook, AL",
-    description: "Construction dust eliminated, windows cleaned, surfaces polished",
-    beforeImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp",
-    afterImage: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/692080293937416b676d02dd.webp"
+    description: "Complete elimination of drywall dust, debris, and residue from new renovations.",
+    image: "https://hkpostconstructioncleaning.ca/wp-content/uploads/2022/05/Cleaning-Services-Before-and-After-Photos-3.jpeg",
+    type: "split"
   }
 ];
 ---
@@ -44,45 +44,51 @@ const galleryItems = [
       <p class="text-xl text-gray-600">Real results from real cleaning jobs across Alabama & Tennessee</p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto">
       {galleryItems.map((item, index) => (
-        <div class="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200 group">
-          <div class="relative h-64 overflow-hidden">
-            <!-- Before/After Slider Container -->
-            <div class="before-after-container relative w-full h-full">
+        <div class="bg-white rounded-3xl overflow-hidden shadow-2xl border border-gray-100 group transition-all duration-500 hover:shadow-orange-100 hover:-translate-y-2">
+          <div class="relative h-72 overflow-hidden">
+            <!-- Transformation Image Container -->
+            <div class="relative w-full h-full cursor-zoom-in">
               <img
-                src={item.afterImage}
-                alt={`${item.title} - After`}
-                class="absolute inset-0 w-full h-full object-cover"
+                src={item.image}
+                alt={`${item.title} Comparison`}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
-                decoding="async"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
 
-              <!-- Labels -->
-              <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                BEFORE
-              </div>
-              <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                AFTER
+              <!-- Badges -->
+              <div class="absolute top-4 left-4 flex gap-2">
+                <span class="bg-black/40 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">
+                  Before & After
+                </span>
               </div>
 
               <!-- Transformation Badge -->
-              <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur px-4 py-2 rounded-full">
-                <span class="text-[#333333] font-semibold text-sm flex items-center">
-                  <Icon name="magic" class="w-5 h-5 text-[#FFA985] mr-2" />
-                  Transformed
+              <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur px-5 py-2.5 rounded-2xl shadow-xl transform transition-all duration-500 group-hover:bg-[#FFA985] group-hover:text-white">
+                <span class="font-bold text-sm flex items-center">
+                  <Icon name="magic" class="w-5 h-5 mr-3 transition-colors group-hover:text-white text-[#FFA985]" />
+                  See the Transformation
                 </span>
               </div>
             </div>
           </div>
 
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="text-xl font-bold text-[#333333]">{item.title}</h3>
-              <span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">{item.location}</span>
+          <div class="p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-2xl font-bold text-[#333333] mb-1">{item.title}</h3>
+                <div class="flex items-center text-gray-400 text-sm">
+                  <Icon name="location-dot" class="w-3.5 h-3.5 mr-1.5" />
+                  {item.location}
+                </div>
+              </div>
+              <div class="h-10 w-10 bg-orange-50 rounded-full flex items-center justify-center text-[#FFA985]">
+                <Icon name="check-circle" class="w-6 h-6" />
+              </div>
             </div>
-            <p class="text-gray-600 text-sm">{item.description}</p>
+            <p class="text-gray-600 leading-relaxed">{item.description}</p>
           </div>
         </div>
       ))}
