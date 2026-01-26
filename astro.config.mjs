@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
@@ -104,7 +104,5 @@ export default defineConfig({
     inlineStylesheets: 'always'
   },
 
-  adapter: node({
-    mode: 'standalone'
-  })
+  adapter: vercel()
 });
