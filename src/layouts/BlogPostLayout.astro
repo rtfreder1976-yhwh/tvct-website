@@ -1,0 +1,88 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+
+const { frontmatter } = Astro.props;
+const { title, description, date, author, image, tags } = frontmatter;
+
+const formattedDate = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
+---
+
+<BaseLayout title={title} description={description} ogImage={image}>
+    <div class="pt-32 pb-16 px-6 bg-gray-50">
+        <div class="container mx-auto max-w-4xl">
+            <!-- Breadcrumb -->
+            <nav
+                class="flex text-sm text-gray-500 mb-8"
+                aria-label="Breadcrumb"
+            >
+                <a href="/" class="hover:text-[#FFA985]">Home</a>
+                <Icon name="chevron-right" class="w-4 h-4 mx-2" />
+                <a href="/blog" class="hover:text-[#FFA985]">Blog</a>
+                <Icon name="chevron-right" class="w-4 h-4 mx-2" />
+                <span class="text-gray-900 font-medium truncate">{title}</span>
+            </nav>
+
+            <!-- Header -->
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm mb-12">
+                <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
+                    <time datetime={date} class="flex items-center">
+                        <Icon name="calendar-alt" class="w-4 h-4 mr-2" />
+                        {formattedDate}
+                    </time>
+                    <span class="flex items-center">
+                        <Icon name="user" class="w-4 h-4 mr-2" />
+                        {author}
+                    </span>
+                </div>
+
+                <h1
+                    class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight"
+                >
+                    {title}
+                </h1>
+
+                {
+                    tags && (
+                        <div class="flex flex-wrap gap-2">
+                            {tags.map((tag) => (
+                                <span class="bg-[#FFA985]/10 text-[#FFA985] px-3 py-1 rounded-full text-sm font-medium">
+                                    #{tag}
+                                </span>
+                            ))}
+                        </div>
+                    )
+                }
+            </div>
+
+            <!-- Content -->
+            <article
+                class="prose prose-lg prose-orange mx-auto bg-white rounded-3xl p-8 md:p-12 shadow-sm"
+            >
+                <slot />
+            </article>
+
+            <!-- CTA -->
+            <div
+                class="mt-12 bg-gradient-to-br from-[#FFA985] to-[#FFC67D] rounded-3xl p-8 md:p-12 text-center text-white"
+            >
+                <h2 class="text-3xl font-bold mb-4">
+                    Need help with your home?
+                </h2>
+                <p class="text-xl opacity-90 mb-8">
+                    Let the {author} handle the cleaning for you.
+                </p>
+                <a
+                    href="/booking"
+                    class="inline-block bg-white text-[#FFA985] font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition transform hover:-translate-y-1"
+                >
+                    Get a Free Quote
+                </a>
+            </div>
+        </div>
+    </div>
+</BaseLayout>

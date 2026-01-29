@@ -1,0 +1,65 @@
+---
+import ServiceLocationLayout from "../../../layouts/ServiceLocationLayout.astro";
+import locations from "../../../data/locations.json";
+import services from "../../../data/services.json";
+
+export async function getStaticPaths() {
+    return locations.flatMap((location) =>
+        services.map((service) => ({
+            params: { city: location.slug, service: service.slug },
+            props: { location, service },
+        })),
+    );
+}
+
+const { location, service } = Astro.props;
+
+// Helper to replace placeholders in strings
+function t(template) {
+    if (!template) return "";
+    let result = template
+        .replace(/{city}/g, location.name)
+        .replace(/{state}/g, location.state)
+        .replace(/{region_name}/g, location.region_name || location.name)
+        .replace(/{phone}/g, location.phone || "256-826-1100")
+        .replace(/{price_start}/g, service.price_start || "$125");
+    return result;
+}
+
+// Prepare props for the layout
+const title = t(service.meta_title_template);
+const description = t(service.meta_description_template);
+const serviceDescription = t(service.intro);
+
+const benefits = service.benefits
+    ? service.benefits.map((b) =>
+          typeof b === "string"
+              ? t(b)
+              : { title: t(b.title), description: t(b.description) },
+      )
+    : [];
+
+const includes = service.includes ? service.includes.map((i) => t(i)) : [];
+
+const faqs = service.faqs
+    ? service.faqs.map((f) => ({
+          question: t(f.question),
+          answer: t(f.answer),
+      }))
+    : [];
+---
+
+<ServiceLocationLayout
+    title={title}
+    description={description}
+    service={service.name}
+    serviceSlug={service.slug}
+    city={location.name}
+    state={location.state}
+    citySlug={location.slug}
+    serviceDescription={serviceDescription}
+    benefits={benefits}
+    includes={includes}
+    price={service.price_start || "Call for Quote"}
+    faqs={faqs}
+/>

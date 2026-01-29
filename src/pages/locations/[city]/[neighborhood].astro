@@ -1,0 +1,261 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
+import locations from "../../../data/locations.json";
+
+export async function getStaticPaths() {
+    return locations.flatMap((location) =>
+        (location.neighborhoods || []).map((neighborhood) => ({
+            params: { city: location.slug, neighborhood: neighborhood.slug },
+            props: { location, neighborhood },
+        })),
+    );
+}
+
+const { location, neighborhood } = Astro.props;
+
+// Helper variables
+const city = location.name;
+const state = location.state;
+const hoodName = neighborhood.name;
+const fullTitle = `House Cleaning ${hoodName} in ${city}, ${state} | Valley Clean Team`;
+const description = `Top-rated cleaning for ${hoodName} homes in ${city}. Regular maintenance, deep cleaning & move services. Veteran-owned, insured. Get a free quote today.`;
+
+// Generic FAQs if not specific ones exist
+const faqs = [
+    {
+        question: `Do you service ${hoodName}?`,
+        answer: `Yes! We are proud to serve ${hoodName} and the surrounding ${city} areas. We have many satisfied clients in your neighborhood.`,
+    },
+    {
+        question: "Do I need to be home?",
+        answer: "No, many of our clients provide us with a key or garage code. We are fully insured and background-checked for your peace of mind.",
+    },
+    {
+        question: "What is included in a standard clean?",
+        answer: "Our standard maintenance cleaning includes dusting, vacuuming, mopping, bathroom sanitation, and kitchen cleaning. We focus on keeping your home consistently fresh.",
+    },
+];
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+        },
+    })),
+};
+---
+
+<BaseLayout title={fullTitle} description={description}>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+    <!-- Hero Section -->
+    <section
+        class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800"
+    >
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div
+                        class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+                    >
+                        <span class="text-gray-900 font-semibold">
+                            <Icon
+                                name="map-marker-alt"
+                                class="w-5 h-5 mr-2"
+                            />Serving {hoodName}
+                        </span>
+                    </div>
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+                    >
+                        Premium House Cleaning in <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+                            >{hoodName}</span
+                        >
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-6">
+                        Trusted by families and professionals in {hoodName}. We
+                        provide reliable, top-tier cleaning services so you can
+                        enjoy your free time.
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div
+                            class="bg-white/10 backdrop-blur rounded-xl p-4 text-center"
+                        >
+                            <Icon
+                                name="home"
+                                class="w-8 h-8 text-[#FFA985] mb-2"
+                            />
+                            <p class="text-white font-semibold text-sm">
+                                Local
+                            </p>
+                            <p class="text-gray-400 text-xs">Experts</p>
+                        </div>
+                        <div
+                            class="bg-white/10 backdrop-blur rounded-xl p-4 text-center"
+                        >
+                            <Icon
+                                name="shield-alt"
+                                class="w-8 h-8 text-[#FFA985] mb-2"
+                            />
+                            <p class="text-white font-semibold text-sm">
+                                Licensed
+                            </p>
+                            <p class="text-gray-400 text-xs">& Insured</p>
+                        </div>
+                        <div
+                            class="bg-white/10 backdrop-blur rounded-xl p-4 text-center"
+                        >
+                            <Icon
+                                name="calendar-check"
+                                class="w-8 h-8 text-[#FFA985] mb-2"
+                            />
+                            <p class="text-white font-semibold text-sm">
+                                Reliable
+                            </p>
+                            <p class="text-gray-400 text-xs">Schedule</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                    >
+                        <a
+                            href={`tel:${location.phone}`}
+                            class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+                        >
+                            <Icon name="phone" class="w-5 h-5 mr-2" />Call For
+                            Quote
+                        </a>
+                        <a
+                            href="/booking"
+                            class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+                        >
+                            Book Online
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                    <div class="text-center mb-6">
+                        <span
+                            class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold"
+                        >
+                            <Icon name="clock" class="w-5 h-5 mr-1" /> FAST RESPONSE
+                        </span>
+                    </div>
+                    <h2
+                        class="text-2xl font-bold text-[#333333] mb-2 text-center"
+                    >
+                        Get Your Free Quote
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-center">
+                        Serving {hoodName} & {city}
+                    </p>
+                    <QuoteForm
+                        formId={`${neighborhood.slug}-quote-form`}
+                        serviceName={`${hoodName} Cleaning`}
+                        city={city}
+                        state={state}
+                        source={`${hoodName} Landing Page`}
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Props -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    Why {hoodName} Chooses Us
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-2xl p-8 text-center">
+                    <Icon
+                        name="check-circle"
+                        class="w-12 h-12 text-[#FFA985] mx-auto mb-4"
+                    />
+                    <h3 class="text-xl font-bold mb-2">Consistent Quality</h3>
+                    <p class="text-gray-600">
+                        We don't just clean; we care. Our checklist ensures
+                        every corner of your {hoodName} home is spotless.
+                    </p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-8 text-center">
+                    <Icon
+                        name="user-shield"
+                        class="w-12 h-12 text-[#FFA985] mx-auto mb-4"
+                    />
+                    <h3 class="text-xl font-bold mb-2">Safe & Secure</h3>
+                    <p class="text-gray-600">
+                        Fully insured, bonded, and background-checked
+                        technicians. Your home is safe with us.
+                    </p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-8 text-center">
+                    <Icon
+                        name="hand-holding-heart"
+                        class="w-12 h-12 text-[#FFA985] mx-auto mb-4"
+                    />
+                    <h3 class="text-xl font-bold mb-2">
+                        Satisfaction Guaranteed
+                    </h3>
+                    <p class="text-gray-600">
+                        If you're not happy, let us know within 24 hours and
+                        we'll make it right.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    Frequently Asked Questions
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="space-y-4">
+                {
+                    faqs.map((faq) => (
+                        <div
+                            class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+                            onclick="this.classList.toggle('active')"
+                        >
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-[#333333] pr-4">
+                                    {faq.question}
+                                </h3>
+                                <Icon
+                                    name="chevron-down"
+                                    class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                                />
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-gray-600 mt-4">{faq.answer}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+</BaseLayout>
