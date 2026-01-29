@@ -2,6 +2,7 @@
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
+import ABTester from "../components/ABTester.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 
@@ -525,6 +526,7 @@ const metaDescription =
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript><link rel="stylesheet" href="/styles/main.css" /></noscript>
+    <ABTester />
   </head>
   <body class="gradient-bg">
     <a
@@ -567,6 +569,54 @@ const metaDescription =
           );
         }
       })();
+    </script>
+    <script is:inline>
+      // Global Click Tracking for Analytics
+      document.addEventListener("click", function (e) {
+        var target = e.target.closest("a");
+        if (!target) return;
+
+        var href = target.getAttribute("href");
+        if (!href) return;
+
+        if (href.startsWith("tel:")) {
+          // Track Phone Click
+          if (window.dataLayer) {
+            window.dataLayer.push({
+              event: "contact_call",
+              link_url: href,
+            });
+          }
+          if (window.fbq) {
+            window.fbq("track", "Contact");
+          }
+          if (typeof gtag === "function") {
+            gtag("event", "click", {
+              event_category: "contact",
+              event_label: "phone",
+              value: href,
+            });
+          }
+        } else if (href.startsWith("mailto:")) {
+          // Track Email Click
+          if (window.dataLayer) {
+            window.dataLayer.push({
+              event: "contact_email",
+              link_url: href,
+            });
+          }
+          if (window.fbq) {
+            window.fbq("track", "Contact");
+          }
+          if (typeof gtag === "function") {
+            gtag("event", "click", {
+              event_category: "contact",
+              event_label: "email",
+              value: href,
+            });
+          }
+        }
+      });
     </script>
   </body>
 </html>

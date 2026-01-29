@@ -274,6 +274,30 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
               messageDiv.classList.remove("hidden");
             }
             f.reset();
+
+            // Analytics Tracking
+            // @ts-ignore
+            if (window.dataLayer) {
+              // @ts-ignore
+              window.dataLayer.push({
+                event: "generate_lead",
+                service: data.service,
+                location: data.location,
+              });
+            }
+            // @ts-ignore
+            if (window.fbq) {
+              // @ts-ignore
+              window.fbq("track", "Lead");
+            }
+            // @ts-ignore
+            if (typeof gtag === "function") {
+              // @ts-ignore
+              gtag("event", "generate_lead", {
+                service: data.service,
+                location: data.location,
+              });
+            }
           } else {
             throw new Error(result.error || "Submission failed");
           }

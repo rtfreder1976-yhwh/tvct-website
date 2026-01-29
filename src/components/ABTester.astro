@@ -1,0 +1,43 @@
+---
+/**
+ * Simple Client-Side A/B Tester
+ * Assigns a variant (a/b) to the user and applies it as a class to the body.
+ * Also pushes the event to the dataLayer for analytics tracking.
+ */
+---
+
+<script is:inline>
+    (function () {
+        try {
+            // 1. Configuration
+            const TEST_ID = "homepage_headline_v1"; // Update this to reset test
+            const STORAGE_KEY = "tvct_ab_" + TEST_ID;
+
+            // 2. Check storage
+            let variant = localStorage.getItem(STORAGE_KEY);
+
+            // 3. Assign if missing
+            if (!variant) {
+                variant = Math.random() < 0.5 ? "a" : "b";
+                localStorage.setItem(STORAGE_KEY, variant);
+            }
+
+            // 4. Apply to Body immediately to prevent flash
+            document.documentElement.classList.add("variant-" + variant);
+            // Also add to body when ready (just in case style targeting uses body)
+            document.addEventListener("DOMContentLoaded", () => {
+                document.body.classList.add("variant-" + variant);
+            });
+
+            // 5. Track
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: "ab_exposure",
+                test_id: TEST_ID,
+                variant: variant,
+            });
+        } catch (e) {
+            console.error("A/B Test Error:", e);
+        }
+    })();
+</script>
