@@ -9,6 +9,7 @@ interface Props {
   subtitle?: string;
   source?: string;
   urgentMode?: boolean;
+  variant?: "card" | "embedded";
 }
 
 const {
@@ -16,9 +17,10 @@ const {
   city = "",
   state = "AL",
   serviceName = "",
-  subtitle = "Fill out in 60 seconds",
+  subtitle = "Get your free quote in seconds",
   source = "",
   urgentMode = false,
+  variant = "embedded",
 } = Astro.props;
 
 const locationValue = city ? (state ? `${city}, ${state}` : city) : "";
@@ -29,298 +31,571 @@ const sourceValue =
     : city
       ? `${city} Landing Page`
       : "Website Form");
-const buttonText = "Get My Free Quote";
 const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
 ---
 
-<form id={formId} class="quote-form-component bg-white">
-  {
-    urgentMode && (
-      <div class="mb-6 bg-red-50 border border-red-200 p-3 rounded-lg flex items-center animate-pulse">
-        <Icon name="clock" class="w-5 h-5 text-red-600 mr-2" />
-        <span class="text-red-700 font-bold text-sm uppercase tracking-wider">
-          Priority - Same Day Response
-        </span>
+<div
+  id={formId}
+  class:list={[
+    "quote-form-component relative overflow-hidden transition-all",
+    variant === "card"
+      ? "bg-white rounded-2xl shadow-xl border border-gray-100/50"
+      : "bg-transparent rounded-xl",
+  ]}
+>
+  <!-- Progress Bar -->
+  <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-100">
+    <div
+      class="h-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] transition-all duration-500 ease-out w-1/3"
+      id={`${uniqueId}-progress`}
+    >
+    </div>
+  </div>
+
+  <div class:list={[variant === "card" ? "p-6 md:p-8" : ""]}>
+    <!-- Header -->
+    <div class="text-center mb-6" id={`${uniqueId}-header`}>
+      <h3 class="text-2xl font-bold text-[#333333] mb-2">Get a Free Quote</h3>
+      <p class="text-gray-500 text-sm">{subtitle}</p>
+    </div>
+
+    <form class="space-y-4" novalidate>
+      <input type="hidden" name="location" value={locationValue} />
+      <input type="hidden" name="source" value={sourceValue} />
+
+      <!-- Step 1: Service Details -->
+      <div
+        id={`${uniqueId}-step-1`}
+        class="form-step transition-opacity duration-300"
+      >
+        <div class="space-y-4">
+          <!-- Service Type -->
+          <div>
+            <label
+              class="block text-gray-700 font-semibold mb-2 text-sm uppercase tracking-wide"
+              >Service Required</label
+            >
+            <div class="relative">
+              <select
+                name="service"
+                class="w-full px-4 py-3 pr-10 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 appearance-none transition-all font-medium cursor-pointer"
+                required
+              >
+                <option value="" disabled selected={!serviceName}
+                  >Select Service Type</option
+                >
+                <option
+                  value="Regular Cleaning"
+                  selected={serviceName.includes("Regular") ||
+                    serviceName.includes("Recurring")}
+                  >Regular Cleaning (Weekly/Bi-weekly)</option
+                >
+                <option
+                  value="Deep Cleaning"
+                  selected={serviceName.includes("Deep")}
+                  >Deep / Spring Cleaning</option
+                >
+                <option
+                  value="Move In/Out Cleaning"
+                  selected={serviceName.includes("Move")}
+                  >Move In / Move Out</option
+                >
+                <option
+                  value="Post-Construction Cleaning"
+                  selected={serviceName.includes("Construction")}
+                  >Post-Construction</option
+                >
+                <option
+                  value="Commercial/Office Cleaning"
+                  selected={serviceName.includes("Commercial") ||
+                    serviceName.includes("Office")}>Commercial / Office</option
+                >
+                <option
+                  value="Airbnb Cleaning"
+                  selected={serviceName.includes("Airbnb")}
+                  >Airbnb / Rental</option
+                >
+                <option
+                  value="Event Cleaning"
+                  selected={serviceName.includes("Event")}
+                  >Event Cleaning</option
+                >
+              </select>
+              <div
+                class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-500"
+              >
+                <Icon name="chevron-down" class="w-4 h-4" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Sq Footage -->
+          <div>
+            <label
+              class="block text-gray-700 font-semibold mb-2 text-sm uppercase tracking-wide"
+            >
+              Approx. Square Footage
+            </label>
+            <div class="relative group">
+              <input
+                type="number"
+                name="square_footage"
+                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium placeholder-gray-400"
+                placeholder="e.g. 2500"
+                min="0"
+                required
+              />
+              <div
+                class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400 font-medium text-sm"
+              >
+                sq ft
+              </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-1 pl-1">Best guess is fine!</p>
+          </div>
+
+          <!-- Urgency Toggle -->
+          <div
+            class="flex items-center justify-between p-3 rounded-xl border border-dashed border-gray-300 bg-gray-50/50 hover:bg-gray-50 transition-colors cursor-pointer"
+            onclick={`document.getElementById('${uniqueId}-urgent').click()`}
+          >
+            <div class="flex items-center">
+              <div
+                class={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${urgentMode ? "bg-red-100 text-red-500" : "bg-gray-200 text-gray-500"} group-hover:scale-110 transition-transform`}
+              >
+                <Icon name="clock" class="w-4 h-4" />
+              </div>
+              <div>
+                <span class="block text-sm font-semibold text-gray-700"
+                  >Need it ASAP?</span
+                >
+                <span class="text-xs text-gray-500"
+                  >Priority Same-Day Response</span
+                >
+              </div>
+            </div>
+            <div
+              class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+            >
+              <input
+                type="checkbox"
+                name="is_urgent"
+                id={`${uniqueId}-urgent`}
+                class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 checked:right-0 checked:border-[#FFA985]"
+                checked={urgentMode}
+              />
+              <label
+                for={`${uniqueId}-urgent`}
+                class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer checked:bg-[#FFA985]"
+              ></label>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="next-step-btn w-full py-4 mt-2 rounded-xl bg-[#333333] text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center group"
+          >
+            Next Step <Icon
+              name="arrow-right"
+              class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+            />
+          </button>
+        </div>
       </div>
-    )
+
+      <!-- Step 2: Contact Info -->
+      <div
+        id={`${uniqueId}-step-2`}
+        class="form-step hidden opacity-0 transition-opacity duration-300"
+      >
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 gap-4">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1 text-sm"
+                >Full Name</label
+              >
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400"
+                >
+                  <Icon name="user" class="w-4 h-4" />
+                </div>
+                <input
+                  type="text"
+                  name="name"
+                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+                  placeholder="John Doe"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1 text-sm"
+                >Phone Number</label
+              >
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400"
+                >
+                  <Icon name="phone" class="w-4 h-4" />
+                </div>
+                <input
+                  type="tel"
+                  name="phone"
+                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+                  placeholder="(256) 555-0123"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1 text-sm"
+                >Email Address <span class="text-gray-400 font-normal ml-1"
+                  >(Optional)</span
+                ></label
+              >
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-gray-400"
+                >
+                  <Icon name="envelope" class="w-4 h-4" />
+                </div>
+                <input
+                  type="email"
+                  name="email"
+                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
+                  placeholder="john@example.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-gray-700 font-semibold mb-1 text-sm"
+                >Notes <span class="text-gray-400 font-normal ml-1"
+                  >(Optional)</span
+                ></label
+              >
+              <textarea
+                name="message"
+                rows="2"
+                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium resize-none"
+                placeholder="Any specific requirements?"></textarea>
+            </div>
+          </div>
+
+          <div class="flex gap-3 pt-2">
+            <button
+              type="button"
+              class="back-step-btn px-6 py-4 rounded-xl text-gray-500 font-bold hover:bg-gray-100 transition-colors"
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              class="quote-submit-btn flex-1 py-4 rounded-xl bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+            >
+              Get My Free Quote
+            </button>
+          </div>
+
+          <p class="text-center text-[10px] text-gray-400 mt-2">
+            <Icon name="lock" class="w-3 h-3 inline mr-1" />
+            Your privacy is protected. No spam, ever.
+          </p>
+        </div>
+      </div>
+
+      <!-- Success State -->
+      <div
+        id={`${uniqueId}-success`}
+        class="hidden text-center py-8 animate-fade-in"
+      >
+        <div
+          class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 transform hover:rotate-12 transition-transform"
+        >
+          <Icon name="check" class="w-10 h-10 text-green-600" />
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Quote Requested!</h3>
+        <p class="text-gray-600 mb-6 max-w-xs mx-auto">
+          Thanks <span class="visitor-name font-semibold text-gray-900"></span>!
+          We'll analyze your home details and call you at <span
+            class="visitor-phone font-semibold text-gray-900"></span> shortly.
+        </p>
+        <div
+          class="bg-gray-50 rounded-lg p-4 inline-block mx-auto border border-gray-200"
+        >
+          <p class="text-sm text-gray-500">Expected response time:</p>
+          <p class="text-lg font-bold text-[#FFA985]">~25 Minutes</p>
+        </div>
+      </div>
+
+      <!-- Error State -->
+      <div id={`${uniqueId}-error`} class="hidden text-center py-8">
+        <div
+          class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <Icon name="exclamation-circle" class="w-8 h-8 text-red-500" />
+        </div>
+        <h3 class="text-lg font-bold text-gray-900 mb-2">
+          Something went wrong
+        </h3>
+        <p class="text-gray-600 mb-4">
+          We couldn't submit your request. Please try calling us directly.
+        </p>
+        <a
+          href="tel:2568261100"
+          class="inline-block bg-[#333333] text-white font-bold py-3 px-6 rounded-lg hover:bg-black transition-colors"
+        >
+          Call 256-826-1100
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+  .toggle-checkbox:checked {
+    right: 0;
+    border-color: #ffa985;
   }
-  <div class="mb-4">
-    <label
-      for={`${uniqueId}-phone`}
-      class="block text-gray-700 mb-2 font-semibold"
-      >Phone <span class="text-[#FFA985]">*</span></label
-    >
-    <input
-      type="tel"
-      id={`${uniqueId}-phone`}
-      name="phone"
-      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-      placeholder="256-826-1100"
-      required
-      aria-required="true"
-    />
-  </div>
+  .toggle-checkbox:checked + .toggle-label {
+    background-color: #ffa985;
+  }
+  /* Fix: Target the knob within the label when the specific checkbox is checked */
+  .toggle-checkbox:checked + .toggle-label::after {
+    transform: translateX(100%);
+  }
 
-  <div class="mb-4">
-    <label
-      for={`${uniqueId}-service`}
-      class="block text-gray-700 mb-2 font-semibold"
-      >Service Type <span class="text-[#FFA985]">*</span></label
-    >
-    <select
-      id={`${uniqueId}-service`}
-      name="service"
-      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-      required
-      aria-required="true"
-    >
-      <option value="">Select a Service</option>
-      <option value="Deep Cleaning" selected={serviceName.includes("Deep")}
-        >Deep Cleaning</option
-      >
-      <option
-        value="Regular Cleaning"
-        selected={serviceName.includes("Regular") ||
-          serviceName.includes("Recurring")}>Regular Cleaning</option
-      >
-      <option
-        value="Move In/Out Cleaning"
-        selected={serviceName.includes("Move")}>Move In/Out Cleaning</option
-      >
-      <option
-        value="Post-Construction Cleaning"
-        selected={serviceName.includes("Construction")}
-        >Post-Construction Cleaning</option
-      >
-      <option
-        value="Commercial/Office Cleaning"
-        selected={serviceName.includes("Commercial") ||
-          serviceName.includes("Office")}>Commercial/Office Cleaning</option
-      >
-      <option value="Event Cleaning" selected={serviceName.includes("Event")}
-        >Event Cleaning</option
-      >
-      <option value="Green Cleaning" selected={serviceName.includes("Green")}
-        >Green Cleaning</option
-      >
-      <option value="Airbnb Cleaning" selected={serviceName.includes("Airbnb")}
-        >Airbnb Cleaning</option
-      >
-    </select>
-  </div>
+  .toggle-checkbox {
+    right: 0;
+    z-index: 10;
+    transition: all 0.3s ease;
+    opacity: 0; /* Hide the actual checkbox input */
+    cursor: pointer;
+  }
 
-  <div class="mb-4">
-    <label
-      for={`${uniqueId}-sqft`}
-      class="block text-gray-700 mb-2 font-semibold"
-      >Estimated Square Footage <span class="text-[#FFA985]">*</span></label
-    >
-    <input
-      type="number"
-      id={`${uniqueId}-sqft`}
-      name="square_footage"
-      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-      placeholder="e.g. 2500"
-      required
-      aria-required="true"
-    />
-  </div>
+  .toggle-label {
+    width: 3rem;
+    height: 1.5rem;
+    z-index: 1;
+    transition: all 0.3s ease;
+    background-color: #e5e7eb; /* Gray-200 */
+    border-radius: 9999px;
+    position: relative;
+  }
 
-  <div class="mb-4">
-    <label
-      for={`${uniqueId}-name`}
-      class="block text-gray-700 mb-2 font-semibold"
-      >Name <span class="text-[#FFA985]">*</span></label
-    >
-    <input
-      type="text"
-      id={`${uniqueId}-name`}
-      name="name"
-      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-      placeholder="Your Name"
-      required
-      aria-required="true"
-    />
-  </div>
+  /* The sliding knob */
+  .toggle-label::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
 
-  <div class="mb-4">
-    <label
-      for={`${uniqueId}-email`}
-      class="block text-gray-700 mb-2 font-semibold"
-      >Email <span class="text-gray-400 text-sm font-normal">(optional)</span
-      ></label
-    >
-    <input
-      type="email"
-      id={`${uniqueId}-email`}
-      name="email"
-      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-      placeholder="your@email.com"
-    />
-  </div>
+  /* Custom Focus Ring for Inputs when valid/filled */
+  input:valid:not(:placeholder-shown):not(:focus) {
+    border-color: #e5e7eb;
+    background-color: #f9fafb;
+  }
 
-  <div class="mb-4">
-    <label
-      for={`${uniqueId}-date`}
-      class="block text-gray-700 mb-2 font-semibold"
-      >Preferred Date <span class="text-gray-400 text-sm font-normal"
-        >(optional)</span
-      ></label
-    >
-    <input
-      type="date"
-      id={`${uniqueId}-date`}
-      name="preferred_date"
-      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-    />
-  </div>
+  /* Hide number arrows */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
 
-  <div class="mb-4">
-    <label
-      for={`${uniqueId}-message`}
-      class="block text-gray-700 mb-2 font-semibold"
-      >Additional Details <span class="text-gray-400 text-sm font-normal"
-        >(optional)</span
-      ></label
-    >
-    <textarea
-      id={`${uniqueId}-message`}
-      name="message"
-      class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-      rows="2"
-      placeholder="Tell us about your home..."></textarea>
-  </div>
+<script define:vars={{ uniqueId }}>
+  function initQuoteForm() {
+    // Select elements using the unique ID to support multiple forms on one page
+    const progressEl = document.getElementById(`${uniqueId}-progress`);
+    const step1El = document.getElementById(`${uniqueId}-step-1`);
+    const step2El = document.getElementById(`${uniqueId}-step-2`);
+    const successEl = document.getElementById(`${uniqueId}-success`);
+    const errorEl = document.getElementById(`${uniqueId}-error`);
+    const headerEl = document.getElementById(`${uniqueId}-header`);
 
-  <input type="hidden" name="location" value={locationValue} />
-  <input type="hidden" name="source" value={sourceValue} />
-  <input type="hidden" name="is_urgent" value={urgentMode ? "true" : "false"} />
+    // Scoped selectors within the form component
+    const container = document
+      .getElementById(uniqueId)
+      ?.closest(".quote-form-component");
+    if (!container) return; // Guard clause
 
-  <button
-    type="submit"
-    class="quote-submit-btn btn-primary w-full py-4 rounded-lg text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-  >
-    {buttonText}
-  </button>
+    const form = container.querySelector("form");
+    const nextBtn = container.querySelector(".next-step-btn");
+    const backBtn = container.querySelector(".back-step-btn");
+    const submitBtn = container.querySelector(".quote-submit-btn");
 
-  <p
-    class="text-center text-xs text-gray-500 mt-3 flex items-center justify-center"
-  >
-    <Icon name="lock" class="w-3 h-3 mr-1" /> Your information is secure. We'll call
-    within 2 hours.
-  </p>
-
-  <div
-    class="quote-form-message hidden text-center p-4 rounded-lg mt-3 font-semibold"
-  >
-  </div>
-</form>
-
-<script>
-  function setupQuoteForms() {
-    const forms = document.querySelectorAll(".quote-form-component");
-
-    forms.forEach((form) => {
-      // Check if already initialized to avoid double listeners
-      if ((form as any)._initialized) return;
-      (form as any)._initialized = true;
-
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const f = e.target as HTMLFormElement;
-        const submitBtn = f.querySelector(
-          ".quote-submit-btn",
-        ) as HTMLButtonElement;
-        const messageDiv = f.querySelector(
-          ".quote-form-message",
-        ) as HTMLElement;
-        const originalBtnHtml = submitBtn.innerHTML;
-
-        const formDataObj = new FormData(f);
-        const data = {
-          name: formDataObj.get("name"),
-          email: formDataObj.get("email"),
-          phone: formDataObj.get("phone"),
-          service: formDataObj.get("service"),
-          square_footage: formDataObj.get("square_footage"),
-          location: formDataObj.get("location") || "",
-          preferred_date: formDataObj.get("preferred_date") || "",
-          message: formDataObj.get("message") || "",
-          is_urgent: formDataObj.get("is_urgent"),
-          source: formDataObj.get("source") || "Website Form",
-          page_url: window.location.href,
-        };
-
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML =
-            '<svg class="inline w-4 h-4 mr-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Sending...';
-        }
-
-        try {
-          const response = await fetch("/api/submit-form", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          });
-
-          const result = await response.json();
-
-          if (response.ok && result.success) {
-            if (messageDiv) {
-              messageDiv.className =
-                "quote-form-message text-center p-4 rounded-lg bg-green-100 text-green-800 mt-3 block";
-              messageDiv.innerHTML =
-                "✓ Thank you! We'll be in touch within 2 hours.";
-              messageDiv.classList.remove("hidden");
-            }
-            f.reset();
-
-            // Analytics Tracking
-            // @ts-ignore
-            if (window.dataLayer) {
-              // @ts-ignore
-              window.dataLayer.push({
-                event: "generate_lead",
-                service: data.service,
-                location: data.location,
-              });
-            }
-            // @ts-ignore
-            if (window.fbq) {
-              // @ts-ignore
-              window.fbq("track", "Lead");
-            }
-            // @ts-ignore
-            if (typeof gtag === "function") {
-              // @ts-ignore
-              gtag("event", "generate_lead", {
-                service: data.service,
-                location: data.location,
-              });
-            }
-          } else {
-            throw new Error(result.error || "Submission failed");
-          }
-        } catch (error) {
-          if (messageDiv) {
-            messageDiv.className =
-              "quote-form-message text-center p-4 rounded-lg bg-red-100 text-red-800 mt-3 block";
-            messageDiv.innerHTML =
-              "⚠ Something went wrong. Please call us at 256-826-1100.";
-            messageDiv.classList.remove("hidden");
-          }
-        } finally {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnHtml;
+    // Track Form Start (First Interaction)
+    let hasStarted = false;
+    const inputs = container.querySelectorAll("input, select, textarea");
+    inputs.forEach((input) => {
+      input.addEventListener("focus", () => {
+        if (!hasStarted) {
+          hasStarted = true;
+          if (window.dataLayer) {
+            window.dataLayer.push({ event: "quote_start", form_id: uniqueId });
           }
         }
       });
     });
+
+    // Navigation Logic
+    nextBtn?.addEventListener("click", () => {
+      // Validate Step 1
+      const service = form.querySelector('[name="service"]');
+      const sqft = form.querySelector('[name="square_footage"]');
+
+      let isValid = true;
+      if (!service.value) {
+        service.classList.add("border-red-500", "ring-2", "ring-red-100");
+        isValid = false;
+      }
+      if (!sqft.value) {
+        sqft.classList.add("border-red-500", "ring-2", "ring-red-100");
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Track Step 2 View
+      if (window.dataLayer) {
+        window.dataLayer.push({ event: "step_2_viewed", form_id: uniqueId });
+      }
+
+      // Remove error styles
+      service.classList.remove("border-red-500", "ring-2", "ring-red-100");
+      sqft.classList.remove("border-red-500", "ring-2", "ring-red-100");
+
+      // Go to Step 2
+      step1El.style.opacity = "0";
+      setTimeout(() => {
+        step1El.classList.add("hidden");
+        step2El.classList.remove("hidden");
+        // Small delay to allow display:block to apply before opacity transition
+        requestAnimationFrame(() => {
+          step2El.style.opacity = "1";
+        });
+        progressEl.style.width = "66%";
+      }, 300);
+    });
+
+    backBtn?.addEventListener("click", () => {
+      step2El.style.opacity = "0";
+      setTimeout(() => {
+        step2El.classList.add("hidden");
+        step1El.classList.remove("hidden");
+        requestAnimationFrame(() => {
+          step1El.style.opacity = "1";
+        });
+        progressEl.style.width = "33%";
+      }, 300);
+    });
+
+    // Form Submission
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Basic Validation for Step 2
+      const nameIn = form.querySelector('[name="name"]');
+      const phoneIn = form.querySelector('[name="phone"]');
+
+      if (!nameIn.value || !phoneIn.value) {
+        if (!nameIn.value) nameIn.classList.add("border-red-500");
+        if (!phoneIn.value) phoneIn.classList.add("border-red-500");
+        return;
+      }
+
+      // Prepare UI
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML =
+        '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sending...';
+
+      // Collect Data
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      data.page_url = window.location.href; // Add current URL
+
+      try {
+        const response = await fetch("/api/submit-form", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Track Analytics
+          if (window.dataLayer) {
+            window.dataLayer.push({
+              event: "generate_lead",
+              service: data.service,
+              location: data.location || "",
+            });
+          }
+          if (window.fbq) window.fbq("track", "Lead");
+          if (typeof gtag === "function") {
+            gtag("event", "generate_lead", {
+              service: data.service,
+              location: data.location || "",
+            });
+          }
+
+          // Show Success
+          step2El.style.opacity = "0";
+          headerEl.style.opacity = "0"; // Hide header too on success
+
+          setTimeout(() => {
+            step2El.classList.add("hidden");
+            headerEl.classList.add("hidden");
+            successEl.classList.remove("hidden");
+
+            // Fill personalized details
+            container.querySelector(".visitor-name").textContent =
+              data.name.split(" ")[0];
+            container.querySelector(".visitor-phone").textContent = data.phone;
+
+            progressEl.style.width = "100%";
+            progressEl.classList.replace("from-[#FFA985]", "from-green-400");
+            progressEl.classList.replace("to-[#FFC67D]", "to-green-500");
+          }, 300);
+        } else {
+          throw new Error(result.error || "Submission failed");
+        }
+      } catch (err) {
+        console.error(err);
+        step2El.classList.add("hidden");
+        errorEl.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
+    });
+
+    // Formatting Helpers
+    const phoneInput = form.querySelector('input[name="phone"]');
+    phoneInput?.addEventListener("input", (e) => {
+      let x = e.target.value
+        .replace(/\D/g, "")
+        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      e.target.value = !x[2]
+        ? x[1]
+        : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
+    });
   }
 
-  // Initialize on load
-  setupQuoteForms();
-  // Support Astro view transitions
-  document.addEventListener("astro:page-load", setupQuoteForms);
+  // Init
+  initQuoteForm();
+  document.addEventListener("astro:page-load", initQuoteForm);
 </script>
