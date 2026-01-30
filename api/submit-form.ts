@@ -59,12 +59,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log('Sent to n8n pricing engine');
 
         // Return early to prevent the old GHL workflow from firing duplicate auto-replies
-        return new Response(
-          JSON.stringify({
-            message: "We're calculating your price now. Check your texts!",
-          }),
-          { status: 200 }
-        );
+        return res.status(200).json({
+          message: "We're calculating your price now. Check your texts!"
+        });
 
       } catch (n8nError) {
         console.error('n8n webhook error:', n8nError);
