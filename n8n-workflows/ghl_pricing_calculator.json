@@ -1,0 +1,73 @@
+{
+    "name": "TVCT - Pricing Calculator API",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "calculate-price",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ],
+            "id": "webhook-trigger",
+            "name": "GHL Webhook",
+            "webhookId": "pricing-calculator"
+        },
+        {
+            "parameters": {
+                "functionCode": "// Pricing Logic from pricing_model.json\n\nconst tiers = {\n  deep_clean: [\n    { max: 750, price: 276 },\n    { max: 1000, price: 311 },\n    { max: 1250, price: 346 },\n    { max: 1500, price: 381 },\n    { max: 1800, price: 416 },\n    { max: 2100, price: 451 },\n    { max: 2400, price: 506 },\n    { max: 2700, price: 561 },\n    { max: 3000, price: 616 },\n    { max: 3300, price: 671 },\n    { max: 3600, price: 726 },\n    { max: 4000, price: 781 },\n    { max: 4400, price: 836 },\n    { max: 4800, price: 891 },\n    { max: 5200, price: 946 },\n    { max: 5600, price: 1001 },\n    { max: 6000, price: 1056 }\n  ],\n  standard_clean: [\n    { max: 750, price: 176 },\n    { max: 1000, price: 211 },\n    { max: 1250, price: 246 },\n    { max: 1500, price: 281 },\n    { max: 1800, price: 316 },\n    { max: 2100, price: 351 },\n    { max: 2400, price: 381 },\n    { max: 2700, price: 436 },\n    { max: 3000, price: 491 },\n    { max: 3300, price: 546 },\n    { max: 3600, price: 601 },\n    { max: 4000, price: 656 },\n    { max: 4400, price: 711 },\n    { max: 4800, price: 766 },\n    { max: 5200, price: 821 },\n    { max: 5600, price: 876 },\n    { max: 6000, price: 931 }\n  ]\n};\n\nconst items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  const body = item.json;\n  const sqft = parseInt(body.square_footage || body.sq_ft || 0);\n  let service = (body.service || body.service_type || 'deep_clean').toLowerCase().replace(/ /g, '_');\n  \n  let price = 0;\n  let multiplier = 1;\n  let adjustment = 0;\n\n  // Handle derived service types\n  let baseService = service;\n  if (service.includes('move')) {\n    baseService = 'deep_clean';\n    adjustment = 75;\n  } else if (service.includes('extreme')) {\n    baseService = 'deep_clean';\n    adjustment = 75; // Move in/out base\n    multiplier = 1.5; // Extreme multiplier\n  }\n\n  // Find base price\n  const tierList = tiers[baseService] || tiers['deep_clean'];\n  const tier = tierList.find(t => sqft <= t.max) || tierList[tierList.length - 1];\n  let basePrice = tier.price;\n\n  // Apply adjustments\n  price = (basePrice + adjustment) * multiplier;\n  price = Math.ceil(price); // Round up to nearest dollar\n\n  results.push({\n    json: {\n      price,\n      formatted_price: `$${price}`,\n      sq_ft: sqft,\n      service_type: service\n    }\n  });\n}\n\nreturn results;"
+            },
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ],
+            "id": "pricing-logic",
+            "name": "Calculate Price"
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ JSON.stringify($json) }}",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ],
+            "id": "respond-to-ghl",
+            "name": "Respond to GHL"
+        }
+    ],
+    "connections": {
+        "GHL Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Calculate Price",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Calculate Price": {
+            "main": [
+                [
+                    {
+                        "node": "Respond to GHL",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
