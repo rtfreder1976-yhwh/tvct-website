@@ -61,6 +61,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // Continue with email even if GHL fails
     }
 
+    // Send to n8n Instant Quote Webhook (Pricing Engine)
+    const n8nWebhookUrl = process.env.N8N_INSTANT_QUOTE_WEBHOOK_URL;
+    if (n8nWebhookUrl) {
+      try {
+        await fetch(n8nWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: name ? name.split(' ')[0] : 'there', // Extract first name for SMS
+            phone: phone,
+            service_type: service ? service.toLowerCase().replace(/ /g, '_') : 'deep_clean', // Normalize service name
+            sq_ft: parseInt(square_footage) || 0,
+            email: email || '',
+            location: location || ''
+          })
+        });
+        console.log('Sent to n8n pricing engine');
+      } catch (n8nError) {
+        console.error('n8n webhook error:', n8nError);
+      }
+    }
+
     // Format the email content
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

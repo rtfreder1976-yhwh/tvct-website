@@ -1,0 +1,128 @@
+{
+    "name": "TVCT - Recurring Revenue Automator (GHL Integrated)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "job-complete",
+                "options": {}
+            },
+            "name": "Job Complete Trigger",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://services.leadconnectorhq.com/hooks/YOUR_GHL_WEBHOOK_FOR_CLEANER_SMS",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "type",
+                            "value": "ask_cleaner_hours"
+                        },
+                        {
+                            "name": "cleaner_phone",
+                            "value": "={{ $json.body.cleaner_phone }}"
+                        },
+                        {
+                            "name": "client_name",
+                            "value": "={{ $json.body.client_name }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "GHL - Ask Cleaner",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "// Pricing Logic: Cost Plus 100%\n// Note: distinct from the trigger, this would conceptually happen after the cleaner replies.\n// For this workflow, we are just simulating the logic flow.\n\nconst hours = 4.5; // Placeholder for actual cleaner response\nconst hourlyCost = 25; // Base cleaner rate (internal)\nconst markup = 2.0; // 100% markup\n\nconst recurringPrice = (hours * hourlyCost) * markup;\n\nreturn [\n  {\n    json: {\n      recurring_price: recurringPrice,\n      cleaner_hours: hours,\n      ...items[0].json\n    }\n  }\n];"
+            },
+            "name": "Calculate Recurring Price",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "https://services.leadconnectorhq.com/hooks/YOUR_GHL_WEBHOOK_FOR_CLIENT_PROPOSAL",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "type",
+                            "value": "send_proposal"
+                        },
+                        {
+                            "name": "client_phone",
+                            "value": "={{ $json.client_phone }}"
+                        },
+                        {
+                            "name": "recurring_price",
+                            "value": "={{ $json.recurring_price }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "GHL - Send Proposal",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                850,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Job Complete Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "GHL - Ask Cleaner",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "GHL - Ask Cleaner": {
+            "main": [
+                [
+                    {
+                        "node": "Calculate Recurring Price",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Calculate Recurring Price": {
+            "main": [
+                [
+                    {
+                        "node": "GHL - Send Proposal",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

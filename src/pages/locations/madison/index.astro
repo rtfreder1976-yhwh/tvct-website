@@ -1,9 +1,9 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../../components/SchemaMarkup.astro';
-import { madisonTestimonials } from '../../../data/testimonials';
-import Icon from '../../../components/Icon.astro';
-import QuoteForm from '../../../components/QuoteForm.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import { madisonTestimonials } from "../../../data/testimonials";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "Madison";
 const state = "Alabama";
@@ -13,7 +13,8 @@ const region = "Madison County";
 const geoData = {
   region: "US-AL",
   position: "34.6992;-86.7483",
-  image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp"
+  image:
+    "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69208029f8fa3b30bb23e26e.webp",
 };
 
 // Neighborhoods and areas served
@@ -30,65 +31,73 @@ const neighborhoods = [
   "Bradford Lakes",
   "Celtic Manor",
   "Hughes Road area",
-  "Triana"
+  "Triana",
 ];
 
 // Madison-specific FAQs
 const faqs = [
   {
     question: "Do you serve the new Town Madison development?",
-    answer: "Absolutely! We serve all of Town Madison—The Exchange, The Heights, The Commons, and The West End districts. Whether you have a luxury townhome or single-family home in this master-planned community, we provide the premium cleaning service that matches your Town Madison lifestyle. We can work around your busy schedule and offer same-day service."
+    answer:
+      "Absolutely! We serve all of Town Madison—The Exchange, The Heights, The Commons, and The West End districts. Whether you have a luxury townhome or single-family home in this master-planned community, we provide the premium cleaning service that matches your Town Madison lifestyle. We can work around your busy schedule and offer same-day service.",
   },
   {
     question: "Can you accommodate tech professionals and telecommuters?",
-    answer: "Yes! We understand that nearly 19% of Madison residents work from home. We offer flexible scheduling that works around your meetings and calls—whether you need us to clean while you're in a home office or prefer we come during off-hours. Your productivity won't be interrupted, and you'll return to a spotless workspace."
+    answer:
+      "Yes! We understand that nearly 19% of Madison residents work from home. We offer flexible scheduling that works around your meetings and calls—whether you need us to clean while you're in a home office or prefer we come during off-hours. Your productivity won't be interrupted, and you'll return to a spotless workspace.",
   },
   {
     question: "What Madison neighborhoods do you serve?",
-    answer: "We serve all Madison neighborhoods including Town Madison, Rainbow Mountain Heights, West Highlands, Clift Farm, Village at Oakland Springs, Bridgefield, Downtown Madison, Providence, Bradford Lakes, Celtic Manor, Hughes Road area, and Triana. We also serve Madison's expansion areas into Limestone County."
+    answer:
+      "We serve all Madison neighborhoods including Town Madison, Rainbow Mountain Heights, West Highlands, Clift Farm, Village at Oakland Springs, Bridgefield, Downtown Madison, Providence, Bradford Lakes, Celtic Manor, Hughes Road area, and Triana. We also serve Madison's expansion areas into Limestone County.",
   },
   {
     question: "Do you provide cleaning for Redstone Arsenal and NASA families?",
-    answer: "Yes, many of our Madison clients work at Redstone Arsenal, NASA Marshall Space Flight Center, and the surrounding aerospace industry. We understand security clearances, unpredictable schedules, and the demands of defense and tech careers. We offer flexible scheduling and can work while you're at work—so you come home to a clean house."
+    answer:
+      "Yes, many of our Madison clients work at Redstone Arsenal, NASA Marshall Space Flight Center, and the surrounding aerospace industry. We understand security clearances, unpredictable schedules, and the demands of defense and tech careers. We offer flexible scheduling and can work while you're at work—so you come home to a clean house.",
   },
   {
     question: "Can you clean homes in Madison City School zones?",
-    answer: "Absolutely! Madison City Schools are ranked among Alabama's best, which is why so many families choose Madison. We serve homes zoned for all Madison schools—from Mill Creek Elementary to Discovery Middle to Bob Jones High. We work around school schedules, sports practices, and busy family calendars."
+    answer:
+      "Absolutely! Madison City Schools are ranked among Alabama's best, which is why so many families choose Madison. We serve homes zoned for all Madison schools—from Mill Creek Elementary to Discovery Middle to Bob Jones High. We work around school schedules, sports practices, and busy family calendars.",
   },
   {
     question: "Do you offer move-in cleaning for Madison's new construction?",
-    answer: "Yes! Madison is Alabama's fastest-growing city with new construction everywhere. We provide post-construction cleaning, new home move-in cleaning, and builder cleanup services. Get your new home spotless before you move in—we'll remove construction dust, clean windows, and prepare every room."
+    answer:
+      "Yes! Madison is Alabama's fastest-growing city with new construction everywhere. We provide post-construction cleaning, new home move-in cleaning, and builder cleanup services. Get your new home spotless before you move in—we'll remove construction dust, clean windows, and prepare every room.",
   },
   {
     question: "Can you work around Madison's busy family schedules?",
-    answer: "Definitely. With 53% of Madison households having children under 18, we understand the chaos of family life. Soccer practice, band rehearsal, school events—we get it. We offer flexible scheduling including same-day service, can clean while kids are at school, and work around your family's unique rhythm."
+    answer:
+      "Definitely. With 53% of Madison households having children under 18, we understand the chaos of family life. Soccer practice, band rehearsal, school events—we get it. We offer flexible scheduling including same-day service, can clean while kids are at school, and work around your family's unique rhythm.",
   },
   {
     question: "Do you serve the Rainbow Mountain and Wheeler Refuge areas?",
-    answer: "Yes, we serve homes throughout Rainbow Mountain Heights and properties near Wheeler National Wildlife Refuge. These beautiful areas come with unique cleaning needs—from mountain dust to seasonal pollen. Our deep cleaning services help keep your home fresh year-round, especially important for families with allergies."
-  }
+    answer:
+      "Yes, we serve homes throughout Rainbow Mountain Heights and properties near Wheeler National Wildlife Refuge. These beautiful areas come with unique cleaning needs—from mountain dust to seasonal pollen. Our deep cleaning services help keep your home fresh year-round, especially important for families with allergies.",
+  },
 ];
 
 // Schema for FAQPage
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  mainEntity: faqs.map((faq) => ({
     "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
+    name: faq.question,
+    acceptedAnswer: {
       "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+      text: faq.answer,
+    },
+  })),
 };
 
 // Testimonials - imported from centralized data
-const testimonials = madisonTestimonials.map(t => ({
+const testimonials = madisonTestimonials.map((t) => ({
   initial: t.initial,
   name: t.name,
   area: t.source,
-  text: t.text
+  text: t.text,
 }));
 ---
 
@@ -100,58 +109,104 @@ const testimonials = madisonTestimonials.map(t => ({
   geoPlacename={`${city}, ${state}`}
   geoPosition={geoData.position}
 >
-  <SchemaMarkup type="local" city={city} state={state} neighborhoods={neighborhoods} />
+  <SchemaMarkup
+    type="local"
+    city={city}
+    state={state}
+    neighborhoods={neighborhoods}
+  />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Column -->
         <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4">
+          <div
+            class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+          >
             <span class="text-[#FFA985] font-semibold">
-              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Top 10 Best Place to Live in America
+              <Icon name="map-marker-alt" class="w-5 h-5 mr-2" />Top 10 Best
+              Place to Live in America
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Premium Cleaning Services in <span class="gold-gradient">Madison, Alabama</span>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Premium Cleaning Services in <span class="gold-gradient"
+              >Madison, Alabama</span
+            >
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            Alabama's fastest-growing city deserves spotless homes. From Town Madison's luxury residences to Rainbow Mountain's scenic properties, we deliver meticulous cleaning for Madison's discerning families and professionals.
+            Alabama's fastest-growing city deserves spotless homes. From Town
+            Madison's luxury residences to Rainbow Mountain's scenic properties,
+            we deliver meticulous cleaning for Madison's discerning families and
+            professionals.
           </p>
-          <div class="flex flex-wrap gap-3 justify-center lg:justify-start mb-6">
-            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+          <div
+            class="flex flex-wrap gap-3 justify-center lg:justify-start mb-6"
+          >
+            <div
+              class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+            >
               <Icon name="medal" class="w-5 h-5 text-[#FFA985] mr-2" />
-              <span class="text-sm font-semibold text-gray-700">Veteran-Owned</span>
+              <span class="text-sm font-semibold text-gray-700"
+                >Veteran-Owned</span
+              >
             </div>
-            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+            <div
+              class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+            >
               <Icon name="venus" class="w-5 h-5 text-[#FFA985] mr-2" />
               <span class="text-sm font-semibold text-gray-700">Women-Led</span>
             </div>
-            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
+            <div
+              class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+            >
               <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
-              <span class="text-sm font-semibold text-gray-700">$2M Insured</span>
+              <span class="text-sm font-semibold text-gray-700"
+                >$2M Insured</span
+              >
             </div>
-            <div class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200">
-              <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" fill="currentColor" />
-              <span class="text-sm font-semibold text-gray-700">130+ Reviews</span>
+            <div
+              class="flex items-center bg-white px-4 py-2 rounded-full shadow-sm border border-gray-200"
+            >
+              <Icon
+                name="star"
+                class="w-5 h-5 text-[#FFA985] mr-2"
+                fill="currentColor"
+              />
+              <span class="text-sm font-semibold text-gray-700"
+                >130+ Reviews</span
+              >
             </div>
           </div>
 
           <!-- Urgency Badge -->
-          <div class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6">
+          <div
+            class="inline-block bg-green-50 border border-green-200 px-4 py-2 rounded-lg mb-6"
+          >
             <span class="text-green-700 text-sm font-medium">
-              <Icon name="clock" class="w-5 h-5 mr-2" />Same-Day Service Available in Madison
+              <Icon name="clock" class="w-5 h-5 mr-2" />Same-Day Service
+              Available in Madison
             </span>
           </div>
 
           <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all duration-200">
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+          >
+            <a
+              href="#quote"
+              class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+            >
               <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
             </a>
-            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all duration-200">
+            <a
+              href="tel:+12568561006"
+              class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all duration-200"
+            >
               <Icon name="phone" class="w-5 h-5 mr-2" />(256) 856-1006
             </a>
           </div>
@@ -159,9 +214,24 @@ const testimonials = madisonTestimonials.map(t => ({
 
         <!-- Right Column - Quote Form -->
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 text-center mb-6">Madison's trusted cleaning professionals</p>
-          <QuoteForm formId="madison-quote-form" city="Madison" state="AL" />
+          <div class="text-center mb-6">
+            <span
+              class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-full mb-2 uppercase tracking-wide"
+              >New</span
+            >
+            <h2 class="text-2xl font-bold text-[#333333] mb-2">
+              Get Instant Pricing
+            </h2>
+            <p class="text-gray-600">
+              Enter your details & get a price via SMS in 30 seconds.
+            </p>
+          </div>
+          <QuoteForm
+            formId="madison-quote-form"
+            city="Madison"
+            state="AL"
+            subtitle="No phone tag. Just a price."
+          />
         </div>
       </div>
     </div>
@@ -172,14 +242,29 @@ const testimonials = madisonTestimonials.map(t => ({
     <div class="container mx-auto">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-3xl font-bold text-center text-[#333333] mb-8">
-          Serving Madison: <span class="gold-gradient">Alabama's Best Place to Live</span>
+          Serving Madison: <span class="gold-gradient"
+            >Alabama's Best Place to Live</span
+          >
         </h2>
         <div class="prose prose-lg max-w-none text-gray-700">
           <p class="mb-6">
-            Ranked in the Top 10 Best Places to Live in America by Niche for 2025, Madison, Alabama represents the pinnacle of Southern living. With a population exceeding 58,000 and growing rapidly, Madison attracts families seeking excellent schools, professionals drawn to high-tech careers, and retirees looking for quality of life. The city spans both Madison and Limestone Counties, offering diverse neighborhoods from master-planned communities to established residential areas.
+            Ranked in the Top 10 Best Places to Live in America by Niche for
+            2025, Madison, Alabama represents the pinnacle of Southern living.
+            With a population exceeding 58,000 and growing rapidly, Madison
+            attracts families seeking excellent schools, professionals drawn to
+            high-tech careers, and retirees looking for quality of life. The
+            city spans both Madison and Limestone Counties, offering diverse
+            neighborhoods from master-planned communities to established
+            residential areas.
           </p>
           <p class="mb-6">
-            The Valley Clean Team is proud to serve Madison's accomplished residents—engineers at Redstone Arsenal and NASA Marshall, defense contractors, tech executives, healthcare professionals, and the families who call this exceptional city home. With median household incomes exceeding $131,000 and nearly 66% of adults holding college degrees, Madison families expect excellence. That's exactly what we deliver with every clean.
+            The Valley Clean Team is proud to serve Madison's accomplished
+            residents—engineers at Redstone Arsenal and NASA Marshall, defense
+            contractors, tech executives, healthcare professionals, and the
+            families who call this exceptional city home. With median household
+            incomes exceeding $131,000 and nearly 66% of adults holding college
+            degrees, Madison families expect excellence. That's exactly what we
+            deliver with every clean.
           </p>
         </div>
       </div>
@@ -195,30 +280,47 @@ const testimonials = madisonTestimonials.map(t => ({
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
         Alabama's fastest-growing city sets the standard for quality of life
       </p>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+        <div
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center"
+        >
           <div class="text-4xl font-bold text-[#FFA985] mb-2">Top 10</div>
           <h3 class="font-bold text-[#333333] mb-2">Best US City</h3>
-          <p class="text-gray-600 text-sm">Niche 2025 ranking based on schools, safety, cost of living, and amenities</p>
+          <p class="text-gray-600 text-sm">
+            Niche 2025 ranking based on schools, safety, cost of living, and
+            amenities
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center"
+        >
           <div class="text-4xl font-bold text-[#FFA985] mb-2">A+</div>
           <h3 class="font-bold text-[#333333] mb-2">School Rating</h3>
-          <p class="text-gray-600 text-sm">Madison City Schools ranked among Alabama's top districts</p>
+          <p class="text-gray-600 text-sm">
+            Madison City Schools ranked among Alabama's top districts
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center"
+        >
           <div class="text-4xl font-bold text-[#FFA985] mb-2">66%</div>
           <h3 class="font-bold text-[#333333] mb-2">College Educated</h3>
-          <p class="text-gray-600 text-sm">Adults with 4-year degrees—3x the national average</p>
+          <p class="text-gray-600 text-sm">
+            Adults with 4-year degrees—3x the national average
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center"
+        >
           <div class="text-4xl font-bold text-[#FFA985] mb-2">#1</div>
           <h3 class="font-bold text-[#333333] mb-2">Fastest Growing</h3>
-          <p class="text-gray-600 text-sm">Alabama's fastest-growing city with new construction booming</p>
+          <p class="text-gray-600 text-sm">
+            Alabama's fastest-growing city with new construction booming
+          </p>
         </div>
       </div>
     </div>
@@ -231,61 +333,80 @@ const testimonials = madisonTestimonials.map(t => ({
         Madison <span class="gold-gradient">Neighborhoods We Serve</span>
       </h2>
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-        From master-planned communities to established neighborhoods, we serve all of Madison
+        From master-planned communities to established neighborhoods, we serve
+        all of Madison
       </p>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-xl font-bold text-[#333333] mb-3">
             <Icon name="city" class="w-5 h-5 text-[#FFA985] mr-2" />Town Madison
           </h3>
           <p class="text-gray-600 text-sm">
-            World-renowned urban-planned community by Andres Duany featuring four distinct districts: The Exchange, The Heights, The Commons, and The West End. Luxury homes from 1,500 to 5,200+ sq ft with walkable amenities, restaurants, and Toyota Field.
+            World-renowned urban-planned community by Andres Duany featuring
+            four distinct districts: The Exchange, The Heights, The Commons, and
+            The West End. Luxury homes from 1,500 to 5,200+ sq ft with walkable
+            amenities, restaurants, and Toyota Field.
           </p>
         </div>
-        
+
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-xl font-bold text-[#333333] mb-3">
-            <Icon name="mountain" class="w-5 h-5 text-[#FFA985] mr-2" />Rainbow Mountain Heights
+            <Icon name="mountain" class="w-5 h-5 text-[#FFA985] mr-2" />Rainbow
+            Mountain Heights
           </h3>
           <p class="text-gray-600 text-sm">
-            Scenic neighborhood featuring large lots, mature trees, and stunning mountain views. A blend of charming older homes and newer construction, all zoned for top-rated Madison City Schools.
+            Scenic neighborhood featuring large lots, mature trees, and stunning
+            mountain views. A blend of charming older homes and newer
+            construction, all zoned for top-rated Madison City Schools.
           </p>
         </div>
-        
+
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-xl font-bold text-[#333333] mb-3">
-            <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />West Highlands
+            <Icon name="tree" class="w-5 h-5 text-[#FFA985] mr-2" />West
+            Highlands
           </h3>
           <p class="text-gray-600 text-sm">
-            Well-established neighborhood with tree-lined streets, large lots, and excellent proximity to schools, shopping, and dining. Ideal for families and professionals seeking character and convenience.
+            Well-established neighborhood with tree-lined streets, large lots,
+            and excellent proximity to schools, shopping, and dining. Ideal for
+            families and professionals seeking character and convenience.
           </p>
         </div>
-        
+
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-xl font-bold text-[#333333] mb-3">
-            <Icon name="tractor" class="w-5 h-5 text-[#FFA985] mr-2" />Clift Farm
+            <Icon name="tractor" class="w-5 h-5 text-[#FFA985] mr-2" />Clift
+            Farm
           </h3>
           <p class="text-gray-600 text-sm">
-            Southern-style master-planned community built on a century-old family farm legacy. Features mixed-use development with walking trails, community spaces, and modern amenities.
+            Southern-style master-planned community built on a century-old
+            family farm legacy. Features mixed-use development with walking
+            trails, community spaces, and modern amenities.
           </p>
         </div>
-        
+
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-xl font-bold text-[#333333] mb-3">
-            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Providence & Bradford Lakes
+            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Providence &
+            Bradford Lakes
           </h3>
           <p class="text-gray-600 text-sm">
-            Popular family neighborhoods featuring well-maintained homes, community pools, and excellent access to Madison schools. Strong sense of community with neighborhood events.
+            Popular family neighborhoods featuring well-maintained homes,
+            community pools, and excellent access to Madison schools. Strong
+            sense of community with neighborhood events.
           </p>
         </div>
-        
+
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-xl font-bold text-[#333333] mb-3">
-            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Triana & Hughes Road
+            <Icon name="water" class="w-5 h-5 text-[#FFA985] mr-2" />Triana &
+            Hughes Road
           </h3>
           <p class="text-gray-600 text-sm">
-            Quiet, country-feel areas with friendly neighbors and easy commutes to Redstone Arsenal. Growing rapidly with new development while maintaining small-town charm. Zoned for Madison City Schools.
+            Quiet, country-feel areas with friendly neighbors and easy commutes
+            to Redstone Arsenal. Growing rapidly with new development while
+            maintaining small-town charm. Zoned for Madison City Schools.
           </p>
         </div>
       </div>
@@ -296,35 +417,63 @@ const testimonials = madisonTestimonials.map(t => ({
   <section class="py-16 px-6">
     <div class="container mx-auto">
       <h2 class="text-3xl font-bold text-center text-[#333333] mb-4">
-        Serving Madison's <span class="gold-gradient">Professional Community</span>
+        Serving Madison's <span class="gold-gradient"
+          >Professional Community</span
+        >
       </h2>
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
         We understand the demands of high-tech careers and busy family schedules
       </p>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
           <Icon name="rocket" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
           <h3 class="font-bold text-[#333333] mb-2">Aerospace & Defense</h3>
-          <p class="text-gray-600 text-sm">Serving families at NASA Marshall, Redstone Arsenal, and defense contractors throughout Madison</p>
+          <p class="text-gray-600 text-sm">
+            Serving families at NASA Marshall, Redstone Arsenal, and defense
+            contractors throughout Madison
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
-          <Icon name="laptop-house" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
+
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
+          <Icon
+            name="laptop-house"
+            class="w-5 h-5 text-3xl text-[#FFA985] mb-3"
+          />
           <h3 class="font-bold text-[#333333] mb-2">Remote Workers</h3>
-          <p class="text-gray-600 text-sm">Flexible scheduling for Madison's 19% work-from-home professionals—clean around your meetings</p>
+          <p class="text-gray-600 text-sm">
+            Flexible scheduling for Madison's 19% work-from-home
+            professionals—clean around your meetings
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
-          <Icon name="stethoscope" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
+
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
+          <Icon
+            name="stethoscope"
+            class="w-5 h-5 text-3xl text-[#FFA985] mb-3"
+          />
           <h3 class="font-bold text-[#333333] mb-2">Healthcare</h3>
-          <p class="text-gray-600 text-sm">Supporting Crestwood and Huntsville Hospital families with flexible scheduling for demanding shifts</p>
+          <p class="text-gray-600 text-sm">
+            Supporting Crestwood and Huntsville Hospital families with flexible
+            scheduling for demanding shifts
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
           <Icon name="briefcase" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
           <h3 class="font-bold text-[#333333] mb-2">Tech & Engineering</h3>
-          <p class="text-gray-600 text-sm">Serving software engineers, data scientists, and tech executives in Madison's growing tech sector</p>
+          <p class="text-gray-600 text-sm">
+            Serving software engineers, data scientists, and tech executives in
+            Madison's growing tech sector
+          </p>
         </div>
       </div>
     </div>
@@ -337,13 +486,15 @@ const testimonials = madisonTestimonials.map(t => ({
         Areas We Serve in <span class="gold-gradient">Madison</span>
       </h2>
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-        Comprehensive cleaning services throughout Madison and surrounding communities
+        Comprehensive cleaning services throughout Madison and surrounding
+        communities
       </p>
-      
+
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
-            <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-2" />Central Madison
+            <Icon name="building" class="w-5 h-5 text-[#FFA985] mr-2" />Central
+            Madison
           </h3>
           <ul class="space-y-2 text-gray-600 text-sm">
             <li>• Downtown Madison</li>
@@ -353,10 +504,11 @@ const testimonials = madisonTestimonials.map(t => ({
             <li>• Hughes Road area</li>
           </ul>
         </div>
-        
+
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
-            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Residential Areas
+            <Icon name="home" class="w-5 h-5 text-[#FFA985] mr-2" />Residential
+            Areas
           </h3>
           <ul class="space-y-2 text-gray-600 text-sm">
             <li>• Rainbow Mountain Heights</li>
@@ -366,10 +518,13 @@ const testimonials = madisonTestimonials.map(t => ({
             <li>• Village at Oakland Springs</li>
           </ul>
         </div>
-        
+
         <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
           <h3 class="text-lg font-bold text-[#333333] mb-3 flex items-center">
-            <Icon name="map-marked-alt" class="w-5 h-5 text-[#FFA985] mr-2" />Greater Madison
+            <Icon
+              name="map-marked-alt"
+              class="w-5 h-5 text-[#FFA985] mr-2"
+            />Greater Madison
           </h3>
           <ul class="space-y-2 text-gray-600 text-sm">
             <li>• Clift Farm</li>
@@ -392,66 +547,138 @@ const testimonials = madisonTestimonials.map(t => ({
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
         Premium cleaning solutions for Madison's discerning homeowners
       </p>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        <a href="/locations/madison/recurring-maid-service" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+        <a
+          href="/locations/madison/recurring-maid-service"
+          class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group"
+        >
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4"
+            >
               <Icon name="calendar-check" class="w-6 h-6 text-[#FFA985]" />
             </div>
-            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Weekly Cleaning</h3>
+            <h3
+              class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors"
+            >
+              Weekly Cleaning
+            </h3>
           </div>
-          <p class="text-gray-600">Consistent, reliable weekly service for busy Madison professionals. Come home to a spotless house every week.</p>
+          <p class="text-gray-600">
+            Consistent, reliable weekly service for busy Madison professionals.
+            Come home to a spotless house every week.
+          </p>
         </a>
 
-        <a href="/locations/madison/recurring-maid-service" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+        <a
+          href="/locations/madison/recurring-maid-service"
+          class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group"
+        >
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4"
+            >
               <Icon name="calendar-alt" class="w-6 h-6 text-[#FFA985]" />
             </div>
-            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Biweekly Cleaning</h3>
+            <h3
+              class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors"
+            >
+              Biweekly Cleaning
+            </h3>
           </div>
-          <p class="text-gray-600">Our most popular option for Madison families. Thorough cleaning every two weeks maintains your home beautifully.</p>
+          <p class="text-gray-600">
+            Our most popular option for Madison families. Thorough cleaning
+            every two weeks maintains your home beautifully.
+          </p>
         </a>
 
-        <a href="/locations/madison/deep-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+        <a
+          href="/locations/madison/deep-cleaning"
+          class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group"
+        >
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4"
+            >
               <Icon name="sparkles" class="w-6 h-6 text-[#FFA985]" />
             </div>
-            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Deep Cleaning</h3>
+            <h3
+              class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors"
+            >
+              Deep Cleaning
+            </h3>
           </div>
-          <p class="text-gray-600">Comprehensive top-to-bottom cleaning for your Madison home. Perfect for seasonal refreshes or first-time service.</p>
+          <p class="text-gray-600">
+            Comprehensive top-to-bottom cleaning for your Madison home. Perfect
+            for seasonal refreshes or first-time service.
+          </p>
         </a>
 
-        <a href="/locations/madison/move-out-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+        <a
+          href="/locations/madison/move-out-cleaning"
+          class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group"
+        >
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4"
+            >
               <Icon name="box" class="w-6 h-6 text-[#FFA985]" />
             </div>
-            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Move-In / Move-Out</h3>
+            <h3
+              class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors"
+            >
+              Move-In / Move-Out
+            </h3>
           </div>
-          <p class="text-gray-600">New construction cleaning, move-in prep, and move-out service for Madison's booming real estate market.</p>
+          <p class="text-gray-600">
+            New construction cleaning, move-in prep, and move-out service for
+            Madison's booming real estate market.
+          </p>
         </a>
 
-        <a href="/locations/madison/airbnb-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+        <a
+          href="/locations/madison/airbnb-cleaning"
+          class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group"
+        >
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4"
+            >
               <Icon name="key" class="w-6 h-6 text-[#FFA985]" />
             </div>
-            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Airbnb Turnover</h3>
+            <h3
+              class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors"
+            >
+              Airbnb Turnover
+            </h3>
           </div>
-          <p class="text-gray-600">Fast, reliable turnover cleaning for Madison vacation rentals. Maintain your 5-star rating with every guest.</p>
+          <p class="text-gray-600">
+            Fast, reliable turnover cleaning for Madison vacation rentals.
+            Maintain your 5-star rating with every guest.
+          </p>
         </a>
 
-        <a href="/locations/madison/commercial-cleaning" class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group">
+        <a
+          href="/locations/madison/commercial-cleaning"
+          class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:border-[#FFA985] transition-all duration-200 group"
+        >
           <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4">
+            <div
+              class="w-12 h-12 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mr-4"
+            >
               <Icon name="building" class="w-6 h-6 text-[#FFA985]" />
             </div>
-            <h3 class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors">Commercial Cleaning</h3>
+            <h3
+              class="text-xl font-bold text-[#333333] group-hover:text-[#FFA985] transition-colors"
+            >
+              Commercial Cleaning
+            </h3>
           </div>
-          <p class="text-gray-600">Professional office and commercial cleaning for Madison businesses along US 72 and throughout the city.</p>
+          <p class="text-gray-600">
+            Professional office and commercial cleaning for Madison businesses
+            along US 72 and throughout the city.
+          </p>
         </a>
       </div>
     </div>
@@ -466,30 +693,55 @@ const testimonials = madisonTestimonials.map(t => ({
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
         World-class amenities minutes from your front door
       </p>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
           <Icon name="dove" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
           <h3 class="font-bold text-[#333333] mb-2">Wheeler Wildlife Refuge</h3>
-          <p class="text-gray-600 text-sm">35,000-acre refuge on Madison's border with bird watching, fishing, hiking, and interpretive center</p>
+          <p class="text-gray-600 text-sm">
+            35,000-acre refuge on Madison's border with bird watching, fishing,
+            hiking, and interpretive center
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
           <Icon name="hiking" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
-          <h3 class="font-bold text-[#333333] mb-2">Rainbow Mountain Preserve</h3>
-          <p class="text-gray-600 text-sm">160 acres with 3.5 miles of hiking trails managed by the Land Trust of North Alabama</p>
+          <h3 class="font-bold text-[#333333] mb-2">
+            Rainbow Mountain Preserve
+          </h3>
+          <p class="text-gray-600 text-sm">
+            160 acres with 3.5 miles of hiking trails managed by the Land Trust
+            of North Alabama
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
-          <Icon name="baseball-ball" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
+
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
+          <Icon
+            name="baseball-ball"
+            class="w-5 h-5 text-3xl text-[#FFA985] mb-3"
+          />
           <h3 class="font-bold text-[#333333] mb-2">Toyota Field</h3>
-          <p class="text-gray-600 text-sm">Home of the Rocket City Trash Pandas, located in Town Madison with restaurants and entertainment</p>
+          <p class="text-gray-600 text-sm">
+            Home of the Rocket City Trash Pandas, located in Town Madison with
+            restaurants and entertainment
+          </p>
         </div>
-        
-        <div class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center">
+
+        <div
+          class="bg-white rounded-xl p-5 shadow-md border border-gray-100 text-center"
+        >
           <Icon name="swimmer" class="w-5 h-5 text-3xl text-[#FFA985] mb-3" />
           <h3 class="font-bold text-[#333333] mb-2">Municipal Parks</h3>
-          <p class="text-gray-600 text-sm">Indoor/outdoor pools, athletic fields, gymnasium, soccer fields, and numerous greenways</p>
+          <p class="text-gray-600 text-sm">
+            Indoor/outdoor pools, athletic fields, gymnasium, soccer fields, and
+            numerous greenways
+          </p>
         </div>
       </div>
     </div>
@@ -504,29 +756,31 @@ const testimonials = madisonTestimonials.map(t => ({
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
         Over 130 five-star reviews from families across North Alabama
       </p>
-      
+
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        {testimonials.map((testimonial) => (
-          <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-            <div class="flex items-center mb-4">
-              <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
-                {testimonial.initial}
+        {
+          testimonials.map((testimonial) => (
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
+                  {testimonial.initial}
+                </div>
+                <div>
+                  <h4 class="font-bold text-[#333333]">{testimonial.name}</h4>
+                  <p class="text-sm text-gray-500">{testimonial.area}</p>
+                </div>
               </div>
-              <div>
-                <h4 class="font-bold text-[#333333]">{testimonial.name}</h4>
-                <p class="text-sm text-gray-500">{testimonial.area}</p>
+              <div class="flex text-[#FFA985] mb-3">
+                <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                <Icon name="star" class="w-5 h-5" fill="currentColor" />
+                <Icon name="star" class="w-5 h-5" fill="currentColor" />
               </div>
+              <p class="text-gray-600 italic">"{testimonial.text}"</p>
             </div>
-            <div class="flex text-[#FFA985] mb-3">
-              <Icon name="star" class="w-5 h-5" fill="currentColor" />
-              <Icon name="star" class="w-5 h-5" fill="currentColor" />
-              <Icon name="star" class="w-5 h-5" fill="currentColor" />
-              <Icon name="star" class="w-5 h-5" fill="currentColor" />
-              <Icon name="star" class="w-5 h-5" fill="currentColor" />
-            </div>
-            <p class="text-gray-600 italic">"{testimonial.text}"</p>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
@@ -535,40 +789,59 @@ const testimonials = madisonTestimonials.map(t => ({
   <section class="py-16 bg-gray-50 px-6">
     <div class="container mx-auto">
       <h2 class="text-3xl font-bold text-center text-[#333333] mb-12">
-        Why Madison Families Choose <span class="gold-gradient">The Valley Clean Team</span>
+        Why Madison Families Choose <span class="gold-gradient"
+          >The Valley Clean Team</span
+        >
       </h2>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
         <div class="text-center">
-          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <Icon name="medal" class="w-8 h-8 text-[#FFA985]" />
           </div>
           <h3 class="font-bold text-[#333333] mb-2">Veteran-Owned</h3>
-          <p class="text-gray-600 text-sm">Proudly veteran-owned and operated with military precision and values</p>
+          <p class="text-gray-600 text-sm">
+            Proudly veteran-owned and operated with military precision and
+            values
+          </p>
         </div>
-        
+
         <div class="text-center">
-          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <Icon name="shield-alt" class="w-8 h-8 text-[#FFA985]" />
           </div>
           <h3 class="font-bold text-[#333333] mb-2">$2M Insurance</h3>
-          <p class="text-gray-600 text-sm">Fully bonded and insured for your complete peace of mind</p>
+          <p class="text-gray-600 text-sm">
+            Fully bonded and insured for your complete peace of mind
+          </p>
         </div>
-        
+
         <div class="text-center">
-          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <Icon name="user-check" class="w-8 h-8 text-[#FFA985]" />
           </div>
           <h3 class="font-bold text-[#333333] mb-2">Background Checked</h3>
-          <p class="text-gray-600 text-sm">Every team member is thoroughly vetted and professionally trained</p>
+          <p class="text-gray-600 text-sm">
+            Every team member is thoroughly vetted and professionally trained
+          </p>
         </div>
-        
+
         <div class="text-center">
-          <div class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <Icon name="heart" class="w-8 h-8 text-[#FFA985]" />
           </div>
           <h3 class="font-bold text-[#333333] mb-2">100% Satisfaction</h3>
-          <p class="text-gray-600 text-sm">If you're not happy, we'll make it right—guaranteed</p>
+          <p class="text-gray-600 text-sm">
+            If you're not happy, we'll make it right—guaranteed
+          </p>
         </div>
       </div>
     </div>
@@ -583,48 +856,62 @@ const testimonials = madisonTestimonials.map(t => ({
       <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
         Common questions from Madison homeowners
       </p>
-      
+
       <div class="max-w-3xl mx-auto space-y-4">
-        {faqs.map((faq, index) => (
-          <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
-            <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
-              <span class="font-semibold text-[#333333] pr-4">{faq.question}</span>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] group-open:rotate-180 transition-transform" />
-            </summary>
-            <div class="px-6 pb-6 text-gray-600">
-              {faq.answer}
-            </div>
-          </details>
-        ))}
+        {
+          faqs.map((faq, index) => (
+            <details class="bg-white rounded-xl shadow-md border border-gray-100 group">
+              <summary class="p-6 cursor-pointer list-none flex justify-between items-center">
+                <span class="font-semibold text-[#333333] pr-4">
+                  {faq.question}
+                </span>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] group-open:rotate-180 transition-transform"
+                />
+              </summary>
+              <div class="px-6 pb-6 text-gray-600">{faq.answer}</div>
+            </details>
+          ))
+        }
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]" id="quote">
+  <section
+    class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+    id="quote"
+  >
     <div class="container mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
         Ready for a Spotless Home in Madison?
       </h2>
       <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-        Join the families in Alabama's #1 city who trust The Valley Clean Team. Get your free quote today—same-day service available.
+        Join the families in Alabama's #1 city who trust The Valley Clean Team.
+        Get your free quote today—same-day service available.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200">
+        <a
+          href="#quote"
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200"
+        >
           <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
         </a>
-        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all duration-200">
+        <a
+          href="tel:+12568561006"
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all duration-200"
+        >
           <Icon name="phone" class="w-5 h-5 mr-2" />(256) 856-1006
         </a>
       </div>
     </div>
   </section>
-
-  </BaseLayout>
+</BaseLayout>
 
 <style>
   .gold-gradient {
-    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    background: linear-gradient(135deg, #ffa985 0%, #ffc67d 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
