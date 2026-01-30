@@ -60,6 +60,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         // Return early to prevent the old GHL workflow from firing duplicate auto-replies
         return res.status(200).json({
+          success: true,
           message: "We're calculating your price now. Check your texts!"
         });
 
