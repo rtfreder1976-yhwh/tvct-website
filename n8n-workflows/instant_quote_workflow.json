@@ -1,5 +1,5 @@
 {
-    "name": "TVCT - Instant Quote Bot",
+    "name": "TVCT - Instant Quote Bot (GHL Integrated)",
     "nodes": [
         {
             "parameters": {
@@ -29,12 +29,46 @@
         },
         {
             "parameters": {
-                "text": "=Hi {{ $json.first_name }}, based on {{ $json.sq_ft }} sq ft, your estimated price for a {{ $json.service_type }} is ${{ $json.price }}. \n\nReady to book? Click here: https://thevalleycleanteam.com/booking",
-                "additionalFields": {}
+                "method": "POST",
+                "url": "https://services.leadconnectorhq.com/hooks/YOUR_GHL_WEBHOOK_URL_HERE",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "first_name",
+                            "value": "={{ $json.first_name }}"
+                        },
+                        {
+                            "name": "last_name",
+                            "value": "={{ $json.last_name }}"
+                        },
+                        {
+                            "name": "email",
+                            "value": "={{ $json.email }}"
+                        },
+                        {
+                            "name": "phone",
+                            "value": "={{ $json.phone }}"
+                        },
+                        {
+                            "name": "quote_price",
+                            "value": "={{ $json.price }}"
+                        },
+                        {
+                            "name": "service_type",
+                            "value": "={{ $json.service_type }}"
+                        },
+                        {
+                            "name": "sq_ft",
+                            "value": "={{ $json.sq_ft }}"
+                        }
+                    ]
+                },
+                "options": {}
             },
-            "name": "Prepare SMS",
-            "type": "n8n-nodes-base.set",
-            "typeVersion": 1,
+            "name": "Send to GHL",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
             "position": [
                 650,
                 300
@@ -57,7 +91,7 @@
             "main": [
                 [
                     {
-                        "node": "Prepare SMS",
+                        "node": "Send to GHL",
                         "type": "main",
                         "index": 0
                     }

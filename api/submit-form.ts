@@ -37,6 +37,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Send to GHL webhook for CRM integration
     const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/a0203648-0f8e-4717-9873-b04879f90ac5';
 
+    // Priority: Send to n8n Pricing Engine if available
+    const n8nWebhookUrl = process.env.N8N_INSTANT_QUOTE_WEBHOOK_URL;
+
+    if (n8nWebhookUrl) {
+      try {
+        await fetch(n8nWebhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: name ? name.split(' ')[0] : 'there',
+            last_name: name ? name.split(' ').slice(1).join(' ') : '',
+            phone: phone,
+            service_type: service ? service.toLowerCase().replace(/ /g, '_') : 'deep_clean',
+            sq_ft: parseInt(square_footage) || 0,
+            email: email || '',
+            location: location || '',
+            source: 'Instant Quote Form'
+          })
+        });
+        console.log('Sent to n8n pricing engine');
+
+        // Return early to prevent the old GHL workflow from firing duplicate auto-replies
+        return new Response(
+          JSON.stringify({
+            message: "We're calculating your price now. Check your texts!",
+          }),
+          { status: 200 }
+        );
+
+      } catch (n8nError) {
+        console.error('n8n webhook error:', n8nError);
+        // If n8n fails, fall through to the legacy GHL handler below as backup
+      }
+    }
+
+    // Legacy GHL Fallback (only runs if n8n is missing or failed)
     try {
       await fetch(ghlWebhookUrl, {
         method: 'POST',
@@ -58,29 +94,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     } catch (ghlError) {
       console.error('GHL webhook error:', ghlError);
-      // Continue with email even if GHL fails
-    }
-
-    // Send to n8n Instant Quote Webhook (Pricing Engine)
-    const n8nWebhookUrl = process.env.N8N_INSTANT_QUOTE_WEBHOOK_URL;
-    if (n8nWebhookUrl) {
-      try {
-        await fetch(n8nWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            first_name: name ? name.split(' ')[0] : 'there', // Extract first name for SMS
-            phone: phone,
-            service_type: service ? service.toLowerCase().replace(/ /g, '_') : 'deep_clean', // Normalize service name
-            sq_ft: parseInt(square_footage) || 0,
-            email: email || '',
-            location: location || ''
-          })
-        });
-        console.log('Sent to n8n pricing engine');
-      } catch (n8nError) {
-        console.error('n8n webhook error:', n8nError);
-      }
     }
 
     // Format the email content
