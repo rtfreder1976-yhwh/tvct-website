@@ -21,20 +21,40 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
-        // 2. Data Processing (Simulation)
-        // In a real app, you would send this to GoHighLevel, Resend, or a Database.
-        // We'll log it for now.
-        console.log("📝 New Quote Request Received:");
-        console.log("--------------------------------");
-        console.log("Service:", data.service);
-        console.log("Name:", data.name);
-        console.log("Phone:", data.phone);
-        console.log("Email:", data.email || "N/A");
-        console.log("Sq Ft:", data.square_footage);
-        console.log("Urgent?:", data.is_urgent ? "YES 🚨" : "No");
-        console.log("Source:", data.source);
-        console.log("Location:", data.location);
-        console.log("--------------------------------");
+        // 2. Data Processing - Send to GoHighLevel Webhook
+        const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/a0203648-0f8e-4717-9873-b04879f90ac5";
+
+        try {
+            const webhookResponse = await fetch(GHL_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    // Flatten data ensures GHL reads it easily
+                    name: data.name,
+                    phone: data.phone,
+                    email: data.email || "",
+                    service: data.service,
+                    square_footage: Number(data.square_footage), // Ensure number
+                    is_urgent: !!data.is_urgent,
+                    notes: data.message || "",
+                    source: data.source,
+                    location_city: data.location || "",
+                    page_url: data.page_url,
+                    submission_id: crypto.randomUUID(),
+                    timestamp: new Date().toISOString()
+                })
+            });
+
+            if (!webhookResponse.ok) {
+                console.error(`GHL Webhook Failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
+                // We typically still return success to the user so they don't think it failed, 
+                // but we log the error critical for debugging.
+            }
+        } catch (webhookError) {
+            console.error("Critical Error sending to GHL:", webhookError);
+        }
+
+        console.log("✅ Lead sent to GoHighLevel:", data.email);
 
         // 3. Return Success
         return new Response(JSON.stringify({
