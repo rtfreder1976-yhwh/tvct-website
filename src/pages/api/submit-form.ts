@@ -9,10 +9,17 @@ export const POST: APIRoute = async ({ request }) => {
 
         // 1. Validation
         const errors: Record<string, string> = {};
-        if (!data.name) errors.name = "Name is required";
-        if (!data.phone) errors.phone = "Phone is required";
-        if (!data.service) errors.service = "Service selection is required";
-        if (!data.square_footage && data.square_footage !== 0) errors.square_footage = "Square footage is required";
+
+        // Newsletter subscription only requires email
+        if (data.source === 'Blog Newsletter Subscription') {
+            if (!data.email) errors.email = "Email is required";
+        } else {
+            // Quote form validation
+            if (!data.name) errors.name = "Name is required";
+            if (!data.phone) errors.phone = "Phone is required";
+            if (!data.service) errors.service = "Service selection is required";
+            if (!data.square_footage && data.square_footage !== 0) errors.square_footage = "Square footage is required";
+        }
 
         if (Object.keys(errors).length > 0) {
             return new Response(JSON.stringify({ success: false, errors }), {
@@ -21,15 +28,15 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
-        // 2. Data Processing - Send to GoHighLevel Webhook
-        const GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/a0203648-0f8e-4717-9873-b04879f90ac5";
+        // 2. Data Processing - Send to n8n Webhook
+        const N8N_WEBHOOK_URL = "https://singingriver.app.n8n.cloud/webhook-test/a3c2f1c9-c7a5-4436-825a-be12a8c1c0da";
 
         try {
-            const webhookResponse = await fetch(GHL_WEBHOOK_URL, {
+            const webhookResponse = await fetch(N8N_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // Flatten data ensures GHL reads it easily
+                    // Payload for n8n
                     name: data.name,
                     phone: data.phone,
                     email: data.email || "",
@@ -46,15 +53,15 @@ export const POST: APIRoute = async ({ request }) => {
             });
 
             if (!webhookResponse.ok) {
-                console.error(`GHL Webhook Failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
+                console.error(`n8n Webhook Failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
                 // We typically still return success to the user so they don't think it failed, 
                 // but we log the error critical for debugging.
             }
         } catch (webhookError) {
-            console.error("Critical Error sending to GHL:", webhookError);
+            console.error("Critical Error sending to n8n:", webhookError);
         }
 
-        console.log("✅ Lead sent to GoHighLevel:", data.email);
+        console.log("✅ Lead sent to n8n:", data.email);
 
         // 3. Return Success
         return new Response(JSON.stringify({
