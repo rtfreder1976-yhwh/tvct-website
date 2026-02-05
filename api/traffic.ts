@@ -92,7 +92,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           { name: 'conversions' }
         ],
         orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 10
+        limit: '10'
       }
     });
 
