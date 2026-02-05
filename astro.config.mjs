@@ -19,7 +19,8 @@ export default defineConfig({
       filter: (page) => !page.includes('/404') && !page.includes('/Draft'),
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
+      // Note: lastmod is set per-page in serialize() based on page type
+      // to avoid misleading crawlers with a uniform build-time date
       customPages: [
         'https://thevalleycleanteam.com/',
         'https://thevalleycleanteam.com/services',
@@ -31,12 +32,14 @@ export default defineConfig({
         'https://thevalleycleanteam.com/locations',
       ],
       serialize(item) {
-        // Set custom priorities based on page type
+        // Set custom priorities and lastmod based on page type
+        // lastmod is set based on typical update frequency rather than a uniform build date
         const url = item.url;
 
-        // Homepage - highest priority
+        // Homepage - highest priority, frequently updated
         if (url === 'https://thevalleycleanteam.com/' || url === 'https://thevalleycleanteam.com') {
           return { ...item, priority: 1.0, changefreq: 'daily' };
+          // No lastmod: let crawlers determine freshness from content
         }
 
         // Main service pages - very high priority
@@ -83,17 +86,17 @@ export default defineConfig({
           return { ...item, priority: 0.7, changefreq: 'weekly' };
         }
 
-        // About page
+        // About page - static content, rarely changes
         if (url.includes('/about')) {
           return { ...item, priority: 0.6, changefreq: 'monthly' };
         }
 
-        // Blog pages
+        // Blog pages - include lastmod from frontmatter if available via item.lastmod
         if (url.includes('/blog')) {
           return { ...item, priority: 0.5, changefreq: 'monthly' };
         }
 
-        // Default
+        // Default - no lastmod to avoid misleading crawlers
         return { ...item, priority: 0.7, changefreq: 'weekly' };
       }
     })

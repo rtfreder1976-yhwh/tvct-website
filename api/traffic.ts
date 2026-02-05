@@ -41,60 +41,60 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
-    const currentPeriod = await analyticsData.properties.runReport({
-      property: `properties/${propertyId}`,
-      requestBody: {
-        dateRanges: [{ startDate: formatDate(startDate), endDate: formatDate(endDate) }],
-        metrics: [
-          { name: 'sessions' },
-          { name: 'screenPageViews' },
-          { name: 'averageSessionDuration' },
-          { name: 'bounceRate' },
-          { name: 'activeUsers' }
-        ]
-      }
-    });
-
-    const previousPeriod = await analyticsData.properties.runReport({
-      property: `properties/${propertyId}`,
-      requestBody: {
-        dateRanges: [{ startDate: formatDate(prevStartDate), endDate: formatDate(prevEndDate) }],
-        metrics: [
-          { name: 'sessions' },
-          { name: 'screenPageViews' },
-          { name: 'averageSessionDuration' },
-          { name: 'bounceRate' }
-        ]
-      }
-    });
-
     const trendStartDate = new Date();
     trendStartDate.setMonth(trendStartDate.getMonth() - 6);
     trendStartDate.setDate(1);
 
-    const monthlyTrend = await analyticsData.properties.runReport({
-      property: `properties/${propertyId}`,
-      requestBody: {
-        dateRanges: [{ startDate: formatDate(trendStartDate), endDate: formatDate(endDate) }],
-        dimensions: [{ name: 'yearMonth' }],
-        metrics: [{ name: 'sessions' }],
-        orderBys: [{ dimension: { dimensionName: 'yearMonth' } }]
-      }
-    });
-
-    const topPages = await analyticsData.properties.runReport({
-      property: `properties/${propertyId}`,
-      requestBody: {
-        dateRanges: [{ startDate: formatDate(startDate), endDate: formatDate(endDate) }],
-        dimensions: [{ name: 'pagePath' }],
-        metrics: [
-          { name: 'sessions' },
-          { name: 'conversions' }
-        ],
-        orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
-        limit: 10
-      }
-    });
+    // Run all GA4 reports in parallel for better performance
+    const [currentPeriod, previousPeriod, monthlyTrend, topPages] = await Promise.all([
+      analyticsData.properties.runReport({
+        property: `properties/${propertyId}`,
+        requestBody: {
+          dateRanges: [{ startDate: formatDate(startDate), endDate: formatDate(endDate) }],
+          metrics: [
+            { name: 'sessions' },
+            { name: 'screenPageViews' },
+            { name: 'averageSessionDuration' },
+            { name: 'bounceRate' },
+            { name: 'activeUsers' }
+          ]
+        }
+      }),
+      analyticsData.properties.runReport({
+        property: `properties/${propertyId}`,
+        requestBody: {
+          dateRanges: [{ startDate: formatDate(prevStartDate), endDate: formatDate(prevEndDate) }],
+          metrics: [
+            { name: 'sessions' },
+            { name: 'screenPageViews' },
+            { name: 'averageSessionDuration' },
+            { name: 'bounceRate' }
+          ]
+        }
+      }),
+      analyticsData.properties.runReport({
+        property: `properties/${propertyId}`,
+        requestBody: {
+          dateRanges: [{ startDate: formatDate(trendStartDate), endDate: formatDate(endDate) }],
+          dimensions: [{ name: 'yearMonth' }],
+          metrics: [{ name: 'sessions' }],
+          orderBys: [{ dimension: { dimensionName: 'yearMonth' } }]
+        }
+      }),
+      analyticsData.properties.runReport({
+        property: `properties/${propertyId}`,
+        requestBody: {
+          dateRanges: [{ startDate: formatDate(startDate), endDate: formatDate(endDate) }],
+          dimensions: [{ name: 'pagePath' }],
+          metrics: [
+            { name: 'sessions' },
+            { name: 'conversions' }
+          ],
+          orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+          limit: 10
+        }
+      })
+    ]);
 
     const currentRow = currentPeriod.data?.rows?.[0]?.metricValues || [];
     const previousRow = previousPeriod.data?.rows?.[0]?.metricValues || [];
