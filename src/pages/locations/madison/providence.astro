@@ -1,539 +1,277 @@
 ---
-import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
 
+const neighborhood = "Providence";
+const city = "Madison";
+const state = "Alabama";
 
-import Icon from '../../../components/Icon.astro';
-import QuoteForm from '../../../components/QuoteForm.astro';
-
+// Schema for FAQPage
 const faqs = [
-  {
-    question: "Do you serve all sections of Providence?",
-    answer: "Yes, we serve every section of Providence including Providence Main, Providence Reserve, Providence Walk, and all newer phases. Whether you live near the clubhouse and golf course or in one of the quieter residential sections, our team knows the community well and can accommodate your cleaning needs throughout this beautiful master-planned neighborhood."
-  },
-  {
-    question: "What size homes do you typically clean in Providence?",
-    answer: "Providence homes typically range from 2,200 to 4,500+ square feet with 3-6 bedrooms. We're experienced with these executive-style homes and price our services accordingly. Whether you have a maintenance-free patio home or a sprawling estate overlooking the golf course, we can customize our service to fit your needs and budget."
-  },
-  {
-    question: "How do you handle homes with golf course views and outdoor living spaces?",
-    answer: "Many Providence homes feature stunning outdoor living areas - screened porches, covered patios, and outdoor kitchens. While we primarily focus on interior cleaning, we can clean patio furniture, outdoor surfaces, and ensure your indoor-outdoor transition spaces are pristine. We understand the importance of keeping those spaces guest-ready for entertaining."
-  },
-  {
-    question: "Can you clean during work hours while we're at Cummings Research Park?",
-    answer: "Absolutely! This is our most popular option for Providence professionals. Many residents work at nearby Cummings Research Park, Redstone Arsenal, or downtown Huntsville. You can provide us with a garage code, key, or smart lock access. We'll clean while you're at work and lock up securely when finished - come home to a spotless house."
-  },
-  {
-    question: "Do you offer services for Providence community events and party cleanup?",
-    answer: "Yes! Providence is known for its active community with clubhouse events, pool parties, and neighborhood gatherings. We offer pre-event cleaning to get your home guest-ready and post-event cleanup to handle the aftermath. Same-day service is available when you need help before or after hosting."
-  },
-  {
-    question: "How do you handle the resort-style amenities and larger homes?",
-    answer: "Providence homes often feature open floor plans with great rooms, chef's kitchens, home offices, and bonus spaces. Our teams are experienced with these luxury layouts - we clean efficiently while respecting your furniture arrangement and decor. High ceilings, multiple living areas, and premium finishes? We bring the right equipment and attention to detail."
-  },
-  {
-    question: "What's included in your regular maintenance cleaning?",
-    answer: "Our regular service (weekly or bi-weekly) includes all living areas, bedrooms, bathrooms, kitchen, dusting, vacuuming, mopping, and tidying. We focus on keeping your Providence home consistently company-ready. You'll have the same team each visit who learns your home and preferences - no surprises, just reliable excellence."
-  },
-  {
-    question: "Are your products safe for families with children and pets?",
-    answer: "Absolutely! Many Providence families have children and pets. We use eco-friendly, non-toxic cleaning products that are tough on dirt but gentle on your family. No harsh chemical residues - your kids and pets can safely play on freshly cleaned floors. We're also comfortable working around your pets during cleaning."
-  }
+    {
+        question: "Do you serve all of the Providence and Bradford Lakes area?",
+        answer: "Yes, we serve the entire Providence tech-corridor community, encompassing Bradford Lakes, Celtic Manor, and surrounding subdivisions. Whether you live in a stately two-story home or a charming craftsman, our team is equipped to maintain it.",
+    },
+    {
+        question: "Do you offer flexible scheduling for working professionals?",
+        answer: "Absolutely. Many Providence residents have demanding careers in research, medicine, tech, or at Redstone Arsenal. We offer flexible scheduling, including while you're at work, so you can come home to a spotless house and enjoy your evenings.",
+    },
+    {
+        question:
+            "What makes Valley Clean Team different from other maid services?",
+        answer: "We're veteran-owned, fully insured, and we send the same team to your home every visit. Your cleaners learn your home, your preferences, and your family. No revolving door of strangers - just consistent, reliable service from people you can trust.",
+    },
+    {
+        question: "How do I schedule a cleaning in Providence?",
+        answer: "Easy! Just call us at 256-826-1100 or fill out the form on this page. We'll discuss your needs, give you a quote, and schedule your first cleaning.",
+    },
 ];
 
 const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.answer
-    }
-  }))
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+        },
+    })),
 };
 
 const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "serviceType": "Premium Residential Cleaning Services",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
-    "telephone": "+1-256-826-1100",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Huntsville",
-      "addressRegion": "AL",
-      "addressCountry": "US"
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Maid Services",
+    provider: {
+        "@type": "LocalBusiness",
+        name: "The Valley Clean Team",
+        image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+        telephone: "+1-256-826-1100",
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "Huntsville",
+            addressRegion: "AL",
+            addressCountry: "US",
+        },
+        priceRange: "$$",
     },
-    "priceRange": "$$$"
-  },
-  "areaServed": {
-    "@type": "Place",
-    "name": "Providence - Madison, Alabama",
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "34.7557",
-      "longitude": "-86.6976"
+    areaServed: {
+        "@type": "Place",
+        name: "Providence, Madison, Alabama",
     },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Madison",
-      "addressRegion": "AL",
-      "addressCountry": "US"
-    }
-  },
-  "description": "Professional house cleaning services for Providence master-planned community in Madison, Alabama. Regular maintenance, deep cleaning, and move-in/out services for golf course homes and executive residences.",
-  "offers": {
-    "@type": "Offer",
-    "availability": "https://schema.org/InStock"
-  }
+    description:
+        "Professional maid service in Providence, Madison. Luxury house cleaning services.",
 };
 ---
 
 <BaseLayout
-  title="Providence Cleaning Madison AL "
-  description="Trusted cleaning for Providence homes in Madison. Master-planned community specialists. Background-checked team, eco-friendly products. Book today!"
-  geoRegion="US-AL"
-  geoPlacename="Providence, Madison, Alabama"
-  geoPosition="34.7120;-86.7510"
-  canonicalUrl="https://thevalleycleanteam.com/locations/madison/providence"
+    title="Providence, AL House Cleaning Services | Valley Clean Team"
+    description="Premium house cleaning and maid service for Providence and Bradford Lakes, Madison. Veteran-owned, $2M insured. Regular and deep cleaning. Get a pristine home today."
+    geoRegion="US-AL"
+    geoPlacename="Providence, Madison"
 >
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(serviceSchema)}
+    />
 
-  <!-- Hero Section -->
-  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
-    <div class="container mx-auto">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div class="text-center lg:text-left">
-          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
-            <span class="text-gray-900 font-semibold">
-              <Icon name="golf-ball" class="w-5 h-5 mr-2" />Madison's Premier Master-Planned Community
-            </span>
-          </div>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Providence</span>
-          </h1>
-          <p class="text-xl text-gray-300 mb-6">
-            Providence residents chose this community for its resort-style living, championship golf, and family-friendly atmosphere. You shouldn't spend your weekends cleaning when there's so much to enjoy. Let The Valley Clean Team keep your home pristine while you make the most of Providence's exceptional amenities.
-          </p>
+    <!-- Hero Section -->
+    <section
+        class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800"
+    >
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div
+                        class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+                    >
+                        <span class="text-gray-900 font-semibold">
+                            <Icon name="clock" class="w-5 h-5 mr-2" />Serving
+                            Providence
+                        </span>
+                    </div>
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+                    >
+                        Luxury House Cleaning in <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+                            >Providence</span
+                        >
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-6">
+                        Keep your Providence home pristine with our premium,
+                        veteran-owned cleaning service. We specialize in
+                        recurring maid service and deep cleaning that properly
+                        cares for your family's dynamic lifestyle.
+                    </p>
 
-          <div class="grid grid-cols-3 gap-4 mb-8">
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
-              <Icon name="home" class="w-8 h-8 text-[#FFA985] mb-2" />
-              <p class="text-white font-semibold text-sm">Master</p>
-              <p class="text-gray-400 text-xs">Planned</p>
+                    <div
+                        class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                    >
+                        <a
+                            href="tel:2568261100"
+                            class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+                        >
+                            <Icon
+                                name="phone"
+                                class="w-5 h-5 mr-2"
+                            />256-826-1100
+                        </a>
+                        <QuoteForm
+                            formId="location-hero-form"
+                            city="Madison"
+                            state="AL"
+                        />
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                    <h2
+                        class="text-2xl font-bold mb-2 text-[#333333] text-center"
+                    >
+                        Maid Service for Providence Living
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-center">
+                        Serving Providence and Bradford Lakes
+                    </p>
+                    <QuoteForm
+                        formId="hero-quote-form"
+                        city="Madison"
+                        state="Alabama"
+                        serviceName="General Cleaning"
+                        source="Providence Page"
+                    />
+                </div>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
-              <Icon name="shield-alt" class="w-8 h-8 text-[#FFA985] mb-2" />
-              <p class="text-white font-semibold text-sm">Background</p>
-              <p class="text-gray-400 text-xs">Checked</p>
+        </div>
+    </section>
+
+    <!-- About Neighborhood Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div
+                    class="rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2"
+                >
+                    <img
+                        src="/images/neighborhoods/providence_clean_1771881897625.png"
+                        alt="Providence Living Room Cleaning"
+                        loading="lazy"
+                        class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                </div>
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-4xl font-bold mb-6 text-[#333333]">
+                        Maid Service for Providence Living
+                    </h2>
+                    <div class="section-divider" style="margin-left: 0;"></div>
+                    <p class="text-lg text-gray-700 mb-4">
+                        With its perfectly planned walkable streets, luxury
+                        suburban homes, and unparalleled access to local
+                        favorites like The Village of Providence, this community
+                        is the vibrant center of the area. Between work,
+                        commuting, and spending time with the family, you
+                        shouldn't have to spend your weekends cleaning.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6">
+                        The Valley Clean Team provides reliable, top-tier
+                        cleaning services tailored for Providence area homes.
+                        Whether you need a deep clean before hosting an event,
+                        or you're looking for recurring weekly maid service, our
+                        trusted teams deliver a spotless clean so you can simply
+                        enjoy your home.
+                    </p>
+                    <div
+                        class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-6 border border-[#FFA985]/20"
+                    >
+                        <h3 class="text-xl font-bold text-[#333333] mb-4">
+                            Why Choose Us:
+                        </h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Same team</strong> every visit - familiar
+                                    faces you trust</span
+                                >
+                            </li>
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Flexible scheduling</strong> that works
+                                    for your life</span
+                                >
+                            </li>
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Pet-friendly</strong> products safe for
+                                    your animals</span
+                                >
+                            </li>
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Veteran-owned</strong> with military
+                                    attention to detail</span
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
-              <Icon name="calendar-check" class="w-8 h-8 text-[#FFA985] mb-2" />
-              <p class="text-white font-semibold text-sm">Same Day</p>
-              <p class="text-gray-400 text-xs">Available</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 text-[#333333]">
+                    Providence Cleaning FAQs
+                </h2>
+                <div class="section-divider"></div>
             </div>
-          </div>
-
-          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
-              <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
-            </a>
-            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
-              Book Online
-            </a>
-          </div>
-        </div>
-
-        <!-- Contact Form -->
-        <div class="bg-white rounded-2xl p-8 shadow-2xl">
-          <div class="text-center mb-6">
-            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
-              <Icon name="clock" class="w-5 h-5 mr-1" /> 2-HOUR RESPONSE
-            </span>
-          </div>
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
-          <p class="text-gray-600 mb-6 text-center">Proudly serving Providence families</p>
-          <QuoteForm 
-            formId="providence-quote-form"
-            city="Providence"
-            state="Alabama"
-            serviceName="Same-Day Cleaning"
-            source="Providence Landing Page"
-            urgentMode={true}
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Providence Section -->
-  <section class="py-20 px-6 bg-white">
-    <div class="container mx-auto max-w-6xl">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-            Cleaning Services Designed for<br>Providence Living
-          </h2>
-          <div class="section-divider" style="margin-left: 0;"></div>
-          <p class="text-lg text-gray-700 mb-4">
-            Providence is Madison's premier master-planned community, offering resort-style living just minutes from Cummings Research Park and downtown Huntsville. With its championship 18-hole golf course designed by Jerry Pate, resort-style pool complex, tennis courts, and miles of walking trails, Providence attracts families and professionals who value both quality homes and exceptional amenities.
-          </p>
-          <p class="text-lg text-gray-700 mb-4">
-            Homes in Providence range from $300,000 to over $700,000, featuring thoughtful designs from 2,200 to 4,500+ square feet. From maintenance-free patio homes perfect for empty nesters to spacious executive residences for growing families, Providence offers diverse living options united by quality construction and beautiful surroundings.
-          </p>
-          <p class="text-lg text-gray-700">
-            Your Providence home represents your lifestyle investment - a place where family memories are made and guests are entertained. Whether you need weekly maintenance to stay ahead of busy schedules, seasonal deep cleaning before hosting, or move-in/out service, The Valley Clean Team understands what Providence homeowners expect and delivers consistently excellent results.
-          </p>
-        </div>
-        <div class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-8 border border-[#FFA985]/20">
-          <h3 class="text-2xl font-bold text-[#333333] mb-6">Providence Home Features:</h3>
-          <ul class="space-y-3">
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>2,200-4,500+ sq ft</strong> executive-style homes</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Golf course views</strong> and nature-adjacent lots</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Open floor plans</strong> with great rooms</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Chef's kitchens</strong> with granite and islands</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>3-6 bedrooms</strong> with luxury master suites</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Outdoor living spaces</strong> with covered patios</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Home offices</strong> and bonus rooms</span>
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-3 flex-shrink-0" />
-              <span class="text-gray-700"><strong>Premium finishes</strong> including hardwood and tile</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Choose Us -->
-  <section class="py-20 px-6 bg-gray-50">
-    <div class="container mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Why Providence Families Choose Us
-        </h2>
-        <div class="section-divider"></div>
-        <p class="text-xl text-gray-600">Premium service for Madison's premier community</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <Icon name="user-friends" class="w-8 h-8 text-white" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same Team Every Visit</h3>
-          <p class="text-gray-600">No revolving door of strangers in your home. You'll have the same dedicated cleaning team every time, people who know your Providence home, your family, and your preferences. Consistency builds trust, and trust is everything when someone's in your home.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <Icon name="briefcase" class="w-8 h-8 text-white" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Work-Schedule Friendly</h3>
-          <p class="text-gray-600">Providence professionals are busy - many working at Research Park, Arsenal, or throughout Huntsville. We clean while you're at work. Provide a garage code or smart lock access, and come home to a pristine house. Your evenings and weekends are yours again.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <Icon name="home" class="w-8 h-8 text-white" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Large Home Specialists</h3>
-          <p class="text-gray-600">Providence homes are larger than average with open concepts, multiple living areas, and premium finishes. Our teams are experienced with executive-style homes and know how to clean efficiently without cutting corners. High ceilings, hardwoods, granite - we handle it all with care.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <Icon name="leaf" class="w-8 h-8 text-white" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Eco-Friendly Products</h3>
-          <p class="text-gray-600">We use non-toxic, environmentally responsible cleaning products that are safe for your family, pets, and the planet. No harsh chemical residues left behind. Providence families can feel good about how their homes are cleaned - effective AND responsible.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <Icon name="bolt" class="w-8 h-8 text-white" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Same-Day Service Available</h3>
-          <p class="text-gray-600">Unexpected guests? Post-party cleanup? Need help before a showing? We offer same-day service when you're in a pinch. Call before noon and we'll do our best to fit you in. Providence's active social scene means life happens fast - we keep up.</p>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 service-card">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
-            <Icon name="medal" class="w-8 h-8 text-white" />
-          </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-3">Veteran Owned & Operated</h3>
-          <p class="text-gray-600">Military discipline meets Southern hospitality. We're punctual, detail-oriented, and treat your home with respect. Licensed, bonded, and insured with background-checked team members. The same values that served our country now serve Providence families.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Popular Services -->
-  <section class="py-20 px-6 bg-white">
-    <div class="container mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Services for Providence Homes
-        </h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <Icon name="redo" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Regular Maintenance Cleaning</h3>
-          <p class="text-gray-600 mb-6">Our most popular service for Providence families. Weekly or bi-weekly cleaning keeps your home consistently pristine without sacrificing your weekends. Same team, same day, same excellence. Focus on enjoying Providence's amenities, not cleaning.</p>
-          <ul class="space-y-2 mb-6">
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>All living areas and bedrooms cleaned</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Kitchens and bathrooms thoroughly scrubbed</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Dusting, vacuuming, mopping throughout</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Flexible scheduling around your work</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Preferred pricing for recurring clients</span>
-            </li>
-          </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
-            Get Started
-          </a>
-        </div>
-
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Deep Cleaning Service</h3>
-          <p class="text-gray-600 mb-6">Top-to-bottom detailed cleaning for your Providence home. Perfect for seasonal refresh, before hosting at the clubhouse crowd, or as your first service. We tackle areas that don't get attention in regular cleaning.</p>
-          <ul class="space-y-2 mb-6">
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Everything in regular clean PLUS</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Baseboards, ceiling fans, light fixtures</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Interior window cleaning and tracks</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Appliance exteriors and detailing</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Cabinet fronts and door frames</span>
-            </li>
-          </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
-            Book Deep Clean
-          </a>
-        </div>
-
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 shadow-md border border-gray-200">
-          <Icon name="truck" class="w-5 h-5 text-[#FFA985] text-4xl mb-4" />
-          <h3 class="text-2xl font-bold text-[#333333] mb-4">Move In/Out Cleaning</h3>
-          <p class="text-gray-600 mb-6">Providence homes are in high demand, and we help with the transitions. Whether you're moving into your dream home or preparing to sell, we ensure the property is immaculate for its next chapter.</p>
-          <ul class="space-y-2 mb-6">
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Deep clean of entire empty home</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Inside all cabinets and closets</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Appliance interior and exterior cleaning</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Windows, tracks, and blinds</span>
-            </li>
-            <li class="flex items-start text-sm text-gray-700">
-              <Icon name="check" class="w-5 h-5 text-green-500 mt-1 mr-2 flex-shrink-0" />
-              <span>Get your deposit back or impress buyers</span>
-            </li>
-          </ul>
-          <a href="tel:2568261100" class="btn-primary w-full text-center py-3 rounded-lg font-semibold">
-            Schedule Move Clean
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonial Section -->
-  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5">
-    <div class="container mx-auto max-w-4xl">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          What Madison Families Say
-        </h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
-              P
+            <div class="space-y-4">
+                {
+                    faqs.map((faq) => (
+                        <div
+                            class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+                            onclick="this.classList.toggle('active')"
+                        >
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-[#333333] pr-4">
+                                    {faq.question}
+                                </h3>
+                                <Icon
+                                    name="chevron-down"
+                                    class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                                />
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-gray-600 mt-4">{faq.answer}</p>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
-            <div>
-              <h4 class="font-bold text-[#333333]">Patrick Scogin</h4>
-              <p class="text-sm text-gray-500">Madison Area Resident</p>
-            </div>
-          </div>
-          <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-          </div>
-          <p class="text-gray-700 italic">
-            "Kassandra did a fantastic job! She cleaned our 4000 square foot, 3 story home in a highly efficient and effective manner. I would not hesitate to recommend the service to others."
-          </p>
         </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] flex items-center justify-center text-white font-bold text-xl mr-4">
-              K
-            </div>
-            <div>
-              <h4 class="font-bold text-[#333333]">Karen Sears</h4>
-              <p class="text-sm text-gray-500">Madison Area Resident</p>
-            </div>
-          </div>
-          <div class="flex mb-3">
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-            <Icon name="star" class="w-5 h-5 text-yellow-400" fill="currentColor" />
-          </div>
-          <p class="text-gray-700 italic">
-            "I was very pleased with Brittany and the job she did for us. She was always punctual and her supervisor always made contact to keep us updated. We will definitely use them again!"
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="py-20 px-6 bg-gray-50">
-    <div class="container mx-auto max-w-4xl">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Frequently Asked Questions
-        </h2>
-        <div class="section-divider"></div>
-      </div>
-
-      <div class="space-y-4">
-        {faqs.map((faq) => (
-          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
-            <div class="flex justify-between items-center">
-              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
-              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
-            </div>
-            <div class="faq-answer">
-              <p class="text-gray-600 mt-4">{faq.answer}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Service Area Links -->
-  <section class="py-16 px-6 bg-white">
-    <div class="container mx-auto max-w-5xl">
-      <h3 class="text-2xl font-bold text-[#333333] mb-8 text-center">
-        Also Serving Nearby Communities
-      </h3>
-      <div class="grid md:grid-cols-3 gap-4">
-        <a href="/locations/madison" class="neighborhood-badge block text-center">
-          Madison
-        </a>
-        <a href="/locations/madison/bradford-creek" class="neighborhood-badge block text-center">
-          Bradford Creek
-        </a>
-        <a href="/locations/huntsville" class="neighborhood-badge block text-center">
-          Huntsville
-        </a>
-        <a href="/locations/huntsville/research-park" class="neighborhood-badge block text-center">
-          Research Park
-        </a>
-        <a href="/locations/huntsville/jones-valley" class="neighborhood-badge block text-center">
-          Jones Valley
-        </a>
-        <a href="/locations" class="neighborhood-badge block text-center">
-          View All Locations
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="py-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
-    <div class="container mx-auto max-w-3xl text-center">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
-        Ready to Enjoy Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Providence Lifestyle?</span>
-      </h2>
-      <p class="text-xl text-gray-300 mb-8">
-        Stop spending weekends cleaning. Join Providence families who trust The Valley Clean Team to keep their homes pristine. Call now for your free quote and start enjoying what this community has to offer.
-      </p>
-      <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-12 py-5 rounded-full text-xl font-bold shadow-xl transition transform hover:scale-105 inline-block">
-        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
-      </a>
-      <p class="text-gray-400 mt-6">
-        <Icon name="calendar-alt" class="w-5 h-5 mr-2" />Same-day service available | 2-hour response guarantee
-      </p>
-    </div>
-  </section>
-
-  
-
-  
+    </section>
 </BaseLayout>

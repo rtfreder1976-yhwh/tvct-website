@@ -4,28 +4,24 @@ import SchemaMarkup from "../../../components/SchemaMarkup.astro";
 import Icon from "../../../components/Icon.astro";
 import QuoteForm from "../../../components/QuoteForm.astro";
 
-const neighborhood = "Belle Mina";
-const city = "Athens";
-const state = "Alabama";
-
-// Schema for FAQPage
+// TODO: Replace these FAQs with Twickenham specific content
 const faqs = [
     {
-        question: "Do you specialize in cleaning classic antebellum homes?",
-        answer: "Yes, we are highly experienced in caring for the historic plantation homes and properties found in Belle Mina. We know how to properly clean original hardwood floors, delicate molding, and antique fixtures without risk of damage.",
+        question: "Do you serve all of the Twickenham Historic District?",
+        answer: "Yes, we serve the entire Twickenham area, caring for Huntsville's oldest and most prestigious antebellum homes. Our teams are specially trained to clean and preserve historic properties.",
     },
     {
         question:
-            "What if my home has newly renovated spaces alongside historic rooms?",
-        answer: "We seamlessly adapt our cleaning methods. Whether we're carefully dusting a 19th-century parlor or deep cleaning a modern kitchen addition, we use the right products and techniques for each specific surface.",
+            "How do you clean delicate historical features and antique flooring?",
+        answer: "We know that antebellum homes require special care. Our staff uses gentle, pH-neutral, and pet-friendly products that clean beautifully without risking damage to original hardwood floors, fragile architectural details, or antique fixtures.",
     },
     {
         question:
             "What makes Valley Clean Team different from other maid services?",
-        answer: "We're veteran-owned, fully insured, and we send the same team to your home every visit. Your cleaners learn your home, your preferences, and your family. No revolving door of strangers - just consistent, reliable service from people you can trust.",
+        answer: "We're veteran-owned, fully insured with $2M liability, and we send the same team to your home every visit. We respect the history of your property and provide consistent, reliable service. No revolving door of strangers—just people you can trust with your historic home.",
     },
     {
-        question: "How do I schedule a cleaning in Belle Mina?",
+        question: "How do I schedule a cleaning in Twickenham?",
         answer: "Easy! Just call us at 256-826-1100 or fill out the form on this page. We'll discuss your needs, give you a quote, and schedule your first cleaning.",
     },
 ];
@@ -62,18 +58,18 @@ const serviceSchema = {
     },
     areaServed: {
         "@type": "Place",
-        name: "Belle Mina, Athens, Alabama",
+        name: "Twickenham Historic District, Huntsville, Alabama",
     },
     description:
-        "Professional maid service in Belle Mina, Athens. Luxury house cleaning services.",
+        "Professional maid service in the Twickenham Historic District, Huntsville. White-glove house cleaning for antebellum homes.",
 };
 ---
 
 <BaseLayout
-    title="Belle Mina, Athens AL Cleaning Services | Valley Clean Team"
-    description="Premium house cleaning for Belle Mina properties in Athens, AL. Veteran-owned, $2M insured. Regular and deep cleaning. Get a spotless home today."
+    title="Maid Service Twickenham, Huntsville AL | Valley Clean Team"
+    description="Professional maid service in the Twickenham Historic District of Huntsville, AL. Specialized historic home house cleaning & maid services. 256-826-1100"
     geoRegion="US-AL"
-    geoPlacename="Belle Mina, Athens"
+    geoPlacename="Twickenham, Huntsville"
 >
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <script
@@ -92,8 +88,10 @@ const serviceSchema = {
                         class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
                     >
                         <span class="text-gray-900 font-semibold">
-                            <Icon name="clock" class="w-5 h-5 mr-2" />Serving
-                            Belle Mina
+                            <Icon
+                                name="map-marker-alt"
+                                class="w-5 h-5 mr-2"
+                            />Twickenham Historic District
                         </span>
                     </div>
                     <h1
@@ -101,14 +99,15 @@ const serviceSchema = {
                     >
                         Luxury House Cleaning in <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
-                            >Belle Mina</span
+                            >Twickenham</span
                         >
                     </h1>
                     <p class="text-xl text-gray-300 mb-6">
-                        Keep your Belle Mina property pristine with our premium,
+                        Keep your antebellum home pristine with our premium,
                         veteran-owned cleaning service. We specialize in
-                        recurring maid service and deep cleaning that properly
-                        preserves your home's historic or modern character.
+                        white-glove maid service and deep cleaning that treats
+                        your property's irreplaceable historic features with the
+                        utmost care.
                     </p>
 
                     <div
@@ -123,29 +122,32 @@ const serviceSchema = {
                                 class="w-5 h-5 mr-2"
                             />256-826-1100
                         </a>
-                        <QuoteForm
-                            formId="location-hero-form"
-                            city="Athens"
-                            state="AL"
-                        />
+                        <a
+                            href="#hero-quote-form"
+                            onclick="document.getElementById('hero-quote-form').scrollIntoView({ behavior: 'smooth' }); return false;"
+                            class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center"
+                        >
+                            Get Free Quote
+                        </a>
                     </div>
                 </div>
 
+                <!-- Contact Form -->
                 <div class="bg-white rounded-2xl p-8 shadow-2xl">
                     <h2
-                        class="text-2xl font-bold mb-2 text-[#333333] text-center"
+                        class="text-2xl font-bold text-[#333333] mb-2 text-center"
                     >
                         Get Your Free Quote
                     </h2>
                     <p class="text-gray-600 mb-6 text-center">
-                        Serving Belle Mina
+                        Serving the Twickenham Historic District
                     </p>
                     <QuoteForm
                         formId="hero-quote-form"
-                        city="Athens"
+                        city="Twickenham, Huntsville"
                         state="Alabama"
-                        serviceName="General Cleaning"
-                        source="Belle Mina Page"
+                        serviceName="Historic Home Cleaning"
+                        source="Twickenham Page"
                     />
                 </div>
             </div>
@@ -160,32 +162,34 @@ const serviceSchema = {
                     class="rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2"
                 >
                     <img
-                        src="/images/neighborhoods/belle_mina_clean_1771881930590.png"
-                        alt="Belle Mina Property Cleaning"
+                        src="/images/neighborhoods/twickenham_clean_1771881280943.png"
+                        alt="Twickenham Historic Home Cleaning"
                         loading="lazy"
                         class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700"
                     />
                 </div>
                 <div class="order-2 lg:order-1">
                     <h2 class="text-4xl font-bold mb-6 text-[#333333]">
-                        Cleaning Service for Historic Homes
+                        Maid Service for Twickenham Living
                     </h2>
                     <div class="section-divider" style="margin-left: 0;"></div>
                     <p class="text-lg text-gray-700 mb-4">
-                        Home to the stunning Belle Mina plantation house built
-                        by Governor Thomas Bibb in 1826, this community
-                        continues to preserve beautiful examples of Alabama's
-                        antebellum heritage. Maintaining these incredible homes
-                        is a labor of love, but you shouldn't have to spend your
-                        weekend doing it.
+                        As Alabama's largest and oldest antebellum district,
+                        Twickenham is a living museum of American architecture
+                        featuring majestic tree-lined streets and immaculate
+                        Greek Revival and Federal-style homes. Living in one of
+                        Huntsville's most treasured historic preservation
+                        districts is a privilege, and you shouldn't have to
+                        spend your weekends carefully cleaning antique fixtures
+                        and original flooring.
                     </p>
                     <p class="text-lg text-gray-700 mb-6">
-                        The Valley Clean Team provides specialized, reliable
-                        cleaning services tailored for these historic properties
-                        and the modern homes surrounding them. Whether you need
-                        a meticulous deep clean or recurring weekly maid
-                        service, our trusted teams deliver a spotless clean so
-                        you can simply enjoy your space.
+                        The Valley Clean Team provides reliable, white-glove
+                        cleaning services tailored specifically for Twickenham
+                        homes. From preserving historic architectural molds to
+                        providing recurring weekly maid service, our trusted and
+                        fully insured teams deliver a spotless clean without
+                        risking damage.
                     </p>
                     <div
                         class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-6 border border-[#FFA985]/20"
@@ -246,7 +250,7 @@ const serviceSchema = {
         <div class="container mx-auto max-w-4xl">
             <div class="text-center mb-16">
                 <h2 class="text-4xl font-bold mb-4 text-[#333333]">
-                    Belle Mina Cleaning FAQs
+                    Twickenham Cleaning FAQs
                 </h2>
                 <div class="section-divider"></div>
             </div>

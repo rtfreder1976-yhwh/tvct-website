@@ -1,0 +1,455 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import Icon from "../../../components/Icon.astro";
+
+import QuoteForm from "../../../components/QuoteForm.astro";
+
+const faqs = [
+  {
+    question: "Can I really get same-day cleaning in Huntsville?",
+    answer:
+      "Yes! We offer same-day cleaning service in Huntsville and Madison County based on availability. For the best chance, call 256-826-1100 as early as possible - ideally before 10 AM. We prioritize urgent requests and will do everything we can to help.",
+  },
+  {
+    question: "Is there an extra charge for same-day cleaning?",
+    answer:
+      "No rush fees or emergency charges - ever. Same-day cleaning in Huntsville is priced the same as our regular services. We believe urgent needs shouldn't come with penalty pricing.",
+  },
+  {
+    question: "How quickly can you arrive in Huntsville?",
+    answer:
+      "Depending on availability and your location in Madison County, we can often arrive within 2-4 hours. Morning calls typically have the best availability for same-day service.",
+  },
+  {
+    question: "What if I need cleaning for unexpected guests?",
+    answer:
+      "Call us immediately at 256-826-1100! Unexpected guests are one of the most common reasons for same-day requests. We understand the importance of having a clean, welcoming home and will get you guest-ready quickly.",
+  },
+  {
+    question: "Do you offer same-day cleaning for home showings?",
+    answer:
+      "Yes! We work with Huntsville area realtors and homeowners to prepare properties for showings on short notice. A clean, polished home makes a significant difference in buyer impressions.",
+  },
+  {
+    question: "What areas do you cover for same-day service?",
+    answer:
+      "We offer same-day service throughout Huntsville and Madison County including downtown Huntsville, East Huntsville, West Huntsville, Tanner, Elkmont, Ardmore, Belle Mina, and surrounding areas.",
+  },
+  {
+    question: "What types of cleaning can you do same-day?",
+    answer:
+      "We can perform any type of cleaning same-day: regular cleaning, deep cleaning, move-out cleaning, party cleanup, pre-event preparation, or post-construction cleaning. Just tell us what you need.",
+  },
+  {
+    question: "What if same-day isn't available?",
+    answer:
+      "If we can't accommodate same-day, we'll offer the next available slot - often next-day service. We prioritize urgent Huntsville requests and will find a solution that works for you.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title="Same Day Cleaning Huntsville, AL | Valley Clean Team"
+  description="Need cleaning TODAY in Huntsville, Alabama? Same-day house cleaning for Madison County. No rush fees! Call now: 256-826-1100"
+>
+  <SchemaMarkup type="local" city="Huntsville" state="Alabama" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Urgent Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-red-50 to-orange-50">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div
+            class="inline-block bg-red-100 px-4 py-2 rounded-full mb-4 animate-pulse"
+          >
+            <span class="text-red-700 font-semibold">
+              <Icon name="bolt" class="w-5 h-5 mr-2" />Same-Day Service
+              Available
+            </span>
+          </div>
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            Need Cleaning <span class="text-red-600">TODAY</span> in Huntsville?
+          </h1>
+          <p class="text-xl text-gray-700 mb-6">
+            Unexpected guests? Last-minute showing? Family coming to town? Don't
+            stress - our same-day cleaning service gets your Huntsville or Madison
+            County home spotless fast. No rush fees, no emergency charges.
+          </p>
+
+          <div
+            class="bg-white rounded-xl p-6 shadow-lg border-2 border-red-200 mb-6"
+          >
+            <div class="flex items-center justify-center space-x-4">
+              <div class="text-center">
+                <Icon name="clock" class="w-5 h-5 text-red-600 text-3xl mb-2" />
+                <p class="font-bold text-[#333333]">2-4 Hour</p>
+                <p class="text-sm text-gray-600">Response</p>
+              </div>
+              <div class="w-px h-16 bg-gray-300"></div>
+              <div class="text-center">
+                <Icon name="tag" class="w-5 h-5 text-green-600 text-3xl mb-2" />
+                <p class="font-bold text-[#333333]">No Rush</p>
+                <p class="text-sm text-gray-600">Fees</p>
+              </div>
+              <div class="w-px h-16 bg-gray-300"></div>
+              <div class="text-center">
+                <Icon
+                  name="heart"
+                  class="w-5 h-5 text-[#FFA985] text-3xl mb-2"
+                />
+                <p class="font-bold text-[#333333]">Local</p>
+                <p class="text-sm text-gray-600">& Trusted</p>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="tel:2568261100"
+            class="bg-red-600 hover:bg-red-700 text-white px-8 py-5 rounded-full text-xl font-semibold shadow-lg transition transform hover:scale-105 inline-block"
+          >
+            <Icon name="phone" class="w-5 h-5 mr-2" />CALL NOW: 256-826-1100
+          </a>
+          <p class="text-sm text-gray-600 mt-4">
+            <Icon name="info-circle" class="w-5 h-5 mr-1" /> Call before 10 AM for
+            best same-day availability
+          </p>
+        </div>
+
+        <!-- Urgent Form -->
+        <div
+          class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-red-200"
+        >
+          <div class="text-center mb-6">
+            <span
+              class="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold"
+            >
+              <Icon name="bolt" class="w-5 h-5 mr-1" /> URGENT REQUEST
+            </span>
+          </div>
+          <h3 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Need Cleaning Today?
+          </h3>
+          <p class="text-gray-600 mb-6 text-center">
+            Huntsville & Madison County's fastest response
+          </p>
+          <QuoteForm
+            formId="same-day-form"
+            city="Huntsville"
+            state="Alabama"
+            serviceName="Same Day Cleaning"
+            source="Huntsville Same Day Cleaning Page"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Urgent Situations -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          We Handle Huntsville' Urgent Cleaning Needs
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">
+          Whatever the situation, we're here to help - fast
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div
+            class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4"
+          >
+            <Icon name="users" class="w-8 h-8 text-red-600" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Unexpected Guests
+          </h3>
+          <p class="text-gray-600">
+            Family calling? Friends stopping by? We'll get your Huntsville home
+            guest-ready in hours.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div
+            class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4"
+          >
+            <Icon name="home" class="w-8 h-8 text-blue-600" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Home Showing</h3>
+          <p class="text-gray-600">
+            Realtor called with short notice? We'll make your property shine for
+            potential buyers.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div
+            class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-4"
+          >
+            <Icon name="heart" class="w-8 h-8 text-purple-600" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Family Visiting</h3>
+          <p class="text-gray-600">
+            Parents or in-laws coming? We'll ensure your home makes the right
+            impression.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div
+            class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-4"
+          >
+            <Icon name="birthday-cake" class="w-8 h-8 text-orange-600" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Hosting an Event
+          </h3>
+          <p class="text-gray-600">
+            Birthday party? Holiday dinner? We'll get your home ready for
+            celebration.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div
+            class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4"
+          >
+            <Icon name="truck-moving" class="w-8 h-8 text-green-600" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">Moving Day</h3>
+          <p class="text-gray-600">
+            Closing today? We'll ensure your new home is spotless before you
+            move in.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
+          <div
+            class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-4"
+          >
+            <Icon name="broom" class="w-8 h-8 text-yellow-600" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-3">
+            Post-Event Cleanup
+          </h3>
+          <p class="text-gray-600">
+            Great party, big mess? We'll restore your home to pristine
+            condition.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- No Rush Fees -->
+  <section class="py-12 px-6 bg-gradient-to-r from-green-500 to-green-600">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        <Icon name="tag" class="w-5 h-5 mr-3" />No Rush Fees. No Emergency
+        Charges. Same Quality.
+      </h2>
+      <p class="text-xl text-white/90 max-w-2xl mx-auto">
+        Urgent needs shouldn't mean premium pricing. Same-day cleaning is priced
+        identically to our regular services.
+      </p>
+    </div>
+  </section>
+
+  <!-- Huntsville Areas -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Same-Day Service Throughout Madison County
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div
+        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
+      >
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Downtown Huntsville</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">East Huntsville</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">West Huntsville</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Tanner</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Elkmont</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Ardmore</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Belle Mina</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center shadow-sm">
+          <p class="font-semibold text-[#333333]">Mooresville</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Same-Day Cleaning FAQs
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {
+          faqs.map((faq) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Services -->
+  <section class="py-16 px-6 bg-white">
+    <div class="container mx-auto max-w-5xl">
+      <h2 class="text-3xl font-bold text-[#333333] mb-8 text-center">
+        Other Huntsville <span class="gold-gradient">Cleaning Services</span>
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <a
+          href="/locations/huntsville/deep-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
+          <Icon name="sparkles" class="w-8 h-8 text-[#FFA985] mb-3" />
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Deep Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Top-to-bottom cleaning for Huntsville homes
+          </p>
+        </a>
+        <a
+          href="/locations/huntsville/weekly-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
+          <Icon name="calendar-week" class="w-8 h-8 text-[#FFA985] mb-3" />
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Weekly Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Consistent weekly maid service
+          </p>
+        </a>
+        <a
+          href="/locations/huntsville/senior-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
+          <Icon name="heart" class="w-8 h-8 text-[#FFA985] mb-3" />
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Senior Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Compassionate care for elderly residents
+          </p>
+        </a>
+        <a
+          href="/locations/huntsville/move-out-cleaning"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
+          <Icon name="box" class="w-8 h-8 text-[#FFA985] mb-3" />
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Move-Out Cleaning
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">Get your deposit back</p>
+        </a>
+        <a
+          href="/locations/huntsville/recurring-maid-service"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
+          <Icon name="sync" class="w-8 h-8 text-[#FFA985] mb-3" />
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            Recurring Service
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">
+            Save 20% with regular cleanings
+          </p>
+        </a>
+        <a
+          href="/locations/huntsville"
+          class="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:border-[#FFA985] transition group"
+        >
+          <Icon name="map-marker-alt" class="w-8 h-8 text-[#FFA985] mb-3" />
+          <h3 class="font-bold text-[#333333] group-hover:text-[#FFA985]">
+            All Huntsville Services
+          </h3>
+          <p class="text-sm text-gray-600 mt-2">View all cleaning options</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-red-50 to-orange-50">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Don't Wait - Call Now!
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Every minute counts. The earlier you call, the better your chances for
+        same-day service.
+      </p>
+      <a
+        href="tel:2568261100"
+        class="bg-red-600 hover:bg-red-700 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-xl transition transform hover:scale-105 inline-block"
+      >
+        <Icon name="phone" class="w-5 h-5 mr-3" />256-826-1100
+      </a>
+      <p class="text-gray-600 mt-6">
+        <Icon name="clock" class="w-5 h-5 mr-2" />Available 7 days a week |
+        Same-day based on availability
+      </p>
+    </div>
+  </section>
+</BaseLayout>
