@@ -1,200 +1,348 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
-
-import Icon from '../components/Icon.astro';
+import Icon from "../components/Icon.astro";
 
 // Define all blog posts with metadata
 const blogPosts = [
+  // New Scheduled Posts (Weekly from Dec-10 through Jan-28)
+  {
+    slug: "spring-cleaning-nashville-survival-guide",
+    title:
+      "The Ultimate Spring Cleaning Survival Guide for Nashville Homeowners",
+    excerpt:
+      "Conquer pollen season and refresh your Music City home with our comprehensive spring deep cleaning checklist.",
+    category: "Seasonal Cleaning",
+    filterCategory: "home-health",
+    categoryColor: "green",
+    date: "January 28, 2026",
+    readTime: "8 min read",
+    icon: "leaf",
+  },
+  {
+    slug: "post-construction-cleaning-birmingham-guide",
+    title:
+      "Surviving the Dust: A Homeowner's Guide to Post-Construction Cleaning in Birmingham",
+    excerpt:
+      "Just finished a renovation? Learn how to safely and effectively remove fine construction dust from every surface of your Birmingham home.",
+    category: "Post-Construction",
+    filterCategory: "move-out",
+    categoryColor: "amber",
+    date: "January 21, 2026",
+    readTime: "7 min read",
+    icon: "hard-hat",
+  },
+  {
+    slug: "move-out-cleaning-huntsville-guide",
+    title:
+      "The Stress-Free Move-Out Cleaning Guide for Huntsville Renters (Get Your Deposit Back)",
+    excerpt:
+      "Moving out of your Rocket City rental? Follow our detailed checklist to ensure you get your full security deposit returned without the stress.",
+    category: "Move-Out Guide",
+    filterCategory: "move-out",
+    categoryColor: "blue",
+    date: "January 14, 2026",
+    readTime: "6 min read",
+    icon: "home",
+  },
+  {
+    slug: "is-hiring-house-cleaner-worth-it",
+    title:
+      "Is Hiring a House Cleaner Really Worth the Cost? An Honest Cost-Benefit Analysis",
+    excerpt:
+      "Debating whether to hire professional cleaners? Weighing the cost against the time saved, reduced stress, and improved health.",
+    category: "The Real Cost",
+    filterCategory: "industry",
+    categoryColor: "purple",
+    date: "January 7, 2026",
+    readTime: "9 min read",
+    icon: "dollar-sign",
+  },
+  {
+    slug: "emergency-house-cleaning-guests-coming",
+    title: "The 'Guests Are Here in 30 Minutes' Emergency Cleaning Plan",
+    excerpt:
+      "Unexpected company on the way? Here's our proven emergency speed-cleaning routine that tackles the most important areas fast.",
+    category: "Emergency Guide",
+    filterCategory: "holiday",
+    categoryColor: "red",
+    date: "December 31, 2025",
+    readTime: "5 min read",
+    icon: "clock",
+  },
+  {
+    slug: "deep-cleaning-cost-shoals-guide",
+    title: "How Much Does Deep Cleaning Actually Cost in the Shoals Area?",
+    excerpt:
+      "A transparent breakdown of deep cleaning costs in Florence, Muscle Shoals, and Tuscumbia—and what you should expect to get for your money.",
+    category: "Pricing Guide",
+    filterCategory: "industry",
+    categoryColor: "gray",
+    date: "December 24, 2025",
+    readTime: "7 min read",
+    icon: "dollar-sign",
+  },
+  {
+    slug: "cleaning-service-missing-spots-what-to-do",
+    title: "What to Do When Your Cleaning Service Keeps Missing Spots",
+    excerpt:
+      "Are your cleaners consistently missing areas? How to have a productive conversation, set expectations, and when it's time to hire someone else.",
+    category: "Industry Problems",
+    filterCategory: "industry",
+    categoryColor: "yellow",
+    date: "December 17, 2025",
+    readTime: "8 min read",
+    icon: "thumbs-down",
+  },
+  {
+    slug: "airbnb-cleaning-nashville-host-guide",
+    title:
+      "Nashville Airbnb Host Guide: Streamlining Your Turnover Cleaning for 5-Star Reviews",
+    excerpt:
+      "Short-term rental success in Nashville depends on perfect cleanliness. Learn how to optimize your turn-over process and manage cleaners effectively.",
+    category: "Short-Term Rentals",
+    filterCategory: "rentals",
+    categoryColor: "pink",
+    date: "December 10, 2025",
+    readTime: "9 min read",
+    icon: "bed",
+  },
+  // Existing Posts
   {
     slug: "holiday-hosting-guide-for-moms",
-    title: "Making Mom Magic: A Guide to Hosting the Holidays (Without the Meltdown)",
-    excerpt: "You're the CEO of Holiday Magic. This year, we're ditching perfectionism so you can actually enjoy the magic you're creating—not just clean up after it.",
+    title:
+      "Making Mom Magic: A Guide to Hosting the Holidays (Without the Meltdown)",
+    excerpt:
+      "You're the CEO of Holiday Magic. This year, we're ditching perfectionism so you can actually enjoy the magic you're creating—not just clean up after it.",
     category: "Holiday Tips",
     filterCategory: "holiday",
     categoryColor: "red",
     date: "December 3, 2025",
     readTime: "5 min read",
     icon: "tree",
-    image: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69306779e0f092659261fa82.png"
+    image:
+      "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/69306779e0f092659261fa82.png",
   },
   {
     slug: "last-minute-holiday-cleaning",
-    title: "Last-Minute Holiday Cleaning: Emergency Guide When Guests Are Coming",
-    excerpt: "Your mother-in-law just texted that she's arriving in 3 hours. Don't panic—here's how to make your home guest-ready fast with our minute-by-minute emergency guide.",
+    title:
+      "Last-Minute Holiday Cleaning: Emergency Guide When Guests Are Coming",
+    excerpt:
+      "Your mother-in-law just texted that she's arriving in 3 hours. Don't panic—here's how to make your home guest-ready fast with our minute-by-minute emergency guide.",
     category: "Emergency Guide",
     filterCategory: "holiday",
     categoryColor: "red",
     date: "November 26, 2025",
     readTime: "7 min read",
     icon: "clock",
-    image: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/693082241d466e98cf76452a.png"
+    image:
+      "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/693082241d466e98cf76452a.png",
   },
   {
     slug: "why-your-home-never-stays-clean",
     title: "Why Your Home Never Stays Clean (No Matter How Hard You Try)",
-    excerpt: "Discover the real reasons your house gets messy so fast and what you can actually do about it. A honest look at the cleaning struggle from professional cleaners.",
+    excerpt:
+      "Discover the real reasons your house gets messy so fast and what you can actually do about it. A honest look at the cleaning struggle from professional cleaners.",
     category: "The Cleaning Struggle",
     filterCategory: "home-health",
     categoryColor: "orange",
     date: "November 26, 2025",
     readTime: "8 min read",
     icon: "broom",
-    image: "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/693082247bbd8dad470b199c.png"
+    image:
+      "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_400/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/693082247bbd8dad470b199c.png",
   },
   {
     slug: "hidden-cost-of-dirty-house",
     title: "The Hidden Cost of a Dirty House (What It's Really Costing You)",
-    excerpt: "A messy home costs more than embarrassment. Discover the real financial, health, and emotional toll of living in a dirty house—and what to do about it.",
+    excerpt:
+      "A messy home costs more than embarrassment. Discover the real financial, health, and emotional toll of living in a dirty house—and what to do about it.",
     category: "The True Price",
     filterCategory: "home-health",
     categoryColor: "purple",
     date: "November 26, 2025",
     readTime: "9 min read",
-    icon: "dollar-sign"
+    icon: "dollar-sign",
   },
   {
     slug: "losing-your-security-deposit",
     title: "Are You About to Lose Your Security Deposit?",
-    excerpt: "Moving out soon? Learn what landlords really look for during move-out inspections and how to maximize your chances of getting your full deposit back.",
+    excerpt:
+      "Moving out soon? Learn what landlords really look for during move-out inspections and how to maximize your chances of getting your full deposit back.",
     category: "Move-Out Guide",
     filterCategory: "move-out",
     categoryColor: "blue",
     date: "November 25, 2025",
     readTime: "7 min read",
-    icon: "home"
+    icon: "home",
   },
   {
     slug: "why-youre-always-exhausted",
     title: "Why You're Always Exhausted (And Your Home Might Be the Reason)",
-    excerpt: "The surprising connection between your home environment and your energy levels. Learn how clutter and mess drain you—and what to do about it.",
+    excerpt:
+      "The surprising connection between your home environment and your energy levels. Learn how clutter and mess drain you—and what to do about it.",
     category: "Home & Health",
     filterCategory: "home-health",
     categoryColor: "teal",
     date: "November 25, 2025",
     readTime: "8 min read",
-    icon: "tired"
+    icon: "tired",
   },
   {
     slug: "truth-about-hiring-cleaning-service",
     title: "The Truth About Hiring a Cleaning Service",
-    excerpt: "What you really need to know before hiring professional cleaners. We share the industry secrets most companies don't want you to know.",
+    excerpt:
+      "What you really need to know before hiring professional cleaners. We share the industry secrets most companies don't want you to know.",
     category: "Industry Secrets",
     filterCategory: "industry",
     categoryColor: "gray",
     date: "November 24, 2025",
     readTime: "10 min read",
-    icon: "user-secret"
+    icon: "user-secret",
   },
   {
     slug: "when-life-gets-too-busy",
     title: "When Life Gets Too Busy to Clean",
-    excerpt: "Work, kids, life demands—there's no time left for cleaning. Here's how to stop feeling guilty and start finding solutions that actually work.",
+    excerpt:
+      "Work, kids, life demands—there's no time left for cleaning. Here's how to stop feeling guilty and start finding solutions that actually work.",
     category: "Busy Life",
     filterCategory: "home-health",
     categoryColor: "yellow",
     date: "November 24, 2025",
     readTime: "6 min read",
-    icon: "running"
+    icon: "running",
   },
   {
     slug: "embarrassed-to-have-people-over",
     title: "Embarrassed to Have People Over?",
-    excerpt: "If you've been avoiding having guests because of your home's condition, you're not alone. Here's how to break the cycle of shame and isolation.",
+    excerpt:
+      "If you've been avoiding having guests because of your home's condition, you're not alone. Here's how to break the cycle of shame and isolation.",
     category: "Real Talk",
     filterCategory: "home-health",
     categoryColor: "pink",
     date: "November 23, 2025",
     readTime: "7 min read",
-    icon: "users"
+    icon: "users",
   },
   {
     slug: "airbnb-hosts-nightmare",
     title: "The Airbnb Host's Nightmare: Cleaning Between Guests",
-    excerpt: "Managing turnover cleaning is the #1 stress for short-term rental hosts. Learn how professional turnover services can save your reviews and your sanity.",
+    excerpt:
+      "Managing turnover cleaning is the #1 stress for short-term rental hosts. Learn how professional turnover services can save your reviews and your sanity.",
     category: "Short-Term Rentals",
     filterCategory: "rentals",
     categoryColor: "red",
     date: "November 22, 2025",
     readTime: "8 min read",
-    icon: "bed"
+    icon: "bed",
   },
   {
     slug: "construction-dust-destroying-home",
     title: "Is Construction Dust Destroying Your Home?",
-    excerpt: "Had recent renovations or construction nearby? That fine dust gets everywhere and can damage your home and health. Here's what you need to know.",
+    excerpt:
+      "Had recent renovations or construction nearby? That fine dust gets everywhere and can damage your home and health. Here's what you need to know.",
     category: "Post-Construction",
     filterCategory: "move-out",
     categoryColor: "amber",
     date: "November 21, 2025",
     readTime: "7 min read",
-    icon: "hard-hat"
+    icon: "hard-hat",
   },
   {
     slug: "why-cleaning-services-disappoint",
     title: "Why Most Cleaning Services Disappoint",
-    excerpt: "Hired cleaners before and been let down? You're not alone. Here's why the industry has a reputation problem—and how to find a service that actually delivers.",
+    excerpt:
+      "Hired cleaners before and been let down? You're not alone. Here's why the industry has a reputation problem—and how to find a service that actually delivers.",
     category: "Industry Problems",
     filterCategory: "industry",
     categoryColor: "gray",
     date: "November 20, 2025",
     readTime: "9 min read",
-    icon: "thumbs-down"
+    icon: "thumbs-down",
   },
   {
     slug: "holiday-guest-room-preparation",
     title: "Holiday Guest Room Preparation Guide",
-    excerpt: "Make your guests feel like they're staying at a 5-star hotel. Our complete guide to preparing the perfect guest room for holiday visitors.",
+    excerpt:
+      "Make your guests feel like they're staying at a 5-star hotel. Our complete guide to preparing the perfect guest room for holiday visitors.",
     category: "Holiday Prep",
     filterCategory: "holiday",
     categoryColor: "green",
     date: "November 19, 2025",
     readTime: "6 min read",
-    icon: "door-open"
+    icon: "door-open",
   },
   {
     slug: "new-year-fresh-start-cleaning",
     title: "New Year, Fresh Start: Deep Cleaning for a New Beginning",
-    excerpt: "Start the new year with a truly clean home. Our comprehensive guide to resetting your space for a fresh start in the new year.",
+    excerpt:
+      "Start the new year with a truly clean home. Our comprehensive guide to resetting your space for a fresh start in the new year.",
     category: "New Year",
     filterCategory: "holiday",
     categoryColor: "indigo",
     date: "November 18, 2025",
     readTime: "8 min read",
-    icon: "sparkles"
+    icon: "sparkles",
   },
   {
     slug: "post-holiday-cleanup-guide",
     title: "Post-Holiday Cleanup: Getting Your Home Back to Normal",
-    excerpt: "The holidays are over, the guests have left, and your home is a disaster. Here's your step-by-step guide to recovering your space.",
+    excerpt:
+      "The holidays are over, the guests have left, and your home is a disaster. Here's your step-by-step guide to recovering your space.",
     category: "Holiday Recovery",
     filterCategory: "holiday",
     categoryColor: "blue",
     date: "November 17, 2025",
     readTime: "7 min read",
-    icon: "gift"
+    icon: "gift",
   },
   {
     slug: "thanksgiving-deep-cleaning-guide",
     title: "Thanksgiving Deep Cleaning Guide",
-    excerpt: "Preparing to host Thanksgiving? Make sure your home is spotless for the big day with our comprehensive pre-holiday deep cleaning guide.",
+    excerpt:
+      "Preparing to host Thanksgiving? Make sure your home is spotless for the big day with our comprehensive pre-holiday deep cleaning guide.",
     category: "Thanksgiving Prep",
     filterCategory: "holiday",
     categoryColor: "orange",
     date: "November 16, 2025",
     readTime: "8 min read",
-    icon: "turkey"
-  }
+    icon: "turkey",
+  },
 ];
 
 // Filter categories for the sidebar
 const filterCategories = [
   { id: "all", label: "All Posts", icon: "th-large", color: "text-[#FFA985]" },
-  { id: "holiday", label: "Holiday & Guests", icon: "gift", color: "text-green-500" },
-  { id: "move-out", label: "Move-Out & Construction", icon: "home", color: "text-blue-500" },
-  { id: "rentals", label: "Airbnb & Rentals", icon: "bed", color: "text-purple-500" },
-  { id: "home-health", label: "Home & Lifestyle", icon: "heart", color: "text-pink-500" },
-  { id: "industry", label: "Industry Insights", icon: "lightbulb", color: "text-yellow-500" }
+  {
+    id: "holiday",
+    label: "Holiday & Guests",
+    icon: "gift",
+    color: "text-green-500",
+  },
+  {
+    id: "move-out",
+    label: "Move-Out & Construction",
+    icon: "home",
+    color: "text-blue-500",
+  },
+  {
+    id: "rentals",
+    label: "Airbnb & Rentals",
+    icon: "bed",
+    color: "text-purple-500",
+  },
+  {
+    id: "home-health",
+    label: "Home & Lifestyle",
+    icon: "heart",
+    color: "text-pink-500",
+  },
+  {
+    id: "industry",
+    label: "Industry Insights",
+    icon: "lightbulb",
+    color: "text-yellow-500",
+  },
 ];
 
 // Category color mapping
@@ -209,7 +357,7 @@ const categoryColors: Record<string, string> = {
   pink: "bg-pink-100 text-pink-600",
   amber: "bg-amber-100 text-amber-600",
   green: "bg-green-100 text-green-600",
-  indigo: "bg-indigo-100 text-indigo-600"
+  indigo: "bg-indigo-100 text-indigo-600",
 };
 ---
 
@@ -218,8 +366,6 @@ const categoryColors: Record<string, string> = {
   description="Professional cleaning tips and expert advice from The Valley Clean Team. Serving Huntsville, Nashville, Birmingham, and the Shoals."
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
 >
-  
-
   <!-- Hero Section -->
   <section class="pt-32 pb-12 px-6 bg-gradient-to-br from-gray-50 to-white">
     <div class="container mx-auto text-center">
@@ -228,7 +374,8 @@ const categoryColors: Record<string, string> = {
       </h1>
       <div class="section-divider"></div>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        Discover professional cleaning tips, home maintenance guides, and expert advice to keep your space spotless.
+        Discover professional cleaning tips, home maintenance guides, and expert
+        advice to keep your space spotless.
       </p>
     </div>
   </section>
@@ -240,14 +387,20 @@ const categoryColors: Record<string, string> = {
         <!-- Main Blog Content -->
         <div class="lg:col-span-2">
           <!-- Active Filter Indicator -->
-          <div id="filter-indicator" class="hidden mb-6 p-4 bg-[#FFA985]/10 rounded-xl border border-[#FFA985]/20">
+          <div
+            id="filter-indicator"
+            class="hidden mb-6 p-4 bg-[#FFA985]/10 rounded-xl border border-[#FFA985]/20"
+          >
             <div class="flex items-center justify-between">
               <span class="text-[#333333]">
                 <Icon name="filter" class="w-5 h-5 text-[#FFA985] mr-2" />
                 Showing: <strong id="active-filter-name">All Posts</strong>
                 <span id="filter-count" class="text-gray-500 ml-2"></span>
               </span>
-              <button id="clear-filter" class="text-[#FFA985] hover:underline text-sm font-medium">
+              <button
+                id="clear-filter"
+                class="text-[#FFA985] hover:underline text-sm font-medium"
+              >
                 <Icon name="times" class="w-5 h-5 mr-1" />Clear Filter
               </button>
             </div>
@@ -255,60 +408,73 @@ const categoryColors: Record<string, string> = {
 
           <!-- Blog Grid - All posts in a filterable grid -->
           <div id="blog-grid" class="grid md:grid-cols-2 gap-8">
-            {blogPosts.map((post, index) => (
-              <article
-                class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
-                data-category={post.filterCategory}
-                data-index={index}
-              >
-                <a href={`/blog/${post.slug}`} class="block">
-                  <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center relative overflow-hidden">
-                    {post.image ? (
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        class="w-full h-full object-cover"
-                        width="400"
-                        height="192"
-                        loading={index < 2 ? "eager" : "lazy"}
-                        fetchpriority={index === 0 ? "high" : undefined}
-                        decoding={index < 2 ? "sync" : "async"}
-                      />
-                    ) : (
-                      <Icon name={post.icon} class="w-16 h-16 text-[#FFA985]" />
-                    )}
-                    {index === 0 && (
-                      <div class="absolute top-3 left-3">
-                        <span class="bg-[#FFA985] text-white px-3 py-1 rounded-full text-xs font-semibold">
-                          Featured
+            {
+              blogPosts.map((post, index) => (
+                <article
+                  class="blog-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-200 hover:shadow-lg transition-shadow"
+                  data-category={post.filterCategory}
+                  data-index={index}
+                >
+                  <a href={`/blog/${post.slug}`} class="block">
+                    <div class="h-48 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 flex items-center justify-center relative overflow-hidden">
+                      {post.image ? (
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          class="w-full h-full object-cover"
+                          width="400"
+                          height="192"
+                          loading={index < 2 ? "eager" : "lazy"}
+                          fetchpriority={index === 0 ? "high" : undefined}
+                          decoding={index < 2 ? "sync" : "async"}
+                        />
+                      ) : (
+                        <Icon
+                          name={post.icon}
+                          class="w-16 h-16 text-[#FFA985]"
+                        />
+                      )}
+                      {index === 0 && (
+                        <div class="absolute top-3 left-3">
+                          <span class="bg-[#FFA985] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                            Featured
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div class="p-6">
+                      <div class="flex items-center flex-wrap gap-2 mb-3">
+                        <span
+                          class={`${categoryColors[post.categoryColor]} category-tag`}
+                        >
+                          {post.category}
+                        </span>
+                        <span class="text-gray-500 text-sm">
+                          {post.date.replace("November ", "Nov ")}
                         </span>
                       </div>
-                    )}
-                  </div>
-                  <div class="p-6">
-                    <div class="flex items-center flex-wrap gap-2 mb-3">
-                      <span class={`${categoryColors[post.categoryColor]} category-tag`}>{post.category}</span>
-                      <span class="text-gray-500 text-sm">{post.date.replace("November ", "Nov ")}</span>
+                      <h3 class="text-xl font-bold mb-3 text-[#333333] hover:text-[#FFA985] transition-colors line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p class="text-gray-600 mb-4 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                      <span class="text-[#FFA985] font-semibold hover:underline">
+                        Read More →
+                      </span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 text-[#333333] hover:text-[#FFA985] transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p class="text-gray-600 mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <span class="text-[#FFA985] font-semibold hover:underline">
-                      Read More →
-                    </span>
-                  </div>
-                </a>
-              </article>
-            ))}
+                  </a>
+                </article>
+              ))
+            }
           </div>
 
           <!-- No Results Message -->
           <div id="no-results" class="hidden text-center py-12">
-            <Icon name="search" class="w-16 h-16 text-gray-300  mb-4" />
-            <p class="text-gray-500 text-lg">No posts found in this category.</p>
+            <Icon name="search" class="w-16 h-16 text-gray-300 mb-4" />
+            <p class="text-gray-500 text-lg">
+              No posts found in this category.
+            </p>
           </div>
         </div>
 
@@ -316,26 +482,34 @@ const categoryColors: Record<string, string> = {
         <aside class="lg:col-span-1">
           <!-- Categories Filter Widget -->
           <div class="sidebar-widget sticky top-24">
-            <h3 class="text-xl font-bold mb-4 text-[#333333]">Filter by Topic</h3>
+            <h3 class="text-xl font-bold mb-4 text-[#333333]">
+              Filter by Topic
+            </h3>
             <ul class="space-y-2" id="category-filters">
-              {filterCategories.map((cat) => (
-                <li>
-                  <button
-                    class="filter-btn w-full flex items-center justify-between p-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-left"
-                    data-filter={cat.id}
-                  >
-                    <span class="flex items-center">
-                      <Icon name={cat.icon} class={`w-5 h-5 ${cat.color} mr-3`} />
-                      <span>{cat.label}</span>
-                    </span>
-                    <span class="filter-count text-gray-400 text-sm">
-                      {cat.id === "all"
-                        ? blogPosts.length
-                        : blogPosts.filter(p => p.filterCategory === cat.id).length}
-                    </span>
-                  </button>
-                </li>
-              ))}
+              {
+                filterCategories.map((cat) => (
+                  <li>
+                    <button
+                      class="filter-btn w-full flex items-center justify-between p-3 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-left"
+                      data-filter={cat.id}
+                    >
+                      <span class="flex items-center">
+                        <Icon
+                          name={cat.icon}
+                          class={`w-5 h-5 ${cat.color} mr-3`}
+                        />
+                        <span>{cat.label}</span>
+                      </span>
+                      <span class="filter-count text-gray-400 text-sm">
+                        {cat.id === "all"
+                          ? blogPosts.length
+                          : blogPosts.filter((p) => p.filterCategory === cat.id)
+                              .length}
+                      </span>
+                    </button>
+                  </li>
+                ))
+              }
             </ul>
           </div>
 
@@ -343,31 +517,52 @@ const categoryColors: Record<string, string> = {
           <div class="sidebar-widget mt-6">
             <h3 class="text-xl font-bold mb-4 text-[#333333]">Recent Posts</h3>
             <div class="space-y-4">
-              {blogPosts.slice(0, 4).map((post) => (
-                <a href={`/blog/${post.slug}`} class="flex items-start space-x-3 group">
-                  <div class="w-16 h-16 flex-shrink-0 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-lg flex items-center justify-center">
-                    <Icon name={post.icon} class="w-6 h-6 text-[#FFA985]" />
-                  </div>
-                  <div>
-                    <h4 class="font-semibold text-gray-900 group-hover:text-[#FFA985] transition text-sm mb-1 line-clamp-2">
-                      {post.title.length > 50 ? post.title.substring(0, 50) + '...' : post.title}
-                    </h4>
-                    <span class="text-xs text-gray-500">{post.date.replace("November ", "Nov ")}</span>
-                  </div>
-                </a>
-              ))}
+              {
+                blogPosts.slice(0, 4).map((post) => (
+                  <a
+                    href={`/blog/${post.slug}`}
+                    class="flex items-start space-x-3 group"
+                  >
+                    <div class="w-16 h-16 flex-shrink-0 bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-lg flex items-center justify-center">
+                      <Icon name={post.icon} class="w-6 h-6 text-[#FFA985]" />
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-900 group-hover:text-[#FFA985] transition text-sm mb-1 line-clamp-2">
+                        {post.title.length > 50
+                          ? post.title.substring(0, 50) + "..."
+                          : post.title}
+                      </h4>
+                      <span class="text-xs text-gray-500">
+                        {post.date.replace("November ", "Nov ")}
+                      </span>
+                    </div>
+                  </a>
+                ))
+              }
             </div>
           </div>
 
           <!-- CTA Widget -->
-          <div class="bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-2xl p-6 border border-gray-200 mt-6">
+          <div
+            class="bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-2xl p-6 border border-gray-200 mt-6"
+          >
             <div class="text-center">
-              <Icon name="star" class="w-10 h-10 text-[#FFA985]  mb-4" fill="currentColor" />
-              <h3 class="text-xl font-bold mb-3 text-[#333333]">Need Professional Help?</h3>
+              <Icon
+                name="star"
+                class="w-10 h-10 text-[#FFA985] mb-4"
+                fill="currentColor"
+              />
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                Need Professional Help?
+              </h3>
               <p class="text-gray-600 mb-4">
-                Let our expert team handle the cleaning while you focus on what matters most.
+                Let our expert team handle the cleaning while you focus on what
+                matters most.
               </p>
-              <a href="/contact" class="btn-primary px-6 py-3 rounded-full font-semibold inline-block">
+              <a
+                href="/contact"
+                class="btn-primary px-6 py-3 rounded-full font-semibold inline-block"
+              >
                 Get Free Quote
               </a>
             </div>
@@ -380,28 +575,46 @@ const categoryColors: Record<string, string> = {
   <!-- Newsletter Section -->
   <section class="py-16 px-6 bg-gray-50">
     <div class="container mx-auto max-w-4xl text-center">
-      <Icon name="envelope" class="w-12 h-12 text-[#FFA985]  mb-4" />
+      <Icon name="envelope" class="w-12 h-12 text-[#FFA985] mb-4" />
       <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
         Get Cleaning Tips Delivered to Your Inbox
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Subscribe to our newsletter for weekly cleaning tips, exclusive offers, and home care advice.
+        Subscribe to our newsletter for weekly cleaning tips, exclusive offers,
+        and home care advice.
       </p>
-      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+      <form
+        id="newsletter-form"
+        class="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto"
+      >
         <label for="newsletter-email" class="sr-only">Email address</label>
-        <input type="email" id="newsletter-email" name="email" placeholder="Enter your email address" class="flex-1 px-6 py-4 rounded-full border border-gray-300 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20" required>
-        <button type="submit" id="newsletter-submit-btn" class="btn-primary px-8 py-4 rounded-full font-semibold">
+        <input
+          type="email"
+          id="newsletter-email"
+          name="email"
+          placeholder="Enter your email address"
+          class="flex-1 px-6 py-4 rounded-full border border-gray-300 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20"
+          required
+        />
+        <button
+          type="submit"
+          id="newsletter-submit-btn"
+          class="btn-primary px-8 py-4 rounded-full font-semibold"
+        >
           Subscribe Now
         </button>
       </form>
-      <div id="newsletter-form-message" class="hidden text-center p-4 rounded-lg mt-4 max-w-2xl mx-auto"></div>
+      <div
+        id="newsletter-form-message"
+        class="hidden text-center p-4 rounded-lg mt-4 max-w-2xl mx-auto"
+      >
+      </div>
       <p class="text-sm text-gray-500 mt-4">
-        <Icon name="lock" class="w-5 h-5 mr-1" /> We respect your privacy. Unsubscribe anytime.
+        <Icon name="lock" class="w-5 h-5 mr-1" /> We respect your privacy. Unsubscribe
+        anytime.
       </p>
     </div>
   </section>
-
-  
 
   <style>
     .category-tag {
@@ -441,125 +654,133 @@ const categoryColors: Record<string, string> = {
 
   <script>
     // Category filtering functionality
-    document.addEventListener('DOMContentLoaded', () => {
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      const blogCards = document.querySelectorAll('.blog-card');
-      const filterIndicator = document.getElementById('filter-indicator');
-      const activeFilterName = document.getElementById('active-filter-name');
-      const filterCount = document.getElementById('filter-count');
-      const clearFilterBtn = document.getElementById('clear-filter');
-      const noResults = document.getElementById('no-results');
-      const blogGrid = document.getElementById('blog-grid');
+    document.addEventListener("DOMContentLoaded", () => {
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const blogCards = document.querySelectorAll(".blog-card");
+      const filterIndicator = document.getElementById("filter-indicator");
+      const activeFilterName = document.getElementById("active-filter-name");
+      const filterCount = document.getElementById("filter-count");
+      const clearFilterBtn = document.getElementById("clear-filter");
+      const noResults = document.getElementById("no-results");
+      const blogGrid = document.getElementById("blog-grid");
 
       // Set "All" as active by default
       const allBtn = document.querySelector('[data-filter="all"]');
-      if (allBtn) allBtn.classList.add('active');
+      if (allBtn) allBtn.classList.add("active");
 
       function filterPosts(category: string) {
         let visibleCount = 0;
 
         blogCards.forEach((card) => {
-          const cardCategory = card.getAttribute('data-category');
-          if (category === 'all' | cardCategory === category) {
-            card.classList.remove('hidden');
+          const cardCategory = card.getAttribute("data-category");
+          if ((category === "all") | (cardCategory === category)) {
+            card.classList.remove("hidden");
             visibleCount++;
           } else {
-            card.classList.add('hidden');
+            card.classList.add("hidden");
           }
         });
 
         // Update active button state
-        filterBtns.forEach(btn => {
-          btn.classList.remove('active');
-          if (btn.getAttribute('data-filter') === category) {
-            btn.classList.add('active');
+        filterBtns.forEach((btn) => {
+          btn.classList.remove("active");
+          if (btn.getAttribute("data-filter") === category) {
+            btn.classList.add("active");
           }
         });
 
         // Update filter indicator
-        if (category === 'all') {
-          filterIndicator?.classList.add('hidden');
+        if (category === "all") {
+          filterIndicator?.classList.add("hidden");
         } else {
-          filterIndicator?.classList.remove('hidden');
-          const activeBtn = document.querySelector(`[data-filter="${category}"]`);
-          const label = activeBtn?.querySelector('span span')?.textContent | category;
+          filterIndicator?.classList.remove("hidden");
+          const activeBtn = document.querySelector(
+            `[data-filter="${category}"]`,
+          );
+          const label =
+            activeBtn?.querySelector("span span")?.textContent | category;
           if (activeFilterName) activeFilterName.textContent = label;
           if (filterCount) filterCount.textContent = `(${visibleCount} posts)`;
         }
 
         // Show/hide no results message
         if (visibleCount === 0) {
-          noResults?.classList.remove('hidden');
-          blogGrid?.classList.add('hidden');
+          noResults?.classList.remove("hidden");
+          blogGrid?.classList.add("hidden");
         } else {
-          noResults?.classList.add('hidden');
-          blogGrid?.classList.remove('hidden');
+          noResults?.classList.add("hidden");
+          blogGrid?.classList.remove("hidden");
         }
       }
 
       // Add click handlers to filter buttons
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const category = btn.getAttribute('data-filter') || 'all';
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const category = btn.getAttribute("data-filter") || "all";
           filterPosts(category);
         });
       });
 
       // Clear filter button
-      clearFilterBtn?.addEventListener('click', () => {
-        filterPosts('all');
+      clearFilterBtn?.addEventListener("click", () => {
+        filterPosts("all");
       });
     });
 
     // Newsletter form functionality
-    document.getElementById('newsletter-form')?.addEventListener('submit', async function(e) {
-      e.preventDefault();
+    document
+      .getElementById("newsletter-form")
+      ?.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-      const submitBtn = document.getElementById('newsletter-submit-btn');
-      const messageDiv = document.getElementById('newsletter-form-message');
-      const form = e.target as HTMLFormElement;
+        const submitBtn = document.getElementById("newsletter-submit-btn");
+        const messageDiv = document.getElementById("newsletter-form-message");
+        const form = e.target as HTMLFormElement;
 
-      const formData = {
-        email: (form.email as HTMLInputElement)?.value || '',
-        source: 'Blog Newsletter Subscription',
-        page_url: window.location.href
-      };
+        const formData = {
+          email: (form.email as HTMLInputElement)?.value || "",
+          source: "Blog Newsletter Subscription",
+          page_url: window.location.href,
+        };
 
-      if (submitBtn) {
-        (submitBtn as HTMLButtonElement).disabled = true;
-        submitBtn.innerHTML = '<span class="spinner"></span>Subscribing...';
-      }
+        if (submitBtn) {
+          (submitBtn as HTMLButtonElement).disabled = true;
+          submitBtn.innerHTML = '<span class="spinner"></span>Subscribing...';
+        }
 
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
-        const result = await response.json();
+        try {
+          const response = await fetch("/api/submit-form", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+          });
+          const result = await response.json();
 
-        if (response.ok && result.success) {
-          if (messageDiv) {
-            messageDiv.className = 'text-center p-4 rounded-lg bg-green-100 text-green-800';
-            messageDiv.innerHTML = '✓ Thanks for subscribing! Check your inbox for cleaning tips.';
-            messageDiv.classList.remove('hidden');
+          if (response.ok && result.success) {
+            if (messageDiv) {
+              messageDiv.className =
+                "text-center p-4 rounded-lg bg-green-100 text-green-800";
+              messageDiv.innerHTML =
+                "✓ Thanks for subscribing! Check your inbox for cleaning tips.";
+              messageDiv.classList.remove("hidden");
+            }
+            form.reset();
+          } else {
+            throw new Error(result.error || "Submission failed");
           }
-          form.reset();
-        } else {
-          throw new Error(result.error || 'Submission failed');
+        } catch (error) {
+          if (messageDiv) {
+            messageDiv.className =
+              "text-center p-4 rounded-lg bg-red-100 text-red-800";
+            messageDiv.innerHTML = "⚠ Something went wrong. Please try again.";
+            messageDiv.classList.remove("hidden");
+          }
         }
-      } catch (error) {
-        if (messageDiv) {
-          messageDiv.className = 'text-center p-4 rounded-lg bg-red-100 text-red-800';
-          messageDiv.innerHTML = '⚠ Something went wrong. Please try again.';
-          messageDiv.classList.remove('hidden');
-        }
-      }
 
-      if (submitBtn) {
-        (submitBtn as HTMLButtonElement).disabled = false;
-        submitBtn.innerHTML = 'Subscribe Now';
-      }
-    });
+        if (submitBtn) {
+          (submitBtn as HTMLButtonElement).disabled = false;
+          submitBtn.innerHTML = "Subscribe Now";
+        }
+      });
   </script>
 </BaseLayout>
