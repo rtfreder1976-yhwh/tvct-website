@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 const webhookUrl = "https://script.google.com/macros/s/AKfycbwIvT4qvpRQpFv9-simgXnQG_Xf1xF8UhTWZWe0XiCovym9kt6ic7o36EYlw0Zzmhr6/exec";
 
 const testPayload = {
@@ -9,9 +11,9 @@ const testPayload = {
     is_urgent: true,
     notes: "We have two dogs and need this done ASAP!",
     source: "Website Quote Form",
-    location_city: "Huntsville, AL",
+    location_city: "Huntsville Area",
     page_url: "http://localhost:4321",
-    submission_id: require('crypto').randomUUID(),
+    submission_id: crypto.randomUUID(),
     timestamp: new Date().toISOString()
 };
 
