@@ -13,6 +13,10 @@ export const POST: APIRoute = async ({ request }) => {
         // Newsletter subscription only requires email
         if (data.source === 'Blog Newsletter Subscription') {
             if (!data.email) errors.email = "Email is required";
+        } else if (data.source === 'Career Application') {
+            if (!data.name) errors.name = "Name is required";
+            if (!data.phone) errors.phone = "Phone is required";
+            if (!data.email) errors.email = "Email is required";
         } else {
             // Quote form validation
             if (!data.name) errors.name = "Name is required";
