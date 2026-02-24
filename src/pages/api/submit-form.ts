@@ -32,8 +32,9 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
-        // 2. Data Processing - Send to Webhook (n8n or Google Script)
-        let webhookUrl = "https://singingriver.app.n8n.cloud/webhook-test/a3c2f1c9-c7a5-4436-825a-be12a8c1c0da";
+        // 2. Data Processing - Send to Webhook
+        // Default to the new Quotes Google Apps Script
+        let webhookUrl = "https://script.google.com/macros/s/AKfycbwIvT4qvpRQpFv9-simgXnQG_Xf1xF8UhTWZWe0XiCovym9kt6ic7o36EYlw0Zzmhr6/exec";
 
         if (data.source === 'Career Application') {
             webhookUrl = "https://script.google.com/macros/s/AKfycbyaMXdHzOVzvyRhS7ZJznT9BjKLZI1AglignqQbCr5Bd3ZRigUvOJP9mLDeFfpND442/exec";
