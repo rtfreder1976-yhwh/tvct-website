@@ -84,12 +84,6 @@ function doPost(e) {
 
 // Needed to allow cross-origin requests
 function doOptions(e) {
-    var headers = {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type"
-    };
-    return ContentService.createTextOutput("")
-        .setMimeType(ContentService.MimeType.TEXT)
-        .setHeaders(headers);
+    return ContentService.createTextOutput("success")
+        .setMimeType(ContentService.MimeType.TEXT);
 }
