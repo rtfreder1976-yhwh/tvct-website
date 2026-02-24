@@ -87,3 +87,10 @@ function doOptions(e) {
     return ContentService.createTextOutput("success")
         .setMimeType(ContentService.MimeType.TEXT);
 }
+
+// Run this function ONCE from the editor to force Google to ask for permissions
+function setupPermissions() {
+    SpreadsheetApp.getActiveSpreadsheet();
+    MailApp.getRemainingDailyQuota();
+    console.log("Permissions granted successfully!");
+}
