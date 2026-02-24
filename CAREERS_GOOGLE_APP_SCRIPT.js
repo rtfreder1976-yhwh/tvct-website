@@ -32,10 +32,10 @@ function doPost(e) {
 
         // 3. Email hiring@thevalleycleanteam.com
         var recipient = "hiring@thevalleycleanteam.com";
-        var subject = "New Career Application: " + (data.name || "Unknown");
+        var subject = "New Applicant: " + (data.name || "Unknown");
 
         // Format the email using HTML for readability
-        var htmlBody = "<h2>New Employment Application</h2>" +
+        var htmlBody = "<h2>New Applicant Details</h2>" +
             "<p><strong>Name:</strong> " + (data.name || "N/A") + "</p>" +
             "<p><strong>Email:</strong> " + (data.email || "N/A") + "</p>" +
             "<p><strong>Phone:</strong> " + (data.phone || "N/A") + "</p>" +
@@ -43,7 +43,7 @@ function doPost(e) {
             "<p><strong>Application Details:</strong></p>" +
             "<pre style='white-space: pre-wrap; font-family: sans-serif;'>" + (data.message || "N/A") + "</pre>";
 
-        // We use MailApp to send the email from the connected Google Account
+        // Send internal notification email
         MailApp.sendEmail({
             to: recipient,
             replyTo: data.email || null,
@@ -51,14 +51,34 @@ function doPost(e) {
             htmlBody: htmlBody
         });
 
-        // 4. Return success response back to the website
-        return ContentService.createTextOutput(JSON.stringify({ "status": "success" }))
-            .setMimeType(ContentService.MimeType.JSON);
+        // 4. Send Auto-Responder Email to the Applicant
+        if (data.email && data.email !== "N/A") {
+            var applicantSubject = "Application Received - The Valley Clean Team";
+            var applicantBody = "<h2>Thank you for your application!</h2>" +
+                "<p>Hi " + (data.name || "there") + ",</p>" +
+                "<p>We have successfully received your employment application to join The Valley Clean Team.</p>" +
+                "<p>Our hiring team will be reviewing your application shortly to see if your experience matches our current needs. We will reach out to you directly if we would like to schedule an interview.</p>" +
+                "<br>" +
+                "<p>Best regards,</p>" +
+                "<p><strong>The Valley Clean Team Hiring Department</strong></p>";
+
+            MailApp.sendEmail({
+                to: data.email,
+                name: "The Valley Clean Team Careers",
+                replyTo: "hiring@thevalleycleanteam.com",
+                subject: applicantSubject,
+                htmlBody: applicantBody
+            });
+        }
+
+        // 5. Return success response back to the website using text
+        return ContentService.createTextOutput("success")
+            .setMimeType(ContentService.MimeType.TEXT);
 
     } catch (error) {
         // If something goes wrong, return the error
-        return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": error.toString() }))
-            .setMimeType(ContentService.MimeType.JSON);
+        return ContentService.createTextOutput("Error: " + error.toString())
+            .setMimeType(ContentService.MimeType.TEXT);
     }
 }
 
