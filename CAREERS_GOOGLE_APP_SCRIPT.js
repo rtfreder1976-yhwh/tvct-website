@@ -18,9 +18,10 @@ function doPost(e) {
             }
         }
 
-        // Append the applicant as a new row
+        // Append the applicant as a new row AT THE TOP (Row 2)
+        // This avoids the common issue where appendRow() inserts at Row 1000 due to cell formatting
         var timestamp = new Date();
-        targetSheet.appendRow([
+        var newRow = [
             timestamp,
             data.name || "N/A",
             data.email || "N/A",
@@ -28,7 +29,10 @@ function doPost(e) {
             data.location || "N/A",
             data.message || "N/A",
             data.page_url || "N/A"
-        ]);
+        ];
+
+        targetSheet.insertRowBefore(2);
+        targetSheet.getRange(2, 1, 1, newRow.length).setValues([newRow]);
 
         // 3. Email hiring@thevalleycleanteam.com
         var recipient = "hiring@thevalleycleanteam.com";
