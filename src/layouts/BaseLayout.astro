@@ -14,10 +14,15 @@ interface Props {
   noindex?: boolean;
   showNav?: boolean;
   showFooter?: boolean;
-  // Optional geo meta tags for location pages
-  geoRegion?: string; // e.g., "US-AL" or "US-TN"
-  geoPlacename?: string; // e.g., "Huntsville, Alabama"
   geoPosition?: string; // e.g., "34.7304;-86.5861"
+  geoRegion?: string;
+  geoPlacename?: string;
+  schemaType?: "organization" | "local" | "service" | "article" | "none";
+  faqs?: Array<{ question: string; answer: string } | { q: string; a: string }>;
+  city?: string;
+  state?: string;
+  serviceName?: string;
+  serviceDescription?: string;
 }
 
 const {
@@ -31,6 +36,12 @@ const {
   geoRegion,
   geoPlacename,
   geoPosition,
+  schemaType = "organization",
+  faqs,
+  city,
+  state,
+  serviceName,
+  serviceDescription: serviceDescProp,
 } = Astro.props;
 
 // Generate canonical URL from current page if not provided
@@ -230,7 +241,18 @@ const metaDescription =
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
     <!-- Schema Markup -->
-    <SchemaMarkup type="organization" />
+    {
+      schemaType !== "none" && (
+        <SchemaMarkup
+          type={schemaType}
+          faqs={faqs}
+          city={city}
+          state={state}
+          serviceName={serviceName}
+          serviceDescription={serviceDescProp}
+        />
+      )
+    }
 
     <!-- Critical CSS - Inlined for fastest FCP/LCP -->
     <style is:inline>

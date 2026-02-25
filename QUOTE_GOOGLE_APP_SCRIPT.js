@@ -4,7 +4,7 @@ function doPost(e) {
         var timestamp = new Date();
 
         // --- 1. CONFIGURATION: TODO - USER MUST FILL THESE IN ---
-        var GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/584279e8-7aa5-4645-9826-183820461978";
+        var GHL_WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/97de2be7-cc73-4b52-b99e-d03babaaeef2";
         var GOOGLE_SHEET_ID = "1DgFomkzC-RlaoNLHsrxu9yE3EM5jCZoWIHo8JFY5RDQ"; // Using the old Careers sheet for now
         var GOOGLE_SHEET_GID = 0; // Defaulting to the first tab (Index 0)
         var FROM_EMAIL = "hiring@thevalleycleanteam.com"; // Your Google Workspace Email
