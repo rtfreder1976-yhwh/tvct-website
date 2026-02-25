@@ -1,24 +1,80 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 // Sample data - In production, this would come from Google Search Console, Analytics, etc.
 const keywordRankings = [
-  { keyword: "house cleaning huntsville al", position: 3, change: 2, volume: 720, url: "/huntsville-cleaning" },
-  { keyword: "cleaning service birmingham al", position: 5, change: -1, volume: 590, url: "/birmingham-cleaning" },
-  { keyword: "maid service nashville", position: 8, change: 4, volume: 880, url: "/nashville-cleaning" },
-  { keyword: "deep cleaning huntsville", position: 2, change: 1, volume: 320, url: "/deep-cleaning" },
-  { keyword: "move out cleaning madison al", position: 1, change: 0, volume: 170, url: "/madison-cleaning" },
-  { keyword: "airbnb cleaning muscle shoals", position: 4, change: 3, volume: 140, url: "/muscle-shoals-airbnb-cleaning" },
-  { keyword: "weekly cleaning service athens al", position: 6, change: 2, volume: 210, url: "/athens-weekly-cleaning" },
-  { keyword: "mountain brook house cleaning", position: 2, change: 1, volume: 260, url: "/mountain-brook-house-cleaning" },
+  {
+    keyword: "house cleaning huntsville al",
+    position: 3,
+    change: 2,
+    volume: 720,
+    url: "/huntsville-cleaning",
+  },
+  {
+    keyword: "cleaning service birmingham al",
+    position: 5,
+    change: -1,
+    volume: 590,
+    url: "/birmingham-cleaning",
+  },
+  {
+    keyword: "maid service nashville",
+    position: 8,
+    change: 4,
+    volume: 880,
+    url: "/nashville-cleaning",
+  },
+  {
+    keyword: "deep cleaning huntsville",
+    position: 2,
+    change: 1,
+    volume: 320,
+    url: "/deep-cleaning",
+  },
+  {
+    keyword: "move out cleaning madison al",
+    position: 1,
+    change: 0,
+    volume: 170,
+    url: "/madison-cleaning",
+  },
+  {
+    keyword: "airbnb cleaning muscle shoals",
+    position: 4,
+    change: 3,
+    volume: 140,
+    url: "/muscle-shoals-airbnb-cleaning",
+  },
+  {
+    keyword: "weekly cleaning service athens al",
+    position: 6,
+    change: 2,
+    volume: 210,
+    url: "/athens-weekly-cleaning",
+  },
+  {
+    keyword: "mountain brook house cleaning",
+    position: 2,
+    change: 1,
+    volume: 260,
+    url: "/mountain-brook-house-cleaning",
+  },
 ];
 
 const trafficData = {
-  current: { sessions: 4250, pageviews: 12800, avgDuration: "2:45", bounceRate: 42 },
-  previous: { sessions: 3820, pageviews: 11200, avgDuration: "2:32", bounceRate: 48 },
-  monthlyTrend: [2100, 2450, 2680, 3100, 3420, 3820, 4250]
+  current: {
+    sessions: 4250,
+    pageviews: 12800,
+    avgDuration: "2:45",
+    bounceRate: 42,
+  },
+  previous: {
+    sessions: 3820,
+    pageviews: 11200,
+    avgDuration: "2:32",
+    bounceRate: 48,
+  },
+  monthlyTrend: [2100, 2450, 2680, 3100, 3420, 3820, 4250],
 };
 
 const leadData = {
@@ -29,7 +85,7 @@ const leadData = {
   previousTotal: 98,
   conversionRate: 2.99,
   previousConversionRate: 2.57,
-  monthlyTrend: [68, 72, 85, 91, 98, 112, 127]
+  monthlyTrend: [68, 72, 85, 91, 98, 112, 127],
 };
 
 const conversionFunnel = [
@@ -37,7 +93,7 @@ const conversionFunnel = [
   { stage: "Service Page Views", count: 2890, percentage: 68 },
   { stage: "Quote Form Started", count: 412, percentage: 9.7 },
   { stage: "Form Submitted", count: 127, percentage: 2.99 },
-  { stage: "Booked Cleaning", count: 52, percentage: 1.22 }
+  { stage: "Booked Cleaning", count: 52, percentage: 1.22 },
 ];
 
 const competitors = [
@@ -61,25 +117,114 @@ const topPages = [
   description="Internal SEO dashboard for tracking rankings, traffic, leads, and competitor analysis."
   noindex={true}
 >
-  
+  <!-- Password Protection Lock -->
+  <div
+    id="auth-overlay"
+    class="fixed inset-0 z-50 bg-[#333333] flex items-center justify-center flex-col p-4 transition-opacity duration-300"
+  >
+    <div
+      class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center"
+    >
+      <div
+        class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-8 h-8 text-[#FFA985]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path
+            d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg
+        >
+      </div>
+      <h2 class="text-2xl font-bold text-[#333333] mb-2">Secure Area</h2>
+      <p class="text-gray-600 mb-6">
+        Please enter the dashboard password to proceed.
+      </p>
+
+      <div class="space-y-4 text-left">
+        <div>
+          <input
+            type="password"
+            id="auth-password"
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent transition-all"
+            placeholder="Dashboard Password..."
+            required
+            onkeypress="if(event.key === 'Enter') checkAuth()"
+          />
+          <p id="auth-error" class="hidden text-red-500 text-sm mt-2">
+            Incorrect password. Please try again.
+          </p>
+        </div>
+        <button
+          onclick="checkAuth()"
+          class="w-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold py-3 px-6 rounded-xl hover:shadow-lg transition-all"
+        >
+          Access Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    // Initial check before DOM load finishes
+    if (sessionStorage.getItem("tvct_admin_auth") === "true") {
+      const style = document.createElement("style");
+      style.textContent = "#auth-overlay { display: none !important; }";
+      document.head.appendChild(style);
+    }
+
+    // Function to check password when submitted
+    function checkAuth() {
+      const input = document.getElementById("auth-password").value;
+      const errorMsg = document.getElementById("auth-error");
+
+      // Setting password to something simple but effective
+      if (input === "ValleyClean2026") {
+        sessionStorage.setItem("tvct_admin_auth", "true");
+        const overlay = document.getElementById("auth-overlay");
+        overlay.classList.add("opacity-0");
+        setTimeout(() => {
+          overlay.style.display = "none";
+        }, 300);
+      } else {
+        errorMsg.classList.remove("hidden");
+        document.getElementById("auth-password").value = "";
+      }
+    }
+  </script>
 
   <div id="main-content" class="pt-24 pb-20 px-4 md:px-6">
     <div class="max-w-7xl mx-auto">
       <!-- Dashboard Header -->
       <div class="mb-8">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+        >
           <div>
-            <h1 class="text-3xl md:text-4xl font-bold text-[#333333]">SEO Dashboard</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-[#333333]">
+              SEO Dashboard
+            </h1>
             <p class="text-gray-600 mt-1">Performance tracking & analytics</p>
           </div>
           <div class="flex items-center gap-3">
-            <select id="date-range" class="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-[#FFA985]">
+            <select
+              id="date-range"
+              class="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 focus:outline-none focus:border-[#FFA985]"
+            >
               <option value="7">Last 7 days</option>
               <option value="30" selected>Last 30 days</option>
               <option value="90">Last 90 days</option>
               <option value="365">Last 12 months</option>
             </select>
-            <button id="refresh-btn" class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <button
+              id="refresh-btn"
+              class="btn-primary px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2"
+            >
               <i class="fas fa-sync-alt"></i> Refresh
             </button>
             <span id="data-status" class="text-sm text-gray-500"></span>
@@ -90,10 +235,14 @@ const topPages = [
       <!-- Summary Cards -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <!-- Avg Ranking -->
-        <div class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <div
+          class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm"
+        >
           <div class="flex items-center justify-between mb-3">
             <span class="text-gray-500 text-sm font-medium">Avg. Position</span>
-            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+            <div
+              class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center"
+            >
               <i class="fas fa-chart-line text-blue-600"></i>
             </div>
           </div>
@@ -107,51 +256,93 @@ const topPages = [
         </div>
 
         <!-- Traffic -->
-        <div class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <div
+          class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm"
+        >
           <div class="flex items-center justify-between mb-3">
-            <span class="text-gray-500 text-sm font-medium">Organic Traffic</span>
-            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+            <span class="text-gray-500 text-sm font-medium"
+              >Organic Traffic</span
+            >
+            <div
+              class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center"
+            >
               <i class="fas fa-users text-green-600"></i>
             </div>
           </div>
-          <div class="text-3xl font-bold text-[#333333]">{trafficData.current.sessions.toLocaleString()}</div>
+          <div class="text-3xl font-bold text-[#333333]">
+            {trafficData.current.sessions.toLocaleString()}
+          </div>
           <div class="flex items-center mt-2 text-sm">
             <span class="text-green-600 flex items-center">
-              <i class="fas fa-arrow-up mr-1"></i> {((trafficData.current.sessions - trafficData.previous.sessions) / trafficData.previous.sessions * 100).toFixed(1)}%
+              <i class="fas fa-arrow-up mr-1"></i>
+              {
+                (
+                  ((trafficData.current.sessions -
+                    trafficData.previous.sessions) /
+                    trafficData.previous.sessions) *
+                  100
+                ).toFixed(1)
+              }%
             </span>
             <span class="text-gray-400 ml-2">vs last period</span>
           </div>
         </div>
 
         <!-- Leads -->
-        <div class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <div
+          class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm"
+        >
           <div class="flex items-center justify-between mb-3">
             <span class="text-gray-500 text-sm font-medium">Total Leads</span>
-            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+            <div
+              class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center"
+            >
               <i class="fas fa-user-plus text-purple-600"></i>
             </div>
           </div>
-          <div class="text-3xl font-bold text-[#333333]">{leadData.totalLeads}</div>
+          <div class="text-3xl font-bold text-[#333333]">
+            {leadData.totalLeads}
+          </div>
           <div class="flex items-center mt-2 text-sm">
             <span class="text-green-600 flex items-center">
-              <i class="fas fa-arrow-up mr-1"></i> {((leadData.totalLeads - leadData.previousTotal) / leadData.previousTotal * 100).toFixed(1)}%
+              <i class="fas fa-arrow-up mr-1"></i>
+              {
+                (
+                  ((leadData.totalLeads - leadData.previousTotal) /
+                    leadData.previousTotal) *
+                  100
+                ).toFixed(1)
+              }%
             </span>
             <span class="text-gray-400 ml-2">vs last period</span>
           </div>
         </div>
 
         <!-- Conversion Rate -->
-        <div class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+        <div
+          class="dashboard-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm"
+        >
           <div class="flex items-center justify-between mb-3">
-            <span class="text-gray-500 text-sm font-medium">Conversion Rate</span>
-            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+            <span class="text-gray-500 text-sm font-medium"
+              >Conversion Rate</span
+            >
+            <div
+              class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center"
+            >
               <i class="fas fa-percentage text-orange-600"></i>
             </div>
           </div>
-          <div class="text-3xl font-bold text-[#333333]">{leadData.conversionRate}%</div>
+          <div class="text-3xl font-bold text-[#333333]">
+            {leadData.conversionRate}%
+          </div>
           <div class="flex items-center mt-2 text-sm">
             <span class="text-green-600 flex items-center">
-              <i class="fas fa-arrow-up mr-1"></i> {(leadData.conversionRate - leadData.previousConversionRate).toFixed(2)}%
+              <i class="fas fa-arrow-up mr-1"></i>
+              {
+                (
+                  leadData.conversionRate - leadData.previousConversionRate
+                ).toFixed(2)
+              }%
             </span>
             <span class="text-gray-400 ml-2">vs last period</span>
           </div>
@@ -162,55 +353,82 @@ const topPages = [
       <div class="grid lg:grid-cols-3 gap-6">
         <!-- Left Column - Rankings & Traffic -->
         <div class="lg:col-span-2 space-y-6">
-
           <!-- Keyword Rankings Section -->
-          <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          <div
+            class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden"
+          >
             <div class="p-5 border-b border-gray-100">
               <div class="flex items-center justify-between">
-                <h2 class="text-lg font-bold text-[#333333] flex items-center gap-2">
+                <h2
+                  class="text-lg font-bold text-[#333333] flex items-center gap-2"
+                >
                   <i class="fas fa-search text-[#FFA985]"></i> Keyword Rankings
                 </h2>
-                <span class="text-sm text-gray-500">{keywordRankings.length} keywords tracked</span>
+                <span class="text-sm text-gray-500"
+                  >{keywordRankings.length} keywords tracked</span
+                >
               </div>
             </div>
             <div class="overflow-x-auto">
               <table class="w-full">
                 <thead class="bg-gray-50">
                   <tr>
-                    <th class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Keyword</th>
-                    <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Position</th>
-                    <th class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">Change</th>
-                    <th class="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Volume</th>
+                    <th
+                      class="px-5 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                      >Keyword</th
+                    >
+                    <th
+                      class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                      >Position</th
+                    >
+                    <th
+                      class="px-5 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                      >Change</th
+                    >
+                    <th
+                      class="px-5 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider"
+                      >Volume</th
+                    >
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                  {keywordRankings.map((kw, index) => (
-                    <tr class="hover:bg-gray-50 transition-colors">
-                      <td class="px-5 py-4">
-                        <div class="font-medium text-[#333333]">{kw.keyword}</div>
-                        <div class="text-xs text-gray-400">{kw.url}</div>
-                      </td>
-                      <td class="px-5 py-4 text-center">
-                        <span class={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${kw.position <= 3 ? 'bg-green-100 text-green-700' : kw.position <= 10 ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-700'}`}>
-                          {kw.position}
-                        </span>
-                      </td>
-                      <td class="px-5 py-4 text-center">
-                        {kw.change > 0 ? (
-                          <span class="text-green-600 flex items-center justify-center">
-                            <i class="fas fa-arrow-up mr-1 text-xs"></i> {kw.change}
+                  {
+                    keywordRankings.map((kw, index) => (
+                      <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-5 py-4">
+                          <div class="font-medium text-[#333333]">
+                            {kw.keyword}
+                          </div>
+                          <div class="text-xs text-gray-400">{kw.url}</div>
+                        </td>
+                        <td class="px-5 py-4 text-center">
+                          <span
+                            class={`inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${kw.position <= 3 ? "bg-green-100 text-green-700" : kw.position <= 10 ? "bg-yellow-100 text-yellow-700" : "bg-gray-100 text-gray-700"}`}
+                          >
+                            {kw.position}
                           </span>
-                        ) : kw.change < 0 ? (
-                          <span class="text-red-600 flex items-center justify-center">
-                            <i class="fas fa-arrow-down mr-1 text-xs"></i> {Math.abs(kw.change)}
-                          </span>
-                        ) : (
-                          <span class="text-gray-400">—</span>
-                        )}
-                      </td>
-                      <td class="px-5 py-4 text-right text-gray-600">{kw.volume.toLocaleString()}</td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td class="px-5 py-4 text-center">
+                          {kw.change > 0 ? (
+                            <span class="text-green-600 flex items-center justify-center">
+                              <i class="fas fa-arrow-up mr-1 text-xs" />{" "}
+                              {kw.change}
+                            </span>
+                          ) : kw.change < 0 ? (
+                            <span class="text-red-600 flex items-center justify-center">
+                              <i class="fas fa-arrow-down mr-1 text-xs" />{" "}
+                              {Math.abs(kw.change)}
+                            </span>
+                          ) : (
+                            <span class="text-gray-400">—</span>
+                          )}
+                        </td>
+                        <td class="px-5 py-4 text-right text-gray-600">
+                          {kw.volume.toLocaleString()}
+                        </td>
+                      </tr>
+                    ))
+                  }
                 </tbody>
               </table>
             </div>
@@ -219,7 +437,9 @@ const topPages = [
           <!-- Traffic Growth Chart -->
           <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
             <div class="flex items-center justify-between mb-6">
-              <h2 class="text-lg font-bold text-[#333333] flex items-center gap-2">
+              <h2
+                class="text-lg font-bold text-[#333333] flex items-center gap-2"
+              >
                 <i class="fas fa-chart-area text-[#FFA985]"></i> Traffic Growth
               </h2>
               <div class="flex gap-4 text-sm">
@@ -231,9 +451,13 @@ const topPages = [
             </div>
 
             <!-- CSS Chart -->
-            <div class="chart-container h-64 flex items-end justify-between gap-2 border-b border-l border-gray-200 p-4 relative">
+            <div
+              class="chart-container h-64 flex items-end justify-between gap-2 border-b border-l border-gray-200 p-4 relative"
+            >
               <!-- Y-axis labels -->
-              <div class="absolute left-0 top-0 bottom-0 w-10 flex flex-col justify-between text-xs text-gray-400 py-2">
+              <div
+                class="absolute left-0 top-0 bottom-0 w-10 flex flex-col justify-between text-xs text-gray-400 py-2"
+              >
                 <span>5K</span>
                 <span>4K</span>
                 <span>3K</span>
@@ -243,96 +467,140 @@ const topPages = [
               </div>
               <!-- Bars -->
               <div class="flex items-end justify-between gap-3 flex-1 ml-8">
-                {trafficData.monthlyTrend.map((value, index) => {
-                  const height = (value / 5000) * 100;
-                  const months = ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
-                  return (
-                    <div class="flex flex-col items-center flex-1">
-                      <div
-                        class="chart-bar w-full bg-gradient-to-t from-[#FFA985] to-[#FFC67D] rounded-t-lg relative group cursor-pointer"
-                        style={`height: ${height}%`}
-                      >
-                        <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#333333] text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                          {value.toLocaleString()} sessions
+                {
+                  trafficData.monthlyTrend.map((value, index) => {
+                    const height = (value / 5000) * 100;
+                    const months = [
+                      "May",
+                      "Jun",
+                      "Jul",
+                      "Aug",
+                      "Sep",
+                      "Oct",
+                      "Nov",
+                    ];
+                    return (
+                      <div class="flex flex-col items-center flex-1">
+                        <div
+                          class="chart-bar w-full bg-gradient-to-t from-[#FFA985] to-[#FFC67D] rounded-t-lg relative group cursor-pointer"
+                          style={`height: ${height}%`}
+                        >
+                          <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#333333] text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                            {value.toLocaleString()} sessions
+                          </div>
                         </div>
+                        <span class="text-xs text-gray-400 mt-2">
+                          {months[index]}
+                        </span>
                       </div>
-                      <span class="text-xs text-gray-400 mt-2">{months[index]}</span>
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                }
               </div>
             </div>
 
             <!-- Traffic Stats -->
             <div class="grid grid-cols-4 gap-4 mt-6">
               <div class="text-center">
-                <div class="text-2xl font-bold text-[#333333]">{trafficData.current.sessions.toLocaleString()}</div>
+                <div class="text-2xl font-bold text-[#333333]">
+                  {trafficData.current.sessions.toLocaleString()}
+                </div>
                 <div class="text-xs text-gray-500">Sessions</div>
               </div>
               <div class="text-center">
-                <div class="text-2xl font-bold text-[#333333]">{trafficData.current.pageviews.toLocaleString()}</div>
+                <div class="text-2xl font-bold text-[#333333]">
+                  {trafficData.current.pageviews.toLocaleString()}
+                </div>
                 <div class="text-xs text-gray-500">Pageviews</div>
               </div>
               <div class="text-center">
-                <div class="text-2xl font-bold text-[#333333]">{trafficData.current.avgDuration}</div>
+                <div class="text-2xl font-bold text-[#333333]">
+                  {trafficData.current.avgDuration}
+                </div>
                 <div class="text-xs text-gray-500">Avg. Duration</div>
               </div>
               <div class="text-center">
-                <div class="text-2xl font-bold text-[#333333]">{trafficData.current.bounceRate}%</div>
+                <div class="text-2xl font-bold text-[#333333]">
+                  {trafficData.current.bounceRate}%
+                </div>
                 <div class="text-xs text-gray-500">Bounce Rate</div>
               </div>
             </div>
           </div>
 
           <!-- Competitor Movements -->
-          <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          <div
+            class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden"
+          >
             <div class="p-5 border-b border-gray-100">
-              <h2 class="text-lg font-bold text-[#333333] flex items-center gap-2">
+              <h2
+                class="text-lg font-bold text-[#333333] flex items-center gap-2"
+              >
                 <i class="fas fa-users text-[#FFA985]"></i> Competitor Movements
               </h2>
             </div>
             <div class="p-5">
               <div class="space-y-4">
                 <!-- Your Position -->
-                <div class="flex items-center justify-between p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-lg border border-[#FFA985]/20">
+                <div
+                  class="flex items-center justify-between p-4 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-lg border border-[#FFA985]/20"
+                >
                   <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-[#FFA985] flex items-center justify-center">
+                    <div
+                      class="w-10 h-10 rounded-full bg-[#FFA985] flex items-center justify-center"
+                    >
                       <i class="fas fa-star text-white text-sm"></i>
                     </div>
                     <div>
-                      <div class="font-bold text-[#333333]">Valley Clean Team</div>
+                      <div class="font-bold text-[#333333]">
+                        Valley Clean Team
+                      </div>
                       <div class="text-xs text-gray-500">Your Business</div>
                     </div>
                   </div>
                   <div class="text-right">
                     <div class="text-2xl font-bold text-[#FFA985]">4.2</div>
-                    <div class="text-xs text-green-600 flex items-center justify-end">
+                    <div
+                      class="text-xs text-green-600 flex items-center justify-end"
+                    >
                       <i class="fas fa-arrow-up mr-1"></i> 1.3 positions
                     </div>
                   </div>
                 </div>
 
                 {/* Competitors */}
-                {competitors.map((comp, index) => (
-                  <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <div class="flex items-center gap-3">
-                      <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold">
-                        {index + 2}
+                {
+                  competitors.map((comp, index) => (
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                      <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold">
+                          {index + 2}
+                        </div>
+                        <div>
+                          <div class="font-medium text-[#333333]">
+                            {comp.name}
+                          </div>
+                          <div class="text-xs text-gray-500">
+                            {comp.keywords} keywords tracked
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <div class="font-medium text-[#333333]">{comp.name}</div>
-                        <div class="text-xs text-gray-500">{comp.keywords} keywords tracked</div>
+                      <div class="text-right">
+                        <div class="text-xl font-bold text-gray-700">
+                          {comp.avgRank}
+                        </div>
+                        <div
+                          class={`text-xs flex items-center justify-end ${comp.change < 0 ? "text-red-600" : "text-green-600"}`}
+                        >
+                          <i
+                            class={`fas fa-arrow-${comp.change < 0 ? "down" : "up"} mr-1`}
+                          />
+                          {Math.abs(comp.change).toFixed(1)}
+                        </div>
                       </div>
                     </div>
-                    <div class="text-right">
-                      <div class="text-xl font-bold text-gray-700">{comp.avgRank}</div>
-                      <div class={`text-xs flex items-center justify-end ${comp.change < 0 ? 'text-red-600' : 'text-green-600'}`}>
-                        <i class={`fas fa-arrow-${comp.change < 0 ? 'down' : 'up'} mr-1`}></i>
-                        {Math.abs(comp.change).toFixed(1)}
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                }
               </div>
             </div>
           </div>
@@ -340,10 +608,11 @@ const topPages = [
 
         <!-- Right Column - Leads & Conversions -->
         <div class="space-y-6">
-
           <!-- Lead Generation -->
           <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-            <h2 class="text-lg font-bold text-[#333333] flex items-center gap-2 mb-5">
+            <h2
+              class="text-lg font-bold text-[#333333] flex items-center gap-2 mb-5"
+            >
               <i class="fas fa-user-check text-[#FFA985]"></i> Lead Generation
             </h2>
 
@@ -351,30 +620,43 @@ const topPages = [
             <div class="space-y-4 mb-6">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center"
+                  >
                     <i class="fas fa-file-alt text-blue-600"></i>
                   </div>
-                  <span class="font-medium text-gray-700">Form Submissions</span>
+                  <span class="font-medium text-gray-700">Form Submissions</span
+                  >
                 </div>
-                <span class="text-xl font-bold text-[#333333]">{leadData.formSubmissions}</span>
+                <span class="text-xl font-bold text-[#333333]"
+                  >{leadData.formSubmissions}</span
+                >
               </div>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center"
+                  >
                     <i class="fas fa-phone text-green-600"></i>
                   </div>
                   <span class="font-medium text-gray-700">Phone Calls</span>
                 </div>
-                <span class="text-xl font-bold text-[#333333]">{leadData.phoneCalls}</span>
+                <span class="text-xl font-bold text-[#333333]"
+                  >{leadData.phoneCalls}</span
+                >
               </div>
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                  <div
+                    class="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center"
+                  >
                     <i class="fas fa-envelope text-purple-600"></i>
                   </div>
                   <span class="font-medium text-gray-700">Email Inquiries</span>
                 </div>
-                <span class="text-xl font-bold text-[#333333]">{leadData.emails}</span>
+                <span class="text-xl font-bold text-[#333333]"
+                  >{leadData.emails}</span
+                >
               </div>
             </div>
 
@@ -382,15 +664,17 @@ const topPages = [
             <div class="border-t border-gray-100 pt-4">
               <div class="text-sm text-gray-500 mb-3">Monthly Trend</div>
               <div class="flex items-end justify-between gap-1 h-16">
-                {leadData.monthlyTrend.map((value) => {
-                  const height = (value / 150) * 100;
-                  return (
-                    <div
-                      class="flex-1 bg-gradient-to-t from-purple-500 to-purple-300 rounded-t"
-                      style={`height: ${height}%`}
-                    ></div>
-                  );
-                })}
+                {
+                  leadData.monthlyTrend.map((value) => {
+                    const height = (value / 150) * 100;
+                    return (
+                      <div
+                        class="flex-1 bg-gradient-to-t from-purple-500 to-purple-300 rounded-t"
+                        style={`height: ${height}%`}
+                      />
+                    );
+                  })
+                }
               </div>
               <div class="flex justify-between text-xs text-gray-400 mt-1">
                 <span>May</span>
@@ -401,88 +685,130 @@ const topPages = [
 
           <!-- Conversion Funnel -->
           <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-            <h2 class="text-lg font-bold text-[#333333] flex items-center gap-2 mb-5">
+            <h2
+              class="text-lg font-bold text-[#333333] flex items-center gap-2 mb-5"
+            >
               <i class="fas fa-filter text-[#FFA985]"></i> Conversion Funnel
             </h2>
 
             <div class="space-y-3">
-              {conversionFunnel.map((stage, index) => {
-                const width = stage.percentage;
-                const colors = [
-                  'from-[#FFA985] to-[#FFC67D]',
-                  'from-orange-400 to-orange-300',
-                  'from-yellow-400 to-yellow-300',
-                  'from-green-400 to-green-300',
-                  'from-emerald-500 to-emerald-400'
-                ];
-                return (
-                  <div class="relative">
-                    <div class="flex items-center justify-between mb-1">
-                      <span class="text-sm font-medium text-gray-700">{stage.stage}</span>
-                      <span class="text-sm font-bold text-gray-900">{stage.count.toLocaleString()}</span>
-                    </div>
-                    <div class="h-6 bg-gray-100 rounded-full overflow-hidden">
-                      <div
-                        class={`h-full bg-gradient-to-r ${colors[index]} rounded-full flex items-center justify-end pr-2`}
-                        style={`width: ${Math.max(width, 5)}%`}
-                      >
-                        <span class="text-xs font-bold text-white drop-shadow">{stage.percentage}%</span>
+              {
+                conversionFunnel.map((stage, index) => {
+                  const width = stage.percentage;
+                  const colors = [
+                    "from-[#FFA985] to-[#FFC67D]",
+                    "from-orange-400 to-orange-300",
+                    "from-yellow-400 to-yellow-300",
+                    "from-green-400 to-green-300",
+                    "from-emerald-500 to-emerald-400",
+                  ];
+                  return (
+                    <div class="relative">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-700">
+                          {stage.stage}
+                        </span>
+                        <span class="text-sm font-bold text-gray-900">
+                          {stage.count.toLocaleString()}
+                        </span>
                       </div>
-                    </div>
-                    {index < conversionFunnel.length - 1 && (
-                      <div class="flex justify-center my-1">
-                        <i class="fas fa-chevron-down text-gray-300 text-xs"></i>
+                      <div class="h-6 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          class={`h-full bg-gradient-to-r ${colors[index]} rounded-full flex items-center justify-end pr-2`}
+                          style={`width: ${Math.max(width, 5)}%`}
+                        >
+                          <span class="text-xs font-bold text-white drop-shadow">
+                            {stage.percentage}%
+                          </span>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                );
-              })}
+                      {index < conversionFunnel.length - 1 && (
+                        <div class="flex justify-center my-1">
+                          <i class="fas fa-chevron-down text-gray-300 text-xs" />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              }
             </div>
           </div>
 
           <!-- Top Converting Pages -->
           <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
-            <h2 class="text-lg font-bold text-[#333333] flex items-center gap-2 mb-5">
+            <h2
+              class="text-lg font-bold text-[#333333] flex items-center gap-2 mb-5"
+            >
               <i class="fas fa-trophy text-[#FFA985]"></i> Top Converting Pages
             </h2>
 
             <div class="space-y-3">
-              {topPages.map((page, index) => {
-                const conversionRate = ((page.conversions / page.sessions) * 100).toFixed(1);
-                return (
-                  <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                    <div class="w-8 h-8 rounded-full bg-[#FFA985] flex items-center justify-center text-white font-bold text-sm">
-                      {index + 1}
+              {
+                topPages.map((page, index) => {
+                  const conversionRate = (
+                    (page.conversions / page.sessions) *
+                    100
+                  ).toFixed(1);
+                  return (
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                      <div class="w-8 h-8 rounded-full bg-[#FFA985] flex items-center justify-center text-white font-bold text-sm">
+                        {index + 1}
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <div class="font-medium text-gray-800 truncate">
+                          {page.page}
+                        </div>
+                        <div class="text-xs text-gray-500">
+                          {page.sessions.toLocaleString()} sessions
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <div class="font-bold text-green-600">
+                          {conversionRate}%
+                        </div>
+                        <div class="text-xs text-gray-400">
+                          {page.conversions} leads
+                        </div>
+                      </div>
                     </div>
-                    <div class="flex-1 min-w-0">
-                      <div class="font-medium text-gray-800 truncate">{page.page}</div>
-                      <div class="text-xs text-gray-500">{page.sessions.toLocaleString()} sessions</div>
-                    </div>
-                    <div class="text-right">
-                      <div class="font-bold text-green-600">{conversionRate}%</div>
-                      <div class="text-xs text-gray-400">{page.conversions} leads</div>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              }
             </div>
           </div>
 
           <!-- Quick Actions -->
-          <div class="bg-gradient-to-br from-[#333333] to-[#1a1a2e] rounded-xl p-5 text-white">
+          <div
+            class="bg-gradient-to-br from-[#333333] to-[#1a1a2e] rounded-xl p-5 text-white"
+          >
             <h3 class="font-bold mb-4">Quick Actions</h3>
             <div class="space-y-2">
-              <a href="https://search.google.com/search-console" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+              <a
+                href="https://search.google.com/search-console"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
+              >
                 <i class="fab fa-google"></i>
                 <span>Search Console</span>
                 <i class="fas fa-external-link-alt ml-auto text-xs"></i>
               </a>
-              <a href="https://analytics.google.com" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+              <a
+                href="https://analytics.google.com"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
+              >
                 <i class="fas fa-chart-bar"></i>
                 <span>Google Analytics</span>
                 <i class="fas fa-external-link-alt ml-auto text-xs"></i>
               </a>
-              <a href="https://business.google.com" target="_blank" rel="noopener" class="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+              <a
+                href="https://business.google.com"
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
+              >
                 <i class="fas fa-store"></i>
                 <span>Google Business</span>
                 <i class="fas fa-external-link-alt ml-auto text-xs"></i>
@@ -494,187 +820,237 @@ const topPages = [
 
       <!-- Footer Note -->
       <div class="mt-8 text-center text-sm text-gray-400">
-        <p id="last-updated">Data updates every 24 hours. Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-        <p class="mt-1">Connect Google Search Console & Analytics for live data.</p>
+        <p id="last-updated">
+          Data updates every 24 hours. Last updated: {
+            new Date().toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          }
+        </p>
+        <p class="mt-1">
+          Connect Google Search Console & Analytics for live data.
+        </p>
       </div>
     </div>
-  
 
-  
-
-  <style>
-    .dashboard-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .dashboard-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-    }
-
-    .chart-bar {
-      transition: all 0.3s ease;
-      min-height: 10px;
-    }
-
-    .chart-bar:hover {
-      filter: brightness(1.1);
-      transform: scaleY(1.02);
-      transform-origin: bottom;
-    }
-
-    /* Custom scrollbar for tables */
-    .overflow-x-auto::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    .overflow-x-auto::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-
-    .overflow-x-auto::-webkit-scrollbar-thumb {
-      background: #FFA985;
-      border-radius: 10px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      .chart-container {
-        height: 200px;
+    <style>
+      .dashboard-card {
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
       }
-    }
-  </style>
 
-  <script>
-    // Dashboard data fetching and updates
-    const Dashboard = {
-      // Fetch live data from API routes
-      async fetchData() {
-        const [rankingsRes, trafficRes, leadsRes] = await Promise.allSettled([
-          fetch('/api/rankings').then(r => r.json()),
-          fetch('/api/traffic').then(r => r.json()),
-          fetch('/api/leads').then(r => r.json())
-        ]);
+      .dashboard-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      }
 
-        return {
-          rankings: rankingsRes.status === 'fulfilled' && rankingsRes.value.success ? rankingsRes.value.data : null,
-          traffic: trafficRes.status === 'fulfilled' && trafficRes.value.success ? trafficRes.value.data : null,
-          leads: leadsRes.status === 'fulfilled' && leadsRes.value.success ? leadsRes.value.data : null
-        };
-      },
+      .chart-bar {
+        transition: all 0.3s ease;
+        min-height: 10px;
+      }
 
-      // Update summary cards
-      updateSummaryCards(data) {
-        if (data.rankings?.avgPosition) {
-          document.querySelector('[data-metric="avg-position"]')?.setAttribute('data-value', data.rankings.avgPosition);
+      .chart-bar:hover {
+        filter: brightness(1.1);
+        transform: scaleY(1.02);
+        transform-origin: bottom;
+      }
+
+      /* Custom scrollbar for tables */
+      .overflow-x-auto::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .overflow-x-auto::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      .overflow-x-auto::-webkit-scrollbar-thumb {
+        background: #ffa985;
+        border-radius: 10px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 640px) {
+        .chart-container {
+          height: 200px;
         }
-        if (data.traffic?.current?.sessions) {
-          document.querySelector('[data-metric="traffic"]')?.setAttribute('data-value', data.traffic.current.sessions);
-        }
-        if (data.leads?.totalLeads) {
-          document.querySelector('[data-metric="leads"]')?.setAttribute('data-value', data.leads.totalLeads);
-        }
-      },
+      }
+    </style>
 
-      // Show loading state
-      showLoading() {
-        document.querySelectorAll('.dashboard-card').forEach(card => {
-          card.classList.add('opacity-50');
-        });
-        document.getElementById('refresh-btn')?.classList.add('animate-spin');
-      },
+    <script>
+      // Dashboard data fetching and updates
+      const Dashboard = {
+        // Fetch live data from API routes
+        async fetchData() {
+          const [rankingsRes, trafficRes, leadsRes] = await Promise.allSettled([
+            fetch("/api/rankings").then((r) => r.json()),
+            fetch("/api/traffic").then((r) => r.json()),
+            fetch("/api/leads").then((r) => r.json()),
+          ]);
 
-      // Hide loading state
-      hideLoading() {
-        document.querySelectorAll('.dashboard-card').forEach(card => {
-          card.classList.remove('opacity-50');
-        });
-        document.getElementById('refresh-btn')?.classList.remove('animate-spin');
-      },
+          return {
+            rankings:
+              rankingsRes.status === "fulfilled" && rankingsRes.value.success
+                ? rankingsRes.value.data
+                : null,
+            traffic:
+              trafficRes.status === "fulfilled" && trafficRes.value.success
+                ? trafficRes.value.data
+                : null,
+            leads:
+              leadsRes.status === "fulfilled" && leadsRes.value.success
+                ? leadsRes.value.data
+                : null,
+          };
+        },
 
-      // Update the "last updated" timestamp
-      updateTimestamp() {
-        const now = new Date().toLocaleDateString('en-US', {
-          month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
-        });
-        const timestampEl = document.getElementById('last-updated');
-        if (timestampEl) timestampEl.textContent = `Last updated: ${now}`;
-      },
-
-      // Main refresh function
-      async refresh() {
-        this.showLoading();
-        try {
-          const data = await this.fetchData();
-
-          // Check if APIs returned data
-          const hasLiveData = data.rankings || data.traffic || data.leads;
-
-          if (hasLiveData) {
-            console.log('Live data received:', data);
-            this.updateSummaryCards(data);
-            this.updateTimestamp();
-
-            // Update status indicator
-            const statusEl = document.getElementById('data-status');
-            if (statusEl) {
-              statusEl.innerHTML = '<span class="text-green-500"><i class="fas fa-circle text-xs mr-1"></i>Live</span>';
-            }
-          } else {
-            console.log('Using sample data - configure API credentials for live data');
-            const statusEl = document.getElementById('data-status');
-            if (statusEl) {
-              statusEl.innerHTML = '<span class="text-yellow-500"><i class="fas fa-circle text-xs mr-1"></i>Sample Data</span>';
-            }
+        // Update summary cards
+        updateSummaryCards(data) {
+          if (data.rankings?.avgPosition) {
+            document
+              .querySelector('[data-metric="avg-position"]')
+              ?.setAttribute("data-value", data.rankings.avgPosition);
           }
-        } catch (error) {
-          console.error('Error fetching dashboard data:', error);
-        }
-        this.hideLoading();
-      }
-    };
+          if (data.traffic?.current?.sessions) {
+            document
+              .querySelector('[data-metric="traffic"]')
+              ?.setAttribute("data-value", data.traffic.current.sessions);
+          }
+          if (data.leads?.totalLeads) {
+            document
+              .querySelector('[data-metric="leads"]')
+              ?.setAttribute("data-value", data.leads.totalLeads);
+          }
+        },
 
-    // Initialize dashboard
-    document.addEventListener('DOMContentLoaded', function() {
-      // Animate numbers on load
-      const stats = document.querySelectorAll('.text-3xl.font-bold, .text-2xl.font-bold');
-      stats.forEach(stat => {
-        const text = stat.textContent || '';
-        const isPercentage = text.includes('%');
-        const isDecimal = text.includes('.');
-        const value = parseFloat(text.replace(/[^0-9.]/g, ''));
+        // Show loading state
+        showLoading() {
+          document.querySelectorAll(".dashboard-card").forEach((card) => {
+            card.classList.add("opacity-50");
+          });
+          document.getElementById("refresh-btn")?.classList.add("animate-spin");
+        },
 
-        if (!isNaN(value) && value > 0) {
-          let current = 0;
-          const increment = value / 30;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= value) {
-              current = value;
-              clearInterval(timer);
-            }
+        // Hide loading state
+        hideLoading() {
+          document.querySelectorAll(".dashboard-card").forEach((card) => {
+            card.classList.remove("opacity-50");
+          });
+          document
+            .getElementById("refresh-btn")
+            ?.classList.remove("animate-spin");
+        },
 
-            if (isDecimal) {
-              stat.textContent = current.toFixed(2) + (isPercentage ? '%' : '');
+        // Update the "last updated" timestamp
+        updateTimestamp() {
+          const now = new Date().toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          const timestampEl = document.getElementById("last-updated");
+          if (timestampEl) timestampEl.textContent = `Last updated: ${now}`;
+        },
+
+        // Main refresh function
+        async refresh() {
+          this.showLoading();
+          try {
+            const data = await this.fetchData();
+
+            // Check if APIs returned data
+            const hasLiveData = data.rankings || data.traffic || data.leads;
+
+            if (hasLiveData) {
+              console.log("Live data received:", data);
+              this.updateSummaryCards(data);
+              this.updateTimestamp();
+
+              // Update status indicator
+              const statusEl = document.getElementById("data-status");
+              if (statusEl) {
+                statusEl.innerHTML =
+                  '<span class="text-green-500"><i class="fas fa-circle text-xs mr-1"></i>Live</span>';
+              }
             } else {
-              stat.textContent = Math.floor(current).toLocaleString() + (isPercentage ? '%' : '');
+              console.log(
+                "Using sample data - configure API credentials for live data",
+              );
+              const statusEl = document.getElementById("data-status");
+              if (statusEl) {
+                statusEl.innerHTML =
+                  '<span class="text-yellow-500"><i class="fas fa-circle text-xs mr-1"></i>Sample Data</span>';
+              }
             }
-          }, 30);
-        }
+          } catch (error) {
+            console.error("Error fetching dashboard data:", error);
+          }
+          this.hideLoading();
+        },
+      };
+
+      // Initialize dashboard
+      document.addEventListener("DOMContentLoaded", function () {
+        // Animate numbers on load
+        const stats = document.querySelectorAll(
+          ".text-3xl.font-bold, .text-2xl.font-bold",
+        );
+        stats.forEach((stat) => {
+          const text = stat.textContent || "";
+          const isPercentage = text.includes("%");
+          const isDecimal = text.includes(".");
+          const value = parseFloat(text.replace(/[^0-9.]/g, ""));
+
+          if (!isNaN(value) && value > 0) {
+            let current = 0;
+            const increment = value / 30;
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= value) {
+                current = value;
+                clearInterval(timer);
+              }
+
+              if (isDecimal) {
+                stat.textContent =
+                  current.toFixed(2) + (isPercentage ? "%" : "");
+              } else {
+                stat.textContent =
+                  Math.floor(current).toLocaleString() +
+                  (isPercentage ? "%" : "");
+              }
+            }, 30);
+          }
+        });
+
+        // Try to fetch live data
+        Dashboard.refresh();
       });
 
-      // Try to fetch live data
-      Dashboard.refresh();
-    });
+      // Refresh button handler
+      document
+        .getElementById("refresh-btn")
+        ?.addEventListener("click", () => Dashboard.refresh());
 
-    // Refresh button handler
-    document.getElementById('refresh-btn')?.addEventListener('click', () => Dashboard.refresh());
-
-    // Date range change handler
-    document.getElementById('date-range')?.addEventListener('change', function(e) {
-      console.log('Date range changed to:', (e.target as HTMLSelectElement).value, 'days');
-      Dashboard.refresh();
-    });
-  </script>
+      // Date range change handler
+      document
+        .getElementById("date-range")
+        ?.addEventListener("change", function (e) {
+          console.log(
+            "Date range changed to:",
+            (e.target as HTMLSelectElement).value,
+            "days",
+          );
+          Dashboard.refresh();
+        });
+    </script>
+  </div>
 </BaseLayout>
