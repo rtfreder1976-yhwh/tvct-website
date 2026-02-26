@@ -7,7 +7,8 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
   trailingSlash: 'never',
-  output: 'hybrid',
+  output: 'server',
+  prerender: true,
 
   integrations: [
     tailwind(),
