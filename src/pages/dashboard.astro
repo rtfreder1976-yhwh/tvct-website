@@ -364,7 +364,7 @@ const topPages = [
                 >
                   <i class="fas fa-search text-[#FFA985]"></i> Keyword Rankings
                 </h2>
-                <span class="text-sm text-gray-500"
+                <span class="text-sm text-gray-500" id="keyword-count"
                   >{keywordRankings.length} keywords tracked</span
                 >
               </div>
@@ -391,7 +391,7 @@ const topPages = [
                     >
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100">
+                <tbody class="divide-y divide-gray-100" id="rankings-body">
                   {
                     keywordRankings.map((kw, index) => (
                       <tr class="hover:bg-gray-50 transition-colors">
@@ -452,7 +452,8 @@ const topPages = [
 
             <!-- CSS Chart -->
             <div
-              class="chart-container h-64 flex items-end justify-between gap-2 border-b border-l border-gray-200 p-4 relative"
+              class="relative h-64 flex items-end justify-between gap-2 px-2"
+              id="traffic-chart-container"
             >
               <!-- Y-axis labels -->
               <div
@@ -663,7 +664,10 @@ const topPages = [
             <!-- Lead Trend Mini Chart -->
             <div class="border-t border-gray-100 pt-4">
               <div class="text-sm text-gray-500 mb-3">Monthly Trend</div>
-              <div class="flex items-end justify-between gap-1 h-16">
+              <div
+                class="flex items-end justify-between gap-1 h-16"
+                id="leads-chart-container"
+              >
                 {
                   leadData.monthlyTrend.map((value) => {
                     const height = (value / 150) * 100;
@@ -913,25 +917,120 @@ const topPages = [
         // Update summary cards
         updateSummaryCards(data) {
           if (data.rankings?.avgPosition) {
-            document
-              .querySelector('[data-metric="avg-position"]')
-              ?.setAttribute("data-value", data.rankings.avgPosition);
+            const el = document.querySelector('[data-metric="avg-position"]');
+            if (el) {
+              const valEl = el.querySelector(".text-3xl");
+              if (valEl) valEl.textContent = data.rankings.avgPosition;
+            }
           }
           if (data.traffic?.current?.sessions) {
-            document
-              .querySelector('[data-metric="traffic"]')
-              ?.setAttribute("data-value", data.traffic.current.sessions);
+            const el = document.querySelector('[data-metric="traffic"]');
+            if (el) {
+              const valEl = el.querySelector(".text-3xl");
+              if (valEl)
+                valEl.textContent =
+                  data.traffic.current.sessions.toLocaleString();
+            }
           }
           if (data.leads?.totalLeads) {
-            document
-              .querySelector('[data-metric="leads"]')
-              ?.setAttribute("data-value", data.leads.totalLeads);
+            const el = document.querySelector('[data-metric="leads"]');
+            if (el) {
+              const valEl = el.querySelector(".text-3xl");
+              if (valEl)
+                valEl.textContent = data.leads.totalLeads.toLocaleString();
+            }
           }
+        },
+
+        updateRankingsTable(rankings) {
+          const body = document.getElementById("rankings-body");
+          const countEl = document.getElementById("keyword-count");
+          if (!body || !rankings.items) return;
+
+          if (countEl)
+            countEl.textContent = `${rankings.items.length} keywords tracked`;
+
+          body.innerHTML = rankings.items
+            .map(
+              (kw) => `
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-5 py-4">
+                <div class="font-medium text-[#333333]">${kw.keyword}</div>
+                <div class="text-xs text-gray-400">${kw.url}</div>
+              </td>
+              <td class="px-5 py-4 text-center">
+                <span class="inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-sm ${kw.position <= 3 ? "bg-green-100 text-green-700" : kw.position <= 10 ? "bg-yellow-100 text-yellow-700" : "bg-gray-100 text-gray-700"}">
+                  ${kw.position}
+                </span>
+              </td>
+              <td class="px-5 py-4 text-center">
+                ${
+                  kw.change > 0
+                    ? `
+                  <span class="text-green-600 flex items-center justify-center">
+                    <i class="fas fa-arrow-up mr-1 text-xs"></i> ${kw.change}
+                  </span>
+                `
+                    : kw.change < 0
+                      ? `
+                  <span class="text-red-600 flex items-center justify-center">
+                    <i class="fas fa-arrow-down mr-1 text-xs"></i> ${Math.abs(kw.change)}
+                  </span>
+                `
+                      : `<span class="text-gray-400">—</span>`
+                }
+              </td>
+              <td class="px-5 py-4 text-right text-gray-600">
+                ${kw.volume}
+              </td>
+            </tr>
+          `,
+            )
+            .join("");
+        },
+
+        updateTrafficChart(traffic) {
+          const container = document.getElementById("traffic-chart-container");
+          if (!container || !traffic.monthlyTrend) return;
+
+          const max = Math.max(...traffic.monthlyTrend, 1);
+          container.innerHTML =
+            traffic.monthlyTrend
+              .map((val) => {
+                const height = (val / max) * 100;
+                return `
+              <div class="flex-1 bg-gradient-to-t from-[#FFA985] to-[#FFC67D] rounded-t chart-bar" style="height: ${height}%">
+                <div class="opacity-0 hover:opacity-100 absolute -top-10 left-1/2 -translate-x-1/2 bg-[#333333] text-white text-[10px] py-1 px-2 rounded whitespace-nowrap z-10">
+                  ${val}
+                </div>
+              </div>
+            `;
+              })
+              .join("") +
+            `
+            <div class="absolute inset-0 border-b border-gray-100 flex items-end justify-between text-[10px] text-gray-400 pb-1 pointer-events-none">
+              <span>30 Days Ago</span>
+              <span>Today</span>
+            </div>
+          `;
+        },
+
+        updateLeadsChart(leads) {
+          const container = document.getElementById("leads-chart-container");
+          if (!container || !leads.monthlyTrend) return;
+
+          const max = Math.max(...leads.monthlyTrend, 1);
+          container.innerHTML = leads.monthlyTrend
+            .map((val) => {
+              const height = (val / max) * 100;
+              return `<div class="flex-1 bg-gradient-to-t from-purple-500 to-purple-300 rounded-t" style="height: ${height}%"></div>`;
+            })
+            .join("");
         },
 
         // Show loading state
         showLoading() {
-          document.querySelectorAll(".dashboard-card").forEach((card) => {
+          document.querySelectorAll(".bg-white").forEach((card) => {
             card.classList.add("opacity-50");
           });
           document.getElementById("refresh-btn")?.classList.add("animate-spin");
@@ -939,7 +1038,7 @@ const topPages = [
 
         // Hide loading state
         hideLoading() {
-          document.querySelectorAll(".dashboard-card").forEach((card) => {
+          document.querySelectorAll(".bg-white").forEach((card) => {
             card.classList.remove("opacity-50");
           });
           document
@@ -964,30 +1063,48 @@ const topPages = [
         async refresh() {
           this.showLoading();
           try {
-            const data = await this.fetchData();
+            const [rankingsRes, trafficRes, leadsRes] =
+              await Promise.allSettled([
+                fetch("/api/rankings").then((r) => (r.ok ? r.json() : null)),
+                fetch("/api/traffic").then((r) => (r.ok ? r.json() : null)),
+                fetch("/api/leads").then((r) => (r.ok ? r.json() : null)),
+              ]);
 
-            // Check if APIs returned data
+            const data = {
+              rankings:
+                rankingsRes.status === "fulfilled" && rankingsRes.value?.success
+                  ? rankingsRes.value.data
+                  : null,
+              traffic:
+                trafficRes.status === "fulfilled" && trafficRes.value?.success
+                  ? trafficRes.value.data
+                  : null,
+              leads:
+                leadsRes.status === "fulfilled" && leadsRes.value?.success
+                  ? leadsRes.value.data
+                  : null,
+            };
+
             const hasLiveData = data.rankings || data.traffic || data.leads;
 
             if (hasLiveData) {
               console.log("Live data received:", data);
               this.updateSummaryCards(data);
+              if (data.rankings) this.updateRankingsTable(data.rankings);
+              if (data.traffic) this.updateTrafficChart(data.traffic);
+              if (data.leads) this.updateLeadsChart(data.leads);
               this.updateTimestamp();
 
-              // Update status indicator
               const statusEl = document.getElementById("data-status");
               if (statusEl) {
                 statusEl.innerHTML =
-                  '<span class="text-green-500"><i class="fas fa-circle text-xs mr-1"></i>Live</span>';
+                  '<span class="text-green-500 font-medium flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>Live Data</span>';
               }
             } else {
-              console.log(
-                "Using sample data - configure API credentials for live data",
-              );
               const statusEl = document.getElementById("data-status");
               if (statusEl) {
                 statusEl.innerHTML =
-                  '<span class="text-yellow-500"><i class="fas fa-circle text-xs mr-1"></i>Sample Data</span>';
+                  '<span class="text-yellow-500 font-medium flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-500"></span>Sample Data</span>';
               }
             }
           } catch (error) {
