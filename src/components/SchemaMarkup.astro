@@ -17,6 +17,7 @@ interface Props {
   // HowTo schema props (for step-by-step blog posts)
   howToSteps?: Array<{ name: string; text: string; image?: string }>;
   totalTime?: string; // ISO 8601 duration e.g., "PT30M" for 30 minutes
+  faqs?: Array<{ question: string; answer: string } | { q: string; a: string }>;
 }
 
 const {
@@ -35,6 +36,7 @@ const {
   image,
   howToSteps,
   totalTime,
+  faqs: faqsProp,
 } = Astro.props;
 
 // Get current page URL for article schema
@@ -360,7 +362,7 @@ const departmentSchemas = Object.entries(cityConfigs).map(
 );
 
 // Main organization schema with departments
-const organizationSchema = {
+const getOrganizationSchema = (includeDepartments = true) => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "https://thevalleycleanteam.com/#organization",
@@ -419,7 +421,7 @@ const organizationSchema = {
     "https://www.thumbtack.com/al/huntsville/house-cleaning/the-valley-clean-team/",
     "https://www.bbb.org/us/al/huntsville/profile/cleaning-services/the-valley-clean-team-0463-90145678",
   ],
-  department: departmentSchemas,
+  ...(includeDepartments ? { department: departmentSchemas } : {}),
   potentialAction: [
     {
       "@type": "ReserveAction",
@@ -445,7 +447,10 @@ const organizationSchema = {
       },
     },
   ],
-};
+});
+
+const organizationSchema = getOrganizationSchema(true);
+const parentOrgSchema = getOrganizationSchema(false);
 
 // Get city config for location pages
 const getCityConfig = (cityName: string) => {
@@ -1420,19 +1425,28 @@ const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
 };
 
 // FAQPage schema for location pages
+// Ensure FAQs match visible content on page to avoid GSC "invalid faq content" errors
+const resolvedFAQs =
+  faqsProp || (city && cityFAQs[city]) || (type === "organization" ? [] : []);
+
 const faqSchema =
-  type === "local" && city && cityFAQs[city]
+  resolvedFAQs && resolvedFAQs.length > 0
     ? {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        mainEntity: cityFAQs[city].map((faq) => ({
-          "@type": "Question",
-          name: faq.q,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: faq.a,
-          },
-        })),
+        mainEntity: resolvedFAQs.map((faq) => {
+          // Handle both {question, answer} and {q, a} formats
+          const q = "question" in faq ? faq.question : "q" in faq ? faq.q : "";
+          const a = "answer" in faq ? faq.answer : "a" in faq ? faq.a : "";
+          return {
+            "@type": "Question",
+            name: q,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: a,
+            },
+          };
+        }),
       }
     : null;
 
