@@ -1419,22 +1419,9 @@ const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
   ],
 };
 
-// FAQPage schema for location pages
-const faqSchema =
-  type === "local" && city && cityFAQs[city]
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: cityFAQs[city].map((faq) => ({
-          "@type": "Question",
-          name: faq.q,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: faq.a,
-          },
-        })),
-      }
-    : null;
+// FAQPage schema is handled by individual pages (inline faqSchema)
+// to avoid duplicate FAQPage errors in Google Search Console.
+const faqSchema = null;
 
 // BreadcrumbList schema for location pages (improves crawl efficiency)
 const breadcrumbSchema =
