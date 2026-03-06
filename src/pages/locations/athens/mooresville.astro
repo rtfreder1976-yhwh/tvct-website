@@ -1,0 +1,279 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../../components/SchemaMarkup.astro";
+import Icon from "../../../components/Icon.astro";
+import QuoteForm from "../../../components/QuoteForm.astro";
+
+const neighborhood = "Mooresville";
+const city = "Athens"; // Technically its own town, but we group it in Athens/Limestone
+const state = "Alabama";
+
+// Schema for FAQPage
+const faqs = [
+    {
+        question: "Do you specialize in cleaning 19th-century architecture?",
+        answer: "Yes, we are highly experienced in caring for the historic homes found in Alabama's oldest incorporated town (1818). We know how to properly clean original hardwood floors, delicate molding, and antique fixtures without risk of damage.",
+    },
+    {
+        question:
+            "Do you offer event cleanup for weddings or gatherings in Mooresville?",
+        answer: "Absolutely. With so many weddings and events occurring around the historic churches and properties in Mooresville, we offer pre- and post-event cleaning services to ensure everything looks perfect.",
+    },
+    {
+        question:
+            "What makes Valley Clean Team different from other maid services?",
+        answer: "We're veteran-owned, fully insured, and we send the same team to your home every visit. Your cleaners learn your home, your preferences, and your family. No revolving door of strangers - just consistent, reliable service from people you can trust.",
+    },
+    {
+        question: "How do I schedule a cleaning in Mooresville?",
+        answer: "Easy! Just call us at 256-826-1100 or fill out the form on this page. We'll discuss your needs, give you a quote, and schedule your first cleaning.",
+    },
+];
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+        },
+    })),
+};
+
+const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Maid Services",
+    provider: {
+        "@type": "LocalBusiness",
+        name: "The Valley Clean Team",
+        image: "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+        telephone: "+1-256-826-1100",
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "Huntsville",
+            addressRegion: "AL",
+            addressCountry: "US",
+        },
+        priceRange: "$$",
+    },
+    areaServed: {
+        "@type": "Place",
+        name: "Mooresville, Alabama",
+    },
+    description:
+        "Professional maid service in Mooresville. Luxury house cleaning services.",
+};
+---
+
+<BaseLayout
+    title="Mooresville AL Cleaning Services | Valley Clean Team"
+    description="Premium house cleaning for historic Mooresville, AL. Veteran-owned, $2M insured. Regular and deep cleaning. Get a pristine historic home today."
+    geoRegion="US-AL"
+    geoPlacename="Mooresville, Alabama"
+>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(serviceSchema)}
+    />
+
+    <!-- Hero Section -->
+    <section
+        class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800"
+    >
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div
+                        class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4"
+                    >
+                        <span class="text-gray-900 font-semibold">
+                            <Icon name="clock" class="w-5 h-5 mr-2" />Serving
+                            Mooresville
+                        </span>
+                    </div>
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
+                    >
+                        Luxury House Cleaning in <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
+                            >Mooresville</span
+                        >
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-6">
+                        Keep your historic Mooresville property pristine with
+                        our premium, veteran-owned cleaning service. We
+                        specialize in recurring maid service and deep cleaning
+                        that properly preserves your home's unique 19th-century
+                        charm.
+                    </p>
+
+                    <div
+                        class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                    >
+                        <a
+                            href="tel:2568261100"
+                            class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center"
+                        >
+                            <Icon
+                                name="phone"
+                                class="w-5 h-5 mr-2"
+                            />256-826-1100
+                        </a>
+                        <QuoteForm
+                            formId="location-hero-form"
+                            city="Mooresville"
+                            state="AL"
+                        />
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                    <h2
+                        class="text-2xl font-bold mb-2 text-[#333333] text-center"
+                    >
+                        Get Your Free Quote
+                    </h2>
+                    <p class="text-gray-600 mb-6 text-center">
+                        Serving Historic Mooresville
+                    </p>
+                    <QuoteForm
+                        formId="hero-quote-form"
+                        city="Mooresville"
+                        state="Alabama"
+                        serviceName="General Cleaning"
+                        source="Mooresville Page"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Neighborhood Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div
+                    class="rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2"
+                >
+                    <img
+                        src="/images/neighborhoods/mooresville_clean_1771881943736.png"
+                        alt="Mooresville Property Cleaning"
+                        loading="lazy"
+                        class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                </div>
+                <div class="order-2 lg:order-1">
+                    <h2 class="text-4xl font-bold mb-6 text-[#333333]">
+                        Cleaning Service for Alabama's Oldest Town
+                    </h2>
+                    <div class="section-divider" style="margin-left: 0;"></div>
+                    <p class="text-lg text-gray-700 mb-4">
+                        As Alabama's oldest incorporated town dating back to
+                        1818, Mooresville offers incredibly well-preserved
+                        19th-century architecture and charming historic
+                        landmarks. The painstaking effort to maintain these
+                        homes is immense, and you shouldn't have to spend your
+                        weekends scrubbing them yourself.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6">
+                        The Valley Clean Team provides specialized, reliable
+                        cleaning services tailored for these historic
+                        properties. Whether you need a meticulous deep clean to
+                        prepare for a wedding or recurring weekly maid service,
+                        our trusted teams deliver a spotless clean so you can
+                        simply enjoy your space.
+                    </p>
+                    <div
+                        class="bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl p-6 border border-[#FFA985]/20"
+                    >
+                        <h3 class="text-xl font-bold text-[#333333] mb-4">
+                            Why Choose Us:
+                        </h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Same team</strong> every visit - familiar
+                                    faces you trust</span
+                                >
+                            </li>
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Flexible scheduling</strong> that works
+                                    for your life</span
+                                >
+                            </li>
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Pet-friendly</strong> products safe for
+                                    your animals</span
+                                >
+                            </li>
+                            <li class="flex items-start">
+                                <Icon
+                                    name="check"
+                                    class="w-5 h-5 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                                />
+                                <span class="text-gray-700"
+                                    ><strong>Veteran-owned</strong> with military
+                                    attention to detail</span
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4 text-[#333333]">
+                    Mooresville Cleaning FAQs
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="space-y-4">
+                {
+                    faqs.map((faq) => (
+                        <div
+                            class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+                            onclick="this.classList.toggle('active')"
+                        >
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-[#333333] pr-4">
+                                    {faq.question}
+                                </h3>
+                                <Icon
+                                    name="chevron-down"
+                                    class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                                />
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-gray-600 mt-4">{faq.answer}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+</BaseLayout>

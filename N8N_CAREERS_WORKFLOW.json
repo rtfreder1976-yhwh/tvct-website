@@ -1,0 +1,160 @@
+{
+    "name": "TVCT Website - Forms (Quotes & Careers)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "a3c2f1c9-c7a5-4436-825a-be12a8c1c0da",
+                "options": {}
+            },
+            "id": "e331b2c4-e4af-4ed1-8742-53b9347d4834",
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                200,
+                300
+            ],
+            "webhookId": "a3c2f1c9-c7a5-4436-825a-be12a8c1c0da"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{ $json.body.source }}",
+                            "value2": "Career Application"
+                        }
+                    ]
+                }
+            },
+            "id": "2bc98b7e-0744-486a-aa78-cf9f546ef8d7",
+            "name": "Is Career Application?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                460,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "fromEmail": "info@thevalleycleanteam.com",
+                "toEmail": "hiring@thevalleycleanteam.com",
+                "subject": "={{ 'New Career Application: ' + $json.body.name }}",
+                "html": "==<h2>New Employment Application</h2>\n\n<p><strong>Name:</strong> {{ $json.body.name }}</p>\n<p><strong>Email:</strong> {{ $json.body.email }}</p>\n<p><strong>Phone:</strong> {{ $json.body.phone }}</p>\n<p><strong>Location:</strong> {{ $json.body.location_city }}</p>\n\n<p><strong>Additional Details:</strong></p>\n<pre>{{ $json.body.notes }}</pre>\n\n<hr>\n<p><em>Submitted from: {{ $json.body.page_url }}<br>Timestamp: {{ $json.body.timestamp }}</em></p>",
+                "options": {
+                    "replyTo": "={{ $json.body.email }}"
+                }
+            },
+            "id": "5dcafeb2-126a-4dff-b125-961fa3fcbd2d",
+            "name": "Email Hiring Team",
+            "type": "n8n-nodes-base.emailSend",
+            "typeVersion": 2,
+            "position": [
+                780,
+                180
+            ],
+            "credentials": {
+                "smtp": {
+                    "id": "Your_SMTP_Credential_ID_Here",
+                    "name": "SMTP Credentials"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "value": "1JYsjuZgLbZEsWrItKERZosmX2vJgB8NB-tXSdYTDdV4",
+                    "mode": "id"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "2088446548",
+                    "mode": "id"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Timestamp": "={{ $json.body.timestamp }}",
+                        "Name": "={{ $json.body.name }}",
+                        "Email": "={{ $json.body.email }}",
+                        "Phone": "={{ $json.body.phone }}",
+                        "Location": "={{ $json.body.location_city }}",
+                        "Details / Notes": "={{ $json.body.notes }}"
+                    },
+                    "matchingColumns": []
+                },
+                "options": {}
+            },
+            "id": "eec984d7-4007-4e67-bd1c-80ea8de77f98",
+            "name": "Log Application to Sheet",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4,
+            "position": [
+                1040,
+                180
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "Your_Google_Credential_ID_Here",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "content": "## Standard Lead Flow (Quote Form, etc)\nYou would connect this to exactly what your current workflow does (e.g. sending to GHL, texting the customer, emailing sales).\n\nThis branch fires when the source is NOT 'Career Application'."
+            },
+            "id": "8aa18e19-0c30-4e31-8ca6-d62fbc04de71",
+            "name": "Sticky Note",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                740,
+                400
+            ]
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Is Career Application?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Is Career Application?": {
+            "main": [
+                [
+                    {
+                        "node": "Email Hiring Team",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                []
+            ]
+        },
+        "Email Hiring Team": {
+            "main": [
+                [
+                    {
+                        "node": "Log Application to Sheet",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}

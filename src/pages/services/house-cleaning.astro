@@ -1,0 +1,486 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import TrustBadges from "../../components/TrustBadges.astro";
+import Icon from "../../components/Icon.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title =
+    "Expert House Cleaning Services in Huntsville & Athens AL | Valley Clean Team";
+const description =
+    "Top-tier house cleaning services in Huntsville, Athens, Madison, AL and Nashville, TN. Thorough deep cleans and regular maintenance. Request a quote today!";
+
+const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "House Cleaning Services",
+    description:
+        "Comprehensive house cleaning services, ranging from standard housekeeping to deep spring cleans and move-in/move-out readiness.",
+    provider: {
+        "@type": "LocalBusiness",
+        name: "The Valley Clean Team",
+        telephone: "256-826-1100",
+        email: "hello@thevalleycleanteam.com",
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "Huntsville",
+            addressRegion: "AL",
+            addressCountry: "US",
+        },
+    },
+    areaServed: [
+        { "@type": "City", name: "Huntsville" },
+        { "@type": "City", name: "Athens" },
+        { "@type": "City", name: "Madison" },
+        { "@type": "State", name: "Alabama" },
+        { "@type": "State", name: "Tennessee" },
+    ],
+    serviceType: "House Cleaning",
+    offers: {
+        "@type": "Offer",
+        priceSpecification: {
+            "@type": "PriceSpecification",
+            price: "125",
+            priceCurrency: "USD",
+            minPrice: "125",
+        },
+        availability: "https://schema.org/InStock",
+    },
+};
+
+const faqs = [
+    {
+        question: "What is included in a standard house cleaning?",
+        answer: "A standard house cleaning includes dusting, vacuuming, sweeping, mopping, and comprehensive sanitization of your kitchen and bathrooms. We ensure your main living areas are tidy and comfortable.",
+    },
+    {
+        question: "Do I need to be home while you clean my house?",
+        answer: "You do not need to be home. Many of our clients provide us with a spare key, garage code, or lockbox access. We are fully bonded and insured, ensuring your home is secure throughout our visit.",
+    },
+    {
+        question: "How long does a thorough house cleaning take?",
+        answer: "Most standard homes take between 2 to 4 hours to clean completely. The exact time depends on your home's square footage and current condition. We always take the time needed to do it right.",
+    },
+    {
+        question: "Can I customize what is cleaned in my house?",
+        answer: "Absolutely! We can focus strictly on hard-to-clean areas, bypass unused guest rooms, or add specific tasks like cleaning the inside of your refrigerator. Just let us know your preferences.",
+    },
+    {
+        question:
+            "Do you offer eco-friendly or pet-safe house cleaning products?",
+        answer: "Yes, we exclusively use family-safe, pet-friendly products that effectively clean and sanitize without leaving behind harsh chemical smells or residue.",
+    },
+];
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+        },
+    })),
+};
+
+const cleaningTasks = [
+    {
+        section: "Bathrooms",
+        icon: "bath",
+        tasks: [
+            "Scrub showers and bathtubs",
+            "Sanitize toilets inside and out",
+            "Wipe down mirrors and vanity tops",
+            "Empty trash and replace liners",
+            "Mop bathroom floors",
+        ],
+    },
+    {
+        section: "Kitchens",
+        icon: "kitchen-set",
+        tasks: [
+            "Wipe down countertops and backsplashes",
+            "Scrub the kitchen sink",
+            "Clean exterior surfaces of all appliances",
+            "Clean exterior of cabinets",
+            "Sweep and mop the kitchen floor",
+        ],
+    },
+    {
+        section: "Bedrooms & Living Areas",
+        icon: "couch",
+        tasks: [
+            "Dust furniture, shelves, and decor",
+            "Vacuum all carpets and rugs",
+            "Sweep and mop hard flooring",
+            "Make beds (if requested)",
+            "General tidying and organization",
+        ],
+    },
+];
+
+const benefits = [
+    {
+        icon: "star",
+        title: "130+ 5-Star Reviews",
+        description:
+            "Our community trusts us to deliver exceptional house cleaning. We stand by our spotless reputation.",
+    },
+    {
+        icon: "home",
+        title: "Your Home, Your Rules",
+        description:
+            "Every home is unique, and so are your needs. We build customized cleaning plans specifically for your house.",
+    },
+    {
+        icon: "shield-alt",
+        title: "Licensed & Insured",
+        description:
+            "Have total peace of mind knowing the team cleaning your house is fully licensed, bonded, and insured.",
+    },
+];
+---
+
+<BaseLayout title={title} description={description}>
+    <SchemaMarkup type="organization" />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(serviceSchema)}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div
+                        class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+                    >
+                        <span class="text-[#FFA985] font-semibold">
+                            <Icon
+                                name="sparkles"
+                                class="w-5 h-5 mr-2"
+                            />Top-Rated House Cleaners
+                        </span>
+                    </div>
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+                    >
+                        Expert <span class="gold-gradient">House Cleaning</span> Services
+                    </h1>
+                    <p class="text-xl text-gray-700 mb-6">
+                        Get your weekends back. Our expert house cleaning
+                        services ensure your Huntsville or Athens home is
+                        perfectly clean, completely sanitized, and ready for you
+                        to relax in.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <a
+                            href="tel:2568261100"
+                            class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg"
+                        >
+                            <Icon name="phone" class="w-5 h-5 mr-2" />Call
+                            256-826-1100
+                        </a>
+                        <a
+                            href="/#hero-quote-form"
+                            class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center"
+                        >
+                            Request Your Free Quote
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+                >
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-[#333333] mb-2">
+                            Book Your House Cleaning
+                        </h3>
+                        <p class="text-gray-600">
+                            Get a fast, accurate quote today.
+                        </p>
+                    </div>
+                    <QuoteForm
+                        formId="house-cleaning-quote-form"
+                        serviceName="House Cleaning"
+                        source="Service Page - House Cleaning"
+                        subtitle="Secure your cleaning slot now"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="py-8 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <TrustBadges variant="full" showGuarantee={true} />
+        </div>
+    </section>
+
+    <!-- Image/Text Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                <div class="rounded-3xl overflow-hidden shadow-2xl">
+                    <img
+                        src="/images/services/Cleaningpic6-305.png"
+                        alt="Freshly cleaned kitchen and living area"
+                        loading="lazy"
+                        class="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                </div>
+                <div>
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]"
+                    >
+                        Customized For Your Home
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Every house is different, and we believe your cleaning
+                        plan should be too. We tailor our services to match
+                        exactly what your home needs.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Detailed attention to high-traffic areas and
+                                specific requests</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Flexible options from standard maintenance to
+                                deep spring cleaning</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Eco-friendly and pet-safe products used
+                                throughout your home</span
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div
+                    class="rounded-3xl overflow-hidden shadow-2xl order-1 md:order-2"
+                >
+                    <img
+                        src="/images/services/Cleaningpic4-306.png"
+                        alt="Spotless bathroom cleaning service"
+                        loading="lazy"
+                        class="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                </div>
+                <div class="order-2 md:order-1">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]"
+                    >
+                        Trust Is Our Foundation
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Inviting someone into your house is a big deal. We earn
+                        that trust with every visit through consistency,
+                        professionalism, and respect for your space.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >All house cleaners are rigorously vetted and
+                                background-checked</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >We are a fully licensed, bonded, and insured
+                                veteran-owned local business</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >100% Satisfaction Guarantee – If it's not
+                                right, we'll fix it immediately</span
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="py-20 px-6 content-visibility-auto">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    What's Included in our <span class="gold-gradient"
+                        >House Cleaning</span
+                    >?
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    We leave no stone unturned when making your house shine.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                {
+                    cleaningTasks.map((room) => (
+                        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                                <Icon
+                                    name={room.icon}
+                                    class="w-6 h-6 text-white"
+                                />
+                            </div>
+                            <h3 class="text-xl font-bold mb-4 text-[#333333]">
+                                {room.section}
+                            </h3>
+                            <ul class="space-y-2">
+                                {room.tasks.map((task) => (
+                                    <li class="flex items-start text-gray-600 text-sm">
+                                        <Icon
+                                            name="check"
+                                            class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+                                        />
+                                        <span>{task}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    Why Let Us <span class="gold-gradient"
+                        >Clean Your House</span
+                    >?
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                {
+                    benefits.map((benefit) => (
+                        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                                <Icon
+                                    name={benefit.icon}
+                                    class="w-8 h-8 text-white"
+                                />
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                                {benefit.title}
+                            </h3>
+                            <p class="text-gray-600">{benefit.description}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-6 content-visibility-auto">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    House Cleaning <span class="gold-gradient">FAQs</span>
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="space-y-4">
+                {
+                    faqs.map((faq) => (
+                        <div
+                            class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+                            onclick="this.classList.toggle('active')"
+                        >
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-[#333333] pr-4">
+                                    {faq.question}
+                                </h3>
+                                <Icon
+                                    name="chevron-down"
+                                    class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                                />
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-gray-600 mt-4">{faq.answer}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+                You Deserve a <span class="gold-gradient">Clean House</span>!
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Stop spending hours sweeping and mopping. Call us for top-rated
+                house cleaning.
+            </p>
+            <div
+                class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
+            >
+                <a
+                    href="tel:2568261100"
+                    class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+                >
+                    <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+                </a>
+                <a
+                    href="/#hero-quote-form"
+                    class="btn-secondary px-8 py-5 rounded-full text-xl font-semibold"
+                >
+                    Get Free Quote
+                </a>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

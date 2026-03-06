@@ -1,0 +1,487 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import TrustBadges from "../../components/TrustBadges.astro";
+import Icon from "../../components/Icon.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title =
+    "Professional Maid Service Huntsville & Athens AL | Valley Clean Team";
+const description =
+    "Top-rated professional maid services in Huntsville, Athens, Madison, AL and Nashville, TN. Reliable, veteran-owned, and fully insured. Book your maid today!";
+
+const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Professional Maid Service",
+    description:
+        "Professional maid services for homes and apartments. Trusted, consistent, and detailed house cleaning by vetted professionals.",
+    provider: {
+        "@type": "LocalBusiness",
+        name: "The Valley Clean Team",
+        telephone: "256-826-1100",
+        email: "hello@thevalleycleanteam.com",
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "Huntsville",
+            addressRegion: "AL",
+            addressCountry: "US",
+        },
+    },
+    areaServed: [
+        { "@type": "City", name: "Huntsville" },
+        { "@type": "City", name: "Athens" },
+        { "@type": "City", name: "Madison" },
+        { "@type": "State", name: "Alabama" },
+        { "@type": "State", name: "Tennessee" },
+    ],
+    serviceType: "Maid Service",
+    offers: {
+        "@type": "Offer",
+        priceSpecification: {
+            "@type": "PriceSpecification",
+            price: "125",
+            priceCurrency: "USD",
+            minPrice: "125",
+        },
+        availability: "https://schema.org/InStock",
+    },
+};
+
+const faqs = [
+    {
+        question: "Do you provide your own cleaning supplies?",
+        answer: "Yes, our maid service comes fully equipped with all necessary, high-quality cleaning supplies and equipment. If you prefer us to use specific products, just let us know!",
+    },
+    {
+        question: "How long does a typical maid service take?",
+        answer: "A standard maid service visit generally takes 2 to 4 hours, depending on the size and condition of your home. We prioritize quality over speed to ensure exceptional results.",
+    },
+    {
+        question: "Will I have the same maid every time?",
+        answer: "Whenever possible, we assign the same cleaning professionals to your home. This allows our maids to understand your specific preferences and provides you with consistent, reliable service.",
+    },
+    {
+        question: "Are your maids background-checked?",
+        answer: "Yes, every member of our team is fully vetted and background-checked. We are also fully bonded and insured for your complete peace of mind.",
+    },
+    {
+        question: "What is your satisfaction guarantee?",
+        answer: "We offer a 100% satisfaction guarantee. If you are not completely satisfied with our maid service, contact us within 24 hours, and we will return to re-clean the area at no additional charge.",
+    },
+];
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: faq.answer,
+        },
+    })),
+};
+
+const cleaningTasks = [
+    {
+        section: "Living Areas & Bedrooms",
+        icon: "couch",
+        tasks: [
+            "Dust and wipe all accessible surfaces",
+            "Vacuum carpets, rugs, and stairs",
+            "Sweep and mop hard floors",
+            "Empty trash bins",
+            "Make beds (upon request)",
+            "Dust ceiling fans and light fixtures",
+        ],
+    },
+    {
+        section: "Kitchen Sanitization",
+        icon: "kitchen-set",
+        tasks: [
+            "Clean exterior of appliances",
+            "Wipe down cabinets and countertops",
+            "Clean inside and outside of microwave",
+            "Scrub and sanitize sinks",
+            "Polish stainless steel surfaces",
+            "Sweep and mop kitchen floors",
+        ],
+    },
+    {
+        section: "Bathroom Detailed Clean",
+        icon: "bath",
+        tasks: [
+            "Scrub and sanitize toilets, showers, and tubs",
+            "Clean and polish mirrors and glass",
+            "Wipe down vanities and sinks",
+            "Disinfect all high-touch areas",
+            "Empty wastebaskets",
+            "Sweep and mop bathroom floors",
+        ],
+    },
+];
+
+const benefits = [
+    {
+        icon: "shield-check",
+        title: "Vetted Professionals",
+        description:
+            "Our maids go through rigorous background checks and training to ensure top-quality service.",
+    },
+    {
+        icon: "clock",
+        title: "Save Time",
+        description:
+            "Reclaim your weekends! Let our expert maids handle the chores while you focus on what matters.",
+    },
+    {
+        icon: "calendar-alt",
+        title: "Flexible Scheduling",
+        description:
+            "We work around your schedule, offering weekly, bi-weekly, or monthly maid service.",
+    },
+];
+---
+
+<BaseLayout title={title} description={description}>
+    <SchemaMarkup type="organization" />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(serviceSchema)}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-white to-gray-50">
+        <div class="container mx-auto">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div
+                        class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+                    >
+                        <span class="text-[#FFA985] font-semibold">
+                            <Icon name="star" class="w-5 h-5 mr-2" />5-Star
+                            Rated Maid Service
+                        </span>
+                    </div>
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+                    >
+                        Premium <span class="gold-gradient">Maid Service</span> You
+                        Can Trust
+                    </h1>
+                    <p class="text-xl text-gray-700 mb-6">
+                        Experience the luxury of a meticulously clean home. Our
+                        professional maid services in Huntsville, Athens, and
+                        surrounding areas offer unmatched reliability and
+                        quality to keep your home pristine.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <a
+                            href="tel:2568261100"
+                            class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg"
+                        >
+                            <Icon name="phone" class="w-5 h-5 mr-2" />Call
+                            256-826-1100
+                        </a>
+                        <a
+                            href="/#hero-quote-form"
+                            class="btn-secondary px-8 py-4 rounded-full text-lg font-semibold text-center"
+                        >
+                            Request Your Free Quote
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
+                >
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-[#333333] mb-2">
+                            Hire Your Maid Today
+                        </h3>
+                        <p class="text-gray-600">
+                            Fast, easy, and secure online bookings.
+                        </p>
+                    </div>
+                    <QuoteForm
+                        formId="maid-service-quote-form"
+                        serviceName="Maid Service"
+                        source="Service Page - Maid Service"
+                        subtitle="Get started with top-tier maid services"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="py-8 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <TrustBadges variant="full" showGuarantee={true} />
+        </div>
+    </section>
+
+    <!-- Image/Text Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                <div class="rounded-3xl overflow-hidden shadow-2xl">
+                    <img
+                        src="/images/services/Cleaningpic16-310.png"
+                        alt="Professional Maid Cleaning a Kitchen"
+                        loading="lazy"
+                        class="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                </div>
+                <div>
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]"
+                    >
+                        Detailed Cleaning For Every Room
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Our professional maids don't just skim the surface. We
+                        provide thorough, deep cleaning designed to tackle the
+                        dust and grime that regular routines miss.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Detailed dusting of all surfaces including
+                                baseboards and ceiling fans</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Thorough sanitization of high-touch areas like
+                                doorknobs and light switches</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Immaculate floors with premium vacuuming and
+                                mopping</span
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div
+                    class="rounded-3xl overflow-hidden shadow-2xl order-1 md:order-2"
+                >
+                    <img
+                        src="/images/services/Cleaningpic17-302.png"
+                        alt="Happy Maid Service Customer Living Room"
+                        loading="lazy"
+                        class="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                </div>
+                <div class="order-2 md:order-1">
+                    <h2
+                        class="text-3xl md:text-4xl font-bold mb-6 text-[#333333]"
+                    >
+                        Relax and Enjoy Your Free Time
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Imagine coming home to a perfectly clean house without
+                        having to lift a finger. Our reliable maid service
+                        caters to your lifestyle.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Weekly, bi-weekly, or monthly scheduling
+                                options</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Consistent quality backed by our 24-hour
+                                satisfaction guarantee</span
+                            >
+                        </li>
+                        <li class="flex items-start">
+                            <Icon
+                                name="check-circle"
+                                class="w-6 h-6 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                            />
+                            <span class="text-gray-700"
+                                >Fully insured and bonded cleaning professionals</span
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="py-20 px-6 content-visibility-auto">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    What's Included in our <span class="gold-gradient"
+                        >Maid Service</span
+                    >?
+                </h2>
+                <div class="section-divider"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    We go above and beyond the standard sweep and mop. Here is
+                    what you can expect from our maids.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                {
+                    cleaningTasks.map((room) => (
+                        <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                                <Icon
+                                    name={room.icon}
+                                    class="w-6 h-6 text-white"
+                                />
+                            </div>
+                            <h3 class="text-xl font-bold mb-4 text-[#333333]">
+                                {room.section}
+                            </h3>
+                            <ul class="space-y-2">
+                                {room.tasks.map((task) => (
+                                    <li class="flex items-start text-gray-600 text-sm">
+                                        <Icon
+                                            name="check"
+                                            class="w-5 h-5 text-[#FFA985] mr-2 mt-1 flex-shrink-0"
+                                        />
+                                        <span>{task}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    Why Hire Our <span class="gold-gradient">Maids</span>?
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                {
+                    benefits.map((benefit) => (
+                        <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                                <Icon
+                                    name={benefit.icon}
+                                    class="w-8 h-8 text-white"
+                                />
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 text-[#333333]">
+                                {benefit.title}
+                            </h3>
+                            <p class="text-gray-600">{benefit.description}</p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 px-6 content-visibility-auto">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+                    Maid Service <span class="gold-gradient">FAQs</span>
+                </h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="space-y-4">
+                {
+                    faqs.map((faq) => (
+                        <div
+                            class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+                            onclick="this.classList.toggle('active')"
+                        >
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-[#333333] pr-4">
+                                    {faq.question}
+                                </h3>
+                                <Icon
+                                    name="chevron-down"
+                                    class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                                />
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-gray-600 mt-4">{faq.answer}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+        <div class="container mx-auto max-w-4xl text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+                Ready to Hire a <span class="gold-gradient"
+                    >Professional Maid</span
+                >?
+            </h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Get an instant quote and let us take the stress of cleaning off
+                your shoulders.
+            </p>
+            <div
+                class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
+            >
+                <a
+                    href="tel:2568261100"
+                    class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+                >
+                    <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+                </a>
+                <a
+                    href="/#hero-quote-form"
+                    class="btn-secondary px-8 py-5 rounded-full text-xl font-semibold"
+                >
+                    Get Free Quote
+                </a>
+            </div>
+        </div>
+    </section>
+</BaseLayout>

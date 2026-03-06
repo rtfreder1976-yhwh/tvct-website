@@ -13,6 +13,10 @@ export const POST: APIRoute = async ({ request }) => {
         // Newsletter subscription only requires email
         if (data.source === 'Blog Newsletter Subscription') {
             if (!data.email) errors.email = "Email is required";
+        } else if (data.source === 'Career Application') {
+            if (!data.name) errors.name = "Name is required";
+            if (!data.phone) errors.phone = "Phone is required";
+            if (!data.email) errors.email = "Email is required";
         } else {
             // Quote form validation
             if (!data.name) errors.name = "Name is required";
@@ -28,15 +32,20 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
-        // 2. Data Processing - Send to n8n Webhook
-        const N8N_WEBHOOK_URL = "https://singingriver.app.n8n.cloud/webhook-test/a3c2f1c9-c7a5-4436-825a-be12a8c1c0da";
+        // 2. Data Processing - Send to Webhook
+        // Default to the new Quotes Google Apps Script
+        let webhookUrl = "https://script.google.com/macros/s/AKfycbwIvT4qvpRQpFv9-simgXnQG_Xf1xF8UhTWZWe0XiCovym9kt6ic7o36EYlw0Zzmhr6/exec";
+
+        if (data.source === 'Career Application') {
+            webhookUrl = "https://script.google.com/macros/s/AKfycbyaMXdHzOVzvyRhS7ZJznT9BjKLZI1AglignqQbCr5Bd3ZRigUvOJP9mLDeFfpND442/exec";
+        }
 
         try {
-            const webhookResponse = await fetch(N8N_WEBHOOK_URL, {
+            const webhookResponse = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // Payload for n8n
+                    // Payload
                     name: data.name,
                     phone: data.phone,
                     email: data.email || "",
@@ -53,15 +62,15 @@ export const POST: APIRoute = async ({ request }) => {
             });
 
             if (!webhookResponse.ok) {
-                console.error(`n8n Webhook Failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
+                console.error(`Webhook Failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
                 // We typically still return success to the user so they don't think it failed, 
                 // but we log the error critical for debugging.
             }
         } catch (webhookError) {
-            console.error("Critical Error sending to n8n:", webhookError);
+            console.error("Critical Error sending to webhook:", webhookError);
         }
 
-        console.log("✅ Lead sent to n8n:", data.email);
+        console.log(`✅ Lead sent to ${data.source === 'Career Application' ? 'Google Apps Script' : 'n8n'}:`, data.email);
 
         // 3. Return Success
         return new Response(JSON.stringify({
