@@ -1,0 +1,492 @@
+---
+export const prerender = false;
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+// ---------------------------------------------------------------------------
+// Admin authentication — checks for a secret cookie or ?key= query param.
+// Set ADMIN_SECRET in your Vercel environment variables.
+// To log in: visit /admin/dashboard?key=YOUR_SECRET (sets a session cookie).
+// ---------------------------------------------------------------------------
+const ADMIN_SECRET = import.meta.env.ADMIN_SECRET;
+
+function isAuthorized(): boolean {
+    if (!ADMIN_SECRET) return false; // Deny all if not configured
+
+    // Check query param (used for initial login link)
+    const queryKey = Astro.url.searchParams.get('key');
+    if (queryKey && queryKey === ADMIN_SECRET) return true;
+
+    // Check session cookie (set on first auth)
+    const cookie = Astro.request.headers.get('cookie') ?? '';
+    const adminCookie = cookie
+        .split(';')
+        .map(c => c.trim())
+        .find(c => c.startsWith('admin_session='));
+    return adminCookie?.split('=')[1] === ADMIN_SECRET;
+}
+
+if (!isAuthorized()) {
+    return new Response('Unauthorized — visit /admin/dashboard?key=YOUR_ADMIN_SECRET to log in.', {
+        status: 401,
+        headers: { 'Content-Type': 'text/plain' },
+    });
+}
+
+// Set session cookie on first auth so the dashboard stays accessible (8-hour expiry)
+const keyFromQuery = Astro.url.searchParams.get('key');
+if (keyFromQuery) {
+    Astro.response.headers.set(
+        'Set-Cookie',
+        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/admin; Max-Age=28800`
+    );
+}
+
+// In production, load from API or JSON file
+// For now, using inline sample data
+const dashboardData = {
+  generated_at: new Date().toISOString(),
+  period: "Last 30 Days",
+
+  // Ranking data
+  rankings: [
+    { keyword: "cleaning service huntsville al", position: 4, previous: 6, change: 2, market: "huntsville", volume: 720 },
+    { keyword: "house cleaning huntsville", position: 7, previous: 8, change: 1, market: "huntsville", volume: 480 },
+    { keyword: "maid service huntsville al", position: 12, previous: 15, change: 3, market: "huntsville", volume: 260 },
+    { keyword: "cleaning service athens al", position: 2, previous: 3, change: 1, market: "athens", volume: 170 },
+    { keyword: "house cleaning athens alabama", position: 3, previous: 5, change: 2, market: "athens", volume: 140 },
+    { keyword: "cleaning service florence al", position: 5, previous: 4, change: -1, market: "florence", volume: 210 },
+    { keyword: "house cleaning muscle shoals", position: 6, previous: 6, change: 0, market: "florence", volume: 110 },
+    { keyword: "cleaning service mountain brook", position: 8, previous: 12, change: 4, market: "birmingham", volume: 90 },
+    { keyword: "cleaning service nashville tn", position: 28, previous: 35, change: 7, market: "nashville", volume: 1900 },
+    { keyword: "deep cleaning huntsville", position: 3, previous: 4, change: 1, market: "huntsville", volume: 320 },
+    { keyword: "move out cleaning huntsville", position: 2, previous: 2, change: 0, market: "huntsville", volume: 210 },
+    { keyword: "commercial cleaning huntsville", position: 9, previous: 11, change: 2, market: "huntsville", volume: 170 },
+  ],
+
+  rankingSummary: {
+    total: 12,
+    avgPosition: 7.4,
+    top3: 4,
+    top10: 10,
+    improved: 9,
+    declined: 1,
+  },
+
+  // Traffic data
+  traffic: {
+    current: { sessions: 1020, users: 867, organic: 663, bounceRate: 42.3 },
+    previous: { sessions: 910, users: 773, organic: 592, bounceRate: 44.1 },
+    change: { sessions: 12.1, users: 12.2, organic: 12.0 },
+  },
+
+  trafficTrend: [
+    { week: "Jan 27", sessions: 850, organic: 553 },
+    { week: "Feb 3", sessions: 890, organic: 579 },
+    { week: "Feb 10", sessions: 950, organic: 618 },
+    { week: "Feb 17", sessions: 1020, organic: 663 },
+  ],
+
+  // Lead data
+  leads: {
+    current: { total: 26, quoteForms: 16, phoneCalls: 8, chat: 2 },
+    previous: { total: 22, quoteForms: 14, phoneCalls: 6, chat: 2 },
+    change: 18.2,
+    byMarket: { huntsville: 12, athens: 5, florence: 4, birmingham: 3, nashville: 2 },
+  },
+
+  leadsTrend: [
+    { week: "Jan 27", total: 18, converted: 6 },
+    { week: "Feb 3", total: 20, converted: 7 },
+    { week: "Feb 10", total: 24, converted: 8 },
+    { week: "Feb 17", total: 26, converted: 9 },
+  ],
+
+  // Conversion data
+  conversions: {
+    leadToQuote: 72.5,
+    quoteToBooked: 45.2,
+    overall: 32.8,
+    avgDealValue: 185,
+    monthlyRevenue: 12850,
+  },
+
+  // Competitors
+  competitors: [
+    { name: "Molly Maid Huntsville", avgPosition: 5.2, keywords: 45, reviews: 89, rating: 4.6, trend: "stable" },
+    { name: "Merry Maids Birmingham", avgPosition: 6.8, keywords: 38, reviews: 124, rating: 4.4, trend: "down" },
+    { name: "Clean Sweep AL", avgPosition: 8.5, keywords: 22, reviews: 45, rating: 4.8, trend: "up" },
+  ],
+
+  // Alerts
+  alerts: [
+    { type: "success", message: "Moved to #2 for 'cleaning service athens al'", date: "Today" },
+    { type: "success", message: "Organic traffic up 12% WoW", date: "Today" },
+    { type: "warning", message: "Dropped 1 position for 'cleaning service florence al'", date: "2 days ago" },
+    { type: "info", message: "Competitor added new Madison page", date: "3 days ago" },
+  ],
+};
+
+const marketColors: Record<string, string> = {
+  huntsville: "bg-blue-100 text-blue-800",
+  athens: "bg-green-100 text-green-800",
+  florence: "bg-purple-100 text-purple-800",
+  birmingham: "bg-orange-100 text-orange-800",
+  nashville: "bg-pink-100 text-pink-800",
+};
+---
+
+<BaseLayout
+  title="SEO Dashboard | Admin"
+  description="Internal SEO and business metrics dashboard"
+  noindex={true}
+  showNav={false}
+  showFooter={false}
+>
+  <div class="min-h-screen bg-gray-100">
+    <!-- Header -->
+    <header class="bg-[#333] text-white px-6 py-4">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold">The Valley Clean Team</h1>
+          <p class="text-gray-400 text-sm">SEO & Business Dashboard</p>
+        </div>
+        <div class="text-right text-sm">
+          <p class="text-gray-400">Last updated</p>
+          <p>{new Date().toLocaleDateString()}</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+      <!-- Alerts -->
+      {dashboardData.alerts.length > 0 && (
+        <div class="mb-8 space-y-2">
+          {dashboardData.alerts.map((alert) => (
+            <div class={`p-3 rounded-lg flex items-center gap-3 ${
+              alert.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' :
+              alert.type === 'warning' ? 'bg-yellow-50 text-yellow-800 border border-yellow-200' :
+              'bg-blue-50 text-blue-800 border border-blue-200'
+            }`}>
+              <span class="text-lg">
+                {alert.type === 'success' ? '↑' : alert.type === 'warning' ? '↓' : 'ℹ'}
+              </span>
+              <span class="flex-1">{alert.message}</span>
+              <span class="text-sm opacity-70">{alert.date}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <p class="text-gray-500 text-sm">Avg Position</p>
+          <p class="text-3xl font-bold text-[#333]">{dashboardData.rankingSummary.avgPosition}</p>
+          <p class="text-green-600 text-sm">Top 10: {dashboardData.rankingSummary.top10}</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <p class="text-gray-500 text-sm">Weekly Sessions</p>
+          <p class="text-3xl font-bold text-[#333]">{dashboardData.traffic.current.sessions.toLocaleString()}</p>
+          <p class="text-green-600 text-sm">+{dashboardData.traffic.change.sessions}%</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <p class="text-gray-500 text-sm">Organic Traffic</p>
+          <p class="text-3xl font-bold text-[#333]">{dashboardData.traffic.current.organic.toLocaleString()}</p>
+          <p class="text-green-600 text-sm">+{dashboardData.traffic.change.organic}%</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <p class="text-gray-500 text-sm">Weekly Leads</p>
+          <p class="text-3xl font-bold text-[#333]">{dashboardData.leads.current.total}</p>
+          <p class="text-green-600 text-sm">+{dashboardData.leads.change}%</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <p class="text-gray-500 text-sm">Conversion Rate</p>
+          <p class="text-3xl font-bold text-[#333]">{dashboardData.conversions.overall}%</p>
+          <p class="text-gray-500 text-sm">Lead → Booked</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-sm">
+          <p class="text-gray-500 text-sm">Monthly Revenue</p>
+          <p class="text-3xl font-bold text-[#333]">${dashboardData.conversions.monthlyRevenue.toLocaleString()}</p>
+          <p class="text-gray-500 text-sm">Avg: ${dashboardData.conversions.avgDealValue}</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- Keyword Rankings -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+            <h2 class="text-lg font-bold text-[#333]">Keyword Rankings</h2>
+            <div class="flex gap-2 text-sm">
+              <span class="text-green-600">↑{dashboardData.rankingSummary.improved}</span>
+              <span class="text-red-600">↓{dashboardData.rankingSummary.declined}</span>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-4 py-2 text-left text-gray-600">Keyword</th>
+                  <th class="px-4 py-2 text-center text-gray-600">Pos</th>
+                  <th class="px-4 py-2 text-center text-gray-600">Change</th>
+                  <th class="px-4 py-2 text-center text-gray-600">Vol</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dashboardData.rankings.map((kw) => (
+                  <tr class="border-b border-gray-50 hover:bg-gray-50">
+                    <td class="px-4 py-3">
+                      <span class="block">{kw.keyword}</span>
+                      <span class={`text-xs px-2 py-0.5 rounded ${marketColors[kw.market]}`}>
+                        {kw.market}
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                      <span class={`font-bold ${kw.position <= 3 ? 'text-green-600' : kw.position <= 10 ? 'text-blue-600' : 'text-gray-600'}`}>
+                        {kw.position}
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                      {kw.change > 0 ? (
+                        <span class="text-green-600 font-medium">↑{kw.change}</span>
+                      ) : kw.change < 0 ? (
+                        <span class="text-red-600 font-medium">↓{Math.abs(kw.change)}</span>
+                      ) : (
+                        <span class="text-gray-400">-</span>
+                      )}
+                    </td>
+                    <td class="px-4 py-3 text-center text-gray-500">{kw.volume}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Traffic & Leads Chart -->
+        <div class="space-y-8">
+          <!-- Traffic Trend -->
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-lg font-bold text-[#333] mb-4">Traffic Trend</h2>
+            <div class="h-48 flex items-end gap-2">
+              {dashboardData.trafficTrend.map((week) => (
+                <div class="flex-1 flex flex-col items-center">
+                  <div class="w-full flex flex-col gap-1">
+                    <div
+                      class="bg-[#FFA985] rounded-t"
+                      style={`height: ${(week.sessions / 1200) * 150}px`}
+                      title={`Sessions: ${week.sessions}`}
+                    />
+                    <div
+                      class="bg-blue-400 rounded-b"
+                      style={`height: ${(week.organic / 1200) * 150}px`}
+                      title={`Organic: ${week.organic}`}
+                    />
+                  </div>
+                  <span class="text-xs text-gray-500 mt-2">{week.week}</span>
+                </div>
+              ))}
+            </div>
+            <div class="flex gap-4 mt-4 text-sm">
+              <span class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-[#FFA985] rounded"></span> Sessions
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-blue-400 rounded"></span> Organic
+              </span>
+            </div>
+          </div>
+
+          <!-- Leads by Source -->
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h2 class="text-lg font-bold text-[#333] mb-4">Leads by Source</h2>
+            <div class="space-y-3">
+              <div class="flex items-center">
+                <span class="w-24 text-sm text-gray-600">Quote Forms</span>
+                <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-[#FFA985]"
+                    style={`width: ${(dashboardData.leads.current.quoteForms / dashboardData.leads.current.total) * 100}%`}
+                  />
+                </div>
+                <span class="w-12 text-right text-sm font-medium">{dashboardData.leads.current.quoteForms}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="w-24 text-sm text-gray-600">Phone Calls</span>
+                <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-blue-400"
+                    style={`width: ${(dashboardData.leads.current.phoneCalls / dashboardData.leads.current.total) * 100}%`}
+                  />
+                </div>
+                <span class="w-12 text-right text-sm font-medium">{dashboardData.leads.current.phoneCalls}</span>
+              </div>
+              <div class="flex items-center">
+                <span class="w-24 text-sm text-gray-600">Chat</span>
+                <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-green-400"
+                    style={`width: ${(dashboardData.leads.current.chat / dashboardData.leads.current.total) * 100}%`}
+                  />
+                </div>
+                <span class="w-12 text-right text-sm font-medium">{dashboardData.leads.current.chat}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8 mb-8">
+        <!-- Leads by Market -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-bold text-[#333] mb-4">Leads by Market</h2>
+          <div class="space-y-3">
+            {Object.entries(dashboardData.leads.byMarket).sort((a, b) => b[1] - a[1]).map(([market, count]) => (
+              <div class="flex items-center">
+                <span class={`w-28 text-sm px-2 py-1 rounded ${marketColors[market]}`}>
+                  {market.charAt(0).toUpperCase() + market.slice(1)}
+                </span>
+                <div class="flex-1 mx-4 h-6 bg-gray-100 rounded-full overflow-hidden">
+                  <div
+                    class="h-full bg-[#FFA985]"
+                    style={`width: ${(count / 12) * 100}%`}
+                  />
+                </div>
+                <span class="w-8 text-right text-sm font-medium">{count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Conversion Funnel -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-bold text-[#333] mb-4">Conversion Funnel</h2>
+          <div class="space-y-4">
+            <div class="relative">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm text-gray-600">Leads → Quotes Sent</span>
+                <span class="text-sm font-bold">{dashboardData.conversions.leadToQuote}%</span>
+              </div>
+              <div class="h-4 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-400" style={`width: ${dashboardData.conversions.leadToQuote}%`} />
+              </div>
+            </div>
+            <div class="relative">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm text-gray-600">Quotes → Booked</span>
+                <span class="text-sm font-bold">{dashboardData.conversions.quoteToBooked}%</span>
+              </div>
+              <div class="h-4 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-green-400" style={`width: ${dashboardData.conversions.quoteToBooked}%`} />
+              </div>
+            </div>
+            <div class="relative">
+              <div class="flex justify-between mb-1">
+                <span class="text-sm text-gray-600">Overall (Lead → Booked)</span>
+                <span class="text-sm font-bold text-[#FFA985]">{dashboardData.conversions.overall}%</span>
+              </div>
+              <div class="h-4 bg-gray-100 rounded-full overflow-hidden">
+                <div class="h-full bg-[#FFA985]" style={`width: ${dashboardData.conversions.overall}%`} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competitor Tracking -->
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
+        <div class="px-6 py-4 border-b border-gray-100">
+          <h2 class="text-lg font-bold text-[#333]">Competitor Tracking</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-gray-600">Competitor</th>
+                <th class="px-4 py-3 text-center text-gray-600">Avg Position</th>
+                <th class="px-4 py-3 text-center text-gray-600">Keywords</th>
+                <th class="px-4 py-3 text-center text-gray-600">Reviews</th>
+                <th class="px-4 py-3 text-center text-gray-600">Rating</th>
+                <th class="px-4 py-3 text-center text-gray-600">Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-50 bg-[#FFA985]/5">
+                <td class="px-4 py-3 font-bold text-[#333]">The Valley Clean Team (You)</td>
+                <td class="px-4 py-3 text-center font-bold">{dashboardData.rankingSummary.avgPosition}</td>
+                <td class="px-4 py-3 text-center">{dashboardData.rankingSummary.total}</td>
+                <td class="px-4 py-3 text-center">130+</td>
+                <td class="px-4 py-3 text-center">5.0</td>
+                <td class="px-4 py-3 text-center text-green-600">↑</td>
+              </tr>
+              {dashboardData.competitors.map((comp) => (
+                <tr class="border-b border-gray-50 hover:bg-gray-50">
+                  <td class="px-4 py-3">{comp.name}</td>
+                  <td class="px-4 py-3 text-center">{comp.avgPosition}</td>
+                  <td class="px-4 py-3 text-center">{comp.keywords}</td>
+                  <td class="px-4 py-3 text-center">{comp.reviews}</td>
+                  <td class="px-4 py-3 text-center">{comp.rating}</td>
+                  <td class="px-4 py-3 text-center">
+                    {comp.trend === 'up' ? (
+                      <span class="text-red-600">↑</span>
+                    ) : comp.trend === 'down' ? (
+                      <span class="text-green-600">↓</span>
+                    ) : (
+                      <span class="text-gray-400">-</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-bold text-[#333] mb-4">Quick Actions</h2>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="https://search.google.com/search-console"
+            target="_blank"
+            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition"
+          >
+            Google Search Console →
+          </a>
+          <a
+            href="https://analytics.google.com"
+            target="_blank"
+            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition"
+          >
+            Google Analytics →
+          </a>
+          <a
+            href="https://business.google.com"
+            target="_blank"
+            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition"
+          >
+            Google Business Profile →
+          </a>
+          <a
+            href="/admin/citations"
+            class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm transition"
+          >
+            Citation Monitor →
+          </a>
+          <a
+            href="https://app.gohighlevel.com"
+            target="_blank"
+            class="px-4 py-2 bg-[#FFA985] hover:bg-[#ff9166] text-white rounded-lg text-sm transition"
+          >
+            GoHighLevel CRM →
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-center text-gray-500 text-sm py-8">
+      <p>Internal Dashboard - Not for public access</p>
+      <p class="mt-1">Data refreshes weekly or on-demand via automation scripts</p>
+    </footer>
+  </div>
+</BaseLayout>
