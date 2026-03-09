@@ -22,12 +22,8 @@
                 localStorage.setItem(STORAGE_KEY, variant);
             }
 
-            // 4. Apply to Body immediately to prevent flash
+            // 4. Apply to HTML immediately to prevent flash
             document.documentElement.classList.add("variant-" + variant);
-            // Also add to body when ready (just in case style targeting uses body)
-            document.addEventListener("DOMContentLoaded", () => {
-                document.body.classList.add("variant-" + variant);
-            });
 
             // 5. Track
             window.dataLayer = window.dataLayer || [];
