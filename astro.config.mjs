@@ -15,6 +15,14 @@ export default defineConfig({
     partytown({
       config: {
         forward: ['dataLayer.push', 'fbq', 'clarity'],
+        resolveUrl: (url) => {
+          if (url.hostname === 'connect.facebook.net') {
+            const proxyUrl = new URL('https://cdn.builder.io/api/v1/proxy-api');
+            proxyUrl.searchParams.append('url', url.href);
+            return proxyUrl;
+          }
+          return url;
+        },
       },
     }),
     sitemap({
