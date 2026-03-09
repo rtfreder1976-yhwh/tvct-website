@@ -92,9 +92,7 @@ const metaDescription =
     </script>
 
     <!-- Microsoft Clarity -->
-    <!-- Note: `defer` is ignored on inline scripts (no src). Clarity already
-         loads its library async, so this is effectively non-blocking. -->
-    <script type="text/javascript">
+    <script type="text/partytown">
       (function (c, l, a, r, i, t, y) {
         c[a] =
           c[a] ||
@@ -110,15 +108,12 @@ const metaDescription =
     </script>
 
     <!-- Meta Pixel Code -->
-    <script is:inline>
-      //@ts-ignore
+    <script type="text/partytown">
       !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
-          //@ts-ignore
           n.callMethod
-            ? //@ts-ignore
-              n.callMethod.apply(n, arguments)
+            ? n.callMethod.apply(n, arguments)
             : n.queue.push(arguments);
         };
         if (!f._fbq) f._fbq = n;
@@ -137,9 +132,7 @@ const metaDescription =
         "script",
         "https://connect.facebook.net/en_US/fbevents.js",
       );
-      //@ts-ignore
       fbq("init", "1628116715040596");
-      //@ts-ignore
       fbq("track", "PageView");
     </script>
     <noscript
@@ -313,6 +306,9 @@ const metaDescription =
       }
 
       /* Hero section critical styles */
+      .pt-24 {
+        padding-top: 6rem;
+      }
       .pt-32 {
         padding-top: 8rem;
       }
