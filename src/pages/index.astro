@@ -86,8 +86,8 @@ const faqs = [
         src="/images/hero-1280w.avif"
         alt="Professional cleaning team providing luxury home cleaning services"
         class="w-full h-full object-cover opacity-75"
-        loading="eager"
-        fetchpriority="high"
+        loading="lazy"
+        fetchpriority="low"
         decoding="async"
         width="1280"
         height="720"
@@ -104,16 +104,19 @@ const faqs = [
         <div class="text-center lg:text-left">
           <!-- Hero Image - Mobile visible, desktop accent (LCP element on mobile) -->
           <div class="mb-6 lg:hidden">
-            <img
-              src="/images/hero-400w.avif"
-              alt="The Valley Clean Team - Professional home cleaning"
-              class="w-full max-w-md mx-auto rounded-2xl shadow-xl"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-              width="400"
-              height="267"
-            />
+            <picture>
+              <source media="(max-width: 1023px)" srcset="/images/hero-400w.avif" />
+              <img
+                src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                alt="The Valley Clean Team - Professional home cleaning"
+                class="w-full max-w-md mx-auto rounded-2xl shadow-xl"
+                loading="eager"
+                fetchpriority="high"
+                decoding="sync"
+                width="400"
+                height="267"
+              />
+            </picture>
           </div>
           <!-- Mobile CTA Button - Above the fold -->
           <div class="lg:hidden mb-6">
