@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import Icon from "../../components/Icon.astro";
+
+// Make this page dynamic via SSR
+export const prerender = false;
+
+const publishDate = new Date("November 23 2026");
+const author = "The Valley Clean Team";
+const readTime = "5 min read";
+
+const isPublished = new Date().getTime() >= publishDate.getTime();
+
+// FAQ Schema data for AEO optimization
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: []
+};
+---
+
+<BaseLayout
+  title="Black Friday Special: The Gift of a Clean Home | The Valley Clean Team"
+  description={isPublished ? "Full Article: Black Friday Special: The Gift of a Clean Home" : "Coming Soon: Black Friday Special: The Gift of a Clean Home"}
+  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+>
+  <SchemaMarkup
+    type="article"
+    title="Black Friday Special: The Gift of a Clean Home"
+    description={isPublished ? "Read our full guide to Black Friday Special: The Gift of a Clean Home" : "Coming Soon: Black Friday Special: The Gift of a Clean Home"}
+    publishDate="November 23 2026"
+    author={author}
+  />
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero Section -->
+  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
+          Promo/Conversion
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          Black Friday Special: The Gift of a Clean Home
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          {isPublished ? "Expert Cleaning Guide" : "Coming November 23 2026."}
+        </p>
+        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
+          <span>November 23 2026</span>
+          <span>•</span>
+          <span>{readTime}</span>
+          <span>•</span>
+          <span>By {author}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Toggle based on Published Date -->
+  {isPublished ? (
+    <article class="py-16 bg-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="prose prose-lg max-w-none">
+          <!-- TODO: REPLACE THIS SECTION WITH YOUR ACTUAL BLOG CONTENT -->
+          <h2>Why Choose a Black Friday Cleaning Special in The Shoals?</h2>
+<p><strong>Unlock the ultimate gift of time and serenity with The Valley Clean Team's Black Friday Special. Secure a pristine, stress-free home in The Shoals & Surrounding Areas with our expertly tailored cleaning services, starting at an unbeatable price.</strong></p>
+<p>This Black Friday, we offer more than just a clean home—we deliver the gift of time and tranquility. With our exclusive offer, you can enjoy a spotless space and reclaim your weekends, all while experiencing the precision and reliability that only a veteran-owned service can provide.</p>
+
+<h3>The Advantage of a Professional Clean</h3>
+<p>Imagine coming home to a sanctuary where every surface gleams, and every room feels fresh. Our trained cleaning specialists employ systematic approaches to restore and maintain your home’s pristine condition.</p>
+<ul>
+  <li><strong>Precision:</strong> We follow military-grade checklists to ensure every detail is addressed.</li>
+  <li><strong>Standard Operating Procedures (SOPs):</strong> Every task is executed with accountability and integrity.</li>
+  <li><strong>Guaranteed Satisfaction:</strong> We stand by our promise for a perfect clean, every time.</li>
+</ul>
+<p>Investing in a professional clean means more than just tidiness. It’s about enhancing your living space, improving your quality of life, and ensuring a healthy environment for you and your loved ones.</p>
+
+<h3>What Makes Our Black Friday Special Unique?</h3>
+<p>The Valley Clean Team is committed to offering a transparent and straightforward service that sets us apart. Here’s exactly what you can expect:</p>
+<ul>
+  <li><strong>Exclusive Pricing:</strong> Take advantage of our Black Friday rates starting at just $125.</li>
+  <li><strong>Tailored Services:</strong> Each cleaning package is customized to meet your specific needs and preferences.</li>
+  <li><strong>Community Focused:</strong> As a local business, we are dedicated to serving The Shoals & Surrounding Areas with respect and accountability.</li>
+</ul>
+<p>This offer is designed to give you the ultimate peace of mind and a home you'll be proud to show off over the holidays.</p>
+
+<h3>How to Secure Your Black Friday Cleaning Deal</h3>
+<p>The process is simple and transparent—here’s how it works:</p>
+<ul>
+  <li><strong>Step 1:</strong> Visit our website and select the ‘Black Friday Special’ option.</li>
+  <li><strong>Step 2:</strong> Choose your preferred cleaning package and schedule.</li>
+  <li><strong>Step 3:</strong> Book your service and enjoy the peace of mind that comes with a guaranteed clean.</li>
+</ul>
+<p>Our straightforward booking process ensures that you’re never left guessing about costs or services. We pride ourselves on clear communication and upfront pricing.</p>
+
+<h3>Why The Valley Clean Team?</h3>
+<p>We are not just another cleaning service. As a veteran and women-owned business, we bring a level of discipline and dedication that is unmatched. Our team is meticulously trained, vetted, and committed to delivering results that exceed expectations.</p>
+<p>Choosing The Valley Clean Team means choosing a partner in maintaining the highest standards for your home. Our local roots in The Shoals & Surrounding Areas reinforce our dedication to community-focused service and support.</p>
+
+<h3>Reclaim Your Time—Book Your Guaranteed Clean Today</h3>
+<p>This Black Friday, give yourself the gift of a spotless home and the freedom to enjoy it. Our exclusive offer won't last long, so act now. <strong>Book online today and secure your tailored cleaning service with The Valley Clean Team.</strong></p>
+<p>Elevate your living space with precision and care that only our veteran-owned team can provide. Experience the difference and enjoy a home that meets the highest standards of cleanliness and comfort.</p>
+        </div>
+      </div>
+    </article>
+  ) : (
+    <article class="py-16 bg-white border-t border-gray-100 shadow-inner">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gray-50 rounded-2xl">
+        <div class="prose prose-lg max-w-none text-center">
+          <Icon name="clock" class="w-16 h-16 text-[#FFA985] mx-auto mb-6" />
+          <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-0">Article Coming Soon!</h2>
+          <p class="text-gray-600 m-0">This article is locked and scheduled to automatically publish on <br/><strong class="text-gray-800 text-xl">November 23 2026</strong>.<br/>Check back then!</p>
+          <div class="mt-12">
+            <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-md no-underline">
+              Back to Blog
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  )}
+</BaseLayout>

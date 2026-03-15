@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import Icon from "../../components/Icon.astro";
+
+// Make this page dynamic via SSR
+export const prerender = false;
+
+const publishDate = new Date("March 23 2026");
+const author = "The Valley Clean Team";
+const readTime = "5 min read";
+
+const isPublished = new Date().getTime() >= publishDate.getTime();
+
+// FAQ Schema data for AEO optimization
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: []
+};
+---
+
+<BaseLayout
+  title="How to Prepare Your Nashville Home for Allergy Season | The Valley Clean Team"
+  description={isPublished ? "Full Article: How to Prepare Your Nashville Home for Allergy Season" : "Coming Soon: How to Prepare Your Nashville Home for Allergy Season"}
+  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+>
+  <SchemaMarkup
+    type="article"
+    title="How to Prepare Your Nashville Home for Allergy Season"
+    description={isPublished ? "Read our full guide to How to Prepare Your Nashville Home for Allergy Season" : "Coming Soon: How to Prepare Your Nashville Home for Allergy Season"}
+    publishDate="March 23 2026"
+    author={author}
+  />
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero Section -->
+  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
+          Allergy/Health
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          How to Prepare Your Nashville Home for Allergy Season
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          {isPublished ? "Expert Cleaning Guide" : "Coming March 23 2026."}
+        </p>
+        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
+          <span>March 23 2026</span>
+          <span>•</span>
+          <span>{readTime}</span>
+          <span>•</span>
+          <span>By {author}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Toggle based on Published Date -->
+  {isPublished ? (
+    <article class="py-16 bg-white">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="prose prose-lg max-w-none">
+          <!-- TODO: REPLACE THIS SECTION WITH YOUR ACTUAL BLOG CONTENT -->
+          <h2>How Can You Prepare Your Nashville Home for Allergy Season?</h2>
+<p><strong>To prepare your Nashville home for allergy season, focus on minimizing allergens with thorough cleaning and strategic maintenance. Regular cleaning routines, air filtration, and allergen-proofing your living spaces can significantly reduce symptoms. Start with these key steps for a healthier home environment.</strong></p>
+
+<h3>Allergens in Nashville: What to Expect</h3>
+<p>Nashville's lush greenery makes it a vibrant place to live, but it also means dealing with seasonal allergens like pollen, dust mites, and mold. Understanding the types of allergens prevalent in the area helps in preparing your home effectively.</p>
+
+<h3>Essential Steps to Allergy-Proof Your Home</h3>
+<p>Combat allergies head-on with these strategic measures:</p>
+<ul>
+  <li><strong>Regular Cleaning:</strong> Implement a systematic cleaning schedule focusing on dust-prone areas. Vacuum carpets and rugs using a HEPA filter vacuum cleaner.</li>
+  <li><strong>Air Filtration:</strong> Invest in high-efficiency air filters for your HVAC system to trap airborne particles. Consider using portable air purifiers in high-traffic rooms.</li>
+  <li><strong>Humidity Control:</strong> Keep indoor humidity levels below 50% to deter mold growth. Dehumidifiers can be particularly useful during Nashville's humid months.</li>
+  <li><strong>Bedding and Upholstery:</strong> Wash bedding weekly in hot water and use allergen-proof covers for pillows and mattresses to block dust mites.</li>
+  <li><strong>Windows and Doors:</strong> Seal any gaps and use weather stripping to prevent pollen from entering your home. Keep windows closed during high pollen counts.</li>
+</ul>
+
+<h3>Specialist Cleaning: An Investment in Health</h3>
+<p>Employing trained cleaning specialists can make a significant difference. At The Valley Clean Team, our veteran-owned operation in Nashville ensures your home is cleaned with military precision. Here's how our service stands out:</p>
+<ul>
+  <li><strong>Meticulous Cleaning:</strong> Our specialists follow a precise checklist, targeting common allergen hotspots.</li>
+  <li><strong>Veteran Accountability:</strong> We guarantee results with a commitment to integrity and precision.</li>
+  <li><strong>Transparent Pricing:</strong> Our services start at $125, with no hidden fees—only clear, upfront costs.</li>
+</ul>
+
+<h3>Why Choose The Valley Clean Team?</h3>
+<p>Choosing the right cleaning service is critical to maintaining a healthy home. Here’s why The Valley Clean Team is Nashville’s preferred choice:</p>
+<ul>
+  <li><strong>Local Expertise:</strong> As a Nashville-based company, we understand the local allergen challenges and how to tackle them effectively.</li>
+  <li><strong>Community-Focused:</strong> We are committed to serving our community with the highest standards of cleanliness and care.</li>
+  <li><strong>Proven Methodologies:</strong> Our cleaning processes adhere to strict standard operating procedures (SOPs), ensuring consistent and thorough results.</li>
+</ul>
+
+<h3>Book Your Allergy-Season Cleaning Today</h3>
+<p>Don't let allergies dictate your comfort. The Valley Clean Team is ready to help you reclaim your home and your time. Schedule a guaranteed cleaning service with us today and experience the precision of veteran-owned accountability. See availability and book online now.</p>
+        </div>
+      </div>
+    </article>
+  ) : (
+    <article class="py-16 bg-white border-t border-gray-100 shadow-inner">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gray-50 rounded-2xl">
+        <div class="prose prose-lg max-w-none text-center">
+          <Icon name="clock" class="w-16 h-16 text-[#FFA985] mx-auto mb-6" />
+          <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-0">Article Coming Soon!</h2>
+          <p class="text-gray-600 m-0">This article is locked and scheduled to automatically publish on <br/><strong class="text-gray-800 text-xl">March 23 2026</strong>.<br/>Check back then!</p>
+          <div class="mt-12">
+            <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-md no-underline">
+              Back to Blog
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+  )}
+</BaseLayout>
