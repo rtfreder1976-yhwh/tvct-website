@@ -1,0 +1,363 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Icon from '../../../components/Icon.astro';
+import QuoteForm from '../../../components/QuoteForm.astro';
+
+const city = "Huntsville";
+const state = "Alabama";
+const phone = "(256) 826-1100";
+
+// Event types
+const eventTypes = [
+  "Corporate Events",
+  "Holiday Parties",
+  "Birthday Celebrations",
+  "Graduation Parties",
+  "Baby & Bridal Showers",
+  "Anniversary Celebrations",
+  "Retirement Parties",
+  "Housewarming Events",
+  "Watch Parties",
+  "Family Reunions",
+  "Fundraiser Galas",
+  "Dinner Parties"
+];
+
+// Huntsville events context
+const localEvents = [
+  "Rocket City Marathon Watch Parties",
+  "Space Camp Family Celebrations",
+  "Redstone Arsenal Events",
+  "Madison County Fair Gatherings",
+  "Panoply Arts Festival Hosting",
+  "Alabama A&M & UAH Watch Parties",
+  "New Year's Eve Celebrations",
+  "Fourth of July BBQs",
+  "Thanksgiving & Holiday Gatherings",
+  "Aerospace Industry Events"
+];
+
+// Pre-event services
+const preEventServices = [
+  "Deep clean all main areas",
+  "Kitchen & bar area prep",
+  "Bathroom deep cleaning",
+  "Floor vacuuming & mopping",
+  "Surface dusting & polishing",
+  "Window & mirror cleaning",
+  "Guest room preparation",
+  "Outdoor patio cleaning",
+  "Trash removal",
+  "Fresh scent throughout"
+];
+
+// Post-event services
+const postEventServices = [
+  "Trash & recyclables removal",
+  "Dish collection & kitchen cleanup",
+  "Spill & stain treatment",
+  "Food debris removal",
+  "Bathroom sanitization",
+  "Floor cleaning (all types)",
+  "Surface wipe-down",
+  "Furniture repositioning",
+  "Outdoor area cleanup",
+  "Next-day deep clean available"
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much does event cleaning cost in Huntsville?",
+    answer: "Pre-event cleaning typically starts at $225 and post-event cleanup at $175, depending on home size and event scale. Combined packages save 10-15%. For large gatherings like corporate events or holiday parties, we'll provide a custom quote. Call (256) 826-1100."
+  },
+  {
+    question: "How far in advance should I book event cleaning?",
+    answer: "We recommend booking 1-2 weeks ahead. During major holidays, graduation season (May-June), and Panoply weekend, book even earlier—Huntsville loves to entertain! Last-minute requests? Call us—we'll do our best to accommodate."
+  },
+  {
+    question: "Do you clean before AND after events?",
+    answer: "Yes! Many Huntsville hosts book both. Pre-event cleaning ensures your Hampton Cove or Twickenham home impresses guests, while post-event cleanup means you wake up to a clean house. Combined packages save 10-15%."
+  },
+  {
+    question: "Can you handle corporate events at home?",
+    answer: "Absolutely! With Huntsville's aerospace and defense community, we clean for many professionals hosting colleagues. We're discreet, professional, and understand the expectations of executives and engineers."
+  },
+  {
+    question: "What if my party runs late—can you still come?",
+    answer: "Yes! We offer next-morning cleanup for late events. Schedule post-event cleaning for whenever you need—we don't judge the hour your celebration ended!"
+  },
+  {
+    question: "Can you handle large graduation parties?",
+    answer: "Yes! Graduation season brings big celebrations in Huntsville. We've cleaned after parties with 50+ guests. We'll assess the scope and bring the right team to restore your home quickly."
+  },
+  {
+    question: "Do you clean outdoor areas for events?",
+    answer: "Yes! Patios, decks, porches, and outdoor entertaining spaces are included. Huntsville's beautiful weather means outdoor hosting is popular—we'll make sure your spaces shine."
+  },
+  {
+    question: "Can you handle food and beverage stains?",
+    answer: "We treat common party stains—red wine, BBQ sauce, food spills. For severe carpet stains, we may recommend professional carpet cleaning, but we'll get the rest of your home spotless."
+  }
+];
+
+// FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Event Cleaning in Huntsville, AL | Pre & Post Party Cleaning"
+  description="Professional event cleaning in Huntsville, Alabama. Pre-event prep & post-party cleanup for your home. Veteran-owned, insured. Free quotes: 256-826-1100"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="container mx-auto">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
+            <span class="text-gray-900 font-semibold">
+              <Icon name="champagne-glasses" class="w-5 h-5 mr-2" />Event Cleaning Specialists
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
+            Event Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">{city}</span>
+          </h1>
+          <p class="text-xl text-gray-300 mb-6">
+            Host the perfect event without the cleanup stress. From pre-party prep to post-celebration cleanup,
+            we handle everything so you can focus on your guests. Serving Hampton Cove, Madison, Twickenham, and all of {city}.
+          </p>
+
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="calendar-check" class="w-8 h-8 text-[#FFA985] mx-auto mb-2" />
+              <p class="text-white font-semibold text-sm">Pre-Event</p>
+              <p class="text-gray-400 text-xs">Prep</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="sparkles" class="w-8 h-8 text-[#FFA985] mx-auto mb-2" />
+              <p class="text-white font-semibold text-sm">Post-Event</p>
+              <p class="text-gray-400 text-xs">Cleanup</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
+              <Icon name="tag" class="w-8 h-8 text-[#FFA985] mx-auto mb-2" />
+              <p class="text-white font-semibold text-sm">Save 10-15%</p>
+              <p class="text-gray-400 text-xs">Combined</p>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 text-center">
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call {phone}
+            </a>
+            <a href="/booking" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
+              Book Online
+            </a>
+          </div>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+          <div class="text-center mb-6">
+            <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
+              <Icon name="clock" class="w-5 h-5 mr-1" /> FAST RESPONSE
+            </span>
+          </div>
+          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+            Get Your Event Quote
+          </h2>
+          <p class="text-gray-600 mb-6 text-center">
+            Pre-event from $225 • Post-event from $175
+          </p>
+          <QuoteForm
+            formId="huntsville-event-cleaning-form"
+            serviceName="Event Cleaning"
+            city={city}
+            state={state}
+            source="Huntsville Event Cleaning Page"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Types -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Events We <span class="gold-gradient">Clean For</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          From intimate dinners to large celebrations, we've got your {city} event covered
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        {eventTypes.map(event => (
+          <div class="bg-gray-50 rounded-xl p-4 text-center hover:bg-[#FFA985]/10 transition">
+            <Icon name="check-circle" class="w-6 h-6 text-[#FFA985] mx-auto mb-2" />
+            <p class="font-medium text-gray-700">{event}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre vs Post Event -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Complete <span class="gold-gradient">Event Coverage</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Pre-Event -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-[#FFA985]/30">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mr-4">
+              <Icon name="calendar-check" class="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-[#333333]">Pre-Event Cleaning</h3>
+              <p class="text-[#FFA985] font-semibold">From $225</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-6">Get your {city} home guest-ready before the celebration begins.</p>
+          <ul class="space-y-3">
+            {preEventServices.map(service => (
+              <li class="flex items-center text-gray-700">
+                <Icon name="check" class="w-5 h-5 text-[#FFA985] mr-3 flex-shrink-0" />
+                <span>{service}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Post-Event -->
+        <div class="bg-white rounded-2xl p-8 shadow-lg border-2 border-green-200">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center mr-4">
+              <Icon name="sparkles" class="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-[#333333]">Post-Event Cleanup</h3>
+              <p class="text-green-600 font-semibold">From $175</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-6">Wake up to a clean home—we handle the aftermath.</p>
+          <ul class="space-y-3">
+            {postEventServices.map(service => (
+              <li class="flex items-center text-gray-700">
+                <Icon name="check" class="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                <span>{service}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Combined Savings -->
+      <div class="mt-12 max-w-3xl mx-auto">
+        <div class="bg-gradient-to-r from-[#FFA985]/20 to-[#FFC67D]/20 rounded-2xl p-8 text-center border-2 border-[#FFA985]">
+          <Icon name="tag" class="w-12 h-12 text-[#FFA985] mx-auto mb-4" />
+          <h3 class="text-2xl font-bold text-[#333333] mb-2">Book Both & Save 10-15%</h3>
+          <p class="text-gray-600 mb-4">
+            Get pre-event and post-event cleaning as a package and save. Perfect for stress-free hosting in {city}.
+          </p>
+          <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-8 py-3 rounded-full font-semibold hover:shadow-lg transition">
+            Get Package Quote
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Local Events Context -->
+  <section class="py-20 px-6 bg-white">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          {city} Events <span class="gold-gradient">We Know</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          From Space Camp celebrations to Redstone Arsenal gatherings, we understand {city} hosting
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
+        {localEvents.map(event => (
+          <div class="bg-gray-50 rounded-xl p-4 text-center">
+            <p class="text-sm font-medium text-gray-700">{event}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Event Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <div class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer" onclick="this.classList.toggle('active')">
+            <div class="flex justify-between items-center">
+              <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+              <Icon name="chevron-down" class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0" />
+            </div>
+            <div class="faq-answer">
+              <p class="text-gray-600 mt-4">{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+        Ready to Host Without the Cleanup Stress?
+      </h2>
+      <p class="text-xl text-gray-800 mb-8">
+        Let us handle the cleaning so you can enjoy your {city} celebration
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} class="bg-gray-900 text-white px-10 py-4 rounded-full text-lg font-semibold hover:bg-gray-800 transition">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call {phone}
+        </a>
+        <a href="/booking" class="bg-white text-gray-900 px-10 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition">
+          Book Online
+        </a>
+      </div>
+      <p class="mt-6 text-gray-700">
+        Serving Hampton Cove • Madison • Twickenham • The Ledges • Monte Sano • Jones Valley
+      </p>
+    </div>
+  </section>
+</BaseLayout>
