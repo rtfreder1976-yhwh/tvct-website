@@ -5,31 +5,115 @@ import Icon from '../components/Icon.astro';
 
 <BaseLayout
   title="Schedule Your Cleaning | 100% Happiness Guarantee | Valley Clean Team"
-  description="Book your professional cleaning service online in minutes. Veteran-owned, fully insured ($2M), and backed by our 100% Satisfaction Guarantee. Serving Alabama and Tennessee."
+  description="Book your insured, veteran-owned cleaning service in minutes. Serving Huntsville, Athens, Florence & Nashville. 100% happiness guarantee — no card charged until after your clean."
   showNav={false}
   showFooter={false}
-  schemaType="service"
-  serviceName="House Cleaning"
-  serviceDescription="Professional house cleaning services in Alabama and Tennessee. Book online in 60 seconds."
+  schemaType="none"
 >
-  <!-- Simple, Non-Interactive Header (Leaky Funnel) -->
+  <!-- Preconnect to BookingKoala for faster iframe load -->
+  <link slot="preload" rel="preconnect" href="https://thevalleycleanteam.bookingkoala.com" crossorigin />
+  <link slot="preload" rel="dns-prefetch" href="https://thevalleycleanteam.bookingkoala.com" />
+
+  <!-- Service + ReserveAction Schema (valid in body per Google guidelines) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Professional Cleaning Services",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "The Valley Clean Team",
+      "telephone": "+12568261100",
+      "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Huntsville",
+        "addressRegion": "AL",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Huntsville", "addressRegion": "AL" },
+      { "@type": "City", "name": "Athens", "addressRegion": "AL" },
+      { "@type": "City", "name": "Florence", "addressRegion": "AL" },
+      { "@type": "City", "name": "Decatur", "addressRegion": "AL" },
+      { "@type": "City", "name": "Nashville", "addressRegion": "TN" }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Cleaning Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Pet-Safe House Cleaning" },
+          "price": "129",
+          "priceCurrency": "USD",
+          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "129", "priceCurrency": "USD", "unitText": "starting at" }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Deep Cleaning" },
+          "price": "199",
+          "priceCurrency": "USD",
+          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "199", "priceCurrency": "USD", "unitText": "starting at" }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Recurring House Cleaning" },
+          "price": "99",
+          "priceCurrency": "USD",
+          "priceSpecification": { "@type": "UnitPriceSpecification", "price": "99", "priceCurrency": "USD", "unitText": "per week starting at" }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Move In/Out Cleaning" },
+          "price": "199",
+          "priceCurrency": "USD"
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Post-Construction Cleaning" },
+          "price": "300",
+          "priceCurrency": "USD"
+        }
+      ]
+    },
+    "potentialAction": {
+      "@type": "ReserveAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://thevalleycleanteam.com/booking",
+        "actionPlatform": ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"]
+      },
+      "result": {
+        "@type": "Reservation",
+        "name": "Cleaning Service Booking"
+      }
+    }
+  })} />
+
+  <!-- Simple, Non-Interactive Header -->
   <header class="py-6 px-6 border-b border-gray-100 bg-white sticky top-0 z-50">
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center">
         <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="Valley Clean Team Logo" class="h-10 w-auto mr-3" />
         <span class="font-bold text-xl text-[#333333] hidden sm:inline">Valley Clean Team</span>
       </div>
-      <div class="text-sm font-semibold text-gray-500 flex items-center">
-        <Icon name="phone" class="w-4 h-4 mr-2 text-[#FFA985]" />
-        Questions? <a href="tel:2568261100" class="ml-1 text-[#333333] hover:text-[#FFA985]">256-826-1100</a>
+      <div class="text-sm font-semibold text-gray-500 flex items-center gap-4">
+        <a href="tel:2568261100" class="flex items-center hover:text-[#FFA985] transition">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          AL: <span class="ml-1 text-[#333333]">256-826-1100</span>
+        </a>
+        <a href="tel:6155101427" class="hidden sm:flex items-center hover:text-[#FFA985] transition">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          TN: <span class="ml-1 text-[#333333]">615-510-1427</span>
+        </a>
       </div>
     </div>
   </header>
-  
 
-  
     <!-- Hero Section -->
-    <section class="pt-32 pb-12 px-6">
+    <section class="pt-16 pb-8 px-6">
       <div class="container mx-auto text-center max-w-3xl">
         <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-[#333333] tracking-tight">
           Reclaim Your Weekend, <span class="gold-gradient">Starting Now</span>
@@ -43,7 +127,7 @@ import Icon from '../components/Icon.astro';
             100% Happiness Guarantee
           </span>
           <span class="flex items-center">
-            <Icon name="shield-check" class="w-5 h-5 text-blue-500 mr-2" />
+            <Icon name="shield-halved" class="w-5 h-5 text-blue-500 mr-2" />
             $2M Insurance Coverage
           </span>
           <span class="flex items-center">
@@ -54,6 +138,83 @@ import Icon from '../components/Icon.astro';
       </div>
     </section>
 
+  <!-- Pricing Calculator -->
+  <section class="pb-8 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-xl border-2 border-[#FFA985]/20">
+        <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-[#333333]">
+          <Icon name="calculator" class="w-5 h-5 text-[#FFA985] mr-2" />Instant Price Estimate
+        </h2>
+        <p class="text-center text-gray-600 mb-6">Get a ballpark estimate in seconds</p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div>
+            <label for="homeSize" class="block text-gray-700 font-semibold mb-2 text-sm">Home Size (sq ft)</label>
+            <select id="homeSize" class="w-full px-3 py-2.5 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] text-sm">
+              <option value="1000">Under 1,000</option>
+              <option value="1500">1,000 - 1,500</option>
+              <option value="2000" selected>1,500 - 2,000</option>
+              <option value="2500">2,000 - 2,500</option>
+              <option value="3000">2,500 - 3,000</option>
+              <option value="3500">3,000 - 3,500</option>
+              <option value="4000">3,500+</option>
+            </select>
+          </div>
+          <div>
+            <label for="bedrooms" class="block text-gray-700 font-semibold mb-2 text-sm">Bedrooms</label>
+            <select id="bedrooms" class="w-full px-3 py-2.5 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] text-sm">
+              <option value="1">1 Bedroom</option>
+              <option value="2">2 Bedrooms</option>
+              <option value="3" selected>3 Bedrooms</option>
+              <option value="4">4 Bedrooms</option>
+              <option value="5">5+ Bedrooms</option>
+            </select>
+          </div>
+          <div>
+            <label for="bathrooms" class="block text-gray-700 font-semibold mb-2 text-sm">Bathrooms</label>
+            <select id="bathrooms" class="w-full px-3 py-2.5 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] text-sm">
+              <option value="1">1 Bathroom</option>
+              <option value="2" selected>2 Bathrooms</option>
+              <option value="3">3 Bathrooms</option>
+              <option value="4">4+ Bathrooms</option>
+            </select>
+          </div>
+          <div>
+            <label for="serviceType" class="block text-gray-700 font-semibold mb-2 text-sm">Service Type</label>
+            <select id="serviceType" class="w-full px-3 py-2.5 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985] text-sm">
+              <option value="regular">Regular Cleaning</option>
+              <option value="deep" selected>Deep Cleaning</option>
+              <option value="moveinout">Move In/Out</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-5 text-center">
+          <p class="text-gray-600 mb-1 text-sm">Your Estimated Price Range</p>
+          <div class="text-4xl md:text-5xl font-bold text-[#333333]" id="priceEstimate">$175 - $250</div>
+          <p class="text-xs text-gray-500 mt-2">*Final quote based on home size, condition & service type. No hidden fees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Micro-testimonial -->
+  <section class="pb-4 px-6">
+    <div class="container mx-auto max-w-4xl text-center">
+      <div class="inline-flex items-center gap-1 text-yellow-500 mb-1">
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+      </div>
+      <p class="text-gray-600 italic text-sm max-w-lg mx-auto">
+        "They showed up on time, cleaned everything beautifully, and even organized under our sinks. Best cleaning service we've ever used!"
+      </p>
+      <p class="text-xs text-gray-400 mt-1">— Sarah M., Huntsville, AL &nbsp;|&nbsp; <strong class="text-gray-500">130+ five-star reviews</strong></p>
+    </div>
+  </section>
+
     <!-- Booking Widget Section -->
     <section class="pb-20 px-6">
       <div class="container mx-auto max-w-4xl">
@@ -61,7 +222,7 @@ import Icon from '../components/Icon.astro';
           <!-- Risk Reversal Banner -->
           <div class="bg-gradient-to-r from-green-50 to-white border-b border-green-100 px-6 py-4 flex flex-col sm:flex-row items-center justify-center text-green-800 text-sm md:text-base font-semibold gap-2">
             <div class="flex items-center">
-              <Icon name="shield-check" class="w-6 h-6 mr-2 text-green-600" />
+              <Icon name="shield-halved" class="w-6 h-6 mr-2 text-green-600" />
               NO-RISK BOOKING: Cards are NOT charged until AFTER your clean.
             </div>
             <span class="hidden sm:inline mx-2 opacity-30">|</span>
@@ -72,11 +233,10 @@ import Icon from '../components/Icon.astro';
           </div>
           <iframe
             src="https://thevalleycleanteam.bookingkoala.com/booknow?embed=true"
-            style="border:none;min-height:1000px"
+            style="border:none;min-height:1000px;height:1200px"
             width="100%"
             scrolling="no"
-            title="Book a cleaning service"
-            loading="lazy"
+            title="Book a cleaning service online - The Valley Clean Team"
           ></iframe>
         </div>
       </div>
@@ -91,54 +251,121 @@ import Icon from '../components/Icon.astro';
           <div class="section-divider mt-6"></div>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="text-center">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
-              <Icon name="shield-halved" class="w-6 h-6  text-[#333333]" />
-            </div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Insured & Bonded</h3>
-            <p class="text-gray-600">Your home is protected. All our cleaners are fully insured and background checked.</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="shield-halved" class="w-6 h-6 text-[#333333]" />
           </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Insured & Bonded</h3>
+          <p class="text-gray-600">Your home is protected with $2M insurance coverage. All our cleaners are fully insured and background checked.</p>
+        </div>
 
-          <div class="text-center">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
-              <Icon name="star" class="w-6 h-6  text-[#333333]" fill="currentColor" />
-            </div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">130+ 5-Star Reviews</h3>
-            <p class="text-gray-600">Our customers love us. See why we're the top-rated cleaning service in the area.</p>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="star" class="w-6 h-6 text-[#333333]" fill="currentColor" />
           </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">130+ 5-Star Reviews</h3>
+          <p class="text-gray-600">Our customers love us. See why we're the top-rated cleaning service across Alabama and Tennessee.</p>
+        </div>
 
-          <div class="text-center">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
-              <Icon name="flag-usa" class="w-6 h-6  text-[#333333]" />
-            </div>
-            <h3 class="text-xl font-bold text-[#333333] mb-2">Veteran Owned</h3>
-            <p class="text-gray-600">Proudly veteran-owned and operated with military precision and dedication.</p>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="flag-usa" class="w-6 h-6 text-[#333333]" />
           </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Veteran & Women-Owned</h3>
+          <p class="text-gray-600">Proudly veteran-owned and women-owned. Military precision meets community dedication.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Contact Alternative -->
-    <section class="py-16 px-6">
-      <div class="container mx-auto max-w-2xl text-center">
-        <h2 class="text-2xl font-bold text-[#333333] mb-4">Prefer to Talk to Someone?</h2>
-        <p class="text-gray-600 mb-6">No problem! Our friendly team is here to help you schedule your cleaning.</p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="tel:2568261100" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
-            <Icon name="phone" class="w-5 h-5 mr-2" />
-            256-826-1100
-          </a>
-          <a href="/contact" class="btn-secondary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
-            <Icon name="envelope" class="w-5 h-5 mr-2" />
-            Contact Us
-          </a>
-        </div>
+  <!-- Contact Alternative -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto max-w-2xl text-center">
+      <h2 class="text-2xl font-bold text-[#333333] mb-4">Prefer to Talk to Someone?</h2>
+      <p class="text-gray-600 mb-6">No problem! Our friendly team is here to help you schedule your cleaning.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="tel:2568261100" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          <Icon name="phone" class="w-5 h-5 mr-2" />
+          Alabama: 256-826-1100
+        </a>
+        <a href="tel:6155101427" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          <Icon name="phone" class="w-5 h-5 mr-2" />
+          Tennessee: 615-510-1427
+        </a>
       </div>
-    </section>
-  
-
-  
+      <div class="mt-4">
+        <a href="/contact" class="btn-secondary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          <Icon name="envelope" class="w-5 h-5 mr-2" />
+          Contact Us Online
+        </a>
+      </div>
+    </div>
+  </section>
 
   <script src="https://thevalleycleanteam.bookingkoala.com/resources/embed.js" defer></script>
 </BaseLayout>
+
+<script>
+  // Price Calculator
+  const homeSize = document.getElementById("homeSize");
+  const bedrooms = document.getElementById("bedrooms");
+  const bathrooms = document.getElementById("bathrooms");
+  const serviceType = document.getElementById("serviceType");
+  const priceEstimate = document.getElementById("priceEstimate");
+
+  function calculatePrice() {
+    if (!homeSize || !bedrooms || !bathrooms || !serviceType || !priceEstimate)
+      return;
+
+    const size = parseInt((homeSize as HTMLSelectElement).value);
+    const beds = parseInt((bedrooms as HTMLSelectElement).value);
+    const baths = parseInt((bathrooms as HTMLSelectElement).value);
+    const service = (serviceType as HTMLSelectElement).value;
+
+    // Base prices
+    let baseMin = 99;
+    let baseMax = 150;
+
+    // Adjust for service type
+    if (service === "deep") {
+      baseMin = 175;
+      baseMax = 250;
+    } else if (service === "moveinout") {
+      baseMin = 225;
+      baseMax = 350;
+    }
+
+    // Adjust for size
+    const sizeMultiplier = size / 2000;
+    baseMin = Math.round(baseMin * sizeMultiplier);
+    baseMax = Math.round(baseMax * sizeMultiplier);
+
+    // Adjust for bedrooms
+    baseMin += (beds - 2) * 15;
+    baseMax += (beds - 2) * 25;
+
+    // Adjust for bathrooms
+    baseMin += (baths - 2) * 20;
+    baseMax += (baths - 2) * 30;
+
+    // Ensure minimums
+    if (service === "regular") {
+      baseMin = Math.max(baseMin, 99);
+      baseMax = Math.max(baseMax, 150);
+    } else if (service === "deep") {
+      baseMin = Math.max(baseMin, 175);
+      baseMax = Math.max(baseMax, 250);
+    } else {
+      baseMin = Math.max(baseMin, 225);
+      baseMax = Math.max(baseMax, 350);
+    }
+
+    if (priceEstimate) priceEstimate.textContent = `$${baseMin} - $${baseMax}`;
+  }
+
+  homeSize?.addEventListener("change", calculatePrice);
+  bedrooms?.addEventListener("change", calculatePrice);
+  bathrooms?.addEventListener("change", calculatePrice);
+  serviceType?.addEventListener("change", calculatePrice);
+</script>
