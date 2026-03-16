@@ -14,6 +14,27 @@ import Icon from '../components/Icon.astro';
   <link slot="preload" rel="preconnect" href="https://thevalleycleanteam.bookingkoala.com" crossorigin />
   <link slot="preload" rel="dns-prefetch" href="https://thevalleycleanteam.bookingkoala.com" />
 
+  <style slot="preload">
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .iframe-loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #FFA985;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    .sticky-cta {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+
   <!-- Service + ReserveAction Schema (valid in body per Google guidelines) -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -159,10 +180,10 @@ import Icon from '../components/Icon.astro';
       <div class="container mx-auto max-w-4xl">
         <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden relative">
           <!-- Risk Reversal Banner -->
-          <div class="bg-gradient-to-r from-green-50 to-white border-b border-green-100 px-6 py-4 flex flex-col sm:flex-row items-center justify-center text-green-800 text-sm md:text-base font-semibold gap-2">
+          <div class="bg-gradient-to-r from-[#EBFAF2] to-white border-b border-green-100 px-6 py-4 flex flex-col sm:flex-row items-center justify-center text-[#1B4332] text-sm md:text-base font-semibold gap-2">
             <div class="flex items-center">
               <Icon name="shield-halved" class="w-6 h-6 mr-2 text-green-600" />
-              NO-RISK BOOKING: Cards are NOT charged until AFTER your clean.
+              NO-RISK BOOKING: <span class="text-green-700">Cards are NOT charged until AFTER your clean.</span>
             </div>
             <span class="hidden sm:inline mx-2 opacity-30">|</span>
             <div class="flex items-center">
@@ -170,12 +191,21 @@ import Icon from '../components/Icon.astro';
               Secure 256-bit Encryption
             </div>
           </div>
+
+          <!-- Iframe Loading State -->
+          <div id="iframe-loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white pointer-events-none transition-opacity duration-500 pt-32">
+            <div class="iframe-loader mb-4"></div>
+            <p class="text-gray-500 font-medium">Securing your connection...</p>
+          </div>
+
           <iframe
+            id="booking-iframe"
             src="https://thevalleycleanteam.bookingkoala.com/booknow?embed=true"
-            style="border:none;min-height:1000px;height:1200px"
+            style="border:none;min-height:1000px;height:1200px;opacity:0;transition:opacity 0.5s ease-in-out;"
             width="100%"
             scrolling="no"
             title="Book a cleaning service online - The Valley Clean Team"
+            onload="document.getElementById('iframe-loading').style.opacity = '0'; document.getElementById('booking-iframe').style.opacity = '1'; setTimeout(() => document.getElementById('iframe-loading').remove(), 500);"
           ></iframe>
         </div>
       </div>
@@ -185,6 +215,7 @@ import Icon from '../components/Icon.astro';
     <section class="py-16 px-6 bg-gray-50">
       <div class="container mx-auto max-w-4xl">
         <div class="text-center mb-12">
+          <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="The Valley Clean Team Official Seal" class="w-24 h-24 mx-auto mb-6 opacity-80" />
           <h2 class="text-3xl font-bold text-[#333333] mb-4">The Valley Clean Team Difference</h2>
           <p class="text-gray-500 max-w-xl mx-auto">Experience the precision and care that comes with a veteran-owned, community-focused team.</p>
           <div class="section-divider mt-6"></div>
@@ -243,5 +274,14 @@ import Icon from '../components/Icon.astro';
   </section>
 
   <script src="https://thevalleycleanteam.bookingkoala.com/resources/embed.js" defer></script>
+
+  <!-- Sticky Call Button (Mobile Only) -->
+  <a
+    href="tel:2568261100"
+    class="sticky-cta sm:hidden bg-gradient-to-r from-[#FFA985] to-[#FFC67D] w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition"
+    aria-label="Call for help"
+  >
+    <Icon name="phone" class="w-7 h-7 text-[#333333]" />
+  </a>
 </BaseLayout>
 
