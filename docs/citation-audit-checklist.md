@@ -6,7 +6,7 @@
 ```
 Business Name: The Valley Clean Team
 Address:       Tuscumbia, AL 35674
-Phone:         (256) 826-1100
+Phone:         256-826-1100
 Website:       https://thevalleycleanteam.com
 Category:      House Cleaning Service / Commercial Cleaning Service
 ```
@@ -15,7 +15,7 @@ Category:      House Cleaning Service / Commercial Cleaning Service
 ```
 Business Name: The Valley Clean Team
 Address:       Nashville, TN (Service Area)
-Phone:         (615) 510-1427
+Phone:         615-510-1427
 Website:       https://thevalleycleanteam.com
 Category:      House Cleaning Service / Commercial Cleaning Service
 ```
@@ -188,5 +188,59 @@ These feed data to hundreds of other sites. Fixing these fixes many downstream i
 
 ---
 
-*Last Updated: January 2026*
+---
+
+## Active Cleanup Tracker (February 2026)
+
+### Week 1 - Critical Platforms
+
+| Platform | URL | Status | Action Needed |
+|----------|-----|--------|---------------|
+| Google Business Profile | business.google.com | [ ] Verify | Confirm SAB, check NAP |
+| Bing Places | bingplaces.com | [ ] Claim | Import from GBP |
+| Apple Maps | mapsconnect.apple.com | [ ] Claim | Via Business Connect |
+| BBB | bbb.org | [ ] Fix | Consolidate duplicates |
+
+### Week 2-4 - Directory Audit
+
+| Platform | Found Via Search | NAP Correct? | Fixed? |
+|----------|-----------------|--------------|--------|
+| Yelp | ✓ Listed | [ ] Check | [ ] |
+| Yahoo Local | ✓ Listed | [ ] Check | [ ] |
+| Nextdoor | ✓ Listed | [ ] Check | [ ] |
+| Facebook | [ ] Check | [ ] | [ ] |
+| Thumbtack | ✓ Listed | [ ] Check | [ ] |
+| Angi | [ ] Check | [ ] | [ ] |
+| Porch | [ ] Check | [ ] | [ ] |
+
+### Data Aggregators (Submit First - Takes 2-8 weeks)
+
+| Aggregator | Submitted | Confirmation | Propagation Check |
+|------------|-----------|--------------|-------------------|
+| Data Axle | [ ] | Date: ___ | [ ] Week 4 |
+| Localeze | [ ] | Date: ___ | [ ] Week 8 |
+| Foursquare | [ ] | Date: ___ | [ ] Week 4 |
+
+### Quick Links
+
+**Claim/Submit Pages:**
+- Data Axle: https://www.dataaxle.com/business-listing
+- Localeze: https://www.neustarlocaleze.biz
+- Foursquare: https://foursquare.com/add-place
+- Bing: https://www.bingplaces.com
+- Apple: https://mapsconnect.apple.com
+- BBB Contact: 1-256-455-3030 (North AL)
+
+**Search Commands to Find Listings:**
+```
+site:yelp.com "valley clean team"
+site:bbb.org "valley clean team"
+site:manta.com "valley clean team"
+"valley clean team" tuscumbia directory
+"256-826-1100" -site:thevalleycleanteam.com
+```
+
+---
+
+*Last Updated: February 2026*
 *Generated for: The Valley Clean Team*
