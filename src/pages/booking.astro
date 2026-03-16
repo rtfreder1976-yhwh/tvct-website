@@ -160,7 +160,7 @@ import Icon from '../components/Icon.astro';
 
   <!-- Micro-testimonial -->
   <section class="pb-4 px-6">
-    <div class="container mx-auto max-w-4xl text-center">
+    <div class="container mx-auto max-w-7xl text-center">
       <div class="inline-flex items-center gap-1 text-yellow-500 mb-1">
         <Icon name="star" class="w-4 h-4" fill="currentColor" />
         <Icon name="star" class="w-4 h-4" fill="currentColor" />
@@ -176,9 +176,9 @@ import Icon from '../components/Icon.astro';
   </section>
 
     <!-- Booking Widget Section -->
-    <section class="pb-20 px-6">
-      <div class="container mx-auto max-w-4xl">
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden relative">
+    <section class="pb-20 px-0 md:px-6">
+      <div class="container mx-auto max-w-[1600px]">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 relative">
           <!-- Risk Reversal Banner -->
           <div class="bg-gradient-to-r from-[#EBFAF2] to-white border-b border-green-100 px-6 py-4 flex flex-col sm:flex-row items-center justify-center text-[#1B4332] text-sm md:text-base font-semibold gap-2">
             <div class="flex items-center">
@@ -205,8 +205,21 @@ import Icon from '../components/Icon.astro';
             width="100%"
             scrolling="no"
             title="Book a cleaning service online - The Valley Clean Team"
-            onload="document.getElementById('iframe-loading').style.opacity = '0'; document.getElementById('booking-iframe').style.opacity = '1'; setTimeout(() => document.getElementById('iframe-loading').remove(), 500);"
+            onload="const loader = document.getElementById('iframe-loading'); const frame = document.getElementById('booking-iframe'); if(loader) loader.style.opacity = '0'; if(frame) frame.style.opacity = '1'; setTimeout(() => loader && loader.remove(), 500);"
           ></iframe>
+          
+          <script is:inline>
+            // Safety timeout: if iframe hasn't loaded in 4 seconds, show it anyway
+            setTimeout(() => {
+              const loader = document.getElementById('iframe-loading');
+              const frame = document.getElementById('booking-iframe');
+              if (loader && loader.style.opacity !== '0') {
+                loader.style.opacity = '0';
+                if(frame) frame.style.opacity = '1';
+                setTimeout(() => loader.remove(), 500);
+              }
+            }, 4000);
+          </script>
         </div>
       </div>
     </section>
