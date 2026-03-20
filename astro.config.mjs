@@ -26,7 +26,7 @@ export default defineConfig({
       },
     }),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft'),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/admin'),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
