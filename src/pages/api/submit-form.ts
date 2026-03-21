@@ -57,6 +57,7 @@ const ALLOWED_SOURCES = new Set([
     'Service Page',
     'Neighborhood Landing Page',
     'Blog Page',
+    'Booking Page Pre-Capture',
 ]);
 
 function sanitizeSource(raw: unknown): string {
@@ -92,6 +93,9 @@ export const POST: APIRoute = async ({ request }) => {
         // Newsletter subscription only requires email
         if (data.source === 'Blog Newsletter Subscription') {
             if (!data.email) errors.email = 'Email is required';
+        } else if (data.source === 'Booking Page Pre-Capture') {
+            // Pre-capture only requires name or phone (partial lead)
+            if (!data.name && !data.phone && !data.email) errors.contact = 'At least one contact field is required';
         } else {
             // Quote form validation
             if (!data.name) errors.name = 'Name is required';

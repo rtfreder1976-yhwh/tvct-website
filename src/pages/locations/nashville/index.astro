@@ -4,7 +4,6 @@ import SchemaMarkup from "../../../components/SchemaMarkup.astro";
 import { nashvilleTestimonials } from "../../../data/testimonials";
 import Icon from "../../../components/Icon.astro";
 import LocationGoogleMap from "../../../components/LocationGoogleMap.astro";
-import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "Nashville";
 const state = "Tennessee";
@@ -78,6 +77,7 @@ const testimonials = nashvilleTestimonials.map((t) => ({
   area: t.source,
   text: t.text,
 }));
+import BookingCTA from "../../../components/BookingCTA.astro";
 ---
 
 <BaseLayout
@@ -201,12 +201,7 @@ const testimonials = nashvilleTestimonials.map((t) => ({
           <p class="text-gray-600 mb-6 text-center">
             Serving Belle Meade, Green Hills, Brentwood & all Nashville
           </p>
-          <QuoteForm
-            formId="location-quote-form"
-            city={city}
-            state={state}
-            source={`Location Page - ${city}`}
-          />
+          <BookingCTA city={city} state={state} variant="card" />
         </div>
       </div>
     </div>

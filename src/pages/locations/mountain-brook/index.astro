@@ -4,7 +4,6 @@ import SchemaMarkup from "../../../components/SchemaMarkup.astro";
 import { mountainBrookTestimonials } from "../../../data/testimonials";
 import Icon from "../../../components/Icon.astro";
 import LocationGoogleMap from "../../../components/LocationGoogleMap.astro";
-import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "Mountain Brook";
 const state = "Alabama";
@@ -90,6 +89,7 @@ const testimonials = mountainBrookTestimonials.map((t) => ({
   area: t.source,
   text: t.text,
 }));
+import BookingCTA from "../../../components/BookingCTA.astro";
 ---
 
 <BaseLayout
@@ -214,12 +214,7 @@ const testimonials = mountainBrookTestimonials.map((t) => ({
             Serving Cherokee Bend, English Village, Crestline & all Mountain
             Brook
           </p>
-          <QuoteForm
-            formId="location-quote-form"
-            city={city}
-            state={state}
-            source={`Location Page - ${city}`}
-          />
+          <BookingCTA city={city} state={state} variant="card" />
         </div>
       </div>
     </div>

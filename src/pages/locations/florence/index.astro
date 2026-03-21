@@ -4,7 +4,6 @@ import SchemaMarkup from "../../../components/SchemaMarkup.astro";
 import { florenceTestimonials } from "../../../data/testimonials";
 import Icon from "../../../components/Icon.astro";
 import LocationGoogleMap from "../../../components/LocationGoogleMap.astro";
-import QuoteForm from "../../../components/QuoteForm.astro";
 
 const city = "Florence";
 const state = "Alabama";
@@ -88,6 +87,7 @@ const testimonials = florenceTestimonials.map((t) => ({
   area: t.source,
   text: t.text,
 }));
+import BookingCTA from "../../../components/BookingCTA.astro";
 ---
 
 <BaseLayout
@@ -188,12 +188,7 @@ const testimonials = florenceTestimonials.map((t) => ({
           <p class="text-gray-600 mb-6 text-center">
             Serving Florence & The Shoals
           </p>
-          <QuoteForm
-            formId="location-quote-form"
-            city={city}
-            state={state}
-            source={`Location Page - ${city}`}
-          />
+          <BookingCTA city={city} state={state} variant="card" />
         </div>
       </div>
     </div>
