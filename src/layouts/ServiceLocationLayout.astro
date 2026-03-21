@@ -403,6 +403,9 @@ const relatedServices = relatedServicesMap[serviceSlug] || [
 // Generate canonical URL
 const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}/${serviceSlug}`;
 
+// Commercial/office services require on-site consultation, not instant online quotes
+const isCommercial = ["commercial-cleaning", "office-cleaning", "dental-office-cleaning", "medical-office-cleaning"].includes(serviceSlug);
+
 // Schema for Service with enhanced areaServed
 const areaServedSchema =
   citySlug === "mountain-brook" && neighborhoods.length > 0
@@ -558,21 +561,39 @@ const faqSchema = {
           <div
             class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 mb-6"
           >
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-gray-600 text-sm">Base rate from</p>
-                <p class="text-4xl font-bold text-[#333333]">{price}</p>
-                <p class="text-xs text-gray-400 mt-1">Your exact price is custom quoted</p>
+            {isCommercial ? (
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-600 text-sm">Pricing</p>
+                  <p class="text-4xl font-bold text-[#333333]">{price}</p>
+                  <p class="text-xs text-gray-400 mt-1">Custom quoted after on-site walkthrough</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-green-600 font-semibold">
+                    <Icon name="check-circle" class="w-5 h-5 mr-1" /> Free On-Site Assessment
+                  </p>
+                  <p class="text-green-600 font-semibold">
+                    <Icon name="check-circle" class="w-5 h-5 mr-1" /> No Obligation
+                  </p>
+                </div>
               </div>
-              <div class="text-right">
-                <p class="text-green-600 font-semibold">
-                  <Icon name="check-circle" class="w-5 h-5 mr-1" /> Free Exact Quote
-                </p>
-                <p class="text-green-600 font-semibold">
-                  <Icon name="check-circle" class="w-5 h-5 mr-1" /> Same-Day Available
-                </p>
+            ) : (
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-600 text-sm">Base rate from</p>
+                  <p class="text-4xl font-bold text-[#333333]">{price}</p>
+                  <p class="text-xs text-gray-400 mt-1">Your exact price is custom quoted</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-green-600 font-semibold">
+                    <Icon name="check-circle" class="w-5 h-5 mr-1" /> Free Exact Quote
+                  </p>
+                  <p class="text-green-600 font-semibold">
+                    <Icon name="check-circle" class="w-5 h-5 mr-1" /> Same-Day Available
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <!-- Urgency Badge -->
@@ -596,24 +617,60 @@ const faqSchema = {
             >
               <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
             </a>
-            <a
-              href="/contact"
-              class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
-            >
-              <Icon name="calendar" class="w-5 h-5 mr-2" />See My Price
-            </a>
+            {isCommercial ? (
+              <a
+                href="/contact"
+                class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+              >
+                <Icon name="building" class="w-5 h-5 mr-2" />Schedule a Walkthrough
+              </a>
+            ) : (
+              <a
+                href="/contact"
+                class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+              >
+                <Icon name="calendar" class="w-5 h-5 mr-2" />See My Price
+              </a>
+            )}
           </div>
         </div>
 
-        <!-- Right Column - Quote Form -->
+        <!-- Right Column - Quote Form or Consultation CTA -->
         <div
           class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
         >
-          <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
-            See Your Exact Price
-          </h2>
-          <p class="text-gray-600 mb-6 text-center">Takes 60 seconds. Zero obligation.</p>
-          <BookingCTA city={city} state={state} serviceName={service} variant="embedded" />
+          {isCommercial ? (
+            <div class="text-center">
+              <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name="building" class="w-8 h-8 text-[#333333]" />
+              </div>
+              <h2 class="text-2xl font-bold text-[#333333] mb-2">
+                Get Your Free On-Site Assessment
+              </h2>
+              <p class="text-gray-600 mb-6">Commercial pricing depends on your space, frequency, and scope. We walk your facility first — then give you an exact number. No guesswork, no surprises.</p>
+              <a
+                href="/contact"
+                class="btn-primary w-full py-4 rounded-full text-lg font-semibold block text-center shadow-lg mb-3"
+              >
+                <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Free Walkthrough
+              </a>
+              <a
+                href="tel:2568261100"
+                class="w-full py-4 rounded-full text-lg font-semibold block text-center border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
+              >
+                <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+              </a>
+              <p class="text-sm text-gray-400 mt-4">We respond within 2 business hours.</p>
+            </div>
+          ) : (
+            <>
+              <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
+                See Your Exact Price
+              </h2>
+              <p class="text-gray-600 mb-6 text-center">Takes 60 seconds. Zero obligation.</p>
+              <BookingCTA city={city} state={state} serviceName={service} variant="embedded" />
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -1089,30 +1146,64 @@ const faqSchema = {
             <h3 class="text-3xl font-bold text-[#333333] mb-2">
               {service} in {city}
             </h3>
-            <p class="text-gray-600 mb-4">
-              Every home is different. Your exact price depends on square footage, layout, and condition.
-            </p>
-            <p class="text-sm text-gray-400 mb-1">Base rate from</p>
-            <div class="text-5xl font-bold text-[#FFA985] mb-1">{price}</div>
-            <p class="text-gray-500 text-sm">We quote your exact price before we start. No surprises.</p>
+            {isCommercial ? (
+              <>
+                <p class="text-gray-600 mb-4">
+                  Every commercial space is different. Pricing depends on square footage, frequency, and scope of work. We assess your facility first — then give you an exact number.
+                </p>
+                <p class="text-sm text-gray-400 mb-1">Pricing</p>
+                <div class="text-5xl font-bold text-[#FFA985] mb-1">{price}</div>
+                <p class="text-gray-500 text-sm">Custom quoted after your free on-site walkthrough.</p>
+              </>
+            ) : (
+              <>
+                <p class="text-gray-600 mb-4">
+                  Every home is different. Your exact price depends on square footage, layout, and condition.
+                </p>
+                <p class="text-sm text-gray-400 mb-1">Base rate from</p>
+                <div class="text-5xl font-bold text-[#FFA985] mb-1">{price}</div>
+                <p class="text-gray-500 text-sm">We quote your exact price before we start. No surprises.</p>
+              </>
+            )}
           </div>
           <div class="space-y-3">
-            <a
-              href="tel:2568261100"
-              class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg"
-            >
-              <Icon name="phone" class="w-5 h-5 mr-2" />Call for Instant Quote
-            </a>
-            <a
-              href="/contact"
-              class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
-            >
-              <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Online
-            </a>
-            <p class="text-center text-sm text-gray-500">
-              <Icon name="tag" class="w-5 h-5 mr-1" /> Recurring service discounts
-              available
-            </p>
+            {isCommercial ? (
+              <>
+                <a
+                  href="/contact"
+                  class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg"
+                >
+                  <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Free Walkthrough
+                </a>
+                <a
+                  href="tel:2568261100"
+                  class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
+                >
+                  <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+                </a>
+                <p class="text-center text-sm text-gray-500">
+                  <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Fully bonded &amp; insured for commercial work
+                </p>
+              </>
+            ) : (
+              <>
+                <a
+                  href="tel:2568261100"
+                  class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg"
+                >
+                  <Icon name="phone" class="w-5 h-5 mr-2" />Call for Instant Quote
+                </a>
+                <a
+                  href="/contact"
+                  class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
+                >
+                  <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Online
+                </a>
+                <p class="text-center text-sm text-gray-500">
+                  <Icon name="tag" class="w-5 h-5 mr-1" /> Recurring service discounts available
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -1226,36 +1317,73 @@ const faqSchema = {
   <!-- Final CTA -->
   <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
     <div class="container mx-auto max-w-3xl text-center">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
-        Your {city} home is one step away from spotless.
-      </h2>
-      <p class="text-xl text-gray-600 mb-4">
-        See your exact price in 60 seconds. We reply within 2 hours.
-      </p>
-      <div
-        class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8"
-      >
-        <span class="text-green-700 font-semibold text-lg">
-          <Icon
-            name="calendar-check"
-            class="w-5 h-5 text-green-600 mr-2"
-          />Same-Week Availability - Call Today!
-        </span>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="tel:2568261100"
-          class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition"
-        >
-          <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
-        </a>
-        <a
-          href="/contact"
-          class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
-        >
-          <Icon name="calendar" class="w-5 h-5 mr-2" />Claim Your Clean Home
-        </a>
-      </div>
+      {isCommercial ? (
+        <>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Let's walk your {city} facility together.
+          </h2>
+          <p class="text-xl text-gray-600 mb-4">
+            We assess your space, understand your needs, and give you an exact price — no guesswork, no pressure.
+          </p>
+          <div
+            class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8"
+          >
+            <span class="text-green-700 font-semibold text-lg">
+              <Icon
+                name="calendar-check"
+                class="w-5 h-5 text-green-600 mr-2"
+              />Free On-Site Assessment — No Obligation
+            </span>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition"
+            >
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+            </a>
+            <a
+              href="/contact"
+              class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
+            >
+              <Icon name="building" class="w-5 h-5 mr-2" />Request a Free Walkthrough
+            </a>
+          </div>
+        </>
+      ) : (
+        <>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Your {city} home is one step away from spotless.
+          </h2>
+          <p class="text-xl text-gray-600 mb-4">
+            See your exact price in 60 seconds. We reply within 2 hours.
+          </p>
+          <div
+            class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8"
+          >
+            <span class="text-green-700 font-semibold text-lg">
+              <Icon
+                name="calendar-check"
+                class="w-5 h-5 text-green-600 mr-2"
+              />Same-Week Availability - Call Today!
+            </span>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition"
+            >
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+            </a>
+            <a
+              href="/contact"
+              class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
+            >
+              <Icon name="calendar" class="w-5 h-5 mr-2" />Claim Your Clean Home
+            </a>
+          </div>
+        </>
+      )}
     </div>
   </section>
 
