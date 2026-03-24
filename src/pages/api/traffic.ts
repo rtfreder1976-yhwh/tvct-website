@@ -33,7 +33,8 @@ export async function GET({ request }: { request: Request }) {
                     { startDate: startDateStr, endDate: endDateStr },
                     { startDate: prevStartDateStr, endDate: prevEndDateStr }, // Compare against previous period
                 ],
-                dimensions: [{ name: 'date' }], // Group by day for the chart
+                // Include dateRange so rows can be split between current/previous periods.
+                dimensions: [{ name: 'date' }, { name: 'dateRange' }],
                 metrics: [
                     { name: 'sessions' },
                     { name: 'screenPageViews' },
@@ -60,10 +61,11 @@ export async function GET({ request }: { request: Request }) {
         // Parse Google's complex dual-dateRange response
         if (response.data?.rows) {
             response.data.rows.forEach(row => {
-                const dateStr = row.dimensionValues?.[0].value; // Format: YYYYMMDD
+                const dateStr = row.dimensionValues?.[0]?.value; // Format: YYYYMMDD
+                const dateRangeLabel = row.dimensionValues?.[1]?.value;
 
-                // Period 0 is "current range", Period 1 is "previous format"
-                const isCurrentPeriod = row.dimensionValues?.[1]?.value !== 'date_range_1';
+                // Period 0 is current range; period 1 is previous range.
+                const isCurrentPeriod = dateRangeLabel === 'date_range_0';
 
                 const sessions = parseInt(row.metricValues?.[0].value || "0", 10);
                 const views = parseInt(row.metricValues?.[1].value || "0", 10);
