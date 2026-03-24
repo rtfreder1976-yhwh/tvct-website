@@ -22,116 +22,61 @@ const {
 const displayCity = city || "Your Area";
 const displayService = serviceName || "Cleaning Service";
 
-// Enhanced direct response headlines
 const defaultHeading = heading
   ? heading
   : city
-    ? `WARNING: ${city} Residents Are Saving $47 on Their First Clean (Ends Soon)`
-    : "STOP Overpaying for House Cleaning (See Your Real Price Now)";
+    ? `See Your Exact ${city} Price`
+    : "See Your Exact Price Instantly";
 
 const defaultSubheading = subheading
   ? subheading
   : serviceName && city
-    ? `${displayService} in ${displayCity} — Get instant pricing without the runaround`
+    ? `${displayService} in ${displayCity} — takes 60 seconds, zero obligation`
     : city
-      ? `${displayCity} homeowners save an average of $312/year with our transparent pricing`
-      : "No hidden fees. No surprise charges. Just honest pricing in 60 seconds.";
-
-// Dynamic urgency based on time of day
-const now = new Date();
-const hour = now.getHours();
-const isAfternoon = hour >= 12;
-const isFriday = now.getDay() === 5;
-const urgencyText = isAfternoon
-  ? "Only 2 spots left for tomorrow"
-  : isFriday
-    ? "Weekend slots filling fast"
-    : "3 neighbors booked this week";
+      ? `Serving all ${displayCity} neighborhoods`
+      : "Takes 60 seconds. Zero obligation. No credit card required.";
 ---
 
 <div
   class:list={[
     "booking-cta-component",
     variant === "card"
-      ? "bg-white rounded-2xl shadow-xl border border-gray-100/50 p-6 md:p-8 relative overflow-hidden"
+      ? "bg-white rounded-2xl shadow-xl border border-gray-100/50 p-6 md:p-8"
       : variant === "compact"
         ? "text-center"
-        : "rounded-xl relative",
+        : "rounded-xl",
   ]}
 >
-  <!-- Urgency Banner -->
-  <div class="absolute top-0 left-0 right-0 bg-red-500 text-white text-xs py-1 text-center font-semibold animate-pulse">
-    ⚡ {urgencyText} ⚡
-  </div>
-
   <!-- Header -->
-  <div class="text-center mb-4 mt-6">
+  <div class="text-center mb-6">
     <h3 class="text-2xl font-bold text-[#333333] mb-2">{defaultHeading}</h3>
     <p class="text-gray-500 text-sm">{defaultSubheading}</p>
   </div>
 
-  <!-- Value Stack -->
-  <div class="bg-gray-50 rounded-lg p-4 mb-4">
-    <div class="text-xs text-gray-600 space-y-2">
-      <div class="flex items-center justify-between">
-        <span>✓ Professional Deep Clean</span>
-        <span class="line-through text-gray-400">$276</span>
-      </div>
-      <div class="flex items-center justify-between">
-        <span>✓ 49-Point Checklist</span>
-        <span class="line-through text-gray-400">$50</span>
-      </div>
-      <div class="flex items-center justify-between">
-        <span>✓ Eco-Friendly Supplies</span>
-        <span class="line-through text-gray-400">$35</span>
-      </div>
-      <div class="flex items-center justify-between">
-        <span>✓ 100% Satisfaction Guarantee</span>
-        <span class="text-green-600 font-bold">Included</span>
-      </div>
-      <div class="border-t pt-2 mt-2">
-        <div class="flex items-center justify-between font-bold">
-          <span>Your Personalized Price:</span>
-          <span class="text-lg text-[#FFA985]">See Now →</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Trust Signals Row -->
-  <div class="flex flex-wrap justify-center gap-3 mb-4 text-xs text-gray-600">
-    <span class="flex items-center gap-1 bg-green-50 px-2 py-1 rounded">
+  <div class="flex flex-wrap justify-center gap-3 mb-6 text-xs text-gray-600">
+    <span class="flex items-center gap-1">
       <Icon name="shield-alt" class="w-3.5 h-3.5 text-green-500" />
-      $2M Insurance
+      Insured &amp; Bonded
     </span>
-    <span class="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded">
+    <span class="flex items-center gap-1">
       <Icon name="star" class="w-3.5 h-3.5 text-[#FFA985]" fill="currentColor" />
-      137 Reviews (4.9★)
+      130+ 5-Star Reviews
     </span>
-    <span class="flex items-center gap-1 bg-blue-50 px-2 py-1 rounded">
+    <span class="flex items-center gap-1">
       <Icon name="clock" class="w-3.5 h-3.5 text-blue-500" />
-      Same-Day Available
+      Reply within 2 hours
     </span>
-  </div>
-
-  <!-- Risk Reversal -->
-  <div class="text-center mb-4">
-    <p class="text-xs text-green-600 font-semibold">
-      🛡️ Zero-Risk Guarantee: Not 100% satisfied? We'll re-clean for FREE or refund every penny
-    </p>
   </div>
 
   <!-- Primary CTA Button -->
   <a
     href="/booking"
-    class="block w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold text-center text-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group relative overflow-hidden"
-    onclick="if(typeof gtag==='function'){gtag('event','cta_click',{event_category:'CTA',event_label:'BookingCTA - Claim My Discount',page_location:window.location.href});}"
+    class="block w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold text-center text-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
+    onclick="if(typeof gtag==='function'){gtag('event','cta_click',{event_category:'CTA',event_label:'BookingCTA - Show Me My Price',page_location:window.location.href});}"
   >
-    <span class="absolute inset-0 bg-gradient-to-r from-[#FF8C61] to-[#FFA985] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-    <span class="relative">
-      <Icon name="calendar-check" class="w-5 h-5 inline mr-2 group-hover:scale-110 transition-transform" />
-      YES! Show Me My Exact Price Now →
-    </span>
+    <Icon name="calendar-check" class="w-5 h-5 inline mr-2 group-hover:scale-110 transition-transform" />
+    Show Me My Price
   </a>
 
   <!-- Secondary: Phone -->
