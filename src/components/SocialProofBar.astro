@@ -1,0 +1,460 @@
+---
+// SocialProofBar Component - Real-time social proof notifications
+import Icon from "./Icon.astro";
+
+interface Props {
+  variant?: "floating" | "inline" | "ticker" | "static";
+  position?: "bottom-left" | "bottom-right" | "top-left" | "top-right";
+}
+
+const {
+  variant = "floating",
+  position = "bottom-left",
+} = Astro.props;
+
+// Dynamic social proof messages
+const proofMessages = [
+  { name: "Sarah M.", location: "Huntsville", time: "2 hours ago", message: "Just booked deep cleaning" },
+  { name: "Mike R.", location: "Mountain Brook", time: "4 hours ago", message: "Scheduled recurring service" },
+  { name: "Jennifer L.", location: "Athens", time: "5 hours ago", message: "Left a 5-star review" },
+  { name: "David K.", location: "Nashville", time: "7 hours ago", message: "Booked same-day service" },
+  { name: "Lisa T.", location: "Madison", time: "8 hours ago", message: "Referred 2 neighbors" },
+  { name: "Robert B.", location: "Florence", time: "1 day ago", message: "Upgraded to weekly service" },
+];
+
+// Recent stats for inline variant
+const stats = {
+  customersToday: Math.floor(Math.random() * 10) + 12,
+  spotsLeft: Math.floor(Math.random() * 3) + 1,
+  avgRating: 4.9,
+  totalReviews: 137,
+};
+---
+
+{variant === "floating" && (
+  <div class={`social-proof-floating ${position}`} id="social-proof-container">
+    <div class="social-proof-notification" id="social-proof-popup">
+      <button class="close-btn" aria-label="Close notification">
+        <Icon name="times" class="w-3 h-3" />
+      </button>
+      <div class="notification-content">
+        <div class="notification-icon">
+          <Icon name="user-check" class="w-5 h-5" />
+        </div>
+        <div class="notification-text">
+          <p class="notification-main">
+            <strong id="proof-name">Sarah M.</strong> from <span id="proof-location">Huntsville</span>
+          </p>
+          <p class="notification-sub">
+            <span id="proof-message">Just booked deep cleaning</span> • <span id="proof-time">2 hours ago</span>
+          </p>
+        </div>
+      </div>
+      <div class="notification-cta">
+        <a href="/booking" class="mini-cta">Join them →</a>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === "inline" && (
+  <div class="social-proof-inline">
+    <div class="inline-stats">
+      <div class="stat-item">
+        <Icon name="fire" class="w-5 h-5 text-orange-500" />
+        <span><strong>{stats.customersToday}</strong> customers booked today</span>
+      </div>
+      <div class="stat-item">
+        <Icon name="clock" class="w-5 h-5 text-blue-500" />
+        <span>Only <strong>{stats.spotsLeft}</strong> {stats.spotsLeft === 1 ? 'spot' : 'spots'} left</span>
+      </div>
+      <div class="stat-item">
+        <Icon name="star" class="w-5 h-5 text-yellow-500" />
+        <span><strong>{stats.avgRating}★</strong> ({stats.totalReviews} reviews)</span>
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === "ticker" && (
+  <div class="social-proof-ticker">
+    <div class="ticker-track">
+      <div class="ticker-content">
+        {proofMessages.map((proof) => (
+          <div class="ticker-item">
+            <Icon name="check-circle" class="w-4 h-4 text-green-500" />
+            <span>
+              <strong>{proof.name}</strong> from {proof.location} {proof.message} • {proof.time}
+            </span>
+          </div>
+        ))}
+        {/* Duplicate for seamless loop */}
+        {proofMessages.map((proof) => (
+          <div class="ticker-item">
+            <Icon name="check-circle" class="w-4 h-4 text-green-500" />
+            <span>
+              <strong>{proof.name}</strong> from {proof.location} {proof.message} • {proof.time}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+{variant === "static" && (
+  <div class="social-proof-static">
+    <h3 class="static-title">
+      <Icon name="trending-up" class="w-5 h-5 text-green-500 inline mr-2" />
+      Recent Activity in Your Area
+    </h3>
+    <div class="static-list">
+      {proofMessages.slice(0, 3).map((proof) => (
+        <div class="static-item">
+          <div class="static-avatar">
+            {proof.name.charAt(0)}
+          </div>
+          <div class="static-content">
+            <p class="static-name">{proof.name} from {proof.location}</p>
+            <p class="static-action">{proof.message}</p>
+            <p class="static-time">{proof.time}</p>
+          </div>
+          <div class="static-badge">
+            Verified
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="static-footer">
+      <p class="text-sm text-gray-600">
+        Join <strong>423+</strong> happy customers this month
+      </p>
+    </div>
+  </div>
+)}
+
+<style>
+  /* Floating Variant */
+  .social-proof-floating {
+    position: fixed;
+    z-index: 90;
+    display: none;
+  }
+
+  .social-proof-floating.bottom-left {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .social-proof-floating.bottom-right {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .social-proof-floating.top-left {
+    top: 80px;
+    left: 20px;
+  }
+
+  .social-proof-floating.top-right {
+    top: 80px;
+    right: 20px;
+  }
+
+  .social-proof-notification {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    min-width: 320px;
+    animation: slideIn 0.4s ease-out;
+    position: relative;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .close-btn:hover {
+    color: #374151;
+  }
+
+  .notification-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .notification-icon {
+    background: #f0fdf4;
+    border-radius: 50%;
+    padding: 8px;
+    color: #22c55e;
+  }
+
+  .notification-text {
+    flex: 1;
+  }
+
+  .notification-main {
+    font-size: 14px;
+    color: #1f2937;
+    margin-bottom: 2px;
+  }
+
+  .notification-sub {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .mini-cta {
+    display: inline-block;
+    background: #FFA985;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .mini-cta:hover {
+    background: #FF8C61;
+    transform: translateY(-1px);
+  }
+
+  /* Inline Variant */
+  .social-proof-inline {
+    background: #fef3c7;
+    border: 2px solid #fcd34d;
+    border-radius: 12px;
+    padding: 12px 20px;
+    margin: 20px 0;
+  }
+
+  .inline-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #1f2937;
+  }
+
+  /* Ticker Variant */
+  .social-proof-ticker {
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-track {
+    display: flex;
+    animation: scroll 40s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .ticker-content {
+    display: flex;
+    gap: 48px;
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #4b5563;
+  }
+
+  /* Static Variant */
+  .social-proof-static {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .static-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
+
+  .static-list {
+    space-y: 12px;
+    margin-bottom: 16px;
+  }
+
+  .static-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 8px;
+  }
+
+  .static-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #FFA985 0%, #FFC67D 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .static-content {
+    flex: 1;
+  }
+
+  .static-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 2px;
+  }
+
+  .static-action {
+    font-size: 13px;
+    color: #059669;
+    margin-bottom: 2px;
+  }
+
+  .static-time {
+    font-size: 12px;
+    color: #6b7280;
+  }
+
+  .static-badge {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .static-footer {
+    text-align: center;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  @media (max-width: 640px) {
+    .social-proof-notification {
+      min-width: 280px;
+      font-size: 13px;
+    }
+
+    .inline-stats {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+</style>
+
+<script>
+  // Floating notification logic
+  if (document.getElementById('social-proof-container')) {
+    const container = document.getElementById('social-proof-container');
+    const popup = document.getElementById('social-proof-popup');
+    const closeBtn = popup?.querySelector('.close-btn');
+
+    const proofData = [
+      { name: "Sarah M.", location: "Huntsville", time: "2 hours ago", message: "Just booked deep cleaning" },
+      { name: "Mike R.", location: "Mountain Brook", time: "4 hours ago", message: "Scheduled recurring service" },
+      { name: "Jennifer L.", location: "Athens", time: "5 hours ago", message: "Left a 5-star review" },
+      { name: "David K.", location: "Nashville", time: "7 hours ago", message: "Booked same-day service" },
+      { name: "Lisa T.", location: "Madison", time: "8 hours ago", message: "Referred 2 neighbors" },
+    ];
+
+    let currentIndex = 0;
+
+    function showNotification() {
+      if (container && !sessionStorage.getItem('hideProofNotifications')) {
+        const proof = proofData[currentIndex];
+
+        // Update content
+        const nameEl = document.getElementById('proof-name');
+        const locationEl = document.getElementById('proof-location');
+        const messageEl = document.getElementById('proof-message');
+        const timeEl = document.getElementById('proof-time');
+
+        if (nameEl) nameEl.textContent = proof.name;
+        if (locationEl) locationEl.textContent = proof.location;
+        if (messageEl) messageEl.textContent = proof.message;
+        if (timeEl) timeEl.textContent = proof.time;
+
+        // Show notification
+        container.style.display = 'block';
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          container.style.display = 'none';
+        }, 5000);
+
+        // Move to next message
+        currentIndex = (currentIndex + 1) % proofData.length;
+      }
+    }
+
+    // Show first notification after 3 seconds
+    setTimeout(showNotification, 3000);
+
+    // Show new notification every 20 seconds
+    setInterval(showNotification, 20000);
+
+    // Close button functionality
+    closeBtn?.addEventListener('click', () => {
+      if (container) {
+        container.style.display = 'none';
+        sessionStorage.setItem('hideProofNotifications', 'true');
+      }
+    });
+  }
+</script>
