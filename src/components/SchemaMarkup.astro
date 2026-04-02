@@ -219,7 +219,7 @@ const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: "129.00",
+      price: 129.00,
       priceCurrency: "USD",
       description: "Starting price for 2-bedroom home",
     },
@@ -236,7 +236,7 @@ const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: "199.00",
+      price: 199.00,
       priceCurrency: "USD",
       description: "Starting price",
     },
@@ -253,7 +253,7 @@ const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: "99.00",
+      price: 99.00,
       priceCurrency: "USD",
       description: "Starting weekly price",
     },
@@ -270,7 +270,7 @@ const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: "199.00",
+      price: 199.00,
       priceCurrency: "USD",
       description: "Starting price",
     },
@@ -320,7 +320,7 @@ const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: "300.00",
+      price: 300.00,
       priceCurrency: "USD",
       description: "Starting price",
     },
@@ -346,10 +346,10 @@ const departmentSchemas = Object.entries(cityConfigs).map(
         "@type": "GeoCircle",
         geoMidpoint: {
           "@type": "GeoCoordinates",
-          latitude: config.lat,
-          longitude: config.lng,
+          latitude: Number(config.lat),
+          longitude: Number(config.lng),
         },
-        geoRadius: config.radius,
+        geoRadius: Number(config.radius),
       },
     ],
     address: {
@@ -376,8 +376,8 @@ const getOrganizationSchema = (includeDepartments = true) => ({
   logo: {
     "@type": "ImageObject",
     url: "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
-    width: "512",
-    height: "512",
+    width: 512,
+    height: 512,
   },
   image: [
     "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
@@ -405,8 +405,8 @@ const getOrganizationSchema = (includeDepartments = true) => ({
   foundingDate: "2022",
   numberOfEmployees: {
     "@type": "QuantitativeValue",
-    minValue: "10",
-    maxValue: "25",
+    minValue: 10,
+    maxValue: 25,
   },
   isicV4: "9601",
   naics: "561720",
@@ -429,8 +429,8 @@ const getOrganizationSchema = (includeDepartments = true) => ({
         "@type": "EntryPoint",
         urlTemplate: "https://thevalleycleanteam.com/contact",
         actionPlatform: [
-          "http://schema.org/DesktopWebPlatform",
-          "http://schema.org/MobileWebPlatform",
+          "https://schema.org/DesktopWebPlatform",
+          "https://schema.org/MobileWebPlatform",
         ],
       },
       result: {
@@ -443,7 +443,7 @@ const getOrganizationSchema = (includeDepartments = true) => ({
       target: {
         "@type": "EntryPoint",
         urlTemplate: "tel:+1-256-826-1100",
-        actionPlatform: "http://schema.org/MobileWebPlatform",
+        actionPlatform: "https://schema.org/MobileWebPlatform",
       },
     },
   ],
@@ -519,7 +519,7 @@ const localSchema = city
               latitude: config.lat,
               longitude: config.lng,
             },
-            geoRadius: config.radius,
+            geoRadius: Number(config.radius),
           },
           ...neighborhoods.map((neighborhood) => ({
             "@type": "Place",
@@ -540,16 +540,16 @@ const localSchema = city
         },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: "4.9",
-          reviewCount: "130",
-          bestRating: "5",
-          worstRating: "1",
+          ratingValue: 4.9,
+          reviewCount: 130,
+          bestRating: 5,
+          worstRating: 1,
         },
         review: [
           {
             "@type": "Review",
             author: { "@type": "Person", name: `${city} Homeowner` },
-            reviewRating: { "@type": "Rating", ratingValue: "5" },
+            reviewRating: { "@type": "Rating", ratingValue: 5 },
             reviewBody: reviewText,
           },
         ],
@@ -580,7 +580,7 @@ const localSchema = city
               },
               priceSpecification: {
                 "@type": "PriceSpecification",
-                price: "99.00",
+                price: 99.00,
                 priceCurrency: "USD",
                 description: "Starting at $99",
               },
@@ -712,7 +712,7 @@ const howToSchema =
         estimatedCost: {
           "@type": "MonetaryAmount",
           currency: "USD",
-          value: "0",
+          value: 0,
         },
         supply: [
           { "@type": "HowToSupply", name: "Pet-safe cleaning products" },
@@ -1493,7 +1493,7 @@ const eventSchemas =
               "Get your home guest-ready before Helen Keller Festival",
             url: "https://thevalleycleanteam.com/locations/tuscumbia",
             priceCurrency: "USD",
-            price: "149",
+            price: 149,
             availability: "https://schema.org/InStock",
             seller: {
               "@type": "Organization",
@@ -1590,7 +1590,7 @@ const airbnbCleaningSchema =
           "@type": "Offer",
           priceSpecification: {
             "@type": "PriceSpecification",
-            price: "99",
+            price: 99,
             priceCurrency: "USD",
             description: "Starting price for standard turnover",
           },
@@ -1651,7 +1651,7 @@ const moveOutCleaningSchema =
           "@type": "Offer",
           priceSpecification: {
             "@type": "PriceSpecification",
-            price: "199",
+            price: 199,
             priceCurrency: "USD",
             description: "Starting price for move-out cleaning",
           },

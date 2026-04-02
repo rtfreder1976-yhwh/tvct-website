@@ -26,7 +26,7 @@ export default defineConfig({
       },
     }),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft'),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/'),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
@@ -39,6 +39,11 @@ export default defineConfig({
         'https://thevalleycleanteam.com/pricing',
         'https://thevalleycleanteam.com/contact',
         'https://thevalleycleanteam.com/locations',
+        'https://thevalleycleanteam.com/blog',
+        'https://thevalleycleanteam.com/about',
+        'https://thevalleycleanteam.com/trust',
+        'https://thevalleycleanteam.com/luxury-homes',
+        'https://thevalleycleanteam.com/booking',
       ],
       serialize(item) {
         // Set custom priorities based on page type
