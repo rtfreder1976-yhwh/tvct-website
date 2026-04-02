@@ -65,7 +65,7 @@ export default defineConfig({
         }
 
         // Main city location pages (huntsville-cleaning, nashville-cleaning, etc.)
-        if (url.match(/\/(huntsville|nashville|birmingham|madison|athens|muscle-shoals|mountain-brook)-cleaning\/?$/)) {
+        if (url.match(/\/(huntsville|nashville|madison|athens|muscle-shoals|mountain-brook)-cleaning\/?$/)) {
           return { ...item, priority: 0.85, changefreq: 'weekly' };
         }
 

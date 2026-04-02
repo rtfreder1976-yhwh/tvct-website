@@ -14,6 +14,27 @@ import Icon from '../components/Icon.astro';
   <link slot="preload" rel="preconnect" href="https://thevalleycleanteam.bookingkoala.com" crossorigin />
   <link slot="preload" rel="dns-prefetch" href="https://thevalleycleanteam.bookingkoala.com" />
 
+  <style slot="preload">
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .iframe-loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #FFA985;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    .sticky-cta {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+
   <!-- Service + ReserveAction Schema (valid in body per Google guidelines) -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -93,11 +114,10 @@ import Icon from '../components/Icon.astro';
   })} />
 
   <!-- Simple, Non-Interactive Header -->
-  <header class="py-6 px-6 border-b border-gray-100 bg-white sticky top-0 z-50">
+  <header class="py-4 px-6 border-b border-gray-100 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center">
-        <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="Valley Clean Team Logo" class="h-10 w-auto mr-3" />
-        <span class="font-bold text-xl text-[#333333] hidden sm:inline">Valley Clean Team</span>
+        <span class="font-playfair text-xl md:text-2xl font-bold text-[#FFA985]">The Valley Clean Team</span>
       </div>
       <div class="text-sm font-semibold text-gray-500 flex items-center gap-4">
         <a href="tel:2568261100" class="flex items-center hover:text-[#FFA985] transition">
@@ -138,9 +158,154 @@ import Icon from '../components/Icon.astro';
       </div>
     </section>
 
+  <!-- Pre-Booking Lead Capture -->
+  <section class="pb-6 px-6">
+    <div class="container mx-auto max-w-xl">
+      <div id="pre-booking-capture" class="bg-gradient-to-br from-[#FFA985]/10 to-white border border-[#FFA985]/30 rounded-2xl p-6 shadow-md">
+        <div class="text-center mb-4">
+          <p class="text-sm font-semibold text-[#FFA985] uppercase tracking-wide mb-1">Quick Start</p>
+          <h2 class="text-xl font-bold text-[#333333]">Save your spot — takes 10 seconds</h2>
+          <p class="text-sm text-gray-500 mt-1">Enter your info below so we can follow up if you get interrupted.</p>
+        </div>
+        <form id="pre-capture-form" class="space-y-3" novalidate>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="pc-name" class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Your Name</label>
+              <input
+                id="pc-name"
+                type="text"
+                name="name"
+                placeholder="Jane Smith"
+                autocomplete="name"
+                class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all text-sm"
+              />
+            </div>
+            <div>
+              <label for="pc-phone" class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Phone Number</label>
+              <input
+                id="pc-phone"
+                type="tel"
+                name="phone"
+                placeholder="(256) 555-0123"
+                autocomplete="tel"
+                class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all text-sm"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="pc-email" class="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wide">Email <span class="text-gray-400 font-normal">(Optional)</span></label>
+            <input
+              id="pc-email"
+              type="email"
+              name="email"
+              placeholder="jane@example.com"
+              autocomplete="email"
+              class="w-full px-4 py-3 rounded-xl bg-white border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all text-sm"
+            />
+          </div>
+          <button
+            type="submit"
+            id="pc-submit"
+            class="w-full py-3 rounded-xl bg-[#333333] text-white font-bold text-sm hover:bg-[#444444] transition-all duration-200 flex items-center justify-center gap-2"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            Save My Spot &amp; Continue Booking
+          </button>
+          <p id="pc-status" class="text-xs text-center text-gray-400 hidden"></p>
+        </form>
+        <p id="pc-success" class="hidden text-center text-green-600 font-semibold text-sm py-2">
+          Got it! Your info is saved. Complete your booking below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function() {
+      var form = document.getElementById('pre-capture-form');
+      var successMsg = document.getElementById('pc-success');
+      var statusMsg = document.getElementById('pc-status');
+      var submitBtn = document.getElementById('pc-submit');
+      var captured = false;
+
+      // Auto-capture on blur (when user leaves a field) — captures partial data
+      function tryAutoCapture() {
+        var name = document.getElementById('pc-name').value.trim();
+        var phone = document.getElementById('pc-phone').value.trim();
+        var email = document.getElementById('pc-email').value.trim();
+        if (!captured && (phone.length >= 7 || (email && email.includes('@')))) {
+          sendCapture(name, phone, email, 'auto-blur');
+        }
+      }
+
+      ['pc-name','pc-phone','pc-email'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('blur', tryAutoCapture);
+      });
+
+      // Capture on page unload/beforeunload (exit intent)
+      window.addEventListener('beforeunload', function() {
+        var name = document.getElementById('pc-name').value.trim();
+        var phone = document.getElementById('pc-phone').value.trim();
+        var email = document.getElementById('pc-email').value.trim();
+        if (!captured && (name || phone || email)) {
+          sendCapture(name, phone, email, 'exit-intent');
+        }
+      });
+
+      function sendCapture(name, phone, email, trigger) {
+        if (captured) return;
+        captured = true;
+        var payload = {
+          name: name || 'Unknown',
+          phone: phone || '',
+          email: email || '',
+          service: 'Unknown - Booking Page Pre-Capture',
+          square_footage: 0,
+          source: 'Booking Page Pre-Capture',
+          page_url: window.location.href,
+          notes: 'Trigger: ' + trigger + ' | Partial booking page lead'
+        };
+        fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(function() {});
+        // Fire GA4 event
+        if (typeof gtag === 'function') {
+          gtag('event', 'booking_page_lead_captured', {
+            event_category: 'Lead Capture',
+            event_label: 'Booking Page Pre-Capture',
+            trigger: trigger
+          });
+        }
+      }
+
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var name = document.getElementById('pc-name').value.trim();
+          var phone = document.getElementById('pc-phone').value.trim();
+          var email = document.getElementById('pc-email').value.trim();
+          if (!name && !phone) {
+            if (statusMsg) { statusMsg.textContent = 'Please enter your name or phone number.'; statusMsg.classList.remove('hidden'); }
+            return;
+          }
+          sendCapture(name, phone, email, 'form-submit');
+          if (form) form.classList.add('hidden');
+          if (successMsg) successMsg.classList.remove('hidden');
+          // Scroll to booking iframe
+          var iframe = document.getElementById('booking-iframe');
+          if (iframe) iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    })();
+  </script>
+
   <!-- Micro-testimonial -->
   <section class="pb-4 px-6">
-    <div class="container mx-auto max-w-4xl text-center">
+    <div class="container mx-auto max-w-7xl text-center">
       <div class="inline-flex items-center gap-1 text-yellow-500 mb-1">
         <Icon name="star" class="w-4 h-4" fill="currentColor" />
         <Icon name="star" class="w-4 h-4" fill="currentColor" />
@@ -156,14 +321,14 @@ import Icon from '../components/Icon.astro';
   </section>
 
     <!-- Booking Widget Section -->
-    <section class="pb-20 px-6">
-      <div class="container mx-auto max-w-4xl">
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden relative">
+    <section class="pb-20 px-0 md:px-6">
+      <div class="container mx-auto max-w-[1600px]">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 relative">
           <!-- Risk Reversal Banner -->
-          <div class="bg-gradient-to-r from-green-50 to-white border-b border-green-100 px-6 py-4 flex flex-col sm:flex-row items-center justify-center text-green-800 text-sm md:text-base font-semibold gap-2">
+          <div class="bg-gradient-to-r from-[#EBFAF2] to-white border-b border-green-100 px-6 py-4 flex flex-col sm:flex-row items-center justify-center text-[#1B4332] text-sm md:text-base font-semibold gap-2">
             <div class="flex items-center">
               <Icon name="shield-halved" class="w-6 h-6 mr-2 text-green-600" />
-              NO-RISK BOOKING: Cards are NOT charged until AFTER your clean.
+              NO-RISK BOOKING: <span class="text-green-700">Cards are NOT charged until AFTER your clean.</span>
             </div>
             <span class="hidden sm:inline mx-2 opacity-30">|</span>
             <div class="flex items-center">
@@ -171,13 +336,90 @@ import Icon from '../components/Icon.astro';
               Secure 256-bit Encryption
             </div>
           </div>
+
+          <!-- Iframe Loading State -->
+          <div id="iframe-loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white pointer-events-none transition-opacity duration-500 pt-32">
+            <div class="iframe-loader mb-4"></div>
+            <p class="text-gray-500 font-medium">Securing your connection...</p>
+          </div>
+
           <iframe
+            id="booking-iframe"
             src="https://thevalleycleanteam.bookingkoala.com/booknow?embed=true"
-            style="border:none;min-height:1000px;height:1200px"
+            style="border:none;min-height:1000px;height:1200px;opacity:0;transition:opacity 0.5s ease-in-out;"
             width="100%"
             scrolling="no"
             title="Book a cleaning service online - The Valley Clean Team"
+            onload="const loader = document.getElementById('iframe-loading'); const frame = document.getElementById('booking-iframe'); if(loader) loader.style.opacity = '0'; if(frame) frame.style.opacity = '1'; setTimeout(() => loader && loader.remove(), 500);"
           ></iframe>
+          
+          <script is:inline>
+            // Safety timeout: if iframe hasn't loaded in 4 seconds, show it anyway
+            setTimeout(() => {
+              const loader = document.getElementById('iframe-loading');
+              const frame = document.getElementById('booking-iframe');
+              if (loader && loader.style.opacity !== '0') {
+                loader.style.opacity = '0';
+                if(frame) frame.style.opacity = '1';
+                setTimeout(() => loader.remove(), 500);
+              }
+            }, 4000);
+
+            // GA4 + Meta Pixel: Track BookingKoala booking completion via postMessage
+            // BookingKoala fires a postMessage when booking is confirmed
+            window.addEventListener('message', function(event) {
+              // Accept messages from BookingKoala domain only
+              if (!event.origin.includes('bookingkoala.com')) return;
+              var data = event.data;
+              var isConfirmation = false;
+              // BookingKoala sends various message formats on completion
+              if (typeof data === 'string') {
+                isConfirmation = data.includes('booking_confirmed') || data.includes('order_complete') || data.includes('thank_you') || data.includes('confirmation');
+              } else if (typeof data === 'object' && data !== null) {
+                isConfirmation = data.type === 'booking_confirmed' || data.event === 'booking_confirmed' || data.status === 'confirmed' || data.action === 'booking_complete';
+              }
+              if (isConfirmation) {
+                // Fire GA4 conversion
+                if (typeof gtag === 'function') {
+                  gtag('event', 'booking_completed', {
+                    event_category: 'Conversion',
+                    event_label: 'BookingKoala - Booking Confirmed',
+                    value: 1
+                  });
+                  // Also fire as a GA4 purchase event for conversion tracking
+                  gtag('event', 'purchase', {
+                    transaction_id: 'BK-' + Date.now(),
+                    value: 0,
+                    currency: 'USD'
+                  });
+                }
+                // Fire Meta Pixel conversion
+                if (typeof fbq === 'function') {
+                  fbq('track', 'Schedule', { content_name: 'Cleaning Service Booking' });
+                }
+              }
+            });
+
+            // GA4: Track time spent on booking page (engagement depth)
+            var bookingStartTime = Date.now();
+            var engagementFired = { '30s': false, '60s': false, '120s': false };
+            var engagementTimer = setInterval(function() {
+              var elapsed = Math.floor((Date.now() - bookingStartTime) / 1000);
+              if (elapsed >= 30 && !engagementFired['30s']) {
+                engagementFired['30s'] = true;
+                if (typeof gtag === 'function') gtag('event', 'booking_page_engaged_30s', { event_category: 'Engagement', event_label: 'Booking Page 30s' });
+              }
+              if (elapsed >= 60 && !engagementFired['60s']) {
+                engagementFired['60s'] = true;
+                if (typeof gtag === 'function') gtag('event', 'booking_page_engaged_60s', { event_category: 'Engagement', event_label: 'Booking Page 60s' });
+              }
+              if (elapsed >= 120 && !engagementFired['120s']) {
+                engagementFired['120s'] = true;
+                if (typeof gtag === 'function') gtag('event', 'booking_page_engaged_120s', { event_category: 'Engagement', event_label: 'Booking Page 120s' });
+                clearInterval(engagementTimer);
+              }
+            }, 5000);
+          </script>
         </div>
       </div>
     </section>
@@ -186,6 +428,7 @@ import Icon from '../components/Icon.astro';
     <section class="py-16 px-6 bg-gray-50">
       <div class="container mx-auto max-w-4xl">
         <div class="text-center mb-12">
+          <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="The Valley Clean Team Official Seal" class="w-24 h-24 mx-auto mb-6 opacity-80" />
           <h2 class="text-3xl font-bold text-[#333333] mb-4">The Valley Clean Team Difference</h2>
           <p class="text-gray-500 max-w-xl mx-auto">Experience the precision and care that comes with a veteran-owned, community-focused team.</p>
           <div class="section-divider mt-6"></div>
@@ -244,5 +487,14 @@ import Icon from '../components/Icon.astro';
   </section>
 
   <script src="https://thevalleycleanteam.bookingkoala.com/resources/embed.js" defer></script>
+
+  <!-- Sticky Call Button (Mobile Only) -->
+  <a
+    href="tel:2568261100"
+    class="sticky-cta sm:hidden bg-gradient-to-r from-[#FFA985] to-[#FFC67D] w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition"
+    aria-label="Call for help"
+  >
+    <Icon name="phone" class="w-7 h-7 text-[#333333]" />
+  </a>
 </BaseLayout>
 

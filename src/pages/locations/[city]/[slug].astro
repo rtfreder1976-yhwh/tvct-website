@@ -16,7 +16,6 @@ export const prerender = false;
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ServiceLocationLayout from "../../../layouts/ServiceLocationLayout.astro";
 import Icon from "../../../components/Icon.astro";
-import QuoteForm from "../../../components/QuoteForm.astro";
 import locations from "../../../data/locations.json";
 import services from "../../../data/services.json";
 
@@ -105,6 +104,7 @@ const includes = service?.includes ? service.includes.map((i) => t(i)) : [];
 const serviceFaqs = service?.faqs
     ? service.faqs.map((f) => ({ question: t(f.question), answer: t(f.answer) }))
     : [];
+import BookingCTA from "../../../components/BookingCTA.astro";
 ---
 
 {neighborhood ? (
@@ -171,13 +171,7 @@ const serviceFaqs = service?.faqs
                         </div>
                         <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
                         <p class="text-gray-600 mb-6 text-center">Serving {hoodName} & {city}</p>
-                        <QuoteForm
-                            formId={`${neighborhood.slug}-quote-form`}
-                            serviceName={`${hoodName} Cleaning`}
-                            city={city}
-                            state={state}
-                            source={`${hoodName} Landing Page`}
-                        />
+                        <BookingCTA city={city} state={state} serviceName={hoodName} variant="card" />
                     </div>
                 </div>
             </div>

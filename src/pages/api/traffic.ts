@@ -1,4 +1,4 @@
-import { BetaAnalyticsDataClient } from '@google-analytics/data';
+import { google } from 'googleapis';
 
 export const prerender = false;
 
@@ -11,13 +11,12 @@ export async function GET({ request }: { request: Request }) {
             return new Response(JSON.stringify({ success: false, error: "Missing config for GA" }), { status: 500 });
         }
 
-        // Auth directly to Google Analytics Beta client via existing credentials 
-        const analyticsDataClient = new BetaAnalyticsDataClient({
-            credentials: {
-                client_email: process.env.GSC_CLIENT_EMAIL,
-                private_key: process.env.GSC_PRIVATE_KEY.replace(/\\n/g, '\n'),
-            }
+        const auth = new google.auth.JWT({
+            email: process.env.GSC_CLIENT_EMAIL,
+            key: process.env.GSC_PRIVATE_KEY.replace(/\\n/g, '\n'),
+            scopes: ['https://www.googleapis.com/auth/analytics.readonly']
         });
+        const analyticsData = google.analyticsdata({ version: 'v1beta', auth });
 
         const endDateStr = "today";
         const startDateStr = `${range}daysAgo`;
@@ -27,20 +26,23 @@ export async function GET({ request }: { request: Request }) {
         const prevStartDateStr = `${range * 2}daysAgo`;
 
         // Fetch this period
-        const [response] = await analyticsDataClient.runReport({
+        const response = await analyticsData.properties.runReport({
             property: `properties/${process.env.GA_PROPERTY_ID}`,
-            dateRanges: [
-                { startDate: startDateStr, endDate: endDateStr },
-                { startDate: prevStartDateStr, endDate: prevEndDateStr }, // Compare against previous period
-            ],
-            dimensions: [{ name: 'date' }], // Group by day for the chart
-            metrics: [
-                { name: 'sessions' },
-                { name: 'screenPageViews' },
-                { name: 'averageSessionDuration' },
-                { name: 'bounceRate' }
-            ],
-            keepEmptyRows: true, // We need zeros for trendline consistency 
+            requestBody: {
+                dateRanges: [
+                    { startDate: startDateStr, endDate: endDateStr },
+                    { startDate: prevStartDateStr, endDate: prevEndDateStr }, // Compare against previous period
+                ],
+                // Include dateRange so rows can be split between current/previous periods.
+                dimensions: [{ name: 'date' }, { name: 'dateRange' }],
+                metrics: [
+                    { name: 'sessions' },
+                    { name: 'screenPageViews' },
+                    { name: 'averageSessionDuration' },
+                    { name: 'bounceRate' }
+                ],
+                keepEmptyRows: true // We need zeros for trendline consistency
+            }
         });
 
         let currentSessions = 0;
@@ -57,12 +59,13 @@ export async function GET({ request }: { request: Request }) {
         const todayDate = new Date();
 
         // Parse Google's complex dual-dateRange response
-        if (response.rows) {
-            response.rows.forEach(row => {
-                const dateStr = row.dimensionValues?.[0].value; // Format: YYYYMMDD
+        if (response.data?.rows) {
+            response.data.rows.forEach(row => {
+                const dateStr = row.dimensionValues?.[0]?.value; // Format: YYYYMMDD
+                const dateRangeLabel = row.dimensionValues?.[1]?.value;
 
-                // Period 0 is "current range", Period 1 is "previous format"
-                const isCurrentPeriod = row.dimensionValues?.[1]?.value !== 'date_range_1';
+                // Period 0 is current range; period 1 is previous range.
+                const isCurrentPeriod = dateRangeLabel === 'date_range_0';
 
                 const sessions = parseInt(row.metricValues?.[0].value || "0", 10);
                 const views = parseInt(row.metricValues?.[1].value || "0", 10);

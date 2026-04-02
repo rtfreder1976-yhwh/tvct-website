@@ -138,12 +138,12 @@ export const westNashvilleTestimonials: Testimonial[] = [
   }
 ];
 
-// BIRMINGHAM / MOUNTAIN BROOK AREA
-export const birminghamTestimonials: Testimonial[] = [
+// MOUNTAIN BROOK AREA
+export const mountainBrookTestimonials: Testimonial[] = [
   {
     name: "Mary Ellen R.",
     initial: "M",
-    location: "Birmingham Area",
+    location: "Mountain Brook Area",
     text: "Excellent job by my cleaning crew. Very professional, dependable, thorough (every nook & cranny!) and easy-going. I'll definitely use from here forward. House is spotless and smells so fresh and clean. Worth every penny!",
     service: "Deep Cleaning",
     date: "February 2024",
@@ -152,7 +152,7 @@ export const birminghamTestimonials: Testimonial[] = [
   {
     name: "Chivone M.",
     initial: "C",
-    location: "Birmingham Area",
+    location: "Mountain Brook Area",
     text: "I had the pleasure of booking Valley Clean Team for an initial deep cleaning, and I couldn't be more satisfied. Charity, our cleaner, was not only prompt but also did an outstanding job, leaving our house spotless. I highly recommend their services for their professionalism and attention to detail.",
     service: "Deep Cleaning",
     date: "January 2024",
@@ -161,7 +161,7 @@ export const birminghamTestimonials: Testimonial[] = [
   {
     name: "Elizabeth D.",
     initial: "E",
-    location: "Birmingham Area",
+    location: "Mountain Brook Area",
     text: "Wonderful service and attention to detail. Always feel like I'm in a fresh clean space when they leave.",
     service: "Recurring Cleaning",
     date: "January 2024",
@@ -477,8 +477,7 @@ export function getTestimonialsByLocation(locationKey: string): Testimonial[] {
     'madison': madisonTestimonials,
     'nashville': nashvilleTestimonials,
     'west-nashville': westNashvilleTestimonials,
-    'birmingham': birminghamTestimonials,
-    'mountain-brook': birminghamTestimonials,
+    'mountain-brook': mountainBrookTestimonials,
     'florence': florenceTestimonials,
     'muscle-shoals': florenceTestimonials,
     'tuscumbia': florenceTestimonials,

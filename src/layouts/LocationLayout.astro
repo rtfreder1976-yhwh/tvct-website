@@ -2,7 +2,7 @@
 import BaseLayout from "./BaseLayout.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
-import QuoteForm from "../components/QuoteForm.astro";
+import BookingCTA from "../components/BookingCTA.astro";
 
 interface Props {
   title: string;
@@ -52,12 +52,6 @@ const geoData: Record<
     position: "34.7304;-86.5861",
     image:
       "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802a2965fae379c22fb0.webp",
-  },
-  Birmingham: {
-    region: "US-AL",
-    position: "33.5186;-86.8104",
-    image:
-      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802939374189b36d02dc.webp",
   },
   Nashville: {
     region: "US-TN",
@@ -120,7 +114,7 @@ const geoPlacename = `${city}, ${state}`;
 const faqs = [
   {
     question: `How much does house cleaning cost in ${city}?`,
-    answer: `House cleaning in ${city} typically ranges from $99-$350+ depending on your home size and service type. Regular cleaning starts at $99, deep cleaning starts at $175, and move-in/out cleaning starts at $225. We provide free, no-obligation quotes tailored to your specific needs. Call 256-826-1100 for an instant estimate.`,
+    answer: `House cleaning in ${city} has base rates from $99 for recurring cleaning, $175 for deep cleaning, and $225 for move-in/out cleaning. Your exact price depends on your home's size, layout, and current condition — every home is different. We provide a free, no-obligation custom quote before we ever start. Call 256-826-1100 for your exact estimate.`,
   },
   {
     question: `Do you offer same-day cleaning service in ${city}?`,
@@ -248,8 +242,7 @@ const faqSchema = {
               href="/contact"
               class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
             >
-              <Icon name="calendar" class="w-5 h-5 inline-block mr-2" />Book
-              Your Consultation
+              <Icon name="calendar" class="w-5 h-5 inline-block mr-2" />See My Price
             </a>
           </div>
         </div>
@@ -259,17 +252,12 @@ const faqSchema = {
           class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-[#FFA985]/20"
         >
           <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">
-            Get Your Free {city} Quote
+            See Your Exact {city} Price
           </h2>
           <p class="text-gray-600 mb-6 text-center">
-            Serving all {city} neighborhoods
+            Takes 60 seconds. Zero obligation.
           </p>
-          <QuoteForm
-            formId="location-quote-form"
-            city={city}
-            state={state}
-            source={`Location Page - ${city}`}
-          />
+          <BookingCTA city={city} state={state} variant="embedded" />
         </div>
       </div>
     </div>
@@ -341,20 +329,24 @@ const faqSchema = {
         <h2 class="text-3xl font-bold text-[#333333] mb-2">
           {city} Cleaning Prices
         </h2>
-        <p class="text-gray-600">Transparent pricing - no hidden fees</p>
+        <p class="text-gray-600">Transparent pricing — your exact price depends on your home's size and condition</p>
       </div>
       <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
         <div class="bg-white rounded-xl p-6 shadow-md text-center">
           <Icon name="home" class="w-8 h-8 text-[#FFA985] mx-auto mb-3" />
           <h3 class="font-bold text-[#333333]">Regular Cleaning</h3>
-          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $99</p>
+          <p class="text-xs text-gray-400 mt-2">Base rate</p>
+          <p class="text-2xl font-bold text-[#FFA985]">$99+</p>
+          <p class="text-xs text-gray-400">custom quoted to your home</p>
         </div>
         <div
           class="bg-white rounded-xl p-6 shadow-md text-center border-2 border-[#FFA985]"
         >
           <Icon name="sparkles" class="w-8 h-8 text-[#FFA985] mx-auto mb-3" />
           <h3 class="font-bold text-[#333333]">Deep Cleaning</h3>
-          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $175</p>
+          <p class="text-xs text-gray-400 mt-2">Base rate</p>
+          <p class="text-2xl font-bold text-[#FFA985]">$175+</p>
+          <p class="text-xs text-gray-400">custom quoted to your home</p>
         </div>
         <div class="bg-white rounded-xl p-6 shadow-md text-center">
           <Icon
@@ -362,17 +354,22 @@ const faqSchema = {
             class="w-8 h-8 text-[#FFA985] mx-auto mb-3"
           />
           <h3 class="font-bold text-[#333333]">Move In/Out</h3>
-          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $225</p>
+          <p class="text-xs text-gray-400 mt-2">Base rate</p>
+          <p class="text-2xl font-bold text-[#FFA985]">$225+</p>
+          <p class="text-xs text-gray-400">custom quoted to your home</p>
         </div>
         <div class="bg-white rounded-xl p-6 shadow-md text-center">
           <Icon name="key" class="w-8 h-8 text-[#FFA985] mx-auto mb-3" />
           <h3 class="font-bold text-[#333333]">Airbnb Turnover</h3>
-          <p class="text-2xl font-bold text-[#FFA985] mt-2">From $125</p>
+          <p class="text-xs text-gray-400 mt-2">Base rate</p>
+          <p class="text-2xl font-bold text-[#FFA985]">$125+</p>
+          <p class="text-xs text-gray-400">custom quoted to your home</p>
         </div>
       </div>
-      <div class="text-center mt-6">
+      <div class="text-center mt-4">
+        <p class="text-sm text-gray-500 mb-3">Every home is different. Your exact price is based on square footage, layout, and current condition — we'll tell you upfront before we start.</p>
         <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline">
-          View Full Pricing Details <Icon
+          See Full Pricing Details <Icon
             name="arrow-right"
             class="w-4 h-4 inline-block ml-1"
           />
@@ -390,7 +387,7 @@ const faqSchema = {
           >{
             city === "Nashville" || city === "West Nashville"
               ? "Trusted by families in Belle Meade, Green Hills, and Brentwood"
-              : city === "Birmingham" || city === "Mountain Brook"
+              : city === "Mountain Brook"
                 ? "Trusted by families in Mountain Brook, Vestavia Hills, and Homewood"
                 : city === "The Shoals" ||
                     city === "Muscle Shoals" ||
@@ -539,7 +536,7 @@ const faqSchema = {
             href="/contact"
             class="px-8 py-4 rounded-full font-semibold inline-block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
           >
-            <Icon name="calendar" class="w-5 h-5 mr-2" />Book Your Consultation
+            <Icon name="calendar" class="w-5 h-5 mr-2" />Claim Your Clean Home
           </a>
         </div>
       </div>
@@ -748,7 +745,7 @@ const faqSchema = {
             </p>
             <a
               href="/contact"
-              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+              class="text-[#FFA985] font-semibold hover:underline">See Pricing →</a
             >
           </div>
         </div>
@@ -777,7 +774,7 @@ const faqSchema = {
             </p>
             <a
               href="/contact"
-              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+              class="text-[#FFA985] font-semibold hover:underline">See Pricing →</a
             >
           </div>
         </div>
@@ -806,7 +803,7 @@ const faqSchema = {
             </p>
             <a
               href="/contact"
-              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+              class="text-[#FFA985] font-semibold hover:underline">See Pricing →</a
             >
           </div>
         </div>
@@ -834,7 +831,7 @@ const faqSchema = {
             </p>
             <a
               href="/contact"
-              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+              class="text-[#FFA985] font-semibold hover:underline">See Pricing →</a
             >
           </div>
         </div>
@@ -863,7 +860,7 @@ const faqSchema = {
             </p>
             <a
               href="/contact"
-              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+              class="text-[#FFA985] font-semibold hover:underline">See Pricing →</a
             >
           </div>
         </div>
@@ -892,7 +889,7 @@ const faqSchema = {
             </p>
             <a
               href="/contact"
-              class="text-[#FFA985] font-semibold hover:underline">Book Now →</a
+              class="text-[#FFA985] font-semibold hover:underline">See Pricing →</a
             >
           </div>
         </div>
