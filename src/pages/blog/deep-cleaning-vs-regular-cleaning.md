@@ -8,7 +8,7 @@ image: "/images/blog/deep-vs-regular.jpg"
 tags: ["cleaning tips", "service guide", "deep cleaning"]
 ---
 
-# Deep Clean vs. Regular Clean: Which One Is For You?
+## Deep Clean vs. Regular Clean: Which One Is For You?
 
 It's the most common question we get at **The Valley Clean Team**: *"I just need my house cleaned... do I book a standard clean or a deep clean?"*
 
