@@ -1,0 +1,229 @@
+{
+  "name": "TVCT - Advanced Marketing Outreach (A/B Testing)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "7f654b32-12a1-4321-bcde-567890abcdef",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "outreach_contacts.csv",
+        "options": {}
+      },
+      "id": "8a765c43-23b2-5432-cdef-678901bcdefg",
+      "name": "Read Outreach File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        280,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9b876d54-34c3-6543-defg-789012cdefgh",
+      "name": "Parse CSV",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.Category }}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "id": "0c987e65-45d4-7654-efgh-890123defghi",
+      "name": "Filter Invalid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "2e109a87-67f6-9876-ghij-012345fghijk",
+      "name": "Split Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        860,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "binaryChild",
+        "numberOutputs": 2
+      },
+      "id": "3f210b98-78g7-0987-hijk-123456ghijkl",
+      "name": "A/B Split (50/50)",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        300
+      ],
+      "notesInFlow": true,
+      "notes": "Randomly routes contacts to Variant A or Variant B for testing."
+    },
+    {
+      "parameters": {
+        "resource": "contact",
+        "operation": "upsert",
+        "email": "={{ $json.Email }}",
+        "firstName": "={{ $json.FirstName }}",
+        "lastName": "={{ $json.LastName }}",
+        "phone": "={{ $json.Phone }}",
+        "tags": [
+          "outbound_campaign_2026",
+          "={{ $json.Category.toLowerCase() + '_outreach' }}",
+          "variant_a_standard_reliability_offer"
+        ],
+        "customFields": [
+          {
+            "id": "office_name",
+            "value": "={{ $json.Organization }}"
+          }
+        ]
+      },
+      "id": "4a321c09-89h8-1098-ijkl-234567hijklm",
+      "name": "Sync Variant A (Standard)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1300,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "contact",
+        "operation": "upsert",
+        "email": "={{ $json.Email }}",
+        "firstName": "={{ $json.FirstName }}",
+        "lastName": "={{ $json.LastName }}",
+        "phone": "={{ $json.Phone }}",
+        "tags": [
+          "outbound_campaign_2026",
+          "={{ $json.Category.toLowerCase() + '_outreach' }}",
+          "variant_b_walkthrough_offer"
+        ],
+        "customFields": [
+          {
+            "id": "office_name",
+            "value": "={{ $json.Organization }}"
+          }
+        ]
+      },
+      "id": "5b432d10-90i9-2109-jklm-345678ijklmn",
+      "name": "Sync Variant B (Walkthrough)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1300,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Outreach File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Outreach File": {
+      "main": [
+        [
+          {
+            "node": "Parse CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse CSV": {
+      "main": [
+        [
+          {
+            "node": "Filter Invalid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Invalid": {
+      "main": [
+        [
+          {
+            "node": "Split Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Batches": {
+      "main": [
+        [
+          {
+            "node": "A/B Split (50/50)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "A/B Split (50/50)": {
+      "main": [
+        [
+          {
+            "node": "Sync Variant A (Authority)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sync Variant B (Audit)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

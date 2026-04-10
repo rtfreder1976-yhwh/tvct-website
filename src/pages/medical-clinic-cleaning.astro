@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "The Valley Clean Team - Medical Clinic Cleaning",
+  url: "https://thevalleycleanteam.com/medical-clinic-cleaning",
+  telephone: "256-826-1100",
+  email: "hello@thevalleycleanteam.com",
+  description: "Specialized medical clinic cleaning in Alabama and Tennessee. Ending the morning cleaning surprises with disciplined reliability.",
+};
+---
+
+<BaseLayout
+  title="Medical Clinic Cleaning Services | Valley Clean Team"
+  description="Stop dealing with morning cleaning surprises. We provide consistent, medical-grade cleaning to keep your clinical staff happy and patients impressed."
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
+
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4 text-[#333333]">
+          Medical Clinic <span class="gold-gradient">Sanitization</span>
+        </h1>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">
+          We focus on being the partner that makes sure you never walk into a 7:55 AM cleaning surprise. Keep your medical assistants happy with a space they’re proud to work in.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
+        <!-- Quote Form -->
+        <div>
+          <h2 class="text-3xl font-bold mb-6 text-[#333333]">Request a Facility Audit</h2>
+          <QuoteForm 
+            formId="medical-quote-form" 
+            source="Medical Clinic Landing Page"
+          />
+          <p class="text-sm text-gray-500 mt-4 italic">
+            *Our team will contact you within 2 business hours to schedule a 10-minute walkthrough.
+          </p>
+        </div>
+
+        <!-- Benefits/Trust -->
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-[#333333]">The "Morning Peace" Guarantee</h3>
+            <p class="text-gray-600">
+               As an office manager, you have enough on your plate without having to track down missed trash or dusty waiting rooms. We eliminate the friction so your mornings start perfectly.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Never Walk Into a 7:55 AM Surprise</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Keep RNs and MAs Happy</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Medical-Grade Infection Control</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Zero "Consistency Fade"</span>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-gray-100">
+             <h4 class="font-bold text-[#333333] mb-2 text-lg">Trust the TVCT Standard</h4>
+             <p class="text-gray-600 italic">
+               "We focus on the protocols others miss, so you can focus on patient care."
+             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

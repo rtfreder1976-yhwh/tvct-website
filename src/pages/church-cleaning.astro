@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+
+// LocalBusiness schema for Church Cleaning
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "The Valley Clean Team - Church & Ministry Services",
+  url: "https://thevalleycleanteam.com/church-cleaning",
+  telephone: "256-826-1100",
+  email: "hello@thevalleycleanteam.com",
+  description: "Specialized church and sanctuary cleaning services in Alabama and Tennessee. Supporting stewardship goals with disciplined reliability.",
+};
+---
+
+<BaseLayout
+  title="Church & Ministry Cleaning Services | Valley Clean Team"
+  description="Ensure your sanctuary is always ready for worship. Specialized, consistent church cleaning that supports your ministry's stewardship goals."
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
+
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4 text-[#333333]">
+          Church & Ministry <span class="gold-gradient">Services</span>
+        </h1>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">
+          Your facility is more than just a building—it’s a sanctuary. We ensure your space is always ready for worship, fellowship, and first-time guests, so your staff can focus on ministry, not maintenance.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
+        <!-- Quote Form -->
+        <div>
+          <h2 class="text-3xl font-bold mb-6 text-[#333333]">Request a Stewardship Walkthrough</h2>
+          <QuoteForm 
+            formId="church-quote-form" 
+            source="Church Cleaning Landing Page"
+          />
+          <p class="text-sm text-gray-500 mt-4 italic">
+            *We'll contact you within 2 business hours to schedule a complimentary facility review.
+          </p>
+        </div>
+
+        <!-- Benefits/Trust -->
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-[#333333]">The Stewardship of Sanctuary</h3>
+            <p class="text-gray-600">
+               A clean, welcoming environment is the first thing a new visitor notices. We help local ministries maintain a standard of excellence that reflects your mission.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Spotless Sanctuaries & Nurseries</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Ready for Fellowship & Events</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Reverent & Consistent Care</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Veteran-Led Accountability</span>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-gray-100">
+             <h4 class="font-bold text-[#333333] mb-2 text-lg">Our Promise to Your Ministry</h4>
+             <p class="text-gray-600 italic">
+               "We handle the details quietly and dependably, ensuring your building always serves your core mission."
+             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

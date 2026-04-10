@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "The Valley Clean Team - Dental Office Cleaning",
+  url: "https://thevalleycleanteam.com/dental-office-cleaning",
+  telephone: "256-826-1100",
+  email: "hello@thevalleycleanteam.com",
+  description: "Professional dental office cleaning in Alabama and Tennessee. Keep your patients impressed and your staff happy with consistent, reliable service.",
+};
+---
+
+<BaseLayout
+  title="Dental Office Cleaning Services | Valley Clean Team"
+  description="Maintain a pristine dental practice. End the staff cleaning complaints and eliminate consistency fade with disciplined facility management."
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
+
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4 text-[#333333]">
+          Dental Practice <span class="gold-gradient">Sanitization</span>
+        </h1>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">
+          You have enough on your desk without having to mediate between your staff and a dirty breakroom. We help dental offices maintain a standard that keeps patients impressed and staff happy.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
+        <!-- Quote Form -->
+        <div>
+          <h2 class="text-3xl font-bold mb-6 text-[#333333]">Get a Custom Quote</h2>
+          <QuoteForm 
+            formId="dental-quote-form" 
+            source="Dental Office Landing Page"
+          />
+          <p class="text-sm text-gray-500 mt-4 italic">
+            *We'll contact you within 2 business hours to review how we can simplify your facility management.
+          </p>
+        </div>
+
+        <!-- Benefits/Trust -->
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-[#333333]">The Staff Harmony Guarantee</h3>
+            <p class="text-gray-600">
+               With The Valley Clean Team, there is no consistency 'fade' over time, and absolutely no hidden chores for you or your hygienists to finish at the end of a long shift. 
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">End the Breakroom Cleaning Battles</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Impress High-Value Cosmetic Patients</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Strict Waiting Room & Operatory Care</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Zero "Consistency Fade" Promise</span>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-gray-100">
+             <h4 class="font-bold text-[#333333] mb-2 text-lg">Trust the TVCT Standard</h4>
+             <p class="text-gray-600 italic">
+               "Your staff should focus on patient smiles, not mopping floors. We handle the dirty work reliably."
+             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
