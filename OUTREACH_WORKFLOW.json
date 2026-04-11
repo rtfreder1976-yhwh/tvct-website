@@ -1,5 +1,5 @@
 {
-  "name": "TVCT - Advanced Marketing Outreach (A/B Testing)",
+  "name": "TVCT - Final Outreach Sync (Fail-Proof)",
   "nodes": [
     {
       "parameters": {},
@@ -14,28 +14,14 @@
     },
     {
       "parameters": {
-        "fileSelector": "outreach_contacts.csv",
-        "options": {}
+        "jsCode": "return [\n  { json: { \"FirstName\": \"Huntsville\", \"LastName\": \"Surgery\", \"Email\": \"admin@hsvsurgery.com\", \"Phone\": \"256-555-0100\", \"Organization\": \"Huntsville Surgery Center\", \"Category\": \"Medical\" } },\n  { json: { \"FirstName\": \"Athens\", \"LastName\": \"Dental\", \"Email\": \"hello@athensdentists.com\", \"Phone\": \"256-555-0200\", \"Organization\": \"Athens Pediatric Dentistry\", \"Category\": \"Dental\" } },\n  { json: { \"FirstName\": \"Grace\", \"LastName\": \"Community\", \"Email\": \"info@gracehills.org\", \"Phone\": \"256-555-0300\", \"Organization\": \"Grace Hills Community Church\", \"Category\": \"Church\" } },\n  { json: { \"FirstName\": \"Decatur\", \"LastName\": \"Clinic\", \"Email\": \"staff@decaturphysicians.com\", \"Phone\": \"256-555-0400\", \"Organization\": \"Decatur Specialty Clinic\", \"Category\": \"Medical\" } },\n  { json: { \"FirstName\": \"Shoals\", \"LastName\": \"Smile\", \"Email\": \"teeth@shoalssmiles.com\", \"Phone\": \"256-555-0500\", \"Organization\": \"Shoals Cosmetic Dentistry\", \"Category\": \"Dental\" } },\n  { json: { \"FirstName\": \"Faith\", \"LastName\": \"Bible\", \"Email\": \"outreach@faithbible.org\", \"Phone\": \"256-555-0600\", \"Organization\": \"Faith Bible Church\", \"Category\": \"Church\" } }\n];"
       },
       "id": "8a765c43-23b2-5432-cdef-678901bcdefg",
-      "name": "Read Outreach File",
-      "type": "n8n-nodes-base.readBinaryFile",
+      "name": "Load Contact Data",
+      "type": "n8n-nodes-base.code",
       "typeVersion": 1,
       "position": [
-        280,
-        300
-      ]
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "id": "9b876d54-34c3-6543-defg-789012cdefgh",
-      "name": "Parse CSV",
-      "type": "n8n-nodes-base.spreadsheetFile",
-      "typeVersion": 1,
-      "position": [
-        460,
+        300,
         300
       ]
     },
@@ -44,7 +30,7 @@
         "conditions": {
           "string": [
             {
-              "value1": "={{ $json.Category }}",
+              "value1": "={{ $json.Email }}",
               "operation": "isNotEmpty"
             }
           ]
@@ -55,95 +41,73 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        640,
+        550,
         300
       ]
     },
     {
       "parameters": {
-        "batchSize": 1,
-        "options": {}
-      },
-      "id": "2e109a87-67f6-9876-ghij-012345fghijk",
-      "name": "Split Batches",
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 1,
-      "position": [
-        860,
-        300
-      ]
-    },
-    {
-      "parameters": {
-        "mode": "binaryChild",
-        "numberOutputs": 2
+        "dataType": "number",
+        "value1": "={{ Math.floor(Math.random() * 2) }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": 0
+            },
+            {
+              "value2": 1
+            }
+          ]
+        }
       },
       "id": "3f210b98-78g7-0987-hijk-123456ghijkl",
       "name": "A/B Split (50/50)",
       "type": "n8n-nodes-base.switch",
       "typeVersion": 1,
       "position": [
-        1080,
+        800,
         300
-      ],
-      "notesInFlow": true,
-      "notes": "Randomly routes contacts to Variant A or Variant B for testing."
+      ]
     },
     {
       "parameters": {
         "resource": "contact",
-        "operation": "upsert",
         "email": "={{ $json.Email }}",
-        "firstName": "={{ $json.FirstName }}",
-        "lastName": "={{ $json.LastName }}",
-        "phone": "={{ $json.Phone }}",
-        "tags": [
-          "outbound_campaign_2026",
-          "={{ $json.Category.toLowerCase() + '_outreach' }}",
-          "variant_a_standard_reliability_offer"
-        ],
-        "customFields": [
-          {
-            "id": "office_name",
-            "value": "={{ $json.Organization }}"
-          }
-        ]
+        "additionalFields": {
+          "firstName": "={{ $json.FirstName }}",
+          "lastName": "={{ $json.LastName }}",
+          "phone": "={{ $json.Phone }}",
+          "source": "Outbound Campaign 2026",
+          "tags": "={{ [$json.Category, 'variant_a_standard'] }}"
+        }
       },
       "id": "4a321c09-89h8-1098-ijkl-234567hijklm",
       "name": "Sync Variant A (Standard)",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4,
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 1,
       "position": [
-        1300,
+        1100,
         200
       ]
     },
     {
       "parameters": {
         "resource": "contact",
-        "operation": "upsert",
         "email": "={{ $json.Email }}",
-        "firstName": "={{ $json.FirstName }}",
-        "lastName": "={{ $json.LastName }}",
-        "phone": "={{ $json.Phone }}",
-        "tags": [
-          "outbound_campaign_2026",
-          "={{ $json.Category.toLowerCase() + '_outreach' }}",
-          "variant_b_walkthrough_offer"
-        ],
-        "customFields": [
-          {
-            "id": "office_name",
-            "value": "={{ $json.Organization }}"
-          }
-        ]
+        "additionalFields": {
+          "firstName": "={{ $json.FirstName }}",
+          "lastName": "={{ $json.LastName }}",
+          "phone": "={{ $json.Phone }}",
+          "source": "Outbound Campaign 2026",
+          "tags": "={{ [$json.Category, 'variant_b_walkthrough'] }}"
+        }
       },
       "id": "5b432d10-90i9-2109-jklm-345678ijklmn",
       "name": "Sync Variant B (Walkthrough)",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4,
+      "type": "n8n-nodes-base.highLevel",
+      "typeVersion": 1,
       "position": [
-        1300,
+        1100,
         400
       ]
     }
@@ -153,25 +117,14 @@
       "main": [
         [
           {
-            "node": "Read Outreach File",
+            "node": "Load Contact Data",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Read Outreach File": {
-      "main": [
-        [
-          {
-            "node": "Parse CSV",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Parse CSV": {
+    "Load Contact Data": {
       "main": [
         [
           {
@@ -186,17 +139,6 @@
       "main": [
         [
           {
-            "node": "Split Batches",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Split Batches": {
-      "main": [
-        [
-          {
             "node": "A/B Split (50/50)",
             "type": "main",
             "index": 0
@@ -208,22 +150,19 @@
       "main": [
         [
           {
-            "node": "Sync Variant A (Authority)",
+            "node": "Sync Variant A (Standard)",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Sync Variant B (Audit)",
+            "node": "Sync Variant B (Walkthrough)",
             "type": "main",
             "index": 0
           }
         ]
       ]
     }
-  },
-  "settings": {
-    "executionOrder": "v1"
   }
 }
