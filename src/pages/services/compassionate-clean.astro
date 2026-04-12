@@ -192,6 +192,29 @@ const ourApproach = [
       "One reset is often not enough. We offer recurring maintenance plans at reduced rates to help you maintain your fresh start. Weekly, bi-weekly, or monthly - whatever helps you thrive.",
   },
 ];
+const commonProblems = [
+  {
+    icon: "heart",
+    problem: "Shame That Makes It Hard to Ask for Help",
+    solution: "Asking someone into your home when it's overwhelming takes courage. We've seen it all — and we mean that. Our team is trained to respond with zero judgment, total warmth, and complete confidentiality. You will not be made to feel embarrassed.",
+  },
+  {
+    icon: "brain",
+    problem: "Executive Function That Makes Starting Impossible",
+    solution: "For people with ADHD, depression, or anxiety, the 'just clean it' advice doesn't work. The paralysis is real. You don't need motivation — you need someone to show up and do it with you or for you. That's exactly what we do.",
+  },
+  {
+    icon: "hourglass",
+    problem: "Not Knowing Where to Start in an Overwhelming Space",
+    solution: "When a space has gotten away from you, the sheer volume of what needs to happen is paralyzing. We assess calmly, create a priority order, and work systematically. You can be as involved or as removed from the process as you prefer.",
+  },
+  {
+    icon: "rotate",
+    problem: "One Clean That Doesn't Stick Without Support",
+    solution: "A single cleaning doesn't solve the underlying challenge — it buys you a reset. We offer ongoing maintenance plans at reduced rates specifically for our compassionate cleaning clients. Weekly or bi-weekly visits help you maintain the fresh start we create together.",
+  },
+];
+
 import BookingCTA from "../../components/BookingCTA.astro";
 ---
 
@@ -439,6 +462,35 @@ import BookingCTA from "../../components/BookingCTA.astro";
         <p class="text-gray-600">
           — Florence, AL client (name withheld for privacy)
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Situations <span class="gold-gradient">We Understand</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          There's no single reason a home gets away from its owner. Here are some of the situations we encounter — and how we approach them.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>

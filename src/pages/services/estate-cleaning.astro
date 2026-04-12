@@ -254,6 +254,29 @@ const serviceAreas = [
   { name: "Nashville", link: "/locations/nashville" },
   { name: "Florence", link: "/locations/florence" },
 ];
+const commonProblems = [
+  {
+    icon: "house-chimney",
+    problem: "Overwhelming Scale of a Large Property",
+    solution: "Estate homes can span thousands of square feet across multiple levels, guest houses, and outbuildings. Most cleaning companies aren't staffed or equipped for properties of this scale. We deploy coordinated teams sized to your property so the job is done right — in a single day.",
+  },
+  {
+    icon: "box-open",
+    problem: "Fragile Heirlooms and Antiques at Risk",
+    solution: "Standard cleaning crews aren't trained to handle valuable antiques, artwork, or irreplaceable heirlooms. One wrong product on the wrong surface causes permanent damage. Our team identifies high-value items and uses surface-appropriate care — every time.",
+  },
+  {
+    icon: "clock",
+    problem: "Staging Timeline Pressure",
+    solution: "Estate sales and property listings have hard deadlines. Cleaners who show up late or deliver subpar results cost you time, money, and stress. We confirm timelines, show up on schedule, and deliver a showing-ready property within your window.",
+  },
+  {
+    icon: "calendar",
+    problem: "Coordinating Multiple Vendors at Once",
+    solution: "Estate projects often involve cleaners, stagers, photographers, and agents working simultaneously. We coordinate seamlessly with other vendors, work around their schedules, and communicate clearly so you don't have to manage every moving piece.",
+  },
+];
+
 import BookingCTA from "../../components/BookingCTA.astro";
 ---
 
@@ -359,6 +382,35 @@ import BookingCTA from "../../components/BookingCTA.astro";
                 {feature.title}
               </h3>
               <p class="text-gray-600">{feature.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          The specific challenges of maintaining a large estate — and the systems we've built around them.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
             </div>
           ))
         }

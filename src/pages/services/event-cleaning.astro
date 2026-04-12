@@ -226,6 +226,29 @@ const serviceAreas = [
   { name: "Nashville", link: "/locations/nashville/event-cleaning" },
   { name: "West Nashville", link: "/locations/west-nashville/event-cleaning" },
 ];
+const commonProblems = [
+  {
+    icon: "clock",
+    problem: "Tight Cleanup Windows Between Events",
+    solution: "When the next event starts in four hours and 300 people just left, there's no margin for a crew that works slowly. We bring the right team size for your venue, move efficiently, and hit your deadline — because your timeline doesn't flex.",
+  },
+  {
+    icon: "wine-glass",
+    problem: "Stains That Set While You're Still Dealing with Guests",
+    solution: "Red wine, food, and candle wax set fast. The longer they sit, the harder they are to remove. Our event crews are trained on immediate stain intervention — treating critical areas first before doing a full venue clean.",
+  },
+  {
+    icon: "building",
+    problem: "Venue Damage Deposits on the Line",
+    solution: "Many venues charge significant damage deposits that are at risk if the space isn't returned in pristine condition. We document the pre-clean condition with photos, clean to venue standards, and provide a post-clean walkthrough to protect your deposit.",
+  },
+  {
+    icon: "users",
+    problem: "Vendors and Guests Still in the Space",
+    solution: "Event teardown is rarely an empty venue. Caterers, photographers, and guests overlap with cleanup crews. We work around active vendors, protect your guests' experience, and clear our work areas efficiently without getting in the way.",
+  },
+];
+
 import BookingCTA from "../../components/BookingCTA.astro";
 ---
 
@@ -424,6 +447,35 @@ import BookingCTA from "../../components/BookingCTA.astro";
                   </li>
                 ))}
               </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          What typically goes wrong with event cleaning — and how we prevent it.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
             </div>
           ))
         }

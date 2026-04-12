@@ -200,6 +200,29 @@ const serviceAreas = [
   { name: "Nashville", link: "/locations/nashville/green-cleaning" },
   { name: "West Nashville", link: "/locations/west-nashville/green-cleaning" },
 ];
+const commonProblems = [
+  {
+    icon: "leaf",
+    problem: "Products That Claim 'Green' But Aren't",
+    solution: "Greenwashing is rampant in the cleaning industry. We use only EPA Safer Choice certified and third-party verified products — not just whatever has a leaf on the label. You can ask us about any product we use, and we'll show you exactly what's in it.",
+  },
+  {
+    icon: "lungs",
+    problem: "Chemical Residues That Trigger Asthma and Allergies",
+    solution: "Conventional cleaning products leave residues on surfaces that continue off-gassing long after cleaners leave. Our non-toxic formulas rinse clean, with no lingering VOCs. Families with asthma, COPD, or chemical sensitivities notice the difference immediately.",
+  },
+  {
+    icon: "baby",
+    problem: "Toxic Products Around Babies, Children, and Pets",
+    solution: "Children and pets spend time on floors and surfaces where cleaning residues concentrate. Our plant-based solutions are certified non-toxic — so crawling babies and curious pets aren't picking up chemical residues in the process.",
+  },
+  {
+    icon: "flask",
+    problem: "Eco Products That Don't Actually Clean Well",
+    solution: "The old knock on green cleaning was that it didn't work as well. That was true a decade ago. Today's professional-grade plant-based formulas clean as effectively as conventional products — without the trade-off. We deliver spotless results AND a safe home environment.",
+  },
+];
+
 import BookingCTA from "../../components/BookingCTA.astro";
 ---
 
@@ -306,6 +329,35 @@ import BookingCTA from "../../components/BookingCTA.astro";
   <section class="py-8 px-6 bg-gray-50">
     <div class="container mx-auto">
       <TrustBadges variant="full" showGuarantee={true} />
+    </div>
+  </section>
+
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          The real health and household concerns that lead people to eco-friendly cleaning — and how we address them.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 

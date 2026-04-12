@@ -213,6 +213,28 @@ const serviceAreas = [
   { name: "Nashville", link: "/locations/nashville/airbnb-cleaning" },
   { name: "West Nashville", link: "/locations/west-nashville/airbnb-cleaning" },
 ];
+const commonProblems = [
+  {
+    icon: "star",
+    problem: "A Cleanliness Review That Tanks Your Rating",
+    solution: "One 3-star cleanliness review drops your overall score and immediately reduces booking conversions. Guests who book based on a 4.9 cleanliness rating won't book at 4.6. We clean to 5-star standards because that's what your income depends on.",
+  },
+  {
+    icon: "clock",
+    problem: "Tight Same-Day Turnover Windows",
+    solution: "Checkout at 11am, check-in at 3pm. Four hours to strip beds, deep-clean bathrooms, sanitize the kitchen, and reset everything to guest-ready. We build our operation around these tight windows — it's not a special request, it's our standard.",
+  },
+  {
+    icon: "camera",
+    problem: "Damage That Goes Undocumented",
+    solution: "Without photo documentation before and after each guest stay, damage claims become your word against theirs. We photograph conditions on every turnover — protection for your Airbnb disputes and your security deposit claims.",
+  },
+  {
+    icon: "calendar-check",
+    problem: "Coordinating Every Turnover Manually",
+    solution: "Managing a vacation rental shouldn't mean coordinating every single turnover by text message. We sync with your booking calendar so turnovers schedule automatically. You get confirmation when we're done — no chasing required.",
+  },
+];
 import BookingCTA from "../../components/BookingCTA.astro";
 ---
 
@@ -462,6 +484,35 @@ import BookingCTA from "../../components/BookingCTA.astro";
             isn't an expense—it's insurance for your rental income and reputation.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          The issues that cost vacation rental hosts reviews, bookings, and income — and how we fix them.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>

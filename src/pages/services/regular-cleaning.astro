@@ -257,6 +257,28 @@ const serviceAreas = [
     link: "/locations/west-nashville/recurring-maid-service",
   },
 ];
+const commonProblems = [
+  {
+    icon: "clock",
+    problem: "Weekends Gone to Cleaning",
+    solution: "Saturday morning shouldn't mean three hours of vacuuming and scrubbing. Recurring maid service means you come home to a clean house without giving up your free time to create it.",
+  },
+  {
+    icon: "broom",
+    problem: "Cleaning That Never Catches Up",
+    solution: "When you only clean when it's visibly dirty, you're always starting behind. A regular cleaning schedule changes the baseline — each visit maintains a higher standard instead of recovering from a week of accumulation.",
+  },
+  {
+    icon: "users",
+    problem: "Rotating Cleaners, Inconsistent Results",
+    solution: "Different person every time means different standards every time. We assign the same cleaning professional to your home so results stay consistent and the service gets better as they learn your space.",
+  },
+  {
+    icon: "heart",
+    problem: "A Home That Never Feels Clean Enough",
+    solution: "There's a difference between picked up and actually clean. Professional recurring cleaning addresses the surfaces, the floors, the bathrooms, and the kitchen on a schedule that keeps everything genuinely maintained.",
+  },
+];
 import BookingCTA from "../../components/BookingCTA.astro";
 ---
 
@@ -501,16 +523,45 @@ import BookingCTA from "../../components/BookingCTA.astro";
     </div>
   </section>
 
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          The real reasons people start a recurring cleaning service — and what happens when they do.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- Benefits -->
   <section class="py-20 px-6 content-visibility-auto">
     <div class="container mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Benefits of <span class="gold-gradient">Regular Cleaning</span>
+          Why Choose <span class="gold-gradient">Regular Cleaning</span>?
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          More than just a clean home - it's a lifestyle upgrade
+          More than a clean home — it's the foundation of a better-run household.
         </p>
       </div>
 

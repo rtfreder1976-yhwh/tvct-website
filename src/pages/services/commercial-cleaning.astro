@@ -232,15 +232,31 @@ const serviceAreas = [
   { name: "Athens", link: "/locations/athens/commercial-cleaning" },
   { name: "Florence", link: "/locations/florence/commercial-cleaning" },
   { name: "Decatur", link: "/locations/decatur/commercial-cleaning" },
-  { name: "Mountain Brook", link: "/locations/mountain-brook" },
-  {
-    name: "Mountain Brook",
-    link: "/locations/mountain-brook/commercial-cleaning",
-  },
+  { name: "Mountain Brook", link: "/locations/mountain-brook/commercial-cleaning" },
   { name: "Nashville", link: "/locations/nashville/commercial-cleaning" },
+  { name: "West Nashville", link: "/locations/west-nashville/commercial-cleaning" },
+];
+
+const commonProblems = [
   {
-    name: "West Nashville",
-    link: "/locations/west-nashville/commercial-cleaning",
+    icon: "building",
+    problem: "Unreliable Cleaning Contractors",
+    solution: "The cleaning service that doesn't show up, or sends a different crew every week with no consistent standard, is costing you. We build a repeatable system for your facility — same team, same schedule, same results.",
+  },
+  {
+    icon: "heart",
+    problem: "High Employee Sick Days",
+    solution: "A dirty office is a germ distribution system. High-touch surfaces — door handles, keyboards, break room counters — spread illness across your entire staff. Regular professional cleaning cuts that vector.",
+  },
+  {
+    icon: "handshake",
+    problem: "First Impressions That Hurt You",
+    solution: "Clients and candidates make judgments about your organization the moment they walk in. A clean office communicates professionalism before a word is spoken. A dirty one communicates the opposite.",
+  },
+  {
+    icon: "shield-alt",
+    problem: "Insurance and Compliance Risk",
+    solution: "Commercial cleaning with $2M liability coverage, background-checked staff, and documented protocols protects your business from liability that comes with uninsured or informal cleaning arrangements.",
   },
 ];
 import BookingCTA from "../../components/BookingCTA.astro";
@@ -413,13 +429,41 @@ import BookingCTA from "../../components/BookingCTA.astro";
     </div>
   </section>
 
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          The real costs of the wrong commercial cleaning arrangement — and how we address them.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- Benefits -->
   <section class="py-20 px-6 content-visibility-auto">
     <div class="container mx-auto">
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
-          Why Professional <span class="gold-gradient">Commercial Cleaning</span
-          >?
+          Why Professional <span class="gold-gradient">Commercial Cleaning</span>?
         </h2>
         <div class="section-divider"></div>
       </div>
