@@ -42,89 +42,175 @@ if (keyFromQuery) {
     );
 }
 
-// In production, load from API or JSON file
-// For now, using inline sample data
+// ---------------------------------------------------------------------------
+// Live data: parallel fetch from all three API routes
+// ---------------------------------------------------------------------------
+
+function detectMarket(keyword: string, url: string = ''): string {
+  const text = (keyword + ' ' + url).toLowerCase();
+  if (text.includes('huntsville') || text.includes('madison') || text.includes('hampton cove')) return 'huntsville';
+  if (text.includes('athens')) return 'athens';
+  if (text.includes('florence') || text.includes('shoals') || text.includes('tuscumbia') || text.includes('sheffield')) return 'florence';
+  if (text.includes('mountain brook') || text.includes('birmingham')) return 'birmingham';
+  if (text.includes('nashville') || text.includes('brentwood') || text.includes('franklin')) return 'nashville';
+  return 'huntsville';
+}
+
+function buildWeekLabels(count: number): string[] {
+  const labels: string[] = [];
+  const now = new Date();
+  for (let i = count - 1; i >= 0; i--) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - i * 7);
+    labels.push(`${d.toLocaleString('default', { month: 'short' })} ${d.getDate()}`);
+  }
+  return labels;
+}
+
+const origin = Astro.url.origin;
+
+const [rankingsResult, trafficResult, leadsResult] = await Promise.allSettled([
+  fetch(`${origin}/api/rankings`).then(r => r.json()),
+  fetch(`${origin}/api/traffic`).then(r => r.json()),
+  fetch(`${origin}/api/leads`).then(r => r.json()),
+]);
+
+const rankingsData = rankingsResult.status === 'fulfilled' && rankingsResult.value?.success
+  ? rankingsResult.value.data : null;
+const trafficData  = trafficResult.status  === 'fulfilled' && trafficResult.value?.success
+  ? trafficResult.value.data  : null;
+const leadsData    = leadsResult.status    === 'fulfilled' && leadsResult.value?.success
+  ? leadsResult.value.data    : null;
+
+// Track data source status for each section
+// 'live' = real data from external API
+// 'fallback' = credentials missing or API error, using static defaults
+// 'offline' = our own API route failed entirely
+const rankingsSource = rankingsResult.status === 'fulfilled' ? (rankingsResult.value?.success ? 'live' : 'fallback') : 'offline';
+const trafficSource  = trafficResult.status  === 'fulfilled' ? (trafficResult.value?.success  ? 'live' : 'fallback') : 'offline';
+const leadsSource    = leadsResult.status    === 'fulfilled' ? (leadsResult.value?.source ?? (leadsResult.value?.success ? 'live' : 'fallback')) : 'offline';
+
+const dataStatus: Record<string, 'live' | 'fallback' | 'offline'> = {
+  rankings: rankingsSource as 'live' | 'fallback' | 'offline',
+  traffic:  trafficSource  as 'live' | 'fallback' | 'offline',
+  leads:    leadsSource    as 'live' | 'fallback' | 'offline',
+};
+
+// ---- Rankings ----
+const rawRankings = rankingsData?.items ?? [];
+const rankings = rawRankings.map((k: any) => {
+  const pos = parseFloat(k.position);
+  const change = k.change ?? 0;
+  return {
+    keyword: k.keyword,
+    position: pos,
+    previous: parseFloat((pos - change).toFixed(1)),
+    change,
+    market: detectMarket(k.keyword, k.url ?? ''),
+    volume: typeof k.volume === 'string' ? parseInt(k.volume.replace(/,/g, ''), 10) || 0 : (k.volume ?? 0),
+  };
+}) || [
+  { keyword: "cleaning service huntsville al", position: 4, previous: 6, change: 2, market: "huntsville", volume: 720 },
+  { keyword: "house cleaning huntsville", position: 7, previous: 8, change: 1, market: "huntsville", volume: 480 },
+  { keyword: "cleaning service athens al", position: 2, previous: 3, change: 1, market: "athens", volume: 170 },
+  { keyword: "cleaning service florence al", position: 5, previous: 4, change: -1, market: "florence", volume: 210 },
+  { keyword: "cleaning service nashville tn", position: 28, previous: 35, change: 7, market: "nashville", volume: 1900 },
+];
+
+const rankingSummary = rankingsData ? {
+  total: rankings.length,
+  avgPosition: parseFloat(rankingsData.avgPosition) || 0,
+  top3: rankings.filter((k: any) => k.position <= 3).length,
+  top10: rankings.filter((k: any) => k.position <= 10).length,
+  improved: rankings.filter((k: any) => k.change > 0).length,
+  declined: rankings.filter((k: any) => k.change < 0).length,
+} : { total: 12, avgPosition: 7.4, top3: 4, top10: 10, improved: 9, declined: 1 };
+
+// ---- Traffic ----
+const currentSessions  = trafficData?.current?.sessions  ?? 1020;
+const previousSessions = trafficData?.previous?.sessions ?? 910;
+const currentOrganic   = trafficData?.current?.organic   ?? Math.round(currentSessions * 0.65);
+const previousOrganic  = Math.round(previousSessions * 0.65);
+const sessionsChange   = previousSessions > 0
+  ? parseFloat(((currentSessions - previousSessions) / previousSessions * 100).toFixed(1)) : 0;
+const organicChange    = previousOrganic > 0
+  ? parseFloat(((currentOrganic - previousOrganic) / previousOrganic * 100).toFixed(1)) : 0;
+
+const traffic = {
+  current:  { sessions: currentSessions, organic: currentOrganic, bounceRate: parseFloat(trafficData?.current?.bounceRate ?? '42.3') },
+  previous: { sessions: previousSessions, organic: previousOrganic },
+  change:   { sessions: sessionsChange, organic: organicChange },
+};
+
+// Build weekly trend from daily array (30 days → 4 weeks)
+const dailyTrend: number[] = trafficData?.monthlyTrend ?? [];
+const weekLabels = buildWeekLabels(4);
+const trafficTrend = weekLabels.map((week, i) => {
+  const start = Math.max(0, dailyTrend.length - (4 - i) * 7);
+  const end   = Math.max(0, dailyTrend.length - (3 - i) * 7);
+  const weekSessions = dailyTrend.slice(start, end).reduce((a: number, b: number) => a + b, 0) || [850, 890, 950, currentSessions][i];
+  return { week, sessions: weekSessions, organic: Math.round(weekSessions * (currentOrganic / Math.max(currentSessions, 1))) };
+});
+
+// ---- Leads ----
+const leads = {
+  current:  {
+    total:      leadsData?.totalLeads ?? 26,
+    quoteForms: leadsData?.quoteForms ?? 16,
+    phoneCalls: leadsData?.phoneCalls ?? 8,
+    chat:       leadsData?.chat       ?? 2,
+  },
+  previous: { total: leadsData?.previousTotal ?? 22 },
+  change:   leadsData?.change ?? 18.2,
+  byMarket: leadsData?.byMarket ?? { huntsville: 12, athens: 5, florence: 4, birmingham: 3, nashville: 2 },
+};
+
+const leadsWeekly: number[] = leadsData?.weeklyTrend ?? [18, 20, 24, leads.current.total];
+const leadsTrend = weekLabels.map((week, i) => ({
+  week,
+  total: leadsWeekly[i] ?? 0,
+  converted: Math.round((leadsWeekly[i] ?? 0) * 0.35),
+}));
+
+// ---- Conversions (static — no automated source yet) ----
+const conversions = {
+  leadToQuote:    72.5,
+  quoteToBooked:  45.2,
+  overall:        32.8,
+  avgDealValue:   185,
+  monthlyRevenue: 12850,
+};
+
+// ---- Competitors (static — no automated source) ----
+const competitors = [
+  { name: "Molly Maid Huntsville",   avgPosition: 5.2, keywords: 45,  reviews: 89,  rating: 4.6, trend: "stable" },
+  { name: "Merry Maids Birmingham",  avgPosition: 6.8, keywords: 38,  reviews: 124, rating: 4.4, trend: "down"   },
+  { name: "Clean Sweep AL",          avgPosition: 8.5, keywords: 22,  reviews: 45,  rating: 4.8, trend: "up"     },
+];
+
+// ---- Alerts: auto-generate from live data ----
+const alerts: { type: string; message: string; date: string }[] = [];
+if (sessionsChange > 5)  alerts.push({ type: "success", message: `Organic traffic up ${organicChange}% vs last period`, date: "Today" });
+if (sessionsChange < -5) alerts.push({ type: "warning", message: `Traffic down ${Math.abs(sessionsChange)}% vs last period`, date: "Today" });
+const topGainer = [...rankings].filter((k: any) => k.change > 0).sort((a: any, b: any) => b.change - a.change)[0];
+if (topGainer) alerts.push({ type: "success", message: `↑${topGainer.change} positions: "${topGainer.keyword}" now #${topGainer.position}`, date: "This period" });
+const topLoser = [...rankings].filter((k: any) => k.change < 0).sort((a: any, b: any) => a.change - b.change)[0];
+if (topLoser)  alerts.push({ type: "warning", message: `↓${Math.abs(topLoser.change)} positions: "${topLoser.keyword}" now #${topLoser.position}`, date: "This period" });
+if (leadsData?.change > 10) alerts.push({ type: "success", message: `Leads up ${leadsData.change}% vs last 30 days`, date: "Today" });
+if (!alerts.length) alerts.push({ type: "info", message: "All metrics stable — no significant changes detected", date: "Today" });
+
 const dashboardData = {
   generated_at: new Date().toISOString(),
   period: "Last 30 Days",
-
-  // Ranking data
-  rankings: [
-    { keyword: "cleaning service huntsville al", position: 4, previous: 6, change: 2, market: "huntsville", volume: 720 },
-    { keyword: "house cleaning huntsville", position: 7, previous: 8, change: 1, market: "huntsville", volume: 480 },
-    { keyword: "maid service huntsville al", position: 12, previous: 15, change: 3, market: "huntsville", volume: 260 },
-    { keyword: "cleaning service athens al", position: 2, previous: 3, change: 1, market: "athens", volume: 170 },
-    { keyword: "house cleaning athens alabama", position: 3, previous: 5, change: 2, market: "athens", volume: 140 },
-    { keyword: "cleaning service florence al", position: 5, previous: 4, change: -1, market: "florence", volume: 210 },
-    { keyword: "house cleaning muscle shoals", position: 6, previous: 6, change: 0, market: "florence", volume: 110 },
-    { keyword: "cleaning service mountain brook", position: 8, previous: 12, change: 4, market: "birmingham", volume: 90 },
-    { keyword: "cleaning service nashville tn", position: 28, previous: 35, change: 7, market: "nashville", volume: 1900 },
-    { keyword: "deep cleaning huntsville", position: 3, previous: 4, change: 1, market: "huntsville", volume: 320 },
-    { keyword: "move out cleaning huntsville", position: 2, previous: 2, change: 0, market: "huntsville", volume: 210 },
-    { keyword: "commercial cleaning huntsville", position: 9, previous: 11, change: 2, market: "huntsville", volume: 170 },
-  ],
-
-  rankingSummary: {
-    total: 12,
-    avgPosition: 7.4,
-    top3: 4,
-    top10: 10,
-    improved: 9,
-    declined: 1,
-  },
-
-  // Traffic data
-  traffic: {
-    current: { sessions: 1020, users: 867, organic: 663, bounceRate: 42.3 },
-    previous: { sessions: 910, users: 773, organic: 592, bounceRate: 44.1 },
-    change: { sessions: 12.1, users: 12.2, organic: 12.0 },
-  },
-
-  trafficTrend: [
-    { week: "Jan 27", sessions: 850, organic: 553 },
-    { week: "Feb 3", sessions: 890, organic: 579 },
-    { week: "Feb 10", sessions: 950, organic: 618 },
-    { week: "Feb 17", sessions: 1020, organic: 663 },
-  ],
-
-  // Lead data
-  leads: {
-    current: { total: 26, quoteForms: 16, phoneCalls: 8, chat: 2 },
-    previous: { total: 22, quoteForms: 14, phoneCalls: 6, chat: 2 },
-    change: 18.2,
-    byMarket: { huntsville: 12, athens: 5, florence: 4, birmingham: 3, nashville: 2 },
-  },
-
-  leadsTrend: [
-    { week: "Jan 27", total: 18, converted: 6 },
-    { week: "Feb 3", total: 20, converted: 7 },
-    { week: "Feb 10", total: 24, converted: 8 },
-    { week: "Feb 17", total: 26, converted: 9 },
-  ],
-
-  // Conversion data
-  conversions: {
-    leadToQuote: 72.5,
-    quoteToBooked: 45.2,
-    overall: 32.8,
-    avgDealValue: 185,
-    monthlyRevenue: 12850,
-  },
-
-  // Competitors
-  competitors: [
-    { name: "Molly Maid Huntsville", avgPosition: 5.2, keywords: 45, reviews: 89, rating: 4.6, trend: "stable" },
-    { name: "Merry Maids Birmingham", avgPosition: 6.8, keywords: 38, reviews: 124, rating: 4.4, trend: "down" },
-    { name: "Clean Sweep AL", avgPosition: 8.5, keywords: 22, reviews: 45, rating: 4.8, trend: "up" },
-  ],
-
-  // Alerts
-  alerts: [
-    { type: "success", message: "Moved to #2 for 'cleaning service athens al'", date: "Today" },
-    { type: "success", message: "Organic traffic up 12% WoW", date: "Today" },
-    { type: "warning", message: "Dropped 1 position for 'cleaning service florence al'", date: "2 days ago" },
-    { type: "info", message: "Competitor added new Madison page", date: "3 days ago" },
-  ],
+  rankings,
+  rankingSummary,
+  traffic,
+  trafficTrend,
+  leads,
+  leadsTrend,
+  conversions,
+  competitors,
+  alerts,
 };
 
 const marketColors: Record<string, string> = {
@@ -152,8 +238,25 @@ const marketColors: Record<string, string> = {
           <p class="text-gray-400 text-sm">SEO & Business Dashboard</p>
         </div>
         <div class="text-right text-sm">
-          <p class="text-gray-400">Last updated</p>
-          <p>{new Date().toLocaleDateString()}</p>
+          <p class="text-gray-400 mb-2">Last updated {new Date().toLocaleDateString()}</p>
+          <!-- Data source status indicators -->
+          <div class="flex gap-2 justify-end">
+            {Object.entries({ rankings: 'GSC', traffic: 'GA4', leads: 'GHL' }).map(([key, label]) => {
+              const status = dataStatus[key];
+              return (
+                <span class={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
+                  status === 'live'     ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+                  status === 'fallback' ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30' :
+                                          'bg-red-500/20 text-red-300 border border-red-500/30'
+                }`}>
+                  <span class={`w-1.5 h-1.5 rounded-full ${
+                    status === 'live' ? 'bg-green-400' : status === 'fallback' ? 'bg-yellow-400' : 'bg-red-400'
+                  }`}></span>
+                  {label} {status === 'live' ? 'Live' : status === 'fallback' ? 'Fallback' : 'Offline'}
+                </span>
+              );
+            })}
+          </div>
         </div>
       </div>
     </header>
