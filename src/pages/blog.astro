@@ -862,8 +862,8 @@ const allBlogPosts = [
   },
 ];
 
-// Filter categories for the sidebar
-const blogPosts = allBlogPosts.filter(post => {
+// Separate published and scheduled posts
+const publishedPosts = allBlogPosts.filter(post => {
   let postDateStr = post.date;
   if (postDateStr.includes(' ') && !postDateStr.includes(',')) {
     postDateStr = postDateStr.replace(/(\w+ \d+) (\d+)/, "$1, $2");
@@ -871,13 +871,29 @@ const blogPosts = allBlogPosts.filter(post => {
   return new Date(postDateStr).getTime() <= new Date().getTime();
 });
 
-// Filter categories for the sidebar
-// Sort descending
-blogPosts.sort((a,b) => {
+const scheduledPosts = allBlogPosts.filter(post => {
+  let postDateStr = post.date;
+  if (postDateStr.includes(' ') && !postDateStr.includes(',')) {
+    postDateStr = postDateStr.replace(/(\w+ \d+) (\d+)/, "$1, $2");
+  }
+  return new Date(postDateStr).getTime() > new Date().getTime();
+});
+
+// Sort published descending (newest first)
+publishedPosts.sort((a,b) => {
   let dateA = a.date.includes(' ') && !a.date.includes(',') ? a.date.replace(/(\w+ \d+) (\d+)/, "$1, $2") : a.date;
   let dateB = b.date.includes(' ') && !b.date.includes(',') ? b.date.replace(/(\w+ \d+) (\d+)/, "$1, $2") : b.date;
   return new Date(dateB).getTime() - new Date(dateA).getTime();
 });
+
+// Sort scheduled ascending (soonest first)
+scheduledPosts.sort((a,b) => {
+  let dateA = a.date.includes(' ') && !a.date.includes(',') ? a.date.replace(/(\w+ \d+) (\d+)/, "$1, $2") : a.date;
+  let dateB = b.date.includes(' ') && !b.date.includes(',') ? b.date.replace(/(\w+ \d+) (\d+)/, "$1, $2") : b.date;
+  return new Date(dateA).getTime() - new Date(dateB).getTime();
+});
+
+const blogPosts = publishedPosts; // Keep existing variable name for main grid
 
 const filterCategories = [
   { id: "all", label: "All Posts", icon: "th-large", color: "text-[#FFA985]" },
@@ -1036,6 +1052,37 @@ const categoryColors: Record<string, string> = {
               ))
             }
           </div>
+
+          <!-- Scheduled / Coming Soon Section -->
+          {scheduledPosts.length > 0 && (
+            <div class="mt-20 pt-16 border-t border-gray-200">
+              <div class="flex items-center gap-4 mb-10">
+                <div class="h-px flex-1 bg-gray-200"></div>
+                <h2 class="text-3xl font-bold text-gray-400 flex items-center">
+                  <Icon name="clock" class="w-7 h-7 mr-3" />
+                  Coming <span class="text-[#FFA985]/50">Soon</span>
+                </h2>
+                <div class="h-px flex-1 bg-gray-200"></div>
+              </div>
+              
+              <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-60">
+                {scheduledPosts.map((post) => (
+                  <article class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200 p-6 flex flex-col h-full relative group hover:opacity-100 transition-opacity">
+                    <div class="flex items-center justify-between mb-4">
+                      <span class="text-xs font-bold text-[#FFA985] uppercase tracking-widest">{post.category}</span>
+                      <Icon name="lock" class="w-4 h-4 text-gray-400" />
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2 leading-tight">
+                      <a href={`/blog/${post.slug}`} class="stretched-link hover:text-[#FFA985] transition-colors">{post.title}</a>
+                    </h3>
+                    <p class="text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100 italic">
+                      Scheduled for {post.date}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          )}
 
           <!-- No Results Message -->
           <div id="no-results" class="hidden text-center py-12">
