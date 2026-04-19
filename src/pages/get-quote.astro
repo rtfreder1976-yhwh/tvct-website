@@ -91,6 +91,56 @@ import Icon from '../components/Icon.astro';
       font-size: 0.78rem;
       color: #555;
     }
+
+    /* Radio Cards */
+    .radio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .radio-grid .col-span-2 {
+      grid-column: span 2;
+    }
+    .radio-card {
+      position: relative;
+      cursor: pointer;
+      display: block;
+      margin: 0;
+    }
+    .radio-card input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .radio-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 14px 10px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      color: #6b7280;
+      font-size: 0.85rem;
+      font-weight: 700;
+      line-height: 1.2;
+      transition: all 0.2s ease;
+      height: 100%;
+    }
+    .radio-card:hover .radio-content {
+      border-color: #d1d5db;
+    }
+    .radio-card input:checked + .radio-content {
+      border-color: #FFA985;
+      background: rgba(255, 169, 133, 0.08);
+      color: #1a1a1a;
+      box-shadow: 0 2px 8px rgba(255, 169, 133, 0.15);
+    }
+    .radio-card input:focus-visible + .radio-content {
+      box-shadow: 0 0 0 3px rgba(255, 169, 133, 0.3);
+    }
   </style>
 
   <!-- Header -->
@@ -134,11 +184,11 @@ import Icon from '../components/Icon.astro';
       <!-- Headline -->
       <div class="text-center mb-8 fade-up">
         <span class="step-pill mb-3">Step 1 of 2</span>
-        <h1 class="text-3xl md:text-4xl font-bold text-[#333333] mt-3 mb-3">
-          Get Your Free Quote
+        <h1 class="text-3xl md:text-4xl font-bold text-[#333333] mt-3 mb-3 tracking-tight">
+          Your Spotless Home is 60 Seconds Away
         </h1>
-        <p class="text-gray-500 text-base max-w-sm mx-auto">
-          Tell us about your home and we'll have someone reach out with pricing — no obligation, no credit card.
+        <p class="text-gray-500 text-base max-w-md mx-auto leading-relaxed">
+          Skip the back-and-forth. Tell us about your space to instantly reveal your exact price and secure your cleaning.
         </p>
       </div>
 
@@ -206,50 +256,65 @@ import Icon from '../components/Icon.astro';
                 class="field-input"
                 required
               />
+              <p class="text-[0.7rem] text-gray-400 mt-1">We respect your privacy. Used only for your quote.</p>
               <p id="q-phone-err" class="error-msg">Please enter a valid phone number.</p>
             </div>
 
             <!-- Type of Cleaning -->
-            <div>
-              <label for="q-service" class="field-label">Type of Cleaning <span class="text-red-400">*</span></label>
-              <select
-                id="q-service"
-                name="service"
-                class="field-input"
-                required
-              >
-                <option value="" disabled selected>Select a service…</option>
-                <option value="Standard House Cleaning">Standard House Cleaning</option>
-                <option value="Deep Cleaning">Deep Cleaning (First-Time or Seasonal)</option>
-                <option value="Recurring Cleaning">Recurring Cleaning (Weekly / Biweekly / Monthly)</option>
-                <option value="Move-In / Move-Out Cleaning">Move-In / Move-Out Cleaning</option>
-                <option value="Commercial Cleaning">Commercial / Office Cleaning</option>
-                <option value="Post-Construction Cleaning">Post-Construction Cleaning</option>
-                <option value="Airbnb / Vacation Rental Cleaning">Airbnb / Vacation Rental Cleaning</option>
-                <option value="Event Cleaning">Event Cleaning</option>
-                <option value="Green / Eco-Friendly Cleaning">Green / Eco-Friendly Cleaning</option>
-                <option value="White Glove Cleaning">White Glove / Luxury Cleaning</option>
-                <option value="Estate Cleaning">Estate Cleaning</option>
-                <option value="Compassionate Cleaning">Compassionate / Overwhelmed-Home Cleaning</option>
-                <option value="Not Sure">Not Sure — Help Me Choose</option>
-              </select>
-              <p id="q-service-err" class="error-msg">Please select a service type.</p>
-            </div>
+            <fieldset>
+              <legend class="field-label mb-2">Type of Cleaning <span class="text-red-400">*</span></legend>
+              <div class="radio-grid">
+                <label class="radio-card">
+                  <input type="radio" name="service" value="Standard House Cleaning" required />
+                  <div class="radio-content">Standard<br>Cleaning</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="service" value="Deep Cleaning" />
+                  <div class="radio-content">Deep<br>Cleaning</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="service" value="Move-In / Move-Out Cleaning" />
+                  <div class="radio-content">Move-In /<br>Move-Out</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="service" value="Commercial Cleaning" />
+                  <div class="radio-content">Office /<br>Commercial</div>
+                </label>
+                <label class="radio-card col-span-2">
+                  <input type="radio" name="service" value="Other" />
+                  <div class="radio-content">Other / Not Sure</div>
+                </label>
+              </div>
+              <p id="q-service-err" class="error-msg mt-2">Please select a service type.</p>
+            </fieldset>
 
             <!-- Square Footage -->
-            <div>
-              <label for="q-sqft" class="field-label">Estimated Square Footage <span class="text-red-400">*</span></label>
-              <input
-                id="q-sqft"
-                type="number"
-                name="sqft"
-                placeholder="e.g. 2500"
-                class="field-input"
-                min="0"
-                required
-              />
-              <p id="q-sqft-err" class="error-msg">Please enter your estimated square footage.</p>
-            </div>
+            <fieldset>
+              <legend class="field-label mb-2">Estimated Square Footage <span class="text-red-400">*</span></legend>
+              <div class="radio-grid">
+                <label class="radio-card">
+                  <input type="radio" name="sqft" value="1000" required />
+                  <div class="radio-content">Under<br>1,000 sq ft</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="sqft" value="2000" />
+                  <div class="radio-content">1,000 -<br>2,000 sq ft</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="sqft" value="3000" />
+                  <div class="radio-content">2,000 -<br>3,000 sq ft</div>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="sqft" value="4000" />
+                  <div class="radio-content">3,000 -<br>4,000 sq ft</div>
+                </label>
+                <label class="radio-card col-span-2">
+                  <input type="radio" name="sqft" value="5000" />
+                  <div class="radio-content">Over 4,000 sq ft</div>
+                </label>
+              </div>
+              <p id="q-sqft-err" class="error-msg mt-2">Please select your estimated square footage.</p>
+            </fieldset>
 
             <!-- Submit -->
             <div class="pt-2">
@@ -261,10 +326,20 @@ import Icon from '../components/Icon.astro';
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                 </svg>
-                See Pricing &amp; Schedule Online
+                Reveal My Price &amp; Schedule Now
               </button>
-              <p class="text-xs text-center text-gray-400 mt-3">
-                No credit card required. We'll follow up within minutes.
+              <div class="flex flex-wrap items-center justify-center gap-3 mt-4">
+                <span class="trust-chip justify-center font-medium bg-green-50 text-green-700 px-2 py-1 rounded-md text-[0.75rem]">
+                  <Icon name="shield-halved" class="w-3.5 h-3.5 text-green-600" />
+                  100% Satisfaction Guarantee
+                </span>
+                <span class="trust-chip justify-center font-medium bg-[#FFA985]/10 text-gray-700 px-2 py-1 rounded-md text-[0.75rem]">
+                  <Icon name="star" class="w-3.5 h-3.5 text-[#FFA985]" fill="currentColor" />
+                  130+ 5-Star Reviews
+                </span>
+              </div>
+              <p class="text-[0.65rem] text-center text-gray-400 mt-3 uppercase tracking-wider font-bold">
+                🔒 Secure &amp; No Credit Card Required
               </p>
             </div>
 
@@ -286,6 +361,9 @@ import Icon from '../components/Icon.astro';
 
       <!-- Testimonial -->
       <div class="mt-8 text-center fade-up" style="animation-delay:0.15s">
+        <div class="flex justify-center mb-3">
+          <img src="https://ui-avatars.com/api/?name=Michelle+T&background=FFA985&color=fff&rounded=true&size=48" alt="Michelle T." class="w-12 h-12 rounded-full border-2 border-white shadow-sm" />
+        </div>
         <div class="inline-flex items-center gap-1 text-yellow-400 mb-2">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -328,6 +406,7 @@ import Icon from '../components/Icon.astro';
       function show(id) { var el = document.getElementById(id); if (el) el.style.display = 'block'; }
       function hide(id) { var el = document.getElementById(id); if (el) el.style.display = 'none'; }
       function val(id)  { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+      function valRadio(name) { var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; }
       function markError(inputId, errId, show_err) {
         var input = document.getElementById(inputId);
         var err   = document.getElementById(errId);
@@ -340,9 +419,22 @@ import Icon from '../components/Icon.astro';
           err.style.display = 'none';
         }
       }
+      function markGroupError(errId, show_err) {
+        var err = document.getElementById(errId);
+        if (err) err.style.display = show_err ? 'block' : 'none';
+      }
 
       function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-      function isValidPhone(p) { return p.replace(/\D/g, '').length >= 7; }
+      function isValidPhone(p) { return p.replace(/\D/g, '').length >= 10; }
+
+      // Phone formatting
+      var phoneInput = document.getElementById('q-phone');
+      if (phoneInput) {
+        phoneInput.addEventListener('input', function (e) {
+          var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+          e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+      }
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -350,15 +442,15 @@ import Icon from '../components/Icon.astro';
         var name    = val('q-name');
         var email   = val('q-email');
         var phone   = val('q-phone');
-        var service = val('q-service');
-        var sqft    = val('q-sqft');
+        var service = valRadio('service');
+        var sqft    = valRadio('sqft');
 
         var valid = true;
         markError('q-name',    'q-name-err',    !name);                      if (!name)                      valid = false;
         markError('q-email',   'q-email-err',   !isValidEmail(email));       if (!isValidEmail(email))       valid = false;
         markError('q-phone',   'q-phone-err',   !isValidPhone(phone));       if (!isValidPhone(phone))       valid = false;
-        markError('q-service', 'q-service-err', !service);                   if (!service)                   valid = false;
-        markError('q-sqft',    'q-sqft-err',    !sqft);                      if (!sqft)                      valid = false;
+        markGroupError('q-service-err', !service);                           if (!service)                   valid = false;
+        markGroupError('q-sqft-err',    !sqft);                              if (!sqft)                      valid = false;
 
         if (!valid) return;
 
@@ -404,14 +496,20 @@ import Icon from '../components/Icon.astro';
             if (success) success.classList.remove('hidden');
             setTimeout(function () {
               window.location.href = '/booking';
-            }, 1200);
+            }, 2500);
           });
       });
 
       // Clear error state on input
-      ['q-name','q-email','q-phone','q-service','q-sqft'].forEach(function (id) {
+      ['q-name','q-email','q-phone'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.addEventListener('input', function () { markError(id, id + '-err', false); });
+      });
+      document.querySelectorAll('input[name="service"]').forEach(function(el) {
+        el.addEventListener('change', function() { markGroupError('q-service-err', false); });
+      });
+      document.querySelectorAll('input[name="sqft"]').forEach(function(el) {
+        el.addEventListener('change', function() { markGroupError('q-sqft-err', false); });
       });
     })();
   </script>
