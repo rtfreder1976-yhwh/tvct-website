@@ -236,6 +236,21 @@ import Icon from '../components/Icon.astro';
               <p id="q-service-err" class="error-msg">Please select a service type.</p>
             </div>
 
+            <!-- Square Footage -->
+            <div>
+              <label for="q-sqft" class="field-label">Estimated Square Footage <span class="text-red-400">*</span></label>
+              <input
+                id="q-sqft"
+                type="number"
+                name="sqft"
+                placeholder="e.g. 2500"
+                class="field-input"
+                min="0"
+                required
+              />
+              <p id="q-sqft-err" class="error-msg">Please enter your estimated square footage.</p>
+            </div>
+
             <!-- Submit -->
             <div class="pt-2">
               <button type="submit" id="q-submit" class="btn-submit">
@@ -336,12 +351,14 @@ import Icon from '../components/Icon.astro';
         var email   = val('q-email');
         var phone   = val('q-phone');
         var service = val('q-service');
+        var sqft    = val('q-sqft');
 
         var valid = true;
         markError('q-name',    'q-name-err',    !name);                      if (!name)                      valid = false;
         markError('q-email',   'q-email-err',   !isValidEmail(email));       if (!isValidEmail(email))       valid = false;
         markError('q-phone',   'q-phone-err',   !isValidPhone(phone));       if (!isValidPhone(phone))       valid = false;
         markError('q-service', 'q-service-err', !service);                   if (!service)                   valid = false;
+        markError('q-sqft',    'q-sqft-err',    !sqft);                      if (!sqft)                      valid = false;
 
         if (!valid) return;
 
@@ -355,7 +372,7 @@ import Icon from '../components/Icon.astro';
           email:         email,
           phone:         phone,
           service:       service,
-          square_footage: 0,
+          square_footage: sqft ? parseInt(sqft, 10) : 0,
           source:        'Get Quote Form',
           page_url:      window.location.href,
           notes:         'Quote form submission — Step 1'
@@ -392,7 +409,7 @@ import Icon from '../components/Icon.astro';
       });
 
       // Clear error state on input
-      ['q-name','q-email','q-phone','q-service'].forEach(function (id) {
+      ['q-name','q-email','q-phone','q-service','q-sqft'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.addEventListener('input', function () { markError(id, id + '-err', false); });
       });

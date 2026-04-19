@@ -111,14 +111,14 @@ export const POST: APIRoute = async ({ request }) => {
             });
         }
 
-        // 2. Send to n8n Webhook
-        const N8N_WEBHOOK_URL = import.meta.env.N8N_WEBHOOK_URL;
-
-        if (!N8N_WEBHOOK_URL) {
-            console.error('N8N_WEBHOOK_URL environment variable is not configured.');
+        // 2. Send to GHL Webhook
+        const GHL_WEBHOOK_URL = import.meta.env.GHL_WEBHOOK_URL;
+        
+        if (!GHL_WEBHOOK_URL) {
+            console.error('GHL_WEBHOOK_URL environment variable is not configured.');
         } else {
             try {
-                const webhookResponse = await fetch(N8N_WEBHOOK_URL, {
+                const webhookResponse = await fetch(GHL_WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -138,10 +138,10 @@ export const POST: APIRoute = async ({ request }) => {
                 });
 
                 if (!webhookResponse.ok) {
-                    console.error(`n8n Webhook Failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
+                    console.error(`GHL Webhook Failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
                 }
             } catch (webhookError) {
-                console.error('Critical Error sending to n8n:', webhookError instanceof Error ? webhookError.message : 'unknown error');
+                console.error('Critical Error sending to GHL:', webhookError instanceof Error ? webhookError.message : 'unknown error');
             }
         }
 
