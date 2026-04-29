@@ -4,53 +4,89 @@ import SchemaMarkup from "../../components/SchemaMarkup.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "December 11, 2025";
+const modifiedDate = "April 29, 2026";
 const author = "The Valley Clean Team";
 const readTime = "8 min read";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
+
+const faqs = [
+  {
+    question: "How much does house cleaning cost in Alabama?",
+    answer: "For a standard 3-bedroom, 2-bathroom home in Alabama, expect to pay $125–$200 for regular cleaning, $200–$350 for deep cleaning, and $250–$450 for move-out cleaning. Prices vary by city — Huntsville and Mountain Brook run slightly higher than Florence or Athens due to cost of living differences."
+  },
+  {
+    question: "How much does a deep clean cost in Huntsville, AL?",
+    answer: "A deep clean in Huntsville typically runs $200–$400 for a standard 3-bedroom home. Larger homes (4+ bedrooms, 2,500+ sq ft) can run $350–$600+. Deep cleaning includes everything in a regular clean plus inside appliances, baseboards, ceiling fans, window tracks, and grout scrubbing."
+  },
+  {
+    question: "Is it cheaper to hire an independent cleaner vs. a cleaning company in Alabama?",
+    answer: "Independent cleaners often charge 20–30% less, but they typically are not insured or bonded. If they damage something or are injured in your home, you may be liable. Licensed cleaning companies carry general liability insurance (we carry $2M) and workers' comp, which protects you. The price difference is usually worth it for the protection."
+  },
+  {
+    question: "How often should I have my Alabama home professionally cleaned?",
+    answer: "Most households do best with bi-weekly (every 2 weeks) professional cleaning. Weekly cleaning is popular for busy families or pet owners. Monthly works for smaller homes or people who maintain cleanliness between visits. All recurring schedules receive a discount off one-time pricing."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+  }))
+};
 ---
 
 <BaseLayout
-  title="House Cleaning Cost Alabama 2026"
-  description="House cleaning in Alabama costs $100–$350+ in 2026. Real prices for Huntsville, Athens & Birmingham — standard, deep clean & move-out cleaning."
-  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+  title="House Cleaning Cost in Alabama 2026 | Huntsville, Birmingham & More"
+  description="How much does house cleaning cost in Alabama? Real 2026 prices for Huntsville, Birmingham, Athens & Florence — regular, deep clean, and move-out cleaning."
+  ogImage={heroImage}
 >
   <SchemaMarkup
     type="article"
-    title="House Cleaning Cost Alabama 2025"
-    description="Real house cleaning prices in Alabama for 2025. What to expect for deep cleaning, recurring service, move-out cleaning in Huntsville, Nashville. Transparent pricing guide."
+    title="House Cleaning Cost in Alabama 2026: Huntsville, Birmingham, Athens & Florence"
+    description="Real house cleaning prices across Alabama for 2026. Transparent pricing for regular, deep, move-out, and post-construction cleaning in Huntsville, Birmingham, Athens, and Florence."
     publishDate={publishDate}
+    modifiedDate={modifiedDate}
     author={author}
+    image={heroImage}
   />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero Section -->
-  <section
-    class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-  >
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <span
-          class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6"
-        >
-          2025 Pricing Guide
+      <div class="text-center pb-10">
+        <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
+          2026 Pricing Guide
         </span>
-        <h1
-          class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
-        >
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
           How Much Does House Cleaning Cost in Alabama?
         </h1>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          Real pricing from a real cleaning company. No hidden fees, no
-          surprises.
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
+          Real 2026 prices for Huntsville, Birmingham, Athens, Florence & more. No hidden fees, no surprises.
         </p>
-        <div
-          class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-        >
-          <span>{publishDate}</span>
+        <div class="flex items-center justify-center space-x-4 text-gray-400 text-sm">
+          <span>Updated {modifiedDate}</span>
           <span>•</span>
           <span>{readTime}</span>
           <span>•</span>
           <span>By {author}</span>
         </div>
       </div>
+    </div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src={heroImage}
+        alt="Professional house cleaning service in Alabama — pricing guide for Huntsville, Birmingham, Athens and Florence"
+        width="1200"
+        height="630"
+        class="w-full rounded-t-2xl object-cover shadow-2xl"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -443,6 +479,26 @@ const readTime = "8 min read";
     </div>
   </article>
 
+  <!-- FAQ Section -->
+  <section class="py-16 bg-white border-t border-gray-100">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <details class="group border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex justify-between items-center px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <span class="text-[#FFA985] text-xl group-open:rotate-45 transition-transform flex-shrink-0 ml-4">+</span>
+            </summary>
+            <div class="px-6 py-4 bg-gray-50 text-gray-600 text-sm leading-relaxed border-t border-gray-200">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Related Posts -->
   <section class="py-16 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -506,7 +562,12 @@ const readTime = "8 min read";
         <a
           href="/locations/mountain-brook"
           class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition"
-          >AL</a
+          >Mountain Brook, AL</a
+        >
+        <a
+          href="/locations/birmingham"
+          class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition"
+          >Birmingham, AL</a
         >
         <a
           href="/locations/nashville"
