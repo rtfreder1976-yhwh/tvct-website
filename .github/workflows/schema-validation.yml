@@ -1,0 +1,66 @@
+name: Schema Validation
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Extract and validate JSON-LD schemas
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+
+          function findHtmlFiles(dir) {
+            const files = [];
+            for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+              const full = path.join(dir, f.name);
+              if (f.isDirectory()) files.push(...findHtmlFiles(full));
+              else if (f.name.endsWith('.html')) files.push(full);
+            }
+            return files;
+          }
+
+          const htmlFiles = findHtmlFiles('dist/client');
+          let errors = 0;
+          let checked = 0;
+
+          for (const file of htmlFiles) {
+            const content = fs.readFileSync(file, 'utf8');
+            const matches = content.match(/<script type=\"application\/ld\+json\">([\s\S]*?)<\/script>/g) || [];
+            for (const match of matches) {
+              const json = match.replace(/<script type=\"application\/ld\+json\">/, '').replace(/<\/script>/, '');
+              try {
+                const parsed = JSON.parse(json);
+                if (!parsed['@context'] || !parsed['@type']) {
+                  console.error('Missing @context or @type in ' + file);
+                  errors++;
+                }
+                checked++;
+              } catch (e) {
+                console.error('Invalid JSON-LD in ' + file + ': ' + e.message);
+                errors++;
+              }
+            }
+          }
+
+          console.log('Checked ' + checked + ' schema blocks across ' + htmlFiles.length + ' pages');
+          if (errors > 0) { console.error(errors + ' schema errors found'); process.exit(1); }
+          else console.log('All schemas valid');
+          "
