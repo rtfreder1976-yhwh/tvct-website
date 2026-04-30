@@ -3,28 +3,73 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
+const modifiedDate = "April 30, 2026";
 const author = "The Valley Clean Team";
 const readTime = "10 min read";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can a landlord charge for cleaning in Alabama or Tennessee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but only for cleaning beyond normal wear and tear. In Alabama, landlords must return your deposit within 35 days with an itemized list of deductions. Charges must be reasonable and documented. Normal wear from everyday living—minor scuffs, carpet wear from walking—cannot be deducted. Landlords who wrongfully withhold deposits in Alabama can be liable for double the amount withheld."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a professional move-out clean cost in Huntsville or Nashville?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Valley Clean Team's move-out cleaning starts at $199 for standard apartments and ranges up to $400+ for larger homes. This covers every item on typical property manager inspection checklists: oven, refrigerator, cabinet interiors, bathrooms, baseboards, window tracks, blinds, and more. Considering that cleaning deductions from landlords often run $200–$800+, professional cleaning typically pays for itself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do property managers check during a move-out inspection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Property managers typically check: inside the oven and microwave, behind and under the stove and refrigerator, refrigerator seals and interior shelves, cabinet interiors, bathroom grout and toilet base, exhaust fans, shower door tracks, baseboards throughout, window tracks, ceiling fan blades (top side), light fixtures, blinds, door frames, closet interiors, and HVAC vents. These are the most commonly missed areas in DIY move-out cleans."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do if my landlord wrongfully deducts cleaning fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "First, request itemized documentation of all charges—vague entries like 'cleaning - $400' are not legally sufficient. Send a certified letter disputing the charges and include your photos and professional cleaning receipt as evidence. In Alabama, landlords who wrongfully withhold deposits can owe you double the amount. If needed, small claims court is an affordable option that doesn't require a lawyer, and landlords often settle rather than appear."
+      }
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title="Losing Your Security Deposit? | Valley Clean Team"
-  description="Don't lose hundreds (or thousands) to cleaning deductions. Learn exactly what landlords look for, what they can legally charge, and how to protect your deposit."
+  title="Don't Lose Your Security Deposit: Move-Out Cleaning Guide (AL & TN 2026)"
+  description="Landlords deduct $200–$800+ for cleaning. Protect your deposit with a $199 professional move-out clean. We know every spot inspectors check in Huntsville & Nashville."
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
 >
   <SchemaMarkup
     type="article"
-    title="Losing Your Security Deposit? What Happens"
-    description="Don't lose hundreds (or thousands) to cleaning deductions. Learn exactly what landlords look for and how to protect your deposit."
+    title="Don't Lose Your Security Deposit: Move-Out Cleaning Guide (AL & TN 2026)"
+    description="Landlords deduct $200–$800+ for cleaning. Protect your deposit with a $199 professional move-out clean."
     publishDate={publishDate}
+    modifiedDate={modifiedDate}
     author={author}
+    image={heroImage}
   />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   
 
   <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
@@ -41,6 +86,30 @@ const readTime = "10 min read";
           <span>•</span>
           <span>By {author}</span>
         </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 bg-[#FFA985] text-[#333333] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#FFC67D] transition">
+            <Icon name="phone" class="w-5 h-5" />AL: (256) 826-1100
+          </a>
+          <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-gray-900 transition">
+            <Icon name="phone" class="w-5 h-5" />TN: (615) 510-1427
+          </a>
+        </div>
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 pb-10 text-sm text-gray-400">
+          <span class="flex items-center gap-1"><Icon name="star" class="w-4 h-4 text-yellow-400" />4.9★ Rated</span>
+          <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />From $199</span>
+          <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />Deposit-Back Guarantee</span>
+          <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />Insured &amp; Bonded</span>
+          <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />AL &amp; TN Service</span>
+        </div>
+        <img
+          src={heroImage}
+          alt="Move-out cleaning checklist to protect your security deposit in Alabama and Tennessee"
+          class="w-full rounded-t-2xl shadow-xl"
+          width="800"
+          height="450"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
     </div>
   </section>
@@ -210,6 +279,21 @@ const readTime = "10 min read";
           A professional move-out clean costs $199-400 depending on size. Your security deposit is probably $1,000-2,000. The math is obvious.
         </p>
 
+        <!-- Mid-Article CTA -->
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 my-10 text-white text-center not-prose">
+          <p class="text-sm font-semibold uppercase tracking-wider text-[#FFA985] mb-2">Move-Out Cleaning from $199</p>
+          <h3 class="text-2xl font-bold mb-3">We know every spot inspectors check.</h3>
+          <p class="text-gray-300 mb-6">Hundreds of move-outs across Huntsville, Nashville, and the Shoals. We've seen the inspection forms. We clean to pass them.</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 bg-[#FFA985] text-[#333333] px-7 py-3 rounded-full font-bold hover:bg-[#FFC67D] transition">
+              <Icon name="phone" class="w-4 h-4" />AL: (256) 826-1100
+            </a>
+            <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-7 py-3 rounded-full font-bold hover:bg-white hover:text-gray-900 transition">
+              <Icon name="phone" class="w-4 h-4" />TN: (615) 510-1427
+            </a>
+          </div>
+        </div>
+
         <h3 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Step 3: Get a Receipt</h3>
 
         <p class="text-lg text-gray-600 mb-8">
@@ -332,6 +416,39 @@ const readTime = "10 min read";
           Don't leave it behind.
         </p>
 
+        <!-- FAQ Section -->
+        <div class="mt-12 not-prose">
+          <h2 class="text-3xl font-bold text-[#333333] mb-6">Frequently Asked Questions</h2>
+          <div class="space-y-3">
+            {[
+              {
+                q: "Can a landlord charge for cleaning in Alabama or Tennessee?",
+                a: "Yes, but only for cleaning beyond normal wear and tear. In Alabama, landlords must return your deposit within 35 days with an itemized list of deductions. Charges must be reasonable and documented. Normal wear from everyday living—minor scuffs, carpet wear from walking—cannot be deducted. Landlords who wrongfully withhold deposits in Alabama can be liable for double the amount withheld."
+              },
+              {
+                q: "How much does a professional move-out clean cost in Huntsville or Nashville?",
+                a: "The Valley Clean Team's move-out cleaning starts at $199 for standard apartments and ranges up to $400+ for larger homes. This covers every item on typical property manager inspection checklists: oven, refrigerator, cabinet interiors, bathrooms, baseboards, window tracks, blinds, and more. Considering that cleaning deductions from landlords often run $200–$800+, professional cleaning typically pays for itself."
+              },
+              {
+                q: "What do property managers check during a move-out inspection?",
+                a: "Property managers typically check: inside the oven and microwave, behind and under the stove and refrigerator, refrigerator seals and interior shelves, cabinet interiors, bathroom grout and toilet base, exhaust fans, shower door tracks, baseboards throughout, window tracks, ceiling fan blades (top side), light fixtures, blinds, door frames, closet interiors, and HVAC vents. These are the most commonly missed areas in DIY move-out cleans."
+              },
+              {
+                q: "What should I do if my landlord wrongfully deducts cleaning fees?",
+                a: "First, request itemized documentation of all charges—vague entries like 'cleaning - $400' are not legally sufficient. Send a certified letter disputing the charges and include your photos and professional cleaning receipt as evidence. In Alabama, landlords who wrongfully withhold deposits can owe you double the amount. If needed, small claims court is an affordable option that doesn't require a lawyer, and landlords often settle rather than appear."
+              }
+            ].map(({ q, a }) => (
+              <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-gray-50">
+                  <span class="font-semibold text-[#333333] pr-4">{q}</span>
+                  <span class="text-[#FFA985] font-bold text-xl flex-shrink-0 transition-transform duration-200 group-open:rotate-45">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-gray-700 leading-relaxed">{a}</div>
+              </details>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   </article>
@@ -358,28 +475,24 @@ const readTime = "10 min read";
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+  <section class="py-16 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+      <p class="text-sm font-semibold uppercase tracking-wider text-[#FFA985] mb-3">Move-Out Cleaning from $199</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
         Get Your Full Security Deposit Back
       </h2>
-      <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
-        Move-out cleaning starting at $199. We know exactly what property managers look for. Veteran-owned, insured, satisfaction guaranteed.
+      <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+        We know exactly what property managers look for. Veteran-owned, insured, satisfaction guaranteed. Serving Huntsville, Nashville, Mountain Brook &amp; the Shoals.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:256-826-1100" class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors text-lg">
-          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-          </svg>
-          Call 256-826-1100
+        <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#FFA985] text-[#333333] font-bold rounded-full hover:bg-[#FFC67D] transition text-lg">
+          <Icon name="phone" class="w-5 h-5" />AL: (256) 826-1100
         </a>
-        <a href="/services/move-in-out-cleaning" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors text-lg">
-          See Move-Out Cleaning Details
+        <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-gray-900 transition text-lg">
+          <Icon name="phone" class="w-5 h-5" />TN: (615) 510-1427
         </a>
       </div>
-      <p class="mt-6 text-gray-700">
-        Serving Huntsville, Nashville, Mountain Brook & the Shoals • Schedule 48 hours in advance
-      </p>
+      <p class="mt-6 text-gray-400 text-sm">Veteran-owned · Women-owned · Insured &amp; Bonded · 4.9★ Rated</p>
     </div>
   </section>
 
