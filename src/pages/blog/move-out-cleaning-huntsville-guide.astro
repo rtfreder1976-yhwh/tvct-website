@@ -1,38 +1,83 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import Icon from '../../components/Icon.astro';
 
 const publishDate = "December 9, 2025";
+const modifiedDate = "April 29, 2026";
 const author = "The Valley Clean Team";
 const readTime = "12 min read";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does move-out cleaning cost in Huntsville, AL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Professional move-out cleaning in Huntsville typically costs $199–$400 depending on the size and condition of the property. This is almost always less than what Madison County property managers charge for cleaning deductions from your security deposit, which commonly run $400–$800 for a full clean."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do Huntsville property managers check during move-out inspection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Madison County property managers inspect: inside the oven and broiler drawer, range hood filters, refrigerator door gaskets, under and behind appliances, dishwasher drain filter, bathroom grout and caulking, exhaust fan covers, toilet base and behind the tank, shower door tracks, all baseboards, window tracks and blinds, light fixtures and ceiling fan blades, HVAC vents, and all closet interiors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long before my move-out date should I schedule cleaning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Schedule your move-out clean for the day furniture is removed or the day after. Everything needs to be out first — you can't properly clean around furniture. Book professional cleaning at least 1 week in advance, as Huntsville move-out cleaners get booked quickly at month-end."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Alabama law protect tenants from unfair deposit deductions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Alabama landlords have 35 days to return your deposit with an itemized list of deductions. Deductions must be reasonable and documented. Normal wear and tear cannot be charged. Wrongful withholding can result in double damages. The best protection is a thorough professional clean that leaves nothing to dispute."
+      }
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title="Move-Out Cleaning Huntsville Guide"
-  description="Everything you need to know about move-out cleaning in Huntsville, AL. Get your full security deposit back with our comprehensive guide covering Madison, Hampton Cove & more."
+  title="Move-Out Cleaning Huntsville AL | Get Your Full Deposit Back (2026 Guide)"
+  description="How to pass your move-out inspection in Madison County. What property managers actually check, cost from $199, and the Huntsville-specific challenges most tenants miss."
 >
   <SchemaMarkup
     type="article"
     title="Move-Out Cleaning Guide for Huntsville"
     description="Everything you need to know about move-out cleaning in Huntsville, AL. Get your full security deposit back with our comprehensive guide."
     publishDate={publishDate}
+    modifiedDate={modifiedDate}
     author={author}
   />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   
 
   <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
+      <div class="text-center pb-10">
         <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
           Huntsville Moving Guide
         </span>
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-          Complete Guide to Move-Out<br>
-          <span class="text-[#FFA985]">Cleaning in Huntsville</span>
+          Move-Out Cleaning in Huntsville:<br>
+          <span class="text-[#FFA985]">Get Your Full Deposit Back</span>
         </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          What Madison County property managers actually inspect, Huntsville-specific challenges most tenants miss, and how professional cleaning from $199 protects your deposit.
+        </p>
         <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
           <span>{publishDate}</span>
           <span>•</span>
@@ -40,9 +85,41 @@ const readTime = "12 min read";
           <span>•</span>
           <span>By {author}</span>
         </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
+            Book Move-Out Cleaning
+          </a>
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition">
+            <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+          </a>
+        </div>
       </div>
     </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src={heroImage}
+        alt="Professional move-out cleaning service in Huntsville Alabama securing full security deposit return"
+        width="896"
+        height="504"
+        loading="eager"
+        fetchpriority="high"
+        class="w-full rounded-t-2xl object-cover"
+      />
+    </div>
   </section>
+
+  <!-- Trust Strip -->
+  <div class="bg-white border-b border-gray-100 py-4">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
+        <span class="flex items-center gap-1.5 font-medium"><span class="text-yellow-400">★★★★★</span> 5-Star Rated</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> Veteran &amp; Women-Owned</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> $2M Insured &amp; Bonded</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> From $199</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> Madison County Experts</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
   <article class="py-16 bg-white">
@@ -193,6 +270,20 @@ const readTime = "12 min read";
           Add these up and you can easily lose your entire deposit over issues that a proper move-out clean would have prevented.
         </p>
 
+        <!-- Mid-Article CTA -->
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 my-10 text-center">
+          <p class="text-2xl font-bold text-white mb-2">Don't risk your deposit</p>
+          <p class="text-gray-300 mb-6">Move-out cleaning from $199. We know exactly what Madison County property managers check — and we make sure it passes.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition">
+              Book Move-Out Clean
+            </a>
+            <a href="tel:2568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition">
+              <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+            </a>
+          </div>
+        </div>
+
         <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">DIY vs. Professional Move-Out Cleaning</h2>
 
         <p class="text-lg text-gray-600 mb-8">
@@ -296,33 +387,59 @@ const readTime = "12 min read";
           <strong>Bottom line:</strong> Your security deposit is your money. Don't let a property manager keep it because of cleaning issues that could have been prevented. Whether you DIY or hire professionals like us, make sure it's done right.
         </p>
 
+        <!-- FAQ Accordion -->
+        <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-3 mb-12">
+          {[
+            {
+              q: "How much does move-out cleaning cost in Huntsville, AL?",
+              a: "Professional move-out cleaning in Huntsville typically costs $199–$400 depending on size and condition. This is almost always less than what property managers charge for cleaning deductions, which commonly run $400–$800 for a full clean plus individual item charges ($75–$125 for the oven alone)."
+            },
+            {
+              q: "What do Huntsville property managers check during move-out inspection?",
+              a: "Madison County property managers inspect: inside the oven and broiler drawer, range hood filters, refrigerator door gaskets, under and behind appliances, dishwasher drain filter, bathroom grout and caulking, exhaust fan covers, toilet base and behind the tank, shower door tracks, all baseboards, window tracks and blinds, light fixtures and ceiling fan blades, HVAC vents, and all closet interiors."
+            },
+            {
+              q: "How long before my move-out date should I schedule cleaning?",
+              a: "Schedule your move-out clean for the day furniture is removed or the day after — everything needs to be out first. Book professional cleaning at least 1 week in advance, as Huntsville move-out cleaners get booked quickly at month-end."
+            },
+            {
+              q: "Does Alabama law protect tenants from unfair deposit deductions?",
+              a: "Yes. Alabama landlords have 35 days to return your deposit with an itemized list of deductions. Deductions must be reasonable and documented. Normal wear and tear cannot be charged. Wrongful withholding can result in double damages. A thorough professional clean eliminates the most common dispute items."
+            }
+          ].map(({ q, a }) => (
+            <details class="group bg-gray-50 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-semibold text-gray-900 list-none">
+                {q}
+                <span class="ml-4 text-2xl leading-none text-[#FFA985] transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p class="px-6 pb-5 text-gray-600 text-lg">{a}</p>
+            </details>
+          ))}
+        </div>
+
       </div>
     </div>
   </article>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-        Moving Out in Huntsville? We've Got You Covered.
-      </h2>
-      <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
-        Move-out cleaning starting at $199. Veteran-owned, $2M insured, same trusted team every time. We know exactly what Madison County property managers look for.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:256-826-1100" class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors text-lg">
-          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-          </svg>
-          Call 256-826-1100
-        </a>
-        <a href="/locations/huntsville/move-out-cleaning/" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors text-lg">
-          Huntsville Move-Out Cleaning
-        </a>
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-2">Moving Out in Huntsville? We've Got You Covered.</h2>
+        <p class="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+          Move-out cleaning from $199. Veteran-owned, $2M insured, same trusted team. We know exactly what Madison County property managers look for.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 bg-[#FFA985] text-white font-bold rounded-full hover:bg-[#ff9a70] transition text-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+          </a>
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-white border-2 border-white font-bold rounded-full hover:bg-white/10 transition text-lg">
+            Get a Free Quote
+          </a>
+        </div>
+        <p class="mt-6 text-gray-400 text-sm">Serving all of Madison County: Huntsville • Madison • Hampton Cove • Harvest • Meridianville</p>
       </div>
-      <p class="mt-6 text-gray-700">
-        Serving all of Madison County: Huntsville, Madison, Hampton Cove, Harvest, Meridianville & more
-      </p>
     </div>
   </section>
 
