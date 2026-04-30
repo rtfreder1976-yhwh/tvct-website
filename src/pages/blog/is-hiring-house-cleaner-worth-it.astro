@@ -1,30 +1,73 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import Icon from '../../components/Icon.astro';
 
 const draft = false;
 const publishDate = "April 12, 2026";
+const modifiedDate = "April 30, 2026";
 const author = "The Valley Clean Team";
 const readTime = "9 min read";
+const heroImage = "https://storage.googleapis.com/msgsndr/strizj5j5bZ3bFMaTsuc/media/6812dde6a4e0a11d1c8c01b8.jpeg";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does professional house cleaning cost in Huntsville or Nashville?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Recurring cleaning in the Huntsville, AL and Nashville, TN areas typically runs $120–$250 per visit depending on home size and frequency. Biweekly service for a 2,000–2,500 sq ft home is commonly $150–$200 per visit. Deep cleaning and first-time cleans cost more. The Valley Clean Team offers flat-rate pricing with no surprises — call (256) 826-1100 for AL or (615) 510-1427 for TN for a free quote."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it worth it to hire a house cleaner if I work from home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, often more so. Working from home means living in your workspace, which makes a dirty environment directly impact your productivity and mental focus. Professional cleaning on a regular schedule gives you a clean environment to work in without taking time away from your actual work."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should I have my house professionally cleaned?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Biweekly (every two weeks) is the most popular frequency and works well for most households. Monthly is a good fit for smaller homes, couples without kids, or those who maintain well between visits. Homes with children, pets, or heavy use often benefit from weekly service. We can help you decide the right frequency when you call for a quote."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between a regular cleaning and a deep cleaning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Regular (recurring) cleaning maintains a home that's already in good shape — surfaces wiped, floors cleaned, bathrooms sanitized. A deep cleaning goes further: inside appliances, baseboards, window sills, grout, behind furniture. Most clients start with a deep clean before switching to regular recurring service."
+      }
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title="Is Hiring a Cleaner Worth It?"
-  description="Is hiring a house cleaner worth the money? Honest breakdown of costs vs. time saved, who benefits most, and when to DIY vs. hire professional help."
+  title="Is Hiring a House Cleaner Worth It? (2026 Honest Breakdown)"
+  description="Is hiring a house cleaner worth the money? Honest cost vs. time breakdown for Huntsville & Nashville homeowners. Deep cleans from $200, recurring from $120."
 >
   <SchemaMarkup
     type="article"
-    title="Is Hiring a House Cleaner Worth It?"
-    description="Is hiring a house cleaner worth the money? Honest breakdown of costs vs. time saved, who benefits most, and when to DIY vs. hire professional help."
+    title="Is Hiring a House Cleaner Worth It? (2026 Honest Breakdown)"
+    description="Is hiring a house cleaner worth the money? Honest cost vs. time breakdown for Huntsville & Nashville homeowners. Deep cleans from $200, recurring from $120."
     publishDate={publishDate}
+    modifiedDate={modifiedDate}
     author={author}
+    image={heroImage}
   />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   
 
   <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
@@ -41,6 +84,36 @@ const readTime = "9 min read";
           <span>•</span>
           <span>By {author}</span>
         </div>
+
+        <!-- Hero CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 bg-[#FFA985] text-gray-900 font-bold rounded-full hover:bg-[#ff9970] transition-colors text-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />
+            Call AL: (256) 826-1100
+          </a>
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-colors text-lg border border-white/20">
+            Get a Free Quote
+          </a>
+        </div>
+
+        <!-- Trust Strip -->
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400 mb-8">
+          <span class="flex items-center gap-1">⭐ 4.9-Star Reviews</span>
+          <span class="flex items-center gap-1">💰 From $120/Visit</span>
+          <span class="flex items-center gap-1">🏠 AL &amp; TN Service</span>
+          <span class="flex items-center gap-1">🛡️ $2M Insured</span>
+          <span class="flex items-center gap-1">✅ Satisfaction Guaranteed</span>
+        </div>
+
+        <img
+          src={heroImage}
+          alt="Professional house cleaning service in Huntsville Alabama and Nashville Tennessee"
+          width="896"
+          height="504"
+          loading="eager"
+          fetchpriority="high"
+          class="w-full rounded-t-2xl shadow-xl"
+        />
       </div>
     </div>
   </section>
@@ -308,6 +381,38 @@ const readTime = "9 min read";
           What happens if you're not happy? The answer should be: they come back and fix it. Companies that stand behind their work have accountability. We guarantee satisfaction.
         </p>
 
+      </div>
+    </div>
+  </article>
+
+  <!-- Mid-Article CTA -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
+        <p class="text-[#FFA985] font-semibold text-sm uppercase tracking-wide mb-3">Ready to Try It?</p>
+        <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">
+          See If Professional Cleaning Fits Your Life
+        </h3>
+        <p class="text-gray-300 mb-6 max-w-xl mx-auto">
+          Veteran-owned. $2 million insured. Same team every visit. 49-point checklist. Get a free quote — no obligation, no pressure.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 bg-[#FFA985] text-gray-900 font-bold rounded-full hover:bg-[#ff9970] transition-colors">
+            <Icon name="phone" class="w-5 h-5 mr-2" />
+            AL: (256) 826-1100
+          </a>
+          <a href="tel:6155101427" class="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-colors border border-white/20">
+            TN: (615) 510-1427
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <article class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none">
+
         <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">The Bottom Line</h2>
 
         <p class="text-lg text-gray-600 mb-8">
@@ -334,35 +439,66 @@ const readTime = "9 min read";
           <strong>Life is messy. We've got this.</strong>
         </p>
 
+        <!-- FAQ Accordion -->
+        <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-4 not-prose">
+          {[
+            {
+              q: "How much does professional house cleaning cost in Huntsville or Nashville?",
+              a: "Recurring cleaning in the Huntsville, AL and Nashville, TN areas typically runs $120–$250 per visit depending on home size and frequency. Biweekly service for a 2,000–2,500 sq ft home is commonly $150–$200 per visit. Deep cleaning and first-time cleans cost more. Call (256) 826-1100 (AL) or (615) 510-1427 (TN) for a free, no-pressure quote."
+            },
+            {
+              q: "Is it worth it to hire a house cleaner if I work from home?",
+              a: "Yes, often more so. Working from home means living in your workspace — a dirty environment directly impacts productivity and mental focus. Professional cleaning on a regular schedule gives you a clean environment to work in without taking time away from your actual work."
+            },
+            {
+              q: "How often should I have my house professionally cleaned?",
+              a: "Biweekly (every two weeks) is the most popular frequency and works well for most households. Monthly is a good fit for smaller homes, couples without kids, or those who maintain well between visits. Homes with children, pets, or heavy use often benefit from weekly service."
+            },
+            {
+              q: "What's the difference between a regular cleaning and a deep cleaning?",
+              a: "Regular (recurring) cleaning maintains a home that's already in good shape — surfaces wiped, floors cleaned, bathrooms sanitized. A deep cleaning goes further: inside appliances, baseboards, window sills, grout, behind furniture. Most clients start with a deep clean before switching to regular recurring service."
+            }
+          ].map(({ q, a }) => (
+            <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-gray-50 transition-colors">
+                <span class="font-semibold text-gray-900 pr-4">{q}</span>
+                <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-[#FFA985]/20 text-[#FFA985] font-bold text-lg transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <div class="px-6 pb-6 text-gray-600 leading-relaxed">{a}</div>
+            </details>
+          ))}
+        </div>
+
       </div>
     </div>
   </article>
 
-  <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-        Ready to Get Your Time Back?
-      </h2>
-      <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
-        Veteran-owned. $2 million insured. Same team every visit. 49-point checklist. Satisfaction guaranteed. Get a free quote and see if professional cleaning fits your life.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:256-826-1100" class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors text-lg">
-          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-          </svg>
-          Call 256-826-1100
-        </a>
-        <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors text-lg">
-          Get a Free Quote
-        </a>
+  <!-- Bottom CTA -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-10 text-center">
+        <p class="text-[#FFA985] font-semibold text-sm uppercase tracking-wide mb-3">Huntsville &amp; Nashville</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Ready to Get Your Time Back?
+        </h2>
+        <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+          Veteran-owned. $2 million insured. Same team every visit. 49-point checklist. Satisfaction guaranteed.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 bg-[#FFA985] text-gray-900 font-bold rounded-full hover:bg-[#ff9970] transition-colors text-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />
+            AL: (256) 826-1100
+          </a>
+          <a href="tel:6155101427" class="inline-flex items-center justify-center px-8 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition-colors text-lg border border-white/20">
+            TN: (615) 510-1427
+          </a>
+        </div>
+        <p class="text-gray-400 text-sm">
+          Serving Huntsville, Nashville, Athens &amp; the Shoals
+        </p>
       </div>
-      <p class="mt-6 text-gray-700">
-        Serving Huntsville, Nashville, Athens & the Shoals
-      </p>
     </div>
   </section>
 
-  
 </BaseLayout>
