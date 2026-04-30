@@ -1,17 +1,57 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
+const modifiedDate = "April 29, 2026";
 const author = "The Valley Clean Team";
 const readTime = "9 min read";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why do cleaning services do a bad job?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most cleaning service disappointments come from five root causes: low barriers to entry (anyone can start a company with no training), race-to-the-bottom pricing that forces corners to be cut, no standardized systems or checklists, high staff turnover, and franchises prioritizing volume over quality. Look for companies with documented processes, proper insurance, background-checked staff, and a satisfaction guarantee."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I ask a cleaning company before hiring them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ask these 7 questions: (1) Can you show proof of insurance? (2) What's included and not included? (3) What's your quality control process? (4) Will I have the same cleaner each visit? (5) What happens if I'm not satisfied? (6) Do you background-check employees? (7) How long have your cleaners been with you? A good company answers all of these confidently."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I find a reliable cleaning service?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Look for: documented cleaning checklists, liability insurance and workers' comp, background-checked employees, long staff tenure (low turnover), fast communication response times, mid-range pricing (not the cheapest), a clear satisfaction guarantee, and recent positive reviews with professional responses to complaints."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it normal for the first cleaning to be imperfect?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the first clean is establishing a baseline, not maintaining one. The cleaner is learning your home's layout and your preferences for the first time. Give feedback after the first visit. A good company takes it seriously and improves by the second or third clean. If the same problems persist after feedback, move on."
+      }
+    }
+  ]
+};
 ---
 
 <BaseLayout
-  title="Why Cleaning Services Disappoint | Valley Clean Team"
-  description="Tired of cleaning services that overpromise and underdeliver? Here's what goes wrong and exactly what to look for in a reliable cleaning company."
+  title="Why Cleaning Services Disappoint — And How to Find One That Won't (2026)"
+  description="5 reasons cleaning companies let you down — and the 7 questions to ask before hiring. A cleaning company tells you the truth about the industry."
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
 >
   <SchemaMarkup
@@ -19,14 +59,16 @@ const readTime = "9 min read";
     title="Why Cleaning Services Disappoint & How to Fix"
     description="Tired of cleaning services that overpromise and underdeliver? Here's what goes wrong and exactly what to look for in a reliable cleaning company."
     publishDate={publishDate}
+    modifiedDate={modifiedDate}
     author={author}
   />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   
 
   <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
+      <div class="text-center pb-10">
         <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
           Industry Honesty
         </span>
@@ -34,6 +76,9 @@ const readTime = "9 min read";
           Why Most Cleaning Services Disappoint<br>
           <span class="text-[#FFA985]">(And How to Find a Good One)</span>
         </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          A cleaning company tells you the uncomfortable truth about why the industry lets people down — and exactly what to look for.
+        </p>
         <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
           <span>{publishDate}</span>
           <span>•</span>
@@ -41,9 +86,41 @@ const readTime = "9 min read";
           <span>•</span>
           <span>By {author}</span>
         </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
+            Get a Free Quote
+          </a>
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition">
+            <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+          </a>
+        </div>
       </div>
     </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src={heroImage}
+        alt="Professional cleaning service team arriving at a home in Huntsville Alabama"
+        width="896"
+        height="504"
+        loading="eager"
+        fetchpriority="high"
+        class="w-full rounded-t-2xl object-cover"
+      />
+    </div>
   </section>
+
+  <!-- Trust Strip -->
+  <div class="bg-white border-b border-gray-100 py-4">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
+        <span class="flex items-center gap-1.5 font-medium"><span class="text-yellow-400">★★★★★</span> 5-Star Rated</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> Veteran &amp; Women-Owned</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> $2M Insured &amp; Bonded</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> Background-Checked Staff</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> Satisfaction Guaranteed</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Content -->
   <article class="py-16 bg-white">
@@ -262,6 +339,20 @@ const readTime = "9 min read";
           Look at reviews, but look closely. What do the negative reviews complain about? How does the company respond? Recent reviews matter more than old ones.
         </p>
 
+        <!-- Mid-Article CTA -->
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 my-10 text-center">
+          <p class="text-2xl font-bold text-white mb-2">See how we answer the hard questions</p>
+          <p class="text-gray-300 mb-6">We're happy to show proof of insurance, walk you through our 49-point checklist, and tell you exactly who'll be in your home — before you book.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition">
+              Get a Free Quote
+            </a>
+            <a href="tel:2568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition">
+              <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+            </a>
+          </div>
+        </div>
+
         <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">Questions to Ask Before Hiring</h2>
 
         <p class="text-lg text-gray-600 mb-8">
@@ -324,6 +415,37 @@ const readTime = "9 min read";
           They're out there. Now you know how to find them.
         </p>
 
+        <!-- FAQ Accordion -->
+        <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-3 mb-12">
+          {[
+            {
+              q: "Why do cleaning services do a bad job?",
+              a: "Most disappointments trace back to five root causes: anyone can start a cleaning company with no training, race-to-the-bottom pricing forces corners to be cut, there are no standardized systems or checklists, high staff turnover means inconsistent results, and many franchise owners prioritize volume over quality. Look for companies with documented processes, proper insurance, and a satisfaction guarantee."
+            },
+            {
+              q: "What should I ask a cleaning company before hiring them?",
+              a: "Ask these 7 questions: (1) Can you show proof of insurance? (2) What's included and not included? (3) What's your quality control process? (4) Will I have the same cleaner each visit? (5) What happens if I'm not satisfied? (6) Do you background-check employees? (7) How long have your cleaners been with you? A good company answers all of these confidently and quickly."
+            },
+            {
+              q: "How do I find a reliable cleaning service?",
+              a: "Look for: documented cleaning checklists, liability insurance and workers' comp (ask for certificates), background-checked staff, long staff tenure, fast communication, mid-range pricing (not the cheapest), a clear satisfaction guarantee, and recent positive reviews with professional responses to any complaints."
+            },
+            {
+              q: "Is it normal for the first cleaning to be imperfect?",
+              a: "Yes — the first clean is establishing a baseline, not maintaining one. The cleaner is learning your home's layout and your preferences for the first time. Give feedback after the first visit. A good company improves by the second or third clean. If the same problems persist after feedback, that tells you what you need to know."
+            }
+          ].map(({ q, a }) => (
+            <details class="group bg-gray-50 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-semibold text-gray-900 list-none">
+                {q}
+                <span class="ml-4 text-2xl leading-none text-[#FFA985] transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p class="px-6 pb-5 text-gray-600 text-lg">{a}</p>
+            </details>
+          ))}
+        </div>
+
       </div>
     </div>
   </article>
@@ -350,28 +472,27 @@ const readTime = "9 min read";
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-        Ready to Try a Different Kind of Cleaning Service?
-      </h2>
-      <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
-        Veteran-owned. Fully insured. Background-checked team. Clear processes. Satisfaction guaranteed. Ask us anything—we're happy to answer.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:256-826-1100" class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors text-lg">
-          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-          </svg>
-          Call 256-826-1100
-        </a>
-        <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors text-lg">
-          Get a Free Quote
-        </a>
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          Ready to Try a Different Kind of Cleaning Service?
+        </h2>
+        <p class="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+          Veteran-owned. Fully insured. Background-checked team. 49-point checklist. Satisfaction guaranteed. Ask us anything — we're happy to answer.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 bg-[#FFA985] text-white font-bold rounded-full hover:bg-[#ff9a70] transition text-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+          </a>
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-white border-2 border-white font-bold rounded-full hover:bg-white/10 transition text-lg">
+            Get a Free Quote
+          </a>
+        </div>
+        <p class="mt-6 text-gray-400 text-sm">
+          Serving Huntsville, Nashville, Mountain Brook &amp; the Shoals • Deep cleaning from $175
+        </p>
       </div>
-      <p class="mt-6 text-gray-700">
-        Serving Huntsville, Nashville, Mountain Brook & the Shoals • Deep cleaning from $175
-      </p>
     </div>
   </section>
 
