@@ -1,44 +1,122 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
 import Icon from '../../components/Icon.astro';
 
-const publishDate = "November 26, 2025";
+const publishDate = "November 26, 2026";
+const modifiedDate = "April 29, 2026";
 const author = "The Valley Clean Team";
 const readTime = "10 min read";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a New Year deep clean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A New Year deep clean is a whole-house reset done in January after the holiday season. It goes beyond routine cleaning to address inside appliances, grout, ceiling fans, under furniture, and every overlooked corner — giving your home a fresh start for the new year."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a whole-house deep clean take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A DIY whole-house deep clean typically takes a full weekend for a 2,000 sq ft home. A professional cleaning team can complete the same work in 4–6 hours with better results in hard-to-reach areas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does a clean home actually reduce stress?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Research shows that clutter competes for attention and raises cortisol (the stress hormone) throughout the day. A Princeton University study found that visual clutter directly reduces focus and increases stress. A clean, organized home supports better sleep, improved focus, and lower daily stress levels."
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout title="New Year Deep Clean 2025 | Valley Clean Team" description="Ring in 2025 with a spotless home. Complete guide to deep cleaning your Alabama or Tennessee home for a fresh start."
-  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png">
-  <SchemaMarkup type="article" />
+<BaseLayout
+  title="New Year Deep Clean 2026 | Fresh Start Guide for Alabama & Tennessee Homes"
+  description="Reset your home for the new year with this complete deep cleaning guide. Room-by-room checklist, mental health benefits, and when to call professionals. Updated 2026."
+  ogImage={heroImage}
+>
+  <SchemaMarkup
+    type="article"
+    title="New Year Deep Clean: Fresh Start Guide for Alabama & Tennessee Homes"
+    description="Complete guide to deep cleaning your home for the new year. Room-by-room checklist, mental health benefits, and tips for Huntsville, Nashville, and across AL & TN."
+    publishDate={publishDate}
+    modifiedDate={modifiedDate}
+    author={author}
+    image={heroImage}
+  />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   
 
   <!-- Hero Section -->
-  <section class="pt-32 pb-12 px-6 bg-gradient-to-br from-gray-50 to-white">
-    <div class="container mx-auto max-w-4xl">
-      <div class="text-center mb-8">
-        <span class="category-tag">New Year Cleaning</span>
-        <span class="text-gray-500 text-sm ml-4">
-          <Icon name="calendar" class="w-5 h-5 mr-2" />{publishDate}
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center pb-10">
+        <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-semibold mb-6">
+          New Year Cleaning
         </span>
-        <span class="text-gray-500 text-sm ml-4">
-          <Icon name="clock" class="w-5 h-5 mr-2" />{readTime}
-        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+          New Year Deep Clean: Start <span class="text-[#FFA985]">Fresh in 2026</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+          There's no better way to welcome a new year than with a spotlessly clean home. Complete room-by-room guide for Alabama and Tennessee homes.
+        </p>
+        <div class="flex items-center justify-center gap-4 text-gray-400 text-sm mb-8">
+          <span>{publishDate}</span>
+          <span>•</span>
+          <span>{readTime}</span>
+          <span>•</span>
+          <span>By {author}</span>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
+            Book Your Fresh Start Clean
+          </a>
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition">
+            <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+          </a>
+        </div>
       </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#333333] text-center leading-tight">
-        New Year Deep Clean: Start <span class="gold-gradient">Fresh in 2025</span>
-      </h1>
-      <p class="text-xl text-gray-600 text-center max-w-3xl mx-auto">
-        There's no better way to welcome a new year than with a spotlessly clean home. Here's your complete guide to refreshing your space and starting 2025 with clarity and calm.
-      </p>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src={heroImage}
+        alt="Professional deep cleaning service for a fresh start in Huntsville Alabama"
+        width="896"
+        height="504"
+        loading="eager"
+        fetchpriority="high"
+        class="w-full rounded-t-2xl object-cover"
+      />
     </div>
   </section>
 
+  <!-- Trust Strip -->
+  <div class="bg-white border-b border-gray-100 py-4">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
+        <span class="flex items-center gap-1.5 font-medium"><span class="text-yellow-400">★★★★★</span> 5-Star Rated</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> Veteran &amp; Women-Owned</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> $2M Insured &amp; Bonded</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> 49-Point Checklist</span>
+        <span class="flex items-center gap-1.5"><span class="text-green-600 font-bold">✓</span> Same Team Every Visit</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content -->
-  <article class="py-12 px-6">
-    <div class="container mx-auto max-w-3xl">
+  <article class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="prose prose-lg max-w-none">
 
         <!-- Introduction -->
@@ -104,14 +182,14 @@ const readTime = "10 min read";
           </div>
         </div>
 
-        <!-- The 2025 Reset Method -->
+        <!-- The 2026 Reset Method -->
         <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">
           <Icon name="redo" class="w-5 h-5 text-[#FFA985] mr-3" />
-          The 2025 Reset: A Room-by-Room Deep Clean Guide
+          The 2026 Reset: A Room-by-Room Deep Clean Guide
         </h2>
 
         <p class="text-gray-700 mb-6">
-          This isn't your typical cleaning checklist. The 2025 Reset is about more than surface cleaning—it's about creating a home that supports the life you want to live this year. We'll tackle each area with three goals: <strong>Clean</strong>, <strong>Declutter</strong>, and <strong>Organize</strong>.
+          This isn't your typical cleaning checklist. The 2026 Reset is about more than surface cleaning—it's about creating a home that supports the life you want to live this year. We'll tackle each area with three goals: <strong>Clean</strong>, <strong>Declutter</strong>, and <strong>Organize</strong>.
         </p>
 
         <!-- Kitchen -->
@@ -439,7 +517,7 @@ const readTime = "10 min read";
         <!-- Creating Lasting Habits -->
         <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">
           <Icon name="sync" class="w-5 h-5 text-[#FFA985] mr-3" />
-          Making It Last: Cleaning Habits for 2025
+          Making It Last: Cleaning Habits for 2026
         </h2>
 
         <p class="text-gray-700 mb-6">
@@ -483,7 +561,7 @@ const readTime = "10 min read";
         </p>
 
         <p class="text-gray-700 mb-6">
-          Our New Year Deep Clean service covers everything on this list—and more. We'll give your home the thorough reset it deserves so you can start 2025 with:
+          Our New Year Deep Clean service covers everything on this list—and more. We'll give your home the thorough reset it deserves so you can start 2026 with:
         </p>
 
         <ul class="space-y-3 mb-8">
@@ -512,7 +590,7 @@ const readTime = "10 min read";
         <div class="bg-gradient-to-br from-[#333333] to-[#1a1a2e] rounded-2xl p-8 text-white mb-8">
           <h3 class="text-2xl font-bold mb-4 text-center">
             <Icon name="sparkles" class="w-5 h-5 text-[#FFA985] mr-2" />
-            New Year Special: Book Your 2025 Fresh Start
+            New Year Special: Book Your 2026 Fresh Start
           </h3>
           <p class="text-gray-300 text-center mb-6">
             The Valley Clean Team serves Huntsville, Nashville, Muscle Shoals, and surrounding areas. January is our busiest month—book now to secure your preferred date!
@@ -533,7 +611,7 @@ const readTime = "10 min read";
         </h2>
 
         <p class="text-gray-700 mb-6">
-          Whether your 2025 goals include getting healthier, being more productive, reducing stress, or simply enjoying your home more, a clean environment supports all of those ambitions.
+          Whether your 2026 goals include getting healthier, being more productive, reducing stress, or simply enjoying your home more, a clean environment supports all of those ambitions.
         </p>
 
         <p class="text-gray-700 mb-6">
@@ -541,7 +619,7 @@ const readTime = "10 min read";
         </p>
 
         <p class="text-gray-700 mb-8">
-          Here's to a clean, organized, and happy 2025!
+          Here's to a clean, organized, and happy 2026!
         </p>
 
         <!-- Author Box -->
@@ -562,13 +640,44 @@ const readTime = "10 min read";
     </div>
   </article>
 
+  <!-- FAQ Accordion -->
+  <section class="py-12 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-3">
+        {[
+          {
+            q: "What is a New Year deep clean?",
+            a: "A New Year deep clean is a whole-house reset done in January after the holiday season. It goes beyond routine cleaning to address inside appliances, grout, ceiling fans, under furniture, and every overlooked corner — giving your home a fresh start for the new year."
+          },
+          {
+            q: "How long does a whole-house deep clean take?",
+            a: "A DIY whole-house deep clean typically takes a full weekend for a 2,000 sq ft home. A professional cleaning team can complete the same work in 4–6 hours with better results in hard-to-reach areas."
+          },
+          {
+            q: "Does a clean home actually reduce stress?",
+            a: "Yes. Research shows that clutter competes for attention and raises cortisol (the stress hormone) throughout the day. A Princeton University study found that visual clutter directly reduces focus and increases stress. A clean, organized home supports better sleep, improved focus, and lower daily stress levels."
+          }
+        ].map(({ q, a }) => (
+          <details class="group bg-gray-50 rounded-xl overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer font-semibold text-gray-900 list-none">
+              {q}
+              <span class="ml-4 text-2xl leading-none text-[#FFA985] transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="px-6 pb-5 text-gray-600 text-lg">{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Related Articles -->
-  <section class="py-12 px-6 bg-gray-50">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-2xl font-bold text-[#333333] mb-8">Related Articles</h2>
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8">Related Articles</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <a href="/blog/post-holiday-cleanup-guide" class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
-          <h3 class="font-bold text-[#333333] mb-2">Post-Holiday Cleanup Guide</h3>
+          <h3 class="font-bold text-gray-900 mb-2">Post-Holiday Cleanup Guide</h3>
           <p class="text-gray-600 text-sm">How to recover your home after hosting holiday gatherings.</p>
         </a>
         <a href="/blog/room-by-room-cleaning-guide" class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
@@ -584,17 +693,23 @@ const readTime = "10 min read";
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
-    <div class="container mx-auto text-center max-w-3xl">
-      <h2 class="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
-        Ready to Start 2025 Fresh?
-      </h2>
-      <p class="text-xl text-[#333333]/80 mb-8">
-        Book your New Year deep clean today. January appointments fill up fast!
-      </p>
-      <a href="tel:2568261100" class="inline-block bg-[#333333] text-white px-10 py-5 rounded-full text-xl font-bold shadow-lg hover:shadow-xl transition">
-        <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
-      </a>
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
+        <h2 class="text-3xl font-bold text-white mb-2">Ready to Start 2026 Fresh?</h2>
+        <p class="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">
+          Book your New Year deep clean today. We serve Huntsville, Nashville, Muscle Shoals, and surrounding areas — January fills up fast!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center px-8 py-4 bg-[#FFA985] text-white font-bold rounded-full hover:bg-[#ff9a70] transition text-lg">
+            <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
+          </a>
+          <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-white border-2 border-white font-bold rounded-full hover:bg-white/10 transition text-lg">
+            Get a Free Quote
+          </a>
+        </div>
+        <p class="mt-6 text-gray-400 text-sm">Serving Huntsville • Nashville • Athens • Florence • Mountain Brook • Muscle Shoals</p>
+      </div>
     </div>
   </section>
 
