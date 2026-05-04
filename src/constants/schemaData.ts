@@ -48,9 +48,9 @@ export const cityConfigs: Record<string, CityConfig> = {
     stateAbbr: "AL",
     zips: "35611-35614",
     radius: "30000",
-    edge: "Limited local competition—same-day dominance",
-    focusService: "Same-Day House Cleaning",
-    reviewFocus: "same-day service",
+    edge: "Limited local competition—pet-safe niche",
+    focusService: "Pet-Safe House Cleaning",
+    reviewFocus: "reliable local service",
     searchVolume: "low",
   },
   Decatur: {
@@ -87,9 +87,9 @@ export const cityConfigs: Record<string, CityConfig> = {
     stateAbbr: "AL",
     zips: "35630-35634",
     radius: "30000",
-    edge: "Smaller market (less comp)—same-day can claim 50% pack share",
-    focusService: "Same-Day House Cleaning",
-    reviewFocus: "reliable same-day",
+    edge: "Smaller market (less comp)—pet-safe niche can claim strong pack share",
+    focusService: "Pet-Safe House Cleaning",
+    reviewFocus: "reliable local service",
     searchVolume: "low",
   },
   "Muscle Shoals": {
@@ -211,16 +211,7 @@ export const petSafeServiceCatalog = [
       description: "Starting price",
     },
   },
-  {
-    "@type": "Offer",
-    itemOffered: {
-      "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#same-day-cleaning",
-      name: "Same-Day Emergency Cleaning",
-      description: "Urgent same-day cleaning service. Available for unexpected guests, home showings, and emergencies.",
-      provider: { "@id": "https://thevalleycleanteam.com/#organization" },
-    },
-  },
+
   {
     "@type": "Offer",
     itemOffered: {
@@ -262,10 +253,10 @@ export const petSafeServiceCatalog = [
 export const cityReviewTemplates: Record<string, string> = {
   Huntsville: "Best pet-safe deep clean in Huntsville—house smells amazing, no allergies! Way better than Rocket Maids.",
   Madison: "Finally found a family-friendly cleaning service! Pet-safe products and consistent team every time.",
-  Athens: "Same-day service saved us before our house showing. Professional and thorough!",
+  Athens: "The Valley Clean Team did an incredible job before our house showing. Professional, thorough, and reliable!",
   Decatur: "Amazing move-out cleaning! Got our full deposit back. Pet-safe products were a huge plus.",
   "Mountain Brook": "Premium service for our luxury home. Attention to detail is unmatched. Worth every penny.",
-  Florence: "Reliable same-day service in the Shoals! They showed up on time and did an incredible job.",
+  Florence: "Reliable cleaning service in the Shoals! They showed up on time and did an incredible job.",
   "Muscle Shoals": "Local team that knows the area. Trustworthy and thorough—highly recommend!",
   Nashville: "Non-toxic products that actually work! Finally a cleaning service that's safe for my pets and kids.",
   "West Nashville": "White-glove service for our Belle Meade home. Discreet, professional, and meticulous—exactly what we needed.",
@@ -275,7 +266,7 @@ export const cityReviewTemplates: Record<string, string> = {
 export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
   Huntsville: [
     { q: "How does pet-safe cleaning work in Huntsville?", a: "We use non-toxic, EPA Safer Choice certified products that are safe for dogs, cats, and children. Our Huntsville team is trained in pet-safe protocols." },
-    { q: "Do you offer same-day cleaning in Huntsville AL?", a: "Yes! We offer same-day deep cleaning in Huntsville and surrounding areas including Madison and Athens. Book before noon for same-day service." },
+    { q: "How far in advance should I book cleaning in Huntsville?", a: "We recommend booking 2–3 days in advance for the best availability. We also accommodate short-notice requests based on our schedule — call 256-826-1100 and we'll do our best to fit you in quickly." },
     { q: "What areas of Huntsville do you serve?", a: "We serve all Huntsville neighborhoods including Five Points, Twickenham, Monte Sano, Jones Valley, Hampton Cove, Big Cove, and Research Park." },
     { q: "How much does house cleaning cost in Huntsville?", a: "Our Huntsville house cleaning has base rates from $99 for recurring service and $149 for deep cleaning. Your exact price depends on your home's size and condition — we provide a free custom quote before we start." },
     { q: "Are your Huntsville cleaners insured and bonded?", a: "Yes, all Valley Clean Team members are fully insured with $2M liability coverage, bonded, and background-checked." },
@@ -286,7 +277,7 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
     { q: "Do you bring your own cleaning supplies to Huntsville homes?", a: "Yes, we bring all pet-safe, eco-friendly supplies and equipment. You don't need to provide anything." },
     { q: "Can I get recurring cleaning service in Huntsville?", a: "Yes! We offer weekly, biweekly, and monthly recurring cleaning with up to 20% savings and consistent teams." },
     { q: "Do you clean offices in Huntsville?", a: "Yes, we provide commercial cleaning for Huntsville offices, including Research Park businesses and medical facilities." },
-    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with same-day availability and 130+ 5-star reviews." },
+    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with flexible scheduling and 130+ 5-star reviews." },
     { q: "Do you offer Airbnb cleaning in Huntsville?", a: "Yes! We provide fast-turnaround Airbnb and vacation rental cleaning with guest-ready presentation for Huntsville hosts." },
     { q: "Are your cleaning products safe for allergies?", a: "Yes, our hypoallergenic, fragrance-free options are perfect for allergy sufferers. Many Huntsville customers choose us specifically for this." },
   ],
@@ -294,7 +285,7 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
     { q: "Do you offer non-toxic house cleaning in Nashville?", a: "Yes! We specialize in non-toxic, pet-safe cleaning in Nashville using EPA Safer Choice certified products safe for pets and children." },
     { q: "What areas of Nashville do you serve?", a: "We serve Nashville neighborhoods including Belle Meade, Green Hills, Brentwood, Forest Hills, Oak Hill, 12 South, Sylvan Park, and Bellevue." },
     { q: "How much does house cleaning cost in Nashville TN?", a: "Our Nashville house cleaning starts at $129. We provide customized quotes based on your specific needs and home size." },
-    { q: "Do you offer same-day cleaning in Nashville?", a: "Yes, we have a dedicated Nashville team for same-day and urgent cleaning requests." },
+    { q: "How far in advance should I book cleaning in Nashville?", a: "We recommend booking 2–3 days ahead for the best availability. For short-notice requests, call our Nashville line at 615-510-1427 and we'll work to accommodate you based on current schedule." },
     { q: "Are you pet-friendly cleaners in Nashville?", a: "We're more than pet-friendly — we're pet-safe! Our Nashville team uses products that won't harm your pets." },
     { q: "Do you offer deep cleaning in Nashville?", a: "Yes, our Nashville deep cleaning is perfect for first-time clients or seasonal refreshing." },
     { q: "Is Valley Clean Team insured in Tennessee?", a: "Yes, we are fully licensed, insured, and bonded to operate in Nashville and throughout Tennessee." },
@@ -309,6 +300,6 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
   ],
   Florence: [
     { q: "Do you offer cleaning in Florence and the Shoals?", a: "Yes! We serve Florence, Muscle Shoals, Tuscumbia, and Sheffield with pet-safe cleaning." },
-    { q: "Can I get same-day cleaning in Florence AL?", a: "Yes, we offer same-day availability in the Florence area for urgent cleaning needs." },
+    { q: "How do I book cleaning in Florence AL?", a: "Book online at thevalleycleanteam.com or call 256-826-1100. We offer flexible scheduling including weekends and can often accommodate short-notice requests based on availability." },
   ],
 };
