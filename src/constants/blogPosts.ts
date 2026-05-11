@@ -599,19 +599,7 @@ export const allBlogPosts: BlogPost[] = [
     icon: "dollar-sign",
     image: "/images/hero-400w.avif",
   },
-  {
-    slug: "emergency-house-cleaning-guests-coming",
-    title: "The 'Guests Are Here in 30 Minutes' Emergency Cleaning Plan",
-    excerpt:
-      "Unexpected company on the way? Here's our proven emergency speed-cleaning routine that tackles the most important areas fast.",
-    category: "Emergency Guide",
-    filterCategory: "holiday",
-    categoryColor: "red",
-    date: "December 31, 2025",
-    readTime: "5 min read",
-    icon: "clock",
-    image: "/images/services/Cleaningpic11-301.webp",
-  },
+
   {
     slug: "deep-cleaning-cost-shoals-guide",
     title: "How Much Does Deep Cleaning Actually Cost in the Shoals Area?",
@@ -643,7 +631,7 @@ export const allBlogPosts: BlogPost[] = [
     title:
       "Airbnb Turnover Cleaning Nashville: Host Guide to 5-Star Reviews",
     excerpt:
-      "How to find the right vacation rental turnover cleaning service in Nashville and never lose a 5-star rating to a bad clean again. Same-day turnovers, linen service, and what top hosts do differently.",
+      "How to find the right vacation rental turnover cleaning service in Nashville and never lose a 5-star rating to a bad clean again. Fast turnovers, linen service, and what top hosts do differently.",
     category: "Short-Term Rentals",
     filterCategory: "rentals",
     categoryColor: "pink",
@@ -671,10 +659,10 @@ export const allBlogPosts: BlogPost[] = [
   {
     slug: "last-minute-holiday-cleaning",
     title:
-      "Last-Minute Holiday Cleaning: Emergency Guide When Guests Are Coming",
+      "Last-Minute Holiday Cleaning: Quick Guide When Guests Are Coming",
     excerpt:
-      "Your mother-in-law just texted that she's arriving in 3 hours. Don't panic—here's how to make your home guest-ready fast with our minute-by-minute emergency guide.",
-    category: "Emergency Guide",
+      "Your mother-in-law just texted that she's arriving in 3 hours. Don't panic—here's how to make your home guest-ready fast with our room-by-room quick-clean guide.",
+    category: "Quick Clean Guide",
     filterCategory: "holiday",
     categoryColor: "red",
     date: "November 26, 2025",

@@ -35,7 +35,8 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     }
 
     // Send to GHL webhook for CRM integration
-    const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/a0203648-0f8e-4717-9873-b04879f90ac5';
+    // Updated 2026-05-04: New published workflow (old draft URL replaced)
+    const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/aa1b4261-4253-40a8-84c4-07bff1d053e0';
 
     try {
       await fetch(ghlWebhookUrl, {
