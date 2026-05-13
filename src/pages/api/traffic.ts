@@ -25,8 +25,9 @@ export async function GET({ request }: { request: Request }) {
         const prevEndDateStr = `${range}daysAgo`;
         const prevStartDateStr = `${range * 2}daysAgo`;
 
-        // Fetch this period
-        const response = await analyticsData.properties.runReport({
+        // Fetch this period + organic sessions in parallel
+        const [response, organicResponse] = await Promise.all([
+        analyticsData.properties.runReport({
             property: `properties/${process.env.GA_PROPERTY_ID}`,
             requestBody: {
                 dateRanges: [
@@ -43,7 +44,27 @@ export async function GET({ request }: { request: Request }) {
                 ],
                 keepEmptyRows: true // We need zeros for trendline consistency
             }
-        });
+        }),
+        // Second query: organic search sessions only for current period
+        analyticsData.properties.runReport({
+            property: `properties/${process.env.GA_PROPERTY_ID}`,
+            requestBody: {
+                dateRanges: [{ startDate: startDateStr, endDate: endDateStr }],
+                metrics: [{ name: 'sessions' }],
+                dimensionFilter: {
+                    filter: {
+                        fieldName: 'sessionDefaultChannelGrouping',
+                        stringFilter: { value: 'Organic Search', matchType: 'EXACT' },
+                    },
+                },
+            },
+        }),
+        ]);
+
+        const organicSessions = parseInt(
+            organicResponse.data.rows?.[0]?.metricValues?.[0]?.value ?? '0',
+            10
+        );
 
         let currentSessions = 0;
         let currentViews = 0;
@@ -119,6 +140,7 @@ export async function GET({ request }: { request: Request }) {
             data: {
                 current: {
                     sessions: currentSessions,
+                    organic: organicSessions,
                     pageviews: currentViews,
                     avgDuration: `${minutes}:${seconds}`,
                     bounceRate: avgBounceRate.toFixed(1),

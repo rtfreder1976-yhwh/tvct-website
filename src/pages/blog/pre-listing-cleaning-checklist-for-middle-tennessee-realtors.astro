@@ -1,46 +1,152 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SchemaMarkup from "../../components/SchemaMarkup.astro";
-import Icon from "../../components/Icon.astro";
 
-// Make this page dynamic via SSR
-export const prerender = false;
-
-const publishDate = new Date("April 20 2026");
 const author = "The Valley Clean Team";
-const readTime = "5 min read";
+const readTime = "7 min read";
+const publishDate = "April 20, 2026";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
 
-const isPublished = new Date().getTime() >= publishDate.getTime();
+const faqs = [
+  {
+    question: "How far in advance should a realtor schedule a pre-listing clean?",
+    answer: "Book at least 3–5 business days before professional photos or the first showing. For larger homes (3,000+ sq ft) or properties that have been vacant or tenanted, allow a full week. Short-notice availability exists based on schedule, but is best for touch-ups, not a primary pre-listing clean."
+  },
+  {
+    question: "What's the difference between a pre-listing clean and a standard cleaning?",
+    answer: "A standard recurring clean maintains a home that is already clean. A pre-listing clean is a top-to-bottom deep clean focused on photo-ready presentation: streak-free windows, grout brightening, appliance detailing, scuff removal from walls, and attention to every surface a buyer or camera will catch. It typically takes 2–3x longer than a standard visit."
+  },
+  {
+    question: "Do you work directly with realtors and property managers, or only homeowners?",
+    answer: "We work directly with realtors, brokerages, property managers, and staging companies across Middle Tennessee. We can coordinate access with your seller, send photos to you directly, and invoice the brokerage. Call (615) 510-1427 to set up a realtor account."
+  }
+];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.answer
+    }
+  }))
+};
+
+const checklistItems = [
+  {
+    room: "Entryway & Exterior",
+    icon: "🚪",
+    tasks: [
+      "Power wash front walkway, steps, and driveway apron",
+      "Clean exterior light fixtures and replace burnt bulbs",
+      "Wipe down front door — both sides — and polish hardware",
+      "Clear cobwebs from eaves, corners, and porch ceiling",
+      "Clean storm door glass inside and out",
+      "Sweep and pressure wash covered porch or stoop",
+    ]
+  },
+  {
+    room: "Kitchen",
+    icon: "🍳",
+    tasks: [
+      "Degrease range hood, filters, and surrounding wall",
+      "Clean oven interior — racks, door glass, and bottom",
+      "Wipe down all cabinet faces and clean inside visible cabinets",
+      "Polish all appliance exteriors (stainless needs streak-free finish)",
+      "Descale and shine sink, faucet, and disposal area",
+      "Wipe down backsplash tiles — remove grease film",
+      "Clean inside microwave thoroughly",
+      "Shine countertops and remove any hard water rings",
+    ]
+  },
+  {
+    room: "Bathrooms",
+    icon: "🛁",
+    tasks: [
+      "Scrub grout lines — discolored grout shows in listing photos",
+      "Remove soap scum from shower doors and walls",
+      "Descale showerhead and faucets",
+      "Polish mirrors — no streaks",
+      "Clean vanity interior and wipe cabinet faces",
+      "Sanitize toilet including base, behind the tank, and underside of seat",
+      "Mop floor and clean baseboards",
+      "Check and clean exhaust fan cover",
+    ]
+  },
+  {
+    room: "Living Areas",
+    icon: "🛋️",
+    tasks: [
+      "Dust ceiling fans — blades and housing",
+      "Clean light fixtures and replace any burnt bulbs",
+      "Wipe down all windowsills, tracks, and frames",
+      "Clean windows inside (exterior included on request)",
+      "Dust all baseboards, door frames, and crown molding",
+      "Wipe down all light switches and outlet covers",
+      "Vacuum upholstery and under cushions",
+      "Remove scuff marks from walls where possible",
+    ]
+  },
+  {
+    room: "Bedrooms",
+    icon: "🛏️",
+    tasks: [
+      "Dust ceiling fans and light fixtures",
+      "Wipe down all surfaces — nightstands, dressers, shelving",
+      "Clean inside and outside of closets — vacuum floors, wipe shelves",
+      "Vacuum and flip mattresses if present",
+      "Clean windows and wipe blinds or dust shutters",
+      "Mop or vacuum floors thoroughly, including corners and under furniture",
+    ]
+  },
+  {
+    room: "Floors Throughout",
+    icon: "🧹",
+    tasks: [
+      "Vacuum carpets with edge attachment — get into corners",
+      "Steam clean or shampoo carpets if stained or odored",
+      "Mop all hard floors with appropriate product for surface type",
+      "Polish hardwood if dull",
+      "Clean tile grout lines",
+      "Wipe down stair treads, risers, and spindles",
+    ]
+  },
+];
 ---
 
 <BaseLayout
-  title="Pre-Listing Cleaning Checklist TN Realtors"
-  description={isPublished ? "Full Article: Pre-Listing Cleaning Checklist for Middle Tennessee Realtors" : "Coming Soon: Pre-Listing Cleaning Checklist for Middle Tennessee Realtors"}
-  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+  title="Pre-Listing Cleaning Checklist for Middle Tennessee Realtors | Nashville"
+  description="The complete pre-listing cleaning checklist for Middle Tennessee realtors. Room-by-room tasks to get any listing photo-ready and showing-ready fast."
+  ogImage={heroImage}
 >
   <SchemaMarkup
     type="article"
     title="Pre-Listing Cleaning Checklist for Middle Tennessee Realtors"
-    description="Middle Tennessee Realtors: Use our comprehensive pre-listing cleaning checklist to prepare properties for stunning photos and successful open houses."
-    publishDate="April 20 2026"
+    description="The complete pre-listing cleaning checklist for Middle Tennessee realtors. Room-by-room tasks to get any listing photo-ready and showing-ready fast."
+    publishDate={publishDate}
     author={author}
+    image={heroImage}
   />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
+      <div class="text-center pb-10">
         <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
-          B2B/Real Estate
+          For Realtors
         </span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-          Pre-Listing Cleaning Checklist for Middle Tennessee Realtors
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          Pre-Listing Cleaning Checklist<br class="hidden sm:block" /> for Middle Tennessee Realtors
         </h1>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          {isPublished ? "Expert Cleaning Guide" : "Coming April 20 2026."}
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
+          A room-by-room guide to getting any listing photo-ready — plus the tasks most sellers miss that buyers always notice.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>April 20 2026</span>
+        <div class="flex items-center justify-center space-x-4 text-gray-400 text-sm">
+          <span>{publishDate}</span>
           <span>•</span>
           <span>{readTime}</span>
           <span>•</span>
@@ -48,66 +154,227 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
         </div>
       </div>
     </div>
+    <!-- Hero Image -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src={heroImage}
+        alt="Professional pre-listing cleaning in a Nashville, Tennessee home — kitchen and living areas prepared for real estate photography"
+        width="1200"
+        height="630"
+        class="w-full rounded-t-2xl object-cover shadow-2xl"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
   </section>
 
-  <!-- Main Content Toggle based on Published Date -->
-  {isPublished ? (
-    <article class="py-16 bg-white">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="prose prose-lg max-w-none">
-          <!-- TODO: REPLACE THIS SECTION WITH YOUR ACTUAL BLOG CONTENT -->
-          <h2>Why Do Middle Tennessee Realtors Need a Pre-Listing Cleaning Checklist?</h2>
-<p><strong>For Middle Tennessee realtors, a detailed pre-listing cleaning checklist can be the difference between a quick sale and a property languishing on the market. Ensuring a home is in pristine condition not only attracts potential buyers but can also increase the property's perceived value, potentially boosting the final sale price.</strong></p>
-<p>In The Shoals and surrounding areas, the real estate market is competitive. Homes that stand out in cleanliness capture attention faster. Here’s how realtors can ensure a property is ready to impress.</p>
+  <!-- Main Article -->
+  <article class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
-<h3>The Importance of Pre-Listing Cleaning</h3>
-<p>First impressions are everything in real estate. A spotless home suggests it is well-maintained, making it more appealing to buyers. Dust-free surfaces, sparkling windows, and a fresh scent can evoke a sense of new beginnings, which is exactly what potential buyers are looking for.</p>
-<p>A comprehensive pre-listing clean is an investment in the sale of a property. It can set the standard for how buyers perceive the home, influencing their willingness to make an offer.</p>
+      <!-- Intro -->
+      <p class="text-xl text-gray-700 leading-relaxed mb-6 font-medium">
+        In Middle Tennessee's competitive real estate market, a listing's first impression is made online before anyone walks through the door. Buyers scroll through photos in seconds. A grimy stovetop, soap-scummed shower door, or dusty ceiling fan in the listing photos can cost you showings — and offers.
+      </p>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        Pre-listing cleaning is one of the highest-ROI investments a seller (or their realtor) can make. Homes that are professionally cleaned before photography consistently photograph brighter, feel larger, and generate more showing requests.
+      </p>
+      <p class="text-gray-600 leading-relaxed mb-10">
+        Below is the checklist we run at The Valley Clean Team for every pre-listing clean in Nashville, Brentwood, Green Hills, Belle Meade, and across Middle Tennessee — broken down by room so you can use it yourself, share it with sellers, or hand it to us and let us handle it.
+      </p>
 
-<h3>Essential Areas to Address</h3>
-<p>When preparing a home for sale, attention to detail is crucial. Our pre-listing cleaning checklist focuses on critical areas that need to shine:</p>
-<ul>
-  <li><strong>Entryway:</strong> Clean and polish doors, ensure doormats are fresh, and clear any cobwebs.</li>
-  <li><strong>Living Areas:</strong> Dust all surfaces, clean upholstery, and ensure windows are streak-free.</li>
-  <li><strong>Kitchen:</strong> Degrease all appliances, polish countertops, and deep clean sinks and faucets.</li>
-  <li><strong>Bathrooms:</strong> Scrub tiles, polish mirrors, and sanitize toilets and sinks.</li>
-  <li><strong>Bedrooms:</strong> Dust furniture, clean under beds, and ensure closets are tidy.</li>
-  <li><strong>Floors:</strong> Vacuum carpets, mop hardwood, and shine tile flooring.</li>
-  <li><strong>Exterior:</strong> Power wash siding, clean windows, and tidy up landscaping.</li>
-</ul>
-
-<h3>How The Valley Clean Team Can Help</h3>
-<p>With our military-precision cleaning specialists, The Valley Clean Team ensures every nook and cranny of the property is immaculate. Our vetted professionals follow strict standard operating procedures (SOPs) to deliver a flawless finish every time.</p>
-<p>Local to The Shoals and surrounding areas, we understand the specific needs of homes in Middle Tennessee and tailor our services to meet those exact requirements. Our transparency in pricing and commitment to accountability mean realtors can trust us to enhance the marketability of their listings.</p>
-
-<h4>Benefits of a Professional Clean</h4>
-<p>Realtors who invest in professional cleaning services can expect:</p>
-<ul>
-  <li><strong>Higher Perceived Value:</strong> A clean home looks more valuable, often justifying higher asking prices.</li>
-  <li><strong>Faster Sales:</strong> Spotless homes attract offers more quickly, reducing time on the market.</li>
-  <li><strong>Less Stress:</strong> Realtors can focus on selling, knowing the home is in top condition.</li>
-</ul>
-
-<h3>Schedule Your Pre-Listing Clean Today</h3>
-<p>Don’t leave the sale of your listing to chance. The Valley Clean Team is ready to deliver guaranteed, exceptional cleaning services that can transform any property into a buyer’s dream. Reclaim your time and enhance your listings—book your pre-listing cleaning with The Valley Clean Team today.</p>
-<p><strong>Get your free quote and see availability in The Shoals and surrounding areas. Experience the difference of military-precision cleaning and ensure your listings are market-ready.</strong></p>
+      <!-- Why it matters stat block -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+        <div class="bg-amber-50 border border-amber-100 rounded-xl p-5 text-center">
+          <p class="text-3xl font-bold text-[#FFA985] mb-1">3–5%</p>
+          <p class="text-sm text-gray-600">Higher sale price for professionally staged and cleaned homes vs. uncleaned comparable listings</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-100 rounded-xl p-5 text-center">
+          <p class="text-3xl font-bold text-[#FFA985] mb-1">73%</p>
+          <p class="text-sm text-gray-600">Of buyers say cleanliness is a top factor in their first impression of a property</p>
+        </div>
+        <div class="bg-amber-50 border border-amber-100 rounded-xl p-5 text-center">
+          <p class="text-3xl font-bold text-[#FFA985] mb-1">11 days</p>
+          <p class="text-sm text-gray-600">Faster average time on market for listings with professional photos taken in a clean, staged home</p>
         </div>
       </div>
-    </article>
-  ) : (
-    <article class="py-16 bg-white border-t border-gray-100 shadow-inner">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gray-50 rounded-2xl">
-        <div class="prose prose-lg max-w-none text-center">
-          <Icon name="clock" class="w-16 h-16 text-[#FFA985] mx-auto mb-6" />
-          <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-0">Article Coming Soon!</h2>
-          <p class="text-gray-600 m-0">This article is locked and scheduled to automatically publish on <br/><strong class="text-gray-800 text-xl">April 20 2026</strong>.<br/>Check back then!</p>
-          <div class="mt-12">
-            <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-md no-underline">
-              Back to Blog
-            </a>
+
+      <!-- Section: The Checklist -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-3">The Room-by-Room Pre-Listing Checklist</h2>
+      <p class="text-gray-600 leading-relaxed mb-8">
+        These are the tasks that matter most for listing photography and buyer walkthroughs. Tasks marked as commonly missed are the ones sellers most often overlook — and buyers most often notice.
+      </p>
+
+      <div class="space-y-6 mb-12">
+        {checklistItems.map(section => (
+          <div class="border border-gray-200 rounded-xl overflow-hidden">
+            <div class="flex items-center gap-3 px-6 py-4 bg-gray-50 border-b border-gray-200">
+              <span class="text-2xl">{section.icon}</span>
+              <h3 class="text-lg font-bold text-gray-900">{section.room}</h3>
+            </div>
+            <ul class="divide-y divide-gray-100">
+              {section.tasks.map(task => (
+                <li class="flex items-start gap-3 px-6 py-3 text-sm text-gray-700">
+                  <span class="text-[#FFA985] font-bold mt-0.5 flex-shrink-0">✓</span>
+                  <span>{task}</span>
+                </li>
+              ))}
+            </ul>
           </div>
+        ))}
+      </div>
+
+      <!-- Section: What buyers always notice -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">The 6 Things Buyers Always Notice (That Sellers Always Miss)</h2>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        After hundreds of pre-listing cleans across Middle Tennessee, these are the areas that routinely need the most attention — and get the least from a seller doing their own prep:
+      </p>
+      <ol class="space-y-5 mb-10">
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-[#FFA985] text-white rounded-full flex items-center justify-center font-bold text-sm">1</span>
+          <div>
+            <p class="font-semibold text-gray-900 mb-1">Ceiling fans</p>
+            <p class="text-sm text-gray-600">Blade tops accumulate thick dust that doesn't show until a camera flash hits it. They're visible in almost every living room and bedroom photo.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-[#FFA985] text-white rounded-full flex items-center justify-center font-bold text-sm">2</span>
+          <div>
+            <p class="font-semibold text-gray-900 mb-1">Shower grout and glass</p>
+            <p class="text-sm text-gray-600">Soap scum on glass doors and discolored grout are the two most-commented issues in buyer feedback. Both are completely fixable with the right products and technique.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-[#FFA985] text-white rounded-full flex items-center justify-center font-bold text-sm">3</span>
+          <div>
+            <p class="font-semibold text-gray-900 mb-1">Range hood and oven interior</p>
+            <p class="text-sm text-gray-600">Grease buildup on the range hood and a dirty oven interior signal that the kitchen has been neglected. Both are visible during any showing walkthrough.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-[#FFA985] text-white rounded-full flex items-center justify-center font-bold text-sm">4</span>
+          <div>
+            <p class="font-semibold text-gray-900 mb-1">Baseboards and door frames</p>
+            <p class="text-sm text-gray-600">Buyers crouch down during walkthroughs. Dusty baseboards and scuffed door frames suggest a home that wasn't well-cared-for — even when everything else is clean.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-[#FFA985] text-white rounded-full flex items-center justify-center font-bold text-sm">5</span>
+          <div>
+            <p class="font-semibold text-gray-900 mb-1">Window tracks</p>
+            <p class="text-sm text-gray-600">One of the most overlooked spots. Buyers open windows during showings, and dirty tracks leave an immediate impression of deferred maintenance.</p>
+          </div>
+        </li>
+        <li class="flex gap-4">
+          <span class="flex-shrink-0 w-8 h-8 bg-[#FFA985] text-white rounded-full flex items-center justify-center font-bold text-sm">6</span>
+          <div>
+            <p class="font-semibold text-gray-900 mb-1">Odor</p>
+            <p class="text-sm text-gray-600">Pets, cooking, and moisture leave odors that owners stop noticing. A truly fresh-smelling home — not masked with air fresheners — is one of the strongest emotional triggers for buyers. Our process eliminates odors at the source.</p>
+          </div>
+        </li>
+      </ol>
+
+      <!-- Section: When to book -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">When to Schedule the Clean</h2>
+      <div class="overflow-x-auto mb-10">
+        <table class="w-full text-sm border border-gray-200 rounded-xl overflow-hidden">
+          <thead>
+            <tr class="bg-gray-50 text-left">
+              <th class="px-4 py-3 font-semibold text-gray-900 border-b border-gray-200">Scenario</th>
+              <th class="px-4 py-3 font-semibold text-gray-900 border-b border-gray-200">Recommended Timing</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="px-4 py-3 text-gray-700">Occupied listing, sellers still living there</td>
+              <td class="px-4 py-3 text-gray-600">1–2 days before photography</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-3 text-gray-700">Vacant listing (post move-out)</td>
+              <td class="px-4 py-3 text-gray-600">After sellers vacate, before photos — allow 1 full day for the clean</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-gray-700">Tenanted property going to market</td>
+              <td class="px-4 py-3 text-gray-600">After tenant vacates — likely needs move-out clean + pre-listing touch-up</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-3 text-gray-700">Open house prep (after listing is live)</td>
+              <td class="px-4 py-3 text-gray-600">Morning of or evening before — maintenance clean to freshen the listing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Internal Links -->
+      <div class="bg-amber-50 border border-amber-100 rounded-xl p-6 mb-10">
+        <p class="text-sm font-semibold text-amber-900 mb-3 uppercase tracking-wide">Related Services for Realtors</p>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">
+          We offer pre-listing cleans, vacant property maintenance, and move-out cleaning for listings across Middle Tennessee and North Alabama.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/locations/nashville" class="inline-flex items-center px-4 py-2 bg-white border border-amber-200 text-amber-900 text-sm font-medium rounded-lg hover:bg-amber-100 transition">
+            Nashville Cleaning Services →
+          </a>
+          <a href="/services/move-in-out-cleaning" class="inline-flex items-center px-4 py-2 bg-white border border-amber-200 text-amber-900 text-sm font-medium rounded-lg hover:bg-amber-100 transition">
+            Move-Out Cleaning →
+          </a>
+          <a href="/services/deep-cleaning" class="inline-flex items-center px-4 py-2 bg-white border border-amber-200 text-amber-900 text-sm font-medium rounded-lg hover:bg-amber-100 transition">
+            Deep Cleaning →
+          </a>
         </div>
       </div>
-    </article>
-  )}
+
+      <!-- Why Valley Clean Team for Realtors -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Why Middle Tennessee Realtors Partner With Us</h2>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        The Valley Clean Team serves Nashville, Brentwood, Green Hills, Belle Meade, and surrounding Middle Tennessee communities. We understand the timelines realtors work under — photography deadlines, showing windows, same-week listings. We're built for fast turnaround without cutting corners.
+      </p>
+      <ul class="space-y-3 mb-10 text-gray-600">
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Before-and-after photos</strong> sent directly to you or your seller after every clean</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">49-point checklist</strong> — nothing left to chance, every room documented</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Realtor accounts available</strong> — consolidated billing, direct scheduling, priority availability</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Veteran-owned, $2M insured</strong> — fully covered to be on any listing property</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Flat-rate pricing</strong> — no surprise invoices to reconcile at closing</span></li>
+      </ul>
+
+      <!-- FAQ -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-5 mb-12">
+        {faqs.map(faq => (
+          <details class="group border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex justify-between items-center px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <span class="text-[#FFA985] text-xl group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div class="px-6 py-4 bg-gray-50 text-gray-600 text-sm leading-relaxed border-t border-gray-200">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <!-- CTA Block -->
+      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
+        <h2 class="text-2xl font-bold text-white mb-3">Get Your Listing Show-Ready</h2>
+        <p class="text-gray-300 mb-6 max-w-md mx-auto">
+          Serving Nashville, Brentwood, Green Hills, Belle Meade, and surrounding Middle Tennessee. Same-week availability for realtors.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-7 py-3 text-base font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg"
+          >
+            Get Your Free Quote
+          </a>
+          <a
+            href="tel:+16155101427"
+            class="inline-flex items-center justify-center px-7 py-3 text-base font-semibold text-white border border-white/30 rounded-full hover:bg-white/10 transition"
+          >
+            Call (615) 510-1427
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </article>
 </BaseLayout>

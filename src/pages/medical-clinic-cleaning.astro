@@ -3,35 +3,102 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
 import QuoteForm from "../components/QuoteForm.astro";
 
+// LocalBusiness + FAQPage schema for Medical Office Cleaning
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: "The Valley Clean Team - Medical Clinic Cleaning",
-  url: "https://thevalleycleanteam.com/medical-clinic-cleaning",
+  name: "The Valley Clean Team - Medical Office Cleaning",
+  url: "https://thevalleycleanteam.com/medical-office-cleaning",
   telephone: "256-826-1100",
   email: "hello@thevalleycleanteam.com",
-  description: "Specialized medical clinic cleaning in Alabama and Tennessee. Ending the morning cleaning surprises with disciplined reliability.",
+  description: "Professional medical office cleaning with OSHA-compliant sanitization. Clinics, dental offices, pediatric practices. Veteran-owned, background-checked, $2M insured.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Tuscumbia",
+    addressRegion: "AL",
+    postalCode: "35674",
+    addressCountry: "US"
+  },
+  areaServed: [
+    { "@type": "City", name: "Huntsville, AL" },
+    { "@type": "City", name: "Madison, AL" },
+    { "@type": "City", name: "Decatur, AL" },
+    { "@type": "City", name: "Florence, AL" },
+    { "@type": "City", name: "Muscle Shoals, AL" }
+  ]
+};
+
+const faqs = [
+  {
+    question: "What makes medical office cleaning different?",
+    answer: "Medical offices require OSHA-compliant sanitization, proper handling of biohazard areas, infection control protocols, and strict attention to high-touch surfaces. Our team is trained in medical-grade cleaning standards and understands the critical importance of a sterile environment."
+  },
+  {
+    question: "Do you follow OSHA and CDC guidelines?",
+    answer: "Yes. Our cleaning protocols follow OSHA standards for medical facilities and CDC infection control guidelines. We use hospital-grade disinfectants and follow proper procedures for sanitizing operatories, waiting rooms, and restrooms."
+  },
+  {
+    question: "Can you clean around patient schedules?",
+    answer: "Absolutely. We offer flexible scheduling including early morning, evening, and weekend cleaning to minimize disruption to your practice. Many medical offices prefer cleaning before opening hours or after the last patient."
+  },
+  {
+    question: "How often should a medical office be cleaned?",
+    answer: "Most medical practices benefit from daily cleaning, especially high-traffic areas and patient-contact surfaces. We assess your practice size and patient volume to recommend an optimal cleaning schedule."
+  },
+  {
+    question: "What's included in medical office cleaning?",
+    answer: "Standard service includes sanitizing operatories and exam rooms, cleaning and disinfecting restrooms, vacuuming and mopping waiting areas, dusting surfaces, trash removal, and high-touch surface sanitization. We customize based on your specific needs."
+  },
+  {
+    question: "Do you handle biohazard cleanup?",
+    answer: "We handle standard medical office cleaning and sanitization. For specialized biohazard cleanup, we can refer you to certified biohazard remediation services. Let us know your specific needs."
+  },
+  {
+    question: "Are your cleaners trained in medical environments?",
+    answer: "Yes. Our team is trained in medical-grade cleaning protocols, infection control, and the unique requirements of healthcare facilities. Every cleaner is background-checked, bonded, and fully insured."
+  },
+  {
+    question: "What if we need special cleaning or deep sanitization?",
+    answer: "We offer specialized services including post-construction cleanup, deep sanitization, equipment cleaning, and periodic deep cleaning. We can customize a plan that meets your practice's specific needs."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
 };
 ---
 
 <BaseLayout
-  title="Medical Clinic Cleaning Services | Valley Clean Team"
-  description="Stop dealing with morning cleaning surprises. We provide consistent, medical-grade cleaning to keep your clinical staff happy and patients impressed."
+  title="Medical Office Cleaning Alabama | OSHA-Compliant Sanitization | Valley Clean Team"
+  description="Professional medical office cleaning in Huntsville, Madison, Decatur, Florence. OSHA-compliant, infection control, background-checked cleaners. $2M insured. Free quote."
 >
   <script
     type="application/ld+json"
     set:html={JSON.stringify(localBusinessSchema)}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(faqSchema)}
   />
 
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto max-w-4xl">
       <div class="text-center mb-12">
         <h1 class="text-5xl md:text-6xl font-bold mb-4 text-[#333333]">
-          Medical Clinic <span class="gold-gradient">Sanitization</span>
+          Medical Office <span class="gold-gradient">Cleaning & Sanitization</span>
         </h1>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600">
-          We focus on being the partner that makes sure you never walk into a 7:55 AM cleaning surprise. Keep your medical assistants happy with a space they’re proud to work in.
+          Your patients expect a clean, sterile environment. Your staff deserves to work in a space they're proud of. We ensure your medical practice is always ready—no morning cleaning surprises, no consistency fade. OSHA-compliant. Disciplined. Reliable.
         </p>
       </div>
 
@@ -41,10 +108,10 @@ const localBusinessSchema = {
           <h2 class="text-3xl font-bold mb-6 text-[#333333]">Request a Facility Audit</h2>
           <QuoteForm 
             formId="medical-quote-form" 
-            source="Medical Clinic Landing Page"
+            source="Medical Office Cleaning Landing Page"
           />
           <p class="text-sm text-gray-500 mt-4 italic">
-            *Our team will contact you within 2 business hours to schedule a 10-minute walkthrough.
+            *We'll contact you within 2 business hours to schedule a walkthrough.
           </p>
         </div>
 
@@ -53,7 +120,7 @@ const localBusinessSchema = {
           <div>
             <h3 class="text-2xl font-bold mb-4 text-[#333333]">The "Morning Peace" Guarantee</h3>
             <p class="text-gray-600">
-               As an office manager, you have enough on your plate without having to track down missed trash or dusty waiting rooms. We eliminate the friction so your mornings start perfectly.
+               As a practice manager, you have enough on your plate without having to track down missed trash or dusty waiting rooms. We eliminate the friction so your mornings start perfectly, your patients are impressed, and your staff is happy.
             </p>
           </div>
 
@@ -68,19 +135,31 @@ const localBusinessSchema = {
               <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
                 <Icon name="check" class="w-5 h-5" />
               </div>
-              <span class="font-semibold text-[#333333]">Keep RNs and MAs Happy</span>
+              <span class="font-semibold text-[#333333]">Keep RNs, MAs, and Dentists Happy</span>
             </div>
             <div class="flex items-center space-x-4">
               <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
                 <Icon name="check" class="w-5 h-5" />
               </div>
-              <span class="font-semibold text-[#333333]">Medical-Grade Infection Control</span>
+              <span class="font-semibold text-[#333333]">OSHA-Compliant Infection Control</span>
             </div>
             <div class="flex items-center space-x-4">
               <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
                 <Icon name="check" class="w-5 h-5" />
               </div>
               <span class="font-semibold text-[#333333]">Zero "Consistency Fade"</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Background-Checked, Trained Staff</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">$2M Liability Insurance</span>
             </div>
           </div>
 
@@ -92,6 +171,149 @@ const localBusinessSchema = {
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Medical Services We Serve -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Medical & Dental Services We <span class="gold-gradient">Specialize In</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {
+          [
+            { icon: "stethoscope", name: "Family Medicine", desc: "Exam rooms, waiting areas, restrooms" },
+            { icon: "tooth", name: "Dental Practices", desc: "Operatory sanitization, patient care areas" },
+            { icon: "baby", name: "Pediatric Offices", desc: "Child-safe, thorough sanitization" },
+            { icon: "heart", name: "Specialty Clinics", desc: "Dermatology, orthopedic, other specialties" },
+            { icon: "building", name: "Medical Centers", desc: "Multi-provider, large-scale facilities" },
+            { icon: "plus-circle", name: "Urgent Care", desc: "High-traffic, frequent sanitization" },
+          ].map((service) => (
+            <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985] mr-4">
+                  <Icon name={service.icon} class="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 class="font-bold text-[#333333]">{service.name}</h3>
+                  <p class="text-sm text-gray-600">{service.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Serving Medical Offices Across <span class="gold-gradient">Alabama</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {
+          [
+            "Huntsville",
+            "Madison",
+            "Decatur",
+            "Florence",
+            "Muscle Shoals",
+            "Sheffield"
+          ].map((city) => (
+            <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition">
+              <Icon name="map-marker-alt" class="w-6 h-6 text-[#FFA985] mx-auto mb-3" />
+              <p class="font-semibold text-[#333333]">{city}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="text-center mt-12">
+        <p class="text-gray-600">
+          <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Serving other areas? Call <a
+            href="tel:2568261100"
+            class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 content-visibility-auto bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Medical Office Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for a <span class="gold-gradient">Cleaner Medical Practice</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Get a free facility audit and customized cleaning plan
+      </p>
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+        </a>
+        <a
+          href="/#quote-form"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
+          <Icon name="envelope" class="w-5 h-5 mr-2" />Request Audit
+        </a>
+      </div>
+      <p class="text-gray-600">
+        <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />
+        We respond to all medical office inquiries within 24 hours
+      </p>
     </div>
   </section>
 </BaseLayout>

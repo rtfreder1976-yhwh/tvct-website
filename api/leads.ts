@@ -1,4 +1,4 @@
-import type { ApiRequest, ApiResponse } from './_types';
+import type { ApiRequest, ApiResponse } from './_types.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');

@@ -1,46 +1,71 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SchemaMarkup from "../../components/SchemaMarkup.astro";
-import Icon from "../../components/Icon.astro";
 
-// Make this page dynamic via SSR
-export const prerender = false;
-
-const publishDate = new Date("April 27 2026");
 const author = "The Valley Clean Team";
-const readTime = "5 min read";
+const readTime = "6 min read";
+const publishDate = "April 27, 2026";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
 
-const isPublished = new Date().getTime() >= publishDate.getTime();
+const faqs = [
+  {
+    question: "How long does post-construction cleaning take?",
+    answer: "Most residential post-construction cleans take 4–8 hours depending on the size of the project and how much construction dust was generated. Large new builds or whole-home renovations may require a two-day process. We assess scope before every booking so there are no surprises."
+  },
+  {
+    question: "Can I do post-construction cleaning myself?",
+    answer: "You can handle light surface debris yourself, but fine construction dust is a different challenge. It settles into HVAC systems, inside cabinets, on window tracks, and inside light fixtures. Without a HEPA-filter vacuum and professional technique, standard cleaning just redistributes it. Most homeowners find a single professional clean saves hours of repeated DIY attempts."
+  },
+  {
+    question: "How soon after construction can cleaning begin?",
+    answer: "We recommend waiting until all contractors have cleared the site and any wet materials — caulk, grout, paint — have cured. Typically 24–48 hours after the final trade leaves. We can coordinate directly with your contractor if needed."
+  }
+];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.answer
+    }
+  }))
+};
 ---
 
 <BaseLayout
-  title="Post-Construction Cleaning: What to Expect"
-  description={isPublished ? "Full Article: Post-Construction Cleaning: What to Expect After a Home Renovation" : "Coming Soon: Post-Construction Cleaning: What to Expect After a Home Renovation"}
-  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+  title="Post-Construction Cleaning: What to Expect | Huntsville & The Shoals AL"
+  description="Finished a renovation? Learn exactly what professional post-construction cleaning covers, why standard cleaning misses fine dust, and how to prepare for your clean."
+  ogImage={heroImage}
 >
   <SchemaMarkup
     type="article"
     title="Post-Construction Cleaning: What to Expect After a Home Renovation"
-    description="Finished a renovation? Learn what professional post-construction cleaning covers and why standard cleaning cannot remove fine construction dust."
-    publishDate="April 27 2026"
+    description="Finished a renovation? Learn exactly what professional post-construction cleaning covers, why standard cleaning misses fine dust, and how to prepare for your clean."
+    publishDate={publishDate}
     author={author}
+    image={heroImage}
   />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
   <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
+      <div class="text-center pb-10">
         <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
-          Specialty
+          Specialty Cleaning
         </span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-          Post-Construction Cleaning: What to Expect After a Home Renovation
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          Post-Construction Cleaning:<br class="hidden sm:block" /> What to Expect After a Home Renovation
         </h1>
-        <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          {isPublished ? "Expert Cleaning Guide" : "Coming April 27 2026."}
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
+          Your renovation is done — but the cleanup is just beginning. Here's what a professional post-construction clean actually covers.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>April 27 2026</span>
+        <div class="flex items-center justify-center space-x-4 text-gray-400 text-sm">
+          <span>{publishDate}</span>
           <span>•</span>
           <span>{readTime}</span>
           <span>•</span>
@@ -48,73 +73,178 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
         </div>
       </div>
     </div>
+    <!-- Hero Image -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src={heroImage}
+        alt="Professional post-construction cleaning in progress — removing construction dust from a freshly renovated home in Huntsville, AL"
+        width="1200"
+        height="630"
+        class="w-full rounded-t-2xl object-cover shadow-2xl"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
   </section>
 
-  <!-- Main Content Toggle based on Published Date -->
-  {isPublished ? (
-    <article class="py-16 bg-white">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="prose prose-lg max-w-none">
-          <!-- TODO: REPLACE THIS SECTION WITH YOUR ACTUAL BLOG CONTENT -->
-          <h2>What Should You Expect from Post-Construction Cleaning After a Home Renovation?</h2>
-<p><strong>Post-construction cleaning is the vital step that transforms your newly renovated home from a dust-covered site to a pristine living space. Expect thorough removal of construction debris, deep cleaning of every surface, and specialized attention to detail.</strong> The Valley Clean Team offers precision and guaranteed results in The Shoals & Surrounding Areas.</p>
+  <!-- Main Article -->
+  <article class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
-<h3>Why Post-Construction Cleaning is Essential</h3>
-<p>After a renovation, your home may look like a construction zone. Dust, debris, and leftover materials can obscure the beauty of your new space. More than a basic tidy-up, post-construction cleaning restores your home to a livable condition.</p>
-<p>Expect the following essential services:</p>
-<ul>
-  <li><strong>Debris Removal:</strong> Disposing of leftover materials and trash is the first step to revealing your renovated home.</li>
-  <li><strong>Surface Cleaning:</strong> Walls, floors, and ceilings need thorough dusting and washing to remove construction dust.</li>
-  <li><strong>Detailed Attention:</strong> Fixtures, windows, and appliances get special treatment to ensure no detail is overlooked.</li>
-</ul>
+      <!-- Intro -->
+      <p class="text-xl text-gray-700 leading-relaxed mb-8 font-medium">
+        You've survived the demo, the noise, the contractor schedules, and the endless decisions. Now your renovation is finally done — and your home looks like a construction site. Fine white dust coats every surface. There's grit on the floors, haze on the windows, and debris in places you wouldn't expect. This is where professional post-construction cleaning comes in.
+      </p>
 
-<h3>What Does a Post-Construction Clean Involve?</h3>
-<p>Effective cleaning after construction isn't just about sweeping up. It's a systematic process that requires expertise and precision:</p>
-<h4>Step 1: Initial Cleaning</h4>
-<p>This involves removing large debris, vacuuming dust, and wiping down surfaces. Our trained cleaning specialists ensure that your home is free from visible construction remnants.</p>
+      <p class="text-gray-600 leading-relaxed mb-10">
+        Standard cleaning won't cut it. Construction dust is ultrafine and penetrates HVAC filters, settles inside cabinets, and coats surfaces that look clean at first glance. At The Valley Clean Team, we've handled post-renovation cleanups across Huntsville, Athens, Florence, and The Shoals — here's exactly what to expect.
+      </p>
 
-<h4>Step 2: Detailed Deep Cleaning</h4>
-<p>Deep cleaning targets hidden dust and dirt. We clean HVAC systems, scrub tiles, and polish fixtures to ensure every part of your home gleams.</p>
+      <!-- Section 1 -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Why Construction Dust Is Different</h2>
+      <p class="text-gray-600 leading-relaxed mb-4">
+        Construction dust — from drywall, concrete, wood, and insulation — is far finer than household dust. It becomes airborne during work and resettles slowly over days and weeks. A single sanding session can distribute millions of particles throughout your entire home.
+      </p>
+      <p class="text-gray-600 leading-relaxed mb-8">
+        Beyond the annoyance, this dust can aggravate allergies and respiratory issues, clog your HVAC system, and scratch sealed surfaces if wiped incorrectly. That's why post-construction cleaning requires HEPA-filter vacuums, the right sequence of steps, and experience with how renovation debris behaves.
+      </p>
 
-<h4>Step 3: Final Touches</h4>
-<p>Our team finishes with a meticulous checklist to ensure perfection. From shining windows to spotless mirrors, every detail is addressed.</p>
+      <!-- Section 2: 3-Step Process as Cards -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">The 3-Phase Post-Construction Clean</h2>
+      <p class="text-gray-600 leading-relaxed mb-8">
+        Professional post-construction cleaning isn't a single pass with a mop. It's a phased process where each step builds on the last.
+      </p>
 
-<h3>Choosing the Right Team for Your Post-Construction Clean</h3>
-<p>In The Shoals & Surrounding Areas, selecting a cleaning service that combines expertise with local accountability is crucial. The Valley Clean Team stands out for several reasons:</p>
-<ul>
-  <li><strong>Veteran-Owned Precision:</strong> We bring military-precision and discipline to every task.</li>
-  <li><strong>Local Expertise:</strong> As a community-focused team, we understand the unique needs of homes in our area.</li>
-  <li><strong>Guaranteed Satisfaction:</strong> Our service is backed by a 100% satisfaction guarantee.</li>
-</ul>
-
-<h3>How to Prepare for Post-Construction Cleaning</h3>
-<p>Before your cleaning team arrives, consider these preparations to streamline the process:</p>
-<ul>
-  <li><strong>Clear Access:</strong> Ensure the team has clear paths to all areas that need cleaning.</li>
-  <li><strong>Remove Personal Items:</strong> Protect your belongings by storing them safely away from dusty areas.</li>
-  <li><strong>Communicate Clearly:</strong> Discuss any special requests or areas of concern with your cleaning team beforehand.</li>
-</ul>
-
-<h3>Reclaim Your Time and Enjoy Your Renovated Home</h3>
-<p>Post-construction cleaning is the final step in your renovation journey, transforming your home into a pristine space ready for living. Trust The Valley Clean Team to deliver exceptional, precise cleaning in The Shoals & Surrounding Areas. Our trained specialists ensure your home is spotless, allowing you to enjoy your new environment stress-free.</p>
-<p><strong>Ready to see your renovated home shine? Reclaim your time and schedule a guaranteed clean with The Valley Clean Team today. Book Online Now!</strong></p>
+      <div class="space-y-6 mb-10">
+        <!-- Phase 1 -->
+        <div class="flex gap-5 p-6 bg-gray-50 rounded-xl border border-gray-100">
+          <div class="flex-shrink-0 w-12 h-12 bg-[#FFA985] rounded-full flex items-center justify-center text-white font-bold text-lg">1</div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Rough Clean — Debris Removal</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              We remove all large construction debris: scrap wood, packaging, leftover materials, and bulk trash. All floors are swept and vacuumed with HEPA equipment. This phase clears the site so detailed work can begin on clean surfaces.
+            </p>
+          </div>
         </div>
-      </div>
-    </article>
-  ) : (
-    <article class="py-16 bg-white border-t border-gray-100 shadow-inner">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 bg-gray-50 rounded-2xl">
-        <div class="prose prose-lg max-w-none text-center">
-          <Icon name="clock" class="w-16 h-16 text-[#FFA985] mx-auto mb-6" />
-          <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-0">Article Coming Soon!</h2>
-          <p class="text-gray-600 m-0">This article is locked and scheduled to automatically publish on <br/><strong class="text-gray-800 text-xl">April 27 2026</strong>.<br/>Check back then!</p>
-          <div class="mt-12">
-            <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-md no-underline">
-              Back to Blog
-            </a>
+
+        <!-- Phase 2 -->
+        <div class="flex gap-5 p-6 bg-gray-50 rounded-xl border border-gray-100">
+          <div class="flex-shrink-0 w-12 h-12 bg-[#FFA985] rounded-full flex items-center justify-center text-white font-bold text-lg">2</div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Detail Clean — Every Surface</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              This is the labor-intensive phase. We wipe down all walls, baseboards, window sills, and door frames. Cabinets are cleaned inside and out. Fixtures and hardware are polished. HVAC vents are vacuumed. Tile grout lines are scrubbed and paint overspray is addressed. No surface gets skipped.
+            </p>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="flex gap-5 p-6 bg-gray-50 rounded-xl border border-gray-100">
+          <div class="flex-shrink-0 w-12 h-12 bg-[#FFA985] rounded-full flex items-center justify-center text-white font-bold text-lg">3</div>
+          <div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Final Polish — Move-In Ready</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Windows and mirrors are streak-free. Floors are mopped or buffed. Light fixtures are wiped clear of dust. We do a final walkthrough against our 49-point checklist and send you before-and-after photos so you can see the transformation — even if you're not on-site.
+            </p>
           </div>
         </div>
       </div>
-    </article>
-  )}
+
+      <!-- Section 3 -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">What We Clean That Others Miss</h2>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        The areas that separate a professional post-construction clean from a basic sweep-up:
+      </p>
+      <ul class="space-y-3 mb-10 text-gray-600">
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">HVAC vents and returns</strong> — construction dust clogs filters and coats ductwork; we vacuum every vent cover</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Window tracks and frames</strong> — fine dust packs into tracks and is invisible until you slide the window</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Inside cabinets and drawers</strong> — sawdust and drywall dust settle inside every cabinet installed during renovation</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Outlet covers and switch plates</strong> — often overlooked, always dusty</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Light fixtures and ceiling fans</strong> — dust accumulates heavily on blades and inside globe fixtures</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Grout lines and tile edges</strong> — grout haze from installation is chemically different from dust and requires the right product</span></li>
+      </ul>
+
+      <!-- Section 4 -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Prepare for Your Post-Construction Clean</h2>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        A little preparation makes the clean faster and more thorough:
+      </p>
+      <ol class="space-y-4 mb-10 text-gray-600 list-none">
+        <li class="flex gap-3"><span class="font-bold text-gray-900 w-6 flex-shrink-0">1.</span><span><strong class="text-gray-800">Wait for contractors to fully clear the site.</strong> If trades are still coming and going, we'll just be cleaning behind them.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-gray-900 w-6 flex-shrink-0">2.</span><span><strong class="text-gray-800">Let caulk, grout, and paint cure.</strong> Most manufacturers recommend 24–48 hours minimum before cleaning over new applications.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-gray-900 w-6 flex-shrink-0">3.</span><span><strong class="text-gray-800">Clear access to all areas.</strong> Move any personal items you stored during renovation to a separate room so we can reach every surface.</span></li>
+        <li class="flex gap-3"><span class="font-bold text-gray-900 w-6 flex-shrink-0">4.</span><span><strong class="text-gray-800">Note any special materials.</strong> New hardwood, marble, or custom tile may need specific cleaning products — let us know in advance so we bring the right supplies.</span></li>
+      </ol>
+
+      <!-- Internal Links -->
+      <div class="bg-amber-50 border border-amber-100 rounded-xl p-6 mb-10">
+        <p class="text-sm font-semibold text-amber-900 mb-3 uppercase tracking-wide">Related Services</p>
+        <p class="text-gray-700 text-sm leading-relaxed mb-4">
+          Post-construction cleaning is often paired with a deep clean once you're settled in — or a move-in clean if the renovation was on a property you're about to occupy.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/services/post-construction-cleaning" class="inline-flex items-center px-4 py-2 bg-white border border-amber-200 text-amber-900 text-sm font-medium rounded-lg hover:bg-amber-100 transition">
+            Post-Construction Cleaning →
+          </a>
+          <a href="/services/deep-cleaning" class="inline-flex items-center px-4 py-2 bg-white border border-amber-200 text-amber-900 text-sm font-medium rounded-lg hover:bg-amber-100 transition">
+            Deep Cleaning →
+          </a>
+          <a href="/services/move-in-out-cleaning" class="inline-flex items-center px-4 py-2 bg-white border border-amber-200 text-amber-900 text-sm font-medium rounded-lg hover:bg-amber-100 transition">
+            Move-In / Move-Out Cleaning →
+          </a>
+        </div>
+      </div>
+
+      <!-- Why Valley Clean Team -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Why Homeowners in Huntsville, Athens & The Shoals Choose Us</h2>
+      <p class="text-gray-600 leading-relaxed mb-6">
+        The Valley Clean Team is veteran-owned, women-owned, $2M insured, and has handled post-construction cleanups for homeowners and contractors across North Alabama and The Shoals. We bring the same discipline and attention to detail on a post-reno cleanup as we do on every job.
+      </p>
+      <ul class="space-y-3 mb-10 text-gray-600">
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">49-point checklist</strong> with post-clean photos sent directly to you</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">HEPA-filter vacuums</strong> that capture fine construction particulates, not just redistribute them</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">Flat-rate pricing</strong> — the quote you receive is the price you pay</span></li>
+        <li class="flex gap-3"><span class="text-[#FFA985] font-bold mt-0.5">✓</span><span><strong class="text-gray-800">100% satisfaction guarantee</strong> — if we missed something, we come back</span></li>
+      </ul>
+
+      <!-- FAQ Section -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-5 mb-12">
+        {faqs.map(faq => (
+          <details class="group border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex justify-between items-center px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <span class="text-[#FFA985] text-xl group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div class="px-6 py-4 bg-gray-50 text-gray-600 text-sm leading-relaxed border-t border-gray-200">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <!-- CTA Block -->
+      <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-center">
+        <h2 class="text-2xl font-bold text-white mb-3">Ready to See Your Renovated Home Shine?</h2>
+        <p class="text-gray-300 mb-6 max-w-md mx-auto">
+          Get a free quote for post-construction cleaning in Huntsville, Athens, Florence, The Shoals, or anywhere we serve across North Alabama and Tennessee.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-7 py-3 text-base font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg"
+          >
+            Get Your Free Quote
+          </a>
+          <a
+            href="tel:+12568261100"
+            class="inline-flex items-center justify-center px-7 py-3 text-base font-semibold text-white border border-white/30 rounded-full hover:bg-white/10 transition"
+          >
+            Call (256) 826-1100
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </article>
 </BaseLayout>

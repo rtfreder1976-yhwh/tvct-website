@@ -4,8 +4,9 @@ import SchemaMarkup from '../../components/SchemaMarkup.astro';
 import TrustBadges from '../../components/TrustBadges.astro';
 import Icon from '../../components/Icon.astro';
 
-const title = "White Glove Cleaning Services | Valley Clean Team";
-const description = "Premium white glove cleaning for luxury homes. Interior windows, detailed baseboards, light switches, ceiling fans & door frames. Veteran-owned, $2M insured.";
+const title = "White Glove Cleaning Huntsville AL | Luxury Detail | Valley Clean Team";
+const description =
+  "Premium white glove cleaning for luxury homes in Huntsville & Nashville. Interior windows, baseboards, appliances & more. Veteran-owned, $2M insured. Free quote.";
 
 // Service schema
 const serviceSchema = {
@@ -216,9 +217,31 @@ const serviceAreas = [
   { name: "Huntsville", link: "/locations/huntsville/deep-cleaning" },
   { name: "Madison", link: "/locations/madison/deep-cleaning" },
   { name: "Florence", link: "/locations/florence/deep-cleaning" },
-  { name: "Mountain Brook", link: "/locations/mountain-brook" },
   { name: "Nashville", link: "/locations/nashville/deep-cleaning" },
   { name: "Franklin", link: "/locations/nashville/franklin" }
+];
+
+const commonProblems = [
+  {
+    icon: "broom",
+    problem: "Cleaners Who Skip the Details You Actually Notice",
+    solution: "Standard cleaning services clean quickly. White glove cleaning is about the things most cleaners don't touch — baseboards, ceiling fans, glass without streaks, fixtures polished to a mirror shine. We notice what others walk past.",
+  },
+  {
+    icon: "gem",
+    problem: "Harsh Products That Damage Delicate Surfaces",
+    solution: "Marble, natural stone, antique wood, and designer fixtures all require surface-specific care. Wrong products permanently etch stone or strip finishes. Our team is trained on material-appropriate cleaning methods for high-end surfaces.",
+  },
+  {
+    icon: "eye-slash",
+    problem: "Lack of Discretion in Your Home",
+    solution: "Privacy matters, especially in high-profile households. Our team is professionally trained, discreet, and bound by strict confidentiality standards. We don't discuss our clients, their homes, or what we observe — ever.",
+  },
+  {
+    icon: "star",
+    problem: "Inconsistent Results Between Visits",
+    solution: "You shouldn't have to re-inspect your home after every cleaning. We maintain a detailed property profile for each client — your preferences, your surfaces, your standards — so every visit delivers the same exceptional result.",
+  },
 ];
 ---
 
@@ -511,6 +534,35 @@ const serviceAreas = [
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Problems We Solve -->
+  <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Common Problems <span class="gold-gradient">We Solve</span>
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          The gaps between standard cleaning and what luxury homes actually require — and how white glove service fills them.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          commonProblems.map((item) => (
+            <div class="bg-white rounded-2xl p-8 shadow-md border border-gray-200 hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold mb-3 text-[#333333]">{item.problem}</h3>
+              <p class="text-gray-600">{item.solution}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>

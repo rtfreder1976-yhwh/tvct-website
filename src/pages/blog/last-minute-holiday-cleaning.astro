@@ -6,63 +6,106 @@ import SchemaMarkup from '../../components/SchemaMarkup.astro';
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
+const modifiedDate = "April 30, 2026";
 const author = "The Valley Clean Team";
 const readTime = "7 min read";
+const heroImage = "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_800/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/693082241d466e98cf76452a.png";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I clean my house fast before guests arrive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Focus on the areas guests will see and use: bathroom, kitchen, and living room. Use the 'basket method'—grab a laundry basket and toss in everything out of place, then hide the basket. Clean the guest bathroom first (toilet, sink, mirror, fresh towel), then wipe kitchen counters and load dishes. With 3 hours you can do a thorough job; with 30 minutes, prioritize bathroom + surface declutter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the most important room to clean before guests arrive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The guest bathroom is always the top priority. No matter how limited your time, always clean the toilet, wipe down the sink and mirror, put out fresh hand towels, and restock toilet paper. Guests notice bathrooms more than any other room, and a clean bathroom signals a well-kept home."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I book last-minute cleaning in Huntsville or Nashville?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! The Valley Clean Team offers flexible scheduling throughout Huntsville AL, Nashville TN, and the Shoals area. Call (256) 826-1100 (Alabama) or (615) 510-1427 (Tennessee) to check current availability. We respond to most requests within 2 hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I NOT bother cleaning when time is short?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When you have 30 minutes or less, skip vacuuming (unless there's visible debris guests will walk through), dusting, making beds in rooms guests won't see, and any organizing. Just hide clutter in a basket or closed room. Focus 100% on the guest bathroom, kitchen counter/sink, and surface declutter—that's what creates the impression of a clean home."
+      }
+    }
+  ]
+};
 ---
 
-<BaseLayout title="Last-Minute Holiday Cleaning Guide | Valley Clean Team" description="Guests arriving in hours? Don't panic! Emergency cleaning guide to get your Alabama or Tennessee home guest-ready fast."
+<BaseLayout title="Last-Minute Holiday Cleaning Guide 2026 | Quick-Clean Tips AL & TN" description="Guests arriving in hours? Quick-clean guide: 3-hour, 1-hour & 30-minute plans. Flexible scheduling available in Huntsville & Nashville — call (256) 826-1100."
   ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png">
-  <SchemaMarkup type="article" />
+  <SchemaMarkup type="article" title="Last-Minute Holiday Cleaning Guide 2026" description="Guests arriving in hours? Quick-clean guide: 3-hour, 1-hour & 30-minute plans. Professional cleaning available in Huntsville & Nashville." publishDate={publishDate} modifiedDate={modifiedDate} author={author} image={heroImage} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   
 
   <!-- Hero Section -->
-  <section class="pt-32 pb-12 px-6 bg-gradient-to-br from-gray-50 to-white">
-    <div class="container mx-auto max-w-4xl">
+  <section class="pt-32 pb-0 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-8">
-        <span class="category-tag bg-red-100 text-red-600">Emergency Guide</span>
-        <span class="text-gray-500 text-sm ml-4">
+        <span class="category-tag bg-red-900/60 text-red-300">Quick Clean Guide</span>
+        <span class="text-gray-400 text-sm ml-4">
           <Icon name="calendar" class="w-5 h-5 mr-2" />{publishDate}
         </span>
-        <span class="text-gray-500 text-sm ml-4">
+        <span class="text-gray-400 text-sm ml-4">
           <Icon name="clock" class="w-5 h-5 mr-2" />{readTime}
         </span>
       </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#333333] text-center leading-tight">
-        Last-Minute Holiday Cleaning: <span class="gold-gradient">Emergency Guide</span> When Guests Are Coming
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white text-center leading-tight">
+        Last-Minute Holiday Cleaning: <span class="gold-gradient">Quick-Clean Guide</span> When Guests Are Coming
       </h1>
-      <p class="text-xl text-gray-600 text-center max-w-3xl mx-auto">
+      <p class="text-xl text-gray-300 text-center max-w-3xl mx-auto mb-8">
         Your mother-in-law just texted that she's arriving in 3 hours. Your college roommate decided to "swing by" on their holiday road trip. Don't panic—here's how to make your home guest-ready fast.
       </p>
-    </div>
-  </section>
-
-  <!-- Featured Image -->
-  <section class="px-6 pb-8">
-    <div class="container mx-auto max-w-4xl">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+        <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 bg-[#FFA985] text-[#333333] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#FFC67D] transition">
+          <Icon name="phone" class="w-5 h-5" />Call AL: (256) 826-1100
+        </a>
+        <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-gray-900 transition">
+          <Icon name="phone" class="w-5 h-5" />Call TN: (615) 510-1427
+        </a>
+      </div>
+      <!-- Trust Strip -->
+      <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 pb-10 text-sm text-gray-400">
+        <span class="flex items-center gap-1"><Icon name="star" class="w-4 h-4 text-yellow-400" />4.9★ Rated</span>
+        <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />Flexible Scheduling</span>
+        <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />AL &amp; TN Service</span>
+        <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />Insured &amp; Bonded</span>
+        <span class="flex items-center gap-1"><Icon name="check" class="w-4 h-4 text-green-400" />Responds in 2 Hours</span>
+      </div>
       <img
-        src="https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_800/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/693082241d466e98cf76452a.png"
+        src={heroImage}
         alt="Last-minute holiday cleaning tips - woman cleaning before guests arrive"
-        class="w-full rounded-2xl shadow-xl"
+        class="w-full rounded-t-2xl shadow-xl"
         width="800"
         height="450"
         loading="eager"
+        fetchpriority="high"
       />
-    </div>
-  </section>
-
-  <!-- Urgency Banner -->
-  <section class="py-4 px-6 bg-red-500 text-white">
-    <div class="container mx-auto text-center">
-      <p class="font-bold">
-        <Icon name="clock" class="w-5 h-5 mr-2" />
-        Need professional help NOW? Call us at <a href="tel:2568261100" class="underline">256-826-1100</a> for same-day emergency cleaning service!
-      </p>
     </div>
   </section>
 
   <!-- Main Content -->
   <article class="py-12 px-6">
-    <div class="container mx-auto max-w-3xl">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="prose prose-lg max-w-none">
 
         <!-- Introduction -->
@@ -92,7 +135,7 @@ const readTime = "7 min read";
         <div class="grid md:grid-cols-3 gap-4 mb-8">
           <a href="#3-hours" class="bg-green-100 rounded-xl p-4 text-center hover:bg-green-200 transition">
             <div class="text-3xl font-bold text-green-700">3 Hours</div>
-            <p class="text-green-600 text-sm">Full emergency clean</p>
+            <p class="text-green-600 text-sm">Full professional clean</p>
           </a>
           <a href="#1-hour" class="bg-yellow-100 rounded-xl p-4 text-center hover:bg-yellow-200 transition">
             <div class="text-3xl font-bold text-yellow-700">1 Hour</div>
@@ -108,7 +151,7 @@ const readTime = "7 min read";
         <div id="3-hours" class="scroll-mt-32">
           <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6 bg-green-100 p-4 rounded-xl">
             <Icon name="clock" class="w-5 h-5 text-green-600 mr-3" />
-            You Have 3 Hours: The Full Emergency Clean
+            You Have 3 Hours: The Full Quick Clean
           </h2>
 
           <p class="text-gray-700 mb-6">
@@ -429,10 +472,10 @@ const readTime = "7 min read";
           </div>
         </div>
 
-        <!-- Emergency Pro Tips -->
+        <!-- Pro Tips -->
         <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">
           <Icon name="wand-magic-sparkles" class="w-5 h-5 text-[#FFA985] mr-3" />
-          Emergency Cleaning Hacks
+          Last-Minute Cleaning Hacks
         </h2>
 
         <div class="grid md:grid-cols-2 gap-6 mb-8">
@@ -470,6 +513,21 @@ const readTime = "7 min read";
           </div>
         </div>
 
+        <!-- Mid-Article CTA -->
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 my-10 text-white text-center not-prose">
+          <p class="text-sm font-semibold uppercase tracking-wider text-[#FFA985] mb-2">Professional Cleaning Available</p>
+          <h3 class="text-2xl font-bold mb-3">Out of time? Let us handle it.</h3>
+          <p class="text-gray-300 mb-6">The Valley Clean Team can often be at your door within hours. We serve Huntsville, Nashville, and the Shoals area.</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 bg-[#FFA985] text-[#333333] px-7 py-3 rounded-full font-bold hover:bg-[#FFC67D] transition">
+              <Icon name="phone" class="w-4 h-4" />AL: (256) 826-1100
+            </a>
+            <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-7 py-3 rounded-full font-bold hover:bg-white hover:text-gray-900 transition">
+              <Icon name="phone" class="w-4 h-4" />TN: (615) 510-1427
+            </a>
+          </div>
+        </div>
+
         <!-- When to Call Professionals -->
         <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">
           <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-3" />
@@ -477,7 +535,7 @@ const readTime = "7 min read";
         </h2>
 
         <p class="text-gray-700 mb-6">
-          Sometimes, the best decision is to call in the cavalry. The Valley Clean Team offers same-day emergency cleaning services throughout Huntsville, Nashville, and the Shoals area.
+          Sometimes, the best decision is to call in the professionals. The Valley Clean Team offers flexible-schedule cleaning services throughout Huntsville, Nashville, and the Shoals area.
         </p>
 
         <div class="bg-gradient-to-br from-[#FFA985]/10 to-gray-100 rounded-xl p-6 mb-6">
@@ -506,17 +564,20 @@ const readTime = "7 min read";
           </ul>
         </div>
 
-        <div class="bg-gradient-to-br from-[#333333] to-[#1a1a2e] rounded-2xl p-8 text-white mb-8">
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-white mb-8 not-prose">
           <h3 class="text-2xl font-bold mb-4 text-center">
             <Icon name="bolt" class="w-5 h-5 text-[#FFA985] mr-2" />
-            Same-Day Emergency Cleaning Available
+            Professional Cleaning Available
           </h3>
           <p class="text-gray-300 text-center mb-6">
             Call before 2pm and we can often have a team at your door within hours. We serve Huntsville, Nashville, Muscle Shoals, and surrounding areas.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:2568261100" class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] px-8 py-4 rounded-full font-bold text-center shadow-lg hover:shadow-xl transition">
-              <Icon name="phone" class="w-5 h-5 mr-2" />Call NOW: 256-826-1100
+            <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 bg-[#FFA985] text-[#333333] px-8 py-4 rounded-full font-bold shadow-lg hover:bg-[#FFC67D] transition">
+              <Icon name="phone" class="w-5 h-5" />AL: (256) 826-1100
+            </a>
+            <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white hover:text-gray-900 transition">
+              <Icon name="phone" class="w-5 h-5" />TN: (615) 510-1427
             </a>
           </div>
           <p class="text-center text-gray-400 text-sm mt-4">
@@ -545,6 +606,39 @@ const readTime = "7 min read";
           You've got this! Happy holidays from The Valley Clean Team.
         </p>
 
+        <!-- FAQ Section -->
+        <div class="mt-12 not-prose">
+          <h2 class="text-3xl font-bold text-[#333333] mb-6">Frequently Asked Questions</h2>
+          <div class="space-y-3">
+            {[
+              {
+                q: "How do I clean my house fast before guests arrive?",
+                a: "Focus on the areas guests will see and use: bathroom, kitchen, and living room. Use the 'basket method'—grab a laundry basket and toss in everything out of place, then hide the basket. Clean the guest bathroom first (toilet, sink, mirror, fresh towel), then wipe kitchen counters and load dishes. With 3 hours you can do a thorough job; with 30 minutes, prioritize bathroom + surface declutter."
+              },
+              {
+                q: "What is the most important room to clean before guests arrive?",
+                a: "The guest bathroom is always the top priority. No matter how limited your time, always clean the toilet, wipe down the sink and mirror, put out fresh hand towels, and restock toilet paper. Guests notice bathrooms more than any other room, and a clean bathroom signals a well-kept home."
+              },
+              {
+                q: "Can I book last-minute cleaning in Huntsville or Nashville?",
+                a: "Yes! The Valley Clean Team offers flexible scheduling throughout Huntsville AL, Nashville TN, and the Shoals area. Call (256) 826-1100 (Alabama) or (615) 510-1427 (Tennessee) to check current availability. We respond to most requests within 2 hours."
+              },
+              {
+                q: "What should I NOT bother cleaning when time is short?",
+                a: "When you have 30 minutes or less, skip vacuuming (unless there's visible debris guests will walk through), dusting, making beds in rooms guests won't see, and any organizing. Just hide clutter in a basket or closed room. Focus 100% on the guest bathroom, kitchen counter/sink, and surface declutter—that's what creates the impression of a clean home."
+              }
+            ].map(({ q, a }) => (
+              <details class="group bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-gray-50">
+                  <span class="font-semibold text-[#333333] pr-4">{q}</span>
+                  <span class="text-[#FFA985] font-bold text-xl flex-shrink-0 transition-transform duration-200 group-open:rotate-45">+</span>
+                </summary>
+                <div class="px-5 pb-5 text-gray-700 leading-relaxed">{a}</div>
+              </details>
+            ))}
+          </div>
+        </div>
+
         <!-- Author Box -->
         <div class="bg-gray-50 rounded-xl p-6 mt-12 border border-gray-200">
           <div class="flex items-center">
@@ -565,7 +659,7 @@ const readTime = "7 min read";
 
   <!-- Related Articles -->
   <section class="py-12 px-6 bg-gray-50">
-    <div class="container mx-auto max-w-4xl">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-[#333333] mb-8">Related Articles</h2>
       <div class="grid md:grid-cols-3 gap-6">
         <a href="/blog/holiday-hosting-guide-for-moms" class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition">
@@ -585,18 +679,24 @@ const readTime = "7 min read";
   </section>
 
   <!-- CTA Section -->
-  <section class="py-16 px-6 bg-gradient-to-r from-red-500 to-red-600">
-    <div class="container mx-auto text-center max-w-3xl">
+  <section class="py-16 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-[#FFA985] mb-3">Professional Cleaning Available</p>
       <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-        <Icon name="bolt" class="w-5 h-5 mr-2" />
-        Emergency Cleaning Needed?
+        Guests Arriving Soon?
       </h2>
-      <p class="text-xl text-white/90 mb-8">
-        We offer same-day service throughout Alabama and Tennessee. Call now!
+      <p class="text-xl text-gray-300 mb-8">
+        The Valley Clean Team offers flexible scheduling throughout Alabama and Tennessee. Call us to check current availability.
       </p>
-      <a href="tel:2568261100" class="inline-block bg-white text-red-600 px-10 py-5 rounded-full text-xl font-bold shadow-lg hover:shadow-xl transition">
-        <Icon name="phone" class="w-5 h-5 mr-2" />256-826-1100
-      </a>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 bg-[#FFA985] text-[#333333] px-10 py-5 rounded-full text-xl font-bold shadow-lg hover:bg-[#FFC67D] transition">
+          <Icon name="phone" class="w-5 h-5" />AL: (256) 826-1100
+        </a>
+        <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-white hover:text-gray-900 transition">
+          <Icon name="phone" class="w-5 h-5" />TN: (615) 510-1427
+        </a>
+      </div>
+      <p class="text-gray-400 text-sm mt-6">Veteran-owned · Women-owned · Insured &amp; Bonded · 4.9★ Rated</p>
     </div>
   </section>
 

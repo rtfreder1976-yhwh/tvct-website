@@ -1,40 +1,70 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
 
 const publishDate = "November 26, 2025";
+const modifiedDate = "April 29, 2026";
 const author = "The Valley Clean Team";
 const readTime = "8 min read";
+const heroImage = "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png";
+
+const faqs = [
+  {
+    question: "Is it normal to be embarrassed about the state of your house?",
+    answer: "Completely normal. Studies suggest over 40% of adults avoid having people over because of how their home looks. Modern life — demanding jobs, kids, caregiving — leaves almost no margin for keeping up with cleaning. The mess is usually a symptom of an impossible schedule, not a character flaw."
+  },
+  {
+    question: "Should I clean before the cleaners come?",
+    answer: "No. Professional cleaners have seen everything. Your home being messy is literally why you're calling — you don't need to tidy up first. Just let us know if there are any specific areas of concern so we can prioritize them."
+  },
+  {
+    question: "What's the difference between a deep clean and regular cleaning?",
+    answer: "A regular clean maintains a home that is already reasonably clean — surfaces, floors, bathrooms, kitchen basics. A deep clean is a top-to-bottom reset: inside appliances, baseboards, ceiling fans, window tracks, grout, behind furniture. If your home has gotten away from you, a deep clean is the right starting point."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.question,
+    "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+  }))
+};
 ---
 
 <BaseLayout
-  title="Embarrassed to Have People Over? | Valley Clean Team"
-  description="If you avoid having guests because of how your house looks, you're not alone. Here's why this happens, what it costs you, and how to break the cycle."
-  ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png"
+  title="Embarrassed to Have People Over? You're Not Alone | Valley Clean Team"
+  description="If you avoid having guests because of how your house looks, you're not alone. Over 40% of adults do the same. Here's why it happens and how to break the cycle."
+  ogImage={heroImage}
 >
   <SchemaMarkup
     type="article"
-    title="Embarrassed to Have People Over? Not Alone"
+    title="Embarrassed to Have People Over? You're Not Alone"
     description="If you avoid having guests because of how your house looks, you're not alone. Here's why this happens, what it costs you, and how to break the cycle."
     publishDate={publishDate}
+    modifiedDate={modifiedDate}
     author={author}
+    image={heroImage}
   />
-  
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero Section -->
-  <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
+      <div class="text-center pb-10">
         <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-medium mb-6">
           You're Not Alone
         </span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
           Embarrassed to Have People Over?<br>
           <span class="text-[#FFA985]">You're Not Alone</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
+          Over 40% of adults avoid having guests because of their home. Here's why it happens — and how to break the cycle for good.
+        </p>
+        <div class="flex items-center justify-center space-x-4 text-gray-400 text-sm">
           <span>{publishDate}</span>
           <span>•</span>
           <span>{readTime}</span>
@@ -42,6 +72,17 @@ const readTime = "8 min read";
           <span>By {author}</span>
         </div>
       </div>
+    </div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <img
+        src={heroImage}
+        alt="Clean, welcoming living room — professional house cleaning in Alabama and Tennessee by The Valley Clean Team"
+        width="1200"
+        height="630"
+        class="w-full rounded-t-2xl object-cover shadow-2xl"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -199,7 +240,7 @@ const readTime = "8 min read";
         <h3 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Perfectionism</h3>
 
         <p class="text-lg text-gray-600 mb-8">
-          Ironically, sometimes the people most embarrassed by their homes are perfectionist. They have high standards—so high that anything less feels unacceptable.
+          Ironically, sometimes the people most embarrassed by their homes are perfectionists. They have high standards—so high that anything less feels unacceptable.
         </p>
 
         <p class="text-lg text-gray-600 mb-8">
@@ -252,13 +293,36 @@ const readTime = "8 min read";
 
         <h3 class="text-2xl font-bold text-gray-900 mt-10 mb-4">Option 3: Get Help</h3>
 
-        <p class="text-lg text-gray-600 mb-8">
+        <p class="text-lg text-gray-600 mb-4">
           Have someone else handle the cleaning so your home can be a place you're proud to welcome people into.
         </p>
 
-        <p class="text-lg text-gray-600 mb-8">
+        <p class="text-lg text-gray-600 mb-6">
           This is the option that actually works for most people in this situation.
         </p>
+
+        <!-- Mid-article CTA at highest intent moment -->
+        <div class="not-prose bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-7 mb-10">
+          <p class="text-white font-bold text-lg mb-1">Start with a deep clean — get back to baseline.</p>
+          <p class="text-gray-400 text-sm mb-1">No judgment. We've seen it all. That's the job.</p>
+          <div class="flex flex-wrap gap-2 text-xs text-gray-500 mb-5">
+            <span>★★★★★ 4.9-star rated</span>
+            <span>·</span>
+            <span>Veteran-owned</span>
+            <span>·</span>
+            <span>$2M insured</span>
+            <span>·</span>
+            <span>Huntsville · Birmingham · Nashville · The Shoals</span>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
+              Get Your Free Quote
+            </a>
+            <a href="tel:2568261100" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white border border-white/30 rounded-full hover:bg-white/10 transition">
+              Call (256) 826-1100
+            </a>
+          </div>
+        </div>
 
         <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">What Getting Help Actually Looks Like</h2>
 
@@ -267,11 +331,11 @@ const readTime = "8 min read";
         </p>
 
         <p class="text-lg text-gray-600 mb-8">
-          <strong>Start with a deep clean.</strong> A real, thorough, get-into-every-corner deep clean. This clears the backlog. Gets you back to baseline. Creates a foundation you can actually maintain.
+          <strong>Start with a <a href="/services/deep-cleaning" class="text-[#FFA985] hover:underline">deep clean</a>.</strong> A real, thorough, get-into-every-corner deep clean. This clears the backlog. Gets you back to baseline. Creates a foundation you can actually maintain.
         </p>
 
         <p class="text-lg text-gray-600 mb-8">
-          <strong>Then maintain it.</strong> Whether that's regular cleaning service, or now that you're starting from clean, you can actually keep up with maintenance yourself.
+          <strong>Then maintain it.</strong> Whether that's <a href="/services/regular-cleaning" class="text-[#FFA985] hover:underline">regular cleaning service</a>, or now that you're starting from clean, you can actually keep up with maintenance yourself.
         </p>
 
         <p class="text-lg text-gray-600 mb-8">
@@ -296,9 +360,11 @@ const readTime = "8 min read";
           We're not there to judge. We're there to help. That's the job.
         </p>
 
-        <p class="text-lg text-gray-600 mb-8">
-          Professional cleaners clean messy houses. That's... what we do. A house that's already spotless doesn't need us.
-        </p>
+        <!-- Testimonial -->
+        <blockquote class="not-prose border-l-4 border-[#FFA985] pl-6 py-2 mb-10">
+          <p class="text-gray-700 text-lg italic leading-relaxed mb-3">"I was so ashamed to call. My house had gotten really bad after a rough few months. They showed up, no judgment, and three hours later I was in tears — the good kind. I've had people over three times since then."</p>
+          <cite class="text-sm text-gray-500 not-italic font-medium">— Jennifer R., Huntsville AL · ★★★★★</cite>
+        </blockquote>
 
         <h2 class="text-3xl font-bold text-gray-900 mt-12 mb-6">Imagine This Instead</h2>
 
@@ -345,6 +411,23 @@ const readTime = "8 min read";
         </p>
 
       </div>
+
+      <!-- FAQ -->
+      <h2 class="text-2xl font-bold text-gray-900 mt-16 mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-4 mb-12">
+        {faqs.map(faq => (
+          <details class="group border border-gray-200 rounded-xl overflow-hidden">
+            <summary class="flex justify-between items-center px-6 py-4 cursor-pointer font-semibold text-gray-900 hover:bg-gray-50 transition list-none">
+              <span>{faq.question}</span>
+              <span class="text-[#FFA985] text-xl group-open:rotate-45 transition-transform flex-shrink-0 ml-4">+</span>
+            </summary>
+            <div class="px-6 py-4 bg-gray-50 text-gray-600 text-sm leading-relaxed border-t border-gray-200">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+
     </div>
   </article>
 
@@ -369,46 +452,38 @@ const readTime = "8 min read";
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-16 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+  <!-- Final CTA -->
+  <section class="py-16 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-        Ready to Open Your Doors Again?
-      </h2>
-      <p class="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
-        Let's get your home to a place you're proud of. No judgment—just help. Veteran-owned, fully insured, satisfaction guaranteed.
+      <h2 class="text-3xl font-bold text-white mb-4">Ready to Open Your Doors Again?</h2>
+      <p class="text-gray-300 mb-2 max-w-2xl mx-auto">
+        No judgment. Just help. Start with a deep clean — get back to a home you're proud of.
       </p>
+      <p class="text-gray-400 text-sm mb-8">Veteran-owned · Women-owned · $2M insured · 4.9★ rated · Huntsville · Birmingham · Nashville · The Shoals</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="tel:256-826-1100" class="inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-lg hover:bg-gray-800 transition-colors text-lg">
-          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-          </svg>
-          Call 256-826-1100
+        <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
+          Get Your Free Quote
         </a>
-        <a href="/services/deep-cleaning" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-bold rounded-lg hover:bg-gray-100 transition-colors text-lg">
+        <a href="/services/deep-cleaning" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white border border-white/30 rounded-full hover:bg-white/10 transition">
           Learn About Deep Cleaning
         </a>
       </div>
-      <p class="mt-6 text-gray-700">
-        Serving Huntsville, Nashville, Mountain Brook & the Shoals • Deep cleaning from $175
-      </p>
     </div>
   </section>
 
-  <!-- Service Areas CTA -->
+  <!-- Service Areas -->
   <section class="py-12 bg-[#FFA985]/10">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-2xl font-bold text-gray-900 mb-4">Professional Cleaning Services Near You</h2>
-      <p class="text-lg text-gray-600 mb-6">The Valley Clean Team serves homes and businesses across Alabama and Tennessee with reliable, thorough cleaning services.</p>
+      <p class="text-lg text-gray-600 mb-6">The Valley Clean Team serves homes and businesses across Alabama and Tennessee.</p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href="/locations/huntsville" class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition">Huntsville, AL</a>
         <a href="/locations/athens" class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition">Athens, AL</a>
         <a href="/locations/florence" class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition">Florence, AL</a>
-        <a href="/locations/birmingham/" class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition">Birmingham, AL</a>
+        <a href="/locations/birmingham" class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition">Birmingham, AL</a>
         <a href="/locations/nashville" class="inline-flex items-center px-5 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#FFA985] hover:text-[#FFA985] transition">Nashville, TN</a>
       </div>
     </div>
   </section>
 
-  
 </BaseLayout>

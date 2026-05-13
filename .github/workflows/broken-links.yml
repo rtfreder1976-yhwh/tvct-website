@@ -1,0 +1,42 @@
+name: Broken Link Check
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links on production site
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: >
+            --verbose
+            --no-progress
+            --exclude-mail
+            --exclude 'tel:'
+            --exclude 'https://www.google.com/maps'
+            --exclude 'https://ui-avatars.com'
+            --timeout 20
+            --max-retries 3
+            'https://thevalleycleanteam.com'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔗 Broken links detected - ' + new Date().toISOString().split('T')[0],
+              body: 'The weekly broken link check found issues. Check the [workflow run](https://github.com/' + context.repo.owner + '/' + context.repo.repo + '/actions) for details.',
+              labels: ['seo', 'bug']
+            })

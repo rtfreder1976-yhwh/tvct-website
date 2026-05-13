@@ -1,0 +1,319 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+
+// LocalBusiness + FAQPage schema for Commercial Office Cleaning
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "The Valley Clean Team - Commercial Office Cleaning",
+  url: "https://thevalleycleanteam.com/commercial-office-cleaning",
+  telephone: "256-826-1100",
+  email: "hello@thevalleycleanteam.com",
+  description: "Professional commercial office cleaning in Alabama. Law firms, CPA offices, insurance agencies, and professional spaces. Veteran-owned, background-checked, $2M insured.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Tuscumbia",
+    addressRegion: "AL",
+    postalCode: "35674",
+    addressCountry: "US"
+  },
+  areaServed: [
+    { "@type": "City", name: "Huntsville, AL" },
+    { "@type": "City", name: "Madison, AL" },
+    { "@type": "City", name: "Decatur, AL" },
+    { "@type": "City", name: "Florence, AL" },
+    { "@type": "City", name: "Muscle Shoals, AL" }
+  ]
+};
+
+const faqs = [
+  {
+    question: "What types of professional offices do you clean?",
+    answer: "We specialize in law firms, CPA offices, insurance agencies, medical practices, dental offices, and general corporate spaces. Our team understands the professional environment and maintains the highest standards of cleanliness and discretion."
+  },
+  {
+    question: "Can you clean after business hours?",
+    answer: "Yes. Most of our commercial office clients prefer evening or night cleaning to avoid disrupting their operations. We offer flexible scheduling to work around your business hours."
+  },
+  {
+    question: "How often should an office be cleaned?",
+    answer: "High-traffic professional offices typically benefit from daily or 5-day-a-week cleaning. Smaller offices may do well with 2-3 times weekly. We assess your foot traffic and recommend an optimal schedule."
+  },
+  {
+    question: "Do you handle sensitive documents and confidentiality?",
+    answer: "Absolutely. We understand the importance of confidentiality in professional environments. Our team is trained to respect privacy, work around sensitive materials, and maintain strict discretion."
+  },
+  {
+    question: "What's included in office cleaning?",
+    answer: "Standard service includes vacuuming, mopping, trash removal, restroom sanitization, break room cleaning, desk surface dusting, glass cleaning, and floor care. We customize based on your office layout and needs."
+  },
+  {
+    question: "Are your cleaners bonded and insured?",
+    answer: "Yes. Every team member is background-checked, bonded, and fully insured. We carry $2 million in liability insurance and can provide certificates upon request."
+  },
+  {
+    question: "How do you handle security and access?",
+    answer: "We work with your security protocols. Key/code access, sign-in procedures, alarm systems—we follow your requirements and maintain strict confidentiality and professional standards."
+  },
+  {
+    question: "What if we need special cleaning or deep cleaning?",
+    answer: "We offer specialized services including carpet shampooing, floor stripping and waxing, window washing, high dusting, and post-construction cleanup. Let us know your needs and we'll create a custom plan."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title="Office Cleaning Services Alabama | Law Firms, CPA, Professional | Valley Clean Team"
+  description="Professional office cleaning in Huntsville, Madison, Decatur, Florence, Muscle Shoals. Law firms, CPA offices, insurance agencies. Veteran-owned, background-checked, $2M insured. Free quote."
+>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(localBusinessSchema)}
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(faqSchema)}
+  />
+
+  <section class="pt-32 pb-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4 text-[#333333]">
+          Professional Office <span class="gold-gradient">Cleaning Services</span>
+        </h1>
+        <div class="section-divider"></div>
+        <p class="text-xl text-gray-600">
+          Your office is your business's first impression. We ensure your space is always pristine, professional, and ready for clients and staff. No morning surprises. No consistency fade. Just disciplined, reliable cleaning.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
+        <!-- Quote Form -->
+        <div>
+          <h2 class="text-3xl font-bold mb-6 text-[#333333]">Request a Free Office Audit</h2>
+          <QuoteForm 
+            formId="office-quote-form" 
+            source="Commercial Office Cleaning Landing Page"
+          />
+          <p class="text-sm text-gray-500 mt-4 italic">
+            *We'll contact you within 2 business hours to schedule a facility walkthrough.
+          </p>
+        </div>
+
+        <!-- Benefits/Trust -->
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4 text-[#333333]">The Professional Standard</h3>
+            <p class="text-gray-600">
+               A clean office communicates professionalism before a word is spoken. We help law firms, CPA offices, insurance agencies, and corporate spaces maintain the standard that impresses clients and keeps staff happy. Veteran-owned accountability. Zero consistency fade.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Spotless Reception & Conference Rooms</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Professional Restroom Care</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Confidentiality & Discretion</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Flexible After-Hours Scheduling</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">Background-Checked, Bonded Staff</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <div class="w-10 h-10 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985]">
+                <Icon name="check" class="w-5 h-5" />
+              </div>
+              <span class="font-semibold text-[#333333]">$2M Liability Insurance</span>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-gray-100">
+             <h4 class="font-bold text-[#333333] mb-2 text-lg">The TVCT Promise</h4>
+             <p class="text-gray-600 italic">
+               "We focus on the protocols others miss, so you can focus on your clients and your business."
+             </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries We Serve -->
+  <section class="py-20 px-6 bg-gradient-to-br from-gray-50 to-white">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Professional Services We <span class="gold-gradient">Specialize In</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {
+          [
+            { icon: "briefcase", name: "Law Firms", desc: "Confidential, professional spaces" },
+            { icon: "calculator", name: "CPA Offices", desc: "Precise, detail-oriented cleaning" },
+            { icon: "shield", name: "Insurance Agencies", desc: "Professional client-ready spaces" },
+            { icon: "building", name: "Corporate Offices", desc: "Large-scale, flexible scheduling" },
+            { icon: "stethoscope", name: "Medical Practices", desc: "Sanitization & infection control" },
+            { icon: "tooth", name: "Dental Offices", desc: "OSHA-compliant operatory care" },
+          ].map((service) => (
+            <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985]/10 flex items-center justify-center text-[#FFA985] mr-4">
+                  <Icon name={service.icon} class="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 class="font-bold text-[#333333]">{service.name}</h3>
+                  <p class="text-sm text-gray-600">{service.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Serving Professional Offices Across <span class="gold-gradient">Alabama</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        {
+          [
+            "Huntsville",
+            "Madison",
+            "Decatur",
+            "Florence",
+            "Muscle Shoals",
+            "Sheffield"
+          ].map((city) => (
+            <div class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center hover:border-[#FFA985] hover:shadow-lg transition">
+              <Icon name="map-marker-alt" class="w-6 h-6 text-[#FFA985] mx-auto mb-3" />
+              <p class="font-semibold text-[#333333]">{city}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="text-center mt-12">
+        <p class="text-gray-600">
+          <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
+          Serving other areas? Call <a
+            href="tel:2568261100"
+            class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 px-6 content-visibility-auto bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-[#333333]">
+          Office Cleaning <span class="gold-gradient">FAQs</span>
+        </h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="space-y-4">
+        {
+          faqs.map((faq, index) => (
+            <div
+              class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
+              onclick="this.classList.toggle('active')"
+            >
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-[#333333] pr-4">{faq.question}</h3>
+                <Icon
+                  name="chevron-down"
+                  class="w-5 h-5 text-[#FFA985] faq-icon flex-shrink-0"
+                />
+              </div>
+              <div class="faq-answer">
+                <p class="text-gray-600 mt-4">{faq.answer}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 px-6 bg-gradient-to-br from-[#FFA985]/10 to-gray-100">
+    <div class="container mx-auto max-w-4xl text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+        Ready for a <span class="gold-gradient">Cleaner, More Professional Office</span>?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8">
+        Get a free office audit and customized cleaning plan
+      </p>
+      <div
+        class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
+      >
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-block shadow-lg"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+        </a>
+        <a
+          href="/#quote-form"
+          class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg font-semibold px-8 py-5 bg-white border-2 border-gray-300 rounded-full shadow-md"
+        >
+          <Icon name="envelope" class="w-5 h-5 mr-2" />Request Audit
+        </a>
+      </div>
+      <p class="text-gray-600">
+        <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2" />
+        We respond to all office inquiries within 24 hours
+      </p>
+    </div>
+  </section>
+</BaseLayout>
