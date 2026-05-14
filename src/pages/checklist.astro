@@ -1,0 +1,739 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "The 2-Hour Quote Checklist — Free PDF | Valley Clean Team";
+const pageDescription =
+  "Free PDF: 7 questions to ask before you book any cleaner — so you get a real price today, not a sales call on Thursday. Works on us, the chains, the gig apps. Trusted by 1,000+ Valley homeowners.";
+
+const faqs = [
+  {
+    question: "Is this really free?",
+    answer:
+      "Yes. No card, no trial, no upsell at the door. The checklist is a free PDF you can read in 5 minutes.",
+  },
+  {
+    question:
+      "Why are you giving away a checklist that helps me hire your competitors?",
+    answer:
+      "Because most readers of this checklist will end up calling around, running our competitors through it, and seeing for themselves who passes. We're betting we look better in that comparison than in a vacuum. If we're wrong, you got a free checklist.",
+  },
+  {
+    question: "Do you actually serve my area?",
+    answer:
+      "We serve Huntsville, Madison, Athens, the Shoals (Florence, Muscle Shoals, Tuscumbia, Sheffield), Mountain Brook, Birmingham, Nashville, Belle Meade, Green Hills, Brentwood, and Franklin. Don't see your town? The checklist works on whoever you call. Or text us at 256-826-1100 and we'll tell you straight whether we cover you.",
+  },
+  {
+    question: "How fast can you actually quote?",
+    answer:
+      "During business hours, under 2 hours. Most quotes go out in under 45 minutes. After-hours requests get answered first thing the next morning.",
+  },
+  {
+    question: "What does a cleaning actually cost?",
+    answer:
+      "Recurring starts at $99. Deep cleans start at $175. Move-in/out starts at $225. Final price depends on size and condition — but it's flat, not 'starting at.'",
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schemaType="article"
+  faqs={faqs}
+>
+  <style slot="preload">
+    /* Brand tokens from brand/creative-kit.md */
+    :root {
+      --tvct-cream: #f5efe6;
+      --tvct-navy: #1b2a41;
+      --tvct-brass: #c9a86b;
+      --tvct-grey: #6b7280;
+      --tvct-cream-deep: #ebe3d5;
+    }
+
+    .lp-shell {
+      background: var(--tvct-cream);
+      color: var(--tvct-navy);
+      font-family:
+        ui-serif,
+        Georgia,
+        "Times New Roman",
+        serif;
+      min-height: 100vh;
+    }
+
+    .lp-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .lp-overline {
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--tvct-brass);
+      font-weight: 700;
+      margin: 0 0 16px;
+    }
+
+    .lp-hero h1 {
+      font-size: clamp(28px, 4.5vw, 44px);
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0 0 20px;
+      color: var(--tvct-navy);
+    }
+
+    .lp-hero p.lp-sub {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--tvct-navy);
+      margin: 0 0 12px;
+    }
+
+    .lp-form-card {
+      background: #fff;
+      border: 1px solid var(--tvct-cream-deep);
+      border-radius: 8px;
+      padding: 28px 24px;
+      margin: 28px 0 12px;
+      box-shadow: 0 1px 0 rgba(27, 42, 65, 0.04);
+    }
+
+    .lp-form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .lp-form-row label {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--tvct-navy);
+    }
+
+    .lp-form-row input {
+      padding: 13px 14px;
+      border: 1.5px solid var(--tvct-cream-deep);
+      border-radius: 6px;
+      background: var(--tvct-cream);
+      font-family:
+        ui-sans-serif,
+        system-ui,
+        sans-serif;
+      font-size: 16px;
+      color: var(--tvct-navy);
+      transition: border-color 0.15s;
+    }
+    .lp-form-row input:focus {
+      outline: none;
+      border-color: var(--tvct-brass);
+      box-shadow: 0 0 0 3px rgba(201, 168, 107, 0.18);
+    }
+
+    .lp-submit {
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--tvct-navy);
+      color: var(--tvct-cream);
+      font-family:
+        ui-sans-serif,
+        system-ui,
+        sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 4px;
+      transition:
+        transform 0.1s,
+        background 0.15s;
+    }
+    .lp-submit:hover {
+      background: #0f1e36;
+    }
+    .lp-submit:active {
+      transform: translateY(1px);
+    }
+    .lp-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .lp-fineprint {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 13px;
+      color: var(--tvct-grey);
+      margin: 14px 0 0;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .lp-error {
+      color: #b3261e;
+      font-size: 13px;
+      margin-top: 6px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      display: none;
+    }
+
+    .lp-success {
+      display: none;
+      background: #fff;
+      border: 1px solid var(--tvct-brass);
+      border-radius: 8px;
+      padding: 32px 24px;
+      margin: 12px 0;
+    }
+    .lp-success h2 {
+      font-size: 24px;
+      margin: 0 0 10px;
+      color: var(--tvct-navy);
+    }
+    .lp-success p {
+      font-size: 16px;
+      color: var(--tvct-navy);
+      line-height: 1.6;
+      margin: 0 0 12px;
+    }
+    .lp-success .lp-phones {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 15px;
+      color: var(--tvct-navy);
+    }
+    .lp-success .lp-phones a {
+      color: var(--tvct-navy);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .lp-rule {
+      border: 0;
+      height: 1px;
+      background: var(--tvct-cream-deep);
+      margin: 48px 0;
+    }
+
+    /* Article body */
+    .lp-body h2 {
+      font-size: 26px;
+      line-height: 1.25;
+      font-weight: 700;
+      margin: 36px 0 16px;
+      color: var(--tvct-navy);
+      letter-spacing: -0.01em;
+    }
+    .lp-body p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--tvct-navy);
+      margin: 0 0 14px;
+    }
+    .lp-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 18px;
+    }
+    .lp-body ul li {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--tvct-navy);
+      padding: 8px 0 8px 28px;
+      position: relative;
+    }
+    .lp-body ul li::before {
+      content: "✓";
+      color: var(--tvct-brass);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      font-weight: 700;
+    }
+    .lp-body ol {
+      padding-left: 22px;
+      color: var(--tvct-navy);
+    }
+    .lp-body ol li {
+      font-size: 17px;
+      line-height: 1.7;
+      margin: 8px 0;
+    }
+    .lp-body blockquote {
+      border-left: 3px solid var(--tvct-brass);
+      background: #fff;
+      padding: 16px 20px;
+      margin: 20px 0;
+      font-style: italic;
+      color: var(--tvct-navy);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .lp-day-list {
+      background: #fff;
+      border: 1px solid var(--tvct-cream-deep);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 12px 0;
+    }
+    .lp-day-list p {
+      margin: 6px 0;
+      font-size: 16px;
+    }
+    .lp-day-list strong {
+      color: var(--tvct-brass);
+      letter-spacing: 0.04em;
+    }
+
+    .lp-trust-row {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      color: var(--tvct-grey);
+      text-align: center;
+      margin: 12px 0 0;
+      line-height: 1.6;
+    }
+
+    .lp-final-cta {
+      background: var(--tvct-navy);
+      color: var(--tvct-cream);
+      padding: 36px 28px;
+      border-radius: 8px;
+      margin: 32px 0 16px;
+      text-align: center;
+    }
+    .lp-final-cta h2 {
+      color: var(--tvct-cream);
+      font-size: 26px;
+      margin: 0 0 12px;
+    }
+    .lp-final-cta p {
+      color: var(--tvct-cream);
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 0 0 18px;
+      opacity: 0.92;
+    }
+    .lp-final-cta .lp-submit {
+      background: var(--tvct-brass);
+      color: var(--tvct-navy);
+      max-width: 360px;
+      margin: 0 auto;
+    }
+    .lp-final-cta .lp-submit:hover {
+      background: #b8975a;
+    }
+
+    .lp-footer {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 13px;
+      color: var(--tvct-grey);
+      text-align: center;
+      margin: 40px 0 0;
+      line-height: 1.7;
+    }
+    .lp-footer a {
+      color: var(--tvct-grey);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .lp-container {
+        padding: 32px 18px;
+      }
+      .lp-form-card,
+      .lp-day-list {
+        padding: 20px 18px;
+      }
+    }
+  </style>
+
+  <main class="lp-shell">
+    <div class="lp-container">
+      <!-- HERO + FORM -->
+      <section class="lp-hero">
+        <p class="lp-overline">The Valley Clean Team · Free PDF</p>
+        <h1>
+          The 7 things to ask before you book any cleaner — so you get a real
+          price today, not a sales call on Thursday.
+        </h1>
+        <p class="lp-sub">
+          Most cleaning companies take 3 to 5 days to give you a real quote.
+          By then your in-laws are at the door, the listing showing is over,
+          and you're cleaning the baseboards yourself.
+        </p>
+        <p class="lp-sub">
+          We built a free checklist that fixes that. Use it on us, on the
+          chains, on the gig apps — whoever you call. If the cleaner can't
+          pass it, keep looking.
+        </p>
+
+        <!-- Form card -->
+        <form id="lp-form" class="lp-form-card" novalidate>
+          <div class="lp-form-row">
+            <label for="lp-first-name">First name</label>
+            <input
+              type="text"
+              id="lp-first-name"
+              name="first_name"
+              autocomplete="given-name"
+              required
+            />
+            <div class="lp-error" data-error-for="first_name">
+              Please enter your first name.
+            </div>
+          </div>
+          <div class="lp-form-row">
+            <label for="lp-email">Email</label>
+            <input
+              type="email"
+              id="lp-email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+            <div class="lp-error" data-error-for="email">
+              Please enter a valid email.
+            </div>
+          </div>
+          <div class="lp-form-row">
+            <label for="lp-zip">ZIP code (optional)</label>
+            <input
+              type="text"
+              id="lp-zip"
+              name="optin_zip"
+              inputmode="numeric"
+              maxlength="5"
+              autocomplete="postal-code"
+              placeholder="35801"
+            />
+          </div>
+          <button type="submit" class="lp-submit" id="lp-submit">
+            Send me the checklist →
+          </button>
+          <p class="lp-fineprint">
+            Free PDF · arrives in under 60 seconds · no credit card.
+          </p>
+        </form>
+
+        <!-- Success state -->
+        <div class="lp-success" id="lp-success" role="status" aria-live="polite">
+          <h2>You're in. Check your inbox in 60 seconds.</h2>
+          <p>
+            The PDF is on the way to your inbox. If you don't see it, check
+            spam or Promotions and drag this email to Primary so the next one
+            lands in the right place.
+          </p>
+          <p>
+            Want to read it now while the email lands?
+            <a
+              href="/checklist-pdf"
+              target="_blank"
+              rel="noopener"
+              style="color: var(--tvct-navy); font-weight:600; text-decoration:underline;"
+              >Open the printable checklist →</a
+            >
+          </p>
+          <p>
+            <strong>One more thing.</strong> If your house needs to be clean
+            today — showing tomorrow, party tonight, walk-through Monday —
+            don't wait for the PDF. Text or call us right now and we'll quote
+            you in under 2 hours.
+          </p>
+          <p class="lp-phones">
+            <strong>Alabama:</strong>
+            <a href="tel:+12568261100">(256) 826-1100</a> ·
+            <strong>Tennessee:</strong>
+            <a href="tel:+16155101427">(615) 510-1427</a>
+          </p>
+        </div>
+
+        <p class="lp-trust-row">
+          Trusted by 1,000+ Valley homeowners across Huntsville, Athens, the
+          Shoals, Birmingham, Mountain Brook, and Nashville.
+        </p>
+      </section>
+
+      <hr class="lp-rule" />
+
+      <!-- THE PROBLEM -->
+      <section class="lp-body">
+        <h2>The way most cleaning gets sold is broken.</h2>
+        <p>Here's how the average cleaning quote actually goes:</p>
+        <div class="lp-day-list">
+          <p><strong>DAY 1</strong> — You fill out a form. You wait.</p>
+          <p>
+            <strong>DAY 2</strong> — Someone calls back. They want to schedule
+            an in-home estimate.
+          </p>
+          <p>
+            <strong>DAY 3</strong> — A marked vehicle pulls up. A stranger
+            walks your house with a clipboard.
+          </p>
+          <p>
+            <strong>DAY 4</strong> — You get an email. The price says
+            "starting at $X" — which is not the price you'll actually pay.
+          </p>
+          <p>
+            <strong>DAY 5</strong> — You finally book. They can fit you in
+            next Tuesday.
+          </p>
+        </div>
+        <p>
+          Total time: 5 days. Total time you actually had: 2.
+        </p>
+        <p>
+          That's the broken process. The chains do it because it's their
+          playbook. The aggregator apps (Homeaglow, Handy, Care.com) skip it
+          but send you a different uninsured stranger every visit.
+        </p>
+        <p>
+          The 7-item checklist below is the rubric we wish someone had handed
+          us before we started this business.
+        </p>
+
+        <!-- WHAT'S INSIDE -->
+        <h2>What's inside the PDF.</h2>
+        <ul>
+          <li>The 3 categories of cleaning, and how to price each correctly</li>
+          <li>
+            The 5 deal-breaker rooms to flag before you call (so the quote
+            stays accurate)
+          </li>
+          <li>
+            Why "starting at $X" pricing always costs you more — and what to
+            ask for instead
+          </li>
+          <li>
+            How to confirm a same-day arrival window in writing (text counts)
+          </li>
+          <li>
+            The 3 vetting questions that reveal whether a cleaner is actually
+            insured
+          </li>
+          <li>
+            A quick-start section for emergencies (Friday-night party, Monday
+            move-out, etc.)
+          </li>
+        </ul>
+
+        <!-- WHO IT'S FOR -->
+        <h2>Who this is for.</h2>
+        <p>The checklist is built for:</p>
+        <ul>
+          <li>
+            First-time professional-cleaning hirers who don't know what
+            "normal" looks like
+          </li>
+          <li>
+            Last-minute hosts (in-laws Friday, party Saturday, listing showing
+            Monday)
+          </li>
+          <li>Renters facing a deposit walk-through</li>
+          <li>
+            Busy parents and dual-career households who can't take a Tuesday
+            off for an in-home estimate
+          </li>
+          <li>
+            Anyone who's been burned by an aggregator app or a bait-and-switch
+            quote
+          </li>
+        </ul>
+        <p>It's not for you if you already have a cleaner you love. Hold onto them.</p>
+
+        <!-- WHY US -->
+        <h2>If you want to know who's behind it.</h2>
+        <p>
+          We didn't build this checklist to sell you on us. We built it
+          because the way most cleaning is sold is broken, and we got tired of
+          hearing the horror stories. But if you're curious:
+        </p>
+        <ul>
+          <li>2-hour quote response, guaranteed during business hours</li>
+          <li>Same-day arrival windows — 2 to 4 hours after you accept</li>
+          <li>Flat upfront pricing — the price you see is the price you pay</li>
+          <li>$2 million liability insurance — bonded and background-checked</li>
+          <li>130+ verified 5-star reviews across five markets</li>
+          <li>Same team, every time — not a rotating gig pool</li>
+          <li>
+            Post-clean photo documentation — proof you got what you paid for
+          </li>
+          <li>
+            Veteran-owned, women-led, family-run — by Todd &amp; Christen,
+            raising a 4-year-old
+          </li>
+        </ul>
+        <p>You don't have to take our word for it. Run us through the checklist.</p>
+
+        <!-- WHAT HAPPENS NEXT -->
+        <h2>What happens after you opt in.</h2>
+        <ol>
+          <li>
+            <strong>Right now:</strong> You get the PDF in your inbox in under
+            60 seconds.
+          </li>
+          <li>
+            <strong>This week:</strong> A short email from Christen with the 3
+            questions most people forget to ask (didn't fit in the PDF).
+          </li>
+          <li>
+            <strong>Over the next two weeks:</strong> A few honest emails about
+            how cleaning actually gets priced — written by Todd, the owner. No
+            newsletter blast, no sales scripts.
+          </li>
+          <li>
+            <strong>Whenever you're ready:</strong> A flat quote in under 2
+            hours, on whatever home, whatever schedule you want. Or
+            unsubscribe. We don't make it weird.
+          </li>
+        </ol>
+
+        <!-- FAQ -->
+        <h2>FAQ.</h2>
+        {faqs.map((f) => (
+          <>
+            <p><strong>{f.question}</strong></p>
+            <p>{f.answer}</p>
+          </>
+        ))}
+      </section>
+
+      <!-- FINAL CTA -->
+      <section class="lp-final-cta">
+        <h2>Get the checklist.</h2>
+        <p>
+          Free PDF · 5-minute read · works on whoever you call. The 60-second
+          version takes one form below.
+        </p>
+        <button
+          type="button"
+          class="lp-submit"
+          id="lp-scroll-to-form"
+          aria-label="Scroll to opt-in form"
+        >
+          Send me the checklist →
+        </button>
+      </section>
+
+      <p class="lp-footer">
+        The Valley Clean Team · Veteran-owned. Women-led. $2M insured. Same
+        team, every time.<br />
+        Alabama: <a href="tel:+12568261100">(256) 826-1100</a> · Tennessee:
+        <a href="tel:+16155101427">(615) 510-1427</a> ·
+        <a href="mailto:hello@thevalleycleanteam.com"
+          >hello@thevalleycleanteam.com</a
+        ><br />
+        <a href="/">thevalleycleanteam.com</a>
+      </p>
+    </div>
+  </main>
+
+  <script is:inline>
+    (function () {
+      const form = document.getElementById("lp-form");
+      const successEl = document.getElementById("lp-success");
+      const submitBtn = document.getElementById("lp-submit");
+      const scrollBtn = document.getElementById("lp-scroll-to-form");
+      const firstNameEl = document.getElementById("lp-first-name");
+      const emailEl = document.getElementById("lp-email");
+      const zipEl = document.getElementById("lp-zip");
+
+      if (scrollBtn && form) {
+        scrollBtn.addEventListener("click", function () {
+          form.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(function () {
+            firstNameEl && firstNameEl.focus();
+          }, 400);
+        });
+      }
+
+      function setError(name, show) {
+        const el = document.querySelector(
+          '[data-error-for="' + name + '"]'
+        );
+        if (el) el.style.display = show ? "block" : "none";
+      }
+
+      function isValidEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      }
+
+      if (!form) return;
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const firstName = (firstNameEl.value || "").trim();
+        const email = (emailEl.value || "").trim();
+        const zip = (zipEl.value || "").trim();
+
+        let ok = true;
+        if (!firstName) {
+          setError("first_name", true);
+          ok = false;
+        } else {
+          setError("first_name", false);
+        }
+        if (!isValidEmail(email)) {
+          setError("email", true);
+          ok = false;
+        } else {
+          setError("email", false);
+        }
+        if (!ok) return;
+
+        submitBtn.disabled = true;
+        const originalLabel = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
+
+        try {
+          const res = await fetch("/api/submit-form", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              source: "2-Hour Quote Checklist Opt-in",
+              first_name: firstName,
+              name: firstName,
+              email: email,
+              optin_zip: zip,
+              page_url: window.location.href,
+            }),
+          });
+          const data = await res.json().catch(function () {
+            return {};
+          });
+          if (!res.ok || !data.success) {
+            throw new Error(data.error || "Submission failed");
+          }
+          form.style.display = "none";
+          successEl.style.display = "block";
+          successEl.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // GA4 / Vercel analytics event
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "generate_lead", {
+              event_category: "Lead Magnet",
+              event_label: "2-Hour Quote Checklist",
+              value: 1,
+            });
+          }
+        } catch (err) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+          setError("email", true);
+          const errEl = document.querySelector('[data-error-for="email"]');
+          if (errEl)
+            errEl.textContent =
+              "Something went wrong — try again or text us at (256) 826-1100.";
+        }
+      });
+    })();
+  </script>
+</BaseLayout>

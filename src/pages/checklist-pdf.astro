@@ -1,0 +1,526 @@
+---
+// Print-optimized route for the 2-Hour Quote Checklist lead magnet.
+// Open this URL in a browser → Cmd/Ctrl+P → Save as PDF.
+// noindex so search engines don't pull the gated content directly.
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "The 2-Hour Quote Checklist — Printable PDF | Valley Clean Team";
+---
+
+<BaseLayout
+  title={title}
+  description="Printable version of The 2-Hour Quote Checklist. 7 questions to ask before booking any cleaner."
+  showNav={false}
+  showFooter={false}
+  schemaType="none"
+  noindex={true}
+>
+  <style slot="preload">
+    /* Brand tokens */
+    :root {
+      --pdf-cream: #f5efe6;
+      --pdf-navy: #1b2a41;
+      --pdf-brass: #c9a86b;
+      --pdf-grey: #6b7280;
+      --pdf-cream-deep: #ebe3d5;
+    }
+
+    body {
+      margin: 0;
+      background: #d6cfc2;
+      font-family:
+        ui-serif,
+        Georgia,
+        "Times New Roman",
+        serif;
+    }
+
+    .pdf-toolbar {
+      max-width: 800px;
+      margin: 24px auto 0;
+      padding: 12px 20px;
+      background: var(--pdf-navy);
+      color: var(--pdf-cream);
+      border-radius: 6px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .pdf-toolbar button {
+      background: var(--pdf-brass);
+      color: var(--pdf-navy);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    .pdf-toolbar button:hover {
+      background: #b8975a;
+    }
+    .pdf-toolbar a {
+      color: var(--pdf-cream);
+      text-decoration: underline;
+      font-size: 13px;
+    }
+
+    .pdf-page {
+      max-width: 800px;
+      margin: 16px auto 40px;
+      background: #fff;
+      padding: 56px 64px;
+      border-radius: 6px;
+      color: var(--pdf-navy);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .pdf-overline {
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--pdf-brass);
+      font-weight: 700;
+      margin: 0 0 14px;
+    }
+
+    .pdf-title {
+      font-size: 38px;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin: 0 0 12px;
+      color: var(--pdf-navy);
+    }
+    .pdf-subtitle {
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--pdf-navy);
+      margin: 0 0 28px;
+    }
+
+    .pdf-rule {
+      border: 0;
+      height: 1px;
+      background: var(--pdf-cream-deep);
+      margin: 28px 0;
+    }
+
+    .pdf-page h2 {
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 700;
+      margin: 32px 0 12px;
+      letter-spacing: -0.005em;
+    }
+    .pdf-page h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 22px 0 6px;
+      line-height: 1.3;
+    }
+    .pdf-page p {
+      font-size: 15.5px;
+      line-height: 1.7;
+      margin: 0 0 12px;
+    }
+    .pdf-page ul,
+    .pdf-page ol {
+      padding-left: 22px;
+      margin: 8px 0 14px;
+    }
+    .pdf-page li {
+      font-size: 15.5px;
+      line-height: 1.6;
+      margin: 6px 0;
+    }
+    .pdf-page strong {
+      color: var(--pdf-navy);
+    }
+    .pdf-tip {
+      background: var(--pdf-cream);
+      border-left: 3px solid var(--pdf-brass);
+      padding: 12px 16px;
+      margin: 12px 0 18px;
+      font-size: 14.5px;
+      line-height: 1.6;
+      border-radius: 0 4px 4px 0;
+    }
+    .pdf-tip strong {
+      color: var(--pdf-brass);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 12px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .pdf-check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 4px 0;
+    }
+    .pdf-check-item::before {
+      content: "☐";
+      color: var(--pdf-brass);
+      font-size: 22px;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .pdf-check-item .pdf-check-content {
+      flex: 1;
+    }
+
+    .pdf-quick-start {
+      background: var(--pdf-navy);
+      color: var(--pdf-cream);
+      padding: 24px 28px;
+      border-radius: 6px;
+      margin: 24px 0;
+    }
+    .pdf-quick-start h2 {
+      color: var(--pdf-cream);
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+    .pdf-quick-start p,
+    .pdf-quick-start ol li {
+      color: var(--pdf-cream);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .pdf-footer {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid var(--pdf-cream-deep);
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      font-size: 12.5px;
+      color: var(--pdf-grey);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .pdf-footer strong {
+      color: var(--pdf-navy);
+    }
+
+    /* Page-break hints (Astro v6 supports CSS3 print rules natively) */
+    h2 {
+      page-break-after: avoid;
+    }
+    .pdf-quick-start,
+    .pdf-tip {
+      page-break-inside: avoid;
+    }
+
+    /* Print rules — what gets sent to the printer */
+    @media print {
+      body {
+        background: #fff;
+      }
+      .pdf-toolbar {
+        display: none;
+      }
+      .pdf-page {
+        box-shadow: none;
+        max-width: 100%;
+        margin: 0;
+        padding: 0 0 24px;
+        border-radius: 0;
+      }
+      @page {
+        margin: 0.6in;
+        size: letter;
+      }
+    }
+  </style>
+
+  <div class="pdf-toolbar">
+    <div>
+      <strong>The 2-Hour Quote Checklist (printable)</strong> — press
+      Ctrl/Cmd+P to save as PDF.
+    </div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <a href="/checklist">← back to opt-in page</a>
+      <button type="button" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+  </div>
+
+  <main class="pdf-page">
+    <p class="pdf-overline">The Valley Clean Team · Free PDF</p>
+    <h1 class="pdf-title">The 2-Hour Quote Checklist</h1>
+    <p class="pdf-subtitle">
+      7 things to know before you book any cleaner — so you get a real price
+      today, not a sales call on Thursday.
+    </p>
+
+    <p>
+      Most cleaning quotes take three to five days. They start with a form,
+      then a phone call, then a visit from someone in a marked vehicle, then
+      an emailed estimate that's "starting at" some number you'll never
+      actually pay.
+    </p>
+    <p>
+      We built this checklist because that process is broken. You shouldn't
+      have to take a Tuesday off work to find out what it costs to clean your
+      house.
+    </p>
+    <p>
+      If you use the seven items below, you can get a real, flat, all-in price
+      — from us or anyone else — in under two hours. And you can be on the
+      schedule today.
+    </p>
+
+    <div class="pdf-quick-start">
+      <h2>Quick Start</h2>
+      <p>
+        If your house needs to be clean by tonight (showing tomorrow, in-laws
+        on Friday, deposit walk-through Monday), do these three first:
+      </p>
+      <ol>
+        <li><strong>Item 5</strong> — Have your square footage ready before you call</li>
+        <li><strong>Item 7</strong> — Ask for a flat price, not "starting at"</li>
+        <li><strong>Item 6</strong> — Confirm the same-day window in writing (text counts)</li>
+      </ol>
+      <p style="margin-bottom:0;">
+        The other four items protect you from booking the wrong cleaner.
+        These three get you on the schedule.
+      </p>
+    </div>
+
+    <hr class="pdf-rule" />
+
+    <h2>Phase 1: Before You Call</h2>
+
+    <div class="pdf-check-item">
+      <div class="pdf-check-content">
+        <h3>1. Decide what kind of clean you actually need</h3>
+        <p>
+          Cleaners price three things very differently. Knowing which one you
+          need cuts your quote time in half.
+        </p>
+        <ul>
+          <li>
+            <strong>Recurring</strong> — every week, every two weeks, or once
+            a month. Lowest per-visit price (often 15–20% off the deep-clean
+            rate).
+          </li>
+          <li>
+            <strong>Deep clean</strong> — for first visits, post-renovation,
+            or any home that hasn't been professionally cleaned in 90+ days.
+            Higher price, longer time on site.
+          </li>
+          <li>
+            <strong>Move-in / move-out</strong> — empty home, focus on
+            appliances, baseboards, inside cabinets. Priced separately
+            because the scope is different.
+          </li>
+        </ul>
+        <div class="pdf-tip">
+          <strong>Quick tip</strong>
+          If a cleaner won't tell you which category you fall into without a
+          visit, that's a red flag. A real one can usually tell from a photo
+          or a square-footage number.
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-check-item">
+      <div class="pdf-check-content">
+        <h3>2. Write down your bedroom and bathroom count</h3>
+        <p>
+          Almost every legitimate cleaning quote uses bedrooms + bathrooms as
+          the primary input. If you're calling, have it ready: "3 bed, 2
+          bath, 2,200 square feet."
+        </p>
+        <div class="pdf-tip">
+          <strong>Quick tip</strong>
+          Half-baths count as half a bath. Most pricing rounds them up. Be
+          honest — under-counting now means a surprise add-on later.
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-check-item">
+      <div class="pdf-check-content">
+        <h3>3. Identify the deal-breaker rooms</h3>
+        <p>Some rooms add real time and should be flagged before you get a quote:</p>
+        <ul>
+          <li>A separate primary bath with a soaker tub</li>
+          <li>A finished basement with a second kitchen</li>
+          <li>Two-story foyers or staircases needing a ladder</li>
+          <li>Pet areas (litter, crates, rugs)</li>
+          <li>A home office with electronics</li>
+        </ul>
+        <div class="pdf-tip">
+          <strong>Quick tip</strong>
+          Mention these up front. A cleaner who doesn't ask about them will
+          either upcharge you on the day or rush through them. Both are bad.
+        </div>
+      </div>
+    </div>
+
+    <hr class="pdf-rule" />
+
+    <h2>Phase 2: When You Call (or Text, or Click)</h2>
+
+    <div class="pdf-check-item">
+      <div class="pdf-check-content">
+        <h3>4. Time the response</h3>
+        <p>
+          Open your phone clock when you submit the form, send the text, or
+          hang up.
+          <strong
+            >A real local team responds in under 2 hours during business
+            hours.</strong
+          >
+          Most chains take 24–72 hours. Aggregator apps (Homeaglow, Handy,
+          Care.com) respond fast but match you with a different gig worker
+          every time.
+        </p>
+        <div class="pdf-tip">
+          <strong>Quick tip</strong>
+          If they take longer than two hours to respond to a quote request,
+          ask yourself — how long will they take to respond when something
+          goes wrong on a clean?
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-check-item">
+      <div class="pdf-check-content">
+        <h3>5. Have your square footage ready</h3>
+        <p>
+          Look it up on Zillow, your closing docs, or the county property
+          records — it takes 30 seconds. Without it, every cleaner will pad
+          the quote to protect themselves.
+        </p>
+        <div class="pdf-tip">
+          <strong>Quick tip</strong>
+          Don't include garage square footage. Most cleaners don't service
+          it.
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-check-item">
+      <div class="pdf-check-content">
+        <h3>6. Get the arrival window in writing</h3>
+        <p>
+          A real same-day commitment is a window, not a vague "later today."
+          For us it's a 2–4 hour arrival window after you accept the quote,
+          sent to you by text. Anyone who says "we'll try to fit you in" is
+          not actually offering same-day service.
+        </p>
+        <div class="pdf-tip">
+          <strong>Quick tip</strong>
+          Screenshot it. If they push back on putting an arrival window in a
+          text, they don't really do same-day.
+        </div>
+      </div>
+    </div>
+
+    <div class="pdf-check-item">
+      <div class="pdf-check-content">
+        <h3>7. Ask for a flat price, not "starting at"</h3>
+        <p>
+          <strong
+            >This is the single most important item on this list.</strong
+          >
+          The phrase "starting at $X" means "you will pay more than $X." A
+          flat price means the number you saw is the number you pay.
+        </p>
+        <p>A real flat quote includes:</p>
+        <ul>
+          <li>Labor for the entire clean</li>
+          <li>Supplies and equipment</li>
+          <li>Travel within the service area</li>
+          <li>All the rooms you discussed</li>
+        </ul>
+        <p>
+          It does <strong>not</strong> include surprise "we needed extra
+          time" add-ons. If a cleaner won't give you a flat number, ask why.
+          The honest answer ("we haven't seen the home") tells you they need
+          a visit before quoting — fine, but it's not same-day. The
+          dishonest answer ("our prices vary") tells you to keep calling.
+        </p>
+        <div class="pdf-tip">
+          <strong>Quick tip</strong>
+          If you get a flat quote, get it in writing before they show up. A
+          text with the price + arrival window is enough.
+        </div>
+      </div>
+    </div>
+
+    <hr class="pdf-rule" />
+
+    <h2>Bonus: Three questions that reveal a serious cleaner</h2>
+    <p>
+      Once you have a quote, three more questions separate the pros from the
+      rest:
+    </p>
+    <ol>
+      <li>
+        <strong>"Are you insured? For how much?"</strong> — A serious cleaner
+        answers in dollars. Ours is $2 million. If they pause, they're
+        either uninsured or under-insured. Either way, your homeowner's
+        policy may not cover damage caused by an uninsured contractor.
+      </li>
+      <li>
+        <strong>"Will the same team come every time?"</strong> — Aggregator
+        apps and most large chains rotate cleaners. That means a stranger in
+        your home every visit and inconsistent quality. A real local team
+        sends the same crew so they learn your home.
+      </li>
+      <li>
+        <strong>"Do I get photos of the finished clean?"</strong> —
+        Photo-documented cleans are still rare. They're proof you got what
+        you paid for, and they give you something concrete if anything is
+        missed.
+      </li>
+    </ol>
+
+    <hr class="pdf-rule" />
+
+    <h2>What's Next</h2>
+    <p>
+      If you ran any cleaner through this checklist and they passed, book
+      them. We mean it. The point of this checklist is not to sell you on us
+      — it's to keep you from getting burned by the broken way most cleaning
+      is sold.
+    </p>
+    <p>
+      But if you're calling around and finding that nobody actually responds
+      in two hours, nobody quotes flat, and nobody commits to a same-day
+      window, that's because almost no insured, vetted local team does. We
+      do.
+    </p>
+    <p>
+      <strong
+        >Get a real flat quote in under 2 hours, with a same-day arrival
+        window:</strong
+      >
+    </p>
+    <ul>
+      <li><strong>Alabama:</strong> (256) 826-1100</li>
+      <li><strong>Tennessee:</strong> (615) 510-1427</li>
+      <li>
+        <strong>Online:</strong> thevalleycleanteam.com — quote form takes
+        about 60 seconds
+      </li>
+    </ul>
+
+    <div class="pdf-footer">
+      <strong>The Valley Clean Team</strong><br />
+      Veteran-owned. Women-led. $2M insured. Same team, every time.<br />
+      Serving Huntsville, Athens, the Shoals, Birmingham, Mountain Brook,
+      and Nashville.<br />
+      — Todd &amp; Christen
+    </div>
+  </main>
+</BaseLayout>
