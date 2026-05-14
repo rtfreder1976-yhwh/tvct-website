@@ -162,18 +162,30 @@ const title = "The 2-Hour Quote Checklist — Printable PDF | Valley Clean Team"
     .pdf-check-item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      margin: 4px 0;
+      gap: 14px;
+      margin: 22px 0 0;
     }
     .pdf-check-item::before {
       content: "☐";
       color: var(--pdf-brass);
-      font-size: 22px;
+      font-size: 24px;
       line-height: 1;
-      margin-top: 2px;
+      flex: 0 0 auto;
+      /* Align the checkbox optically with the H3's cap-height, not its
+         line box. The H3 has font-size 18px, line-height 1.3 → top of the
+         glyph sits ~3px below the box top. Push the checkbox the same
+         amount so the top of the box and the top of "1." line up. */
+      margin-top: 3px;
     }
     .pdf-check-item .pdf-check-content {
       flex: 1;
+      min-width: 0;
+    }
+    /* Inside a check item, the h3 already has the row's top margin from
+       the parent, so kill its own top margin to keep the checkbox and the
+       number on the same baseline. */
+    .pdf-check-item .pdf-check-content > h3:first-child {
+      margin-top: 0;
     }
 
     .pdf-quick-start {
