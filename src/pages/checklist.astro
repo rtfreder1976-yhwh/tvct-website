@@ -647,6 +647,43 @@ const faqs = [
       const emailEl = document.getElementById("lp-email");
       const zipEl = document.getElementById("lp-zip");
 
+      // ---- Funnel tracking ----
+      // Tag every event with this campaign so we can build a single GA4
+      // funnel report across all entries to /checklist.
+      var CAMPAIGN_TAG = "2hr-quote-checklist";
+      var fieldFocusFired = false; // first field-focus only
+
+      function track(eventName, extra) {
+        try {
+          var payload = Object.assign(
+            { event_category: "Lead Magnet", event_label: CAMPAIGN_TAG },
+            extra || {}
+          );
+          if (typeof window.gtag === "function") {
+            window.gtag("event", eventName, payload);
+          }
+          // Vercel Analytics — fire if present
+          if (window.va && typeof window.va === "function") {
+            window.va("event", { name: eventName, data: payload });
+          }
+        } catch (e) {
+          /* never break the page over analytics */
+        }
+      }
+
+      // Step 1 — page view (named explicitly so GA4 funnel report can key on it)
+      track("view_lead_magnet", { lead_magnet: "2-Hour Quote Checklist" });
+
+      // Step 2 — first-form-field focus (counts as "form-start" intent)
+      function fireFieldFocus() {
+        if (fieldFocusFired) return;
+        fieldFocusFired = true;
+        track("lead_form_focus");
+      }
+      [firstNameEl, emailEl, zipEl].forEach(function (el) {
+        if (el) el.addEventListener("focus", fireFieldFocus, { once: true });
+      });
+
       if (scrollBtn && form) {
         scrollBtn.addEventListener("click", function () {
           form.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -687,7 +724,14 @@ const faqs = [
         } else {
           setError("email", false);
         }
-        if (!ok) return;
+        if (!ok) {
+          // Step 3a — validation failed
+          track("lead_form_validation_error");
+          return;
+        }
+
+        // Step 3 — form-submit intent (POST hasn't completed yet)
+        track("lead_form_submit", { has_zip: zip ? "yes" : "no" });
 
         submitBtn.disabled = true;
         const originalLabel = submitBtn.textContent;
@@ -716,15 +760,16 @@ const faqs = [
           successEl.style.display = "block";
           successEl.scrollIntoView({ behavior: "smooth", block: "center" });
 
-          // GA4 / Vercel analytics event
-          if (typeof window.gtag === "function") {
-            window.gtag("event", "generate_lead", {
-              event_category: "Lead Magnet",
-              event_label: "2-Hour Quote Checklist",
-              value: 1,
-            });
-          }
+          // Step 4 — conversion (POST succeeded, GHL accepted)
+          track("generate_lead", { value: 1, currency: "USD" });
+          // Step 5 — success screen shown (separate event lets you measure
+          // how often users see vs. silently fail post-conversion)
+          track("view_lead_success");
         } catch (err) {
+          // Step 3b — submit reached but POST failed
+          track("lead_form_submit_error", {
+            error_message: (err && err.message) || "unknown",
+          });
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel;
           setError("email", true);
