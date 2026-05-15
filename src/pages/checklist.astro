@@ -42,137 +42,137 @@ const faqs = [
   faqs={faqs}
 >
   <style slot="preload">
-    /* Brand tokens from brand/creative-kit.md */
-    :root {
-      --tvct-cream: #f5efe6;
-      --tvct-navy: #1b2a41;
-      --tvct-brass: #c9a86b;
-      --tvct-grey: #6b7280;
-      --tvct-cream-deep: #ebe3d5;
-    }
+    /* /checklist uses the global site palette + typography.
+       Headlines: Playfair Display (loaded by BaseLayout). Body: Inter.
+       Accent: peach #FFA985 with #FFC67D gradient. Same as the rest of the site. */
 
     .lp-shell {
-      background: var(--tvct-cream);
-      color: var(--tvct-navy);
-      font-family:
-        ui-serif,
-        Georgia,
-        "Times New Roman",
-        serif;
-      min-height: 100vh;
+      /* Offset for the fixed top nav (h-16 + py-4). pt-24 ≈ 96px is what the
+         rest of the site uses on hero sections to clear the nav. */
+      padding-top: 96px;
+      background: #fff;
+      color: #333;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
 
     .lp-container {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 48px 24px;
+      padding: 0 24px 64px;
+    }
+
+    .lp-hero {
+      padding-top: 32px;
     }
 
     .lp-overline {
-      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-family: "Inter", system-ui, sans-serif;
       font-size: 12px;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--tvct-brass);
+      color: #FFA985;
       font-weight: 700;
-      margin: 0 0 16px;
+      margin: 0 0 18px;
     }
 
     .lp-hero h1 {
-      font-size: clamp(28px, 4.5vw, 44px);
-      line-height: 1.15;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.1;
       font-weight: 700;
       letter-spacing: -0.01em;
-      margin: 0 0 20px;
-      color: var(--tvct-navy);
+      margin: 0 0 22px;
+      color: #333;
+    }
+
+    .lp-hero h1 .accent {
+      background: linear-gradient(135deg, #FFA985 0%, #FF8C61 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .lp-hero p.lp-sub {
       font-size: 18px;
-      line-height: 1.6;
-      color: var(--tvct-navy);
-      margin: 0 0 12px;
+      line-height: 1.65;
+      color: #4b5563;
+      margin: 0 0 14px;
     }
 
+    /* Form card — matches the rounded, soft-shadow style of the rest of the site */
     .lp-form-card {
       background: #fff;
-      border: 1px solid var(--tvct-cream-deep);
-      border-radius: 8px;
-      padding: 28px 24px;
-      margin: 28px 0 12px;
-      box-shadow: 0 1px 0 rgba(27, 42, 65, 0.04);
+      border: 1px solid #f1ece4;
+      border-radius: 18px;
+      padding: 32px 28px;
+      margin: 32px 0 14px;
+      box-shadow: 0 8px 28px rgba(255, 169, 133, 0.08);
     }
 
     .lp-form-row {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .lp-form-row label {
-      font-family: ui-sans-serif, system-ui, sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      color: var(--tvct-navy);
+      color: #555;
+      margin-bottom: 2px;
     }
 
     .lp-form-row input {
-      padding: 13px 14px;
-      border: 1.5px solid var(--tvct-cream-deep);
-      border-radius: 6px;
-      background: var(--tvct-cream);
-      font-family:
-        ui-sans-serif,
-        system-ui,
-        sans-serif;
-      font-size: 16px;
-      color: var(--tvct-navy);
-      transition: border-color 0.15s;
+      padding: 13px 16px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
     .lp-form-row input:focus {
       outline: none;
-      border-color: var(--tvct-brass);
-      box-shadow: 0 0 0 3px rgba(201, 168, 107, 0.18);
+      border-color: #FFA985;
+      box-shadow: 0 0 0 3px rgba(255, 169, 133, 0.18);
     }
 
     .lp-submit {
       width: 100%;
-      padding: 16px 20px;
-      background: var(--tvct-navy);
-      color: var(--tvct-cream);
-      font-family:
-        ui-sans-serif,
-        system-ui,
-        sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #FFA985, #FFC67D);
+      color: #333;
+      font-family: "Inter", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
       border: none;
-      border-radius: 6px;
+      border-radius: 14px;
       cursor: pointer;
+      box-shadow: 0 4px 20px rgba(255, 169, 133, 0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
       margin-top: 4px;
-      transition:
-        transform 0.1s,
-        background 0.15s;
     }
     .lp-submit:hover {
-      background: #0f1e36;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(255, 169, 133, 0.45);
     }
     .lp-submit:active {
-      transform: translateY(1px);
+      transform: translateY(0);
     }
     .lp-submit:disabled {
       opacity: 0.7;
       cursor: not-allowed;
+      transform: none;
     }
 
     .lp-fineprint {
-      font-family: ui-sans-serif, system-ui, sans-serif;
       font-size: 13px;
-      color: var(--tvct-grey);
+      color: #6b7280;
       margin: 14px 0 0;
       text-align: center;
       line-height: 1.5;
@@ -181,178 +181,207 @@ const faqs = [
     .lp-error {
       color: #b3261e;
       font-size: 13px;
-      margin-top: 6px;
-      font-family: ui-sans-serif, system-ui, sans-serif;
+      margin-top: 4px;
       display: none;
     }
 
+    /* Success state */
     .lp-success {
       display: none;
-      background: #fff;
-      border: 1px solid var(--tvct-brass);
-      border-radius: 8px;
-      padding: 32px 24px;
+      background: linear-gradient(135deg, rgba(255, 169, 133, 0.06), rgba(255, 198, 125, 0.08));
+      border: 1px solid rgba(255, 169, 133, 0.25);
+      border-radius: 18px;
+      padding: 32px 28px;
       margin: 12px 0;
     }
     .lp-success h2 {
-      font-size: 24px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 26px;
       margin: 0 0 10px;
-      color: var(--tvct-navy);
+      color: #333;
     }
     .lp-success p {
       font-size: 16px;
-      color: var(--tvct-navy);
-      line-height: 1.6;
+      color: #4b5563;
+      line-height: 1.65;
       margin: 0 0 12px;
     }
     .lp-success .lp-phones {
-      font-family: ui-sans-serif, system-ui, sans-serif;
       font-size: 15px;
-      color: var(--tvct-navy);
+      color: #333;
     }
     .lp-success .lp-phones a {
-      color: var(--tvct-navy);
-      font-weight: 600;
+      color: #FFA985;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .lp-success .lp-phones a:hover {
       text-decoration: underline;
     }
 
     .lp-rule {
       border: 0;
       height: 1px;
-      background: var(--tvct-cream-deep);
-      margin: 48px 0;
+      background: linear-gradient(90deg, transparent, #eee, transparent);
+      margin: 56px 0;
     }
 
     /* Article body */
     .lp-body h2 {
-      font-size: 26px;
-      line-height: 1.25;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(24px, 3vw, 30px);
+      line-height: 1.2;
       font-weight: 700;
-      margin: 36px 0 16px;
-      color: var(--tvct-navy);
+      margin: 44px 0 18px;
+      color: #333;
       letter-spacing: -0.01em;
     }
     .lp-body p {
       font-size: 17px;
-      line-height: 1.7;
-      color: var(--tvct-navy);
-      margin: 0 0 14px;
+      line-height: 1.75;
+      color: #4b5563;
+      margin: 0 0 16px;
     }
     .lp-body ul {
       list-style: none;
       padding: 0;
-      margin: 8px 0 18px;
+      margin: 8px 0 22px;
     }
     .lp-body ul li {
       font-size: 17px;
-      line-height: 1.6;
-      color: var(--tvct-navy);
-      padding: 8px 0 8px 28px;
+      line-height: 1.65;
+      color: #4b5563;
+      padding: 10px 0 10px 32px;
       position: relative;
+      border-bottom: 1px solid #f7f3ec;
+    }
+    .lp-body ul li:last-child {
+      border-bottom: none;
     }
     .lp-body ul li::before {
-      content: "✓";
-      color: var(--tvct-brass);
+      content: "";
       position: absolute;
       left: 0;
-      top: 8px;
-      font-weight: 700;
+      top: 14px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFA985, #FFC67D);
+      box-shadow: 0 2px 6px rgba(255, 169, 133, 0.35);
+    }
+    .lp-body ul li::after {
+      content: "✓";
+      position: absolute;
+      left: 4px;
+      top: 12px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1;
     }
     .lp-body ol {
-      padding-left: 22px;
-      color: var(--tvct-navy);
+      padding-left: 24px;
+      color: #4b5563;
     }
     .lp-body ol li {
       font-size: 17px;
-      line-height: 1.7;
-      margin: 8px 0;
-    }
-    .lp-body blockquote {
-      border-left: 3px solid var(--tvct-brass);
-      background: #fff;
-      padding: 16px 20px;
-      margin: 20px 0;
-      font-style: italic;
-      color: var(--tvct-navy);
-      font-size: 17px;
-      line-height: 1.6;
+      line-height: 1.75;
+      margin: 10px 0;
     }
 
+    /* The 5-day list card — pre-existing pattern, restyled with peach accents */
     .lp-day-list {
       background: #fff;
-      border: 1px solid var(--tvct-cream-deep);
-      border-radius: 6px;
-      padding: 20px 24px;
-      margin: 12px 0;
+      border: 1px solid #f1ece4;
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin: 16px 0;
+      box-shadow: 0 4px 16px rgba(255, 169, 133, 0.06);
     }
     .lp-day-list p {
-      margin: 6px 0;
+      margin: 8px 0;
       font-size: 16px;
+      color: #4b5563;
     }
     .lp-day-list strong {
-      color: var(--tvct-brass);
-      letter-spacing: 0.04em;
+      color: #FFA985;
+      font-weight: 800;
+      letter-spacing: 0.05em;
     }
 
     .lp-trust-row {
-      font-family: ui-sans-serif, system-ui, sans-serif;
       font-size: 14px;
-      color: var(--tvct-grey);
+      color: #6b7280;
       text-align: center;
-      margin: 12px 0 0;
+      margin: 14px 0 0;
       line-height: 1.6;
     }
 
+    /* Final-CTA — peach gradient block matching site CTA pattern */
     .lp-final-cta {
-      background: var(--tvct-navy);
-      color: var(--tvct-cream);
-      padding: 36px 28px;
-      border-radius: 8px;
-      margin: 32px 0 16px;
+      background: linear-gradient(135deg, #FFA985, #FFC67D);
+      color: #333;
+      padding: 44px 32px;
+      border-radius: 22px;
+      margin: 40px 0 24px;
       text-align: center;
+      box-shadow: 0 12px 32px rgba(255, 169, 133, 0.3);
     }
     .lp-final-cta h2 {
-      color: var(--tvct-cream);
-      font-size: 26px;
-      margin: 0 0 12px;
+      font-family: "Playfair Display", Georgia, serif;
+      color: #333;
+      font-size: clamp(26px, 3.5vw, 32px);
+      margin: 0 0 14px;
     }
     .lp-final-cta p {
-      color: var(--tvct-cream);
+      color: #333;
       font-size: 17px;
       line-height: 1.6;
-      margin: 0 0 18px;
+      margin: 0 0 22px;
       opacity: 0.92;
     }
     .lp-final-cta .lp-submit {
-      background: var(--tvct-brass);
-      color: var(--tvct-navy);
+      background: #fff;
+      color: #FFA985;
       max-width: 360px;
       margin: 0 auto;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
     .lp-final-cta .lp-submit:hover {
-      background: #b8975a;
+      background: #fff;
+      color: #FF8C61;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
     }
 
-    .lp-footer {
-      font-family: ui-sans-serif, system-ui, sans-serif;
+    .lp-footer-note {
       font-size: 13px;
-      color: var(--tvct-grey);
+      color: #6b7280;
       text-align: center;
-      margin: 40px 0 0;
+      margin: 40px 0 16px;
       line-height: 1.7;
     }
-    .lp-footer a {
-      color: var(--tvct-grey);
+    .lp-footer-note a {
+      color: #FFA985;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .lp-footer-note a:hover {
       text-decoration: underline;
     }
 
     @media (max-width: 600px) {
+      .lp-shell {
+        padding-top: 80px;
+      }
       .lp-container {
-        padding: 32px 18px;
+        padding: 0 18px 48px;
       }
       .lp-form-card,
       .lp-day-list {
-        padding: 20px 18px;
+        padding: 22px 18px;
+      }
+      .lp-final-cta {
+        padding: 32px 22px;
       }
     }
   </style>
@@ -361,10 +390,11 @@ const faqs = [
     <div class="lp-container">
       <!-- HERO + FORM -->
       <section class="lp-hero">
-        <p class="lp-overline">The Valley Clean Team · Free PDF</p>
+        <p class="lp-overline">Free PDF · 60-second download</p>
         <h1>
-          The 7 things to ask before you book any cleaner — so you get a real
-          price today, not a sales call on Thursday.
+          The 7 things to ask before you book any cleaner — so you get
+          <span class="accent">a real price today</span>, not a sales call
+          on Thursday.
         </h1>
         <p class="lp-sub">
           Most cleaning companies take 3 to 5 days to give you a real quote.
@@ -624,15 +654,11 @@ const faqs = [
         </button>
       </section>
 
-      <p class="lp-footer">
-        The Valley Clean Team · Veteran-owned. Women-led. $2M insured. Same
-        team, every time.<br />
+      <p class="lp-footer-note">
+        Veteran-owned. Women-led. $2M insured. Same team, every time.<br />
         Alabama: <a href="tel:+12568261100">(256) 826-1100</a> · Tennessee:
         <a href="tel:+16155101427">(615) 510-1427</a> ·
-        <a href="mailto:hello@thevalleycleanteam.com"
-          >hello@thevalleycleanteam.com</a
-        ><br />
-        <a href="/">thevalleycleanteam.com</a>
+        <a href="mailto:hello@thevalleycleanteam.com">hello@thevalleycleanteam.com</a>
       </p>
     </div>
   </main>
