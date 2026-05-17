@@ -52,6 +52,7 @@ function sanitizePageUrl(raw: unknown): string {
 const ALLOWED_SOURCES = new Set([
     'Blog Newsletter Subscription',
     'Quote Form',
+    'Get Quote Form',
     'Homepage Form',
     'Location Page',
     'Service Page',
