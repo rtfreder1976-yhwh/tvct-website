@@ -59,8 +59,6 @@ const ALLOWED_SOURCES = new Set([
     'Neighborhood Landing Page',
     'Blog Page',
     'Booking Page Pre-Capture',
-    '2-Hour Quote Checklist Opt-in',
-    'Realtor Program Signup',
 ]);
 
 function sanitizeSource(raw: unknown): string {
@@ -94,7 +92,7 @@ export const POST: APIRoute = async ({ request }) => {
         const errors: Record<string, string> = {};
 
         // Newsletter subscription only requires email
-        if (data.source === 'Blog Newsletter Subscription' || data.source === '2-Hour Quote Checklist Opt-in') {
+        if (data.source === 'Blog Newsletter Subscription') {
             if (!data.email) errors.email = 'Email is required';
         } else if (data.source === 'Booking Page Pre-Capture') {
             // Pre-capture only requires name or phone (partial lead)
@@ -137,8 +135,6 @@ export const POST: APIRoute = async ({ request }) => {
                         page_url: sanitizePageUrl(data.page_url),
                         submission_id: crypto.randomUUID(),
                         timestamp: new Date().toISOString(),
-                        optin_zip: typeof data.optin_zip === 'string' ? data.optin_zip.slice(0, 10) : '',
-                        first_name: typeof data.first_name === 'string' ? data.first_name.slice(0, 60) : '',
                     }),
                 });
 
