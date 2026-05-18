@@ -52,6 +52,7 @@ function sanitizePageUrl(raw: unknown): string {
 const ALLOWED_SOURCES = new Set([
     'Blog Newsletter Subscription',
     'Quote Form',
+    'Get Quote Form',
     'Homepage Form',
     'Location Page',
     'Service Page',
@@ -59,6 +60,7 @@ const ALLOWED_SOURCES = new Set([
     'Blog Page',
     'Booking Page Pre-Capture',
     '2-Hour Quote Checklist Opt-in',
+    'Realtor Program Signup',
 ]);
 
 function sanitizeSource(raw: unknown): string {
