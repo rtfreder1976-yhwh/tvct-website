@@ -28,6 +28,13 @@ interface Props {
   whyChooseContent?: string[]; // Extended why choose us paragraphs
   serviceHighlights?: string[]; // Additional service highlights/features
   countyName?: string; // County name for local SEO
+  // OPTIONAL: Realtor Program section — when set, renders a 2-column "For Realtors / For Their Clients" panel
+  realtorProgram?: {
+    intro?: string;
+    realtorBenefits: string[];
+    clientBenefits: string[];
+    disclaimer?: string;
+  };
 }
 
 const {
@@ -49,6 +56,7 @@ const {
   whyChooseContent = [],
   serviceHighlights = [],
   countyName = "",
+  realtorProgram,
 } = Astro.props;
 
 // Get service-specific testimonials
@@ -603,14 +611,14 @@ const faqSchema = {
             </a>
             {isCommercial ? (
               <a
-                href="/contact"
+                href="/get-quote"
                 class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
               >
                 <Icon name="building" class="w-5 h-5 mr-2" />Schedule a Walkthrough
               </a>
             ) : (
               <a
-                href="/contact"
+                href="/get-quote"
                 class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
               >
                 <Icon name="calendar" class="w-5 h-5 mr-2" />See My Price
@@ -633,7 +641,7 @@ const faqSchema = {
               </h2>
               <p class="text-gray-600 mb-6">Commercial pricing depends on your space, frequency, and scope. We walk your facility first — then give you an exact number. No guesswork, no surprises.</p>
               <a
-                href="/contact"
+                href="/get-quote"
                 class="btn-primary w-full py-4 rounded-full text-lg font-semibold block text-center shadow-lg mb-3"
               >
                 <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Free Walkthrough
@@ -962,6 +970,89 @@ const faqSchema = {
     )
   }
 
+  <!-- Realtor Program — 2-column "For Realtors / For Their Clients" -->
+  {
+    realtorProgram && (
+      <section class="py-16 px-6 bg-white">
+        <div class="container mx-auto max-w-5xl">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
+              The Realtor Program
+            </h2>
+            {realtorProgram.intro && (
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {realtorProgram.intro}
+              </p>
+            )}
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            {/* Box 1 — For Realtors */}
+            <div class="bg-gradient-to-br from-[#FFA985]/5 to-[#FFC67D]/5 rounded-2xl p-8 border-2 border-[#FFA985]/30 shadow-sm">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-[#FFA985]/20 flex items-center justify-center mr-4">
+                  <Icon name="briefcase" class="w-6 h-6 text-[#FFA985]" />
+                </div>
+                <h3 class="text-2xl font-bold text-[#333333]">For You (the Realtor)</h3>
+              </div>
+              <ul class="space-y-3">
+                {realtorProgram.realtorBenefits.map((benefit) => (
+                  <li class="flex items-start">
+                    <Icon
+                      name="check-circle"
+                      class="w-5 h-5 text-[#FFA985] mr-3 mt-1 flex-shrink-0"
+                    />
+                    <span class="text-gray-700">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Box 2 — For Their Clients */}
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border-2 border-blue-200 shadow-sm">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                  <Icon name="home" class="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 class="text-2xl font-bold text-[#333333]">For Your Client (the Seller)</h3>
+              </div>
+              <ul class="space-y-3">
+                {realtorProgram.clientBenefits.map((benefit) => (
+                  <li class="flex items-start">
+                    <Icon
+                      name="check-circle"
+                      class="w-5 h-5 text-blue-600 mr-3 mt-1 flex-shrink-0"
+                    />
+                    <span class="text-gray-700">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {realtorProgram.disclaimer && (
+            <p class="text-center text-sm text-gray-500 mt-8 max-w-3xl mx-auto italic">
+              {realtorProgram.disclaimer}
+            </p>
+          )}
+
+          <div class="text-center mt-10">
+            <a
+              href="tel:2568261100"
+              class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition inline-flex items-center"
+            >
+              <Icon name="phone" class="w-5 h-5 mr-2" />
+              Text Christen: 256-826-1100
+            </a>
+            <p class="text-sm text-gray-500 mt-3">
+              Or fill out the form below and we'll set up your Realtor Program account
+            </p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   <!-- About This Service -->
   <section class="py-16 px-6">
     <div class="container mx-auto max-w-5xl">
@@ -1154,7 +1245,7 @@ const faqSchema = {
             {isCommercial ? (
               <>
                 <a
-                  href="/contact"
+                  href="/get-quote"
                   class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg"
                 >
                   <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Free Walkthrough
@@ -1178,7 +1269,7 @@ const faqSchema = {
                   <Icon name="phone" class="w-5 h-5 mr-2" />Call for Instant Quote
                 </a>
                 <a
-                  href="/contact"
+                  href="/get-quote"
                   class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
                 >
                   <Icon name="calendar" class="w-5 h-5 mr-2" />Schedule Online
@@ -1327,7 +1418,7 @@ const faqSchema = {
               <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
             </a>
             <a
-              href="/contact"
+              href="/get-quote"
               class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
             >
               <Icon name="building" class="w-5 h-5 mr-2" />Request a Free Walkthrough
@@ -1360,7 +1451,7 @@ const faqSchema = {
               <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
             </a>
             <a
-              href="/contact"
+              href="/get-quote"
               class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
             >
               <Icon name="calendar" class="w-5 h-5 mr-2" />Claim Your Clean Home
