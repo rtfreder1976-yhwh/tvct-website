@@ -10,22 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Wait for Vercel preview deployment
+        id: vercel_preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.3
         with:
-          node-version: '24'
-          cache: 'npm'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 600
 
-      - run: npm ci
-
-      - run: npm run build
-
-      - name: Run Lighthouse CI
+      - name: Run Lighthouse CI against preview
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
-            http://localhost:4321/
-            http://localhost:4321/services/house-cleaning
-            http://localhost:4321/get-quote
+            ${{ steps.vercel_preview.outputs.url }}
+            ${{ steps.vercel_preview.outputs.url }}/services/house-cleaning
+            ${{ steps.vercel_preview.outputs.url }}/get-quote
           uploadArtifacts: true
           temporaryPublicStorage: true
           budgetPath: .github/lighthouse-budget.json
