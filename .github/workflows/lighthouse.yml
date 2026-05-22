@@ -16,16 +16,30 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           max_timeout: 600
+          vercel_protection_bypass_header: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+
+      - name: Build bypass-suffixed URLs
+        id: urls
+        env:
+          BASE: ${{ steps.vercel_preview.outputs.url }}
+          BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+        run: |
+          Q="x-vercel-protection-bypass=$BYPASS&x-vercel-set-bypass-cookie=true"
+          {
+            echo "home=$BASE/?$Q"
+            echo "house=$BASE/services/house-cleaning?$Q"
+            echo "quote=$BASE/get-quote?$Q"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Run Lighthouse CI against preview
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
-            ${{ steps.vercel_preview.outputs.url }}
-            ${{ steps.vercel_preview.outputs.url }}/services/house-cleaning
-            ${{ steps.vercel_preview.outputs.url }}/get-quote
+            ${{ steps.urls.outputs.home }}
+            ${{ steps.urls.outputs.house }}
+            ${{ steps.urls.outputs.quote }}
           uploadArtifacts: true
-          temporaryPublicStorage: true
+          temporaryPublicStorage: false
           budgetPath: .github/lighthouse-budget.json
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
