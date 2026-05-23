@@ -126,41 +126,23 @@ const metaDescription =
           function () {
             (c[a].q = c[a].q || []).push(arguments);
           };
-        t = l.createElement(r);
-        t.async = 1;
-        t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0];
-        y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "uwwxu9stzh");
-    </script>
+        }
 
-    <!-- Meta Pixel Code -->
-    <script type="text/partytown">
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = "2.0";
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        "script",
-        "https://connect.facebook.net/en_US/fbevents.js",
-      );
-      fbq("init", "1628116715040596");
-      fbq("track", "PageView");
+        // Trigger on first interaction
+        var events = ["pointerdown", "keydown", "scroll", "touchstart"];
+        function onInteract() {
+          events.forEach(function (e) { window.removeEventListener(e, onInteract, { passive: true }); });
+          loadMarketingTags();
+        }
+        events.forEach(function (e) { window.addEventListener(e, onInteract, { passive: true, once: true }); });
+
+        // Fallback: load after 5s of idle time even without interaction
+        if ("requestIdleCallback" in window) {
+          window.requestIdleCallback(loadMarketingTags, { timeout: 5000 });
+        } else {
+          setTimeout(loadMarketingTags, 5000);
+        }
+      })();
     </script>
     <noscript
       ><img
@@ -172,7 +154,7 @@ const metaDescription =
         loading="lazy"
       /></noscript
     >
-    <!-- End Meta Pixel Code -->
+    <!-- End deferred marketing tags -->
 
     <!-- Preload self-hosted critical font for LCP (H1 uses Playfair Display Bold) -->
     <link
