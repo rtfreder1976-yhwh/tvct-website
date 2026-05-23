@@ -73,6 +73,9 @@ const metaDescription =
     <slot name="preload" />
     <!-- Preload logo WebP - above-fold critical asset -->
     <link rel="preload" href="/images/logo.webp" as="image" type="image/webp" />
+    <!-- Preconnect to Google Fonts (Inter served from fonts.gstatic.com) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Preconnect to critical third-party origins (before scripts for maximum benefit) -->
     <link
       rel="preconnect"
@@ -81,6 +84,26 @@ const metaDescription =
     />
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+
+    <!-- Inter (body): Google Fonts subset, ~20KB total via unicode-range chunking.
+         Loaded async via media trick so it never blocks render. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
 
     <!-- Google Analytics 4 - Runs in web worker via Partytown (off main thread) -->
     <script
@@ -546,7 +569,8 @@ const metaDescription =
         aspect-ratio: attr(width) / attr(height);
       }
 
-      /* Critical font declarations - use preloaded self-hosted fonts immediately */
+      /* Critical font declaration - Playfair stays self-hosted (22KB, used in H1 LCP).
+         Inter is loaded via Google Fonts <link> above for a ~20KB Latin subset. */
       @font-face {
         font-family: "Playfair Display";
         font-style: normal;
@@ -554,23 +578,7 @@ const metaDescription =
         font-display: swap;
         src: url(/fonts/playfair-display-700.woff2) format("woff2");
       }
-      @font-face {
-        font-family: "Inter";
-        font-style: normal;
-        font-weight: 100 900;
-        font-display: swap;
-        src: url(/fonts/inter-variable.woff2) format("woff2");
-      }
     </style>
-
-    <!-- Preload Inter variable font for faster body text rendering -->
-    <link
-      rel="preload"
-      href="/fonts/inter-variable.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
 
     <!-- Non-critical styles - loaded asynchronously for better performance -->
     <link
