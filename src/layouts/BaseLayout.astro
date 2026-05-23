@@ -73,6 +73,9 @@ const metaDescription =
     <slot name="preload" />
     <!-- Preload logo WebP - above-fold critical asset -->
     <link rel="preload" href="/images/logo.webp" as="image" type="image/webp" />
+    <!-- Preconnect to Google Fonts (Inter served from fonts.gstatic.com) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Preconnect to critical third-party origins (before scripts for maximum benefit) -->
     <link
       rel="preconnect"
@@ -82,51 +85,46 @@ const metaDescription =
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
     <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
 
-    <!-- Marketing tags: deferred until first user interaction OR 5s idle, whichever
-         comes first. Keeps GTM/Clarity/Meta Pixel out of the LCP/TBT critical path
-         on initial load. dataLayer/fbq are stubbed pre-load so click handlers don't
-         error. PageView fires automatically once the pixel script lands. -->
-    <script is:inline>
-      (function () {
-        // Pre-load stubs so any in-page handlers can push without errors.
-        window.dataLayer = window.dataLayer || [];
-        window.fbq = window.fbq || function () {
-          (window.fbq.q = window.fbq.q || []).push(arguments);
-        };
-        window.fbq.l = +new Date();
+    <!-- Inter (body): Google Fonts subset, ~20KB total via unicode-range chunking.
+         Loaded async via media trick so it never blocks render. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
 
-        var loaded = false;
-        function loadMarketingTags() {
-          if (loaded) return;
-          loaded = true;
+    <!-- Google Analytics 4 - Runs in web worker via Partytown (off main thread) -->
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-LXHE2DSZ7T");
+    </script>
 
-          // Google Tag Manager (GA4)
-          var gtm = document.createElement("script");
-          gtm.async = true;
-          gtm.src = "https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T";
-          document.head.appendChild(gtm);
-          function gtag() { window.dataLayer.push(arguments); }
-          window.gtag = gtag;
-          gtag("js", new Date());
-          gtag("config", "G-LXHE2DSZ7T");
-
-          // Microsoft Clarity
-          (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-            t = l.createElement(r); t.async = 1;
-            t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0];
-            y.parentNode.insertBefore(t, y);
-          })(window, document, "clarity", "script", "uwwxu9stzh");
-
-          // Meta Pixel
-          var fb = document.createElement("script");
-          fb.async = true;
-          fb.src = "https://connect.facebook.net/en_US/fbevents.js";
-          document.head.appendChild(fb);
-          fb.onload = function () {
-            window.fbq("init", "1628116715040596");
-            window.fbq("track", "PageView");
+    <!-- Microsoft Clarity -->
+    <script type="text/partytown">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
           };
         }
 
@@ -553,7 +551,8 @@ const metaDescription =
         aspect-ratio: attr(width) / attr(height);
       }
 
-      /* Critical font declarations - use preloaded self-hosted fonts immediately */
+      /* Critical font declaration - Playfair stays self-hosted (22KB, used in H1 LCP).
+         Inter is loaded via Google Fonts <link> above for a ~20KB Latin subset. */
       @font-face {
         font-family: "Playfair Display";
         font-style: normal;
@@ -561,23 +560,7 @@ const metaDescription =
         font-display: swap;
         src: url(/fonts/playfair-display-700.woff2) format("woff2");
       }
-      @font-face {
-        font-family: "Inter";
-        font-style: normal;
-        font-weight: 100 900;
-        font-display: swap;
-        src: url(/fonts/inter-variable.woff2) format("woff2");
-      }
     </style>
-
-    <!-- Preload Inter variable font for faster body text rendering -->
-    <link
-      rel="preload"
-      href="/fonts/inter-variable.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
 
     <!-- Non-critical styles - loaded asynchronously for better performance -->
     <link
