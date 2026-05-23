@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
-import partytown from '@astrojs/partytown';
 import vercel from '@astrojs/vercel';
 // https://astro.build/config
 export default defineConfig({
@@ -12,19 +11,6 @@ export default defineConfig({
 
   integrations: [
     tailwind(),
-    partytown({
-      config: {
-        forward: ['dataLayer.push', 'fbq', 'clarity'],
-        resolveUrl: (url) => {
-          if (url.hostname === 'connect.facebook.net') {
-            const proxyUrl = new URL('https://cdn.builder.io/api/v1/proxy-api');
-            proxyUrl.searchParams.append('url', url.href);
-            return proxyUrl;
-          }
-          return url;
-        },
-      },
-    }),
     sitemap({
       filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/'),
       changefreq: 'weekly',
