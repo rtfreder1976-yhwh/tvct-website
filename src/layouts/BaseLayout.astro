@@ -1,10 +1,19 @@
 ---
+// Inline main.css (~3.3KB) at build time. Avoids a second round-trip that
+// was blocking FCP and pinning LCP at 2.8-3.0s — Tailwind utility classes
+// can't paint until the stylesheet parses, so deferring it via preload-swap
+// kept the render path busy. Inlining trades a tiny HTML increase for an
+// instant paint. ?raw is a Vite-native loader that bundles the file content
+// into the JS at build time, so the runtime no longer touches the filesystem.
+import mainCssRaw from "../../public/styles/main.css?raw";
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Analytics from "@vercel/analytics/astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import ABTester from "../components/ABTester.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+
+const mainCss = mainCssRaw;
 
 interface Props {
   title: string;
@@ -562,14 +571,9 @@ const metaDescription =
       }
     </style>
 
-    <!-- Non-critical styles - loaded asynchronously for better performance -->
-    <link
-      rel="preload"
-      href="/styles/main.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript><link rel="stylesheet" href="/styles/main.css" /></noscript>
+    <!-- Component styles - inlined to avoid a second round-trip on the
+         render-blocking critical path. Source: public/styles/main.css (~3KB). -->
+    <style is:inline set:html={mainCss}></style>
     <ABTester />
   </head>
   <body class="gradient-bg">
