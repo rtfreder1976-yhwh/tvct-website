@@ -13,6 +13,19 @@ export interface BlogPost {
 
 export const allBlogPosts: BlogPost[] = [
   {
+    slug: "house-cleaning-cost-huntsville-al",
+    title: "How Much Does House Cleaning Cost in Huntsville, AL? (2026)",
+    excerpt:
+      "Care.com says $19. MaidPro says call. Reddit says $200. Real Huntsville cleaning prices for 2026 across Hampton Cove, Madison, Monte Sano, Owens Cross Roads & central Huntsville — published, not 'starting at.'",
+    category: "Pricing Guide",
+    filterCategory: "industry",
+    categoryColor: "gray",
+    date: "May 24, 2026",
+    readTime: "10 min read",
+    icon: "dollar-sign",
+    image: "/images/services/Cleaningpic12-303.webp",
+  },
+  {
     slug: "why-19-dollar-cleaning-costs-more-shoals",
     title: "Why $19/hr Cleaning in the Shoals Costs You More",
     excerpt:
