@@ -12,6 +12,19 @@ export interface BlogPost {
 }
 
 export const allBlogPosts: BlogPost[] = [
+  {
+    slug: "why-19-dollar-cleaning-costs-more-shoals",
+    title: "Why $19/hr Cleaning in the Shoals Costs You More",
+    excerpt:
+      "Homeaglow says $19. Care.com says $14. MaidPro says call. Here's what those numbers actually buy in Florence, Muscle Shoals, Tuscumbia & Sheffield — and what they leave you exposed to.",
+    category: "Pricing Guide",
+    filterCategory: "industry",
+    categoryColor: "gray",
+    date: "May 24, 2026",
+    readTime: "9 min read",
+    icon: "dollar-sign",
+    image: "/images/services/Cleaningpic12-303.webp",
+  },
   // 2026 Script Scaffolded Posts
   {
     slug: "top-5-hidden-areas-to-focus-on-during-spring-cleaning-in-athens-al",
