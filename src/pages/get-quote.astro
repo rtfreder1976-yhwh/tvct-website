@@ -491,11 +491,6 @@ import Icon from '../components/Icon.astro';
             // Show success, then redirect to booking
             form.style.display = 'none';
             if (success) success.classList.remove('hidden');
-            try {
-              sessionStorage.setItem('tvct_quote', JSON.stringify({
-                name: name, email: email, phone: phone, service: service, sqft: sqft
-              }));
-            } catch (err) {}
             var bookingUrl = service === 'Commercial Cleaning' ? '/booking-commercial' : '/booking';
             setTimeout(function () {
               window.location.href = bookingUrl;
