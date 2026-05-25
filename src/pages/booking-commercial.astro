@@ -1,0 +1,350 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout
+  title="Schedule Your Office Cleaning | Valley Clean Team"
+  description="Book your insured, veteran-owned commercial & office cleaning service online. Serving Huntsville, Athens, Florence & Nashville. Cards charged AFTER your clean."
+  showNav={false}
+  showFooter={false}
+  schemaType="none"
+>
+  <!-- Preconnect to BookingKoala for faster iframe load -->
+  <link slot="preload" rel="preconnect" href="https://thevalleycleanteam.bookingkoala.com" crossorigin />
+  <link slot="preload" rel="dns-prefetch" href="https://thevalleycleanteam.bookingkoala.com" />
+
+  <style slot="preload">
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .iframe-loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #FFA985;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    .sticky-cta {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+
+  <!-- Service + ReserveAction Schema (valid in body per Google guidelines) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Commercial & Office Cleaning Services",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "The Valley Clean Team",
+      "telephone": "+12568261100",
+      "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Huntsville",
+        "addressRegion": "AL",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Huntsville", "addressRegion": "AL" },
+      { "@type": "City", "name": "Athens", "addressRegion": "AL" },
+      { "@type": "City", "name": "Florence", "addressRegion": "AL" },
+      { "@type": "City", "name": "Decatur", "addressRegion": "AL" },
+      { "@type": "City", "name": "Nashville", "addressRegion": "TN" }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Commercial Cleaning Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Office Cleaning" }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Medical & Dental Office Cleaning" }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": { "@type": "Service", "name": "Commercial Facility Cleaning" }
+        }
+      ]
+    },
+    "potentialAction": {
+      "@type": "ReserveAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://thevalleycleanteam.com/booking-commercial",
+        "actionPlatform": ["https://schema.org/DesktopWebPlatform", "https://schema.org/MobileWebPlatform"]
+      },
+      "result": {
+        "@type": "Reservation",
+        "name": "Commercial Cleaning Service Booking"
+      }
+    }
+  })} />
+
+  <!-- Step progress bar -->
+  <div class="bg-gray-50 border-b border-gray-200 py-3 px-6">
+    <div class="container mx-auto max-w-xl flex items-center gap-3">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-green-500 text-white text-xs font-bold flex items-center justify-center">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <span class="text-sm font-semibold text-gray-400 line-through">Your Info</span>
+      </div>
+      <div class="flex-1 h-1 bg-[#FFA985] rounded mx-1"></div>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-[#FFA985] text-white text-xs font-bold flex items-center justify-center">2</div>
+        <span class="text-sm font-semibold text-[#333]">Book Your Time</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simple, Non-Interactive Header -->
+  <header class="py-4 px-6 border-b border-gray-100 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <span class="font-playfair text-xl md:text-2xl font-bold text-[#FFA985]">The Valley Clean Team</span>
+      </div>
+      <div class="text-sm font-semibold text-gray-500 flex items-center gap-4">
+        <a href="tel:2568261100" class="flex items-center hover:text-[#FFA985] transition">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          AL: <span class="ml-1 text-[#333333]">256-826-1100</span>
+        </a>
+        <a href="tel:6155101427" class="hidden sm:flex items-center hover:text-[#FFA985] transition">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          TN: <span class="ml-1 text-[#333333]">615-510-1427</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+    <!-- Hero Section -->
+    <section class="pt-16 pb-8 px-6">
+      <div class="container mx-auto text-center max-w-3xl">
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-[#333333] tracking-tight">
+          A Cleaner Workplace, <span class="gold-gradient">Starting Now</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
+          Choose your service, pick a time, and get back to business. We'll handle your office or facility with military precision and a 100% satisfaction guarantee.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-500 mb-8">
+          <span class="flex items-center">
+            <Icon name="check-circle" class="w-5 h-5 text-green-500 mr-2" />
+            100% Happiness Guarantee
+          </span>
+          <span class="flex items-center">
+            <Icon name="shield-halved" class="w-5 h-5 text-blue-500 mr-2" />
+            $2M Insurance Coverage
+          </span>
+          <span class="flex items-center">
+            <Icon name="flag-usa" class="w-5 h-5 text-[#FFA985] mr-2" />
+            Veteran-Owned Integrity
+          </span>
+        </div>
+      </div>
+    </section>
+
+  <!-- Micro-testimonial -->
+  <section class="pb-4 px-6">
+    <div class="container mx-auto max-w-7xl text-center">
+      <div class="inline-flex items-center gap-1 text-yellow-500 mb-1">
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+      </div>
+      <p class="text-gray-600 italic text-sm max-w-lg mx-auto">
+        "Our office has never looked better. Reliable, professional, and consistent every single visit. Exactly what a busy practice needs."
+      </p>
+      <p class="text-xs text-gray-400 mt-1">— David R., Office Manager, Huntsville, AL &nbsp;|&nbsp; <strong class="text-gray-500">146 five-star reviews</strong></p>
+    </div>
+  </section>
+
+    <!-- Booking Widget Section -->
+    <section class="pb-20 px-0 md:px-6">
+      <div class="container mx-auto max-w-[1600px]">
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-200 relative">
+          <!-- Risk Reversal Banner -->
+          <div class="bg-gradient-to-r from-[#EBFAF2] to-white border-b border-green-100 px-6 py-4 flex flex-col sm:flex-row items-center justify-center text-[#1B4332] text-sm md:text-base font-semibold gap-2">
+            <div class="flex items-center">
+              <Icon name="shield-halved" class="w-6 h-6 mr-2 text-green-600" />
+              NO-RISK BOOKING: <span class="text-green-700">Cards are NOT charged until AFTER your clean.</span>
+            </div>
+            <span class="hidden sm:inline mx-2 opacity-30">|</span>
+            <div class="flex items-center">
+              <Icon name="lock" class="w-5 h-5 mr-2 text-gray-400" />
+              Secure 256-bit Encryption
+            </div>
+          </div>
+
+          <!-- Iframe Loading State -->
+          <div id="iframe-loading" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white pointer-events-none transition-opacity duration-500 pt-32">
+            <div class="iframe-loader mb-4"></div>
+            <p class="text-gray-500 font-medium">Securing your connection...</p>
+          </div>
+
+          <iframe
+            id="booking-iframe"
+            src="https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning?embed=true&bar=false&banner=false"
+            style="border:none;min-height:1000px;height:1000px;opacity:0;transition:opacity 0.5s ease-in-out;"
+            width="100%"
+            scrolling="no"
+            title="Book a commercial or office cleaning service online - The Valley Clean Team"
+            onload="const loader = document.getElementById('iframe-loading'); const frame = document.getElementById('booking-iframe'); if(loader) loader.style.opacity = '0'; if(frame) frame.style.opacity = '1'; setTimeout(() => loader && loader.remove(), 500);"
+          ></iframe>
+
+          <script is:inline>
+            // Safety timeout: if iframe hasn't loaded in 4 seconds, show it anyway
+            setTimeout(() => {
+              const loader = document.getElementById('iframe-loading');
+              const frame = document.getElementById('booking-iframe');
+              if (loader && loader.style.opacity !== '0') {
+                loader.style.opacity = '0';
+                if(frame) frame.style.opacity = '1';
+                setTimeout(() => loader.remove(), 500);
+              }
+            }, 4000);
+
+            // GA4 + Meta Pixel: Track BookingKoala booking completion via postMessage
+            // BookingKoala fires a postMessage when booking is confirmed
+            window.addEventListener('message', function(event) {
+              // Accept messages from BookingKoala domain only
+              if (!event.origin.includes('bookingkoala.com')) return;
+              var data = event.data;
+              var isConfirmation = false;
+              // BookingKoala sends various message formats on completion
+              if (typeof data === 'string') {
+                isConfirmation = data.includes('booking_confirmed') || data.includes('order_complete') || data.includes('thank_you') || data.includes('confirmation');
+              } else if (typeof data === 'object' && data !== null) {
+                isConfirmation = data.type === 'booking_confirmed' || data.event === 'booking_confirmed' || data.status === 'confirmed' || data.action === 'booking_complete';
+              }
+              if (isConfirmation) {
+                // Fire GA4 conversion
+                if (typeof gtag === 'function') {
+                  gtag('event', 'booking_completed', {
+                    event_category: 'Conversion',
+                    event_label: 'BookingKoala - Commercial Booking Confirmed',
+                    value: 1
+                  });
+                  // Also fire as a GA4 purchase event for conversion tracking
+                  gtag('event', 'purchase', {
+                    transaction_id: 'BK-' + Date.now(),
+                    value: 0,
+                    currency: 'USD'
+                  });
+                }
+                // Fire Meta Pixel conversion
+                if (typeof fbq === 'function') {
+                  fbq('track', 'Schedule', { content_name: 'Commercial Cleaning Service Booking' });
+                }
+              }
+            });
+
+            // GA4: Track time spent on booking page (engagement depth)
+            var bookingStartTime = Date.now();
+            var engagementFired = { '30s': false, '60s': false, '120s': false };
+            var engagementTimer = setInterval(function() {
+              var elapsed = Math.floor((Date.now() - bookingStartTime) / 1000);
+              if (elapsed >= 30 && !engagementFired['30s']) {
+                engagementFired['30s'] = true;
+                if (typeof gtag === 'function') gtag('event', 'booking_page_engaged_30s', { event_category: 'Engagement', event_label: 'Commercial Booking Page 30s' });
+              }
+              if (elapsed >= 60 && !engagementFired['60s']) {
+                engagementFired['60s'] = true;
+                if (typeof gtag === 'function') gtag('event', 'booking_page_engaged_60s', { event_category: 'Engagement', event_label: 'Commercial Booking Page 60s' });
+              }
+              if (elapsed >= 120 && !engagementFired['120s']) {
+                engagementFired['120s'] = true;
+                if (typeof gtag === 'function') gtag('event', 'booking_page_engaged_120s', { event_category: 'Engagement', event_label: 'Commercial Booking Page 120s' });
+                clearInterval(engagementTimer);
+              }
+            }, 5000);
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="py-16 px-6 bg-gray-50">
+      <div class="container mx-auto max-w-4xl">
+        <div class="text-center mb-12">
+          <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="The Valley Clean Team Official Seal" width="96" height="96" class="w-24 h-24 mx-auto mb-6 opacity-80" />
+          <h2 class="text-3xl font-bold text-[#333333] mb-4">The Valley Clean Team Difference</h2>
+          <p class="text-gray-500 max-w-xl mx-auto">Experience the precision and care that comes with a veteran-owned, community-focused team.</p>
+          <div class="section-divider mt-6"></div>
+        </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="shield-halved" class="w-6 h-6 text-[#333333]" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Insured & Bonded</h3>
+          <p class="text-gray-600">Your facility is protected with $2M insurance coverage. All our cleaners are fully insured and background checked.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="star" class="w-6 h-6 text-[#333333]" fill="currentColor" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">146 5-Star Reviews</h3>
+          <p class="text-gray-600">Our clients love us. See why we're the top-rated commercial cleaning service across Alabama and Tennessee.</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="flag-usa" class="w-6 h-6 text-[#333333]" />
+          </div>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Veteran & Women-Owned</h3>
+          <p class="text-gray-600">Proudly veteran-owned and women-owned. Military precision meets community dedication.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Alternative -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto max-w-2xl text-center">
+      <h2 class="text-2xl font-bold text-[#333333] mb-4">Prefer to Talk to Someone?</h2>
+      <p class="text-gray-600 mb-6">No problem! Our friendly team is here to help you schedule your office or commercial cleaning.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="tel:2568261100" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          <Icon name="phone" class="w-5 h-5 mr-2" />
+          Alabama: 256-826-1100
+        </a>
+        <a href="tel:6155101427" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          <Icon name="phone" class="w-5 h-5 mr-2" />
+          Tennessee: 615-510-1427
+        </a>
+      </div>
+      <div class="mt-4">
+        <a href="/contact" class="btn-secondary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          <Icon name="envelope" class="w-5 h-5 mr-2" />
+          Contact Us Online
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://thevalleycleanteam.bookingkoala.com/resources/embed.js" defer></script>
+
+  <!-- Sticky Call Button (Mobile Only) -->
+  <a
+    href="tel:2568261100"
+    class="sticky-cta sm:hidden bg-gradient-to-r from-[#FFA985] to-[#FFC67D] w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition"
+    aria-label="Call for help"
+  >
+    <Icon name="phone" class="w-7 h-7 text-[#333333]" />
+  </a>
+</BaseLayout>
