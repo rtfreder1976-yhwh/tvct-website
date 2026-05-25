@@ -196,7 +196,7 @@ import Icon from '../components/Icon.astro';
 
           <iframe
             id="booking-iframe"
-            src="https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning?embed=true&bar=false&banner=false"
+            data-base="https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning?embed=true&bar=false&banner=false"
             style="border:none;min-height:1000px;height:1000px;opacity:0;transition:opacity 0.5s ease-in-out;"
             width="100%"
             scrolling="no"
@@ -205,6 +205,30 @@ import Icon from '../components/Icon.astro';
           ></iframe>
 
           <script is:inline>
+            // Prefill the BookingKoala iframe from Step 1 (get-quote) data
+            (function () {
+              var frame = document.getElementById('booking-iframe');
+              if (!frame) return;
+              var base = frame.getAttribute('data-base');
+              var params = [];
+              try {
+                var raw = sessionStorage.getItem('tvct_quote');
+                if (raw) {
+                  var d = JSON.parse(raw);
+                  if (d.name) {
+                    var parts = String(d.name).trim().split(/\s+/);
+                    var first = parts.shift() || '';
+                    var last = parts.join(' ');
+                    if (first) params.push('f_name=' + encodeURIComponent(first));
+                    if (last) params.push('l_name=' + encodeURIComponent(last));
+                  }
+                  if (d.email) params.push('email=' + encodeURIComponent(d.email));
+                  if (d.phone) params.push('phone=' + encodeURIComponent(String(d.phone).replace(/\D/g, '')));
+                }
+              } catch (err) {}
+              frame.src = base + (params.length ? '&' + params.join('&') : '');
+            })();
+
             // Safety timeout: if iframe hasn't loaded in 4 seconds, show it anyway
             setTimeout(() => {
               const loader = document.getElementById('iframe-loading');
