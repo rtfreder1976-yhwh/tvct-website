@@ -154,7 +154,7 @@ Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
       subject: `${is_urgent === 'true' ? '🚀 URGENT: ' : ''}New Lead: ${service || 'Cleaning Service'} - ${name || phone}`,
       html: emailHtml,
       text: emailText,
-      replyTo: email || undefined
+      replyTo: typeof email === 'string' ? email : undefined
     });
 
     if (error) {
