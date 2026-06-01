@@ -6,7 +6,7 @@ A luxury cleaning services website built with Astro.
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 22.12+ (matches the `engines` field in package.json)
 - npm or yarn
 
 ### Installation
