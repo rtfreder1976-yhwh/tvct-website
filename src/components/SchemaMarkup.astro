@@ -1,10 +1,9 @@
 ---
 import { 
-  cityConfigs, 
-  petSafeServiceCatalog, 
-  cityReviewTemplates, 
+  cityConfigs,
+  petSafeServiceCatalog,
   cityFAQs,
-  type CityConfig 
+  type CityConfig
 } from "../constants/schemaData";
 
 interface Props {
@@ -186,9 +185,6 @@ const localSchema = city
       const config = getCityConfig(city);
       const stateAbbr = state === "Alabama" ? "AL" : "TN";
       const citySlug = city.toLowerCase().replace(/\s+/g, "-");
-      const reviewText =
-        cityReviewTemplates[city] ||
-        `Best ${config.reviewFocus} in ${city}—professional and thorough!`;
 
       return {
         "@context": "https://schema.org",
@@ -235,21 +231,6 @@ const localSchema = city
           name: "The Valley Clean Team",
           url: "https://thevalleycleanteam.com",
         },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: 4.9,
-          reviewCount: 146,
-          bestRating: 5,
-          worstRating: 1,
-        },
-        review: [
-          {
-            "@type": "Review",
-            author: { "@type": "Person", name: `${city} Homeowner` },
-            reviewRating: { "@type": "Rating", ratingValue: 5 },
-            reviewBody: reviewText,
-          },
-        ],
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
