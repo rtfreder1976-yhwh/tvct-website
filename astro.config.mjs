@@ -2,6 +2,28 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import { readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// Scheduled blog posts set `noindex={!isPublished}` based on a future publishDate.
+// Mirror that logic here so unpublished posts are kept OUT of the sitemap until
+// their date passes (fixes Ahrefs "Noindex page in sitemap"). Self-maintaining:
+// a post auto-appears in the sitemap on the next build after its publish date.
+const blogDir = fileURLToPath(new URL('./src/pages/blog', import.meta.url));
+const unpublishedBlogSlugs = new Set();
+try {
+  const now = Date.now();
+  for (const file of readdirSync(blogDir)) {
+    if (!file.endsWith('.astro')) continue;
+    const src = readFileSync(`${blogDir}/${file}`, 'utf8');
+    if (!src.includes('noindex={!isPublished}')) continue;
+    const m = src.match(/const publishDate = new Date\("([^"]+)"\)/);
+    if (m && new Date(m[1]).getTime() > now) {
+      unpublishedBlogSlugs.add(`/blog/${file.slice(0, -6)}`);
+    }
+  }
+} catch { /* if the scan fails, fall back to including everything */ }
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
@@ -12,7 +34,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/'),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/') && !unpublishedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
