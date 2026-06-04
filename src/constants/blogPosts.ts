@@ -62,17 +62,6 @@ export const allBlogPosts: BlogPost[] = [
     icon: "heart",
   },
   {
-    slug: "hiring-an-independent-cleaner-vs-a-professional-cleaning-company-in-mountain-brook",
-    title: "Hiring an Independent Cleaner vs. a Professional Cleaning Company in Mountain Brook",
-    excerpt: "Check back on March 30 2026 for our latest article covering hiring an independent cleaner vs. a professional cleaning company in Mountain Brook.",
-    category: "Educational/Trust",
-    filterCategory: "industry",
-    categoryColor: "blue",
-    date: "March 30 2026",
-    readTime: "5 min read",
-    icon: "lightbulb",
-  },
-  {
     slug: "move-out-cleaning-requirements-for-huntsville-property-managers",
     title: "Move-Out Cleaning Requirements for Huntsville Property Managers",
     excerpt: "Check back on April 6 2026 for our latest article covering move-out cleaning requirements for huntsville property managers.",
@@ -170,17 +159,6 @@ export const allBlogPosts: BlogPost[] = [
     date: "June 1 2026",
     readTime: "5 min read",
     icon: "gift",
-  },
-  {
-    slug: "office-cleaning-in-mountain-brook-how-a-clean-workspace-boosts-productivity",
-    title: "Office Cleaning in Mountain Brook: How a Clean Workspace Boosts Productivity",
-    excerpt: "Check back on June 8 2026 for our latest article covering office cleaning in Mountain Brook: how a clean workspace boosts productivity.",
-    category: "Commercial/B2B",
-    filterCategory: "industry",
-    categoryColor: "indigo",
-    date: "June 8 2026",
-    readTime: "5 min read",
-    icon: "building",
   },
   {
     slug: "what-does-bonded-and-insured-mean-when-hiring-a-cleaning-service",
@@ -582,20 +560,6 @@ export const allBlogPosts: BlogPost[] = [
     readTime: "8 min read",
     icon: "leaf",
     image: "/images/gallery/bathroom.webp",
-  },
-  {
-    slug: "post-construction-cleaning-mountain-brook-guide",
-    title:
-      "Surviving the Dust: A Homeowner's Guide to Post-Construction Cleaning in Mountain Brook",
-    excerpt:
-      "Just finished a renovation? Learn how to safely and effectively remove fine construction dust from every surface of your Mountain Brook home.",
-    category: "Post-Construction",
-    filterCategory: "move-out",
-    categoryColor: "amber",
-    date: "July 1, 2026",
-    readTime: "7 min read",
-    icon: "hard-hat",
-    image: "/images/gallery/kitchen.webp",
   },
   {
     slug: "move-out-cleaning-huntsville-guide",
