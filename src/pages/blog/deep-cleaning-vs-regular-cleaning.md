@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
-title: "Deep Clean vs. Regular Clean: What Does Your Home Actually Need?"
+title: "Deep Clean vs. Regular Clean"
 description: "Confused about the difference between a deep clean and regular maid service? We break down the checklist, costs, and benefits of each to help you decide."
 author: "The Valley Clean Team"
 date: "2023-10-25"
