@@ -96,6 +96,16 @@ export const standaloneServiceIntent: Record<string, ServiceIntent> = {
       { label: "The Valley Clean Team", isUs: true, detail: "Pre- and post-event cleaning on your schedule, so the space is guest-ready before and reset fast after — parties, corporate, holidays." },
     ],
   },
+  // Neighborhood pages — generic residential framing (no single service)
+  "neighborhood": {
+    problem:
+      "Finding a house cleaner you can actually trust in your neighborhood is harder than it should be — no-shows, a different stranger every visit, and prices that change after they see your home. You want someone reliable, insured, and consistent.",
+    options: [
+      { label: "A gig-app or Craigslist cleaner", detail: "Cheap up front, but no company insurance, no bonding, and a new face each time — if something breaks or goes missing, the liability is yours." },
+      { label: "A big franchise", detail: "Reliable branding, but crews rotate so they never learn your home, and per-visit pricing climbs once you add anything beyond the base." },
+      { label: "The Valley Clean Team", isUs: true, detail: "The same background-checked, insured team every visit, a flat quote that doesn't move, pet-safe products, and a re-clean guarantee — serving your neighborhood directly." },
+    ],
+  },
   // Industry / facility pages — all share the commercial compliance framing
   "medical-cleaning": {
     problem:

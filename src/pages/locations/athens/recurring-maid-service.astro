@@ -4,6 +4,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SchemaMarkup from '../../../components/SchemaMarkup.astro';
 import Icon from '../../../components/Icon.astro';
 
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 const faqs = [
   {
     question: "What recurring cleaning frequencies do you offer in Athens?",
@@ -297,4 +299,13 @@ const faqSchema = {
   </section>
 
     <StickyQuoteBar quoteLabel="Get My Free Quote" />
+  {standaloneServiceIntent["regular-cleaning"] && (
+    <ProblemOptions
+      heading="The Athens recurring cleaning problem — and your real options"
+      problem={standaloneServiceIntent["regular-cleaning"].problem}
+      options={standaloneServiceIntent["regular-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+
 </BaseLayout>

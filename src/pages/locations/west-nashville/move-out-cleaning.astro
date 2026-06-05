@@ -135,6 +135,8 @@ const faqSchema = {
   }))
 };
 import BookingCTA from "../../../components/BookingCTA.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 ---
 
 <BaseLayout
@@ -314,6 +316,15 @@ import BookingCTA from "../../../components/BookingCTA.astro";
   </section>
 
     <StickyQuoteBar quoteLabel="Get My Free Quote" />
+  {standaloneServiceIntent["move-in-out-cleaning"] && (
+    <ProblemOptions
+      heading="The West Nashville move-out cleaning problem — and your real options"
+      problem={standaloneServiceIntent["move-in-out-cleaning"].problem}
+      options={standaloneServiceIntent["move-in-out-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+
 </BaseLayout>
 
 <style>
