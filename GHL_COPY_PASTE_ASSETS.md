@@ -2,12 +2,12 @@
 
 _Everything you need to paste into GoHighLevel. Last updated: 2026-06-05._
 
-> ⚠️ **Pricing note before you start:** your `/pricing` page shows $99 / $175 /
-> $225 (regular/deep/move-out) but the best-of pages show $176 / $276 / $325.
-> These don't match. The templates below **avoid hardcoding a price** and send
-> people to see *their own* estimate instead — so you can't send a wrong number.
-> Reconcile the two pages when you get a chance; until then, leave the optional
-> price lines out.
+> ✅ **Pricing is reconciled to the BookingKoala rate sheet** (2026-06-05):
+> Standard from **$176** · Deep clean from **$276** · Move-in/out from **$351** ·
+> Post-construction from **$526**. Recurring discounts: weekly 30% / bi-weekly
+> 25% / monthly 15%. The templates still lead with "see your exact price" (drives
+> them back into the funnel), but you can now safely include a real "from $X"
+> line if you want — examples below.
 
 ---
 
@@ -41,6 +41,11 @@ Hi {{contact.first_name}}, Todd here from The Valley Clean Team. No need to fill
 ```
 
 ---
+
+**Price-anchored variant (now safe to use — real BookingKoala numbers):**
+```
+{{contact.first_name}}, it's Todd with The Valley Clean Team. Our flat rates start at $176 for a standard clean, $276 for a deep clean, and $351 for a move-out — quoted upfront, no surprises. Want to finish your booking? Your info's already filled in: https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}
+```
 
 ## 2) SMS — Step 2 (send 1 day later if still not booked)
 
@@ -82,6 +87,11 @@ Still want that clean? (your info's already filled in)
               Finish My Booking →
             </a>
           </p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;border:1px solid #eee;border-radius:10px;">
+            <tr><td style="padding:10px 16px;border-bottom:1px solid #f0f0f0;">Standard clean</td><td align="right" style="padding:10px 16px;border-bottom:1px solid #f0f0f0;font-weight:bold;">from $176</td></tr>
+            <tr><td style="padding:10px 16px;border-bottom:1px solid #f0f0f0;">Deep clean</td><td align="right" style="padding:10px 16px;border-bottom:1px solid #f0f0f0;font-weight:bold;">from $276</td></tr>
+            <tr><td style="padding:10px 16px;">Move-in / move-out</td><td align="right" style="padding:10px 16px;font-weight:bold;">from $351</td></tr>
+          </table>
           <p style="margin:0 0 8px;font-weight:bold;">Why folks pick us:</p>
           <ul style="margin:0 0 16px;padding-left:20px;color:#555;">
             <li>Veteran-owned &amp; women-owned, fully insured &amp; bonded</li>
