@@ -273,8 +273,11 @@ import Icon from '../components/Icon.astro';
 
             function sendBookingEvent(evt, extra) {
               try {
+                // Routed through the proven-live /api/submit-form with the
+                // 'Booking Page Pre-Capture' source + funnel_event marker.
                 var payload = Object.assign({
-                  event: evt,
+                  source: 'Booking Page Pre-Capture',
+                  funnel_event: evt,
                   name: bkLead.name || '',
                   phone: bkLead.phone || '',
                   email: bkLead.email || '',
@@ -284,9 +287,9 @@ import Icon from '../components/Icon.astro';
                 var body = JSON.stringify(payload);
                 // sendBeacon survives page unload (critical for the abandon event)
                 if (navigator.sendBeacon) {
-                  navigator.sendBeacon('/api/booking-event', new Blob([body], { type: 'application/json' }));
+                  navigator.sendBeacon('/api/submit-form', new Blob([body], { type: 'application/json' }));
                 } else {
-                  fetch('/api/booking-event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
+                  fetch('/api/submit-form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
                 }
               } catch (e) {}
             }
