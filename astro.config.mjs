@@ -9,18 +9,24 @@ import { fileURLToPath } from 'node:url';
 // Mirror that logic here so unpublished posts are kept OUT of the sitemap until
 // their date passes (fixes Ahrefs "Noindex page in sitemap"). Self-maintaining:
 // a post auto-appears in the sitemap on the next build after its publish date.
+// Also exclude blog posts that canonicalize to another URL (e.g. transactional
+// posts pointing at their /locations/{city}/{service} money page) — a sitemap
+// should only list canonical URLs.
 const blogDir = fileURLToPath(new URL('./src/pages/blog', import.meta.url));
-const unpublishedBlogSlugs = new Set();
+const excludedBlogSlugs = new Set();
 try {
   const now = Date.now();
   for (const file of readdirSync(blogDir)) {
     if (!file.endsWith('.astro')) continue;
     const src = readFileSync(`${blogDir}/${file}`, 'utf8');
-    if (!src.includes('noindex={!isPublished}')) continue;
-    const m = src.match(/const publishDate = new Date\("([^"]+)"\)/);
-    if (m && new Date(m[1]).getTime() > now) {
-      unpublishedBlogSlugs.add(`/blog/${file.slice(0, -6)}`);
+    const slug = `/blog/${file.slice(0, -6)}`;
+    // (1) Unpublished/scheduled posts (noindex until their publishDate passes)
+    if (src.includes('noindex={!isPublished}')) {
+      const m = src.match(/const publishDate = new Date\("([^"]+)"\)/);
+      if (m && new Date(m[1]).getTime() > now) { excludedBlogSlugs.add(slug); continue; }
     }
+    // (2) Posts canonicalized to a different URL
+    if (/canonicalUrl="https?:\/\/[^"]+"/.test(src)) excludedBlogSlugs.add(slug);
   }
 } catch { /* if the scan fails, fall back to including everything */ }
 
@@ -34,7 +40,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/') && !unpublishedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/') && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
