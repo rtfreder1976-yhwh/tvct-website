@@ -488,6 +488,13 @@ import Icon from '../components/Icon.astro';
         })
           .catch(function () {}) // never block redirect on API error
           .finally(function () {
+            // Persist Step-1 details so /booking can prefill the BookingKoala iframe
+            // (booking.astro reads sessionStorage 'tvct_quote' -> f_name/l_name/email/phone)
+            try {
+              sessionStorage.setItem('tvct_quote', JSON.stringify({
+                name: name, email: email, phone: phone
+              }));
+            } catch (err) {}
             // Show success, then redirect to booking
             form.style.display = 'none';
             if (success) success.classList.remove('hidden');
