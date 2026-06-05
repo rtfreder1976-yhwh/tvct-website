@@ -1,0 +1,75 @@
+---
+// Buyer-intent "5 jobs" block: names the exact problem (Job 1) and compares the
+// real options (Job 2), then funnels to a quote (Job 5). Reusable across the
+// combo-page layout, standalone service pages, and industry pages.
+import Icon from "./Icon.astro";
+
+interface Option {
+  label: string;
+  detail: string;
+  isUs?: boolean;
+}
+interface Props {
+  heading: string; // e.g. "The Athens move-out cleaning problem — and your real options"
+  problem: string; // 2-3 sentence problem statement in the buyer's words
+  options: Option[]; // typically 3: DIY / cheap-or-franchise / The Valley Clean Team
+  ctaLabel?: string; // e.g. "See your flat Athens price in 60 seconds"
+  ctaHref?: string;
+  bg?: string; // section background utility classes
+}
+const {
+  heading,
+  problem,
+  options,
+  ctaLabel = "See your flat price in 60 seconds",
+  ctaHref = "/get-quote",
+  bg = "bg-gray-50",
+} = Astro.props;
+---
+
+<section class={`py-16 px-6 ${bg}`}>
+  <div class="container mx-auto max-w-4xl">
+    <h2 class="text-3xl font-bold mb-4 text-[#333333] text-center">{heading}</h2>
+    <div class="section-divider"></div>
+    <p
+      class="text-lg text-gray-700 leading-relaxed mt-8 mb-10 max-w-3xl mx-auto text-center"
+    >
+      {problem}
+    </p>
+    <div class="grid md:grid-cols-3 gap-5">
+      {
+        options.map((opt) => (
+          <div
+            class={`rounded-2xl p-6 border ${
+              opt.isUs
+                ? "bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 border-[#FFA985] shadow-md"
+                : "bg-white border-gray-200"
+            }`}
+          >
+            <div class="flex items-center mb-3">
+              <Icon
+                name={opt.isUs ? "check-circle" : "exclamation-circle"}
+                class={`w-5 h-5 mr-2 flex-shrink-0 ${
+                  opt.isUs ? "text-green-500" : "text-amber-400"
+                }`}
+              />
+              <h3 class="font-bold text-[#333333]">{opt.label}</h3>
+            </div>
+            <p class="text-sm text-gray-600 leading-relaxed">{opt.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="text-center mt-10">
+      <a
+        href={ctaHref}
+        class="inline-block bg-[#FFA985] text-white font-bold py-4 px-8 rounded-full hover:bg-[#ff9a70] transition shadow-md"
+      >
+        {ctaLabel}
+      </a>
+      <p class="text-sm text-gray-500 mt-3">
+        No obligation · Insured &amp; bonded · Same team every visit
+      </p>
+    </div>
+  </div>
+</section>

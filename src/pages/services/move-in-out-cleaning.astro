@@ -3,6 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SchemaMarkup from "../../components/SchemaMarkup.astro";
 import TrustBadges from "../../components/TrustBadges.astro";
 import Icon from "../../components/Icon.astro";
+import ProblemOptions from "../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../data/serviceIntent.ts";
 
 const title = "Move-In/Out Cleaning | Deposit Back | Valley Clean Team";
 const description =
@@ -509,6 +511,15 @@ import BookingCTA from "../../components/BookingCTA.astro";
       <TrustBadges variant="full" showGuarantee={true} />
     </div>
   </section>
+
+  {standaloneServiceIntent["move-in-out-cleaning"] && (
+    <ProblemOptions
+      heading="The move-out cleaning problem — and your real options"
+      problem={standaloneServiceIntent["move-in-out-cleaning"].problem}
+      options={standaloneServiceIntent["move-in-out-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
 
   <!-- What's Included Section -->
   <section class="py-20 px-6 bg-gray-50 content-visibility-auto">

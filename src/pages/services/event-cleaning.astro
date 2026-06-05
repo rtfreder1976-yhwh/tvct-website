@@ -3,6 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import SchemaMarkup from "../../components/SchemaMarkup.astro";
 import TrustBadges from "../../components/TrustBadges.astro";
 import Icon from "../../components/Icon.astro";
+import ProblemOptions from "../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../data/serviceIntent.ts";
 
 const title = "Event Cleaning AL & TN | Valley Clean Team";
 const description =
@@ -378,6 +380,15 @@ import BookingCTA from "../../components/BookingCTA.astro";
       <TrustBadges variant="full" showGuarantee={true} />
     </div>
   </section>
+
+  {standaloneServiceIntent["event-cleaning"] && (
+    <ProblemOptions
+      heading="The event cleaning problem — and your real options"
+      problem={standaloneServiceIntent["event-cleaning"].problem}
+      options={standaloneServiceIntent["event-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
 
   <!-- Event Types -->
   <section class="py-20 px-6 content-visibility-auto">

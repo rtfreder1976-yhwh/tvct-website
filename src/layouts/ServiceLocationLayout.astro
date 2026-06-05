@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
 import BookingCTA from "../components/BookingCTA.astro";
+import ProblemOptions from "../components/ProblemOptions.astro";
 import { getTestimonialsByService } from "../data/testimonials";
 
 interface Props {
@@ -984,50 +985,12 @@ const serviceIntent: ServiceIntent | undefined =
   <!-- Buyer-intent: name the exact problem + compare the real options -->
   {
     serviceIntent && (
-      <section class="py-16 px-6 bg-gray-50">
-        <div class="container mx-auto max-w-4xl">
-          <h2 class="text-3xl font-bold mb-4 text-[#333333] text-center">
-            The {city} {service.toLowerCase()} problem — and your real options
-          </h2>
-          <div class="section-divider" />
-          <p class="text-lg text-gray-700 leading-relaxed mt-8 mb-10 max-w-3xl mx-auto text-center">
-            {serviceIntent.problem}
-          </p>
-          <div class="grid md:grid-cols-3 gap-5">
-            {serviceIntent.options.map((opt) => (
-              <div
-                class={`rounded-2xl p-6 border ${
-                  opt.isUs
-                    ? "bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 border-[#FFA985] shadow-md"
-                    : "bg-white border-gray-200"
-                }`}
-              >
-                <div class="flex items-center mb-3">
-                  <Icon
-                    name={opt.isUs ? "check-circle" : "exclamation-circle"}
-                    class={`w-5 h-5 mr-2 flex-shrink-0 ${
-                      opt.isUs ? "text-green-500" : "text-amber-400"
-                    }`}
-                  />
-                  <h3 class="font-bold text-[#333333]">{opt.label}</h3>
-                </div>
-                <p class="text-sm text-gray-600 leading-relaxed">{opt.detail}</p>
-              </div>
-            ))}
-          </div>
-          <div class="text-center mt-10">
-            <a
-              href="/get-quote"
-              class="inline-block bg-[#FFA985] text-white font-bold py-4 px-8 rounded-full hover:bg-[#ff9a70] transition shadow-md"
-            >
-              See your flat {city} price in 60 seconds
-            </a>
-            <p class="text-sm text-gray-500 mt-3">
-              No obligation · Insured &amp; bonded · Same team every visit
-            </p>
-          </div>
-        </div>
-      </section>
+      <ProblemOptions
+        heading={`The ${city} ${service.toLowerCase()} problem — and your real options`}
+        problem={serviceIntent.problem}
+        options={serviceIntent.options}
+        ctaLabel={`See your flat ${city} price in 60 seconds`}
+      />
     )
   }
 
