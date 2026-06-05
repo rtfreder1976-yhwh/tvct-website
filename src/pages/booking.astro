@@ -261,6 +261,65 @@ import Icon from '../components/Icon.astro';
               }
             }, 4000);
 
+            // ── Booking-funnel abandonment tracking ───────────────────────
+            // The gateway form (/get-quote) already created the GHL lead. These
+            // signals tell GHL apart "entered BookingKoala" vs "completed" so an
+            // abandoned session can trigger a follow-up. Without this, a stuck
+            // lead is invisible.
+            var bkLead = {};
+            try { bkLead = JSON.parse(sessionStorage.getItem('tvct_quote') || '{}'); } catch (e) {}
+            var bookingCompleted = false;
+            var bookingStarted = false;
+
+            function sendBookingEvent(evt, extra) {
+              try {
+                var payload = Object.assign({
+                  event: evt,
+                  name: bkLead.name || '',
+                  phone: bkLead.phone || '',
+                  email: bkLead.email || '',
+                  service: bkLead.service || '',
+                  location: bkLead.location || ''
+                }, extra || {});
+                var body = JSON.stringify(payload);
+                // sendBeacon survives page unload (critical for the abandon event)
+                if (navigator.sendBeacon) {
+                  navigator.sendBeacon('/api/booking-event', new Blob([body], { type: 'application/json' }));
+                } else {
+                  fetch('/api/booking-event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
+                }
+              } catch (e) {}
+            }
+
+            // Fire "started" once the iframe is engaged (entered the booking flow)
+            function markBookingStarted() {
+              if (bookingStarted) return;
+              bookingStarted = true;
+              sendBookingEvent('booking_started');
+              // Ad-platform "begin checkout" for retargeting audiences
+              if (typeof gtag === 'function') gtag('event', 'begin_checkout', { event_category: 'Booking', event_label: 'BookingKoala Started' });
+              if (typeof fbq === 'function') fbq('track', 'InitiateCheckout', { content_name: 'Cleaning Booking Started' });
+            }
+            // BookingKoala loads in an iframe; a focus/interaction on it blurs the
+            // parent window — use that as the "engaged" trigger, plus a fallback timer.
+            window.addEventListener('blur', function () {
+              if (document.activeElement && document.activeElement.id === 'booking-iframe') markBookingStarted();
+            });
+            setTimeout(markBookingStarted, 15000); // fallback: 15s on the booking page = engaged
+
+            // Fire "abandoned" if they leave/hide the page without completing
+            function maybeAbandon() {
+              if (bookingStarted && !bookingCompleted) {
+                var secs = Math.floor((Date.now() - (window.__bkStart || Date.now())) / 1000);
+                sendBookingEvent('booking_abandoned', { seconds: secs });
+              }
+            }
+            window.__bkStart = Date.now();
+            document.addEventListener('visibilitychange', function () {
+              if (document.visibilityState === 'hidden') maybeAbandon();
+            });
+            window.addEventListener('pagehide', maybeAbandon);
+
             // GA4 + Meta Pixel: Track BookingKoala booking completion via postMessage
             // BookingKoala fires a postMessage when booking is confirmed
             window.addEventListener('message', function(event) {
@@ -275,6 +334,9 @@ import Icon from '../components/Icon.astro';
                 isConfirmation = data.type === 'booking_confirmed' || data.event === 'booking_confirmed' || data.status === 'confirmed' || data.action === 'booking_complete';
               }
               if (isConfirmation) {
+                bookingCompleted = true;
+                // Tell GHL the booking completed (so the abandon workflow is cancelled)
+                sendBookingEvent('booking_completed');
                 // Fire GA4 conversion
                 if (typeof gtag === 'function') {
                   gtag('event', 'booking_completed', {
