@@ -313,6 +313,31 @@ import Icon from '../components/Icon.astro';
               <p id="q-sqft-err" class="error-msg mt-2">Please select your estimated square footage.</p>
             </fieldset>
 
+            <!-- Bedrooms & Bathrooms (for scheduling/scope — does not change price) -->
+            <div class="grid grid-cols-2 gap-3">
+              <fieldset>
+                <legend class="field-label mb-2">Bedrooms</legend>
+                <select name="bedrooms" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+                  <option value="">Select…</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5+</option>
+                </select>
+              </fieldset>
+              <fieldset>
+                <legend class="field-label mb-2">Bathrooms</legend>
+                <select name="bathrooms" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
+                  <option value="">Select…</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4+</option>
+                </select>
+              </fieldset>
+            </div>
+
             <!-- Submit -->
             <div class="pt-2">
               <button type="submit" id="q-submit" class="btn-submit">
@@ -441,6 +466,10 @@ import Icon from '../components/Icon.astro';
         var phone   = val('q-phone');
         var service = valRadio('service');
         var sqft    = valRadio('sqft');
+        var bedsEl  = form.querySelector('select[name="bedrooms"]');
+        var bathsEl = form.querySelector('select[name="bathrooms"]');
+        var beds    = bedsEl ? bedsEl.value : '';
+        var baths   = bathsEl ? bathsEl.value : '';
 
         var valid = true;
         markError('q-name',    'q-name-err',    !name);                      if (!name)                      valid = false;
@@ -462,9 +491,13 @@ import Icon from '../components/Icon.astro';
           phone:         phone,
           service:       service,
           square_footage: sqft ? parseInt(sqft, 10) : 0,
+          bedrooms:      beds,
+          bathrooms:     baths,
           source:        'Get Quote Form',
           page_url:      window.location.href,
-          notes:         'Quote form submission — Step 1'
+          notes:         'Quote form submission — Step 1' +
+                         (beds ? ' | Beds: ' + beds : '') +
+                         (baths ? ' | Baths: ' + baths : '')
         };
 
         // Fire GA4 lead event
@@ -492,7 +525,8 @@ import Icon from '../components/Icon.astro';
             // (booking.astro reads sessionStorage 'tvct_quote' -> f_name/l_name/email/phone)
             try {
               sessionStorage.setItem('tvct_quote', JSON.stringify({
-                name: name, email: email, phone: phone
+                name: name, email: email, phone: phone,
+                service: service, bedrooms: beds, bathrooms: baths
               }));
             } catch (err) {}
             // Show success, then redirect to booking

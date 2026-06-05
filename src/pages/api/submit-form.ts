@@ -128,6 +128,8 @@ export const POST: APIRoute = async ({ request }) => {
                         email: data.email || '',
                         service: data.service,
                         square_footage: Number(data.square_footage),
+                        bedrooms: data.bedrooms ? String(data.bedrooms).slice(0, 4) : '',
+                        bathrooms: data.bathrooms ? String(data.bathrooms).slice(0, 4) : '',
                         is_urgent: !!data.is_urgent,
                         notes: data.message || '',
                         source: sanitizeSource(data.source),
