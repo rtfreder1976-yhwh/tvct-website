@@ -16,6 +16,8 @@ interface Props {
   ctaLabel?: string; // e.g. "See your flat Athens price in 60 seconds"
   ctaHref?: string;
   bg?: string; // section background utility classes
+  compareHref?: string; // optional link to the city's "best cleaning company" page
+  compareLabel?: string;
 }
 const {
   heading,
@@ -24,6 +26,8 @@ const {
   ctaLabel = "See your flat price in 60 seconds",
   ctaHref = "/get-quote",
   bg = "bg-gray-50",
+  compareHref,
+  compareLabel = "See how we compare to other local cleaners →",
 } = Astro.props;
 ---
 
@@ -70,6 +74,15 @@ const {
       <p class="text-sm text-gray-500 mt-3">
         No obligation · Insured &amp; bonded · Same team every visit
       </p>
+      {
+        compareHref && (
+          <p class="mt-5">
+            <a href={compareHref} class="text-[#FFA985] font-semibold underline">
+              {compareLabel}
+            </a>
+          </p>
+        )
+      }
     </div>
   </div>
 </section>

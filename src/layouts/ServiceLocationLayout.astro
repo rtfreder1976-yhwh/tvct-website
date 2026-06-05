@@ -605,6 +605,18 @@ const intentAliases: Record<string, string> = {
 const serviceIntent: ServiceIntent | undefined =
   serviceIntentMap[serviceSlug] ||
   serviceIntentMap[intentAliases[serviceSlug] || ""];
+
+// Link to the city's "best cleaning company in {city}" comparison page where one
+// exists (internal link: problem/compare block -> high-value best-of page).
+const bestOfByCity: Record<string, string> = {
+  huntsville: "/best-cleaning-company-huntsville-al",
+  nashville: "/best-cleaning-company-nashville-tn",
+  athens: "/best-cleaning-company-athens-al",
+  florence: "/best-cleaning-company-florence-al",
+  "muscle-shoals": "/best-cleaning-company-florence-al",
+  "mountain-brook": "/best-cleaning-company-mountain-brook-al",
+};
+const compareHref = bestOfByCity[citySlug];
 ---
 
 <BaseLayout
@@ -991,6 +1003,8 @@ const serviceIntent: ServiceIntent | undefined =
         problem={serviceIntent.problem}
         options={serviceIntent.options}
         ctaLabel={`See your flat ${city} price in 60 seconds`}
+        compareHref={compareHref}
+        compareLabel={`See how we compare to other ${city} cleaners →`}
       />
     )
   }
