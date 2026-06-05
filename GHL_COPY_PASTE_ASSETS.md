@@ -11,6 +11,25 @@ _Everything you need to paste into GoHighLevel. Last updated: 2026-06-05._
 
 ---
 
+## ⚠️ PREREQUISITE — separate booking events from quote-form leads
+
+Booking-funnel events (`booking_started/abandoned/completed`) hit the **same**
+GHL inbound webhook (`...0ac5`) as the quote form. Before building the recovery
+workflow, guard the existing **"Incoming Quote Form - Hybrid V2"** workflow so
+booking events don't mis-fire it:
+
+1. Open the "Incoming Quote Form - Hybrid V2" workflow.
+2. Right after the Inbound Webhook trigger, add an **If/Else**:
+   - Condition: webhook field **`funnel_event`** **Is Empty**
+     (fallback: **Does Not Contain** `booking`).
+   - **YES** → continue into the existing steps.
+   - **NO** → **End** (booking events are handled by the new workflow below).
+
+Quote-form submissions have no `funnel_event`; booking events always do — this
+splits them cleanly.
+
+---
+
 ## 0) The recovery "magic link" (used in every message)
 
 Paste this exact link anywhere you want the one-click pre-filled booking:
