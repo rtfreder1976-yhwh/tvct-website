@@ -26,9 +26,14 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
 
     const resend = new Resend(resendApiKey);
 
-    const { name, email, phone, service, location, preferred_date, message, source, page_url, is_urgent, square_footage } = req.body;
+    const { name, email, phone, service, location, preferred_date, message, source, page_url, is_urgent, square_footage, bedrooms, bathrooms, funnel_event, seconds } = req.body;
 
-    if (!phone) {
+    // Booking-funnel lifecycle events (booking_started/abandoned/completed) come
+    // from /booking and may be partial (e.g. abandon fired on tab close). Don't
+    // require phone for those — relay whatever identity we have to GHL.
+    const isBookingEvent = source === 'Booking Page Pre-Capture' || !!funnel_event;
+
+    if (!isBookingEvent && !phone) {
       return res.status(400).json({
         error: 'Phone number is required'
       });
@@ -45,15 +50,25 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
         body: JSON.stringify({
           name: name || '',
           email: email || '',
-          phone: phone,
+          phone: phone || '',
           service: service || '',
           location: location || '',
           square_footage: square_footage || '',
+          bedrooms: bedrooms || '',
+          bathrooms: bathrooms || '',
           preferred_date: preferred_date || '',
           message: message || '',
           source: source || 'Website',
           page_url: page_url || '',
           is_urgent: is_urgent === 'true',
+          // Booking-funnel lifecycle marker for the abandoned-booking workflow
+          // (booking_started | booking_abandoned | booking_completed; '' for normal leads)
+          funnel_event:
+            ['booking_started', 'booking_abandoned', 'booking_completed'].includes(String(funnel_event))
+              ? String(funnel_event)
+              : '',
+          seconds_in_iframe:
+            typeof seconds === 'number' && isFinite(seconds) ? Math.max(0, Math.round(seconds)) : '',
           submitted_at: new Date().toISOString()
         })
       });
@@ -146,6 +161,13 @@ Source: ${source || 'Website'}
 Page: ${page_url || 'Unknown'}
 Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
     `.trim();
+
+    // Booking-funnel lifecycle events are handled by GHL only — don't email a
+    // notification for every started/abandoned event (that would be noisy).
+    // GHL's abandoned-booking workflow drives the follow-up instead.
+    if (isBookingEvent) {
+      return res.status(200).json({ success: true, message: 'Event received', funnel_event: funnel_event || '' });
+    }
 
     // Send email to GHL inbox for workflow automation
     const { data, error } = await resend.emails.send({
