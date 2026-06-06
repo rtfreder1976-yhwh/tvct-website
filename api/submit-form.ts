@@ -39,9 +39,15 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
       });
     }
 
-    // Send to GHL webhook for CRM integration
-    // Updated 2026-05-04: New published workflow (old draft URL replaced)
-    const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/aa1b4261-4253-40a8-84c4-07bff1d053e0';
+    // Send to GHL webhook for CRM integration.
+    // Quote-form leads -> the main quote webhook (...d053e0).
+    // Booking-funnel events -> a dedicated "Abandoned Booking Recovery" webhook
+    // (set GHL_BOOKING_WEBHOOK_URL in Vercel to that workflow's inbound URL).
+    // Falls back to the main webhook until the booking URL is configured, so
+    // nothing breaks in the meantime.
+    const QUOTE_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/aa1b4261-4253-40a8-84c4-07bff1d053e0';
+    const BOOKING_WEBHOOK_URL = process.env.GHL_BOOKING_WEBHOOK_URL || QUOTE_WEBHOOK_URL;
+    const ghlWebhookUrl = isBookingEvent ? BOOKING_WEBHOOK_URL : QUOTE_WEBHOOK_URL;
 
     try {
       await fetch(ghlWebhookUrl, {
