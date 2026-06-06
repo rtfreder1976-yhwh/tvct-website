@@ -273,7 +273,16 @@ import Icon from '../components/Icon.astro';
               if (lead.first) params.push('f_name=' + encodeURIComponent(lead.first));
               if (lead.last) params.push('l_name=' + encodeURIComponent(lead.last));
               if (lead.email) params.push('email=' + encodeURIComponent(lead.email));
-              if (lead.phone) params.push('phone=' + encodeURIComponent(String(lead.phone).replace(/\D/g, '')));
+              if (lead.phone) {
+                // BookingKoala installs vary on which param name fills the
+                // phone field — pass all the common ones so whichever the form
+                // expects gets populated. Strip to digits to avoid '+1' rejects.
+                var cleanPhone = encodeURIComponent(String(lead.phone).replace(/\D/g, ''));
+                params.push('phone=' + cleanPhone);
+                params.push('phone_number=' + cleanPhone);
+                params.push('customer_phone=' + cleanPhone);
+                params.push('mobile=' + cleanPhone);
+              }
 
               frame.src = base + (params.length ? '&' + params.join('&') : '');
 
