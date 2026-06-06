@@ -39,15 +39,22 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
       });
     }
 
-    // Send to GHL webhook for CRM integration.
-    // Quote-form leads -> the main quote webhook (...d053e0).
-    // Booking-funnel events -> a dedicated "Abandoned Booking Recovery" webhook
-    // (set GHL_BOOKING_WEBHOOK_URL in Vercel to that workflow's inbound URL).
-    // Falls back to the main webhook until the booking URL is configured, so
-    // nothing breaks in the meantime.
+    // Send to GHL webhook for CRM integration. Three separate webhooks:
+    //   Quote-form leads -> ...d053e0 (the "Website Quote Form - New Lead" wf)
+    //   booking_started/abandoned -> GHL_BOOKING_WEBHOOK_URL (Abandoned Booking
+    //     Recovery wf)
+    //   booking_completed -> GHL_BOOKING_COMPLETED_WEBHOOK_URL (the stop wf
+    //     that adds the 'booked' tag and removes the contact from recovery).
+    // Each falls back to the main quote webhook if its env var is not set so
+    // nothing breaks before configuration.
     const QUOTE_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/aa1b4261-4253-40a8-84c4-07bff1d053e0';
-    const BOOKING_WEBHOOK_URL = process.env.GHL_BOOKING_WEBHOOK_URL || QUOTE_WEBHOOK_URL;
-    const ghlWebhookUrl = isBookingEvent ? BOOKING_WEBHOOK_URL : QUOTE_WEBHOOK_URL;
+    const BOOKING_RECOVERY_WEBHOOK_URL = process.env.GHL_BOOKING_WEBHOOK_URL || QUOTE_WEBHOOK_URL;
+    const BOOKING_COMPLETED_WEBHOOK_URL = process.env.GHL_BOOKING_COMPLETED_WEBHOOK_URL || BOOKING_RECOVERY_WEBHOOK_URL;
+    const ghlWebhookUrl = !isBookingEvent
+        ? QUOTE_WEBHOOK_URL
+        : String(funnel_event) === 'booking_completed'
+            ? BOOKING_COMPLETED_WEBHOOK_URL
+            : BOOKING_RECOVERY_WEBHOOK_URL;
 
     try {
       await fetch(ghlWebhookUrl, {
