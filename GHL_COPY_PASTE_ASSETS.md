@@ -1,6 +1,20 @@
 # GHL Abandoned-Booking — Copy/Paste Asset Pack
 
-_Everything you need to paste into GoHighLevel. Last updated: 2026-06-05._
+_Everything you need to paste into GoHighLevel. Last updated: 2026-06-07._
+_✅ **System is LIVE and verified end-to-end as of 2026-06-07.**_
+
+## How the live system works (the verified flow)
+
+| Event from site | Webhook | GHL workflow | Action |
+|---|---|---|---|
+| Quote form submitted | `...d053e0` | Website Quote Form — New Lead | Create contact + run quote follow-up |
+| `booking_started` | `...248e1d` | Abandoned Booking Recovery | Enroll → wait → check `booked` → SMS/email/task |
+| `booking_abandoned` | `...248e1d` | (handled by NO branch / End) | Logged only |
+| `booking_completed` | `...7bb3b8` | Booking Completed - Mark Booked | Add `booked` tag + Remove from Recovery |
+
+**Net effect:**
+- Real bookers → tagged `booked` → "Tags includes booked" check passes → recovery ends silently → **no day-2 SMS** ✅
+- Abandoners → no `booked` tag → SMS with magic link → 1hr email → 1day SMS → owner-call task
 
 > ✅ **Pricing is reconciled to the BookingKoala rate sheet** (2026-06-05):
 > Standard from **$176** · Deep clean from **$276** · Move-in/out from **$351** ·
