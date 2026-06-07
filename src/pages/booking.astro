@@ -276,8 +276,16 @@ import Icon from '../components/Icon.astro';
               if (lead.phone) {
                 // BookingKoala installs vary on which param name fills the
                 // phone field — pass all the common ones so whichever the form
-                // expects gets populated. Strip to digits to avoid '+1' rejects.
-                var cleanPhone = encodeURIComponent(String(lead.phone).replace(/\D/g, ''));
+                // expects gets populated.
+                // Normalize: digits only, then strip leading '1' if 11 digits
+                // (US country code) so BookingKoala doesn't mis-parse the
+                // sequence. Falls back to the original digits if it's already
+                // 10 digits or some other length.
+                var digits = String(lead.phone).replace(/\D/g, '');
+                if (digits.length === 11 && digits.charAt(0) === '1') {
+                  digits = digits.slice(1);
+                }
+                var cleanPhone = encodeURIComponent(digits);
                 params.push('phone=' + cleanPhone);
                 params.push('phone_number=' + cleanPhone);
                 params.push('customer_phone=' + cleanPhone);
