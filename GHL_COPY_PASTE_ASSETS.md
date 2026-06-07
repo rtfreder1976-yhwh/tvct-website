@@ -49,7 +49,7 @@ splits them cleanly.
 Paste this exact link anywhere you want the one-click pre-filled booking:
 
 ```
-https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}
+https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
 ```
 
 It drops them into BookingKoala with their info already filled.
@@ -60,12 +60,12 @@ It drops them into BookingKoala with their info already filled.
 
 **Primary (recommended):**
 ```
-Hi {{contact.first_name}}, it's Todd with The Valley Clean Team 👋 Looks like you started booking but didn't finish. Get stuck or have a question? Reply here — or pick up right where you left off (your info's already filled in): https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}
+Hi {{contact.first_name}}, it's Todd with The Valley Clean Team 👋 Looks like you started booking but didn't finish. Get stuck or have a question? Reply here — or pick up right where you left off (your info's already filled in): https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
 ```
 
 **Shorter variant:**
 ```
-{{contact.first_name}}, saw you started your cleaning quote with The Valley Clean Team but didn't finish. Want me to hold a spot? Finish in 60 sec (info pre-filled): https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}} — or just reply with any questions!
+{{contact.first_name}}, saw you started your cleaning quote with The Valley Clean Team but didn't finish. Want me to hold a spot? Finish in 60 sec (info pre-filled): https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}} — or just reply with any questions!
 ```
 
 **Concierge / no-form variant (for people who hate forms):**
@@ -77,13 +77,13 @@ Hi {{contact.first_name}}, Todd here from The Valley Clean Team. No need to fill
 
 **Price-anchored variant (now safe to use — real BookingKoala numbers):**
 ```
-{{contact.first_name}}, it's Todd with The Valley Clean Team. Our flat rates start at $176 for a standard clean, $276 for a deep clean, and $351 for a move-out — quoted upfront, no surprises. Want to finish your booking? Your info's already filled in: https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}
+{{contact.first_name}}, it's Todd with The Valley Clean Team. Our flat rates start at $176 for a standard clean, $276 for a deep clean, and $351 for a move-out — quoted upfront, no surprises. Want to finish your booking? Your info's already filled in: https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
 ```
 
 ## 2) SMS — Step 2 (send 1 day later if still not booked)
 
 ```
-{{contact.first_name}}, still thinking it over? Totally fair. We're veteran- & women-owned, fully insured, 146 5-star reviews, and we send post-clean photos so you see exactly what you paid for. Happy to answer anything — or grab a spot here: https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}
+{{contact.first_name}}, still thinking it over? Totally fair. We're veteran- & women-owned, fully insured, 146 5-star reviews, and we send post-clean photos so you see exactly what you paid for. Happy to answer anything — or grab a spot here: https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
 ```
 
 ---
@@ -115,7 +115,7 @@ Still want that clean? (your info's already filled in)
           <p style="margin:0 0 16px;">Looks like you started booking your cleaning with The Valley Clean Team but didn't quite finish. No worries — it happens.</p>
           <p style="margin:0 0 16px;">We saved your spot in line. Pick up right where you left off — <strong>your name, email, and phone are already filled in</strong>, so it takes about 60 seconds:</p>
           <p style="text-align:center;margin:28px 0;">
-            <a href="https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}"
+            <a href="https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}"
                style="background:#FFA985;color:#ffffff;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 32px;border-radius:999px;display:inline-block;">
               Finish My Booking →
             </a>
@@ -154,7 +154,7 @@ Looks like you started booking with The Valley Clean Team but didn't quite finis
 
 We saved your spot. Pick up right where you left off (your info's already filled in, takes about 60 seconds):
 
-https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}
+https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
 
 Why folks pick us:
 - Veteran-owned & women-owned, fully insured & bonded
@@ -181,7 +181,7 @@ Call {{contact.first_name}} {{contact.last_name}} — abandoned booking
 ```
 {{contact.first_name}} started a {{custom_values.service}} booking in {{custom_values.city}} and didn't finish. Personal call to close.
 Phone: {{contact.phone}} | Email: {{contact.email}}
-Magic link to text them: https://thevalleycleanteam.com/booking?f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}
+Magic link to text them: https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
 ```
 
 ---
