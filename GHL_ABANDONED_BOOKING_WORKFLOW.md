@@ -34,7 +34,7 @@ form uses). Each booking-funnel event arrives with these fields:
 Send abandoners back with their info pre-filled (one click, no re-typing). Format:
 
 ```
-https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
+https://thevalleycleanteam.com/booking?phone={{contact.phone_raw}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
 ```
 
 Use GHL merge fields as shown. The page prefills the BookingKoala iframe from
@@ -65,7 +65,7 @@ the reliable one for an SMS sent hours later.)
    Hi {{contact.first_name}}, it's The Valley Clean Team 👋 Looks like you
    started booking your {{custom_values.service}} but didn't finish. Get stuck
    or have a question? Reply here, or pick up right where you left off (your
-   info's already filled in): https://thevalleycleanteam.com/booking?phone={{contact.phone}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
+   info's already filled in): https://thevalleycleanteam.com/booking?phone={{contact.phone_raw}}&f_name={{contact.first_name}}&l_name={{contact.last_name}}&email={{contact.email}}
    ```
 5. **Wait** — 1 hour.
 6. **If/Else:** booked yet? **Yes →** end. **No →** continue.
