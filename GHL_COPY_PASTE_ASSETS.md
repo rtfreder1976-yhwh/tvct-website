@@ -3,6 +3,28 @@
 _Everything you need to paste into GoHighLevel. Last updated: 2026-06-07._
 _✅ **System is LIVE and verified end-to-end as of 2026-06-07.**_
 
+> 📌 **This file is the single source of truth** for the abandoned-booking
+> system. Older GHL docs in this repo (`GHL_WORKFLOW_GUIDE.md`,
+> `GHL_WORKFLOW_BUILD_GUIDE.md`, `GHL_ABANDONED_BOOKING_WORKFLOW.md`,
+> `LEAD_AUTOMATION_FIX.md`) are HISTORICAL drafts and may reference stale
+> webhook URLs (e.g. `...0ac5`). Use THIS doc for the live config.
+
+### Phone-field rules in SMS (truncation gotchas — solved)
+
+1. Use **`{{contact.phone_raw}}`** in the magic-link URL — NOT `{{contact.phone}}`.
+   The latter renders the formatted `(205) 370-0194` whose `(` and space cause
+   SMS carriers to truncate the URL at the area code.
+2. Put `phone=` FIRST in the URL, not last — same carrier-parsing reason.
+3. The booking page strips a leading `1` country code automatically (GHL ships
+   US numbers as 11-digit `12053700194`).
+
+### Test contacts to delete from GHL when cleaning up
+
+Used `(256) 555-XXXX` fake numbers or `*test@thevalleycleanteam.com` emails:
+Workflow Test · Recovery EndToEnd · Final Loop Test · Stop Workflow Sample ·
+Sarah Sample · Field Test 2 · GHL FieldTest · Trace Test · Real Lead Test ·
+Deploy Test · Recovery booking_started/abandoned/completed.
+
 ## How the live system works (the verified flow)
 
 | Event from site | Webhook | GHL workflow | Action |
