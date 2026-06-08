@@ -49,27 +49,46 @@ and Prominence (reviews/citations/activity).
 **1. Categories — the single biggest "near me" relevance lever. [GBP dashboard]**
 Your commercial/office and deep-cleaning near-me clusters rank pos 27–33 largely
 because the right *categories* likely aren't set. In GBP → Edit profile → Categories:
-- **Primary:** `House Cleaning Service`
-- **Additional (add all that apply):** `Commercial Cleaning Service`, `Cleaners`,
-  `Maid Service`, `Janitorial Service`, `Deep Cleaning Service` (if offered),
-  `Move-in/out` is covered under House Cleaning.
-- Why: Google only shows you in the pack for "office cleaning near me" if
-  `Commercial Cleaning Service` is an active category. Missing categories = invisible
-  in that pack regardless of relevance.
+> **IMPORTANT — categories vs. services.** Google's CATEGORY list is fixed and SHORT.
+> You can only pick from what Google offers — you can't type a custom one. The cleaning
+> industry has just a handful of real categories. Things like "deep cleaning," "move-out
+> cleaning," and "maid service" are **NOT categories** — they're SERVICES you add inside
+> the House Cleaning Service category (step 2). Don't waste time looking for category names
+> that don't exist (that's the confusion this fixes).
 
-**2. Services list — name each near-me service explicitly. [GBP dashboard]**
-GBP → Edit services. Add a service entry for every cluster, using the searcher's
-words (from your query data): "Move-Out Cleaning", "House Cleaning", "Deep Cleaning",
-"Office/Commercial Cleaning", "Apartment Cleaning", "Maid Service", "Airbnb Turnover".
-Add a 1-2 sentence description to each. This directly feeds "[service] near me" relevance.
+**The REAL, selectable GBP cleaning categories (verified 2026):**
+- **House cleaning service** ← set as your **Primary**
+- **Commercial cleaning service** ← add (this is what unlocks "office/commercial cleaning near me")
+- **Janitorial service** ← add (commercial/recurring contract work — Rogersville, America1)
+- **Cleaners** ← add (broad catch-all, matches "cleaners near me", your top query type)
+- **Carpet cleaning service** ← add ONLY if you actually offer carpet cleaning
+- **Window cleaning service** ← add ONLY if you actually offer window cleaning
+
+That's the whole relevant list. If a name you're looking for isn't here, it's a *service*,
+not a category — add it in step 2. Why categories matter: Google only shows you in the
+"office cleaning near me" pack if **Commercial cleaning service** is an active category.
+Missing category = invisible in that pack no matter how good everything else is.
+
+**2. Services list — THIS is where deep/move-out/maid/Airbnb go. [GBP dashboard]**
+GBP → Edit profile → Services. Under your **House cleaning service** category, add a
+service entry for each near-me cluster, using the searcher's exact words (from your GSC
+data). Google lets you pick from suggested service names AND add custom ones here:
+- House Cleaning · Deep Cleaning · Move-Out Cleaning · Move-In Cleaning ·
+  Recurring Maid Service · Apartment Cleaning · One-Time Cleaning · Airbnb / Vacation Rental Turnover
+- Under **Commercial cleaning service**: Office Cleaning · Medical/Dental Office Cleaning ·
+  Janitorial / Recurring Commercial
+- Add a 1–2 sentence description to each. This is what feeds "[service] near me" relevance —
+  the categories get you eligible; the services match the specific query.
 
 **3. Service-area setup (you're a Service-Area Business). [GBP dashboard]**
 - **Hide the address**, show **service areas** (you clean at the customer's home).
-- List the service-area cities from `citation-audit-checklist.md`: Huntsville, Madison,
-  Athens, Decatur, Florence, Muscle Shoals, Tuscumbia, Sheffield, Mountain Brook,
-  Birmingham + the TN cities on the second profile.
-- Note: GBP service-area radius does NOT extend pack ranking far beyond your pin's
-  city — distance still dominates. Which is why #6 (multiple profiles) matters.
+- List the in-range AL service-area cities from `citation-audit-checklist.md`: Huntsville,
+  Madison, Athens, Decatur, Florence, Muscle Shoals, Tuscumbia, Sheffield, Mountain Brook.
+  (Add Nashville/Birmingham as service areas if you want them listed, but per the
+  single-profile decision below they won't pack-rank from a distance — that's expected.)
+- Note: GBP service-area radius does NOT extend pack ranking far beyond your pin's city —
+  distance dominates. This is exactly why the single-profile decision (#7) is correct:
+  you can't fix distance by listing more areas or adding listings.
 
 ### TIER 2 — Prominence (ongoing, compounding)
 
