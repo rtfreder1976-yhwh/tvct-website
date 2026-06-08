@@ -94,17 +94,31 @@ are quick wins (Tier 2).
 
 ### TIER 3 — Structural (bigger plays)
 
-**7. Consider a second/third GBP listing for distance coverage. [Decision]**
-Your pack ranking for "cleaning near me" is gated by your *pin's* location — a single
-Tuscumbia/Huntsville pin won't pack-rank for "house cleaning near me" searched from
-Nashville or Birmingham. You already run a separate TN phone (615-510-1427). If
-Nashville/Birmingham are real markets, a properly-managed separate GBP per metro is
-the only way to enter those local packs. (Follow GBP guidelines — service-area
-businesses get ONE profile per genuine location; don't create fake addresses.)
+**7. ONE GBP profile — do NOT create additional listings. [Decided 2026-06-08]**
+Decision confirmed with Todd: TVCT keeps a **single Google Business Profile** (the
+existing Alabama one). Reasoning:
+- TVCT's model is **dispersed home-based cleaners who drive to each market** (staff
+  live in TN/AL and drive up to Nashville, Huntsville, Madison, Athens, Birmingham).
+  There is **no staffed operational base** in Nashville or Birmingham.
+- Google's policy: a service-area business gets ONE profile per **genuine, staffed
+  location.** A listing at a market you only *drive into* (no real base, no storefront,
+  PO box / virtual office / a cleaner's home address) is the **#1 cause of GBP
+  suspension** — and a suspension can take down the existing good profile too. Not
+  worth the risk.
+- Distance reality: the map pack is gated by distance from your pin to the searcher.
+  Your AL pin **can** pack-rank for near-me searches in Huntsville/Madison/Decatur/
+  Athens/Florence-Shoals (all close, and your top markets by revenue). It **cannot**
+  pack-rank for Nashville/Birmingham from a distance — and no second listing should be
+  created to force it.
+- **Compete in Nashville/Birmingham via ORGANIC/website SEO instead** (location pages,
+  the hire-intent H1 fixes already shipped). Organic ranking has no distance limit —
+  you don't need the map pack to rank organically there.
 
-**8. Build the Birmingham money page (ties to the SEO list).** "office cleaning near
-me" / "cleaning services birmingham" demand exists; right now `/locations/birmingham`
-just redirects to Mountain Brook. A real hub + GBP presence is needed to pack-rank there.
+**8. Build the Birmingham money page (organic play — NOT a GBP play).** "office cleaning
+near me" / "cleaning services birmingham" demand exists; right now `/locations/birmingham`
+308-redirects to Mountain Brook. A real hub can win **organic** Birmingham rankings (no
+local base needed for that). Do NOT pair it with a Birmingham GBP — same suspension risk
+as #7. This is purely a website/content move.
 
 ---
 
