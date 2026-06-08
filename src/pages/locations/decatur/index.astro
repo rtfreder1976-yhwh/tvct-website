@@ -5,6 +5,7 @@ import { decaturTestimonials } from '../../../data/testimonials';
 import Icon from '../../../components/Icon.astro';
 import ProblemOptions from '../../../components/ProblemOptions.astro';
 import { standaloneServiceIntent } from '../../../data/serviceIntent.ts';
+import LocationGoogleMap from '../../../components/LocationGoogleMap.astro';
 
 const city = "Decatur";
 const state = "Alabama";
@@ -118,7 +119,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
             </span>
           </div>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]">
-            Professional Cleaning Services in <span class="gold-gradient">Decatur, Alabama</span>
+            House Cleaning Services in <span class="gold-gradient">Decatur, Alabama</span>
           </h1>
           <p class="text-xl text-gray-700 mb-6">
             North Alabama's trusted cleaning service for Decatur families and businesses. From historic Victorian homes to modern Wheeler Lake properties, we deliver spotless results throughout Morgan County.
@@ -309,6 +310,30 @@ import BookingCTA from "../../../components/BookingCTA.astro";
           </ul>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Service Area Map -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Our {city} Service Area
+        </h2>
+        <p class="text-xl text-gray-600">
+          Proudly serving {city} and surrounding {region} communities
+        </p>
+      </div>
+
+      <LocationGoogleMap
+        city={city}
+        state={state}
+        lat={34.6059}
+        lng={-86.9833}
+        zoom={10}
+        serviceRadius={15}
+        neighborhoods={neighborhoods}
+      />
     </div>
   </section>
 
