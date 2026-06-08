@@ -56,36 +56,32 @@ because the right *categories* likely aren't set. In GBP → Edit profile → Ca
 > the House Cleaning Service category (step 2). Don't waste time looking for category names
 > that don't exist (that's the confusion this fixes).
 
-**The REAL, selectable GBP cleaning categories (verified against Google's official
-2025/2026 category list — these EXACT names exist; "Cleaners" and "Maid Service" do NOT):**
-- **House cleaning service** ← set as your **Primary**
-- **Commercial cleaning service** ← add (unlocks "office/commercial cleaning near me")
-- **Janitorial service** ← add (commercial/recurring contract work — Rogersville, America1)
-- **Cleaning service** ← add (the generic catch-all category — note it's "Cleaning service",
-  NOT "Cleaners", which isn't a category)
-- **Carpet cleaning service** ← add ONLY if you actually offer carpet cleaning
-- **Window cleaning service** ← add ONLY if you actually offer window cleaning
+**The categories ACTUALLY available to TVCT's profile (verified 2026-06-08 against the
+live GBP picker via screenshots — this is what TVCT can really select, not the master list):**
+- **House cleaning service** ← **Primary** (already set) ✅
+- **Janitorial service** ← **ADD THIS for commercial.** This is TVCT's commercial category.
+  Confirmed available in the picker (typing "janitor" surfaces it). It accurately covers the
+  commercial/recurring facility work — Rogersville church, America1 office, Precision MD — and
+  is what makes TVCT eligible for office/commercial "near me" packs.
+- **Carpet cleaning service** ← available; add ONLY if TVCT actually offers carpet cleaning
+- **Window cleaning service** ← available; add ONLY if TVCT actually offers window cleaning
 
-That's the whole relevant list. If a name you're looking for isn't here, it's a *service*,
-not a category — add it in step 2.
+> **⚠️ "Commercial cleaning service" is NOT available to this profile — and that's normal.**
+> Verified 2026-06-08: typing "cleaning" in TVCT's picker shows Beach/Blast/Boat/Carpet/
+> Gutter/House/Pool/Tile/Vacuum/Window/Air-duct/Dryer-vent/Leather/Upholstery — but **NOT
+> "Commercial cleaning service" and NOT a generic "Cleaning service".** This is a Google-side
+> restriction (per a Google Product Expert, Feb 2026: categories vary by region and Google
+> merges/retires similar ones — the published master lists don't reflect what a given profile
+> can pick). **Do not chase it — there's no input trick. Use `Janitorial service` instead;
+> it's the recognized commercial-cleaning category in TVCT's available list.** Optionally
+> submit a "suggest a category" request via the dropdown (low effort, occasionally helps).
+> Do NOT add unrelated cleaning categories (Beach/Pool/Boat/Gutter/Tile/etc.) — only what
+> TVCT actually does.
 
-> **⚠️ "Google says it doesn't understand the category" — how to actually add it.**
-> The category exists (it's in Google's official list). The field is an **exact-match
-> autocomplete — you must SELECT from the dropdown, you cannot type the full phrase and
-> hit Enter/Save.** If the dashboard rejects "Commercial cleaning service":
-> 1. **Type a PARTIAL string and click the suggestion** — type `commercial cleaning`
->    (not the whole phrase), wait for the dropdown, then **click** the matching option.
->    Free-typed text is never accepted; only a picked suggestion is.
-> 2. **Edit at business.google.com** (or Google Search → your business → "Edit profile" →
->    "Business category"). The **Maps mobile app picker is glitchy** — avoid it for this.
-> 3. Confirm your **profile language = English (United States)** — other languages have
->    different category names.
-> 4. If it still won't take, try the lowercase exact string Google uses: `commercial
->    cleaning service`.
-
-Why categories matter: Google only shows you in the "office cleaning near me" pack if
-**Commercial cleaning service** is an active category.
-Missing category = invisible in that pack no matter how good everything else is.
+Why categories matter: Google only shows you in the "office cleaning near me" pack if a
+commercial category (**Janitorial service**, since Commercial cleaning service isn't
+available here) is active. Missing category = invisible in that pack no matter how good
+everything else is.
 
 **2. Services list — THIS is where deep/move-out/maid/Airbnb go. [GBP dashboard]**
 GBP → Edit profile → Services. Under your **House cleaning service** category, add a
@@ -93,8 +89,8 @@ service entry for each near-me cluster, using the searcher's exact words (from y
 data). Google lets you pick from suggested service names AND add custom ones here:
 - House Cleaning · Deep Cleaning · Move-Out Cleaning · Move-In Cleaning ·
   Recurring Maid Service · Apartment Cleaning · One-Time Cleaning · Airbnb / Vacation Rental Turnover
-- Under **Commercial cleaning service**: Office Cleaning · Medical/Dental Office Cleaning ·
-  Janitorial / Recurring Commercial
+- Under **Janitorial service** (your commercial category): Office Cleaning ·
+  Medical/Dental Office Cleaning · Recurring Commercial / Facility Cleaning
 - Add a 1–2 sentence description to each. This is what feeds "[service] near me" relevance —
   the categories get you eligible; the services match the specific query.
 
@@ -173,6 +169,9 @@ earn clicks — that means you've entered the pack. Also watch GBP Insights → 
 and "Calls" for lift.
 
 ## The one thing to do first
-**Set your GBP categories** (Tier 1, #1). Without `Commercial Cleaning Service` and the
-other categories active, you literally cannot appear in those near-me packs no matter
-what else you do. It's a 10-minute dashboard change with the highest ceiling.
+**Add `Janitorial service` as a category** (Tier 1, #1) alongside your existing
+`House cleaning service`. ("Commercial cleaning service" isn't available to this profile —
+Janitorial service is the recognized commercial category in TVCT's picker.) Without a
+commercial category active, you can't appear in office/commercial near-me packs no matter
+what else you do. It's a 5-minute dashboard change with the highest ceiling — then build out
+the Services list under each category.
