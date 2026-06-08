@@ -56,17 +56,35 @@ because the right *categories* likely aren't set. In GBP → Edit profile → Ca
 > the House Cleaning Service category (step 2). Don't waste time looking for category names
 > that don't exist (that's the confusion this fixes).
 
-**The REAL, selectable GBP cleaning categories (verified 2026):**
+**The REAL, selectable GBP cleaning categories (verified against Google's official
+2025/2026 category list — these EXACT names exist; "Cleaners" and "Maid Service" do NOT):**
 - **House cleaning service** ← set as your **Primary**
-- **Commercial cleaning service** ← add (this is what unlocks "office/commercial cleaning near me")
+- **Commercial cleaning service** ← add (unlocks "office/commercial cleaning near me")
 - **Janitorial service** ← add (commercial/recurring contract work — Rogersville, America1)
-- **Cleaners** ← add (broad catch-all, matches "cleaners near me", your top query type)
+- **Cleaning service** ← add (the generic catch-all category — note it's "Cleaning service",
+  NOT "Cleaners", which isn't a category)
 - **Carpet cleaning service** ← add ONLY if you actually offer carpet cleaning
 - **Window cleaning service** ← add ONLY if you actually offer window cleaning
 
 That's the whole relevant list. If a name you're looking for isn't here, it's a *service*,
-not a category — add it in step 2. Why categories matter: Google only shows you in the
-"office cleaning near me" pack if **Commercial cleaning service** is an active category.
+not a category — add it in step 2.
+
+> **⚠️ "Google says it doesn't understand the category" — how to actually add it.**
+> The category exists (it's in Google's official list). The field is an **exact-match
+> autocomplete — you must SELECT from the dropdown, you cannot type the full phrase and
+> hit Enter/Save.** If the dashboard rejects "Commercial cleaning service":
+> 1. **Type a PARTIAL string and click the suggestion** — type `commercial cleaning`
+>    (not the whole phrase), wait for the dropdown, then **click** the matching option.
+>    Free-typed text is never accepted; only a picked suggestion is.
+> 2. **Edit at business.google.com** (or Google Search → your business → "Edit profile" →
+>    "Business category"). The **Maps mobile app picker is glitchy** — avoid it for this.
+> 3. Confirm your **profile language = English (United States)** — other languages have
+>    different category names.
+> 4. If it still won't take, try the lowercase exact string Google uses: `commercial
+>    cleaning service`.
+
+Why categories matter: Google only shows you in the "office cleaning near me" pack if
+**Commercial cleaning service** is an active category.
 Missing category = invisible in that pack no matter how good everything else is.
 
 **2. Services list — THIS is where deep/move-out/maid/Airbnb go. [GBP dashboard]**
