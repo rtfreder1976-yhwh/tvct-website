@@ -1,0 +1,247 @@
+---
+// Conversion landing page for the NPS post-clean recurring pitch SMS.
+// One-time clients who just had a great clean land here from a text message.
+// One job: convert them to a recurring plan.
+//
+// NOT an SEO page — noindex + excluded from the sitemap (see astro.config.mjs)
+// so it never competes with /services/regular-cleaning. The SMS magic link
+// arrives with contact params (?phone=&f_name=&l_name=&email=) which are
+// forwarded to every booking CTA so BookingKoala pre-fills (same pattern as
+// /booking's recovery link).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { recurringTestimonials } from '../data/testimonials';
+
+const testimonial = recurringTestimonials[0]; // Heather C. — "each time is consistent and great"
+
+// JS-disabled fallback: CTAs still reach /booking with campaign attribution.
+const fallbackHref = '/booking?utm_source=nps&utm_medium=sms&utm_campaign=recurring-pitch';
+
+const plans = [
+  {
+    name: 'Weekly',
+    discount: '30% off',
+    tagline: 'The always-guest-ready home',
+    featured: false,
+  },
+  {
+    name: 'Bi-Weekly',
+    discount: '25% off',
+    tagline: 'Our most popular plan',
+    featured: true,
+  },
+  {
+    name: 'Monthly',
+    discount: '15% off',
+    tagline: 'The deep reset, every month',
+    featured: false,
+  },
+];
+---
+
+<BaseLayout
+  title="Keep Your Home This Clean | Valley Clean Team"
+  description="You just saw what we can do. Recurring clients get the same team and the same 49-point checklist every visit — at up to 30% off every clean."
+  noindex={true}
+  showNav={false}
+  showFooter={false}
+  schemaType="none"
+>
+  <!-- Simple, non-interactive header (no nav — focused conversion page) -->
+  <header class="py-4 px-6 border-b border-gray-100 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <div class="container mx-auto flex justify-between items-center">
+      <span class="font-playfair text-xl md:text-2xl font-bold text-[#FFA985]">The Valley Clean Team</span>
+      <div class="text-sm font-semibold text-gray-500 flex items-center gap-4">
+        <a href="tel:2568261100" class="flex items-center hover:text-[#C75B2A] transition py-2">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          AL: <span class="ml-1 text-[#333333]">256-826-1100</span>
+        </a>
+        <a href="tel:6155101427" class="hidden sm:flex items-center hover:text-[#C75B2A] transition py-2">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          TN: <span class="ml-1 text-[#333333]">615-510-1427</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Darker take on the brand gold-gradient: #FFA985 on white is 1.86:1,
+       failing WCAG AA's 3:1 large-text minimum; this ranges 3.6–4.2:1.
+       is:global (not scoped) because the personalization script re-creates
+       the span at runtime, outside Astro's scoping. -->
+  <style is:global>
+    .recurring-accent {
+      background: linear-gradient(135deg, #C75B2A 0%, #D2691E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+
+  <!-- Hero — text-first, no image, so LCP is the H1 -->
+  <section class="pt-14 pb-10 px-6">
+    <div class="container mx-auto text-center max-w-2xl">
+      <h1 id="hero-h1" class="text-4xl md:text-5xl font-bold mb-6 text-[#333333] tracking-tight">
+        Keep your home this clean. <span class="recurring-accent">All the time.</span>
+      </h1>
+      <p class="text-xl text-gray-600 mb-8">
+        You just saw what we can do. Recurring clients get the same team, the
+        same 49-point checklist, every visit — at up to 30% off.
+      </p>
+      <a href={fallbackHref} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px]">
+        Set Up My Recurring Clean
+        <Icon name="arrow-right" class="w-5 h-5 ml-2" />
+      </a>
+    </div>
+  </section>
+
+  <!-- The three plans -->
+  <section class="pb-12 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="grid md:grid-cols-3 gap-6 items-stretch">
+        {plans.map((plan) => (
+          <div class={`relative bg-white rounded-2xl p-8 flex flex-col text-center ${
+            plan.featured
+              ? 'border-2 border-[#FFA985] shadow-xl md:scale-105'
+              : 'border border-gray-200 shadow-lg'
+          }`}>
+            {plan.featured && (
+              <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] text-xs font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap">
+                MOST POPULAR
+              </span>
+            )}
+            <h2 class="text-2xl font-bold text-[#333333] mb-2">{plan.name}</h2>
+            <p class="text-3xl font-bold text-[#C75B2A] mb-1">{plan.discount}</p>
+            <p class="text-sm text-gray-500 mb-3">every clean</p>
+            <p class="text-gray-600 mb-6 flex-1">{plan.tagline}</p>
+            <a href={fallbackHref} class={`js-booking-cta w-full px-6 py-4 rounded-full font-semibold inline-flex items-center justify-center min-h-[44px] ${
+              plan.featured
+                ? 'btn-primary'
+                : 'border-2 border-[#C75B2A] text-[#333333] hover:bg-[#FFA985]/10 transition'
+            }`}>
+              Set Up My Recurring Clean
+            </a>
+          </div>
+        ))}
+      </div>
+      <!-- "pricing you've already seen", not "price you already paid": deep-clean
+           and move-out customers paid above the standard rate this discount
+           applies to, so anchoring to their invoice would be numerically wrong. -->
+      <p class="text-center text-gray-600 mt-8 max-w-2xl mx-auto">
+        Your exact price is based on your home's square footage — the same
+        flat-rate pricing you've already seen, minus your plan discount. No surprises.
+      </p>
+    </div>
+  </section>
+
+  <!-- Why recurring -->
+  <section class="py-12 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-3xl">
+      <ul class="grid md:grid-cols-3 gap-8 list-none p-0 m-0">
+        <li class="text-center">
+          <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="user-check" class="w-6 h-6 text-[#333333]" />
+          </div>
+          <p class="text-gray-700 font-medium">Same background-checked team every visit — they learn your home</p>
+        </li>
+        <li class="text-center">
+          <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="calendar-check" class="w-6 h-6 text-[#333333]" />
+          </div>
+          <p class="text-gray-700 font-medium">Priority scheduling — recurring clients get first pick of time slots</p>
+        </li>
+        <li class="text-center">
+          <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center">
+            <Icon name="sync" class="w-6 h-6 text-[#333333]" />
+          </div>
+          <p class="text-gray-700 font-medium">Pause or change frequency anytime. No contracts.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Social proof strip -->
+  <section class="py-12 px-6">
+    <div class="container mx-auto max-w-2xl text-center">
+      <p class="text-sm font-semibold text-gray-500 tracking-wide mb-4">
+        146 five-star reviews · 1,000+ cleanings · Veteran &amp; women-owned
+      </p>
+      <div class="inline-flex items-center gap-1 text-[#FFA985] mb-2">
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+        <Icon name="star" class="w-4 h-4" fill="currentColor" />
+      </div>
+      <blockquote class="text-gray-600 italic max-w-lg mx-auto m-0">
+        "{testimonial.text}"
+      </blockquote>
+      <p class="text-sm text-gray-500 mt-2">— {testimonial.name}, recurring client {testimonial.source}</p>
+    </div>
+  </section>
+
+  <!-- Final CTA block -->
+  <section class="py-14 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-2xl text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-[#333333] mb-6">
+        Lock in your spot — our recurring schedule fills by neighborhood.
+      </h2>
+      <a href={fallbackHref} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px] mb-6">
+        Set Up My Recurring Clean
+        <Icon name="arrow-right" class="w-5 h-5 ml-2" />
+      </a>
+      <p class="text-gray-600">
+        Questions? Text us:
+        <a href="sms:2568261100" class="font-semibold text-[#333333] hover:text-[#C75B2A] transition inline-block py-2">(256) 826-1100 (AL)</a>
+        ·
+        <a href="sms:6155101427" class="font-semibold text-[#333333] hover:text-[#C75B2A] transition inline-block py-2">(615) 510-1427 (TN)</a>
+      </p>
+    </div>
+  </section>
+
+  <script is:inline>
+    // Forward the SMS magic-link contact params to every booking CTA so
+    // BookingKoala pre-fills on /booking (which normalizes the phone itself).
+    // Values are passed through unchanged; phone goes FIRST in the constructed
+    // URL — carriers truncate long links, and a cut-off phone param breaks the
+    // whole pre-fill (same ordering rule as the magic link itself).
+    (function () {
+      var q;
+      try {
+        q = new URLSearchParams(window.location.search);
+      } catch (err) {
+        return;
+      }
+
+      var parts = [];
+      ['phone', 'f_name', 'l_name', 'email'].forEach(function (key) {
+        var val = q.get(key);
+        if (val) parts.push(key + '=' + encodeURIComponent(val));
+      });
+      parts.push('utm_source=nps', 'utm_medium=sms', 'utm_campaign=recurring-pitch');
+      var href = '/booking?' + parts.join('&');
+
+      var ctas = document.querySelectorAll('a.js-booking-cta');
+      for (var i = 0; i < ctas.length; i++) {
+        ctas[i].setAttribute('href', href);
+      }
+
+      // Personalize the H1 when f_name is present. textContent only — the
+      // name is reflected URL input, so it must never reach innerHTML. The
+      // letter class covers Latin-1/Extended (José, Renée, Zoë) without
+      // \p{L}/u, whose syntax would throw at parse time on old engines and
+      // take the CTA forwarding above down with it. Names over 24 chars are
+      // skipped (not truncated mid-word) — real first names don't run long.
+      var name = (q.get('f_name') || '').trim();
+      if (name && name.length <= 24 && /^[A-Za-zÀ-ɏ][A-Za-zÀ-ɏ'’. -]*$/.test(name)) {
+        var h1 = document.getElementById('hero-h1');
+        if (h1) {
+          h1.textContent = 'Keep it this clean, ';
+          var span = document.createElement('span');
+          span.className = 'recurring-accent';
+          span.textContent = name + '.';
+          h1.appendChild(span);
+        }
+      }
+    })();
+  </script>
+</BaseLayout>
