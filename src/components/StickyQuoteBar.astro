@@ -1,0 +1,45 @@
+---
+// Mobile-only sticky bottom bar that keeps the primary conversion action (quote)
+// and a tap-to-call within thumb reach on every money page. Hidden on >= sm.
+import Icon from "./Icon.astro";
+
+interface Props {
+  phone?: string; // digits only for tel:
+  phoneDisplay?: string;
+  quoteHref?: string;
+  quoteLabel?: string;
+}
+const {
+  phone = "2568261100",
+  phoneDisplay = "Call",
+  quoteHref = "/get-quote",
+  quoteLabel = "Get Free Quote",
+} = Astro.props;
+---
+
+<div
+  class="sm:hidden fixed bottom-0 inset-x-0 z-50 px-3 pt-2 pb-3 bg-white/95 backdrop-blur-md border-t border-gray-200 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]"
+  style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom));"
+>
+  <p class="text-center text-xs font-medium text-gray-600 mb-2">
+    <span class="text-green-600">●</span> Same-day available · We reply within 2 hours
+  </p>
+  <div class="flex gap-2">
+    <a
+      href={`tel:${phone}`}
+      class="flex items-center justify-center gap-2 px-4 py-3 rounded-full border-2 border-[#333333] text-[#333333] font-semibold"
+      aria-label="Call The Valley Clean Team"
+    >
+      <Icon name="phone" class="w-5 h-5" />
+      <span>{phoneDisplay}</span>
+    </a>
+    <a
+      href={quoteHref}
+      class="flex-1 flex items-center justify-center px-4 py-3 rounded-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold shadow-md"
+    >
+      {quoteLabel}
+    </a>
+  </div>
+</div>
+<!-- Spacer so the fixed bar never covers footer content on mobile -->
+<div class="sm:hidden h-20" aria-hidden="true"></div>

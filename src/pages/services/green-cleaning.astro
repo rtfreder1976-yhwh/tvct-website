@@ -1,10 +1,13 @@
 ---
+import StickyQuoteBar from "../../components/StickyQuoteBar.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SchemaMarkup from "../../components/SchemaMarkup.astro";
 import TrustBadges from "../../components/TrustBadges.astro";
 import Icon from "../../components/Icon.astro";
+import ProblemOptions from "../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../data/serviceIntent.ts";
 
-const title = "Eco-Friendly Cleaning Huntsville AL & Nashville TN | Valley Clean Team";
+const title = "Eco-Friendly Cleaning AL & TN | Valley Clean Team";
 const description =
   "Non-toxic, plant-based cleaning in Huntsville & Nashville. Safe for kids, pets & allergies. 146 5-star reviews, veteran-owned, $2M insured. Book in 60 seconds.";
 
@@ -226,7 +229,7 @@ const commonProblems = [
 import BookingCTA from "../../components/BookingCTA.astro";
 ---
 
-<BaseLayout title={title} description={description} ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png">
+<BaseLayout title={title} description={description} ogImage="https://thevalleycleanteam.com/og-image.png">
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -331,6 +334,15 @@ import BookingCTA from "../../components/BookingCTA.astro";
       <TrustBadges variant="full" showGuarantee={true} />
     </div>
   </section>
+
+  {standaloneServiceIntent["green-cleaning"] && (
+    <ProblemOptions
+      heading="The green cleaning problem — and your real options"
+      problem={standaloneServiceIntent["green-cleaning"].problem}
+      options={standaloneServiceIntent["green-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
 
   <!-- Common Problems We Solve -->
   <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
@@ -580,4 +592,5 @@ import BookingCTA from "../../components/BookingCTA.astro";
       </p>
     </div>
   </section>
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

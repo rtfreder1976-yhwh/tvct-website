@@ -1,10 +1,9 @@
 ---
 import { 
-  cityConfigs, 
-  petSafeServiceCatalog, 
-  cityReviewTemplates, 
+  cityConfigs,
+  petSafeServiceCatalog,
   cityFAQs,
-  type CityConfig 
+  type CityConfig
 } from "../constants/schemaData";
 
 interface Props {
@@ -92,18 +91,18 @@ const getOrganizationSchema = (includeDepartments = true) => ({
   name: "The Valley Clean Team",
   alternateName: ["TVCT", "Valley Clean Team"],
   description:
-    "Pet-safe residential and commercial cleaning services across Huntsville, Nashville, Florence, and Decatur since 2022. Non-toxic products safe for pets and children.",
+    "Pet-safe residential and commercial cleaning services across Huntsville, Athens, Florence & the Shoals, Mountain Brook, and Nashville since 2022. Non-toxic products safe for pets and children.",
   url: "https://thevalleycleanteam.com",
   telephone: "+1-256-826-1100",
   email: "hello@thevalleycleanteam.com",
   logo: {
     "@type": "ImageObject",
-    url: "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+    url: "https://thevalleycleanteam.com/og-image.png",
     width: 512,
     height: 512,
   },
   image: [
-    "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+    "https://thevalleycleanteam.com/og-image.png",
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -126,10 +125,20 @@ const getOrganizationSchema = (includeDepartments = true) => ({
   ],
   slogan: "Pet-Safe Cleaning You Can Trust",
   foundingDate: "2022",
+  priceRange: "$$",
   numberOfEmployees: {
     "@type": "QuantitativeValue",
     minValue: 10,
     maxValue: 25,
+  },
+  // Sitewide rating — mirrors the 5.0 / 146 reviews displayed on the homepage
+  // (ReviewBadges + TestimonialsSection), so it is policy-compliant review markup.
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "5.0",
+    reviewCount: "146",
+    bestRating: "5",
+    worstRating: "1",
   },
   isicV4: "9601",
   naics: "561720",
@@ -186,9 +195,6 @@ const localSchema = city
       const config = getCityConfig(city);
       const stateAbbr = state === "Alabama" ? "AL" : "TN";
       const citySlug = city.toLowerCase().replace(/\s+/g, "-");
-      const reviewText =
-        cityReviewTemplates[city] ||
-        `Best ${config.reviewFocus} in ${city}—professional and thorough!`;
 
       return {
         "@context": "https://schema.org",
@@ -200,7 +206,7 @@ const localSchema = city
         telephone: config.phone,
         email: "hello@thevalleycleanteam.com",
         image:
-          "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+          "https://thevalleycleanteam.com/og-image.png",
         priceRange: "$$",
         areaServed: [
           {
@@ -235,21 +241,6 @@ const localSchema = city
           name: "The Valley Clean Team",
           url: "https://thevalleycleanteam.com",
         },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: 4.9,
-          reviewCount: 146,
-          bestRating: 5,
-          worstRating: 1,
-        },
-        review: [
-          {
-            "@type": "Review",
-            author: { "@type": "Person", name: `${city} Homeowner` },
-            reviewRating: { "@type": "Rating", ratingValue: 5 },
-            reviewBody: reviewText,
-          },
-        ],
         openingHoursSpecification: [
           {
             "@type": "OpeningHoursSpecification",
@@ -362,7 +353,7 @@ const articleSchema =
         description: description,
         image:
           image ||
-          "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+          "https://thevalleycleanteam.com/og-image.png",
         datePublished: publishDate
           ? new Date(publishDate).toISOString()
           : new Date().toISOString(),
@@ -382,7 +373,7 @@ const articleSchema =
           "@id": "https://thevalleycleanteam.com/#organization",
           logo: {
             "@type": "ImageObject",
-            url: "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+            url: "https://thevalleycleanteam.com/og-image.png",
           },
         },
         mainEntityOfPage: {
@@ -404,7 +395,7 @@ const howToSchema =
         description: description,
         image:
           image ||
-          "https://res.cloudinary.com/dfjneoiaq/image/upload/v1765045347/Logo_for_a_cleaning_gjyiyb.png",
+          "https://thevalleycleanteam.com/og-image.png",
         totalTime: totalTime || "PT30M",
         estimatedCost: {
           "@type": "MonetaryAmount",

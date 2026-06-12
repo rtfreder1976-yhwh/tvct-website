@@ -1,4 +1,7 @@
 ---
+import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 
@@ -59,7 +62,7 @@ const serviceSchema = {
   "provider": {
     "@type": "LocalBusiness",
     "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "image": "https://thevalleycleanteam.com/og-image.png",
     "telephone": "+1-256-826-1100",
     "address": {
       "@type": "PostalAddress",
@@ -94,8 +97,8 @@ import BookingCTA from "../../../components/BookingCTA.astro";
 ---
 
 <BaseLayout
-  title="House Cleaning Sheffield, AL | Valley Clean Team"
-  description="Sheffield AL house cleaning — same trusted team every visit, 49-point checklist, veteran-owned & $2M insured. Recurring, deep clean & move-out. 256-826-1100."
+  title="Sheffield AL House Cleaners | The Valley Clean Team"
+  description="Looking for house cleaners in Sheffield, AL? Same trusted team every visit, 49-point checklist, veteran-owned & $2M insured. Recurring, deep clean & move-out. 256-826-1100."
   geoRegion="US-AL"
   geoPlacename="Sheffield, Alabama"
   geoPosition="34.7648;-87.6986"
@@ -116,7 +119,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
             </span>
           </div>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-            Professional House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Sheffield, Alabama</span>
+            Trusted House Cleaners in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">Sheffield, Alabama</span>
           </h1>
           <p class="text-xl text-gray-300 mb-6">
             Sheffield sits at the heart of The Shoals' Quad Cities, a community with deep roots and hardworking families. From historic homes near downtown to family neighborhoods throughout the city, Sheffield residents deserve clean homes without sacrificing their limited free time. The Valley Clean Team brings professional cleaning to Sheffield's working families.
@@ -145,7 +148,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
             <a href="/get-quote" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
-              Book Online
+              Get Your Free Quote
             </a>
           </div>
         </div>
@@ -520,4 +523,13 @@ import BookingCTA from "../../../components/BookingCTA.astro";
   
 
   
+  {standaloneServiceIntent["neighborhood"] && (
+    <ProblemOptions
+      heading="Choosing a cleaner in Sheffield — your real options"
+      problem={standaloneServiceIntent["neighborhood"].problem}
+      options={standaloneServiceIntent["neighborhood"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

@@ -128,11 +128,25 @@ export const POST: APIRoute = async ({ request }) => {
                         email: data.email || '',
                         service: data.service,
                         square_footage: Number(data.square_footage),
+                        bedrooms: data.bedrooms ? String(data.bedrooms).slice(0, 4) : '',
+                        bathrooms: data.bathrooms ? String(data.bathrooms).slice(0, 4) : '',
                         is_urgent: !!data.is_urgent,
                         notes: data.message || '',
                         source: sanitizeSource(data.source),
                         location_city: data.location || '',
                         page_url: sanitizePageUrl(data.page_url),
+                        // Booking-funnel lifecycle marker (booking_started |
+                        // booking_abandoned | booking_completed) so GHL can branch
+                        // an abandoned-booking follow-up workflow. Allowlisted.
+                        funnel_event:
+                            typeof data.funnel_event === 'string' &&
+                            ['booking_started', 'booking_abandoned', 'booking_completed'].includes(data.funnel_event)
+                                ? data.funnel_event
+                                : '',
+                        seconds_in_iframe:
+                            typeof data.seconds === 'number' && isFinite(data.seconds)
+                                ? Math.max(0, Math.round(data.seconds))
+                                : undefined,
                         submission_id: crypto.randomUUID(),
                         timestamp: new Date().toISOString(),
                     }),

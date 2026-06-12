@@ -3,6 +3,8 @@ import BaseLayout from "./BaseLayout.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
 import BookingCTA from "../components/BookingCTA.astro";
+import ProblemOptions from "../components/ProblemOptions.astro";
+import StickyQuoteBar from "../components/StickyQuoteBar.astro";
 import { getTestimonialsByService } from "../data/testimonials";
 
 interface Props {
@@ -515,6 +517,106 @@ const faqSchema = {
     },
   })),
 };
+
+// ── Buyer-intent content (the "5 jobs") ───────────────────────────────────────
+// Per-service framing so every combo page (1) names the exact buyer problem and
+// (2) compares the real options, with a clean answer-first lead AI engines can
+// cite (4). Cost/risk (3) and conversion (5) are handled by the price block + CTAs.
+// Each page can override via props; otherwise we derive sensible defaults by slug.
+type IntentOption = { label: string; detail: string; isUs?: boolean };
+type ServiceIntent = {
+  problem: string;
+  options: IntentOption[];
+};
+const usOption = (detail: string): IntentOption => ({
+  label: "The Valley Clean Team",
+  detail,
+  isUs: true,
+});
+const serviceIntentMap: Record<string, ServiceIntent> = {
+  "move-out-cleaning": {
+    problem:
+      `You're moving out of a ${city} rental and your deposit is on the line. Landlords inspect the exact spots tenants miss — oven interiors, window tracks, cabinet shelves, bathroom grout — and deduct for every one. Clean it wrong and you lose hundreds.`,
+    options: [
+      { label: "Do it yourself", detail: "Free, but you clean what you see while the landlord inspects what you don't — the broiler drawer, fridge coils, caulk lines. The most-deducted areas are the easiest to miss." },
+      { label: "A $19/hr gig cleaner", detail: "Cheap up front, but no checklist, no insurance, and no guarantee your deposit comes back. If they miss the inspection points, the cost lands on you." },
+      usOption("Flat-rate move-out clean to a landlord's inspection checklist — inside appliances, tracks, grout, baseboards — with post-clean photos and a re-clean within 24 hours if anything's missed."),
+    ],
+  },
+  "deep-cleaning": {
+    problem:
+      `Your ${city} home needs more than a surface wipe-down — built-up grime on baseboards, inside appliances, grout, and the spots a routine clean never reaches. The question is who actually cleans those, and what it really costs.`,
+    options: [
+      { label: "A standard/recurring clean", detail: "Maintains a home that's already clean — it won't cut through months of build-up in the oven, grout, and baseboards." },
+      { label: "A cheap one-time clean", detail: "Advertised low, but 'deep clean' often means the same surface pass with a bigger price. Ask exactly what's included before you book." },
+      usOption("A true top-to-bottom reset from a flat upfront price — baseboards, inside appliances, cabinet fronts, detailed kitchen and bath — with pet-safe products and a satisfaction guarantee."),
+    ],
+  },
+  "recurring-maid-service": {
+    problem:
+      `You're tired of losing weekends to cleaning, but you've heard the horror stories — a different stranger every visit, no-shows, prices that creep up. You want consistency you can actually count on in ${city}.`,
+    options: [
+      { label: "Keep doing it yourself", detail: "Free, but it's the weekend time and mental load you never get back — and it never really stays done." },
+      { label: "A rotating gig-app cleaner", detail: "A new face each visit who never learns your home, with no company insurance or accountability behind them." },
+      usOption("The same background-checked team every visit, a flat quote that doesn't move, and no contract — cancel anytime. Weekly, bi-weekly, or monthly."),
+    ],
+  },
+  "commercial-cleaning": {
+    problem:
+      `Your ${city} business can't run on a cleaner who flakes. A missed night means a bad first impression for clients or a compliance problem — and most 'commercial' cleaners are solo operators with no backup and no insurance.`,
+    options: [
+      { label: "An in-house or solo cleaner", detail: "Works until they're sick, quit, or no-show — then your facility goes uncleaned with no backup and the liability is yours." },
+      { label: "The lowest bid", detail: "Cheapest per-visit, but turnover is high and quality slips fast once the contract is signed." },
+      usOption("Insured, background-checked crews on a consistent schedule built around your hours, with a single point of contact and a free on-site assessment before any commitment."),
+    ],
+  },
+  "airbnb-cleaning": {
+    problem:
+      `One bad turnover in ${city} — a missed stain, no fresh linens, a late finish — and you've got a 1-star review and a blocked calendar. You need a turnover that's guest-ready every single time, on a host's timeline.`,
+    options: [
+      { label: "Clean it yourself between guests", detail: "Doable until you scale — then back-to-back checkouts and a day job make same-day turnovers impossible." },
+      { label: "A standard house cleaner", detail: "They'll clean, but they don't think like a host — linens, restocking, staging, and the checkout-to-check-in clock aren't their job." },
+      usOption("Hospitality-standard turnovers timed to your booking calendar — fresh linens, restocked supplies, sanitized and staged — so every guest walks into a 5-star reset."),
+    ],
+  },
+  "post-construction-cleaning": {
+    problem:
+      `After a renovation in ${city}, fine construction dust is in everything — vents, tracks, every surface — and it keeps resettling for days. Regular cleaning just spreads it around; this needs a specific process.`,
+    options: [
+      { label: "Clean it yourself", detail: "Without the right tools, dust resettles for a week and ends up in your HVAC. It's a job that fights back." },
+      { label: "Your contractor's 'broom clean'", detail: "Gets the debris out, but leaves the fine dust film that makes a finished home feel unfinished." },
+      usOption("A multi-stage dust-removal clean — top to bottom, vents and tracks included — that takes a job-site to move-in ready, with flexible scheduling around your timeline."),
+    ],
+  },
+};
+// Office/medical/dental/retail/restaurant/event/senior all map to the commercial framing
+const intentAliases: Record<string, string> = {
+  "office-cleaning": "commercial-cleaning",
+  "medical-office-cleaning": "commercial-cleaning",
+  "dental-office-cleaning": "commercial-cleaning",
+  "retail-cleaning": "commercial-cleaning",
+  "restaurant-cleaning": "commercial-cleaning",
+  "event-cleaning": "commercial-cleaning",
+  "weekly-cleaning": "recurring-maid-service",
+  "biweekly-cleaning": "recurring-maid-service",
+  "house-cleaning": "recurring-maid-service",
+  "senior-cleaning": "recurring-maid-service",
+};
+const serviceIntent: ServiceIntent | undefined =
+  serviceIntentMap[serviceSlug] ||
+  serviceIntentMap[intentAliases[serviceSlug] || ""];
+
+// Link to the city's "best cleaning company in {city}" comparison page where one
+// exists (internal link: problem/compare block -> high-value best-of page).
+const bestOfByCity: Record<string, string> = {
+  huntsville: "/best-cleaning-company-huntsville-al",
+  nashville: "/best-cleaning-company-nashville-tn",
+  athens: "/best-cleaning-company-athens-al",
+  florence: "/best-cleaning-company-florence-al",
+  "muscle-shoals": "/best-cleaning-company-florence-al",
+  "mountain-brook": "/best-cleaning-company-mountain-brook-al",
+};
+const compareHref = bestOfByCity[citySlug];
 ---
 
 <BaseLayout
@@ -528,6 +630,12 @@ const faqSchema = {
   serviceDescription={serviceDescription}
   faqs={faqs}
 >
+  <!-- Page-level structured data: FAQ + Service (SchemaMarkup intentionally
+       skips FAQPage so pages emit their own; these consts were previously
+       defined but never rendered, leaving combo pages without FAQ/Service schema). -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
   <!-- Hero Section -->
   <section class="pt-32 pb-20 px-6">
     <div class="container mx-auto">
@@ -892,6 +1000,20 @@ const faqSchema = {
       </div>
     </div>
   </section>
+
+  <!-- Buyer-intent: name the exact problem + compare the real options -->
+  {
+    serviceIntent && (
+      <ProblemOptions
+        heading={`The ${city} ${service.toLowerCase()} problem — and your real options`}
+        problem={serviceIntent.problem}
+        options={serviceIntent.options}
+        ctaLabel={`See your flat ${city} price in 60 seconds`}
+        compareHref={compareHref}
+        compareLabel={`See how we compare to other ${city} cleaners →`}
+      />
+    )
+  }
 
   <!-- Local Context Section - SEO-rich content about the local area -->
   {
@@ -1470,4 +1592,6 @@ const faqSchema = {
       overflow: hidden;
     }
   </style>
+
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

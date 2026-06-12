@@ -1,4 +1,7 @@
 ---
+import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 import TrustBadges from "../../../components/TrustBadges.astro";
@@ -973,4 +976,13 @@ import BookingCTA from "../../../components/BookingCTA.astro";
       </div>
     </div>
   </section>
+  {standaloneServiceIntent["neighborhood"] && (
+    <ProblemOptions
+      heading="Choosing a cleaner in Music Row — your real options"
+      problem={standaloneServiceIntent["neighborhood"].problem}
+      options={standaloneServiceIntent["neighborhood"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

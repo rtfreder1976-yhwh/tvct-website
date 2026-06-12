@@ -26,17 +26,35 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
 
     const resend = new Resend(resendApiKey);
 
-    const { name, email, phone, service, location, preferred_date, message, source, page_url, is_urgent, square_footage } = req.body;
+    const { name, email, phone, service, location, preferred_date, message, source, page_url, is_urgent, square_footage, bedrooms, bathrooms, funnel_event, seconds } = req.body;
 
-    if (!phone) {
+    // Booking-funnel lifecycle events (booking_started/abandoned/completed) come
+    // from /booking and may be partial (e.g. abandon fired on tab close). Don't
+    // require phone for those — relay whatever identity we have to GHL.
+    const isBookingEvent = source === 'Booking Page Pre-Capture' || !!funnel_event;
+
+    if (!isBookingEvent && !phone) {
       return res.status(400).json({
         error: 'Phone number is required'
       });
     }
 
-    // Send to GHL webhook for CRM integration
-    // Updated 2026-05-04: New published workflow (old draft URL replaced)
-    const ghlWebhookUrl = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/aa1b4261-4253-40a8-84c4-07bff1d053e0';
+    // Send to GHL webhook for CRM integration. Three separate webhooks:
+    //   Quote-form leads -> ...d053e0 (the "Website Quote Form - New Lead" wf)
+    //   booking_started/abandoned -> GHL_BOOKING_WEBHOOK_URL (Abandoned Booking
+    //     Recovery wf)
+    //   booking_completed -> GHL_BOOKING_COMPLETED_WEBHOOK_URL (the stop wf
+    //     that adds the 'booked' tag and removes the contact from recovery).
+    // Each falls back to the main quote webhook if its env var is not set so
+    // nothing breaks before configuration.
+    const QUOTE_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/iKQIBhpKVL2XVPgU7HMd/webhook-trigger/aa1b4261-4253-40a8-84c4-07bff1d053e0';
+    const BOOKING_RECOVERY_WEBHOOK_URL = process.env.GHL_BOOKING_WEBHOOK_URL || QUOTE_WEBHOOK_URL;
+    const BOOKING_COMPLETED_WEBHOOK_URL = process.env.GHL_BOOKING_COMPLETED_WEBHOOK_URL || BOOKING_RECOVERY_WEBHOOK_URL;
+    const ghlWebhookUrl = !isBookingEvent
+        ? QUOTE_WEBHOOK_URL
+        : String(funnel_event) === 'booking_completed'
+            ? BOOKING_COMPLETED_WEBHOOK_URL
+            : BOOKING_RECOVERY_WEBHOOK_URL;
 
     try {
       await fetch(ghlWebhookUrl, {
@@ -45,15 +63,25 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
         body: JSON.stringify({
           name: name || '',
           email: email || '',
-          phone: phone,
+          phone: phone || '',
           service: service || '',
           location: location || '',
           square_footage: square_footage || '',
+          bedrooms: bedrooms || '',
+          bathrooms: bathrooms || '',
           preferred_date: preferred_date || '',
           message: message || '',
           source: source || 'Website',
           page_url: page_url || '',
           is_urgent: is_urgent === 'true',
+          // Booking-funnel lifecycle marker for the abandoned-booking workflow
+          // (booking_started | booking_abandoned | booking_completed; '' for normal leads)
+          funnel_event:
+            ['booking_started', 'booking_abandoned', 'booking_completed'].includes(String(funnel_event))
+              ? String(funnel_event)
+              : '',
+          seconds_in_iframe:
+            typeof seconds === 'number' && isFinite(seconds) ? Math.max(0, Math.round(seconds)) : '',
           submitted_at: new Date().toISOString()
         })
       });
@@ -61,6 +89,34 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     } catch (ghlError) {
       console.error('GHL webhook error:', ghlError);
       // Continue execution to send email backup even if GHL fails
+    }
+
+    // Server-side PostHog capture — ties every lead/booking event to analytics
+    // even when the browser snippet is blocked. phc_ key is public (same class
+    // as the GA4 measurement ID). Never let analytics failure break the lead.
+    try {
+      const phEvent = ['booking_started', 'booking_abandoned', 'booking_completed'].includes(String(funnel_event))
+        ? String(funnel_event)
+        : 'quote_form_submitted';
+      await fetch('https://us.i.posthog.com/i/v0/e/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: 'phc_AJmz2EtAwrZZpTJEXDtFWwtiE6cwYou2TPxzbCMsgXZB',
+          event: phEvent,
+          distinct_id: (typeof phone === 'string' && phone) || (typeof email === 'string' && email) || 'anonymous-lead',
+          properties: {
+            service: service || '',
+            location: location || '',
+            source: source || 'Website',
+            page_url: page_url || '',
+            is_urgent: is_urgent === 'true',
+          },
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (phError) {
+      console.error('PostHog capture error (non-fatal):', phError);
     }
 
     // Format the email content
@@ -146,6 +202,13 @@ Source: ${source || 'Website'}
 Page: ${page_url || 'Unknown'}
 Time: ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })}
     `.trim();
+
+    // Booking-funnel lifecycle events are handled by GHL only — don't email a
+    // notification for every started/abandoned event (that would be noisy).
+    // GHL's abandoned-booking workflow drives the follow-up instead.
+    if (isBookingEvent) {
+      return res.status(200).json({ success: true, message: 'Event received', funnel_event: funnel_event || '' });
+    }
 
     // Send email to GHL inbox for workflow automation
     const { data, error } = await resend.emails.send({

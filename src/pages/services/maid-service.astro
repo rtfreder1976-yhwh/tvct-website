@@ -1,11 +1,14 @@
 ---
+import StickyQuoteBar from "../../components/StickyQuoteBar.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SchemaMarkup from "../../components/SchemaMarkup.astro";
 import TrustBadges from "../../components/TrustBadges.astro";
 import Icon from "../../components/Icon.astro";
+import ProblemOptions from "../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../data/serviceIntent.ts";
 
 const title =
-    "Maid Service Huntsville AL | Veteran-Owned | Valley Clean Team";
+    "Maid Service Huntsville AL | Valley Clean Team";
 const description =
     "Huntsville's top-rated maid service. Same cleaner every visit, 146 5-star reviews, $2M insured. Weekly, bi-weekly & monthly plans. Book in 60 seconds.";
 
@@ -324,6 +327,15 @@ import BookingCTA from "../../components/BookingCTA.astro";
             <TrustBadges variant="full" showGuarantee={true} />
         </div>
     </section>
+
+    {standaloneServiceIntent["maid-service"] && (
+      <ProblemOptions
+        heading="The maid service problem — and your real options"
+        problem={standaloneServiceIntent["maid-service"].problem}
+        options={standaloneServiceIntent["maid-service"].options}
+        ctaLabel="See your flat price in 60 seconds"
+      />
+    )}
 
     <!-- Image/Text Section -->
     <section class="py-20 px-6 bg-white">
@@ -652,4 +664,5 @@ import BookingCTA from "../../components/BookingCTA.astro";
             </div>
         </div>
     </section>
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

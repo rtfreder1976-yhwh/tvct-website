@@ -3,6 +3,9 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import SchemaMarkup from "../../../components/SchemaMarkup.astro";
 import { madisonTestimonials } from "../../../data/testimonials";
 import Icon from "../../../components/Icon.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
+import LocationGoogleMap from "../../../components/LocationGoogleMap.astro";
 
 const city = "Madison";
 const state = "Alabama";
@@ -102,7 +105,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
 ---
 
 <BaseLayout
-  title="Trusted House Cleaning in Madison AL | Veteran-Owned Team"
+  title="House Cleaning in Madison, AL"
   description="Madison’s veteran-owned cleaning service. 146 5-star reviews, background-checked, insured. Recurring, deep clean & move-out available. Book online today."
   canonicalUrl="https://thevalleycleanteam.com/locations/madison"
   ogImage={geoData.image}
@@ -135,7 +138,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
           <h1
             class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
           >
-            Premium Cleaning Services in <span class="gold-gradient"
+            House Cleaning Services in <span class="gold-gradient"
               >Madison, Alabama</span
             >
           </h1>
@@ -205,10 +208,10 @@ import BookingCTA from "../../../components/BookingCTA.astro";
               <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
             </a>
             <a
-              href="tel:+12568561006"
+              href="tel:+12568261100"
               class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all duration-200"
             >
-              <Icon name="phone" class="w-5 h-5 mr-2" />(256) 856-1006
+              <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
             </a>
           </div>
         </div>
@@ -556,6 +559,30 @@ import BookingCTA from "../../../components/BookingCTA.astro";
     </div>
   </section>
 
+  <!-- Service Area Map -->
+  <section class="py-20 px-6">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
+          Our {city} Service Area
+        </h2>
+        <p class="text-xl text-gray-600">
+          Proudly serving {city} and surrounding {region} communities
+        </p>
+      </div>
+
+      <LocationGoogleMap
+        city={city}
+        state={state}
+        lat={34.6992}
+        lng={-86.7483}
+        zoom={10}
+        serviceRadius={15}
+        neighborhoods={neighborhoods}
+      />
+    </div>
+  </section>
+
   <!-- Services Section -->
   <section class="py-16 px-6">
     <div class="container mx-auto">
@@ -896,6 +923,14 @@ import BookingCTA from "../../../components/BookingCTA.astro";
     </div>
   </section>
 
+  <!-- Buyer-intent problem + options block -->
+  <ProblemOptions
+    heading="Choosing a house cleaner in Madison — your real options"
+    problem={standaloneServiceIntent["neighborhood"].problem}
+    options={standaloneServiceIntent["neighborhood"].options}
+    ctaLabel="See your flat Madison price in 60 seconds"
+  />
+
   <!-- Final CTA -->
   <section
     class="py-20 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]"
@@ -917,10 +952,10 @@ import BookingCTA from "../../../components/BookingCTA.astro";
           <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
         </a>
         <a
-          href="tel:+12568561006"
+          href="tel:+12568261100"
           class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all duration-200"
         >
-          <Icon name="phone" class="w-5 h-5 mr-2" />(256) 856-1006
+          <Icon name="phone" class="w-5 h-5 mr-2" />(256) 826-1100
         </a>
       </div>
     </div>

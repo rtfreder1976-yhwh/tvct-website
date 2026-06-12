@@ -1,10 +1,11 @@
 ---
+import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Icon from '../../../components/Icon.astro';
 
 const city = "Decatur";
 const state = "Alabama";
-const phone = "(256) 856-1006";
+const phone = "(256) 826-1100";
 
 // Decatur areas
 const neighborhoods = [
@@ -77,7 +78,7 @@ const includedServices = [
 const faqs = [
   {
     question: "How much does move-out cleaning cost in Decatur?",
-    answer: "Move-out cleaning in Decatur typically ranges from $200-$350 for apartments and average-sized homes (1,500-2,500 sq ft). Larger homes may cost $350-$500+. Pricing depends on square footage, condition, and specific requirements. Call (256) 856-1006 for a free quote."
+    answer: "Move-out cleaning in Decatur typically ranges from $200-$350 for apartments and average-sized homes (1,500-2,500 sq ft). Larger homes may cost $350-$500+. Pricing depends on square footage, condition, and specific requirements. Call (256) 826-1100 for a free quote."
   },
   {
     question: "Will move-out cleaning help me get my deposit back?",
@@ -117,7 +118,7 @@ const serviceSchema = {
   "provider": {
     "@type": "LocalBusiness",
     "name": "The Valley Clean Team",
-    "telephone": "+12568561006",
+    "telephone": "+12568261100",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Decatur",
@@ -146,6 +147,8 @@ const faqSchema = {
   }))
 };
 import BookingCTA from "../../../components/BookingCTA.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 ---
 
 <BaseLayout
@@ -213,7 +216,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
             <a href="#quote" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-white bg-gradient-to-r from-[#FFA985] to-[#FFC67D] rounded-full shadow-lg hover:shadow-xl transition-all">
               <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
             </a>
-            <a href="tel:+12568561006" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
+            <a href="tel:+12568261100" class="inline-flex items-center justify-center px-6 py-3 text-lg font-semibold text-[#333333] bg-white border-2 border-[#FFA985] rounded-full hover:bg-[#FFA985]/10 transition-all">
               <Icon name="phone" class="w-5 h-5 mr-2" />{phone}
             </a>
           </div>
@@ -373,7 +376,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
         <a href="#quote" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
           <Icon name="calendar-check" class="w-5 h-5 mr-2" />Get Free Quote
         </a>
-        <a href="tel:+12568561006" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
+        <a href="tel:+12568261100" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white rounded-full hover:bg-white/10 transition-all">
           <Icon name="phone" class="w-5 h-5 mr-2" />{phone}
         </a>
       </div>
@@ -383,7 +386,17 @@ import BookingCTA from "../../../components/BookingCTA.astro";
     </div>
   </section>
 
-  </BaseLayout>
+    <StickyQuoteBar quoteLabel="Get My Free Quote" />
+  {standaloneServiceIntent["move-in-out-cleaning"] && (
+    <ProblemOptions
+      heading="The Decatur move-out cleaning problem — and your real options"
+      problem={standaloneServiceIntent["move-in-out-cleaning"].problem}
+      options={standaloneServiceIntent["move-in-out-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+
+</BaseLayout>
 
 <style>
   .gold-gradient {

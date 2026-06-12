@@ -1,8 +1,11 @@
 ---
+import StickyQuoteBar from "../../components/StickyQuoteBar.astro";
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SchemaMarkup from '../../components/SchemaMarkup.astro';
 import TrustBadges from '../../components/TrustBadges.astro';
 import Icon from '../../components/Icon.astro';
+import ProblemOptions from '../../components/ProblemOptions.astro';
+import { standaloneServiceIntent } from '../../data/serviceIntent.ts';
 
 const title = "Post-Construction Cleaning Huntsville AL | Valley Clean Team";
 const description =
@@ -259,7 +262,7 @@ const projectTypes = [
 ];
 ---
 
-<BaseLayout title={title} description={description} ogImage="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png">
+<BaseLayout title={title} description={description} ogImage="https://thevalleycleanteam.com/og-image.png">
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -403,6 +406,15 @@ const projectTypes = [
       <TrustBadges variant="full" showGuarantee={true} />
     </div>
   </section>
+
+  {standaloneServiceIntent["post-construction-cleaning"] && (
+    <ProblemOptions
+      heading="The post-construction cleanup problem — and your real options"
+      problem={standaloneServiceIntent["post-construction-cleaning"].problem}
+      options={standaloneServiceIntent["post-construction-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
 
   <!-- What's Included Section -->
   <section class="py-20 px-6 bg-gray-50 content-visibility-auto">
@@ -732,4 +744,5 @@ const projectTypes = [
     </div>
   </section>
 
-  </BaseLayout>
+    <StickyQuoteBar quoteLabel="Get My Free Quote" />
+</BaseLayout>

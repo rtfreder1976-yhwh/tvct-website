@@ -44,7 +44,7 @@ import Icon from '../components/Icon.astro';
       "@type": "LocalBusiness",
       "name": "The Valley Clean Team",
       "telephone": "+12568261100",
-      "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+      "image": "https://thevalleycleanteam.com/og-image.png",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
@@ -226,28 +226,90 @@ import Icon from '../components/Icon.astro';
           ></iframe>
 
           <script is:inline>
-            // Prefill the BookingKoala iframe from Step 1 (get-quote) data
+            // Prefill the BookingKoala iframe.
+            // Priority: URL query params (a "magic" recovery link sent via SMS/
+            // email to an abandoner) > Step-1 sessionStorage (normal funnel).
+            // A recovery link looks like:
+            //   /booking?f_name=Jane&l_name=Doe&email=jane@x.com&phone=2565550100
+            // So an abandoner clicks once and lands with their info already filled.
             (function () {
               var frame = document.getElementById('booking-iframe');
               if (!frame) return;
               var base = frame.getAttribute('data-base');
               var params = [];
+
+              var lead = { first: '', last: '', email: '', phone: '' };
+
+              // 1) sessionStorage (normal Step-1 -> Step-2 handoff)
               try {
                 var raw = sessionStorage.getItem('tvct_quote');
                 if (raw) {
                   var d = JSON.parse(raw);
                   if (d.name) {
                     var parts = String(d.name).trim().split(/\s+/);
-                    var first = parts.shift() || '';
-                    var last = parts.join(' ');
-                    if (first) params.push('f_name=' + encodeURIComponent(first));
-                    if (last) params.push('l_name=' + encodeURIComponent(last));
+                    lead.first = parts.shift() || '';
+                    lead.last = parts.join(' ');
                   }
-                  if (d.email) params.push('email=' + encodeURIComponent(d.email));
-                  if (d.phone) params.push('phone=' + encodeURIComponent(String(d.phone).replace(/\D/g, '')));
+                  if (d.email) lead.email = d.email;
+                  if (d.phone) lead.phone = d.phone;
                 }
               } catch (err) {}
+
+              // 2) URL params override (the recovery/magic link)
+              try {
+                var q = new URLSearchParams(window.location.search);
+                if (q.get('f_name')) lead.first = q.get('f_name');
+                if (q.get('l_name')) lead.last = q.get('l_name');
+                // accept either ?name=Full Name or first/last
+                if (q.get('name')) {
+                  var np = String(q.get('name')).trim().split(/\s+/);
+                  lead.first = np.shift() || lead.first;
+                  lead.last = np.join(' ') || lead.last;
+                }
+                if (q.get('email')) lead.email = q.get('email');
+                if (q.get('phone')) lead.phone = q.get('phone');
+                // Service/frequency deep link (e.g. /recurring plan cards):
+                // BookingKoala pre-selects the Services dropdown and frequency
+                // radio from these (form-frequency row IDs, not global ones).
+                if (/^\d+$/.test(q.get('service_id') || '')) params.push('service_id=' + q.get('service_id'));
+                if (/^\d+$/.test(q.get('frequency_id') || '')) params.push('frequency_id=' + q.get('frequency_id'));
+              } catch (err) {}
+
+              if (lead.first) params.push('f_name=' + encodeURIComponent(lead.first));
+              if (lead.last) params.push('l_name=' + encodeURIComponent(lead.last));
+              if (lead.email) params.push('email=' + encodeURIComponent(lead.email));
+              if (lead.phone) {
+                // BookingKoala installs vary on which param name fills the
+                // phone field — pass all the common ones so whichever the form
+                // expects gets populated.
+                // Normalize: digits only, then strip leading '1' if 11 digits
+                // (US country code) so BookingKoala doesn't mis-parse the
+                // sequence. Falls back to the original digits if it's already
+                // 10 digits or some other length.
+                var digits = String(lead.phone).replace(/\D/g, '');
+                if (digits.length === 11 && digits.charAt(0) === '1') {
+                  digits = digits.slice(1);
+                }
+                var cleanPhone = encodeURIComponent(digits);
+                params.push('phone=' + cleanPhone);
+                params.push('phone_number=' + cleanPhone);
+                params.push('customer_phone=' + cleanPhone);
+                params.push('mobile=' + cleanPhone);
+              }
+
               frame.src = base + (params.length ? '&' + params.join('&') : '');
+
+              // Make the recovery lead available to the funnel-event tracker so
+              // an abandoner who re-abandons is still identified in GHL.
+              try {
+                if (params.length) {
+                  window.__bkRecoveryLead = {
+                    name: (lead.first + ' ' + lead.last).trim(),
+                    email: lead.email,
+                    phone: lead.phone
+                  };
+                }
+              } catch (err) {}
             })();
 
             // Safety timeout: if iframe hasn't loaded in 4 seconds, show it anyway
@@ -260,6 +322,70 @@ import Icon from '../components/Icon.astro';
                 setTimeout(() => loader.remove(), 500);
               }
             }, 4000);
+
+            // ── Booking-funnel abandonment tracking ───────────────────────
+            // The gateway form (/get-quote) already created the GHL lead. These
+            // signals tell GHL apart "entered BookingKoala" vs "completed" so an
+            // abandoned session can trigger a follow-up. Without this, a stuck
+            // lead is invisible.
+            var bkLead = {};
+            try { bkLead = JSON.parse(sessionStorage.getItem('tvct_quote') || '{}'); } catch (e) {}
+            // If this is a recovery/magic-link visit, prefer that identity.
+            try { if (window.__bkRecoveryLead) bkLead = Object.assign({}, bkLead, window.__bkRecoveryLead); } catch (e) {}
+            var bookingCompleted = false;
+            var bookingStarted = false;
+
+            function sendBookingEvent(evt, extra) {
+              try {
+                // Routed through the proven-live /api/submit-form with the
+                // 'Booking Page Pre-Capture' source + funnel_event marker.
+                var payload = Object.assign({
+                  source: 'Booking Page Pre-Capture',
+                  funnel_event: evt,
+                  name: bkLead.name || '',
+                  phone: bkLead.phone || '',
+                  email: bkLead.email || '',
+                  service: bkLead.service || '',
+                  location: bkLead.location || ''
+                }, extra || {});
+                var body = JSON.stringify(payload);
+                // sendBeacon survives page unload (critical for the abandon event)
+                if (navigator.sendBeacon) {
+                  navigator.sendBeacon('/api/submit-form', new Blob([body], { type: 'application/json' }));
+                } else {
+                  fetch('/api/submit-form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
+                }
+              } catch (e) {}
+            }
+
+            // Fire "started" once the iframe is engaged (entered the booking flow)
+            function markBookingStarted() {
+              if (bookingStarted) return;
+              bookingStarted = true;
+              sendBookingEvent('booking_started');
+              // Ad-platform "begin checkout" for retargeting audiences
+              if (typeof gtag === 'function') gtag('event', 'begin_checkout', { event_category: 'Booking', event_label: 'BookingKoala Started' });
+              if (typeof fbq === 'function') fbq('track', 'InitiateCheckout', { content_name: 'Cleaning Booking Started' });
+            }
+            // BookingKoala loads in an iframe; a focus/interaction on it blurs the
+            // parent window — use that as the "engaged" trigger, plus a fallback timer.
+            window.addEventListener('blur', function () {
+              if (document.activeElement && document.activeElement.id === 'booking-iframe') markBookingStarted();
+            });
+            setTimeout(markBookingStarted, 15000); // fallback: 15s on the booking page = engaged
+
+            // Fire "abandoned" if they leave/hide the page without completing
+            function maybeAbandon() {
+              if (bookingStarted && !bookingCompleted) {
+                var secs = Math.floor((Date.now() - (window.__bkStart || Date.now())) / 1000);
+                sendBookingEvent('booking_abandoned', { seconds: secs });
+              }
+            }
+            window.__bkStart = Date.now();
+            document.addEventListener('visibilitychange', function () {
+              if (document.visibilityState === 'hidden') maybeAbandon();
+            });
+            window.addEventListener('pagehide', maybeAbandon);
 
             // GA4 + Meta Pixel: Track BookingKoala booking completion via postMessage
             // BookingKoala fires a postMessage when booking is confirmed
@@ -275,6 +401,9 @@ import Icon from '../components/Icon.astro';
                 isConfirmation = data.type === 'booking_confirmed' || data.event === 'booking_confirmed' || data.status === 'confirmed' || data.action === 'booking_complete';
               }
               if (isConfirmation) {
+                bookingCompleted = true;
+                // Tell GHL the booking completed (so the abandon workflow is cancelled)
+                sendBookingEvent('booking_completed');
                 // Fire GA4 conversion
                 if (typeof gtag === 'function') {
                   gtag('event', 'booking_completed', {
@@ -324,7 +453,7 @@ import Icon from '../components/Icon.astro';
     <section class="py-16 px-6 bg-gray-50">
       <div class="container mx-auto max-w-4xl">
         <div class="text-center mb-12">
-          <img src="https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png" alt="The Valley Clean Team Official Seal" width="96" height="96" class="w-24 h-24 mx-auto mb-6 opacity-80" />
+          <img src="https://thevalleycleanteam.com/og-image.png" alt="The Valley Clean Team Official Seal" width="96" height="96" class="w-24 h-24 mx-auto mb-6 opacity-80" />
           <h2 class="text-3xl font-bold text-[#333333] mb-4">The Valley Clean Team Difference</h2>
           <p class="text-gray-500 max-w-xl mx-auto">Experience the precision and care that comes with a veteran-owned, community-focused team.</p>
           <div class="section-divider mt-6"></div>

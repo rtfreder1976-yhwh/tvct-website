@@ -1,4 +1,5 @@
 ---
+import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Icon from '../../../components/Icon.astro';
 
@@ -149,6 +150,8 @@ const faqSchema = {
   }))
 };
 import BookingCTA from "../../../components/BookingCTA.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 ---
 
 <BaseLayout
@@ -384,7 +387,17 @@ import BookingCTA from "../../../components/BookingCTA.astro";
     </div>
   </section>
 
-  </BaseLayout>
+    <StickyQuoteBar quoteLabel="Get My Free Quote" />
+  {standaloneServiceIntent["green-cleaning"] && (
+    <ProblemOptions
+      heading="The Tuscumbia green cleaning problem — and your real options"
+      problem={standaloneServiceIntent["green-cleaning"].problem}
+      options={standaloneServiceIntent["green-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+
+</BaseLayout>
 
 <style>
   .gold-gradient {

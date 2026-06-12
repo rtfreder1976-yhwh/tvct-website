@@ -1,6 +1,9 @@
 ---
+import StickyQuoteBar from "../components/StickyQuoteBar.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
+import ProblemOptions from "../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../data/serviceIntent.ts";
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -14,7 +17,7 @@ const localBusinessSchema = {
 ---
 
 <BaseLayout
-  title="Dental Office Cleaning Huntsville AL & Nashville TN | Valley Clean Team"
+  title="Dental Office Cleaning AL & TN | Valley Clean Team"
   description="Professional dental office cleaning in Huntsville, AL and Nashville, TN. OSHA-compliant operatory sanitation, waiting rooms & restrooms. Veteran-owned, $2M insured. Free quote."
 >
   <script
@@ -95,4 +98,14 @@ const localBusinessSchema = {
       </div>
     </div>
   </section>
+
+  {standaloneServiceIntent["medical-cleaning"] && (
+    <ProblemOptions
+      heading="The dental office cleaning problem — and your real options"
+      problem={standaloneServiceIntent["medical-cleaning"].problem}
+      options={standaloneServiceIntent["medical-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

@@ -1,4 +1,7 @@
 ---
+import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 import Icon from "../../../components/Icon.astro";
@@ -69,7 +72,7 @@ const serviceSchema = {
     "@type": "LocalBusiness",
     name: "The Valley Clean Team",
     image:
-      "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+      "https://thevalleycleanteam.com/og-image.png",
     telephone: "+1-256-826-1100",
     address: {
       "@type": "PostalAddress",
@@ -702,4 +705,13 @@ import BookingCTA from "../../../components/BookingCTA.astro";
       </p>
     </div>
   </section>
+  {standaloneServiceIntent["neighborhood"] && (
+    <ProblemOptions
+      heading="Choosing a cleaner in Cherokee Bend — your real options"
+      problem={standaloneServiceIntent["neighborhood"].problem}
+      options={standaloneServiceIntent["neighborhood"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

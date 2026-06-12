@@ -1,4 +1,7 @@
 ---
+import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import ProblemOptions from "../../../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 
@@ -59,7 +62,7 @@ const serviceSchema = {
   "provider": {
     "@type": "LocalBusiness",
     "name": "The Valley Clean Team",
-    "image": "https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/6920802945dc047d65b4ec5d.png",
+    "image": "https://thevalleycleanteam.com/og-image.png",
     "telephone": "+1-256-826-1100",
     "address": {
       "@type": "PostalAddress",
@@ -145,7 +148,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
               <Icon name="phone" class="w-5 h-5 mr-2" />Call for Quote
             </a>
             <a href="/get-quote" class="border-2 border-[#FFA985] text-[#FFA985] px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#FFA985] hover:text-gray-900 transition text-center">
-              Book Online
+              Get Your Free Quote
             </a>
           </div>
         </div>
@@ -520,4 +523,13 @@ import BookingCTA from "../../../components/BookingCTA.astro";
   
 
   
+  {standaloneServiceIntent["neighborhood"] && (
+    <ProblemOptions
+      heading="Choosing a cleaner in Killen — your real options"
+      problem={standaloneServiceIntent["neighborhood"].problem}
+      options={standaloneServiceIntent["neighborhood"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>

@@ -2,6 +2,34 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import { readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// Scheduled blog posts set `noindex={!isPublished}` based on a future publishDate.
+// Mirror that logic here so unpublished posts are kept OUT of the sitemap until
+// their date passes (fixes Ahrefs "Noindex page in sitemap"). Self-maintaining:
+// a post auto-appears in the sitemap on the next build after its publish date.
+// Also exclude blog posts that canonicalize to another URL (e.g. transactional
+// posts pointing at their /locations/{city}/{service} money page) — a sitemap
+// should only list canonical URLs.
+const blogDir = fileURLToPath(new URL('./src/pages/blog', import.meta.url));
+const excludedBlogSlugs = new Set();
+try {
+  const now = Date.now();
+  for (const file of readdirSync(blogDir)) {
+    if (!file.endsWith('.astro')) continue;
+    const src = readFileSync(`${blogDir}/${file}`, 'utf8');
+    const slug = `/blog/${file.slice(0, -6)}`;
+    // (1) Unpublished/scheduled posts (noindex until their publishDate passes)
+    if (src.includes('noindex={!isPublished}')) {
+      const m = src.match(/const publishDate = new Date\("([^"]+)"\)/);
+      if (m && new Date(m[1]).getTime() > now) { excludedBlogSlugs.add(slug); continue; }
+    }
+    // (2) Posts canonicalized to a different URL
+    if (/canonicalUrl="https?:\/\/[^"]+"/.test(src)) excludedBlogSlugs.add(slug);
+  }
+} catch { /* if the scan fails, fall back to including everything */ }
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
@@ -12,7 +40,9 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/'),
+      // /recurring is the noindex SMS conversion page — exact-path match so the
+      // indexable /locations/*/recurring-maid-service pages are NOT excluded.
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),

@@ -1,6 +1,9 @@
 ---
+import StickyQuoteBar from "../components/StickyQuoteBar.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
+import ProblemOptions from "../components/ProblemOptions.astro";
+import { standaloneServiceIntent } from "../data/serviceIntent.ts";
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -95,4 +98,14 @@ const localBusinessSchema = {
       </div>
     </div>
   </section>
+
+  {standaloneServiceIntent["medical-cleaning"] && (
+    <ProblemOptions
+      heading="The dialysis center cleaning problem — and your real options"
+      problem={standaloneServiceIntent["medical-cleaning"].problem}
+      options={standaloneServiceIntent["medical-cleaning"].options}
+      ctaLabel="See your flat price in 60 seconds"
+    />
+  )}
+  <StickyQuoteBar quoteLabel="Get My Free Quote" />
 </BaseLayout>
