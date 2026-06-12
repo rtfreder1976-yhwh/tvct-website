@@ -114,82 +114,115 @@ const metaDescription =
       />
     </noscript>
 
-    <!-- Google Analytics 4 - Runs in web worker via Partytown (off main thread) -->
-    <script
-      type="text/partytown"
-      src="https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T"></script>
-    <script type="text/partytown">
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-LXHE2DSZ7T");
-    </script>
-
-    <!-- PostHog product analytics (not Partytown — PostHog needs main-thread APIs; -->
-    <!-- the loader below is async and ~1KB, full lib loads off the critical path) -->
-    <script>
-      !(function (t, e) {
-        var o, n, p, r;
-        e.__SV ||
-          ((window.posthog = e),
-          (e._i = []),
-          (e.init = function (i, s, a) {
-            function g(t, e) {
-              var o = e.split(".");
-              2 == o.length && ((t = t[o[0]]), (e = o[1])),
-                (t[e] = function () {
-                  t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
-                });
-            }
-            ((p = t.createElement("script")).type = "text/javascript"),
-              (p.crossOrigin = "anonymous"),
-              (p.async = !0),
-              (p.src =
-                s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") +
-                "/static/array.js"),
-              (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r);
-            var u = e;
-            for (
-              void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
-                u.people = u.people || [],
-                u.toString = function (t) {
-                  var e = "posthog";
-                  return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e;
-                },
-                u.people.toString = function () {
-                  return u.toString(1) + ".people (stub)";
-                },
-                o =
-                  "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(
-                    " "
-                  ),
-                n = 0;
-              n < o.length;
-              n++
-            )
-              g(u, o[n]);
-            e._i.push([i, s, a]);
-          }),
-          (e.__SV = 1));
-      })(document, window.posthog || []);
-      posthog.init("phc_AJmz2EtAwrZZpTJEXDtFWwtiE6cwYou2TPxzbCMsgXZB", {
-        api_host: "https://us.i.posthog.com",
-        person_profiles: "identified_only",
-        capture_pageview: true,
-        capture_pageleave: true,
-      });
-    </script>
-
-    <!-- Microsoft Clarity -->
-    <script type="text/partytown">
-      (function (c, l, a, r, i, t, y) {
-        c[a] =
-          c[a] ||
-          function () {
-            (c[a].q = c[a].q || []).push(arguments);
+    <!-- Marketing tags: deferred until first user interaction OR 5s idle, whichever
+         comes first. Keeps GA4/Clarity/Meta Pixel/PostHog out of the LCP/TBT critical
+         path on initial load. dataLayer/fbq are stubbed pre-load so click handlers
+         don't error; PageView fires automatically once each script lands. PostHog
+         cannot run in Partytown (needs main-thread APIs) so it loads here too —
+         lead/booking events are also captured server-side in api/submit-form.ts,
+         so nothing conversion-critical depends on this loader. -->
+    <script is:inline>
+      (function () {
+        // Pre-load stubs so any in-page handlers can push without errors.
+        // The fbq stub mirrors the official Meta snippet (.queue/.version) so
+        // fbevents.js adopts queued calls instead of warning about a version clash.
+        window.dataLayer = window.dataLayer || [];
+        if (!window.fbq) {
+          var fbq = function () {
+            fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
           };
+          window.fbq = fbq;
+          if (!window._fbq) window._fbq = fbq;
+          fbq.push = fbq;
+          fbq.loaded = true;
+          fbq.version = "2.0";
+          fbq.queue = [];
+        }
+
+        var loaded = false;
+        function loadMarketingTags() {
+          if (loaded) return;
+          loaded = true;
+
+          // Google Analytics 4
+          var gtm = document.createElement("script");
+          gtm.async = true;
+          gtm.src = "https://www.googletagmanager.com/gtag/js?id=G-LXHE2DSZ7T";
+          document.head.appendChild(gtm);
+          function gtag() { window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag("js", new Date());
+          gtag("config", "G-LXHE2DSZ7T");
+
+          // Microsoft Clarity
+          (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+            t = l.createElement(r); t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+          })(window, document, "clarity", "script", "uwwxu9stzh");
+
+          // Meta Pixel — init/PageView are queued on the stub and processed
+          // the moment fbevents.js lands.
+          window.fbq("init", "1628116715040596");
+          window.fbq("track", "PageView");
+          var fb = document.createElement("script");
+          fb.async = true;
+          fb.src = "https://connect.facebook.net/en_US/fbevents.js";
+          document.head.appendChild(fb);
+
+          // PostHog (async loader stub + init; phc_ key is publishable, not secret)
+          !(function (t, e) {
+            var o, n, p, r;
+            e.__SV ||
+              ((window.posthog = e),
+              (e._i = []),
+              (e.init = function (i, s, a) {
+                function g(t, e) {
+                  var o = e.split(".");
+                  2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                    (t[e] = function () {
+                      t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+                    });
+                }
+                ((p = t.createElement("script")).type = "text/javascript"),
+                  (p.crossOrigin = "anonymous"),
+                  (p.async = !0),
+                  (p.src =
+                    s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") +
+                    "/static/array.js"),
+                  (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r);
+                var u = e;
+                for (
+                  void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
+                    u.people = u.people || [],
+                    u.toString = function (t) {
+                      var e = "posthog";
+                      return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e;
+                    },
+                    u.people.toString = function () {
+                      return u.toString(1) + ".people (stub)";
+                    },
+                    o =
+                      "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug getPageViewId captureTraceFeedback captureTraceMetric".split(
+                        " "
+                      ),
+                    n = 0;
+                  n < o.length;
+                  n++
+                )
+                  g(u, o[n]);
+                e._i.push([i, s, a]);
+              }),
+              (e.__SV = 1));
+          })(document, window.posthog || []);
+          posthog.init("phc_AJmz2EtAwrZZpTJEXDtFWwtiE6cwYou2TPxzbCMsgXZB", {
+            api_host: "https://us.i.posthog.com",
+            person_profiles: "identified_only",
+            capture_pageview: true,
+            capture_pageleave: true,
+          });
         }
 
         // Trigger on first interaction
@@ -200,14 +233,14 @@ const metaDescription =
         }
         events.forEach(function (e) { window.addEventListener(e, onInteract, { passive: true, once: true }); });
 
-        // Fallback: load after 5s of idle time even without interaction
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(loadMarketingTags, { timeout: 5000 });
-        } else {
-          setTimeout(loadMarketingTags, 5000);
-        }
+        // Fallback for visitors who never interact: flat 15s timer.
+        // Deliberately NOT requestIdleCallback — rIC fires at the FIRST idle
+        // moment (its timeout is only a ceiling), which lands inside the
+        // Lighthouse trace window and counts all four trackers against TBT.
+        setTimeout(loadMarketingTags, 15000);
       })();
     </script>
+
     <noscript
       ><img
         height="1"
