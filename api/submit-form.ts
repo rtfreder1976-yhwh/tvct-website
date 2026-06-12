@@ -91,6 +91,34 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
       // Continue execution to send email backup even if GHL fails
     }
 
+    // Server-side PostHog capture — ties every lead/booking event to analytics
+    // even when the browser snippet is blocked. phc_ key is public (same class
+    // as the GA4 measurement ID). Never let analytics failure break the lead.
+    try {
+      const phEvent = ['booking_started', 'booking_abandoned', 'booking_completed'].includes(String(funnel_event))
+        ? String(funnel_event)
+        : 'quote_form_submitted';
+      await fetch('https://us.i.posthog.com/i/v0/e/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: 'phc_AJmz2EtAwrZZpTJEXDtFWwtiE6cwYou2TPxzbCMsgXZB',
+          event: phEvent,
+          distinct_id: (typeof phone === 'string' && phone) || (typeof email === 'string' && email) || 'anonymous-lead',
+          properties: {
+            service: service || '',
+            location: location || '',
+            source: source || 'Website',
+            page_url: page_url || '',
+            is_urgent: is_urgent === 'true',
+          },
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (phError) {
+      console.error('PostHog capture error (non-fatal):', phError);
+    }
+
     // Format the email content
     const emailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
