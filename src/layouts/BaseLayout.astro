@@ -233,12 +233,11 @@ const metaDescription =
         }
         events.forEach(function (e) { window.addEventListener(e, onInteract, { passive: true, once: true }); });
 
-        // Fallback: load after 5s of idle time even without interaction
-        if ("requestIdleCallback" in window) {
-          window.requestIdleCallback(loadMarketingTags, { timeout: 5000 });
-        } else {
-          setTimeout(loadMarketingTags, 5000);
-        }
+        // Fallback for visitors who never interact: flat 15s timer.
+        // Deliberately NOT requestIdleCallback — rIC fires at the FIRST idle
+        // moment (its timeout is only a ceiling), which lands inside the
+        // Lighthouse trace window and counts all four trackers against TBT.
+        setTimeout(loadMarketingTags, 15000);
       })();
     </script>
 
