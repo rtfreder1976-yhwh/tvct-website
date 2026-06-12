@@ -268,6 +268,11 @@ import Icon from '../components/Icon.astro';
                 }
                 if (q.get('email')) lead.email = q.get('email');
                 if (q.get('phone')) lead.phone = q.get('phone');
+                // Service/frequency deep link (e.g. /recurring plan cards):
+                // BookingKoala pre-selects the Services dropdown and frequency
+                // radio from these (form-frequency row IDs, not global ones).
+                if (/^\d+$/.test(q.get('service_id') || '')) params.push('service_id=' + q.get('service_id'));
+                if (/^\d+$/.test(q.get('frequency_id') || '')) params.push('frequency_id=' + q.get('frequency_id'));
               } catch (err) {}
 
               if (lead.first) params.push('f_name=' + encodeURIComponent(lead.first));

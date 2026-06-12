@@ -14,24 +14,39 @@ import { recurringTestimonials } from '../data/testimonials';
 
 const testimonial = recurringTestimonials[0]; // Heather C. — "each time is consistent and great"
 
-// JS-disabled fallback: CTAs still reach /booking with campaign attribution.
-const fallbackHref = '/booking?utm_source=nps&utm_medium=sms&utm_campaign=recurring-pitch';
+// BookingKoala deep-link IDs (verified against the live form 2026-06-11).
+// service_id 38 = "The Maintenance Clean - Recurring Clean" in the Services
+// dropdown; frequency_id values are the FORM-frequency row IDs (the freq_*
+// radio IDs), not the global frequency IDs (3/4/2).
+const RECURRING_SERVICE_ID = 38;
+const UTM = 'utm_source=nps&utm_medium=sms&utm_campaign=recurring-pitch';
+
+// JS-disabled fallback: CTAs still deep-link the service/frequency and keep
+// campaign attribution — only the contact pre-fill needs the script.
+const bookingHref = (frequencyId?: number) =>
+  `/booking?service_id=${RECURRING_SERVICE_ID}${frequencyId ? `&frequency_id=${frequencyId}` : ''}&${UTM}`;
 
 const plans = [
   {
     name: 'Weekly',
+    bkPlanName: 'The Always Pristine Plan',
+    frequencyId: 91,
     discount: '30% off',
     tagline: 'The always-guest-ready home',
     featured: false,
   },
   {
     name: 'Bi-Weekly',
+    bkPlanName: 'The Valley Routine',
+    frequencyId: 92,
     discount: '25% off',
     tagline: 'Our most popular plan',
     featured: true,
   },
   {
     name: 'Monthly',
+    bkPlanName: 'The Monthly Essential Refresh',
+    frequencyId: 93,
     discount: '15% off',
     tagline: 'The deep reset, every month',
     featured: false,
@@ -87,7 +102,7 @@ const plans = [
         You just saw what we can do. Recurring clients get the same team, the
         same 49-point checklist, every visit — at up to 30% off.
       </p>
-      <a href={fallbackHref} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px]">
+      <a href={bookingHref()} data-service-id={RECURRING_SERVICE_ID} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px]">
         Set Up My Recurring Clean
         <Icon name="arrow-right" class="w-5 h-5 ml-2" />
       </a>
@@ -109,11 +124,12 @@ const plans = [
                 MOST POPULAR
               </span>
             )}
-            <h2 class="text-2xl font-bold text-[#333333] mb-2">{plan.name}</h2>
+            <h2 class="text-2xl font-bold text-[#333333] mb-1">{plan.name}</h2>
+            <p class="text-sm text-gray-500 italic mb-2">"{plan.bkPlanName}"</p>
             <p class="text-3xl font-bold text-[#C75B2A] mb-1">{plan.discount}</p>
             <p class="text-sm text-gray-500 mb-3">every clean</p>
             <p class="text-gray-600 mb-6 flex-1">{plan.tagline}</p>
-            <a href={fallbackHref} class={`js-booking-cta w-full px-6 py-4 rounded-full font-semibold inline-flex items-center justify-center min-h-[44px] ${
+            <a href={bookingHref(plan.frequencyId)} data-service-id={RECURRING_SERVICE_ID} data-frequency-id={plan.frequencyId} class={`js-booking-cta w-full px-6 py-4 rounded-full font-semibold inline-flex items-center justify-center min-h-[44px] ${
               plan.featured
                 ? 'btn-primary'
                 : 'border-2 border-[#C75B2A] text-[#333333] hover:bg-[#FFA985]/10 transition'
@@ -185,7 +201,7 @@ const plans = [
       <h2 class="text-2xl md:text-3xl font-bold text-[#333333] mb-6">
         Lock in your spot — our recurring schedule fills by city.
       </h2>
-      <a href={fallbackHref} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px] mb-6">
+      <a href={bookingHref()} data-service-id={RECURRING_SERVICE_ID} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px] mb-6">
         Set Up My Recurring Clean
         <Icon name="arrow-right" class="w-5 h-5 ml-2" />
       </a>
@@ -212,17 +228,24 @@ const plans = [
         return;
       }
 
-      var parts = [];
+      var contact = [];
       ['phone', 'f_name', 'l_name', 'email'].forEach(function (key) {
         var val = q.get(key);
-        if (val) parts.push(key + '=' + encodeURIComponent(val));
+        if (val) contact.push(key + '=' + encodeURIComponent(val));
       });
-      parts.push('utm_source=nps', 'utm_medium=sms', 'utm_campaign=recurring-pitch');
-      var href = '/booking?' + parts.join('&');
 
+      // Each CTA carries its own BookingKoala deep link (data-service-id /
+      // data-frequency-id) — plan cards pre-select their frequency radio,
+      // hero/final CTAs pre-select just the recurring service.
       var ctas = document.querySelectorAll('a.js-booking-cta');
       for (var i = 0; i < ctas.length; i++) {
-        ctas[i].setAttribute('href', href);
+        var parts = contact.slice();
+        var sid = ctas[i].getAttribute('data-service-id');
+        var fid = ctas[i].getAttribute('data-frequency-id');
+        if (sid) parts.push('service_id=' + encodeURIComponent(sid));
+        if (fid) parts.push('frequency_id=' + encodeURIComponent(fid));
+        parts.push('utm_source=nps', 'utm_medium=sms', 'utm_campaign=recurring-pitch');
+        ctas[i].setAttribute('href', '/booking?' + parts.join('&'));
       }
 
       // Personalize the H1 when f_name is present. textContent only — the
