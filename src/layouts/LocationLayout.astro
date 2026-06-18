@@ -37,6 +37,12 @@ const {
   canonicalSlug,
 } = Astro.props;
 
+// Market-aware phone number: Tennessee markets dial the TN line,
+// everything else dials the Alabama line. (Confirmed canonical numbers.)
+const isTN = state === "TN";
+const phoneDisplay = isTN ? "615-510-1427" : "256-826-1100";
+const phoneHref = isTN ? "tel:6155101427" : "tel:2568261100";
+
 // Generate canonical URL for location pages
 // Use explicit canonicalSlug if provided, otherwise generate from city name
 const citySlug = canonicalSlug || city.toLowerCase().replace(/\s+/g, "-");
@@ -114,11 +120,11 @@ const geoPlacename = `${city}, ${state}`;
 const faqs = [
   {
     question: `How much does house cleaning cost in ${city}?`,
-    answer: `House cleaning in ${city} has base rates from $99 for recurring cleaning, $175 for deep cleaning, and $225 for move-in/out cleaning. Your exact price depends on your home's size, layout, and current condition — every home is different. We provide a free, no-obligation custom quote before we ever start. Call 256-826-1100 for your exact estimate.`,
+    answer: `House cleaning in ${city} has base rates from $99 for recurring cleaning, $175 for deep cleaning, and $225 for move-in/out cleaning. Your exact price depends on your home's size, layout, and current condition — every home is different. We provide a free, no-obligation custom quote before we ever start. Call ${phoneDisplay} for your exact estimate.`,
   },
   {
     question: `How far in advance should I book cleaning in ${city}?`,
-    answer: `We recommend booking 2–3 days in advance for the best availability in ${city}. We also accommodate short-notice requests based on our current schedule—call us at 256-826-1100 and we'll do our best to fit you in.`,
+    answer: `We recommend booking 2–3 days in advance for the best availability in ${city}. We also accommodate short-notice requests based on our current schedule—call us at ${phoneDisplay} and we'll do our best to fit you in.`,
   },
   {
     question: `Are your ${city} cleaners background checked and insured?`,
@@ -126,7 +132,7 @@ const faqs = [
   },
   {
     question: `What areas of ${city} do you serve?`,
-    answer: `We serve all of ${city} and the surrounding ${region} area. This includes all neighborhoods, subdivisions, and communities. If you're unsure if we cover your specific location, give us a call at 256-826-1100 - we likely do!`,
+    answer: `We serve all of ${city} and the surrounding ${region} area. This includes all neighborhoods, subdivisions, and communities. If you're unsure if we cover your specific location, give us a call at ${phoneDisplay} - we likely do!`,
   },
   {
     question: `Do you bring your own cleaning supplies to ${city} homes?`,
@@ -134,7 +140,7 @@ const faqs = [
   },
   {
     question: `How do I book a cleaning service in ${city}?`,
-    answer: `Booking is easy! You can call us directly at 256-826-1100 for immediate assistance, or fill out our online quote form. Most quotes are replied to within 2 hours. We offer flexible scheduling including weekends and can often accommodate last-minute requests.`,
+    answer: `Booking is easy! You can call us directly at ${phoneDisplay} for immediate assistance, or fill out our online quote form. Most quotes are replied to within 2 hours. We offer flexible scheduling including weekends and can often accommodate last-minute requests.`,
   },
   {
     question: `Do you offer recurring cleaning services in ${city}?`,
@@ -233,10 +239,10 @@ const faqSchema = {
             class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
           >
             <a
-              href="tel:2568261100"
+              href={phoneHref}
               class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition inline-flex items-center"
             >
-              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: {phoneDisplay}
             </a>
             <a
               href="/contact"
@@ -527,10 +533,10 @@ const faqSchema = {
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="tel:2568261100"
+            href={phoneHref}
             class="btn-primary px-8 py-4 rounded-full font-semibold inline-flex items-center shadow-lg"
           >
-            <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+            <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: {phoneDisplay}
           </a>
           <a
             href="/contact"
@@ -1113,10 +1119,10 @@ const faqSchema = {
           <p class="text-center text-gray-600 mt-8">
             Don't see your neighborhood? We likely serve it too!{" "}
             <a
-              href="tel:2568261100"
+              href={phoneHref}
               class="text-[#FFA985] font-semibold hover:underline"
             >
-              Call 256-826-1100
+              Call {phoneDisplay}
             </a>{" "}
             to confirm.
           </p>
@@ -1140,7 +1146,7 @@ const faqSchema = {
 
       <div class="space-y-4">
         {
-          faqs.map((faq, index) => (
+          faqs.map((faq) => (
             <div
               class="faq-item bg-white rounded-xl p-6 shadow-md border border-gray-200 cursor-pointer"
               onclick="this.classList.toggle('active')"
@@ -1188,10 +1194,10 @@ const faqSchema = {
         class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"
       >
         <a
-          href="tel:2568261100"
+          href={phoneHref}
           class="btn-primary px-12 py-5 rounded-full text-xl font-semibold inline-flex items-center shadow-lg hover:shadow-xl transition"
         >
-          <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: {phoneDisplay}
         </a>
         <a
           href="/contact"
@@ -1224,7 +1230,7 @@ const faqSchema = {
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />Contact
             </h3>
             <p class="text-gray-600">
-              256-826-1100<br />hello@thevalleycleanteam.com
+              {phoneDisplay}<br />hello@thevalleycleanteam.com
             </p>
           </div>
         </div>

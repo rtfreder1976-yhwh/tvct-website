@@ -23,6 +23,11 @@ const {
   variant = "embedded",
 } = Astro.props;
 
+// Market-aware fallback number for the error state (TN markets dial the TN line).
+const isTN = state === "TN";
+const phoneDisplay = isTN ? "615-510-1427" : "256-826-1100";
+const phoneHref = isTN ? "tel:6155101427" : "tel:2568261100";
+
 const locationValue = city ? (state ? `${city}, ${state}` : city) : "";
 const sourceValue =
   source ||
@@ -341,10 +346,10 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
           We couldn't submit your request. Please try calling us directly.
         </p>
         <a
-          href="tel:2568261100"
+          href={phoneHref}
           class="inline-block bg-[#333333] text-white font-bold py-3 px-6 rounded-lg hover:bg-black transition-colors"
         >
-          Call 256-826-1100
+          Call {phoneDisplay}
         </a>
       </div>
     </form>
