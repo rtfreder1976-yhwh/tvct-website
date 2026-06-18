@@ -361,6 +361,9 @@ const metaDescription =
       *::after {
         box-sizing: border-box;
       }
+      html {
+        color-scheme: light;
+      }
       body {
         margin: 0;
         font-family:
@@ -643,10 +646,12 @@ const metaDescription =
         }
       }
 
-      /* Prevent layout shift for images */
-      img {
-        aspect-ratio: attr(width) / attr(height);
-      }
+      /* CLS is prevented by the explicit width/height attributes on each
+         <img> (the browser derives the aspect ratio from them automatically).
+         A CSS `aspect-ratio: attr(width)/attr(height)` rule used to live here
+         but attr() is not supported for non-content properties in any shipping
+         browser, so it was a no-op — removed to avoid implying protection it
+         never provided. */
 
       /* Critical font declaration - Playfair stays self-hosted (22KB, used in H1 LCP).
          Inter is loaded via Google Fonts <link> above for a ~20KB Latin subset. */
@@ -673,7 +678,11 @@ const metaDescription =
     </a>
 
     {showNav && <Navigation />}
-    <main id="main-content" tabindex="-1" class="outline-none">
+    <main
+      id="main-content"
+      tabindex="-1"
+      class="focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFA985]"
+    >
       <slot />
     </main>
     {showFooter && <Footer />}
@@ -706,6 +715,67 @@ const metaDescription =
         }
       })();
     </script>
+    <script is:inline>
+      // Accessible FAQ enhancer — progressive enhancement for the repo-wide
+      // `.faq-item` accordion pattern (a clickable <div> with an inline
+      // onclick that toggles `.active`). Rather than editing 100+ pages, we
+      // upgrade the markup at runtime: the header row becomes a real keyboard
+      // control (role=button, tabindex, aria-expanded), Enter/Space activate
+      // it, and aria-expanded stays in sync with the `.active` class no matter
+      // how it was toggled (mouse, keyboard, or the inline onclick).
+      (function () {
+        function enhanceFaqs() {
+          var items = document.querySelectorAll(".faq-item");
+          items.forEach(function (item, i) {
+            if (item.dataset.faqEnhanced) return;
+            item.dataset.faqEnhanced = "true";
+
+            var header = item.querySelector(".flex"); // question + chevron row
+            var answer = item.querySelector(".faq-answer");
+            if (!header) return;
+
+            // Promote the header row to a keyboard-operable control.
+            header.setAttribute("role", "button");
+            header.setAttribute("tabindex", "0");
+            header.setAttribute(
+              "aria-expanded",
+              item.classList.contains("active") ? "true" : "false",
+            );
+            if (answer) {
+              if (!answer.id) answer.id = "faq-answer-" + i;
+              header.setAttribute("aria-controls", answer.id);
+            }
+
+            function sync() {
+              header.setAttribute(
+                "aria-expanded",
+                item.classList.contains("active") ? "true" : "false",
+              );
+            }
+
+            // The inline onclick (or LocationLayout's) toggles `.active` on the
+            // item; after any click bubbles up, mirror state into aria-expanded.
+            item.addEventListener("click", function () {
+              // Defer so we read the class AFTER the inline handler toggled it.
+              requestAnimationFrame(sync);
+            });
+
+            // Keyboard activation: Enter/Space toggle the panel ourselves
+            // (and prevent Space from scrolling the page).
+            header.addEventListener("keydown", function (e) {
+              if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+                e.preventDefault();
+                item.classList.toggle("active");
+                sync();
+              }
+            });
+          });
+        }
+        enhanceFaqs();
+        document.addEventListener("astro:page-load", enhanceFaqs);
+      })();
+    </script>
+
     <script is:inline>
       // Global Click Tracking for Analytics
       document.addEventListener("click", function (e) {

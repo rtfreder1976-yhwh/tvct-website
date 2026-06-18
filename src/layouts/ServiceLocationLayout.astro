@@ -61,6 +61,13 @@ const {
   realtorProgram,
 } = Astro.props;
 
+// Market-aware phone number: Tennessee markets dial the TN line,
+// everything else dials the Alabama line. (Confirmed canonical numbers.)
+const isTN = state === "TN";
+const phoneDisplay = isTN ? "615-510-1427" : "256-826-1100";
+const phoneHref = isTN ? "tel:6155101427" : "tel:2568261100";
+const phoneSchema = isTN ? "+1-615-510-1427" : "+1-256-826-1100";
+
 // Get service-specific testimonials
 const serviceTestimonials = getTestimonialsByService(serviceSlug);
 
@@ -483,7 +490,7 @@ const serviceSchema = {
   provider: {
     "@type": "LocalBusiness",
     name: "The Valley Clean Team",
-    telephone: "+1-256-826-1100",
+    telephone: phoneSchema,
     address: {
       "@type": "PostalAddress",
       addressLocality: city,
@@ -712,10 +719,10 @@ const compareHref = bestOfByCity[citySlug];
             class="flex flex-col sm:flex-row items-center lg:items-start space-y-3 sm:space-y-0 sm:space-x-4"
           >
             <a
-              href="tel:2568261100"
+              href={phoneHref}
               class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition"
             >
-              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: {phoneDisplay}
             </a>
             {isCommercial ? (
               <a
@@ -755,10 +762,10 @@ const compareHref = bestOfByCity[citySlug];
                 <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Free Walkthrough
               </a>
               <a
-                href="tel:2568261100"
+                href={phoneHref}
                 class="w-full py-4 rounded-full text-lg font-semibold block text-center border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
               >
-                <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+                <Icon name="phone" class="w-5 h-5 mr-2" />Call {phoneDisplay}
               </a>
               <p class="text-sm text-gray-400 mt-4">We respond within 2 business hours.</p>
             </div>
@@ -1080,10 +1087,10 @@ const compareHref = bestOfByCity[citySlug];
           <p class="text-center text-gray-600 mt-6 text-sm">
             Don't see your neighborhood? Call us at{" "}
             <a
-              href="tel:2568261100"
+              href={phoneHref}
               class="text-[#FFA985] font-semibold hover:underline"
             >
-              256-826-1100
+              {phoneDisplay}
             </a>{" "}
             — we likely serve your area too!
           </p>
@@ -1160,11 +1167,11 @@ const compareHref = bestOfByCity[citySlug];
 
           <div class="text-center mt-10">
             <a
-              href="tel:2568261100"
+              href={phoneHref}
               class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition inline-flex items-center"
             >
               <Icon name="phone" class="w-5 h-5 mr-2" />
-              Text Christen: 256-826-1100
+              Text Christen: {phoneDisplay}
             </a>
             <p class="text-sm text-gray-500 mt-3">
               Or fill out the form below and we'll set up your Realtor Program account
@@ -1294,7 +1301,7 @@ const compareHref = bestOfByCity[citySlug];
           </div>
           <h3 class="font-bold mb-2 text-[#333333]">Request Quote</h3>
           <p class="text-gray-600 text-sm">
-            Call 256-826-1100 or fill out our form for a free {city} estimate.
+            Call {phoneDisplay} or fill out our form for a free {city} estimate.
           </p>
         </div>
         <div class="text-center">
@@ -1373,10 +1380,10 @@ const compareHref = bestOfByCity[citySlug];
                   <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Free Walkthrough
                 </a>
                 <a
-                  href="tel:2568261100"
+                  href={phoneHref}
                   class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
                 >
-                  <Icon name="phone" class="w-5 h-5 mr-2" />Call 256-826-1100
+                  <Icon name="phone" class="w-5 h-5 mr-2" />Call {phoneDisplay}
                 </a>
                 <p class="text-center text-sm text-gray-500">
                   <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Fully bonded &amp; insured for commercial work
@@ -1385,7 +1392,7 @@ const compareHref = bestOfByCity[citySlug];
             ) : (
               <>
                 <a
-                  href="tel:2568261100"
+                  href={phoneHref}
                   class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg"
                 >
                   <Icon name="phone" class="w-5 h-5 mr-2" />Call for Instant Quote
@@ -1534,10 +1541,10 @@ const compareHref = bestOfByCity[citySlug];
           </div>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:2568261100"
+              href={phoneHref}
               class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition"
             >
-              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: {phoneDisplay}
             </a>
             <a
               href="/get-quote"
@@ -1567,10 +1574,10 @@ const compareHref = bestOfByCity[citySlug];
           </div>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:2568261100"
+              href={phoneHref}
               class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition"
             >
-              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: 256-826-1100
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: {phoneDisplay}
             </a>
             <a
               href="/get-quote"

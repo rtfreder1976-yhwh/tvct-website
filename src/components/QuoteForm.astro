@@ -23,6 +23,11 @@ const {
   variant = "embedded",
 } = Astro.props;
 
+// Market-aware fallback number for the error state (TN markets dial the TN line).
+const isTN = state === "TN";
+const phoneDisplay = isTN ? "615-510-1427" : "256-826-1100";
+const phoneHref = isTN ? "tel:6155101427" : "tel:2568261100";
+
 const locationValue = city ? (state ? `${city}, ${state}` : city) : "";
 const sourceValue =
   source ||
@@ -80,7 +85,7 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
               <select
                 id={`${uniqueId}-service`}
                 name="service"
-                class="w-full px-4 py-3 pr-10 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 appearance-none transition-all font-medium cursor-pointer"
+                class="w-full px-4 py-3 pr-10 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus-visible:outline-none focus-visible:border-[#FFA985] focus-visible:ring-2 focus-visible:ring-[#FFA985]/20 appearance-none transition-[border-color,box-shadow] font-medium cursor-pointer"
                 required
               >
                 <option value="" disabled selected={!serviceName}
@@ -144,8 +149,9 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
                 id={`${uniqueId}-sqft`}
                 type="number"
                 name="square_footage"
-                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium placeholder-gray-400"
-                placeholder="e.g. 2500"
+                inputmode="numeric"
+                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus-visible:outline-none focus-visible:border-[#FFA985] focus-visible:ring-2 focus-visible:ring-[#FFA985]/20 transition-[border-color,box-shadow] font-medium placeholder-gray-400"
+                placeholder="e.g. 2,500…"
                 min="0"
                 required
               />
@@ -171,7 +177,7 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
 
           <button
             type="button"
-            class="next-step-btn w-full py-4 mt-2 rounded-xl bg-[#333333] text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center group"
+            class="next-step-btn w-full py-4 mt-2 rounded-xl bg-[#333333] text-white font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-[box-shadow,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#333333] focus-visible:ring-offset-2 flex items-center justify-center group"
           >
             Next Step <Icon
               name="arrow-right"
@@ -204,8 +210,9 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
                   id={`${uniqueId}-name`}
                   type="text"
                   name="name"
-                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-                  placeholder="John Doe"
+                  autocomplete="name"
+                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus-visible:outline-none focus-visible:border-[#FFA985] focus-visible:ring-2 focus-visible:ring-[#FFA985]/20 transition-[border-color,box-shadow] font-medium"
+                  placeholder="Jane Doe…"
                   required
                 />
               </div>
@@ -227,8 +234,10 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
                   id={`${uniqueId}-phone`}
                   type="tel"
                   name="phone"
-                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-                  placeholder="(256) 555-0123"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus-visible:outline-none focus-visible:border-[#FFA985] focus-visible:ring-2 focus-visible:ring-[#FFA985]/20 transition-[border-color,box-shadow] font-medium"
+                  placeholder="(256) 555-0123…"
                   required
                 />
               </div>
@@ -252,8 +261,10 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
                   id={`${uniqueId}-email`}
                   type="email"
                   name="email"
-                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium"
-                  placeholder="john@example.com"
+                  autocomplete="email"
+                  spellcheck="false"
+                  class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus-visible:outline-none focus-visible:border-[#FFA985] focus-visible:ring-2 focus-visible:ring-[#FFA985]/20 transition-[border-color,box-shadow] font-medium"
+                  placeholder="jane@example.com…"
                 />
               </div>
             </div>
@@ -270,8 +281,8 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
                 id={`${uniqueId}-notes`}
                 name="message"
                 rows="2"
-                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-[#FFA985] focus:ring-2 focus:ring-[#FFA985]/20 transition-all font-medium resize-none"
-                placeholder="Any specific requirements?"></textarea>
+                class="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 focus-visible:outline-none focus-visible:border-[#FFA985] focus-visible:ring-2 focus-visible:ring-[#FFA985]/20 transition-[border-color,box-shadow] font-medium resize-none"
+                placeholder="Any specific requirements?…"></textarea>
             </div>
           </div>
 
@@ -284,7 +295,7 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
             </button>
             <button
               type="submit"
-              class="quote-submit-btn flex-1 py-4 rounded-xl bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+              class="quote-submit-btn flex-1 py-4 rounded-xl bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-white font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-[box-shadow,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFA985] focus-visible:ring-offset-2"
             >
               Show Me My Price
             </button>
@@ -335,10 +346,10 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
           We couldn't submit your request. Please try calling us directly.
         </p>
         <a
-          href="tel:2568261100"
+          href={phoneHref}
           class="inline-block bg-[#333333] text-white font-bold py-3 px-6 rounded-lg hover:bg-black transition-colors"
         >
-          Call 256-826-1100
+          Call {phoneDisplay}
         </a>
       </div>
     </form>
@@ -446,16 +457,22 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
       const sqft = form.querySelector('[name="square_footage"]');
 
       let isValid = true;
+      let firstInvalid = null;
       if (!service.value) {
         service.classList.add("border-red-500", "ring-2", "ring-red-100");
+        firstInvalid = firstInvalid || service;
         isValid = false;
       }
       if (!sqft.value) {
         sqft.classList.add("border-red-500", "ring-2", "ring-red-100");
+        firstInvalid = firstInvalid || sqft;
         isValid = false;
       }
 
-      if (!isValid) return;
+      if (!isValid) {
+        firstInvalid?.focus();
+        return;
+      }
 
       // Track Step 2 View
       if (window.dataLayer) {
@@ -500,8 +517,16 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
       const phoneIn = form.querySelector('[name="phone"]');
 
       if (!nameIn.value || !phoneIn.value) {
-        if (!nameIn.value) nameIn.classList.add("border-red-500");
-        if (!phoneIn.value) phoneIn.classList.add("border-red-500");
+        let firstInvalid = null;
+        if (!nameIn.value) {
+          nameIn.classList.add("border-red-500");
+          firstInvalid = firstInvalid || nameIn;
+        }
+        if (!phoneIn.value) {
+          phoneIn.classList.add("border-red-500");
+          firstInvalid = firstInvalid || phoneIn;
+        }
+        firstInvalid?.focus();
         return;
       }
 

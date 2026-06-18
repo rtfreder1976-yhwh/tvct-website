@@ -43,11 +43,11 @@ import Icon from "./Icon.astro";
             Services
             <Icon
               name="chevron-down"
-              class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180"
+              class="w-3 h-3 ml-1 transition-transform group-hover:rotate-180 group-focus-within:rotate-180"
             />
           </a>
           <div
-            class="absolute left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+            class="absolute left-0 top-full pt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-[opacity,visibility] duration-200 z-50"
           >
             <div
               class="bg-white rounded-xl shadow-xl border border-gray-200 py-2 overflow-hidden"
@@ -175,6 +175,8 @@ import Icon from "./Icon.astro";
         id="mobile-menu-btn"
         aria-label="Toggle menu"
         aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-haspopup="true"
       >
         <Icon name="bars" class="w-6 h-6" />
       </button>
@@ -196,6 +198,7 @@ import Icon from "./Icon.astro";
             class="w-full flex items-center justify-between text-gray-700 hover:text-[#FFA985] transition py-2"
             id="mobile-services-btn"
             aria-expanded="false"
+            aria-controls="mobile-services-menu"
           >
             <span>Services</span>
             <Icon name="chevron-down" class="w-3 h-3 transition-transform" />
@@ -302,6 +305,18 @@ import Icon from "./Icon.astro";
     </div>
   </div>
 </nav>
+
+<style>
+  /* Visible keyboard focus for all nav interactive elements (links + buttons).
+     Uses :focus-visible so it never shows on mouse click. */
+  nav a:focus-visible,
+  nav button:focus-visible,
+  .sticky-cta:focus-visible {
+    outline: 2px solid #ffa985;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+</style>
 
 <script is:inline>
   (function () {
