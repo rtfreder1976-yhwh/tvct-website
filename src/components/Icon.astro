@@ -166,9 +166,21 @@ interface Props {
   class?: string;
   size?: number;
   fill?: string;
+  /**
+   * Accessible label for standalone/meaningful icons (e.g. icon-only buttons).
+   * When omitted the icon is treated as decorative and hidden from the
+   * accessibility tree via aria-hidden — the default, since icons are almost
+   * always paired with adjacent visible text.
+   */
+  label?: string;
 }
 
-const { name, class: className = 'w-5 h-5', size, fill } = Astro.props;
+const { name, class: className = 'w-5 h-5', size, fill, label } = Astro.props;
+
+// Decorative by default; meaningful when an explicit label is provided.
+const a11yProps = label
+  ? { role: 'img', 'aria-label': label }
+  : { 'aria-hidden': 'true', focusable: 'false' };
 
 // Map FA icon names to Lucide components
 const iconMap: Record<string, LucideIcon> = {
@@ -410,7 +422,7 @@ const fillProps = fill ? { fill } : {};
 ---
 
 {IconComponent ? (
-  <IconComponent class={`inline-block align-middle ${className}`} {...sizeProps} {...fillProps} />
+  <IconComponent class={`inline-block align-middle ${className}`} {...sizeProps} {...fillProps} {...a11yProps} />
 ) : (
-  <span class={`inline-block ${className}`} title={`Icon: ${name}`}>?</span>
+  <span class={`inline-block ${className}`} aria-hidden="true"></span>
 )}
