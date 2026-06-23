@@ -6,8 +6,6 @@
 // instant paint. ?raw is a Vite-native loader that bundles the file content
 // into the JS at build time, so the runtime no longer touches the filesystem.
 import mainCssRaw from "../../public/styles/main.css?raw";
-import SpeedInsights from "@vercel/speed-insights/astro";
-import Analytics from "@vercel/analytics/astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import ABTester from "../components/ABTester.astro";
 import Navigation from "../components/Navigation.astro";
@@ -114,13 +112,16 @@ const metaDescription =
       />
     </noscript>
 
-    <!-- Marketing tags: deferred until first user interaction OR 5s idle, whichever
-         comes first. Keeps GA4/Clarity/Meta Pixel/PostHog out of the LCP/TBT critical
-         path on initial load. dataLayer/fbq are stubbed pre-load so click handlers
-         don't error; PageView fires automatically once each script lands. PostHog
-         cannot run in Partytown (needs main-thread APIs) so it loads here too —
-         lead/booking events are also captured server-side in api/submit-form.ts,
-         so nothing conversion-critical depends on this loader. -->
+    <!-- Marketing + product analytics tags: deferred until first user interaction
+         OR a 15s fallback timer, whichever comes first. Keeps GA4/Clarity/Meta
+         Pixel/PostHog AND Vercel Web Analytics + Speed Insights out of the LCP/TBT
+         critical path on initial load (the eager <Analytics/>/<SpeedInsights/>
+         components added ~357ms of script eval to the homepage). dataLayer/fbq are
+         stubbed pre-load so click handlers don't error; PageView fires automatically
+         once each script lands. PostHog cannot run in Partytown (needs main-thread
+         APIs) so it loads here too — lead/booking events are also captured
+         server-side in api/submit-form.ts, so nothing conversion-critical depends
+         on this loader. -->
     <script is:inline>
       (function () {
         // Pre-load stubs so any in-page handlers can push without errors.
@@ -223,6 +224,20 @@ const metaDescription =
             capture_pageview: true,
             capture_pageleave: true,
           });
+
+          // Vercel Web Analytics + Speed Insights. Loaded here (not via the
+          // eager <Analytics/> / <SpeedInsights/> components) so their ~357ms
+          // of script eval stays out of the homepage's LCP/TBT critical path.
+          // inject() registers a pageview on load and patches history so SPA-
+          // style route changes are still tracked; injectSpeedInsights() keeps
+          // sampling real CWV. Both fire on the same first-interaction/15s
+          // trigger as the trackers above — real users hit it within seconds.
+          import("@vercel/analytics")
+            .then(function (m) { m.inject(); })
+            .catch(function () {});
+          import("@vercel/speed-insights")
+            .then(function (m) { m.injectSpeedInsights(); })
+            .catch(function () {});
         }
 
         // Trigger on first interaction
@@ -686,9 +701,6 @@ const metaDescription =
       <slot />
     </main>
     {showFooter && <Footer />}
-
-    <SpeedInsights />
-    <Analytics />
 
     <script is:inline>
       (function () {
