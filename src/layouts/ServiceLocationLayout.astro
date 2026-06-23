@@ -6,6 +6,7 @@ import BookingCTA from "../components/BookingCTA.astro";
 import ProblemOptions from "../components/ProblemOptions.astro";
 import StickyQuoteBar from "../components/StickyQuoteBar.astro";
 import { getTestimonialsByService } from "../data/testimonials";
+import { getMarketPhone } from "../constants/schemaData";
 
 interface Props {
   title: string;
@@ -61,12 +62,13 @@ const {
   realtorProgram,
 } = Astro.props;
 
-// Market-aware phone number: Tennessee markets dial the TN line,
-// everything else dials the Alabama line. (Confirmed canonical numbers.)
-const isTN = state === "TN";
-const phoneDisplay = isTN ? "615-510-1427" : "256-826-1100";
-const phoneHref = isTN ? "tel:6155101427" : "tel:2568261100";
-const phoneSchema = isTN ? "+1-615-510-1427" : "+1-256-826-1100";
+// Market-aware phone number from the single source of truth — TN markets
+// dial the TN line, everything else the AL line. Handles "TN"/"Tennessee".
+const {
+  display: phoneDisplay,
+  href: phoneHref,
+  schema: phoneSchema,
+} = getMarketPhone(state);
 
 // Get service-specific testimonials
 const serviceTestimonials = getTestimonialsByService(serviceSlug);

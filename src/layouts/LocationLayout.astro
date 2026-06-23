@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
 import BookingCTA from "../components/BookingCTA.astro";
+import { getMarketPhone } from "../constants/schemaData";
 
 interface Props {
   title: string;
@@ -37,11 +38,9 @@ const {
   canonicalSlug,
 } = Astro.props;
 
-// Market-aware phone number: Tennessee markets dial the TN line,
-// everything else dials the Alabama line. (Confirmed canonical numbers.)
-const isTN = state === "TN";
-const phoneDisplay = isTN ? "615-510-1427" : "256-826-1100";
-const phoneHref = isTN ? "tel:6155101427" : "tel:2568261100";
+// Market-aware phone number from the single source of truth — TN markets
+// dial the TN line, everything else the AL line. Handles "TN"/"Tennessee".
+const { display: phoneDisplay, href: phoneHref } = getMarketPhone(state);
 
 // Generate canonical URL for location pages
 // Use explicit canonicalSlug if provided, otherwise generate from city name

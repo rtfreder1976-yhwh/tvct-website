@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import { getMarketPhone } from "../constants/schemaData";
 
 interface Props {
   formId?: string;
@@ -23,10 +24,9 @@ const {
   variant = "embedded",
 } = Astro.props;
 
-// Market-aware fallback number for the error state (TN markets dial the TN line).
-const isTN = state === "TN";
-const phoneDisplay = isTN ? "615-510-1427" : "256-826-1100";
-const phoneHref = isTN ? "tel:6155101427" : "tel:2568261100";
+// Market-aware fallback number for the error state, from the single source
+// of truth (TN markets dial the TN line). Handles "TN"/"Tennessee".
+const { display: phoneDisplay, href: phoneHref } = getMarketPhone(state);
 
 const locationValue = city ? (state ? `${city}, ${state}` : city) : "";
 const sourceValue =

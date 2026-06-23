@@ -13,6 +13,26 @@ export interface CityConfig {
   searchVolume: string;
 }
 
+// Canonical customer-facing phone numbers (single source of truth).
+// AL is the default line; TN markets dial the Tennessee line.
+export const MARKET_PHONES = {
+  AL: { display: "256-826-1100", href: "tel:2568261100", schema: "+1-256-826-1100" },
+  TN: { display: "615-510-1427", href: "tel:6155101427", schema: "+1-615-510-1427" },
+} as const;
+
+/**
+ * Resolve the correct customer-facing phone number for a market.
+ * Accepts either a 2-letter abbreviation ("TN") or a full state name
+ * ("Tennessee"), case-insensitively, so callers can't silently fall back
+ * to the wrong line by passing an unexpected-but-reasonable value.
+ * Anything that isn't clearly Tennessee resolves to the Alabama line.
+ */
+export function getMarketPhone(state?: string): (typeof MARKET_PHONES)["AL"] {
+  const s = (state ?? "").trim().toLowerCase();
+  const isTN = s === "tn" || s === "tennessee";
+  return isTN ? MARKET_PHONES.TN : MARKET_PHONES.AL;
+}
+
 export const cityConfigs: Record<string, CityConfig> = {
   Huntsville: {
     lat: "34.7304",
