@@ -25,6 +25,10 @@ interface Props {
   howToSteps?: Array<{ name: string; text: string; image?: string }>;
   totalTime?: string; // ISO 8601 duration e.g., "PT30M" for 30 minutes
   faqs?: Array<{ question: string; answer: string } | { q: string; a: string }>;
+  // Canonical URL of the current page (from BaseLayout). Used for the
+  // breadcrumb's leaf item so it matches the page's declared canonical
+  // exactly rather than relying on the raw request URL.
+  canonical?: string;
 }
 
 const {
@@ -44,10 +48,13 @@ const {
   howToSteps,
   totalTime,
   faqs: faqsProp,
+  canonical: canonicalProp,
 } = Astro.props;
 
-// Get current page URL for article schema
-const canonicalURL = Astro.url.href;
+// Get current page URL for article schema. Prefer the explicit canonical
+// passed from BaseLayout (clean, trailing-slash-normalized) over the raw
+// request URL, which can carry query strings.
+const canonicalURL = canonicalProp || Astro.url.href;
 
 // Generate department schemas for all cities
 // Using LocalBusiness type (which Organization expects for department property)
@@ -453,6 +460,23 @@ const breadcrumbSchema =
             name: `${city} Cleaning`,
             item: `https://thevalleycleanteam.com/locations/${city.toLowerCase().replace(/\s+/g, "-")}`,
           },
+          // Combo service+location pages get a 4th level pointing at the
+          // specific service page. Gate on the leaf URL being DEEPER than the
+          // city hub — a hub page that happens to pass serviceName (e.g. the
+          // Athens hub sends serviceName="House Cleaning") has a canonical
+          // equal to the hub URL and must stay at 3 levels, not link to itself.
+          ...(serviceName &&
+          canonicalURL.replace(/\/$/, "") !==
+            `https://thevalleycleanteam.com/locations/${city.toLowerCase().replace(/\s+/g, "-")}`
+            ? [
+                {
+                  "@type": "ListItem",
+                  position: 4,
+                  name: serviceName,
+                  item: canonicalURL,
+                },
+              ]
+            : []),
         ],
       }
     : null;
