@@ -20,6 +20,33 @@ export const MARKET_PHONES = {
   TN: { display: "615-510-1427", href: "tel:6155101427", schema: "+1-615-510-1427" },
 } as const;
 
+// Canonical review / rating figures (single source of truth).
+// These MUST match the live Google Business Profile. Every page and the
+// AggregateRating schema reads from here so the site can never contradict
+// itself (previously pages shipped 5.0 vs 4.9 and 130/146/200+/700 reviews).
+// When the real GBP numbers change, update ONLY this block.
+export const REVIEWS = {
+  rating: "4.9",        // exact GBP average, used in schema ratingValue
+  count: 150,           // exact GBP review count, used in schema reviewCount
+  countDisplay: "150+", // rounded form for marketing copy ("150+ reviews")
+} as const;
+
+// Canonical business hours (single source of truth) — schema + visible text.
+// Mon–Fri 9am–5pm; weekends by appointment (no fixed Saturday/Sunday hours).
+export const BUSINESS_HOURS = {
+  display: "Mon–Fri: 9:00 AM – 5:00 PM · Sat–Sun: By appointment",
+  // schema.org OpeningHoursSpecification — weekdays only; weekends are
+  // appointment-based so they are intentionally omitted (not a fixed range).
+  schema: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "17:00",
+    },
+  ],
+} as const;
+
 /**
  * Resolve the correct customer-facing phone number for a market.
  * Accepts either a 2-letter abbreviation ("TN") or a full state name
@@ -297,7 +324,7 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
     { q: "Do you bring your own cleaning supplies to Huntsville homes?", a: "Yes, we bring all pet-safe, eco-friendly supplies and equipment. You don't need to provide anything." },
     { q: "Can I get recurring cleaning service in Huntsville?", a: "Yes! We offer weekly, biweekly, and monthly recurring cleaning with up to 20% savings and consistent teams." },
     { q: "Do you clean offices in Huntsville?", a: "Yes, we provide commercial cleaning for Huntsville offices, including Research Park businesses and medical facilities." },
-    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with flexible scheduling and 146 5-star reviews." },
+    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with flexible scheduling and 150 5-star reviews." },
     { q: "Do you offer Airbnb cleaning in Huntsville?", a: "Yes! We provide fast-turnaround Airbnb and vacation rental cleaning with guest-ready presentation for Huntsville hosts." },
     { q: "Are your cleaning products safe for allergies?", a: "Yes, our hypoallergenic, fragrance-free options are perfect for allergy sufferers. Many Huntsville customers choose us specifically for this." },
   ],
