@@ -1,8 +1,10 @@
 ---
-import { 
+import {
   cityConfigs,
   petSafeServiceCatalog,
   cityFAQs,
+  REVIEWS,
+  BUSINESS_HOURS,
   type CityConfig
 } from "../constants/schemaData";
 
@@ -138,12 +140,13 @@ const getOrganizationSchema = (includeDepartments = true) => ({
     minValue: 10,
     maxValue: 25,
   },
-  // Sitewide rating — mirrors the 5.0 / 146 reviews displayed on the homepage
-  // (ReviewBadges + TestimonialsSection), so it is policy-compliant review markup.
+  // Sitewide rating — reads from the single source of truth (REVIEWS in
+  // schemaData.ts) so the schema always matches the visible rating/count and
+  // the live Google Business Profile. Policy-compliant review markup.
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "146",
+    ratingValue: REVIEWS.rating,
+    reviewCount: String(REVIEWS.count),
     bestRating: "5",
     worstRating: "1",
   },
@@ -206,7 +209,7 @@ const localSchema = city
         "@type": "HomeAndConstructionBusiness",
         "@id": `https://thevalleycleanteam.com/locations/${citySlug}/#localbusiness`,
         name: `The Valley Clean Team - ${city}`,
-        description: `${config.focusService} in ${city}, ${state}. Non-toxic products safe for pets and children. Same-day service available. 4.9★ rated with 146 reviews.`,
+        description: `${config.focusService} in ${city}, ${state}. Non-toxic products safe for pets and children. Same-day service available. ${REVIEWS.rating}★ rated with ${REVIEWS.count} reviews.`,
         url: `https://thevalleycleanteam.com/locations/${citySlug}`,
         telephone: config.phone,
         email: "hello@thevalleycleanteam.com",
@@ -246,20 +249,7 @@ const localSchema = city
           name: "The Valley Clean Team",
           url: "https://thevalleycleanteam.com",
         },
-        openingHoursSpecification: [
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            opens: "07:00",
-            closes: "19:00",
-          },
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: "Saturday",
-            opens: "08:00",
-            closes: "17:00",
-          },
-        ],
+        openingHoursSpecification: BUSINESS_HOURS.schema,
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: `${config.focusService} in ${city}`,
