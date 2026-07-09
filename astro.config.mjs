@@ -42,7 +42,7 @@ export default defineConfig({
     sitemap({
       // /recurring is the noindex SMS conversion page — exact-path match so the
       // indexable /locations/*/recurring-maid-service pages are NOT excluded.
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+// BookingKoala's post-booking destination is set (in the BK dashboard:
+// Book Now page → Settings → "Where should the customer go after booking
+// addition?" → URL) to this same-origin page. It serves two jobs:
+//   1. If BK redirects the WHOLE window here, this page fires the completion
+//      event directly (the belt).
+//   2. If BK navigates only the IFRAME here, the parent /booking page's polling
+//      detects the same-origin /booking-complete URL and fires it (the braces).
+// Either way, booking_completed finally fires — unblocking PostHog/GA4/Meta
+// conversion tracking and stopping the GHL abandoned-booking chase.
+---
+
+<BaseLayout
+  title="Booking Confirmed | Valley Clean Team"
+  description="Your cleaning is booked. Thank you for choosing The Valley Clean Team."
+  showNav={false}
+  showFooter={false}
+  schemaType="none"
+  noindex={true}
+>
+  <section class="min-h-[70vh] flex items-center justify-center px-6 py-24">
+    <div class="text-center max-w-lg">
+      <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+        <Icon name="check-circle" class="w-12 h-12 text-green-600" />
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-4">You're booked.</h1>
+      <p class="text-xl text-gray-600 mb-8">
+        Thank you for choosing The Valley Clean Team. You'll get a confirmation by
+        email and a text before your clean. Remember — your card isn't charged
+        until after the job is done.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="btn-primary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          Back to Home
+        </a>
+        <a href="tel:2568261100" class="btn-secondary px-8 py-3 rounded-full text-lg font-semibold inline-flex items-center justify-center">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Questions? Call Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    // Fire the booking_completed conversion if this page is loaded as the TOP
+    // window (BK redirected the whole tab here rather than just the iframe).
+    // The parent /booking page handles the iframe-only case via URL polling.
+    (function () {
+      if (window.top !== window.self) return; // loaded inside the iframe — parent handles it
+      try {
+        var lead = {};
+        try { lead = JSON.parse(sessionStorage.getItem('tvct_quote') || '{}'); } catch (e) {}
+        var payload = JSON.stringify({
+          source: 'Booking Page Pre-Capture',
+          funnel_event: 'booking_completed',
+          name: lead.name || '', phone: lead.phone || '', email: lead.email || '',
+          service: lead.service || '', location: lead.location || ''
+        });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon('/api/submit-form', new Blob([payload], { type: 'application/json' }));
+        } else {
+          fetch('/api/submit-form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function(){});
+        }
+      } catch (e) {}
+      if (typeof gtag === 'function') {
+        gtag('event', 'booking_completed', { event_category: 'Conversion', event_label: 'BookingKoala - Booking Confirmed', value: 1 });
+        gtag('event', 'purchase', { transaction_id: 'BK-' + Date.now(), value: 0, currency: 'USD' });
+      }
+      if (typeof fbq === 'function') fbq('track', 'Schedule', { content_name: 'Cleaning Service Booking' });
+    })();
+  </script>
+</BaseLayout>
