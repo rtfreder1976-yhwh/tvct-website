@@ -374,55 +374,80 @@ import Icon from '../components/Icon.astro';
             });
             setTimeout(markBookingStarted, 15000); // fallback: 15s on the booking page = engaged
 
-            // Fire "abandoned" if they leave/hide the page without completing
+            // Fire "abandoned" AT MOST ONCE, and only on genuine exit.
+            // Previously this was bound to both `visibilitychange:hidden` AND
+            // `pagehide` with no dedup, so every tab-switch / minimize / phone
+            // screen-lock re-fired it — inflating the abandon count ~3x per
+            // person. Now: a single fired-once guard, and we do NOT treat a
+            // tab-switch as abandonment (people tab away to grab an address or
+            // check a calendar and come back). Real exit = `pagehide`.
+            var abandonFired = false;
             function maybeAbandon() {
+              if (abandonFired) return;
               if (bookingStarted && !bookingCompleted) {
+                abandonFired = true;
                 var secs = Math.floor((Date.now() - (window.__bkStart || Date.now())) / 1000);
                 sendBookingEvent('booking_abandoned', { seconds: secs });
               }
             }
             window.__bkStart = Date.now();
-            document.addEventListener('visibilitychange', function () {
-              if (document.visibilityState === 'hidden') maybeAbandon();
-            });
+            // pagehide fires on real navigation-away / tab-close / bfcache — the
+            // reliable "they're actually leaving" signal. sendBeacon in
+            // sendBookingEvent survives the unload.
             window.addEventListener('pagehide', maybeAbandon);
 
-            // GA4 + Meta Pixel: Track BookingKoala booking completion via postMessage
-            // BookingKoala fires a postMessage when booking is confirmed
+            // ── Booking COMPLETION detection ──────────────────────────────
+            // Single fire-once handler. Fires the PostHog/GHL funnel event plus
+            // GA4 + Meta conversions exactly once, regardless of which detection
+            // path caught the completion.
+            function markBookingCompleted() {
+              if (bookingCompleted) return;
+              bookingCompleted = true;
+              // Tell GHL the booking completed (so the abandon workflow stops
+              // chasing a customer who already booked).
+              sendBookingEvent('booking_completed');
+              if (typeof gtag === 'function') {
+                gtag('event', 'booking_completed', { event_category: 'Conversion', event_label: 'BookingKoala - Booking Confirmed', value: 1 });
+                gtag('event', 'purchase', { transaction_id: 'BK-' + Date.now(), value: 0, currency: 'USD' });
+              }
+              if (typeof fbq === 'function') fbq('track', 'Schedule', { content_name: 'Cleaning Service Booking' });
+            }
+
+            // PRIMARY path — same-origin thank-you URL.
+            // BookingKoala does NOT postMessage on completion (its embed.js is
+            // only iFrameResizer). It confirms a booking by navigating the iframe
+            // to a "thank you" destination (BookingKoala dashboard →
+            // Book Now page → Settings → "Where should the customer go after
+            // booking addition?"). That destination is set to a SAME-ORIGIN URL
+            // on this domain — /booking-complete — so the parent can read the
+            // iframe location after the cross-origin booking flow lands back
+            // here. Poll for it; cross-origin reads throw (caught + ignored)
+            // until BK redirects same-origin.
+            var completeTimer = setInterval(function () {
+              if (bookingCompleted) { clearInterval(completeTimer); return; }
+              try {
+                var f = document.getElementById('booking-iframe');
+                var href = f && f.contentWindow && f.contentWindow.location && f.contentWindow.location.href;
+                if (href && href.indexOf('/booking-complete') !== -1) {
+                  clearInterval(completeTimer);
+                  markBookingCompleted();
+                }
+              } catch (e) { /* cross-origin: still inside BookingKoala, not done yet */ }
+            }, 1000);
+
+            // FALLBACK path — postMessage. Harmless if BookingKoala never sends
+            // one (current behavior); catches it if they ever add it or if a
+            // custom thank-you page posts a confirmation up to the parent.
             window.addEventListener('message', function(event) {
-              // Accept messages from BookingKoala domain only
-              if (!event.origin.includes('bookingkoala.com')) return;
+              if (!event.origin.includes('bookingkoala.com') && event.origin !== window.location.origin) return;
               var data = event.data;
               var isConfirmation = false;
-              // BookingKoala sends various message formats on completion
               if (typeof data === 'string') {
-                isConfirmation = data.includes('booking_confirmed') || data.includes('order_complete') || data.includes('thank_you') || data.includes('confirmation');
+                isConfirmation = data.indexOf('booking_confirmed') !== -1 || data.indexOf('order_complete') !== -1 || data.indexOf('thank_you') !== -1 || data.indexOf('booking_complete') !== -1;
               } else if (typeof data === 'object' && data !== null) {
                 isConfirmation = data.type === 'booking_confirmed' || data.event === 'booking_confirmed' || data.status === 'confirmed' || data.action === 'booking_complete';
               }
-              if (isConfirmation) {
-                bookingCompleted = true;
-                // Tell GHL the booking completed (so the abandon workflow is cancelled)
-                sendBookingEvent('booking_completed');
-                // Fire GA4 conversion
-                if (typeof gtag === 'function') {
-                  gtag('event', 'booking_completed', {
-                    event_category: 'Conversion',
-                    event_label: 'BookingKoala - Booking Confirmed',
-                    value: 1
-                  });
-                  // Also fire as a GA4 purchase event for conversion tracking
-                  gtag('event', 'purchase', {
-                    transaction_id: 'BK-' + Date.now(),
-                    value: 0,
-                    currency: 'USD'
-                  });
-                }
-                // Fire Meta Pixel conversion
-                if (typeof fbq === 'function') {
-                  fbq('track', 'Schedule', { content_name: 'Cleaning Service Booking' });
-                }
-              }
+              if (isConfirmation) markBookingCompleted();
             });
 
             // GA4: Track time spent on booking page (engagement depth)
