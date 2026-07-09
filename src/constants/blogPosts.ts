@@ -820,19 +820,6 @@ export const allBlogPosts: BlogPost[] = [
     image: "https://thevalleycleanteam.com/og-image.png",
   },
   {
-    slug: "deep-cleaning-vs-regular-cleaning",
-    title: "Deep Clean vs. Regular Clean",
-    excerpt:
-      "The most common question we get: do you book a standard clean or a deep clean? We break down the checklists, costs, and benefits of each so you can decide which service your home actually needs.",
-    category: "Service Guide",
-    filterCategory: "industry",
-    categoryColor: "purple",
-    date: "October 25, 2023",
-    readTime: "6 min read",
-    icon: "sparkles",
-    image: "/images/blog/deep-vs-regular.jpg",
-  },
-  {
     slug: "deep-vs-standard-cleaning-athens-al",
     title: "Deep Cleaning vs Standard Cleaning in Athens, AL: What's the Difference?",
     excerpt:
