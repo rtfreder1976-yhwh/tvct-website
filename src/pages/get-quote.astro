@@ -185,7 +185,7 @@ import Icon from '../components/Icon.astro';
           Your Spotless Home is 60 Seconds Away
         </h1>
         <p class="text-gray-500 text-base max-w-md mx-auto leading-relaxed">
-          Skip the back-and-forth. Tell us about your space to instantly reveal your exact price and secure your cleaning.
+          Skip the back-and-forth. Share your details and go straight to picking your price and time.
         </p>
       </div>
 
@@ -257,86 +257,29 @@ import Icon from '../components/Icon.astro';
               <p id="q-phone-err" class="error-msg">Please enter a valid phone number.</p>
             </div>
 
-            <!-- Type of Cleaning -->
+            <!-- Home or Business? — routes to the correct BookingKoala form.
+                 (The specific service + square footage are collected on the
+                 BookingKoala form itself, so we don't ask twice here.) -->
             <fieldset>
-              <legend class="field-label mb-2">Type of Cleaning <span class="text-red-400">*</span></legend>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <legend class="field-label mb-2">Is this for your Home or Business? <span class="text-red-400">*</span></legend>
+              <div class="grid grid-cols-2 gap-3">
                 <label class="radio-card">
-                  <input type="radio" name="service" value="Standard House Cleaning" required />
-                  <div class="radio-content">Standard<br class="hidden sm:inline"> Cleaning</div>
+                  <input type="radio" name="account_type" value="home" required />
+                  <div class="radio-content flex-col gap-1">
+                    <span>Home</span>
+                    <span class="text-[0.7rem] font-medium text-gray-400 normal-case">House, condo &amp; apartment cleaning</span>
+                  </div>
                 </label>
                 <label class="radio-card">
-                  <input type="radio" name="service" value="Deep Cleaning" />
-                  <div class="radio-content">Deep<br class="hidden sm:inline"> Cleaning</div>
-                </label>
-                <label class="radio-card">
-                  <input type="radio" name="service" value="Move-In / Move-Out Cleaning" />
-                  <div class="radio-content">Move-In /<br class="hidden sm:inline"> Move-Out</div>
-                </label>
-                <label class="radio-card">
-                  <input type="radio" name="service" value="Commercial Cleaning" />
-                  <div class="radio-content">Office /<br class="hidden sm:inline"> Commercial</div>
-                </label>
-                <label class="radio-card sm:col-span-2">
-                  <input type="radio" name="service" value="Other" />
-                  <div class="radio-content">Other / Not Sure</div>
+                  <input type="radio" name="account_type" value="business" />
+                  <div class="radio-content flex-col gap-1">
+                    <span>Business</span>
+                    <span class="text-[0.7rem] font-medium text-gray-400 normal-case">Offices, retail, medical, restaurants, churches, Airbnbs &amp; more</span>
+                  </div>
                 </label>
               </div>
-              <p id="q-service-err" class="error-msg mt-2">Please select a service type.</p>
+              <p id="q-account_type-err" class="error-msg mt-2">Please choose Home or Business.</p>
             </fieldset>
-
-            <!-- Square Footage -->
-            <fieldset>
-              <legend class="field-label mb-2">Estimated Square Footage <span class="text-red-400">*</span></legend>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <label class="radio-card">
-                  <input type="radio" name="sqft" value="1000" required />
-                  <div class="radio-content">Under<br class="hidden sm:inline"> 1,000 sq ft</div>
-                </label>
-                <label class="radio-card">
-                  <input type="radio" name="sqft" value="2000" />
-                  <div class="radio-content">1,000 -<br class="hidden sm:inline"> 2,000 sq ft</div>
-                </label>
-                <label class="radio-card">
-                  <input type="radio" name="sqft" value="3000" />
-                  <div class="radio-content">2,000 -<br class="hidden sm:inline"> 3,000 sq ft</div>
-                </label>
-                <label class="radio-card">
-                  <input type="radio" name="sqft" value="4000" />
-                  <div class="radio-content">3,000 -<br class="hidden sm:inline"> 4,000 sq ft</div>
-                </label>
-                <label class="radio-card sm:col-span-2">
-                  <input type="radio" name="sqft" value="5000" />
-                  <div class="radio-content">Over 4,000 sq ft</div>
-                </label>
-              </div>
-              <p id="q-sqft-err" class="error-msg mt-2">Please select your estimated square footage.</p>
-            </fieldset>
-
-            <!-- Bedrooms & Bathrooms (for scheduling/scope — does not change price) -->
-            <div class="grid grid-cols-2 gap-3">
-              <fieldset>
-                <legend class="field-label mb-2">Bedrooms</legend>
-                <select name="bedrooms" aria-label="Bedrooms" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
-                  <option value="">Select…</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5+</option>
-                </select>
-              </fieldset>
-              <fieldset>
-                <legend class="field-label mb-2">Bathrooms</legend>
-                <select name="bathrooms" aria-label="Bathrooms" class="w-full px-4 py-3 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]">
-                  <option value="">Select…</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4+</option>
-                </select>
-              </fieldset>
-            </div>
 
             <!-- Submit -->
             <div class="pt-2">
@@ -464,21 +407,20 @@ import Icon from '../components/Icon.astro';
         var name    = val('q-name');
         var email   = val('q-email');
         var phone   = val('q-phone');
-        var service = valRadio('service');
-        var sqft    = valRadio('sqft');
-        var bedsEl  = form.querySelector('select[name="bedrooms"]');
-        var bathsEl = form.querySelector('select[name="bathrooms"]');
-        var beds    = bedsEl ? bedsEl.value : '';
-        var baths   = bathsEl ? bathsEl.value : '';
+        var acct    = valRadio('account_type'); // 'home' | 'business'
 
         var valid = true;
         markError('q-name',    'q-name-err',    !name);                      if (!name)                      valid = false;
         markError('q-email',   'q-email-err',   !isValidEmail(email));       if (!isValidEmail(email))       valid = false;
         markError('q-phone',   'q-phone-err',   !isValidPhone(phone));       if (!isValidPhone(phone))       valid = false;
-        markGroupError('q-service-err', !service);                           if (!service)                   valid = false;
-        markGroupError('q-sqft-err',    !sqft);                              if (!sqft)                      valid = false;
+        markGroupError('q-account_type-err', !acct);                         if (!acct)                      valid = false;
 
         if (!valid) return;
+
+        // The BookingKoala form collects the specific service + square footage.
+        // Send a coarse service label so the CRM/email lead isn't blank and the
+        // team knows which pipeline (residential vs commercial) to work.
+        var service = acct === 'business' ? 'Commercial Cleaning' : 'Residential Cleaning';
 
         // Show spinner
         submitBtn.disabled = true;
@@ -490,14 +432,10 @@ import Icon from '../components/Icon.astro';
           email:         email,
           phone:         phone,
           service:       service,
-          square_footage: sqft ? parseInt(sqft, 10) : 0,
-          bedrooms:      beds,
-          bathrooms:     baths,
+          account_type:  acct,
           source:        'Get Quote Form',
           page_url:      window.location.href,
-          notes:         'Quote form submission — Step 1' +
-                         (beds ? ' | Beds: ' + beds : '') +
-                         (baths ? ' | Baths: ' + baths : '')
+          notes:         'Quote form submission — Step 1 | ' + (acct === 'business' ? 'Business' : 'Home')
         };
 
         // Fire GA4 lead event
@@ -521,18 +459,20 @@ import Icon from '../components/Icon.astro';
         })
           .catch(function () {}) // never block redirect on API error
           .finally(function () {
-            // Persist Step-1 details so /booking can prefill the BookingKoala iframe
-            // (booking.astro reads sessionStorage 'tvct_quote' -> f_name/l_name/email/phone)
+            // Persist Step-1 details so /booking (or /booking-commercial) can
+            // prefill the BookingKoala iframe (booking.astro reads sessionStorage
+            // 'tvct_quote' -> f_name/l_name/email/phone). Keep `name` a single
+            // full-name string; booking.astro splits it into first/last.
             try {
               sessionStorage.setItem('tvct_quote', JSON.stringify({
                 name: name, email: email, phone: phone,
-                service: service, bedrooms: beds, bathrooms: baths
+                service: service, account_type: acct
               }));
             } catch (err) {}
-            // Show success, then redirect to booking
+            // Show success, then redirect to the correct booking form.
             form.style.display = 'none';
             if (success) success.classList.remove('hidden');
-            var bookingUrl = service === 'Commercial Cleaning' ? '/booking-commercial' : '/booking';
+            var bookingUrl = acct === 'business' ? '/booking-commercial' : '/booking';
             setTimeout(function () {
               window.location.href = bookingUrl;
             }, 2500);
@@ -544,11 +484,8 @@ import Icon from '../components/Icon.astro';
         var el = document.getElementById(id);
         if (el) el.addEventListener('input', function () { markError(id, id + '-err', false); });
       });
-      document.querySelectorAll('input[name="service"]').forEach(function(el) {
-        el.addEventListener('change', function() { markGroupError('q-service-err', false); });
-      });
-      document.querySelectorAll('input[name="sqft"]').forEach(function(el) {
-        el.addEventListener('change', function() { markGroupError('q-sqft-err', false); });
+      document.querySelectorAll('input[name="account_type"]').forEach(function(el) {
+        el.addEventListener('change', function() { markGroupError('q-account_type-err', false); });
       });
     })();
   </script>
