@@ -2,15 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 
-// BookingKoala's post-booking destination is set (in the BK dashboard:
-// Book Now page → Settings → "Where should the customer go after booking
-// addition?" → URL) to this same-origin page. It serves two jobs:
-//   1. If BK redirects the WHOLE window here, this page fires the completion
-//      event directly (the belt).
-//   2. If BK navigates only the IFRAME here, the parent /booking page's polling
-//      detects the same-origin /booking-complete URL and fires it (the braces).
-// Either way, booking_completed finally fires — unblocking PostHog/GA4/Meta
-// conversion tracking and stopping the GHL abandoned-booking chase.
+// Static thank-you page. As of 2026-07-10 BookingKoala keeps completed
+// bookings on ITS OWN thank-you page (it no longer redirects here), and
+// completion conversion tracking is handled natively in BookingKoala
+// (GA4 + Meta Pixel + Zapier/Make → GHL). This page is now only reachable
+// via a stray old link/bookmark, so it renders a friendly message and fires
+// NOTHING — firing a conversion on a bare load was the source of the
+// "You're booked" false-positive bug this change fixed.
 ---
 
 <BaseLayout
@@ -43,32 +41,4 @@ import Icon from '../components/Icon.astro';
     </div>
   </section>
 
-  <script is:inline>
-    // Fire the booking_completed conversion if this page is loaded as the TOP
-    // window (BK redirected the whole tab here rather than just the iframe).
-    // The parent /booking page handles the iframe-only case via URL polling.
-    (function () {
-      if (window.top !== window.self) return; // loaded inside the iframe — parent handles it
-      try {
-        var lead = {};
-        try { lead = JSON.parse(sessionStorage.getItem('tvct_quote') || '{}'); } catch (e) {}
-        var payload = JSON.stringify({
-          source: 'Booking Page Pre-Capture',
-          funnel_event: 'booking_completed',
-          name: lead.name || '', phone: lead.phone || '', email: lead.email || '',
-          service: lead.service || '', location: lead.location || ''
-        });
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon('/api/submit-form', new Blob([payload], { type: 'application/json' }));
-        } else {
-          fetch('/api/submit-form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true }).catch(function(){});
-        }
-      } catch (e) {}
-      if (typeof gtag === 'function') {
-        gtag('event', 'booking_completed', { event_category: 'Conversion', event_label: 'BookingKoala - Booking Confirmed', value: 1 });
-        gtag('event', 'purchase', { transaction_id: 'BK-' + Date.now(), value: 0, currency: 'USD' });
-      }
-      if (typeof fbq === 'function') fbq('track', 'Schedule', { content_name: 'Cleaning Service Booking' });
-    })();
-  </script>
 </BaseLayout>

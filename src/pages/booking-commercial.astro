@@ -196,7 +196,7 @@ import Icon from '../components/Icon.astro';
 
           <iframe
             id="booking-iframe"
-            src="https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning?embed=true&bar=false&banner=false"
+            data-base="https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning?embed=true&bar=false&banner=false"
             style="border:none;min-height:1000px;height:1000px;opacity:0;transition:opacity 0.5s ease-in-out;"
             width="100%"
             scrolling="no"
@@ -205,6 +205,64 @@ import Icon from '../components/Icon.astro';
           ></iframe>
 
           <script is:inline>
+            // Prefill the BookingKoala commercial iframe from the Step-1 lead
+            // (Business path of /get-quote stores sessionStorage 'tvct_quote')
+            // OR a magic/recovery link's URL params — same pattern as /booking.
+            (function () {
+              var frame = document.getElementById('booking-iframe');
+              if (!frame) return;
+              var base = frame.getAttribute('data-base');
+              var params = [];
+              var lead = { first: '', last: '', email: '', phone: '' };
+
+              // 1) sessionStorage (normal Step-1 Business -> commercial handoff)
+              try {
+                var raw = sessionStorage.getItem('tvct_quote');
+                if (raw) {
+                  var d = JSON.parse(raw);
+                  if (d.name) {
+                    var parts = String(d.name).trim().split(/\s+/);
+                    lead.first = parts.shift() || '';
+                    lead.last = parts.join(' ');
+                  }
+                  if (d.email) lead.email = d.email;
+                  if (d.phone) lead.phone = d.phone;
+                }
+              } catch (err) {}
+
+              // 2) URL params override (recovery/magic link)
+              try {
+                var q = new URLSearchParams(window.location.search);
+                if (q.get('f_name')) lead.first = q.get('f_name');
+                if (q.get('l_name')) lead.last = q.get('l_name');
+                if (q.get('name')) {
+                  var np = String(q.get('name')).trim().split(/\s+/);
+                  lead.first = np.shift() || lead.first;
+                  lead.last = np.join(' ') || lead.last;
+                }
+                if (q.get('email')) lead.email = q.get('email');
+                if (q.get('phone')) lead.phone = q.get('phone');
+              } catch (err) {}
+
+              if (lead.first) params.push('f_name=' + encodeURIComponent(lead.first));
+              if (lead.last) params.push('l_name=' + encodeURIComponent(lead.last));
+              if (lead.email) params.push('email=' + encodeURIComponent(lead.email));
+              if (lead.phone) {
+                // Normalize to digits; strip a leading US '1' on 11-digit numbers.
+                // Pass under the several param names BK installs vary on.
+                var digits = String(lead.phone).replace(/\D/g, '');
+                if (digits.length === 11 && digits.charAt(0) === '1') digits = digits.slice(1);
+                var cleanPhone = encodeURIComponent(digits);
+                params.push('phone=' + cleanPhone);
+                params.push('phone_number=' + cleanPhone);
+                params.push('customer_phone=' + cleanPhone);
+                params.push('mobile=' + cleanPhone);
+              }
+
+              // base already has a query string (?embed=true&...), so append with '&'
+              frame.src = base + (params.length ? '&' + params.join('&') : '');
+            })();
+
             // Safety timeout: if iframe hasn't loaded in 4 seconds, show it anyway
             setTimeout(() => {
               const loader = document.getElementById('iframe-loading');
@@ -216,40 +274,11 @@ import Icon from '../components/Icon.astro';
               }
             }, 4000);
 
-            // GA4 + Meta Pixel: Track BookingKoala booking completion via postMessage
-            // BookingKoala fires a postMessage when booking is confirmed
-            window.addEventListener('message', function(event) {
-              // Accept messages from BookingKoala domain only
-              if (!event.origin.includes('bookingkoala.com')) return;
-              var data = event.data;
-              var isConfirmation = false;
-              // BookingKoala sends various message formats on completion
-              if (typeof data === 'string') {
-                isConfirmation = data.includes('booking_confirmed') || data.includes('order_complete') || data.includes('thank_you') || data.includes('confirmation');
-              } else if (typeof data === 'object' && data !== null) {
-                isConfirmation = data.type === 'booking_confirmed' || data.event === 'booking_confirmed' || data.status === 'confirmed' || data.action === 'booking_complete';
-              }
-              if (isConfirmation) {
-                // Fire GA4 conversion
-                if (typeof gtag === 'function') {
-                  gtag('event', 'booking_completed', {
-                    event_category: 'Conversion',
-                    event_label: 'BookingKoala - Commercial Booking Confirmed',
-                    value: 1
-                  });
-                  // Also fire as a GA4 purchase event for conversion tracking
-                  gtag('event', 'purchase', {
-                    transaction_id: 'BK-' + Date.now(),
-                    value: 0,
-                    currency: 'USD'
-                  });
-                }
-                // Fire Meta Pixel conversion
-                if (typeof fbq === 'function') {
-                  fbq('track', 'Schedule', { content_name: 'Commercial Cleaning Service Booking' });
-                }
-              }
-            });
+            // Completion tracking lives in BookingKoala (native GA4 + Meta Pixel +
+            // Zapier/Make → GHL). A completed booking stays on BK's thank-you page
+            // inside this iframe, and BK does not postMessage on completion, so the
+            // site can't detect it — BK is the authoritative source. (Removed
+            // 2026-07-10: the dead postMessage completion listener.)
 
             // GA4: Track time spent on booking page (engagement depth)
             var bookingStartTime = Date.now();

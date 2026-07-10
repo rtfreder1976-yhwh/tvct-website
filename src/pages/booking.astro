@@ -217,7 +217,7 @@ import Icon from '../components/Icon.astro';
 
           <iframe
             id="booking-iframe"
-            data-base="https://thevalleycleanteam.bookingkoala.com/booknow?embed=true"
+            data-base="https://thevalleycleanteam.bookingkoala.com/booknow/home_cleaning?embed=true&bar=false&banner=false"
             style="border:none;min-height:1000px;height:1200px;opacity:0;transition:opacity 0.5s ease-in-out;"
             width="100%"
             scrolling="no"
@@ -298,18 +298,6 @@ import Icon from '../components/Icon.astro';
               }
 
               frame.src = base + (params.length ? '&' + params.join('&') : '');
-
-              // Make the recovery lead available to the funnel-event tracker so
-              // an abandoner who re-abandons is still identified in GHL.
-              try {
-                if (params.length) {
-                  window.__bkRecoveryLead = {
-                    name: (lead.first + ' ' + lead.last).trim(),
-                    email: lead.email,
-                    phone: lead.phone
-                  };
-                }
-              } catch (err) {}
             })();
 
             // Safety timeout: if iframe hasn't loaded in 4 seconds, show it anyway
@@ -323,132 +311,21 @@ import Icon from '../components/Icon.astro';
               }
             }, 4000);
 
-            // ── Booking-funnel abandonment tracking ───────────────────────
-            // The gateway form (/get-quote) already created the GHL lead. These
-            // signals tell GHL apart "entered BookingKoala" vs "completed" so an
-            // abandoned session can trigger a follow-up. Without this, a stuck
-            // lead is invisible.
-            var bkLead = {};
-            try { bkLead = JSON.parse(sessionStorage.getItem('tvct_quote') || '{}'); } catch (e) {}
-            // If this is a recovery/magic-link visit, prefer that identity.
-            try { if (window.__bkRecoveryLead) bkLead = Object.assign({}, bkLead, window.__bkRecoveryLead); } catch (e) {}
-            var bookingCompleted = false;
-            var bookingStarted = false;
-
-            function sendBookingEvent(evt, extra) {
-              try {
-                // Routed through the proven-live /api/submit-form with the
-                // 'Booking Page Pre-Capture' source + funnel_event marker.
-                var payload = Object.assign({
-                  source: 'Booking Page Pre-Capture',
-                  funnel_event: evt,
-                  name: bkLead.name || '',
-                  phone: bkLead.phone || '',
-                  email: bkLead.email || '',
-                  service: bkLead.service || '',
-                  location: bkLead.location || ''
-                }, extra || {});
-                var body = JSON.stringify(payload);
-                // sendBeacon survives page unload (critical for the abandon event)
-                if (navigator.sendBeacon) {
-                  navigator.sendBeacon('/api/submit-form', new Blob([body], { type: 'application/json' }));
-                } else {
-                  fetch('/api/submit-form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
-                }
-              } catch (e) {}
-            }
-
-            // Fire "started" once the iframe is engaged (entered the booking flow)
-            function markBookingStarted() {
-              if (bookingStarted) return;
-              bookingStarted = true;
-              sendBookingEvent('booking_started');
-              // Ad-platform "begin checkout" for retargeting audiences
-              if (typeof gtag === 'function') gtag('event', 'begin_checkout', { event_category: 'Booking', event_label: 'BookingKoala Started' });
-              if (typeof fbq === 'function') fbq('track', 'InitiateCheckout', { content_name: 'Cleaning Booking Started' });
-            }
-            // BookingKoala loads in an iframe; a focus/interaction on it blurs the
-            // parent window — use that as the "engaged" trigger, plus a fallback timer.
-            window.addEventListener('blur', function () {
-              if (document.activeElement && document.activeElement.id === 'booking-iframe') markBookingStarted();
-            });
-            setTimeout(markBookingStarted, 15000); // fallback: 15s on the booking page = engaged
-
-            // Fire "abandoned" AT MOST ONCE, and only on genuine exit.
-            // Previously this was bound to both `visibilitychange:hidden` AND
-            // `pagehide` with no dedup, so every tab-switch / minimize / phone
-            // screen-lock re-fired it — inflating the abandon count ~3x per
-            // person. Now: a single fired-once guard, and we do NOT treat a
-            // tab-switch as abandonment (people tab away to grab an address or
-            // check a calendar and come back). Real exit = `pagehide`.
-            var abandonFired = false;
-            function maybeAbandon() {
-              if (abandonFired) return;
-              if (bookingStarted && !bookingCompleted) {
-                abandonFired = true;
-                var secs = Math.floor((Date.now() - (window.__bkStart || Date.now())) / 1000);
-                sendBookingEvent('booking_abandoned', { seconds: secs });
-              }
-            }
-            window.__bkStart = Date.now();
-            // pagehide fires on real navigation-away / tab-close / bfcache — the
-            // reliable "they're actually leaving" signal. sendBeacon in
-            // sendBookingEvent survives the unload.
-            window.addEventListener('pagehide', maybeAbandon);
-
-            // ── Booking COMPLETION detection ──────────────────────────────
-            // Single fire-once handler. Fires the PostHog/GHL funnel event plus
-            // GA4 + Meta conversions exactly once, regardless of which detection
-            // path caught the completion.
-            function markBookingCompleted() {
-              if (bookingCompleted) return;
-              bookingCompleted = true;
-              // Tell GHL the booking completed (so the abandon workflow stops
-              // chasing a customer who already booked).
-              sendBookingEvent('booking_completed');
-              if (typeof gtag === 'function') {
-                gtag('event', 'booking_completed', { event_category: 'Conversion', event_label: 'BookingKoala - Booking Confirmed', value: 1 });
-                gtag('event', 'purchase', { transaction_id: 'BK-' + Date.now(), value: 0, currency: 'USD' });
-              }
-              if (typeof fbq === 'function') fbq('track', 'Schedule', { content_name: 'Cleaning Service Booking' });
-            }
-
-            // PRIMARY path — same-origin thank-you URL.
-            // BookingKoala does NOT postMessage on completion (its embed.js is
-            // only iFrameResizer). It confirms a booking by navigating the iframe
-            // to a "thank you" destination (BookingKoala dashboard →
-            // Book Now page → Settings → "Where should the customer go after
-            // booking addition?"). That destination is set to a SAME-ORIGIN URL
-            // on this domain — /booking-complete — so the parent can read the
-            // iframe location after the cross-origin booking flow lands back
-            // here. Poll for it; cross-origin reads throw (caught + ignored)
-            // until BK redirects same-origin.
-            var completeTimer = setInterval(function () {
-              if (bookingCompleted) { clearInterval(completeTimer); return; }
-              try {
-                var f = document.getElementById('booking-iframe');
-                var href = f && f.contentWindow && f.contentWindow.location && f.contentWindow.location.href;
-                if (href && href.indexOf('/booking-complete') !== -1) {
-                  clearInterval(completeTimer);
-                  markBookingCompleted();
-                }
-              } catch (e) { /* cross-origin: still inside BookingKoala, not done yet */ }
-            }, 1000);
-
-            // FALLBACK path — postMessage. Harmless if BookingKoala never sends
-            // one (current behavior); catches it if they ever add it or if a
-            // custom thank-you page posts a confirmation up to the parent.
-            window.addEventListener('message', function(event) {
-              if (!event.origin.includes('bookingkoala.com') && event.origin !== window.location.origin) return;
-              var data = event.data;
-              var isConfirmation = false;
-              if (typeof data === 'string') {
-                isConfirmation = data.indexOf('booking_confirmed') !== -1 || data.indexOf('order_complete') !== -1 || data.indexOf('thank_you') !== -1 || data.indexOf('booking_complete') !== -1;
-              } else if (typeof data === 'object' && data !== null) {
-                isConfirmation = data.type === 'booking_confirmed' || data.event === 'booking_confirmed' || data.status === 'confirmed' || data.action === 'booking_complete';
-              }
-              if (isConfirmation) markBookingCompleted();
-            });
+            // ── Booking funnel tracking lives in BookingKoala now ─────────
+            // A completed booking stays on BK's own thank-you page INSIDE this
+            // iframe — the customer never navigates the parent window back to a
+            // same-origin URL, so the site CANNOT reliably tell "completed" from
+            // "still deciding." Any site-side abandon signal would false-fire on
+            // real customers who booked and later closed the tab, wrongly
+            // triggering GHL recovery texts.
+            //
+            // So completion + abandonment tracking is authoritative in
+            // BookingKoala: BK's native GA4 + Meta Pixel fire the conversion, and
+            // BK's built-in "Abandoned Cart (HOT Leads)" funnel (→ Zapier/Make →
+            // GHL) drives recovery. Early bailers who never reached BK are already
+            // captured by the /get-quote step, so coverage is preserved.
+            // (Removed 2026-07-10: booking_started/abandoned/completed beacons +
+            // the /booking-complete iframe-URL poller + postMessage listener.)
 
             // GA4: Track time spent on booking page (engagement depth)
             var bookingStartTime = Date.now();
