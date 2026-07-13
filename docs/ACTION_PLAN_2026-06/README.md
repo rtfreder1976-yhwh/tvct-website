@@ -16,6 +16,7 @@ of cancels). This is a demand + retention problem. Commercial base is separate a
 ## The growth lever (data-verified)
 - **[04_FUNNEL_DIAGNOSIS_SEARCH_GMB.md](04_FUNNEL_DIAGNOSIS_SEARCH_GMB.md)** — demand is healthy & growing (~43K impr/mo); the bottleneck is page-2 ranking (avg pos ~17, 0 days on page 1). Page-1 ≈ 5.6× clicks into a $365-AOV funnel.
 - **[05_SEO_RANKED_FIX_LIST.md](05_SEO_RANKED_FIX_LIST.md)** — the "fix these first" list from query-level GSC data. Two structural fixes (blog cost-guides cannibalizing money pages; "near me" terms stuck just below the local pack) + a ranked striking-distance page list. **Sheffield is the single highest-ROI fix** (already pos 7.8; just needs its title to match "cleaners sheffield"). Money-page changes shipped Jun 4–5, so this data is the **pre-change baseline** — re-pull GSC ~July 1 to measure lift.
+- **[07_GSC_JULY_REPULL_RESULTS.md](07_GSC_JULY_REPULL_RESULTS.md)** — that re-pull, done 2026-07-13 with live GSC API access (now wired into this environment via a service account). Mixed result: `/locations/nashville` genuinely jumped (pos 29.3→17.1), but Birmingham and Huntsville medical-office-cleaning fell off a cliff (pos 17.4→36.6 and 11.1→33.7), and the flagged Sheffield "10-minute fix" didn't pay off on its target query. Not a clean win — see the doc for the page-by-page breakdown and why Birmingham's drop reinforces (rather than contradicts) the build-out priority.
 
 ## Start here (execution)
 1. **[01_ROGERSVILLE_BILLING_FIX.md](01_ROGERSVILLE_BILLING_FIX.md)** — _Today._ A live
