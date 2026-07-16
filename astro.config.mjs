@@ -2,8 +2,101 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
+
+// ---------------------------------------------------------------------------
+// Real per-URL <lastmod> from git history.
+// ---------------------------------------------------------------------------
+// Previously the sitemap stamped `lastmod: new Date()` on EVERY url, so every
+// deploy claimed all ~200 pages changed "today". Crawlers (and AI freshness
+// scoring) learn to distrust a lastmod that is always today, so it became
+// noise. Instead we read each page's true last-commit date from git.
+//
+// Shallow-clone guard: Vercel shallow-clones by default (git depth 1), which
+// would collapse every file's "last commit" to the single most recent commit —
+// worse than useless. If we detect a shallow repo (or git is unavailable), we
+// disable git dates entirely and OMIT lastmod (a neutral "unknown"), never
+// faking today. To get real dates on Vercel, set the env var
+// VERCEL_DEEP_CLONE=1 (or increase fetch depth) so full history is present.
+const projectRoot = fileURLToPath(new URL('.', import.meta.url));
+
+function git(args) {
+  return execFileSync('git', args, { cwd: projectRoot, encoding: 'utf8' }).trim();
+}
+
+// gitDatesEnabled is true only when git works AND the clone has full history.
+let gitDatesEnabled = false;
+try {
+  gitDatesEnabled = git(['rev-parse', '--is-shallow-repository']) === 'false';
+} catch {
+  gitDatesEnabled = false; // git missing / not a repo → omit lastmod
+}
+
+const gitDateCache = new Map();
+
+// Last commit date (ISO 8601) for a single repo-relative file, or null.
+function gitDate(relPath) {
+  if (!gitDatesEnabled) return null;
+  if (gitDateCache.has(relPath)) return gitDateCache.get(relPath);
+  let date = null;
+  try {
+    const abs = fileURLToPath(new URL(relPath, import.meta.url));
+    if (existsSync(abs)) {
+      const iso = git(['log', '-1', '--format=%cI', '--', relPath]);
+      if (iso) date = iso;
+    }
+  } catch { /* leave null → lastmod omitted for this url */ }
+  gitDateCache.set(relPath, date);
+  return date;
+}
+
+// Most recent commit date across several files (for data-driven pages whose
+// content changes when any of their source/data files change). Returns null if
+// none resolve.
+function latestGitDate(relPaths) {
+  let best = null;
+  for (const p of relPaths) {
+    const d = gitDate(p);
+    // Compare by absolute instant, not string order: `git %cI` emits the
+    // committer's local offset (e.g. -05:00), so two ISO strings can sort
+    // wrong relative to their true UTC time and pick a stale date.
+    if (d && (!best || Date.parse(d) > Date.parse(best))) best = d;
+  }
+  return best;
+}
+
+// Map a sitemap URL to the repo-relative source file(s) that determine its
+// freshness, then return the git lastmod. Returns null when we can't resolve a
+// url to a file (→ lastmod omitted, which is safe/neutral).
+function lastmodForUrl(url) {
+  if (!gitDatesEnabled) return null;
+
+  const path = new URL(url).pathname.replace(/\/$/, ''); // trailingSlash: never
+
+  // Homepage
+  if (path === '' || path === '/') return gitDate('./src/pages/index.astro');
+
+  // /blog index (blog.astro) vs individual posts (blog/<slug>.astro)
+  if (path === '/blog') return gitDate('./src/pages/blog.astro');
+
+  // /locations/<city>/<slug> is served by the SSR dynamic route
+  // [city]/[slug].astro, driven by locations.json + services.json. There is no
+  // per-url file, so key freshness on the route file + both data files.
+  if (/^\/locations\/[^/]+\/[^/]+$/.test(path)) {
+    return latestGitDate([
+      './src/pages/locations/[city]/[slug].astro',
+      './src/data/locations.json',
+      './src/data/services.json',
+    ]);
+  }
+
+  // Everything else maps directly to a concrete .astro file: try
+  // `<path>.astro` first, then `<path>/index.astro`.
+  const rel = `./src/pages${path}`;
+  return gitDate(`${rel}.astro`) ?? gitDate(`${rel}/index.astro`);
+}
 
 // Scheduled blog posts set `noindex={!isPublished}` based on a future publishDate.
 // Mirror that logic here so unpublished posts are kept OUT of the sitemap until
@@ -45,7 +138,6 @@ export default defineConfig({
       filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
       customPages: [
         'https://thevalleycleanteam.com/',
         'https://thevalleycleanteam.com/services',
@@ -64,6 +156,13 @@ export default defineConfig({
       serialize(item) {
         // Set custom priorities based on page type
         const url = item.url;
+
+        // Real per-url <lastmod> from git (null when shallow/unresolved, in
+        // which case we leave lastmod off — never fake "today"). Computed once
+        // and carried through every branch's `{ ...item }` spread below.
+        const lastmod = lastmodForUrl(url);
+        if (lastmod) item.lastmod = lastmod;
+        else delete item.lastmod;
 
         // Homepage - highest priority
         if (url === 'https://thevalleycleanteam.com/' || url === 'https://thevalleycleanteam.com') {
