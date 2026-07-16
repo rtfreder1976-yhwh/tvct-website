@@ -59,7 +59,10 @@ function latestGitDate(relPaths) {
   let best = null;
   for (const p of relPaths) {
     const d = gitDate(p);
-    if (d && (!best || d > best)) best = d;
+    // Compare by absolute instant, not string order: `git %cI` emits the
+    // committer's local offset (e.g. -05:00), so two ISO strings can sort
+    // wrong relative to their true UTC time and pick a stale date.
+    if (d && (!best || Date.parse(d) > Date.parse(best))) best = d;
   }
   return best;
 }
