@@ -1,93 +1,52 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "July 2026";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does move-out cleaning cost in Athens, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Move-out cleaning in Athens starts at $199 for apartments and 1-2 bedroom homes. An average 3-bedroom Athens home runs $225-$299. Larger homes and rentals in rough condition get a custom quote. Gig-app cleaners advertise around $19-$22/hour, but those are hourly teaser rates without insurance or a re-clean guarantee, and a move-out clean is priced by the job, not the hour."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in a move-out cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A move-out clean covers everything a landlord inspects on an empty unit: inside the oven and refrigerator, cabinet and drawer interiors, window tracks and sills, baseboards, door frames, light fixtures and ceiling fans, bathroom grout and caulk, and full floors. It goes well beyond a regular clean because it targets the built-up spots that only show once furniture is gone."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Will my landlord refund the deposit if I clean myself?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sometimes. Alabama landlords can legally deduct reasonable cleaning costs from your deposit, so a DIY clean only protects you if it meets the same standard the inspector uses. Most self-cleans lose the deposit on a few predictable spots: oven interior, refrigerator drip pan, window tracks, and bathroom grout. Documenting your clean with photos helps if there's a dispute."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does move-out cleaning take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A typical 3-bedroom Athens home takes 4-6 hours for a thorough move-out clean. Apartments usually take 3-4 hours. Larger homes or units in poor condition can run 6-8 hours. An empty home is faster to clean than an occupied one, but move-out cleaning is more detailed, so the time evens out."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to clean the carpets when moving out of an apartment?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Check your lease. Many Athens apartment leases require professional carpet cleaning at move-out and will deduct for it if it's not done. Vacuuming is not the same thing. Hard-surface floors (LVP, tile, hardwood) need to be swept and mopped to the edges, not just the center of the room."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is move-out cleaning worth it?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "If your deposit is larger than the cost of the clean, usually yes. An Athens move-out clean from $199 that recovers a $500-$1,000 deposit pays for itself. It's less clearly worth it if your deposit is small, you have the time to clean to inspection standard yourself, and your unit is in good shape. The honest math depends on your deposit, your time, and your unit's condition."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's the difference between move-in and move-out cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Move-out cleaning gets an empty unit ready for a landlord's inspection so you recover your deposit. Move-in cleaning gets a unit ready for you, on the theory that you don't know how well the last tenant cleaned. Both are detailed cleans of an empty home; the difference is who benefits and which standard matters."
-      }
-    }
-  ]
-};
+// FAQ data for AEO optimization
+const faqs = [
+  {
+    question: "How much does move-out cleaning cost in Athens, AL?",
+    answer: "Move-out cleaning in Athens starts at $199 for apartments and 1-2 bedroom homes. An average 3-bedroom Athens home runs $225-$299. Larger homes and rentals in rough condition get a custom quote. Gig-app cleaners advertise around $19-$22/hour, but those are hourly teaser rates without insurance or a re-clean guarantee, and a move-out clean is priced by the job, not the hour."
+  },
+  {
+    question: "What's included in a move-out cleaning?",
+    answer: "A move-out clean covers everything a landlord inspects on an empty unit: inside the oven and refrigerator, cabinet and drawer interiors, window tracks and sills, baseboards, door frames, light fixtures and ceiling fans, bathroom grout and caulk, and full floors. It goes well beyond a regular clean because it targets the built-up spots that only show once furniture is gone."
+  },
+  {
+    question: "Will my landlord refund the deposit if I clean myself?",
+    answer: "Sometimes. Alabama landlords can legally deduct reasonable cleaning costs from your deposit, so a DIY clean only protects you if it meets the same standard the inspector uses. Most self-cleans lose the deposit on a few predictable spots: oven interior, refrigerator drip pan, window tracks, and bathroom grout. Documenting your clean with photos helps if there's a dispute."
+  },
+  {
+    question: "How long does move-out cleaning take?",
+    answer: "A typical 3-bedroom Athens home takes 4-6 hours for a thorough move-out clean. Apartments usually take 3-4 hours. Larger homes or units in poor condition can run 6-8 hours. An empty home is faster to clean than an occupied one, but move-out cleaning is more detailed, so the time evens out."
+  },
+  {
+    question: "Do I need to clean the carpets when moving out of an apartment?",
+    answer: "Check your lease. Many Athens apartment leases require professional carpet cleaning at move-out and will deduct for it if it's not done. Vacuuming is not the same thing. Hard-surface floors (LVP, tile, hardwood) need to be swept and mopped to the edges, not just the center of the room."
+  },
+  {
+    question: "Is move-out cleaning worth it?",
+    answer: "If your deposit is larger than the cost of the clean, usually yes. An Athens move-out clean from $199 that recovers a $500-$1,000 deposit pays for itself. It's less clearly worth it if your deposit is small, you have the time to clean to inspection standard yourself, and your unit is in good shape. The honest math depends on your deposit, your time, and your unit's condition."
+  },
+  {
+    question: "What's the difference between move-in and move-out cleaning?",
+    answer: "Move-out cleaning gets an empty unit ready for a landlord's inspection so you recover your deposit. Move-in cleaning gets a unit ready for you, on the theory that you don't know how well the last tenant cleaned. Both are detailed cleans of an empty home; the difference is who benefits and which standard matters."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Move-Out Cleaning Athens AL: Deposit-Back Checklist"
+  schemaTitle="Move-Out Cleaning in Athens, AL: The Deposit-Back Checklist (2026)"
   canonicalUrl="https://thevalleycleanteam.com/locations/athens/move-out-cleaning"
   description="Move-out cleaning in Athens, AL from $199. The room-by-room checklist landlords actually inspect, real local pricing, and the 7 spots that quietly cost you your deposit."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Move-Out Cleaning in Athens, AL: The Deposit-Back Checklist (2026)"
-    description="The room-by-room checklist Athens landlords actually inspect, real Limestone County pricing, and the 7 spots that quietly cost renters their deposit."
-    publishDate={publishDate}
-    author={author}
-  />
-
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -102,12 +61,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           The room-by-room list Athens landlords actually inspect, real Limestone County pricing, and the 7 spots that quietly cost renters their deposit.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -435,4 +390,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>

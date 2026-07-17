@@ -1,31 +1,24 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 // Make this page dynamic via SSR
 export const prerender = false;
 
 const publishDate = new Date("March 23 2026");
-const author = "The Valley Clean Team";
 const readTime = "5 min read";
 
 const isPublished = new Date().getTime() >= publishDate.getTime();
 
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Prepare Nashville Home for Allergy Season"
+  schemaTitle="How to Prepare Your Nashville Home for Allergy Season"
   description={isPublished ? "Nashville allergy season is brutal. Prepare your home with a strategic deep clean that reduces pollen, dust & dander. Tips for Green Hills, Brentwood & beyond." : "Coming Soon: How to Prepare Your Nashville Home for Allergy Season"}
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="How to Prepare Your Nashville Home for Allergy Season"
-    description="Beat Tennessee allergies before they start. Discover how to prepare your Nashville home for allergy season with strategic deep cleaning techniques."
-    publishDate="March 23 2026"
-    author={author}
-  />
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,12 +32,8 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           {isPublished ? "Expert Cleaning Guide" : "Coming March 23 2026."}
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>March 23 2026</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -229,4 +218,4 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>

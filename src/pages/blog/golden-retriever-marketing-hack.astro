@@ -1,25 +1,19 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const draft = false;
 const publishDate = "April 1, 2026";
-const author = "The Valley Clean Team";
 const readTime = "5 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Golden Retriever Energy in Marketing"
+  schemaTitle="Golden Retriever Energy: The Secret to Local Marketing"
   description="Digital ads are great, but Todd's 'Golden Retriever Energy' is why TVCT grew so fast. Learn the power of human networking for local service businesses."
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="Golden Retriever Energy: The Secret to Local Marketing"
-    description="Digital ads are great, but Todd's 'Golden Retriever Energy' is why TVCT grew so fast. Learn the power of human networking for local service businesses."
-    publishDate={publishDate}
-    author={author}
-  />
-  
+
 
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-yellow-800 via-gray-800 to-yellow-900">
@@ -32,12 +26,8 @@ const readTime = "5 min read";
           Golden Retriever Energy:<br>
           <span class="text-yellow-500">The Secret Hack</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -112,4 +102,4 @@ const readTime = "5 min read";
     </div>
   </section>
 
-</BaseLayout>
+</BlogPostLayout>

@@ -1,25 +1,19 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const draft = false;
 const publishDate = "April 1, 2026";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="How We Built a $250K Cleaning Business"
+  schemaTitle="How We Built a $250,000 Cleaning Business From the Couch"
   description="The real story of how Todd and Christen built The Valley Clean Team from $0 to $250K after a broken leg and a surprise layoff. Inspiration for local entrepreneurs."
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="How We Built a $250,000 Cleaning Business From the Couch"
-    description="The real story of how Todd and Christen built The Valley Clean Team from $0 to $250K after a broken leg and a surprise layoff. Inspiration for local entrepreneurs."
-    publishDate={publishDate}
-    author={author}
-  />
-  
+
 
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -32,12 +26,8 @@ const readTime = "8 min read";
           How We Built a $250,000 Business<br>
           <span class="text-[#FFA985]">From the Couch</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -120,4 +110,4 @@ const readTime = "8 min read";
     </div>
   </section>
 
-</BaseLayout>
+</BlogPostLayout>

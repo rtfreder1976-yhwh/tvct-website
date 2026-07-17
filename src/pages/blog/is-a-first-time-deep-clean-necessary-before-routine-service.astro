@@ -1,32 +1,25 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 // Make this page dynamic via SSR
 export const prerender = false;
 
 const publishDate = new Date("September 21 2026");
-const author = "The Valley Clean Team";
 const readTime = "5 min read";
 
 const isPublished = new Date().getTime() >= publishDate.getTime();
 
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Is a First-Time Deep Clean Necessary?"
+  schemaTitle="Is a First-Time Deep Clean Necessary Before Routine Service?"
   description={isPublished ? "Why do cleaning companies require a first-time deep clean? Learn why it's essential before routine service — and what it covers in Huntsville & Nashville homes." : "Coming Soon: Is a First-Time Deep Clean Necessary Before Routine Service?"}
+  publishDate={publishDate}
   noindex={!isPublished}
-  ogImage="https://thevalleycleanteam.com/og-image.png"
 >
-  <SchemaMarkup
-    type="article"
-    title="Is a First-Time Deep Clean Necessary Before Routine Service?"
-    description="Why do cleaning companies require an initial deep clean? Learn why a first-time deep clean is essential for establishing a baseline for routine service."
-    publishDate="September 21 2026"
-    author={author}
-  />
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,12 +33,8 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           {isPublished ? "Expert Cleaning Guide" : "Coming September 21 2026."}
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>September 21 2026</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -111,4 +100,4 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
       </div>
     </article>
   )}
-</BaseLayout>
+</BlogPostLayout>

@@ -1,72 +1,41 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
 const modifiedDate = "April 30, 2026";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 const heroImage = "https://thevalleycleanteam.com/og-image.png";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Can a landlord charge for cleaning in Alabama or Tennessee?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, but only for cleaning beyond normal wear and tear. In Alabama, landlords must return your deposit within 35 days with an itemized list of deductions. Charges must be reasonable and documented. Normal wear from everyday living—minor scuffs, carpet wear from walking—cannot be deducted. Landlords who wrongfully withhold deposits in Alabama can be liable for double the amount withheld."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much does a professional move-out clean cost in Huntsville or Nashville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The Valley Clean Team's move-out cleaning starts at $199 for standard apartments and ranges up to $400+ for larger homes. This covers every item on typical property manager inspection checklists: oven, refrigerator, cabinet interiors, bathrooms, baseboards, window tracks, blinds, and more. Considering that cleaning deductions from landlords often run $200–$800+, professional cleaning typically pays for itself."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What do property managers check during a move-out inspection?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Property managers typically check: inside the oven and microwave, behind and under the stove and refrigerator, refrigerator seals and interior shelves, cabinet interiors, bathroom grout and toilet base, exhaust fans, shower door tracks, baseboards throughout, window tracks, ceiling fan blades (top side), light fixtures, blinds, door frames, closet interiors, and HVAC vents. These are the most commonly missed areas in DIY move-out cleans."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What should I do if my landlord wrongfully deducts cleaning fees?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "First, request itemized documentation of all charges—vague entries like 'cleaning - $400' are not legally sufficient. Send a certified letter disputing the charges and include your photos and professional cleaning receipt as evidence. In Alabama, landlords who wrongfully withhold deposits can owe you double the amount. If needed, small claims court is an affordable option that doesn't require a lawyer, and landlords often settle rather than appear."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "Can a landlord charge for cleaning in Alabama or Tennessee?",
+    answer: "Yes, but only for cleaning beyond normal wear and tear. In Alabama, landlords must return your deposit within 35 days with an itemized list of deductions. Charges must be reasonable and documented. Normal wear from everyday living—minor scuffs, carpet wear from walking—cannot be deducted. Landlords who wrongfully withhold deposits in Alabama can be liable for double the amount withheld."
+  },
+  {
+    question: "How much does a professional move-out clean cost in Huntsville or Nashville?",
+    answer: "The Valley Clean Team's move-out cleaning starts at $199 for standard apartments and ranges up to $400+ for larger homes. This covers every item on typical property manager inspection checklists: oven, refrigerator, cabinet interiors, bathrooms, baseboards, window tracks, blinds, and more. Considering that cleaning deductions from landlords often run $200–$800+, professional cleaning typically pays for itself."
+  },
+  {
+    question: "What do property managers check during a move-out inspection?",
+    answer: "Property managers typically check: inside the oven and microwave, behind and under the stove and refrigerator, refrigerator seals and interior shelves, cabinet interiors, bathroom grout and toilet base, exhaust fans, shower door tracks, baseboards throughout, window tracks, ceiling fan blades (top side), light fixtures, blinds, door frames, closet interiors, and HVAC vents. These are the most commonly missed areas in DIY move-out cleans."
+  },
+  {
+    question: "What should I do if my landlord wrongfully deducts cleaning fees?",
+    answer: "First, request itemized documentation of all charges—vague entries like 'cleaning - $400' are not legally sufficient. Send a certified letter disputing the charges and include your photos and professional cleaning receipt as evidence. In Alabama, landlords who wrongfully withhold deposits can owe you double the amount. If needed, small claims court is an affordable option that doesn't require a lawyer, and landlords often settle rather than appear."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Move-Out Cleaning Guide: Protect Deposit"
+  schemaTitle="Don't Lose Your Security Deposit: Move-Out Cleaning Guide (AL & TN 2026)"
   description="Landlords deduct $200–$800+ for cleaning. Protect your deposit with a $199 professional move-out clean. We know every spot inspectors check in Huntsville & Nashville."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Don't Lose Your Security Deposit: Move-Out Cleaning Guide (AL & TN 2026)"
-    description="Landlords deduct $200–$800+ for cleaning. Protect your deposit with a $199 professional move-out clean."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-    image={heroImage}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -79,12 +48,8 @@ const faqSchema = {
           Losing Your Security Deposit?<br>
           <span class="text-[#FFA985]">Here's What Actually Happens</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 bg-[#FFA985] text-[#333333] px-8 py-4 rounded-full font-bold text-lg hover:bg-[#FFC67D] transition">
@@ -502,5 +467,5 @@ const faqSchema = {
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>
