@@ -26,7 +26,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
 
     const resend = new Resend(resendApiKey);
 
-    const { name, email, phone, service, location, preferred_date, message, source, page_url, is_urgent, square_footage, bedrooms, bathrooms, funnel_event, seconds } = req.body;
+    const { name, email, phone, service, location, preferred_date, message, source, page_url, is_urgent, square_footage, bedrooms, bathrooms, funnel_event, seconds, ph_distinct_id, ph_session_id } = req.body;
 
     // Booking-funnel lifecycle events (booking_started/abandoned/completed) come
     // from /booking and may be partial (e.g. abandon fired on tab close). Don't
@@ -94,23 +94,41 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     // Server-side PostHog capture — ties every lead/booking event to analytics
     // even when the browser snippet is blocked. phc_ key is public (same class
     // as the GA4 measurement ID). Never let analytics failure break the lead.
+    //
+    // Identity stitching: the browser passes its PostHog distinct_id (+ session
+    // id) as ph_distinct_id / ph_session_id. Using them here makes this event
+    // belong to the SAME person/session as the anonymous pageviews, so
+    // pageview -> quote_form_submitted funnels actually resolve. Without them,
+    // a phone-based distinct_id creates a separate person and funnels read 0%.
+    // Also attach $current_url / $pathname so the event carries page context.
     try {
       const phEvent = ['booking_started', 'booking_abandoned', 'booking_completed'].includes(String(funnel_event))
         ? String(funnel_event)
         : 'quote_form_submitted';
+      const distinctId =
+        (typeof ph_distinct_id === 'string' && ph_distinct_id) ||
+        (typeof phone === 'string' && phone) ||
+        (typeof email === 'string' && email) ||
+        'anonymous-lead';
+      let pathname = '';
+      try { if (page_url) pathname = new URL(String(page_url)).pathname; } catch (e) {}
       await fetch('https://us.i.posthog.com/i/v0/e/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           api_key: 'phc_AJmz2EtAwrZZpTJEXDtFWwtiE6cwYou2TPxzbCMsgXZB',
           event: phEvent,
-          distinct_id: (typeof phone === 'string' && phone) || (typeof email === 'string' && email) || 'anonymous-lead',
+          distinct_id: distinctId,
           properties: {
             service: service || '',
             location: location || '',
             source: source || 'Website',
             page_url: page_url || '',
             is_urgent: is_urgent === 'true',
+            // Stitch to the browser session + page so funnels/path analysis work.
+            ...(typeof ph_session_id === 'string' && ph_session_id ? { $session_id: ph_session_id } : {}),
+            ...(page_url ? { $current_url: String(page_url) } : {}),
+            ...(pathname ? { $pathname: pathname } : {}),
           },
           timestamp: new Date().toISOString(),
         }),

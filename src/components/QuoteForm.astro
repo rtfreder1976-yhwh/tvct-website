@@ -541,6 +541,17 @@ const uniqueId = formId.replace(/[^a-zA-Z0-9]/g, "-");
       const data = Object.fromEntries(formData.entries());
       data.page_url = window.location.href; // Add current URL
 
+      // Pass the browser's PostHog identity so the server-side
+      // quote_form_submitted event stitches to this same person/session
+      // (otherwise the server invents a phone-based distinct_id that never
+      // matches the anonymous pageview person, and funnels read 0%).
+      try {
+        if (window.posthog) {
+          data.ph_distinct_id = window.posthog.get_distinct_id?.();
+          data.ph_session_id = window.posthog.get_session_id?.();
+        }
+      } catch (e) {}
+
       try {
         const response = await fetch("/api/submit-form", {
           method: "POST",
