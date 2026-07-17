@@ -1,79 +1,36 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 import Icon from '../../components/Icon.astro';
 
 const publishDate = '2024-12-09';
 const modifiedDate = 'April 29, 2026';
-const author = 'The Valley Clean Team';
 const readTime = '9 min read';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Spring Cleaning in Nashville: Your Complete Survival Guide",
-  "description": "The ultimate Nashville spring cleaning guide. Room-by-room checklist, pollen-busting tips for allergy season, and when to DIY vs. hire professional help.",
-  "image": "https://thevalleycleanteam.com/og-image.png",
-  "author": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team"
+const faqs = [
+  {
+    question: "When should I start spring cleaning in Nashville?",
+    answer: "Mid-March to early April is ideal for Nashville spring cleaning. This timing helps remove winter buildup before peak pollen season and prepares your home for warmer weather entertaining.",
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://thevalleycleanteam.com/og-image.png"
-    }
+  {
+    question: "How do I reduce pollen in my Nashville home during spring?",
+    answer: "Change HVAC filters monthly during pollen season, clean window screens, vacuum with HEPA filters, wash bedding weekly in hot water, and consider professional deep cleaning to remove embedded pollen from carpets and upholstery.",
   },
-  "datePublished": publishDate,
-  "dateModified": modifiedDate,
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://thevalleycleanteam.com/blog/spring-cleaning-nashville-survival-guide/"
-  }
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "When should I start spring cleaning in Nashville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Mid-March to early April is ideal for Nashville spring cleaning. This timing helps remove winter buildup before peak pollen season and prepares your home for warmer weather entertaining."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I reduce pollen in my Nashville home during spring?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Change HVAC filters monthly during pollen season, clean window screens, vacuum with HEPA filters, wash bedding weekly in hot water, and consider professional deep cleaning to remove embedded pollen from carpets and upholstery."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does a full spring cleaning take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "DIY spring cleaning typically takes a full weekend for a 2,000 sq ft home. Professional spring cleaning services complete the same work in 4-6 hours with a team, with better results in hard-to-reach areas."
-      }
-    }
-  ]
-};
+  {
+    question: "How long does a full spring cleaning take?",
+    answer: "DIY spring cleaning typically takes a full weekend for a 2,000 sq ft home. Professional spring cleaning services complete the same work in 4-6 hours with a team, with better results in hard-to-reach areas.",
+  },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Spring Cleaning Nashville: Pollen Guide"
+  schemaTitle="Spring Cleaning in Nashville: Your Complete Survival Guide"
   description="Nashville spring cleaning guide with room-by-room checklist, pollen-busting tips for Belle Meade, East Nashville & Green Hills, and when to call the pros. Updated 2026."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -88,12 +45,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Room-by-room checklist, Nashville-specific pollen strategies, and neighborhood tips for Belle Meade, East Nashville, Green Hills, and more.
         </p>
-        <div class="flex items-center justify-center gap-4 text-gray-400 text-sm mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{author}</span>
-          <span>•</span>
-          <span>{readTime}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
@@ -503,4 +456,4 @@ const faqSchema = {
     </div>
   </section>
 
-</BaseLayout>
+</BlogPostLayout>

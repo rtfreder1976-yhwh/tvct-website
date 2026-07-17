@@ -1,11 +1,9 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
-const author = "The Valley Clean Team";
 const readTime = "7 min read";
 const publishDate = "April 20, 2026";
-const heroImage = "https://thevalleycleanteam.com/og-image.png";
 
 const faqs = [
   {
@@ -21,19 +19,6 @@ const faqs = [
     answer: "We work directly with realtors, brokerages, property managers, and staging companies across Middle Tennessee. We can coordinate access with your seller, send photos to you directly, and invoice the brokerage. Call (615) 510-1427 to set up a realtor account."
   }
 ];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(f => ({
-    "@type": "Question",
-    "name": f.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": f.answer
-    }
-  }))
-};
 
 const checklistItems = [
   {
@@ -117,20 +102,13 @@ const checklistItems = [
 ];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Pre-Listing Cleaning Checklist Nashville"
+  schemaTitle="Pre-Listing Cleaning Checklist for Middle Tennessee Realtors"
   description="The complete pre-listing cleaning checklist for Middle Tennessee realtors. Room-by-room tasks to get any listing photo-ready and showing-ready fast."
-  ogImage={heroImage}
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Pre-Listing Cleaning Checklist for Middle Tennessee Realtors"
-    description="The complete pre-listing cleaning checklist for Middle Tennessee realtors. Room-by-room tasks to get any listing photo-ready and showing-ready fast."
-    publishDate={publishDate}
-    author={author}
-    image={heroImage}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -145,12 +123,8 @@ const checklistItems = [
         <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
           A room-by-room guide to getting any listing photo-ready — plus the tasks most sellers miss that buyers always notice.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 text-sm">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-2">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -365,4 +339,4 @@ const checklistItems = [
 
     </div>
   </article>
-</BaseLayout>
+</BlogPostLayout>
