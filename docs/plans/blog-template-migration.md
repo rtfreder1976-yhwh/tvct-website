@@ -113,14 +113,60 @@ against the hardest shapes first.)
 
 ## Staleness flag-list (populated during migration; prose UNTOUCHED)
 
-- [ ] TODO: list posts whose prices may contradict the live money page.
-- [ ] TODO: broken `heroImage` Windows paths (5 posts) — fix path or drop image.
-- [ ] TODO: hard-coded visible dates that don't match the `publishDate` const.
+- [x] broken `heroImage` Windows paths (5 posts) — **FIXED** (commit 825d480):
+  repointed `C:/Program Files/Git/.../Cleaningpic2--1--307.webp` → the real
+  `/images/services/Cleaningpic2--1--307.webp`. These were 404-in-prod.
+- [x] hard-coded visible byline dates that didn't match the `publishDate` const —
+  **FIXED** during migration: every `<BlogByline>` is now `date={publishDate}`,
+  single-sourced, so the visible date can no longer drift from the const.
+
+### ⚠️ Stale TVCT floor prices vs the live money page (`/pricing`) — DECISION PENDING
+
+Audit (2026-07-17) against the money page's canonical floors — **standard $176 /
+deep $276 / move-in-out $351** (from `src/pages/pricing.astro` PRICE_TABLE +
+pricing cards). Found **~40 TVCT-branded price claims across ~30 posts that
+UNDERSTATE the current floor** (all in TVCT "Our Pricing"/CTA/badge/meta blocks,
+NOT market-range context, which was excluded). Prose deliberately NOT changed —
+this is Todd's pricing call. Groups:
+
+- **"pricing starts at $125"** (should be $176) — ~20 posts: back-to-school,
+  getting-your-kitchen-holiday-ready, fall-deep-cleaning, end-of-summer-deep-clean,
+  how-early-should-i-book, how-to-prepare-your-nashville-home-for-allergy-season,
+  how-professional-cleaning-reduces-indoor-air-pollution, reclaiming-your-weekends,
+  short-term-rental-cleaning-shoals, preparing-your-guest-room, setting-up-a-cleaning-schedule,
+  signs-its-time-to-fire, the-military-precision-approach, why-we-value-military-precision,
+  surviving-the-post-thanksgiving, year-in-review-shoals, black-friday-special,
+  reliable-cleaning-company-{athens,florence,decatur}.
+- **"starting at $135"** (should be $176) — reliable-cleaning-company-{madison,huntsville} (incl. meta + FAQ).
+- **"starting at $150"** (should be $176) — reliable-cleaning-company-nashville-tn (incl. meta).
+- **"Deep cleans from $175"** (should be $276) — hidden-cost-of-dirty-house (5 spots),
+  why-youre-always-exhausted, why-your-home-never-stays-clean, why-cleaning-services-disappoint.
+- **"From $120/visit"** recurring (should be $176) — is-hiring-house-cleaner-worth-it (badge + meta).
+- **"Our Pricing" tier blocks** listing standard/deep/move-out ALL below floor
+  ($125/$200/$250 or $135/$225/$275 or $150/$250/$300) — house-cleaning-cost-{athens,decatur,madison,florence,nashville-tn,alabama}.
+- **Stale meta descriptions** advertising TVCT rates — house-cleaning-cost-nashville-tn
+  ("standard $130, deep $220, move-out $280" + schemaTitle "$130–$350"),
+  is-hiring-house-cleaner-worth-it ("deep from $200, recurring from $120"),
+  house-cleaning-cost-{athens,decatur,madison,florence} metas.
+
+**NEEDS-JUDGMENT (may be intentional scoped floors, not errors):**
+- **$199 move-out "for standard apartments"** — losing-your-security-deposit,
+  maidpro-athens-vs, move-out-cleaning-athens-al, move-out-cleaning-huntsville-guide.
+- **$225 Nashville move-out** (condos/apartments) — move-out-cleaning-nashville-tn.
+- **$325 move-in-out** in the two otherwise-correct posts (house-cleaning-cost-huntsville-al,
+  why-19-dollar-costs-more-shoals) — $26 under the $351 floor.
+
+**MATCH (already correct — cite $176/$276/$351):** bear-brothers-vs, maidpro-vs-huntsville,
+maidpro-athens (floors), moving-to-huntsville-first-week-checklist, house-cleaning-cost-huntsville-al
+(std/deep), why-19-dollar-costs-more-shoals (std/deep).
+
+NOTE: these prices are also independently a **conversion/revenue** issue (the site
+advertises below its own floor), separate from the migration. See [[content-plan-briefs-may-be-stale]].
 
 ## Verification
 
-- `npx astro build` passes.
-- `npm run validate-schema` passes.
+- `npx astro build` passes. (Note: `npm run validate-schema` referenced in CLAUDE.md
+  is not a real script — the build + dev-render checks are the gate.)
 - Migrated posts: byline shows "By Todd Frederickson · Co-Founder" linking `/about#todd`;
   BlogPosting JSON-LD author is the `#todd` Person; FAQ schema still emits.
 - `/about#todd` and `/about#christen` anchors resolve.
