@@ -1,10 +1,9 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const publishDate = "November 26, 2025";
 const modifiedDate = "April 29, 2026";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 const heroImage = "https://thevalleycleanteam.com/og-image.png";
 
@@ -22,34 +21,16 @@ const faqs = [
     answer: "A regular clean maintains a home that is already reasonably clean — surfaces, floors, bathrooms, kitchen basics. A deep clean is a top-to-bottom reset: inside appliances, baseboards, ceiling fans, window tracks, grout, behind furniture. If your home has gotten away from you, a deep clean is the right starting point."
   }
 ];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(f => ({
-    "@type": "Question",
-    "name": f.question,
-    "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-  }))
-};
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Embarrassed to Have People Over? You're Not Alone | Valley Clean Team"
+  schemaTitle="Embarrassed to Have People Over? You're Not Alone"
   description="If you avoid having guests because of how your house looks, you're not alone. Over 40% of adults do the same. Here's why it happens and how to break the cycle."
-  ogImage={heroImage}
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Embarrassed to Have People Over? You're Not Alone"
-    description="If you avoid having guests because of how your house looks, you're not alone. Here's why this happens, what it costs you, and how to break the cycle."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-    image={heroImage}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,12 +45,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
           Over 40% of adults avoid having guests because of their home. Here's why it happens — and how to break the cycle for good.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 text-sm">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -475,4 +452,4 @@ const faqSchema = {
     </div>
   </section>
 
-</BaseLayout>
+</BlogPostLayout>

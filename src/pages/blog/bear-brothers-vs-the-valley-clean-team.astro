@@ -1,11 +1,10 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "July 2026";
 const lastUpdated = "July 2026";
-const author = "Todd Frederickson";
 const readTime = "11 min read";
 
 const faqs = [
@@ -36,20 +35,14 @@ const faqs = [
 ];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Bear Brothers Cleaning vs The Valley Clean Team: Honest Comparison"
   description="Bear Brothers Cleaning and The Valley Clean Team both serve Huntsville and Birmingham. Here's the honest 2026 comparison — including where Bear Brothers wins."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  schemaTitle="Bear Brothers Cleaning vs The Valley Clean Team: An Honest 2026 Comparison"
+  publishDate={publishDate}
+  modifiedDate={lastUpdated}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Bear Brothers Cleaning vs The Valley Clean Team: An Honest 2026 Comparison"
-    description="Bear Brothers Cleaning and The Valley Clean Team both serve Huntsville and Birmingham. Here's the honest 2026 comparison — including where Bear Brothers wins."
-    publishDate={publishDate}
-    modifiedDate={lastUpdated}
-    author={author}
-    faqs={faqs}
-  />
 
   <!-- Breadcrumb + Header -->
   <section class="pt-32 pb-12 px-6 bg-gray-50">
@@ -63,20 +56,7 @@ const faqs = [
       </nav>
 
       <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm">
-        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
-          <time class="flex items-center">
-            <Icon name="calendar-alt" class="w-4 h-4 mr-2" />
-            {publishDate}
-          </time>
-          <span class="flex items-center">
-            <Icon name="user" class="w-4 h-4 mr-2" />
-            {author}
-          </span>
-          <span class="flex items-center">
-            <Icon name="clock" class="w-4 h-4 mr-2" />
-            {readTime}
-          </span>
-        </div>
+        <div class="mb-8"><BlogByline variant="light" date={publishDate} readTime={readTime} /></div>
 
         <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-4 leading-tight">
           Bear Brothers Cleaning vs The Valley Clean Team: An Honest 2026 Comparison
@@ -226,4 +206,4 @@ const faqs = [
       </div>
     </div>
   </article>
-</BaseLayout>
+</BlogPostLayout>
