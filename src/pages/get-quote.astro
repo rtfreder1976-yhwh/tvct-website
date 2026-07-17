@@ -17,121 +17,12 @@ import Icon from '../components/Icon.astro';
     }
     .fade-up { animation: fadeUp 0.4s ease both; }
 
-    .step-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #FFA985;
-      color: #333;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 999px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-    .field-label {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #555;
-      margin-bottom: 5px;
-    }
-    .field-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 12px;
-      background: #fff;
-      color: #1a1a1a;
-      font-size: 0.95rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-sizing: border-box;
-    }
-    .field-input:focus {
-      outline: none;
-      border-color: #FFA985;
-      box-shadow: 0 0 0 3px rgba(255, 169, 133, 0.18);
-    }
-    .field-input.error {
-      border-color: #ef4444;
-    }
-    .error-msg {
-      font-size: 0.75rem;
-      color: #ef4444;
-      margin-top: 4px;
-      display: none;
-    }
-    .btn-submit {
-      width: 100%;
-      padding: 16px 24px;
-      background: linear-gradient(135deg, #FFA985, #FFC67D);
-      color: #333;
-      font-weight: 800;
-      font-size: 1.05rem;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(255, 169, 133, 0.35);
-      transition: transform 0.15s, box-shadow 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255, 169, 133, 0.45); }
-    .btn-submit:active { transform: translateY(0); }
-    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
     .trust-chip {
       display: flex;
       align-items: center;
       gap: 5px;
       font-size: 0.78rem;
       color: #555;
-    }
-
-    /* Radio Cards */
-    .radio-card {
-      position: relative;
-      cursor: pointer;
-      display: block;
-      margin: 0;
-    }
-    .radio-card input {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .radio-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 14px 10px;
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      background: #fff;
-      color: #6b7280;
-      font-size: 0.85rem;
-      font-weight: 700;
-      line-height: 1.2;
-      transition: all 0.2s ease;
-      height: 100%;
-    }
-    .radio-card:hover .radio-content {
-      border-color: #d1d5db;
-    }
-    .radio-card input:checked + .radio-content {
-      border-color: #FFA985;
-      background: rgba(255, 169, 133, 0.08);
-      color: #1a1a1a;
-      box-shadow: 0 2px 8px rgba(255, 169, 133, 0.15);
-    }
-    .radio-card input:focus-visible + .radio-content {
-      box-shadow: 0 0 0 3px rgba(255, 169, 133, 0.3);
     }
   </style>
 
@@ -157,30 +48,12 @@ import Icon from '../components/Icon.astro';
     </div>
   </header>
 
-  <!-- Step progress bar -->
-  <div class="bg-gray-50 border-b border-gray-200 py-3 px-6">
-    <div class="container mx-auto max-w-xl flex items-center gap-3">
-      <div class="flex items-center gap-2">
-        <div class="w-7 h-7 rounded-full bg-[#FFA985] text-white text-xs font-bold flex items-center justify-center">1</div>
-        <span class="text-sm font-semibold text-[#333]">Your Info</span>
-      </div>
-      <div class="flex-1 h-1 bg-gray-200 rounded mx-1">
-        <div class="w-1/2 h-full bg-[#FFA985]/40 rounded"></div>
-      </div>
-      <div class="flex items-center gap-2">
-        <div class="w-7 h-7 rounded-full bg-gray-200 text-gray-400 text-xs font-bold flex items-center justify-center">2</div>
-        <span class="text-sm text-gray-400">Book Your Time</span>
-      </div>
-    </div>
-  </div>
-
   <!-- Main -->
   <main class="min-h-screen bg-gradient-to-br from-gray-50 to-white py-10 px-6">
     <div class="container mx-auto max-w-xl">
 
       <!-- Headline -->
       <div class="text-center mb-8 fade-up">
-        <span class="step-pill mb-3">Step 1 of 2</span>
         <h1 class="text-3xl md:text-4xl font-bold text-[#333333] mt-3 mb-3 tracking-tight">
           Your Spotless Home is 60 Seconds Away
         </h1>
@@ -205,122 +78,32 @@ import Icon from '../components/Icon.astro';
         </span>
       </div>
 
-      <!-- Form card -->
-      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-7 md:p-9 fade-up" style="animation-delay:0.1s">
+      <!-- Form card — BookingKoala lead form -->
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-4 md:p-6 fade-up" style="animation-delay:0.1s">
 
-        <form id="quote-form" novalidate>
-          <div class="space-y-5">
+        <iframe
+          id="iFrameResizer0"
+          style="border:0"
+          src="https://thevalleycleanteam.bookingkoala.com/leads/form/4fa9fac365339ea2e313a14af815c6a78edf276f4962c9ab07613636bd067efa076d1cb13abed9c7c8e4fbcda75e4dd2c4a93ed5c34f535c7fd603d50ef85418?embed=true"
+          height="1000px"
+          width="100%"
+          scrolling="yes"
+          title="Get your free cleaning quote - The Valley Clean Team"
+        ></iframe>
 
-            <!-- Name -->
-            <div>
-              <label for="q-name" class="field-label">Your Name <span class="text-red-400">*</span></label>
-              <input
-                id="q-name"
-                type="text"
-                name="name"
-                placeholder="Jane Smith"
-                autocomplete="name"
-                class="field-input"
-                required
-              />
-              <p id="q-name-err" class="error-msg">Please enter your name.</p>
-            </div>
-
-            <!-- Email -->
-            <div>
-              <label for="q-email" class="field-label">Email Address <span class="text-red-400">*</span></label>
-              <input
-                id="q-email"
-                type="email"
-                name="email"
-                placeholder="jane@example.com"
-                autocomplete="email"
-                class="field-input"
-                required
-              />
-              <p id="q-email-err" class="error-msg">Please enter a valid email address.</p>
-            </div>
-
-            <!-- Phone -->
-            <div>
-              <label for="q-phone" class="field-label">Phone Number <span class="text-red-400">*</span></label>
-              <input
-                id="q-phone"
-                type="tel"
-                name="phone"
-                placeholder="(256) 555-0123"
-                autocomplete="tel"
-                class="field-input"
-                required
-              />
-              <p class="text-[0.7rem] text-gray-400 mt-1">We respect your privacy. Used only for your quote.</p>
-              <p id="q-phone-err" class="error-msg">Please enter a valid phone number.</p>
-            </div>
-
-            <!-- Home or Business? — routes to the correct BookingKoala form.
-                 (The specific service + square footage are collected on the
-                 BookingKoala form itself, so we don't ask twice here.) -->
-            <fieldset>
-              <legend class="field-label mb-2">Is this for your Home or Business? <span class="text-red-400">*</span></legend>
-              <div class="grid grid-cols-2 gap-3">
-                <label class="radio-card">
-                  <input type="radio" name="account_type" value="home" required />
-                  <div class="radio-content flex-col gap-1">
-                    <span>Home</span>
-                    <span class="text-[0.7rem] font-medium text-gray-400 normal-case">House, condo &amp; apartment cleaning</span>
-                  </div>
-                </label>
-                <label class="radio-card">
-                  <input type="radio" name="account_type" value="business" />
-                  <div class="radio-content flex-col gap-1">
-                    <span>Business</span>
-                    <span class="text-[0.7rem] font-medium text-gray-400 normal-case">Offices, retail, medical, restaurants, churches, Airbnbs &amp; more</span>
-                  </div>
-                </label>
-              </div>
-              <p id="q-account_type-err" class="error-msg mt-2">Please choose Home or Business.</p>
-            </fieldset>
-
-            <!-- Submit -->
-            <div class="pt-2">
-              <button type="submit" id="q-submit" class="btn-submit">
-                <svg id="q-icon-arrow" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-                <svg id="q-icon-spinner" class="w-5 h-5 animate-spin hidden" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                </svg>
-                Reveal My Price &amp; Schedule Now
-              </button>
-              <div class="flex flex-wrap items-center justify-center gap-3 mt-4">
-                <span class="trust-chip justify-center font-medium bg-green-50 text-green-700 px-2 py-1 rounded-md text-[0.75rem]">
-                  <Icon name="shield-halved" class="w-3.5 h-3.5 text-green-600" />
-                  100% Satisfaction Guarantee
-                </span>
-                <span class="trust-chip justify-center font-medium bg-[#FFA985]/10 text-gray-700 px-2 py-1 rounded-md text-[0.75rem]">
-                  <Icon name="star" class="w-3.5 h-3.5 text-[#FFA985]" fill="currentColor" />
-                  150 5-Star Reviews
-                </span>
-              </div>
-              <p class="text-[0.65rem] text-center text-gray-400 mt-3 uppercase tracking-wider font-bold">
-                🔒 Secure &amp; No Credit Card Required
-              </p>
-            </div>
-
-          </div>
-        </form>
-
-        <!-- Success state (hidden until submit) -->
-        <div id="q-success" class="hidden text-center py-4">
-          <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
-            <svg class="w-7 h-7 text-green-500" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h2 class="text-xl font-bold text-[#333] mb-2">Got it — taking you to booking now!</h2>
-          <p class="text-gray-500 text-sm">Redirecting you to pick your date and time…</p>
+        <div class="flex flex-wrap items-center justify-center gap-3 mt-4">
+          <span class="trust-chip justify-center font-medium bg-green-50 text-green-700 px-2 py-1 rounded-md text-[0.75rem]">
+            <Icon name="shield-halved" class="w-3.5 h-3.5 text-green-600" />
+            100% Satisfaction Guarantee
+          </span>
+          <span class="trust-chip justify-center font-medium bg-[#FFA985]/10 text-gray-700 px-2 py-1 rounded-md text-[0.75rem]">
+            <Icon name="star" class="w-3.5 h-3.5 text-[#FFA985]" fill="currentColor" />
+            150 5-Star Reviews
+          </span>
         </div>
+        <p class="text-[0.65rem] text-center text-gray-400 mt-3 uppercase tracking-wider font-bold">
+          🔒 Secure &amp; No Credit Card Required
+        </p>
 
       </div>
 
@@ -360,133 +143,6 @@ import Icon from '../components/Icon.astro';
     </div>
   </main>
 
-  <script is:inline>
-    (function () {
-      var form      = document.getElementById('quote-form');
-      var success   = document.getElementById('q-success');
-      var submitBtn = document.getElementById('q-submit');
-      var spinner   = document.getElementById('q-icon-spinner');
-      var arrow     = document.getElementById('q-icon-arrow');
-
-      function show(id) { var el = document.getElementById(id); if (el) el.style.display = 'block'; }
-      function hide(id) { var el = document.getElementById(id); if (el) el.style.display = 'none'; }
-      function val(id)  { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
-      function valRadio(name) { var el = document.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; }
-      function markError(inputId, errId, show_err) {
-        var input = document.getElementById(inputId);
-        var err   = document.getElementById(errId);
-        if (!input || !err) return;
-        if (show_err) {
-          input.classList.add('error');
-          err.style.display = 'block';
-        } else {
-          input.classList.remove('error');
-          err.style.display = 'none';
-        }
-      }
-      function markGroupError(errId, show_err) {
-        var err = document.getElementById(errId);
-        if (err) err.style.display = show_err ? 'block' : 'none';
-      }
-
-      function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-      function isValidPhone(p) { return p.replace(/\D/g, '').length >= 10; }
-
-      // Phone formatting
-      var phoneInput = document.getElementById('q-phone');
-      if (phoneInput) {
-        phoneInput.addEventListener('input', function (e) {
-          var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-          e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        });
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        var name    = val('q-name');
-        var email   = val('q-email');
-        var phone   = val('q-phone');
-        var acct    = valRadio('account_type'); // 'home' | 'business'
-
-        var valid = true;
-        markError('q-name',    'q-name-err',    !name);                      if (!name)                      valid = false;
-        markError('q-email',   'q-email-err',   !isValidEmail(email));       if (!isValidEmail(email))       valid = false;
-        markError('q-phone',   'q-phone-err',   !isValidPhone(phone));       if (!isValidPhone(phone))       valid = false;
-        markGroupError('q-account_type-err', !acct);                         if (!acct)                      valid = false;
-
-        if (!valid) return;
-
-        // The BookingKoala form collects the specific service + square footage.
-        // Send a coarse service label so the CRM/email lead isn't blank and the
-        // team knows which pipeline (residential vs commercial) to work.
-        var service = acct === 'business' ? 'Commercial Cleaning' : 'Residential Cleaning';
-
-        // Show spinner
-        submitBtn.disabled = true;
-        if (spinner) spinner.classList.remove('hidden');
-        if (arrow)   arrow.classList.add('hidden');
-
-        var payload = {
-          name:          name,
-          email:         email,
-          phone:         phone,
-          service:       service,
-          account_type:  acct,
-          source:        'Get Quote Form',
-          page_url:      window.location.href,
-          notes:         'Quote form submission — Step 1 | ' + (acct === 'business' ? 'Business' : 'Home')
-        };
-
-        // Fire GA4 lead event
-        if (typeof gtag === 'function') {
-          gtag('event', 'generate_lead', {
-            event_category: 'Lead',
-            event_label:    'Get Quote Form',
-            value:          1
-          });
-        }
-        // Fire Meta Pixel
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead', { content_name: 'Get Quote Form' });
-        }
-
-        fetch('/api/submit-form', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(payload),
-          keepalive: true
-        })
-          .catch(function () {}) // never block redirect on API error
-          .finally(function () {
-            // Persist Step-1 details so /booking (or /booking-commercial) can
-            // prefill the BookingKoala iframe (booking.astro reads sessionStorage
-            // 'tvct_quote' -> f_name/l_name/email/phone). Keep `name` a single
-            // full-name string; booking.astro splits it into first/last.
-            try {
-              sessionStorage.setItem('tvct_quote', JSON.stringify({
-                name: name, email: email, phone: phone,
-                service: service, account_type: acct
-              }));
-            } catch (err) {}
-            // Show success, then redirect to the correct booking form.
-            form.style.display = 'none';
-            if (success) success.classList.remove('hidden');
-            var bookingUrl = acct === 'business' ? '/booking-commercial' : '/booking';
-            setTimeout(function () {
-              window.location.href = bookingUrl;
-            }, 2500);
-          });
-      });
-
-      // Clear error state on input
-      ['q-name','q-email','q-phone'].forEach(function (id) {
-        var el = document.getElementById(id);
-        if (el) el.addEventListener('input', function () { markError(id, id + '-err', false); });
-      });
-      document.querySelectorAll('input[name="account_type"]').forEach(function(el) {
-        el.addEventListener('change', function() { markGroupError('q-account_type-err', false); });
-      });
-    })();
-  </script>
+  <!-- BookingKoala iframe auto-resizer: lets the lead form grow/shrink to fit -->
+  <script src="https://thevalleycleanteam.bookingkoala.com/resources/iframeResizer.min.js" defer></script>
 </BaseLayout>
