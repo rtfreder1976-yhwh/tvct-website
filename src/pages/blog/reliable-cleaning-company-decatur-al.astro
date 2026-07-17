@@ -1,77 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "February 2025";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-        {
-            "@type": "Question",
-            name: "How much does house cleaning cost in Decatur, AL?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "House cleaning in Decatur typically costs between $125 and $325. Standard cleaning for a 3-bedroom home usually starts around $125-$185, while deep cleaning runs $200-$350. Decatur pricing is often slightly lower than in Huntsville.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "How often should I have my house professionally cleaned?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Most Decatur families prefer bi-weekly cleaning (every two weeks). This frequency keeps homes consistently clean without breaking the budget. Weekly service is popular for families with pets or young children.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "What is the difference between standard and deep cleaning?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Standard cleaning maintains your home: dusting, vacuuming, mopping, and sanitizing bathrooms/kitchens. Deep cleaning is a top-to-bottom scrub including baseboards, ceiling fans, window tracks, and inside appliances—recommended for first-time visits.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Are cleaning companies in Decatur insured?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Professional cleaning companies in Decatur carry liability insurance and are bonded. We strongly recommend verifying this before hiring. The Valley Clean Team is fully insured with $2M coverage for your protection.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you serve Hartselle and Priceville?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, reliable Decatur cleaning companies like The Valley Clean Team serve the entire metro area, including Hartselle, Priceville, Trinity, Somerville, and Moulton.",
-            },
-        },
-    ],
-};
+const faqs = [
+    {
+        question: "How much does house cleaning cost in Decatur, AL?",
+        answer: "House cleaning in Decatur typically costs between $125 and $325. Standard cleaning for a 3-bedroom home usually starts around $125-$185, while deep cleaning runs $200-$350. Decatur pricing is often slightly lower than in Huntsville.",
+    },
+    {
+        question: "How often should I have my house professionally cleaned?",
+        answer: "Most Decatur families prefer bi-weekly cleaning (every two weeks). This frequency keeps homes consistently clean without breaking the budget. Weekly service is popular for families with pets or young children.",
+    },
+    {
+        question: "What is the difference between standard and deep cleaning?",
+        answer: "Standard cleaning maintains your home: dusting, vacuuming, mopping, and sanitizing bathrooms/kitchens. Deep cleaning is a top-to-bottom scrub including baseboards, ceiling fans, window tracks, and inside appliances—recommended for first-time visits.",
+    },
+    {
+        question: "Are cleaning companies in Decatur insured?",
+        answer: "Professional cleaning companies in Decatur carry liability insurance and are bonded. We strongly recommend verifying this before hiring. The Valley Clean Team is fully insured with $2M coverage for your protection.",
+    },
+    {
+        question: "Do you serve Hartselle and Priceville?",
+        answer: "Yes, reliable Decatur cleaning companies like The Valley Clean Team serve the entire metro area, including Hartselle, Priceville, Trinity, Somerville, and Moulton.",
+    },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
     title="Best Reliable Cleaning Company in Decatur AL"
+    schemaTitle="Can Anyone Recommend a Reliable Cleaning Company in Decatur, AL?"
     description="Looking for a reliable cleaning company in Decatur, AL? Compare top-rated local services, real pricing, and find the trustworthy cleaners for your home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+    publishDate={publishDate}
+    faqs={faqs}
 >
-    <SchemaMarkup
-        type="article"
-        title="Can Anyone Recommend a Reliable Cleaning Company in Decatur, AL?"
-        description="Compare the most reliable cleaning companies in Decatur, AL. Detailed guide covering residential services, pricing, and how to choose the best cleaner in Morgan County."
-        publishDate={publishDate}
-        author={author}
-    />
-
-    <!-- FAQ Schema for AEO -->
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
     <!-- Hero Section -->
     <section
         class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
@@ -93,14 +58,8 @@ const faqSchema = {
                     A straightforward guide to finding trustworthy cleaning
                     services in The River City.
                 </p>
-                <div
-                    class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-                >
-                    <span>{publishDate}</span>
-                    <span>•</span>
-                    <span>{readTime}</span>
-                    <span>•</span>
-                    <span>By {author}</span>
+                <div class="mb-8">
+                    <BlogByline variant="dark" date={publishDate} readTime={readTime} />
                 </div>
             </div>
         </div>
@@ -432,4 +391,4 @@ const faqSchema = {
             </div>
         </div>
     </section>
-</BaseLayout>
+</BlogPostLayout>

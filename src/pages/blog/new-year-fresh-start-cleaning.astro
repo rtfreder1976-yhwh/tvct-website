@@ -1,62 +1,38 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2026";
 const modifiedDate = "April 29, 2026";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 const heroImage = "https://thevalleycleanteam.com/og-image.png";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is a New Year deep clean?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A New Year deep clean is a whole-house reset done in January after the holiday season. It goes beyond routine cleaning to address inside appliances, grout, ceiling fans, under furniture, and every overlooked corner — giving your home a fresh start for the new year."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How long does a whole-house deep clean take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A DIY whole-house deep clean typically takes a full weekend for a 2,000 sq ft home. A professional cleaning team can complete the same work in 4–6 hours with better results in hard-to-reach areas."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does a clean home actually reduce stress?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Research shows that clutter competes for attention and raises cortisol (the stress hormone) throughout the day. A Princeton University study found that visual clutter directly reduces focus and increases stress. A clean, organized home supports better sleep, improved focus, and lower daily stress levels."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "What is a New Year deep clean?",
+    answer: "A New Year deep clean is a whole-house reset done in January after the holiday season. It goes beyond routine cleaning to address inside appliances, grout, ceiling fans, under furniture, and every overlooked corner — giving your home a fresh start for the new year."
+  },
+  {
+    question: "How long does a whole-house deep clean take?",
+    answer: "A DIY whole-house deep clean typically takes a full weekend for a 2,000 sq ft home. A professional cleaning team can complete the same work in 4–6 hours with better results in hard-to-reach areas."
+  },
+  {
+    question: "Does a clean home actually reduce stress?",
+    answer: "Yes. Research shows that clutter competes for attention and raises cortisol (the stress hormone) throughout the day. A Princeton University study found that visual clutter directly reduces focus and increases stress. A clean, organized home supports better sleep, improved focus, and lower daily stress levels."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="New Year Deep Clean Guide for AL & TN"
   description="Reset your home for the new year with this complete deep cleaning guide. Room-by-room checklist, mental health benefits, and when to call professionals. Updated 2026."
+  schemaTitle="New Year Deep Clean: Fresh Start Guide for Alabama & Tennessee Homes"
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
   ogImage={heroImage}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="New Year Deep Clean: Fresh Start Guide for Alabama & Tennessee Homes"
-    description="Complete guide to deep cleaning your home for the new year. Room-by-room checklist, mental health benefits, and tips for Huntsville, Nashville, and across AL & TN."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-    image={heroImage}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -71,13 +47,7 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           There's no better way to welcome a new year than with a spotlessly clean home. Complete room-by-room guide for Alabama and Tennessee homes.
         </p>
-        <div class="flex items-center justify-center gap-4 text-gray-400 text-sm mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
-        </div>
+        <div class="mb-8"><BlogByline variant="dark" date={publishDate} readTime={readTime} /></div>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
             Book Your Fresh Start Clean
@@ -618,8 +588,8 @@ const faqSchema = {
               <Icon name="users" class="w-6 h-6 text-[#333333]" />
             </div>
             <div>
-              <p class="font-bold text-[#333333]">{author}</p>
-              <p class="text-gray-600 text-sm">Professional Cleaning Services in Alabama & Tennessee</p>
+              <p class="font-bold text-[#333333]"><a href="/about#todd" rel="author" class="hover:text-[#FFA985]">Todd Frederickson</a></p>
+              <p class="text-gray-600 text-sm">Co-Founder, The Valley Clean Team · Professional Cleaning in Alabama & Tennessee</p>
               <p class="text-gray-500 text-sm mt-1">Veteran-owned with cleaners bringing 15 years of experience on average, serving 1,000+ happy customers</p>
             </div>
           </div>
@@ -717,8 +687,8 @@ const faqSchema = {
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>
 
 <style>
   .category-tag {

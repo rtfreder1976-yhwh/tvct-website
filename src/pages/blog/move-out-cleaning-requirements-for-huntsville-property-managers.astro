@@ -1,31 +1,24 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 // Make this page dynamic via SSR
 export const prerender = false;
 
 const publishDate = new Date("April 6 2026");
-const author = "The Valley Clean Team";
 const readTime = "5 min read";
 
 const isPublished = new Date().getTime() >= publishDate.getTime();
 
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Move-Out Cleaning for Huntsville Landlords"
+  schemaTitle="Move-Out Cleaning Requirements for Huntsville Property Managers"
   description={isPublished ? "Huntsville property managers: the exact move-out cleaning checklist to turn rentals fast. Madison County standards, pricing & how to vet your cleaning vendor." : "Coming Soon: Move-Out Cleaning Requirements for Huntsville Property Managers"}
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="Move-Out Cleaning Requirements for Huntsville Property Managers"
-    description="Huntsville property managers: Learn the exact move-out cleaning requirements needed to prep rentals for new tenants quickly and maintain high property standards."
-    publishDate="April 6 2026"
-    author={author}
-  />
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,12 +32,8 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           {isPublished ? "Expert Cleaning Guide" : "Coming April 6 2026."}
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>April 6 2026</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -275,4 +264,4 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>

@@ -1,79 +1,43 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "May 2025";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does move-out cleaning cost in Huntsville, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Move-out cleaning in Huntsville costs $275-$450 for a typical 3-bedroom home. This is higher than standard cleaning because it includes intensive tasks like inside appliances, baseboards, and ensuring the home is inspection-ready. Huntsville pricing runs about 10-15% higher than other Alabama markets."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in move-out cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Move-out cleaning includes everything in deep cleaning plus specific move-out tasks: inside all appliances (oven, refrigerator, dishwasher), inside all cabinets and drawers, closet interiors, baseboards throughout, window tracks, light fixtures, and ensuring the home is inspection-ready."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When should I schedule move-out cleaning in Huntsville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Schedule move-out cleaning for the day after you've removed all belongings but before your final walkthrough. Book at least 2 weeks ahead in Huntsville—the market is competitive and month-end appointments fill quickly, especially near Redstone Arsenal PCS season."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Will move-out cleaning help me get my deposit back?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, professional move-out cleaning significantly improves your chances of getting your full security deposit back. Huntsville landlords and property managers typically deduct $250-$500 for cleaning if the home isn't left in good condition."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do Huntsville property management companies require professional cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Many do, especially larger property management companies. Check your lease for specific requirements. Even if not required, professional cleaning typically costs less than what management companies charge if they have to hire cleaners themselves."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "How much does move-out cleaning cost in Huntsville, AL?",
+    answer: "Move-out cleaning in Huntsville costs $275-$450 for a typical 3-bedroom home. This is higher than standard cleaning because it includes intensive tasks like inside appliances, baseboards, and ensuring the home is inspection-ready. Huntsville pricing runs about 10-15% higher than other Alabama markets."
+  },
+  {
+    question: "What's included in move-out cleaning?",
+    answer: "Move-out cleaning includes everything in deep cleaning plus specific move-out tasks: inside all appliances (oven, refrigerator, dishwasher), inside all cabinets and drawers, closet interiors, baseboards throughout, window tracks, light fixtures, and ensuring the home is inspection-ready."
+  },
+  {
+    question: "When should I schedule move-out cleaning in Huntsville?",
+    answer: "Schedule move-out cleaning for the day after you've removed all belongings but before your final walkthrough. Book at least 2 weeks ahead in Huntsville—the market is competitive and month-end appointments fill quickly, especially near Redstone Arsenal PCS season."
+  },
+  {
+    question: "Will move-out cleaning help me get my deposit back?",
+    answer: "Yes, professional move-out cleaning significantly improves your chances of getting your full security deposit back. Huntsville landlords and property managers typically deduct $250-$500 for cleaning if the home isn't left in good condition."
+  },
+  {
+    question: "Do Huntsville property management companies require professional cleaning?",
+    answer: "Many do, especially larger property management companies. Check your lease for specific requirements. Even if not required, professional cleaning typically costs less than what management companies charge if they have to hire cleaners themselves."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Move-Out Cleaning Huntsville AL"
+  schemaTitle="Move-Out Cleaning in Huntsville, AL: Get Your Full Deposit Back"
   canonicalUrl="https://thevalleycleanteam.com/locations/huntsville/move-out-cleaning"
   description="Move-out cleaning services in Huntsville, AL. Professional cleaning to help you get your security deposit back. Pricing, what's included, and PCS move tips."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Move-Out Cleaning in Huntsville, AL: Get Your Full Deposit Back"
-    description="Complete guide to move-out cleaning services in Huntsville and Madison County. Pricing, what's included, scheduling tips, and advice for military PCS moves."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,12 +51,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Get your full security deposit back with professional move-out cleaning.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -400,4 +360,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>
