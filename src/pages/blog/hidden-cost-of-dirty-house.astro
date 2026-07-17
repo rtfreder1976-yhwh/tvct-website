@@ -1,70 +1,42 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
 const modifiedDate = "April 30, 2026";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
-const heroImage = "C:/Program Files/Git/images/services/Cleaningpic2--1--307.webp";
+const heroImage = "/images/services/Cleaningpic2--1--307.webp";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much can a dirty house actually cost you per year?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The hidden costs add up fast: $300–500/year in extra utility costs from dirty appliances, $200–400/year in premature appliance replacement, $500–2,000/year in health costs (allergy meds, doctor visits), and $500–1,000/year in home value depreciation. Add your time at $25/hour × 260 hours of catch-up cleaning and the conservative total reaches $8,000–10,000+ per year — far more than professional cleaning costs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can a dirty house make you sick?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Dust mites, mold spores, and pet dander accumulate in carpets, upholstery, and damp areas. Every time your HVAC runs, it circulates these allergens through your home. Common symptoms include worsening allergies, persistent cough, congestion that clears up away from home, and disrupted sleep. Professional cleaning removes these allergens more thoroughly than most DIY efforts."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How does a dirty house damage appliances?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dust on refrigerator coils forces the motor to work harder, increasing electricity costs by $100–200/year and shortening the appliance's life. Clogged dryer lint traps are a fire hazard and reduce efficiency. Dirty HVAC filters add $150–300/year in energy costs. Hard water deposits in dishwashers and washing machines cause premature wear. Regular professional cleaning addresses all of these."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's the difference between a deep clean and regular maintenance cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A deep clean resets everything — it gets into neglected areas, removes built-up grime, and gives your home a fresh baseline. Regular maintenance cleaning (weekly, biweekly, or monthly) keeps you at that baseline so you never fall behind again. Most clients start with a deep clean, then move to recurring service. Deep cleans start from $175 for smaller homes in the Huntsville and Nashville areas."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "How much can a dirty house actually cost you per year?",
+    answer: "The hidden costs add up fast: $300–500/year in extra utility costs from dirty appliances, $200–400/year in premature appliance replacement, $500–2,000/year in health costs (allergy meds, doctor visits), and $500–1,000/year in home value depreciation. Add your time at $25/hour × 260 hours of catch-up cleaning and the conservative total reaches $8,000–10,000+ per year — far more than professional cleaning costs.",
+  },
+  {
+    question: "Can a dirty house make you sick?",
+    answer: "Yes. Dust mites, mold spores, and pet dander accumulate in carpets, upholstery, and damp areas. Every time your HVAC runs, it circulates these allergens through your home. Common symptoms include worsening allergies, persistent cough, congestion that clears up away from home, and disrupted sleep. Professional cleaning removes these allergens more thoroughly than most DIY efforts.",
+  },
+  {
+    question: "How does a dirty house damage appliances?",
+    answer: "Dust on refrigerator coils forces the motor to work harder, increasing electricity costs by $100–200/year and shortening the appliance's life. Clogged dryer lint traps are a fire hazard and reduce efficiency. Dirty HVAC filters add $150–300/year in energy costs. Hard water deposits in dishwashers and washing machines cause premature wear. Regular professional cleaning addresses all of these.",
+  },
+  {
+    question: "What's the difference between a deep clean and regular maintenance cleaning?",
+    answer: "A deep clean resets everything — it gets into neglected areas, removes built-up grime, and gives your home a fresh baseline. Regular maintenance cleaning (weekly, biweekly, or monthly) keeps you at that baseline so you never fall behind again. Most clients start with a deep clean, then move to recurring service. Deep cleans start from $175 for smaller homes in the Huntsville and Nashville areas.",
+  },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="The Hidden Cost of a Dirty House (2026) | Valley Clean Team"
+  schemaTitle="The Hidden Cost of a Dirty House (2026)"
   description="A dirty house costs $8,000–10,000+ per year in hidden expenses. Discover the real financial, health, and relationship toll — and how to stop the bleed."
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
   ogImage={heroImage}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="The Hidden Cost of a Dirty House (2026)"
-    description="A dirty house costs $8,000–10,000+ per year in hidden expenses. Discover the real financial, health, and relationship toll — and how to stop the bleed."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-    image={heroImage}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -77,12 +49,8 @@ const faqSchema = {
           The Hidden Cost of a Dirty House<br>
           <span class="text-[#FFA985]">(What It's Really Costing You)</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
 
         <!-- Hero CTAs -->
@@ -516,4 +484,4 @@ const faqSchema = {
   </section>
 
   
-</BaseLayout>
+</BlogPostLayout>

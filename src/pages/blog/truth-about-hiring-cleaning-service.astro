@@ -1,70 +1,43 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
 const modifiedDate = "April 30, 2026";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
-const heroImage = "C:/Program Files/Git/images/services/Cleaningpic2--1--307.webp";
+const heroImage = "/images/services/Cleaningpic2--1--307.webp";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I know if a cleaning service is legitimate?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ask for proof of liability insurance and verify they background-check employees. Legitimate services can show a certificate of insurance immediately. Also look for a real business address, consistent online reviews, and a clear explanation of their cleaning process. Avoid anyone who can't answer these questions directly."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why are some cleaning services so cheap?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Very low prices usually mean one of three things: no insurance (huge liability for you), rushing through jobs in 30 minutes, or a business that won't last long. A thorough clean of an average home takes 2–4 hours. Once you factor in labor, insurance, supplies, and overhead, there's no legitimate way to do it right for $49. Cheap cleaning is a disappointment waiting to happen."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How many cleanings before a service really learns my home?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Expect 2–3 cleanings before the team really knows your home — your layout, trouble spots, and priorities. The first visit nails about 90%. By the third or fourth, your team knows which outlets collect dust, where the pet hair gathers, and what matters most to you. Give honest feedback early and the service improves fast."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should I hire an independent cleaner or a cleaning company?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Both can be good, but companies offer more reliability. An independent cleaner may be excellent, but what happens when they're sick or on vacation? Companies have backup staff, documented systems, insurance, and accountability processes. The key questions are the same either way: Are they insured? Background-checked? Do they have a defined cleaning process?"
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "How do I know if a cleaning service is legitimate?",
+    answer: "Ask for proof of liability insurance and verify they background-check employees. Legitimate services can show a certificate of insurance immediately. Also look for a real business address, consistent online reviews, and a clear explanation of their cleaning process. Avoid anyone who can't answer these questions directly.",
+  },
+  {
+    question: "Why are some cleaning services so cheap?",
+    answer: "Very low prices usually mean one of three things: no insurance (huge liability for you), rushing through jobs in 30 minutes, or a business that won't last long. A thorough clean of an average home takes 2–4 hours. Once you factor in labor, insurance, supplies, and overhead, there's no legitimate way to do it right for $49. Cheap cleaning is a disappointment waiting to happen.",
+  },
+  {
+    question: "How many cleanings before a service really learns my home?",
+    answer: "Expect 2–3 cleanings before the team really knows your home — your layout, trouble spots, and priorities. The first visit nails about 90%. By the third or fourth, your team knows which outlets collect dust, where the pet hair gathers, and what matters most to you. Give honest feedback early and the service improves fast.",
+  },
+  {
+    question: "Should I hire an independent cleaner or a cleaning company?",
+    answer: "Both can be good, but companies offer more reliability. An independent cleaner may be excellent, but what happens when they're sick or on vacation? Companies have backup staff, documented systems, insurance, and accountability processes. The key questions are the same either way: Are they insured? Background-checked? Do they have a defined cleaning process?",
+  },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="The Truth About Hiring a Cleaning Service (2026) | Valley Clean Team"
+  schemaTitle="The Truth About Hiring a Cleaning Service (2026)"
   description="The honest truth about hiring a cleaning service — what can go wrong, red flags to avoid, and how to find one worth your money in Huntsville, Nashville & AL."
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
   ogImage={heroImage}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="The Truth About Hiring a Cleaning Service (2026)"
-    description="The honest truth about hiring a cleaning service — what can go wrong, red flags to avoid, and how to find one worth your money in Huntsville, Nashville & AL."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-    image={heroImage}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -77,12 +50,8 @@ const faqSchema = {
           The Truth About Hiring a Cleaning Service<br>
           <span class="text-[#FFA985]">(What They Won't Tell You)</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
 
         <!-- Hero CTAs -->
@@ -567,5 +536,5 @@ const faqSchema = {
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>
