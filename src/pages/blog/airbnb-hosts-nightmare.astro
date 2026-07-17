@@ -1,27 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const publishDate = "November 26, 2025";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="The Airbnb Host's Nightmare | Valley Clean Team"
+  schemaTitle="Airbnb Host's Nightmare & How to Avoid It"
   description="Bad reviews from dirty rentals can destroy your short-term rental business. Learn how to protect your ratings and income with reliable turnover cleaning."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="Airbnb Host's Nightmare & How to Avoid It"
-    description="Bad reviews from dirty rentals can destroy your short-term rental business. Learn how to protect your ratings and income with reliable turnover cleaning."
-    publishDate={publishDate}
-    author={author}
-  />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -34,12 +24,8 @@ const readTime = "9 min read";
           The Airbnb Host's Nightmare<br>
           <span class="text-[#FFA985]">(And How to Avoid It)</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -382,5 +368,5 @@ const readTime = "9 min read";
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

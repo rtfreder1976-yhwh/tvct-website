@@ -1,28 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const draft = true;
 const publishDate = "December 9, 2024";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Cleaning Service Missing Spots?"
+  schemaTitle="What to Do When Your Cleaner Misses Spots"
   description="Your cleaning service keeps missing the same spots. Should you give feedback, find a new company, or accept it? Here's how to handle it professionally."
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="What to Do When Your Cleaner Misses Spots"
-    description="Your cleaning service keeps missing the same spots. Should you give feedback, find a new company, or accept it? Here's how to handle it professionally."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,12 +24,8 @@ const readTime = "8 min read";
           What to Do When Your Cleaning Service<br>
           <span class="text-[#FFA985]">Keeps Missing Spots</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -362,5 +348,5 @@ const readTime = "8 min read";
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

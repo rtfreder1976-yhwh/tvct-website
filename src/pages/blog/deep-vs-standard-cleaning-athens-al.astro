@@ -1,78 +1,43 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "April 2025";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What's the difference between deep cleaning and standard cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Standard cleaning maintains your home with regular tasks like dusting, vacuuming, mopping, and bathroom/kitchen cleaning. Deep cleaning is more intensive, covering everything in standard cleaning plus inside appliances, baseboards, ceiling fans, window tracks, behind furniture, and detailed scrubbing of built-up grime."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much does deep cleaning cost in Athens, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Deep cleaning in Athens costs $200-$325 for a typical 3-bedroom home, compared to $125-$175 for standard cleaning. Athens pricing is competitive—about 10-15% lower than Huntsville for comparable services."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When should I get a deep cleaning vs standard cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Get a deep cleaning for: first-time professional cleaning, before starting recurring service, seasonal refreshes (spring/fall), before or after events, moving in/out, or when your home needs a reset. Standard cleaning is for regular maintenance once your home is already in good shape."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do Athens cleaning companies serve Elkmont and Ardmore?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, most cleaning companies serving Athens cover all of Limestone County including Elkmont, Ardmore, Tanner, East Limestone, and surrounding areas. Some may have a small travel fee for more distant locations."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I get a deep cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most Athens homes benefit from deep cleaning 2-4 times per year, with standard cleaning in between. Spring and fall are popular times. Homes with pets, allergies, or on rural properties with extra dust may need more frequent deep cleans."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "What's the difference between deep cleaning and standard cleaning?",
+    answer: "Standard cleaning maintains your home with regular tasks like dusting, vacuuming, mopping, and bathroom/kitchen cleaning. Deep cleaning is more intensive, covering everything in standard cleaning plus inside appliances, baseboards, ceiling fans, window tracks, behind furniture, and detailed scrubbing of built-up grime."
+  },
+  {
+    question: "How much does deep cleaning cost in Athens, AL?",
+    answer: "Deep cleaning in Athens costs $200-$325 for a typical 3-bedroom home, compared to $125-$175 for standard cleaning. Athens pricing is competitive—about 10-15% lower than Huntsville for comparable services."
+  },
+  {
+    question: "When should I get a deep cleaning vs standard cleaning?",
+    answer: "Get a deep cleaning for: first-time professional cleaning, before starting recurring service, seasonal refreshes (spring/fall), before or after events, moving in/out, or when your home needs a reset. Standard cleaning is for regular maintenance once your home is already in good shape."
+  },
+  {
+    question: "Do Athens cleaning companies serve Elkmont and Ardmore?",
+    answer: "Yes, most cleaning companies serving Athens cover all of Limestone County including Elkmont, Ardmore, Tanner, East Limestone, and surrounding areas. Some may have a small travel fee for more distant locations."
+  },
+  {
+    question: "How often should I get a deep cleaning?",
+    answer: "Most Athens homes benefit from deep cleaning 2-4 times per year, with standard cleaning in between. Spring and fall are popular times. Homes with pets, allergies, or on rural properties with extra dust may need more frequent deep cleans."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Deep vs Standard Cleaning in Athens AL"
+  schemaTitle="Deep Cleaning vs Standard Cleaning in Athens, AL: What's the Difference?"
   description="What's the difference between deep cleaning and standard cleaning in Athens, AL? Compare services, pricing, and when to choose each for your Limestone County home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Deep Cleaning vs Standard Cleaning in Athens, AL: What's the Difference?"
-    description="Complete comparison of deep cleaning vs standard cleaning services in Athens and Limestone County. Pricing, what's included, and when to choose each option."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
+
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,12 +51,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Which service do you actually need? Here's how to decide.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -455,4 +416,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>

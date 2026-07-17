@@ -1,87 +1,37 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const publishDate = '2024-12-09';
-const author = 'The Valley Clean Team';
 const readTime = '8 min read';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "How Much Does Deep Cleaning Cost in the Shoals Area?",
-  "description": "Complete pricing guide for deep cleaning services in Florence, Muscle Shoals, Tuscumbia, and Sheffield. Learn what affects costs and what's included.",
-  "image": "https://thevalleycleanteam.com/og-image.png",
-  "author": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team"
+const faqs = [
+  {
+    question: "How much does deep cleaning cost in Florence, AL?",
+    answer: "Deep cleaning in Florence typically ranges from $200-$450 depending on home size. A 2-bedroom averages $200-$275, a 3-bedroom runs $275-$375, and larger homes over 2,500 sq ft cost $375-$450 or more."
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://thevalleycleanteam.com/og-image.png"
-    }
+  {
+    question: "What's included in a deep cleaning service?",
+    answer: "Deep cleaning includes everything in a standard cleaning plus baseboards, ceiling fans, inside appliances, cabinet fronts, window sills, light fixtures, door frames, and detailed bathroom and kitchen scrubbing."
   },
-  "datePublished": publishDate,
-  "dateModified": publishDate,
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://thevalleycleanteam.com/blog/deep-cleaning-cost-shoals-guide/"
+  {
+    question: "How often should I get a deep cleaning?",
+    answer: "Most Shoals area homes benefit from deep cleaning 2-4 times per year. Homes with pets, allergies, or high traffic may need quarterly deep cleans, while others do well with semi-annual service."
+  },
+  {
+    question: "Is deep cleaning worth the cost?",
+    answer: "Yes. Deep cleaning removes built-up grime, allergens, and bacteria that regular cleaning misses. It extends the life of surfaces and appliances, improves indoor air quality, and makes ongoing maintenance easier."
   }
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does deep cleaning cost in Florence, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Deep cleaning in Florence typically ranges from $200-$450 depending on home size. A 2-bedroom averages $200-$275, a 3-bedroom runs $275-$375, and larger homes over 2,500 sq ft cost $375-$450 or more."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in a deep cleaning service?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Deep cleaning includes everything in a standard cleaning plus baseboards, ceiling fans, inside appliances, cabinet fronts, window sills, light fixtures, door frames, and detailed bathroom and kitchen scrubbing."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I get a deep cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most Shoals area homes benefit from deep cleaning 2-4 times per year. Homes with pets, allergies, or high traffic may need quarterly deep cleans, while others do well with semi-annual service."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is deep cleaning worth the cost?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Deep cleaning removes built-up grime, allergens, and bacteria that regular cleaning misses. It extends the life of surfaces and appliances, improves indoor air quality, and makes ongoing maintenance easier."
-      }
-    }
-  ]
-};
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Deep Cleaning Cost Shoals AL"
+  schemaTitle="How Much Does Deep Cleaning Cost in the Shoals Area?"
   description="How much does deep cleaning cost in the Shoals area? Complete pricing guide for Florence, Muscle Shoals, Tuscumbia, and Sheffield homes. Transparent quotes."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
@@ -93,12 +43,8 @@ const faqSchema = {
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
           How Much Does <span class="text-[#FFA985]">Deep Cleaning</span> Cost in the Shoals Area?
         </h1>
-        <div class="flex items-center justify-center gap-4 text-gray-300 text-sm">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{author}</span>
-          <span>•</span>
-          <span>{readTime}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -399,5 +345,5 @@ const faqSchema = {
     </div>
   </article>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

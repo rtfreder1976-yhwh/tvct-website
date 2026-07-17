@@ -1,28 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "December 4, 2024";
-const author = "The Valley Clean Team";
 const readTime = "7 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Allergy-Friendly Cleaning Guide | Valley Clean Team"
+  schemaTitle="Allergy-Friendly Cleaning Guide"
   description="Suffering from allergies at home? Learn how professional cleaning can reduce dust, pollen, pet dander, and other allergens in your home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="Allergy-Friendly Cleaning Guide"
-    description="Suffering from allergies at home? Learn how professional cleaning techniques can dramatically reduce allergens."
-    publishDate={publishDate}
-    author={author}
-  />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -35,12 +25,8 @@ const readTime = "7 min read";
           Allergy-Friendly Cleaning<br>
           <span class="text-[#FFA985]">Breathe Easier at Home</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -227,5 +213,5 @@ const readTime = "7 min read";
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

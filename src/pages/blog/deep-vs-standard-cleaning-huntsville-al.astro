@@ -1,78 +1,43 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "April 2025";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What's the difference between deep cleaning and standard cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Standard cleaning maintains your home with regular tasks like dusting, vacuuming, mopping, and bathroom/kitchen cleaning. Deep cleaning is more intensive, covering everything in standard cleaning plus inside appliances, baseboards, ceiling fans, window tracks, behind furniture, and detailed scrubbing of built-up grime."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much does deep cleaning cost in Huntsville, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Deep cleaning in Huntsville costs $225-$400 for a typical 3-bedroom home, compared to $135-$200 for standard cleaning. Hampton Cove and larger Madison homes may run higher. The cost reflects the additional time (4-6 hours vs 2-3 hours) and intensive labor."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When should I get a deep cleaning vs standard cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Get a deep cleaning for: first-time professional cleaning, before starting recurring service, seasonal refreshes (spring/fall), before or after events, moving in/out, or when your home needs a reset. Standard cleaning is for regular maintenance once your home is already in good shape."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I get a deep cleaning in Huntsville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most Huntsville homes benefit from deep cleaning 2-4 times per year, with standard cleaning in between. Spring and fall are popular times. Homes with pets, allergies, or heavy use may need quarterly deep cleans."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should my first cleaning be a deep clean?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Usually yes. Most Huntsville cleaning companies recommend or require a deep clean before starting recurring service. This establishes a clean baseline that standard cleaning can then maintain efficiently."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "What's the difference between deep cleaning and standard cleaning?",
+    answer: "Standard cleaning maintains your home with regular tasks like dusting, vacuuming, mopping, and bathroom/kitchen cleaning. Deep cleaning is more intensive, covering everything in standard cleaning plus inside appliances, baseboards, ceiling fans, window tracks, behind furniture, and detailed scrubbing of built-up grime."
+  },
+  {
+    question: "How much does deep cleaning cost in Huntsville, AL?",
+    answer: "Deep cleaning in Huntsville costs $225-$400 for a typical 3-bedroom home, compared to $135-$200 for standard cleaning. Hampton Cove and larger Madison homes may run higher. The cost reflects the additional time (4-6 hours vs 2-3 hours) and intensive labor."
+  },
+  {
+    question: "When should I get a deep cleaning vs standard cleaning?",
+    answer: "Get a deep cleaning for: first-time professional cleaning, before starting recurring service, seasonal refreshes (spring/fall), before or after events, moving in/out, or when your home needs a reset. Standard cleaning is for regular maintenance once your home is already in good shape."
+  },
+  {
+    question: "How often should I get a deep cleaning in Huntsville?",
+    answer: "Most Huntsville homes benefit from deep cleaning 2-4 times per year, with standard cleaning in between. Spring and fall are popular times. Homes with pets, allergies, or heavy use may need quarterly deep cleans."
+  },
+  {
+    question: "Should my first cleaning be a deep clean?",
+    answer: "Usually yes. Most Huntsville cleaning companies recommend or require a deep clean before starting recurring service. This establishes a clean baseline that standard cleaning can then maintain efficiently."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Deep vs Standard Cleaning in Huntsville AL"
+  schemaTitle="Deep Cleaning vs Standard Cleaning in Huntsville, AL: What's the Difference?"
   description="What's the difference between deep cleaning and standard cleaning in Huntsville, AL? Compare services, pricing, and when to choose each for your Rocket City home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Deep Cleaning vs Standard Cleaning in Huntsville, AL: What's the Difference?"
-    description="Complete comparison of deep cleaning vs standard cleaning services in Huntsville and Madison County. Pricing, what's included, and when to choose each option."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
+
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,12 +51,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Which service do you actually need? Here's how to decide.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -443,4 +404,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>
