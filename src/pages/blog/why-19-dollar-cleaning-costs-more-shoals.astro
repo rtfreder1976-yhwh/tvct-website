@@ -1,109 +1,50 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 
 const publishDate = '2026-05-24';
-const author = 'The Valley Clean Team';
 const readTime = '9 min read';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Why $19/hr Cleaning in the Shoals Costs You More: A Buyer's Guide",
-  "description": "Homeaglow says $19. Care.com says $14. MaidPro says call for a quote. Here's what those numbers actually buy in Florence, Muscle Shoals, Tuscumbia, and Sheffield — and what they leave you exposed to.",
-  "image": "https://thevalleycleanteam.com/og-image.png",
-  "author": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team"
+// FAQ single source of truth — BlogPostLayout emits the FAQPage schema.
+const faqs = [
+  {
+    question: "Is $19/hr house cleaning legitimate in the Shoals area?",
+    answer: "It's a real rate, but it's a teaser. Homeaglow's $19 applies only to the first 3-hour booking. After that, regular rates apply and you're typically charged $30–$45 per hour with the platform taking a cut. The cleaner is an independent contractor with no insurance, no bonding, and no background check guaranteed by the platform — you carry the liability if something breaks or goes missing."
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://thevalleycleanteam.com/og-image.png"
-    }
+  {
+    question: "What's a fair price for house cleaning in Florence, AL?",
+    answer: "For an insured, bonded, professional crew in Florence, expect $125–$200 for a recurring cleaning of a 2,000 sq ft home, $200–$350 for a deep clean, and $250–$450 for a move-out. The Valley Clean Team's recurring service starts at $176 and deep cleans start at $276 — flat quoted upfront, no surprises."
   },
-  "datePublished": publishDate,
-  "dateModified": publishDate,
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://thevalleycleanteam.com/blog/why-19-dollar-cleaning-costs-more-shoals"
+  {
+    question: "What's the difference between a gig-app cleaner and a professional cleaning company?",
+    answer: "A gig-app cleaner (Homeaglow, Handy, Care.com) is an independent contractor matched to you by an algorithm. There's no shared training, no insurance carrying the platform, no consistent team. A professional company employs (or W-2 contracts) its cleaners directly, carries $1M–$2M liability insurance, runs background checks, and sends the same team to the same home every visit."
+  },
+  {
+    question: "What happens if a cleaner breaks something in my home?",
+    answer: "With an insured cleaning company, their liability policy pays for the damage — you file a claim with the company, they handle it with their carrier. With a gig-app cleaner, you're on your own. The platform's terms of service typically disclaim damage liability, the contractor likely doesn't carry their own insurance, and your homeowners policy may not cover a paid worker's negligence. A $300 broken vase erases a year of $19/hr 'savings.'"
+  },
+  {
+    question: "How do I know a Shoals cleaning company is actually insured?",
+    answer: "Ask for a Certificate of Insurance (COI) showing General Liability coverage. A reputable Shoals-area company will have one ready and can email it before your first clean. The Valley Clean Team carries $2,000,000 in General Liability plus Workers' Compensation and a fidelity bond, and shares COIs on request."
+  },
+  {
+    question: "Why does MaidPro and TVCT cost 5x more than Homeaglow?",
+    answer: "You're not paying for cleaning. You're paying for insurance, bonding, background checks, employer payroll taxes, training, supplies, vehicle costs, the same team every visit, and a company that's still in business in five years to honor its guarantee. Strip those out and yes — labor alone is around $15–$25/hr. The other $50–$100 per visit is what protects your home and ensures consistency."
+  },
+  {
+    question: "Are background checks really necessary for a cleaner?",
+    answer: "Yes — you're giving someone unsupervised access to your home, your keys, your medications, your kids' bedrooms, and often your alarm code. Gig platforms typically run only a basic identity check, not a full criminal background screen. Insured local companies in the Shoals run full background checks on every team member as a condition of employment. The Valley Clean Team background-checks every cleaner before they ever enter a home."
   }
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is $19/hr house cleaning legitimate in the Shoals area?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "It's a real rate, but it's a teaser. Homeaglow's $19 applies only to the first 3-hour booking. After that, regular rates apply and you're typically charged $30–$45 per hour with the platform taking a cut. The cleaner is an independent contractor with no insurance, no bonding, and no background check guaranteed by the platform — you carry the liability if something breaks or goes missing."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's a fair price for house cleaning in Florence, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For an insured, bonded, professional crew in Florence, expect $125–$200 for a recurring cleaning of a 2,000 sq ft home, $200–$350 for a deep clean, and $250–$450 for a move-out. The Valley Clean Team's recurring service starts at $176 and deep cleans start at $276 — flat quoted upfront, no surprises."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's the difference between a gig-app cleaner and a professional cleaning company?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A gig-app cleaner (Homeaglow, Handy, Care.com) is an independent contractor matched to you by an algorithm. There's no shared training, no insurance carrying the platform, no consistent team. A professional company employs (or W-2 contracts) its cleaners directly, carries $1M–$2M liability insurance, runs background checks, and sends the same team to the same home every visit."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What happens if a cleaner breaks something in my home?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "With an insured cleaning company, their liability policy pays for the damage — you file a claim with the company, they handle it with their carrier. With a gig-app cleaner, you're on your own. The platform's terms of service typically disclaim damage liability, the contractor likely doesn't carry their own insurance, and your homeowners policy may not cover a paid worker's negligence. A $300 broken vase erases a year of $19/hr 'savings.'"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I know a Shoals cleaning company is actually insured?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ask for a Certificate of Insurance (COI) showing General Liability coverage. A reputable Shoals-area company will have one ready and can email it before your first clean. The Valley Clean Team carries $2,000,000 in General Liability plus Workers' Compensation and a fidelity bond, and shares COIs on request."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why does MaidPro and TVCT cost 5x more than Homeaglow?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You're not paying for cleaning. You're paying for insurance, bonding, background checks, employer payroll taxes, training, supplies, vehicle costs, the same team every visit, and a company that's still in business in five years to honor its guarantee. Strip those out and yes — labor alone is around $15–$25/hr. The other $50–$100 per visit is what protects your home and ensures consistency."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are background checks really necessary for a cleaner?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes — you're giving someone unsupervised access to your home, your keys, your medications, your kids' bedrooms, and often your alarm code. Gig platforms typically run only a basic identity check, not a full criminal background screen. Insured local companies in the Shoals run full background checks on every team member as a condition of employment. The Valley Clean Team background-checks every cleaner before they ever enter a home."
-      }
-    }
-  ]
-};
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Why $19/hr Cleaning in the Shoals Costs You More | Valley Clean Team"
+  schemaTitle="Why $19/hr Cleaning in the Shoals Costs You More: A Buyer's Guide"
+  publishDate={publishDate}
+  faqs={faqs}
   description="Homeaglow says $19. Care.com says $14. MaidPro says call. Here's what those numbers actually buy in Florence, Muscle Shoals, Tuscumbia & Sheffield — and what they leave you exposed to."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
-  faqs={faqSchema.mainEntity.map(q => ({ question: q.name, answer: q.acceptedAnswer.text }))}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
   <!-- Hero -->
   <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
     <div class="container mx-auto max-w-4xl">
@@ -117,13 +58,7 @@ const faqSchema = {
         <p class="text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed mb-6">
           The honest math on Homeaglow, Care.com, MaidPro, and a professional crew — for Florence, Muscle Shoals, Tuscumbia, and Sheffield homes.
         </p>
-        <div class="flex items-center justify-center gap-4 text-gray-300 text-sm">
-          <span>{publishDate}</span>
-          <span>·</span>
-          <span>{author}</span>
-          <span>·</span>
-          <span>{readTime}</span>
-        </div>
+        <BlogByline variant="dark" date={publishDate} readTime={readTime} />
       </div>
     </div>
   </section>
@@ -318,10 +253,10 @@ const faqSchema = {
         <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">Frequently asked questions</h2>
 
         <div class="space-y-6">
-          {faqSchema.mainEntity.map((faq) => (
+          {faqs.map((faq) => (
             <div class="border-l-4 border-[#FFA985] pl-5">
-              <h3 class="text-xl font-bold text-[#333333] mb-2">{faq.name}</h3>
-              <p class="text-gray-700 leading-relaxed">{faq.acceptedAnswer.text}</p>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">{faq.question}</h3>
+              <p class="text-gray-700 leading-relaxed">{faq.answer}</p>
             </div>
           ))}
         </div>
@@ -364,4 +299,4 @@ const faqSchema = {
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>

@@ -1,117 +1,55 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 
 const publishDate = '2026-05-24';
-const author = 'The Valley Clean Team';
 const readTime = '10 min read';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "How Much Does House Cleaning Cost in Huntsville, AL? (2026 Pricing Guide)",
-  "description": "Care.com says $19. MaidPro says call. Reddit says $200. Here's what house cleaning actually costs in Huntsville, Madison, Hampton Cove, and Monte Sano in 2026 — with flat published prices, not 'starting at.'",
-  "image": "https://thevalleycleanteam.com/og-image.png",
-  "author": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team"
+// FAQ: single source of truth — BlogPostLayout emits the FAQPage schema from
+// this array (no more separate hand-written faqSchema object to drift).
+const faqs = [
+  {
+    question: "How much do house cleaners charge in Huntsville, AL?",
+    answer: "In 2026, insured professional cleaning crews in Huntsville charge $150–$275 for a recurring clean of an average 2,000 sq ft home, $250–$400 for a one-time deep clean, and $300–$500 for a move-out clean. Independent solo cleaners run $30–$50 per hour and gig-app cleaners advertise $18–$25 per hour teaser rates. The Valley Clean Team's recurring service starts at $176 and deep cleans start at $276 — flat quoted upfront."
   },
-  "publisher": {
-    "@type": "Organization",
-    "name": "The Valley Clean Team",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://thevalleycleanteam.com/og-image.png"
-    }
+  {
+    question: "How much does a deep clean cost for a 2,000 sq ft home in Huntsville?",
+    answer: "Expect $250–$400 for a one-time deep clean on a 2,000 sq ft Huntsville home from an insured professional crew. The Valley Clean Team quotes deep cleans from $276 for this size. MaidPro Huntsville is reported on r/HuntsvilleAlabama at around $200, and independent cleaners like Abigail's run $285+. The price depends on home condition, pets, and how long since the last deep clean."
   },
-  "datePublished": publishDate,
-  "dateModified": publishDate,
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://thevalleycleanteam.com/blog/house-cleaning-cost-huntsville-al"
+  {
+    question: "What's the average price per square foot for cleaning in Huntsville?",
+    answer: "Recurring cleaning in Huntsville averages $0.07–$0.14 per square foot per visit. Deep cleaning averages $0.12–$0.20 per square foot. Move-in/out cleaning runs $0.15–$0.25 per square foot (Muscle Dup Movers publishes a flat $0.19/sqft for move-in/out without furniture). Per-square-foot pricing is a rough check — total quotes also depend on bathrooms, condition, and pets."
+  },
+  {
+    question: "Is it worth hiring a cleaning service in Huntsville?",
+    answer: "For most working households in Huntsville, yes. A biweekly recurring clean takes about 5–6 hours of work that you'd otherwise do across a weekend. At $176 per visit ($88 per week amortized), the dollar-per-hour-back math is favorable for anyone earning more than ~$30/hr. The case is stronger for two-income households, families with young kids, and Hampton Cove or Madison professionals with long commutes to Redstone."
+  },
+  {
+    question: "How often should I get my Huntsville home cleaned?",
+    answer: "Most Huntsville households on a recurring schedule choose biweekly. Weekly is best for families with kids under 5, multiple pets, or working-from-home in larger homes. Monthly works for empty-nesters or small homes with low traffic. Recurring frequency unlocks discounts — The Valley Clean Team offers up to 20% off recurring versus one-time rates."
+  },
+  {
+    question: "Do Huntsville cleaning services bring their own supplies?",
+    answer: "Reputable insured companies in Huntsville bring all supplies and equipment as part of the quoted price. The Valley Clean Team brings professional-grade pH-neutral products, microfiber, and HEPA-filtered vacuums on every visit. Gig-app cleaners often charge supply fees or expect you to provide them — verify before booking. If you have specific product preferences (eco-only, scent-free, allergy-sensitive), reputable companies accommodate at no upcharge."
+  },
+  {
+    question: "How much should I tip a house cleaner in Huntsville?",
+    answer: "Tipping is appreciated but not required. Common practice in Huntsville is $10–$20 cash per cleaner for a standard visit, or 15–20% of the visit total for a deep or move-out clean. For recurring crews, many households tip the equivalent of one visit at the holidays. If you're with a company that uses W-2 employed teams (like The Valley Clean Team), tips are kept by the cleaners directly."
+  },
+  {
+    question: "Does the price change between Huntsville neighborhoods?",
+    answer: "Slightly. Central Huntsville and Madison sit at the published base rates. Hampton Cove and Monte Sano often run 5–10% higher due to drive time and the prevalence of larger homes. Owens Cross Roads and Harvest are at base. New construction (Madison, Hampton Cove) sometimes needs a heavier first-time deep clean because of leftover drywall dust — that shows up as the deep-clean line item, not a neighborhood premium."
   }
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much do house cleaners charge in Huntsville, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "In 2026, insured professional cleaning crews in Huntsville charge $150–$275 for a recurring clean of an average 2,000 sq ft home, $250–$400 for a one-time deep clean, and $300–$500 for a move-out clean. Independent solo cleaners run $30–$50 per hour and gig-app cleaners advertise $18–$25 per hour teaser rates. The Valley Clean Team's recurring service starts at $176 and deep cleans start at $276 — flat quoted upfront."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much does a deep clean cost for a 2,000 sq ft home in Huntsville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Expect $250–$400 for a one-time deep clean on a 2,000 sq ft Huntsville home from an insured professional crew. The Valley Clean Team quotes deep cleans from $276 for this size. MaidPro Huntsville is reported on r/HuntsvilleAlabama at around $200, and independent cleaners like Abigail's run $285+. The price depends on home condition, pets, and how long since the last deep clean."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's the average price per square foot for cleaning in Huntsville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Recurring cleaning in Huntsville averages $0.07–$0.14 per square foot per visit. Deep cleaning averages $0.12–$0.20 per square foot. Move-in/out cleaning runs $0.15–$0.25 per square foot (Muscle Dup Movers publishes a flat $0.19/sqft for move-in/out without furniture). Per-square-foot pricing is a rough check — total quotes also depend on bathrooms, condition, and pets."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is it worth hiring a cleaning service in Huntsville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For most working households in Huntsville, yes. A biweekly recurring clean takes about 5–6 hours of work that you'd otherwise do across a weekend. At $176 per visit ($88 per week amortized), the dollar-per-hour-back math is favorable for anyone earning more than ~$30/hr. The case is stronger for two-income households, families with young kids, and Hampton Cove or Madison professionals with long commutes to Redstone."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I get my Huntsville home cleaned?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most Huntsville households on a recurring schedule choose biweekly. Weekly is best for families with kids under 5, multiple pets, or working-from-home in larger homes. Monthly works for empty-nesters or small homes with low traffic. Recurring frequency unlocks discounts — The Valley Clean Team offers up to 20% off recurring versus one-time rates."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do Huntsville cleaning services bring their own supplies?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Reputable insured companies in Huntsville bring all supplies and equipment as part of the quoted price. The Valley Clean Team brings professional-grade pH-neutral products, microfiber, and HEPA-filtered vacuums on every visit. Gig-app cleaners often charge supply fees or expect you to provide them — verify before booking. If you have specific product preferences (eco-only, scent-free, allergy-sensitive), reputable companies accommodate at no upcharge."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much should I tip a house cleaner in Huntsville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Tipping is appreciated but not required. Common practice in Huntsville is $10–$20 cash per cleaner for a standard visit, or 15–20% of the visit total for a deep or move-out clean. For recurring crews, many households tip the equivalent of one visit at the holidays. If you're with a company that uses W-2 employed teams (like The Valley Clean Team), tips are kept by the cleaners directly."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does the price change between Huntsville neighborhoods?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Slightly. Central Huntsville and Madison sit at the published base rates. Hampton Cove and Monte Sano often run 5–10% higher due to drive time and the prevalence of larger homes. Owens Cross Roads and Harvest are at base. New construction (Madison, Hampton Cove) sometimes needs a heavier first-time deep clean because of leftover drywall dust — that shows up as the deep-clean line item, not a neighborhood premium."
-      }
-    }
-  ]
-};
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="House Cleaning Cost in Huntsville, AL"
+  schemaTitle="How Much Does House Cleaning Cost in Huntsville, AL? (2026 Pricing Guide)"
   description="Care.com says $19. MaidPro says call. Reddit says $200. Here's what house cleaning actually costs in Huntsville, Madison, Hampton Cove & Monte Sano in 2026 — with flat published prices."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
-  faqs={faqSchema.mainEntity.map(q => ({ question: q.name, answer: q.acceptedAnswer.text }))}
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
   <!-- Hero -->
   <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
     <div class="container mx-auto max-w-4xl">
@@ -125,13 +63,7 @@ const faqSchema = {
         <p class="text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed mb-6">
           Real published prices for Huntsville, Madison, Hampton Cove, Monte Sano, Owens Cross Roads, and Harvest — not "starting at."
         </p>
-        <div class="flex items-center justify-center gap-4 text-gray-300 text-sm">
-          <span>{publishDate}</span>
-          <span>·</span>
-          <span>{author}</span>
-          <span>·</span>
-          <span>{readTime}</span>
-        </div>
+        <BlogByline variant="dark" date={publishDate} readTime={readTime} />
       </div>
     </div>
   </section>
@@ -334,10 +266,10 @@ const faqSchema = {
         <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">Frequently asked questions</h2>
 
         <div class="space-y-6">
-          {faqSchema.mainEntity.map((faq) => (
+          {faqs.map((faq) => (
             <div class="border-l-4 border-[#FFA985] pl-5">
-              <h3 class="text-xl font-bold text-[#333333] mb-2">{faq.name}</h3>
-              <p class="text-gray-700 leading-relaxed">{faq.acceptedAnswer.text}</p>
+              <h3 class="text-xl font-bold text-[#333333] mb-2">{faq.question}</h3>
+              <p class="text-gray-700 leading-relaxed">{faq.answer}</p>
             </div>
           ))}
         </div>
@@ -399,4 +331,4 @@ const faqSchema = {
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>
