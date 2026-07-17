@@ -1,27 +1,17 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 
 const publishDate = "November 26, 2025";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="When Life Gets Too Busy for Cleaning | Valley Clean Team"
   description="Overwhelmed by life and falling behind on cleaning? Here's permission to get help—and why it's actually the smart, responsible choice."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  schemaTitle="When Life Gets Too Busy: A Guilt-Free Guide"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="When Life Gets Too Busy: A Guilt-Free Guide"
-    description="Overwhelmed by life and falling behind on cleaning? Here's permission to get help—and why it's actually the smart, responsible choice."
-    publishDate={publishDate}
-    author={author}
-  />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -34,12 +24,8 @@ const readTime = "8 min read";
           When Life Gets Too Busy<br>
           <span class="text-[#FFA985]">The Guilt-Free Guide to Getting Help</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -444,5 +430,5 @@ const readTime = "8 min read";
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

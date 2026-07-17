@@ -1,29 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "December 4, 2024";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Ultimate Stain Removal Guide | Valley Clean Team"
   description="Coffee, wine, grease, blood, ink, pet accidents—learn how professional cleaners remove the most stubborn stains from carpets, upholstery, and fabric."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  schemaTitle="Ultimate Stain Removal Guide"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="Ultimate Stain Removal Guide"
-    description="Coffee, wine, grease, blood, ink, pet accidents—learn how professional cleaners remove stubborn stains."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,12 +24,8 @@ const readTime = "9 min read";
           The Ultimate<br>
           <span class="text-[#FFA985]">Stain Removal Guide</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -262,5 +247,5 @@ const readTime = "9 min read";
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

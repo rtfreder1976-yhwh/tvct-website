@@ -1,26 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const draft = false;
 const publishDate = "April 1, 2026";
-const author = "The Valley Clean Team";
 const readTime = "7 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Why Our Provider-First Model Matters for Your Home"
+  schemaTitle="Why Our Provider-First Model Matters for Your Home"
   description="Discover why The Valley Clean Team chooses to pay our cleaning providers more. Learn how our 50/50 split ensures a higher quality clean for your family."
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="Why Our Provider-First Model Matters for Your Home"
-    description="Discover why The Valley Clean Team chooses to pay our cleaning providers more. Learn how our 50/50 split ensures a higher quality clean for your family."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-teal-900 via-gray-800 to-teal-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,12 +24,8 @@ const readTime = "7 min read";
           Why Our Provider-First<br>
           <span class="text-teal-400">Model Matters</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -120,4 +108,4 @@ const readTime = "7 min read";
     </div>
   </section>
 
-</BaseLayout>
+</BlogPostLayout>
