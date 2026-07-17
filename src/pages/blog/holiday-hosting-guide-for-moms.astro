@@ -1,31 +1,23 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "December 3, 2025";
-const author = "The Valley Clean Team";
 const readTime = "5 min read";
 ---
 
-<BaseLayout title="Holiday Hosting for Moms | Valley Clean Team" description="Practical tips for busy moms hosting holiday guests. Learn how to prepare your home without the stress—from the 'closed door' policy to mood lighting tricks."
-  ogImage="https://thevalleycleanteam.com/og-image.png">
-  <SchemaMarkup type="article" />
-  
+<BlogPostLayout title="Holiday Hosting for Moms | Valley Clean Team" description="Practical tips for busy moms hosting holiday guests. Learn how to prepare your home without the stress—from the 'closed door' policy to mood lighting tricks."
+  publishDate={publishDate}>
 
   <!-- Hero Section -->
   <section class="pt-32 pb-12 px-6 bg-gradient-to-br from-gray-50 to-white">
     <div class="container mx-auto max-w-4xl">
       <div class="text-center mb-8">
         <span class="category-tag bg-red-100 text-red-600">Holiday Tips</span>
-        <span class="text-gray-500 text-sm ml-4">
-          <Icon name="calendar" class="w-5 h-5 mr-2" />{publishDate}
-        </span>
-        <span class="text-gray-500 text-sm ml-4">
-          <Icon name="clock" class="w-5 h-5 mr-2" />{readTime}
-        </span>
+        <div class="mb-8">
+          <BlogByline date={publishDate} readTime={readTime} />
+        </div>
       </div>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#333333] text-center leading-tight">
         Making Mom Magic: A Guide to <span class="gold-gradient">Hosting the Holidays</span> (Without the Meltdown)
@@ -208,8 +200,8 @@ const readTime = "5 min read";
               <Icon name="users" class="w-6 h-6 text-[#333333]" />
             </div>
             <div>
-              <p class="font-bold text-[#333333]">{author}</p>
-              <p class="text-gray-600 text-sm">Professional Cleaning Services in Alabama & Tennessee</p>
+              <p class="font-bold text-[#333333]"><a href="/about#todd" rel="author" class="hover:text-[#FFA985]">Todd Frederickson</a></p>
+              <p class="text-gray-600 text-sm">Co-Founder, The Valley Clean Team · Professional Cleaning in Alabama & Tennessee</p>
               <p class="text-gray-500 text-sm mt-1">Helping busy families enjoy their homes | 256-826-1100</p>
             </div>
           </div>
@@ -271,8 +263,8 @@ const readTime = "5 min read";
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>
 
 <style>
   .category-tag {

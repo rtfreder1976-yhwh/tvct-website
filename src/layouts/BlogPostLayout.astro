@@ -1,0 +1,117 @@
+---
+/**
+ * Shared layout for blog posts.
+ *
+ * WHY: the ~108 posts were standalone files that each hand-rolled their own
+ * byline markup, JSON-LD, publish-gating and date handling — the root cause of
+ * recurring drift (author-as-Organization even where the const said a person,
+ * 4 divergent bylines, 3 incompatible date formats, FAQ schema/visible mismatch).
+ *
+ * This layout owns all of that in ONE place:
+ *   - wraps BaseLayout with schemaType="none" and emits the article schema here
+ *     (via SchemaMarkup type="article") so BlogPosting carries a real Person
+ *     author (E-E-A-T) with @id → /about#todd, worksFor → #organization;
+ *   - renders one canonical FAQ (schema + optional visible list) from a single
+ *     `faqs` array — no more schema/visible divergence;
+ *   - normalizes publishDate/modifiedDate (accepts string | Date | ISO);
+ *   - passes canonical/noindex straight through.
+ *
+ * The post keeps its own custom hero; it just drops its hand-rolled byline row
+ * in favor of <BlogByline/> (rendered wherever the post wants it) and moves its
+ * article-level metadata up into this layout's props.
+ */
+import BaseLayout from "./BaseLayout.astro";
+import SchemaMarkup from "../components/SchemaMarkup.astro";
+
+interface Props {
+  title: string; // BaseLayout <title> / meta
+  description: string;
+  /** Headline for the BlogPosting schema (often longer/keyword-rich than title). */
+  schemaTitle?: string;
+  publishDate: string | Date;
+  modifiedDate?: string | Date;
+  author?: string;
+  authorId?: string;
+  authorTitle?: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  /** Canonical FAQ source: renders FAQPage schema (via BaseLayout->SchemaMarkup path is bypassed; we pass here). */
+  faqs?: Array<{ question: string; answer: string }>;
+}
+
+const {
+  title,
+  description,
+  schemaTitle,
+  publishDate,
+  modifiedDate,
+  author = "Todd Frederickson",
+  authorId = "https://thevalleycleanteam.com/about#todd",
+  authorTitle = "Co-Founder",
+  ogImage = "https://thevalleycleanteam.com/og-image.png",
+  canonicalUrl,
+  noindex = false,
+  faqs,
+} = Astro.props;
+
+// Normalize the 3 date shapes to ISO for schema. Invalid → undefined so
+// SchemaMarkup falls back to its own default rather than emitting "Invalid Date".
+const toIso = (d?: string | Date) => {
+  if (!d) return undefined;
+  const dt = d instanceof Date ? d : new Date(d);
+  return isNaN(dt.getTime()) ? undefined : dt.toISOString();
+};
+const publishIso = toIso(publishDate);
+const modifiedIso = toIso(modifiedDate) ?? publishIso;
+
+// FAQ: emit ONE FAQPage schema from the single `faqs` source (SchemaMarkup
+// intentionally leaves FAQPage to pages to avoid GSC duplicate-FAQPage errors,
+// so we own it here). The visible FAQ list is rendered from the same array via
+// a named slot fallback below, so schema and on-page FAQ can never diverge.
+const faqSchema =
+  faqs && faqs.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: { "@type": "Answer", text: f.answer },
+        })),
+      }
+    : null;
+
+// Guard against the broken `C:/...` heroImage paths found in 5 legacy posts —
+// never let a local filesystem path become an ogImage / schema image.
+const safeOgImage =
+  ogImage && !/^[a-zA-Z]:[\\/]/.test(ogImage)
+    ? ogImage
+    : "https://thevalleycleanteam.com/og-image.png";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={safeOgImage}
+  canonicalUrl={canonicalUrl}
+  noindex={noindex}
+  schemaType="none"
+>
+  <SchemaMarkup
+    type="article"
+    title={schemaTitle ?? title}
+    description={description}
+    publishDate={publishIso}
+    modifiedDate={modifiedIso}
+    author={author}
+    authorId={authorId}
+    authorTitle={authorTitle}
+    image={safeOgImage}
+    canonical={canonicalUrl}
+  />
+
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+
+  <slot />
+</BaseLayout>

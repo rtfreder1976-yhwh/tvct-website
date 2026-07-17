@@ -1,77 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "February 2025";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-        {
-            "@type": "Question",
-            name: "Who is the best cleaning company in Madison, AL?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "The Valley Clean Team is highly rated for service in Madison, known for consistent 5-star reviews, veteran-owned reliability, and comprehensive insurance. We specialize in serving Madison's unique neighborhoods like Clifts Cove, Town Madison, and Monrovia.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "How much does a cleaning lady cost in Madison?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Independent cleaners in Madison typically charge $30-$40 per hour, while professional companies offer flat-rate pricing starting around $135 for standard cleaning. Professional services provide insurance, supplies, and reliability that individuals often cannot.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you service homes in Triana and Harvest?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, The Valley Clean Team serves the entire Madison area including Triana, Harvest, Capshaw, and Monrovia. We categorize these areas under our Madison service zone with no extra travel fees.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Are your cleaners background checked?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Absolutely. For the safety and peace of mind of our Madison clients, all employees undergo rigorous background checks and professional training. We do not use day labor or subcontractors.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you clean new construction homes in Madison?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, we work with many builders and new homeowners in Madison's growing developments. Our post-construction cleaning removes fine dust from every surface, making the home move-in ready.",
-            },
-        },
-    ],
-};
+const faqs = [
+    {
+        question: "Who is the best cleaning company in Madison, AL?",
+        answer: "The Valley Clean Team is highly rated for service in Madison, known for consistent 5-star reviews, veteran-owned reliability, and comprehensive insurance. We specialize in serving Madison's unique neighborhoods like Clifts Cove, Town Madison, and Monrovia.",
+    },
+    {
+        question: "How much does a cleaning lady cost in Madison?",
+        answer: "Independent cleaners in Madison typically charge $30-$40 per hour, while professional companies offer flat-rate pricing starting around $135 for standard cleaning. Professional services provide insurance, supplies, and reliability that individuals often cannot.",
+    },
+    {
+        question: "Do you service homes in Triana and Harvest?",
+        answer: "Yes, The Valley Clean Team serves the entire Madison area including Triana, Harvest, Capshaw, and Monrovia. We categorize these areas under our Madison service zone with no extra travel fees.",
+    },
+    {
+        question: "Are your cleaners background checked?",
+        answer: "Absolutely. For the safety and peace of mind of our Madison clients, all employees undergo rigorous background checks and professional training. We do not use day labor or subcontractors.",
+    },
+    {
+        question: "Do you clean new construction homes in Madison?",
+        answer: "Yes, we work with many builders and new homeowners in Madison's growing developments. Our post-construction cleaning removes fine dust from every surface, making the home move-in ready.",
+    },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
     title="Best Reliable Cleaning Company in Madison AL"
+    schemaTitle="Can Anyone Recommend a Reliable Cleaning Company in Madison, AL?"
     description="Looking for a reliable cleaning company in Madison, AL? Compare top-rated local services, check pricing, and find the trustworthy cleaners for your home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+    publishDate={publishDate}
+    faqs={faqs}
 >
-    <SchemaMarkup
-        type="article"
-        title="Can Anyone Recommend a Reliable Cleaning Company in Madison, AL?"
-        description="Compare the most reliable cleaning companies in Madison, AL. Detailed guide covering residential services, pricing, and how to choose the best cleaner in 35756/35758."
-        publishDate={publishDate}
-        author={author}
-    />
-
-    <!-- FAQ Schema for AEO -->
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
     <!-- Hero Section -->
     <section
         class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
@@ -93,14 +58,8 @@ const faqSchema = {
                     Finding a cleaner you can trust in Alabama's fastest-growing
                     city.
                 </p>
-                <div
-                    class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-                >
-                    <span>{publishDate}</span>
-                    <span>•</span>
-                    <span>{readTime}</span>
-                    <span>•</span>
-                    <span>By {author}</span>
+                <div class="mb-8">
+                    <BlogByline variant="dark" date={publishDate} readTime={readTime} />
                 </div>
             </div>
         </div>
@@ -429,4 +388,4 @@ const faqSchema = {
             </div>
         </div>
     </section>
-</BaseLayout>
+</BlogPostLayout>

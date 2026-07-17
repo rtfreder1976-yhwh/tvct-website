@@ -1,73 +1,49 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-
-
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
 const modifiedDate = "April 30, 2026";
-const author = "The Valley Clean Team";
 const readTime = "7 min read";
 const heroImage = "https://res.cloudinary.com/dfjneoiaq/image/fetch/f_auto,q_auto,w_800/https://storage.googleapis.com/msgsndr/iKQIBhpKVL2XVPgU7HMd/media/693082241d466e98cf76452a.png";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How do I clean my house fast before guests arrive?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Focus on the areas guests will see and use: bathroom, kitchen, and living room. Use the 'basket method'—grab a laundry basket and toss in everything out of place, then hide the basket. Clean the guest bathroom first (toilet, sink, mirror, fresh towel), then wipe kitchen counters and load dishes. With 3 hours you can do a thorough job; with 30 minutes, prioritize bathroom + surface declutter."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the most important room to clean before guests arrive?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The guest bathroom is always the top priority. No matter how limited your time, always clean the toilet, wipe down the sink and mirror, put out fresh hand towels, and restock toilet paper. Guests notice bathrooms more than any other room, and a clean bathroom signals a well-kept home."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I book last-minute cleaning in Huntsville or Nashville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! The Valley Clean Team offers flexible scheduling throughout Huntsville AL, Nashville TN, and the Shoals area. Call (256) 826-1100 (Alabama) or (615) 510-1427 (Tennessee) to check current availability. We respond to most requests within 2 hours."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What should I NOT bother cleaning when time is short?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "When you have 30 minutes or less, skip vacuuming (unless there's visible debris guests will walk through), dusting, making beds in rooms guests won't see, and any organizing. Just hide clutter in a basket or closed room. Focus 100% on the guest bathroom, kitchen counter/sink, and surface declutter—that's what creates the impression of a clean home."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "How do I clean my house fast before guests arrive?",
+    answer: "Focus on the areas guests will see and use: bathroom, kitchen, and living room. Use the 'basket method'—grab a laundry basket and toss in everything out of place, then hide the basket. Clean the guest bathroom first (toilet, sink, mirror, fresh towel), then wipe kitchen counters and load dishes. With 3 hours you can do a thorough job; with 30 minutes, prioritize bathroom + surface declutter."
+  },
+  {
+    question: "What is the most important room to clean before guests arrive?",
+    answer: "The guest bathroom is always the top priority. No matter how limited your time, always clean the toilet, wipe down the sink and mirror, put out fresh hand towels, and restock toilet paper. Guests notice bathrooms more than any other room, and a clean bathroom signals a well-kept home."
+  },
+  {
+    question: "Can I book last-minute cleaning in Huntsville or Nashville?",
+    answer: "Yes! The Valley Clean Team offers flexible scheduling throughout Huntsville AL, Nashville TN, and the Shoals area. Call (256) 826-1100 (Alabama) or (615) 510-1427 (Tennessee) to check current availability. We respond to most requests within 2 hours."
+  },
+  {
+    question: "What should I NOT bother cleaning when time is short?",
+    answer: "When you have 30 minutes or less, skip vacuuming (unless there's visible debris guests will walk through), dusting, making beds in rooms guests won't see, and any organizing. Just hide clutter in a basket or closed room. Focus 100% on the guest bathroom, kitchen counter/sink, and surface declutter—that's what creates the impression of a clean home."
+  }
+];
 ---
 
-<BaseLayout title="Last-Minute Holiday Cleaning: AL & TN" description="Guests arriving in hours? Quick-clean guide: 3-hour, 1-hour & 30-minute plans. Flexible scheduling available in Huntsville & Nashville — call (256) 826-1100."
-  ogImage="https://thevalleycleanteam.com/og-image.png">
-  <SchemaMarkup type="article" title="Last-Minute Holiday Cleaning Guide 2026" description="Guests arriving in hours? Quick-clean guide: 3-hour, 1-hour & 30-minute plans. Professional cleaning available in Huntsville & Nashville." publishDate={publishDate} modifiedDate={modifiedDate} author={author} image={heroImage} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
+<BlogPostLayout title="Last-Minute Holiday Cleaning: AL & TN"
+  schemaTitle="Last-Minute Holiday Cleaning Guide 2026"
+  description="Guests arriving in hours? Quick-clean guide: 3-hour, 1-hour & 30-minute plans. Flexible scheduling available in Huntsville & Nashville — call (256) 826-1100."
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
+>
 
   <!-- Hero Section -->
   <section class="pt-32 pb-0 px-6 bg-gradient-to-br from-gray-900 to-gray-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-8">
         <span class="category-tag bg-red-900/60 text-red-300">Quick Clean Guide</span>
-        <span class="text-gray-400 text-sm ml-4">
-          <Icon name="calendar" class="w-5 h-5 mr-2" />{publishDate}
-        </span>
-        <span class="text-gray-400 text-sm ml-4">
-          <Icon name="clock" class="w-5 h-5 mr-2" />{readTime}
-        </span>
+        <div class="mt-4">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
+        </div>
       </div>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white text-center leading-tight">
         Last-Minute Holiday Cleaning: <span class="gold-gradient">Quick-Clean Guide</span> When Guests Are Coming
@@ -646,8 +622,8 @@ const faqSchema = {
               <Icon name="users" class="w-6 h-6 text-[#333333]" />
             </div>
             <div>
-              <p class="font-bold text-[#333333]">{author}</p>
-              <p class="text-gray-600 text-sm">Professional Cleaning Services in Alabama & Tennessee</p>
+              <p class="font-bold text-[#333333]"><a href="/about#todd" rel="author" class="hover:text-[#FFA985]">Todd Frederickson</a></p>
+              <p class="text-gray-600 text-sm">Co-Founder, The Valley Clean Team · Professional Cleaning in Alabama & Tennessee</p>
               <p class="text-gray-500 text-sm mt-1">Same-day service available | 256-826-1100</p>
             </div>
           </div>
@@ -715,8 +691,8 @@ const faqSchema = {
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>
 
 <style>
   .category-tag {

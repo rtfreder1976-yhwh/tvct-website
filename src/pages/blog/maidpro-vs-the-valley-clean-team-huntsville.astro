@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "May 2026";
@@ -44,20 +44,15 @@ const faqs = [
 ];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="MaidPro vs The Valley Clean Team: Honest Comparison"
+  schemaTitle="MaidPro vs The Valley Clean Team: An Honest Side-by-Side (Huntsville, Shoals, Athens)"
   description="MaidPro and The Valley Clean Team both serve Huntsville, Athens, and the Shoals. Here is the honest, side-by-side comparison — including where each one wins."
+  publishDate={publishDate}
+  modifiedDate={lastUpdated}
+  author={author}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="MaidPro vs The Valley Clean Team: An Honest Side-by-Side (Huntsville, Shoals, Athens)"
-    description="MaidPro and The Valley Clean Team both serve Huntsville, Athens, and the Shoals. Here is the honest, side-by-side comparison — including where each one wins."
-    publishDate={publishDate}
-    modifiedDate={lastUpdated}
-    author={author}
-    faqs={faqs}
-  />
-
   <!-- Breadcrumb + Header -->
   <section class="pt-32 pb-12 px-6 bg-gray-50">
     <div class="container mx-auto max-w-4xl">
@@ -70,19 +65,8 @@ const faqs = [
       </nav>
 
       <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm">
-        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
-          <time class="flex items-center">
-            <Icon name="calendar-alt" class="w-4 h-4 mr-2" />
-            {publishDate}
-          </time>
-          <span class="flex items-center">
-            <Icon name="user" class="w-4 h-4 mr-2" />
-            {author}
-          </span>
-          <span class="flex items-center">
-            <Icon name="clock" class="w-4 h-4 mr-2" />
-            {readTime}
-          </span>
+        <div class="mb-6 flex justify-start">
+          <BlogByline variant="light" date={lastUpdated} readTime={readTime} />
         </div>
 
         <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-4 leading-tight">
@@ -320,4 +304,4 @@ const faqs = [
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>

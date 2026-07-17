@@ -1,76 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "February 2025";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-        {
-            "@type": "Question",
-            name: "How much does house cleaning cost in Madison, AL?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "House cleaning in Madison, AL costs $135-$200 for standard cleaning of a typical 3-bedroom home, $225-$350 for deep cleaning, and $275-$450 for move-out cleaning. Madison pricing reflects the area's demand and higher cost of living compared to surrounding counties.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you clean homes in Clifts Cove and Heritage Plantation?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, we specialize in cleaning large executive homes in Madison's premier neighborhoods like Clifts Cove and Heritage Plantation. We have the team size and equipment to handle homes over 4,000 sq ft efficiently.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "How much do recurring cleaning services cost in Madison?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Recurring cleaning in Madison offers significant savings. Weekly service averages $110-$160 per visit, bi-weekly runs $125-$175, and monthly service costs $140-$200. Bi-weekly is the most popular choice for Madison families.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do cleaning companies in Madison supply their own products?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, professional cleaning services like The Valley Clean Team bring their own commercial-grade supplies and equipment. We use eco-friendly and pet-safe products, which is a standard expectation for Madison homeowners.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you offer cleaning for Town Madison apartments?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Absolutely. We provide standard and deep cleaning for apartments and townhomes in Town Madison, handling third-floor units and working with complex access codes.",
-            },
-        },
-    ],
-};
+const faqs = [
+    {
+        question: "How much does house cleaning cost in Madison, AL?",
+        answer: "House cleaning in Madison, AL costs $135-$200 for standard cleaning of a typical 3-bedroom home, $225-$350 for deep cleaning, and $275-$450 for move-out cleaning. Madison pricing reflects the area's demand and higher cost of living compared to surrounding counties.",
+    },
+    {
+        question: "Do you clean homes in Clifts Cove and Heritage Plantation?",
+        answer: "Yes, we specialize in cleaning large executive homes in Madison's premier neighborhoods like Clifts Cove and Heritage Plantation. We have the team size and equipment to handle homes over 4,000 sq ft efficiently.",
+    },
+    {
+        question: "How much do recurring cleaning services cost in Madison?",
+        answer: "Recurring cleaning in Madison offers significant savings. Weekly service averages $110-$160 per visit, bi-weekly runs $125-$175, and monthly service costs $140-$200. Bi-weekly is the most popular choice for Madison families.",
+    },
+    {
+        question: "Do cleaning companies in Madison supply their own products?",
+        answer: "Yes, professional cleaning services like The Valley Clean Team bring their own commercial-grade supplies and equipment. We use eco-friendly and pet-safe products, which is a standard expectation for Madison homeowners.",
+    },
+    {
+        question: "Do you offer cleaning for Town Madison apartments?",
+        answer: "Absolutely. We provide standard and deep cleaning for apartments and townhomes in Town Madison, handling third-floor units and working with complex access codes.",
+    },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
     title="House Cleaning Cost Madison AL 2025"
     description="How much does house cleaning cost in Madison, AL? Real 2025 pricing for standard cleaning ($135+), deep cleaning ($225+), and move-out services in Madison City."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+    schemaTitle="House Cleaning Cost in Madison, AL: 2025 Pricing Guide"
+    publishDate={publishDate}
+    faqs={faqs}
 >
-    <SchemaMarkup
-        type="article"
-        title="House Cleaning Cost in Madison, AL: 2025 Pricing Guide"
-        description="Complete guide to house cleaning prices in Madison, Alabama. Real pricing for standard cleaning, deep cleaning, move-out cleaning, and recurring services in 35756 and 35758."
-        publishDate={publishDate}
-        author={author}
-    />
-
-    <!-- FAQ Schema for AEO -->
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
     <!-- Hero Section -->
     <section
@@ -92,14 +58,8 @@ const faqSchema = {
                     Real pricing for Madison City. From Clifts Cove to Town
                     Madison.
                 </p>
-                <div
-                    class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-                >
-                    <span>{publishDate}</span>
-                    <span>•</span>
-                    <span>{readTime}</span>
-                    <span>•</span>
-                    <span>By {author}</span>
+                <div class="mb-8">
+                    <BlogByline variant="dark" date={publishDate} readTime={readTime} />
                 </div>
             </div>
         </div>
@@ -633,4 +593,4 @@ const faqSchema = {
             </div>
         </div>
     </section>
-</BaseLayout>
+</BlogPostLayout>

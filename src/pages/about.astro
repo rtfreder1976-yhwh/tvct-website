@@ -4,37 +4,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 import Icon from '../components/Icon.astro';
 
-// Organization schema for About page
+// About-page schema.
+//
+// IMPORTANT: this does NOT redefine the organization. The canonical
+// Organization entity (with its full sameAs list, aggregateRating, hours,
+// etc.) is emitted once by SchemaMarkup.astro under the @id
+// "https://thevalleycleanteam.com/#organization". Previously this page shipped
+// a SECOND standalone Organization (no @id, only 2 wrongly-formatted sameAs),
+// which read as a competing entity and split the entity signals AI/search use.
+//
+// Instead we (1) reference the canonical org by @id and attach only the
+// founder relationship here, and (2) define the two founders as reusable
+// Person entities with stable @ids (#todd, #christen) so blog posts and other
+// pages can attribute authorship to a real, resolvable person (E-E-A-T).
+const founderTodd = {
+  "@type": "Person",
+  "@id": "https://thevalleycleanteam.com/about#todd",
+  "name": "Todd Frederickson",
+  "jobTitle": "Co-Founder",
+  "worksFor": { "@id": "https://thevalleycleanteam.com/#organization" }
+};
+
+const founderChristen = {
+  "@type": "Person",
+  "@id": "https://thevalleycleanteam.com/about#christen",
+  "name": "Christen Frederickson",
+  "jobTitle": "Co-Founder",
+  "worksFor": { "@id": "https://thevalleycleanteam.com/#organization" }
+};
+
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "The Valley Clean Team",
-  "url": "https://thevalleycleanteam.com",
-  "logo": "https://thevalleycleanteam.com/og-image.png",
-  "description": "Veteran-owned and women-led professional cleaning company serving Alabama and Tennessee since 2022.",
-  "foundingDate": "2022",
-  "founders": [
-    {
-      "@type": "Person",
-      "name": "Todd Frederickson",
-      "jobTitle": "Co-Founder"
-    },
-    {
-      "@type": "Person",
-      "name": "Christen Frederickson",
-      "jobTitle": "Co-Founder"
-    }
-  ],
-  "telephone": "256-826-1100",
-  "email": "hello@thevalleycleanteam.com",
-  "areaServed": [
-    { "@type": "State", "name": "Alabama" },
-    { "@type": "State", "name": "Tennessee" }
-  ],
-  "sameAs": [
-    "https://www.facebook.com/thevalleycleanteam",
-    "https://www.instagram.com/thevalleycleanteam"
-  ]
+  "@id": "https://thevalleycleanteam.com/#organization",
+  "founder": [founderTodd, founderChristen]
 };
 ---
 
@@ -127,6 +130,8 @@ const organizationSchema = {
 
           <!-- Bio Column -->
           <div class="md:col-span-3">
+            <!-- Anchor targets so schema Person @ids (/about#todd, /about#christen) resolve to real on-page content. -->
+            <span id="todd"></span><span id="christen"></span>
             <h3 class="text-2xl font-bold text-[#333333] mb-2">Todd & Christen Frederickson</h3>
             <p class="text-[#FFA985] font-semibold mb-6">Co-Founders</p>
 

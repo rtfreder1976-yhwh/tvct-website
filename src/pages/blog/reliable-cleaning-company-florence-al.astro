@@ -1,77 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "December 17, 2024";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How much does house cleaning cost in Florence, AL?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "House cleaning in Florence, AL typically costs between $125 and $300, depending on home size and service type. Standard cleaning for an average 3-bedroom home starts around $125-$175, while deep cleaning runs $200-$300. Most companies offer discounts for recurring service.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How often should I have my house professionally cleaned?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Most families benefit from bi-weekly professional cleaning, which maintains cleanliness without excessive cost. Homes with pets, children, or high traffic may need weekly service, while singles or couples often find monthly cleaning sufficient.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What's the difference between standard cleaning and deep cleaning?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Standard cleaning covers regular maintenance: vacuuming, mopping, bathroom sanitizing, dusting, and kitchen cleaning. Deep cleaning adds intensive tasks like inside appliances, baseboards, window tracks, and detailed scrubbing—typically needed seasonally or before special events.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Are cleaning companies in Florence, AL insured?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Reputable cleaning companies carry liability insurance and are bonded to protect homeowners. Always ask for proof before booking. The Valley Clean Team is fully insured with $2M coverage that protects your home and belongings.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Should I be home during a house cleaning?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "That's your preference. Many clients provide a door code or spare key and aren't home during cleanings. Trustworthy companies conduct background checks on all staff. If you prefer to be present for your first cleaning, that's completely reasonable.",
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    question: "How much does house cleaning cost in Florence, AL?",
+    answer: "House cleaning in Florence, AL typically costs between $125 and $300, depending on home size and service type. Standard cleaning for an average 3-bedroom home starts around $125-$175, while deep cleaning runs $200-$300. Most companies offer discounts for recurring service.",
+  },
+  {
+    question: "How often should I have my house professionally cleaned?",
+    answer: "Most families benefit from bi-weekly professional cleaning, which maintains cleanliness without excessive cost. Homes with pets, children, or high traffic may need weekly service, while singles or couples often find monthly cleaning sufficient.",
+  },
+  {
+    question: "What's the difference between standard cleaning and deep cleaning?",
+    answer: "Standard cleaning covers regular maintenance: vacuuming, mopping, bathroom sanitizing, dusting, and kitchen cleaning. Deep cleaning adds intensive tasks like inside appliances, baseboards, window tracks, and detailed scrubbing—typically needed seasonally or before special events.",
+  },
+  {
+    question: "Are cleaning companies in Florence, AL insured?",
+    answer: "Reputable cleaning companies carry liability insurance and are bonded to protect homeowners. Always ask for proof before booking. The Valley Clean Team is fully insured with $2M coverage that protects your home and belongings.",
+  },
+  {
+    question: "Should I be home during a house cleaning?",
+    answer: "That's your preference. Many clients provide a door code or spare key and aren't home during cleanings. Trustworthy companies conduct background checks on all staff. If you prefer to be present for your first cleaning, that's completely reasonable.",
+  },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Reliable Cleaning Company in Florence AL"
+  schemaTitle="Can Anyone Recommend a Reliable Cleaning Company in Florence, AL?"
   description="Looking for a reliable cleaning company in Florence, AL? Compare top-rated local services, pricing starting at $125, and find the right fit for your home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Can Anyone Recommend a Reliable Cleaning Company in Florence, AL?"
-    description="Compare the most reliable cleaning companies in Florence, AL. Detailed guide covering residential and commercial services, pricing, and how to choose the best cleaner for your needs."
-    publishDate={publishDate}
-    author={author}
-  />
-
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
   <!-- Hero Section -->
   <section
     class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
@@ -92,14 +57,8 @@ const faqSchema = {
           A straightforward guide to finding trustworthy cleaning services in
           the Shoals area.
         </p>
-        <div
-          class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-        >
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -568,4 +527,4 @@ const faqSchema = {
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>

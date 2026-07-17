@@ -1,78 +1,42 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "March 2025";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "When should I schedule spring cleaning in Athens, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The best time for spring cleaning in Athens is mid-March to early April. Wait until the heaviest pollen passes (usually late March in Limestone County), but finish before summer humidity sets in. Book cleaning services 2-3 weeks ahead during spring."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in a spring deep cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Spring deep cleaning includes everything in standard cleaning plus: inside windows, baseboards, ceiling fans, light fixtures, inside appliances, behind furniture, cabinet fronts, door frames, and detailed scrubbing throughout. It's a complete home reset after winter."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much does spring cleaning cost in Athens, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Spring deep cleaning in Athens typically costs $200-$325 for a 3-bedroom home. Athens pricing is competitive with the Shoals area and about 10-15% lower than Huntsville for comparable services."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do Athens cleaning companies serve Elkmont and Ardmore?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, most cleaning companies serving Athens also cover all of Limestone County including Elkmont, Ardmore, Tanner, East Limestone, and surrounding areas. Some may have a small travel fee for more distant locations."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should I hire a professional for spring cleaning or DIY?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Professional spring cleaning takes a team 4-8 hours versus 2-3 full days DIY. For busy families—especially those commuting to Huntsville or Decatur—hiring help frees up valuable weekend time. The cost difference is often worth reclaiming that time."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "When should I schedule spring cleaning in Athens, AL?",
+    answer: "The best time for spring cleaning in Athens is mid-March to early April. Wait until the heaviest pollen passes (usually late March in Limestone County), but finish before summer humidity sets in. Book cleaning services 2-3 weeks ahead during spring."
+  },
+  {
+    question: "What's included in a spring deep cleaning?",
+    answer: "Spring deep cleaning includes everything in standard cleaning plus: inside windows, baseboards, ceiling fans, light fixtures, inside appliances, behind furniture, cabinet fronts, door frames, and detailed scrubbing throughout. It's a complete home reset after winter."
+  },
+  {
+    question: "How much does spring cleaning cost in Athens, AL?",
+    answer: "Spring deep cleaning in Athens typically costs $200-$325 for a 3-bedroom home. Athens pricing is competitive with the Shoals area and about 10-15% lower than Huntsville for comparable services."
+  },
+  {
+    question: "Do Athens cleaning companies serve Elkmont and Ardmore?",
+    answer: "Yes, most cleaning companies serving Athens also cover all of Limestone County including Elkmont, Ardmore, Tanner, East Limestone, and surrounding areas. Some may have a small travel fee for more distant locations."
+  },
+  {
+    question: "Should I hire a professional for spring cleaning or DIY?",
+    answer: "Professional spring cleaning takes a team 4-8 hours versus 2-3 full days DIY. For busy families—especially those commuting to Huntsville or Decatur—hiring help frees up valuable weekend time. The cost difference is often worth reclaiming that time."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Spring Cleaning Guide Athens AL 2025"
   description="Complete spring cleaning guide for Athens, AL. Room-by-room checklist, timing tips for Limestone County pollen season, and how to get your home ready for summer."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  schemaTitle="Spring Cleaning Guide for Athens, AL: Your Complete 2025 Checklist"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Spring Cleaning Guide for Athens, AL: Your Complete 2025 Checklist"
-    description="Everything you need to know about spring cleaning in Athens and Limestone County. Room-by-room checklist, local timing tips, and professional vs DIY comparison."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,12 +50,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Your complete checklist for refreshing your Limestone County home after winter.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -401,4 +361,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>

@@ -1,78 +1,42 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "December 17, 2024";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does house cleaning cost in Athens, AL?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "House cleaning in Athens typically costs between $125 and $300, depending on home size and service type. Standard cleaning for an average 3-bedroom home starts around $125-$175, while deep cleaning runs $200-$300. Athens pricing is competitive with the broader North Alabama market."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I have my house professionally cleaned?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most families benefit from bi-weekly professional cleaning, which maintains cleanliness without excessive cost. Homes with pets, children, or high traffic may need weekly service, while singles or couples often find monthly cleaning sufficient."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's the difference between standard cleaning and deep cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Standard cleaning covers regular maintenance: vacuuming, mopping, bathroom sanitizing, dusting, and kitchen cleaning. Deep cleaning adds intensive tasks like inside appliances, baseboards, window tracks, and detailed scrubbing—typically needed seasonally or before special events."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are cleaning companies in Athens, AL insured?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Reputable cleaning companies carry liability insurance and are bonded to protect homeowners. Always ask for proof before booking. The Valley Clean Team is fully insured with $2M coverage that protects your home and belongings."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do Athens cleaning companies serve the surrounding areas?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, most cleaning companies based in Athens also serve surrounding Limestone County communities including Elkmont, Ardmore, Tanner, and East Limestone. The Valley Clean Team serves all of Limestone County and surrounding areas."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "How much does house cleaning cost in Athens, AL?",
+    answer: "House cleaning in Athens typically costs between $125 and $300, depending on home size and service type. Standard cleaning for an average 3-bedroom home starts around $125-$175, while deep cleaning runs $200-$300. Athens pricing is competitive with the broader North Alabama market."
+  },
+  {
+    question: "How often should I have my house professionally cleaned?",
+    answer: "Most families benefit from bi-weekly professional cleaning, which maintains cleanliness without excessive cost. Homes with pets, children, or high traffic may need weekly service, while singles or couples often find monthly cleaning sufficient."
+  },
+  {
+    question: "What's the difference between standard cleaning and deep cleaning?",
+    answer: "Standard cleaning covers regular maintenance: vacuuming, mopping, bathroom sanitizing, dusting, and kitchen cleaning. Deep cleaning adds intensive tasks like inside appliances, baseboards, window tracks, and detailed scrubbing—typically needed seasonally or before special events."
+  },
+  {
+    question: "Are cleaning companies in Athens, AL insured?",
+    answer: "Reputable cleaning companies carry liability insurance and are bonded to protect homeowners. Always ask for proof before booking. The Valley Clean Team is fully insured with $2M coverage that protects your home and belongings."
+  },
+  {
+    question: "Do Athens cleaning companies serve the surrounding areas?",
+    answer: "Yes, most cleaning companies based in Athens also serve surrounding Limestone County communities including Elkmont, Ardmore, Tanner, and East Limestone. The Valley Clean Team serves all of Limestone County and surrounding areas."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Best Reliable Cleaning Company in Athens AL"
+  schemaTitle="Can Anyone Recommend a Reliable Cleaning Company in Athens, AL?"
   description="Looking for a reliable cleaning company in Athens, AL? Compare top-rated local services, pricing starting at $125, and find the right fit for your home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Can Anyone Recommend a Reliable Cleaning Company in Athens, AL?"
-    description="Compare the most reliable cleaning companies in Athens, AL. Detailed guide covering residential and commercial services, pricing, and how to choose the best cleaner for your needs."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,12 +50,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           A straightforward guide to finding trustworthy cleaning services in Limestone County.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -365,4 +325,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>

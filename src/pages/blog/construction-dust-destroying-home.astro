@@ -1,68 +1,40 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
 const modifiedDate = "April 29, 2026";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is construction dust dangerous to your health?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Construction dust can contain silica particles from concrete, lead from older paint, asbestos fibers from old insulation, and wood/drywall dust that cause respiratory irritation. Fine particles can be inhaled deep into the lungs. If your home was built before 1980 and renovation disturbed old materials, get professional testing before cleaning."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Why does construction dust keep coming back after cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Because construction dust hides in your HVAC system, inside cabinets, in soft furnishings, and in cracks and crevices. Every time your heating or cooling runs, it redistributes dust. Standard vacuums without HEPA filters also blow fine dust back into the air. Professional post-construction cleaning addresses all sources in the correct order — dry removal before wet cleaning."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How many visits does post-construction cleaning take?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Proper post-construction cleaning typically requires 2–3 visits over several days. The first visit removes the bulk of debris and dust. A second visit addresses what settled after the first clean. A final touch-up visit handles any remaining areas. This multi-phase process is necessary because airborne dust keeps resettling between visits."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I clean construction dust myself?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You can attempt it, but standard household equipment isn't effective. Regular vacuums lack HEPA filters and blow fine dust back into the air. Wet-cleaning drywall dust first turns it into a paste that stains surfaces. Professional crews use HEPA vacuums, industrial air scrubbers, and specialized microfiber systems to actually capture and remove construction dust rather than redistribute it."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "Is construction dust dangerous to your health?",
+    answer: "Yes. Construction dust can contain silica particles from concrete, lead from older paint, asbestos fibers from old insulation, and wood/drywall dust that cause respiratory irritation. Fine particles can be inhaled deep into the lungs. If your home was built before 1980 and renovation disturbed old materials, get professional testing before cleaning."
+  },
+  {
+    question: "Why does construction dust keep coming back after cleaning?",
+    answer: "Because construction dust hides in your HVAC system, inside cabinets, in soft furnishings, and in cracks and crevices. Every time your heating or cooling runs, it redistributes dust. Standard vacuums without HEPA filters also blow fine dust back into the air. Professional post-construction cleaning addresses all sources in the correct order — dry removal before wet cleaning."
+  },
+  {
+    question: "How many visits does post-construction cleaning take?",
+    answer: "Proper post-construction cleaning typically requires 2–3 visits over several days. The first visit removes the bulk of debris and dust. A second visit addresses what settled after the first clean. A final touch-up visit handles any remaining areas. This multi-phase process is necessary because airborne dust keeps resettling between visits."
+  },
+  {
+    question: "Can I clean construction dust myself?",
+    answer: "You can attempt it, but standard household equipment isn't effective. Regular vacuums lack HEPA filters and blow fine dust back into the air. Wet-cleaning drywall dust first turns it into a paste that stains surfaces. Professional crews use HEPA vacuums, industrial air scrubbers, and specialized microfiber systems to actually capture and remove construction dust rather than redistribute it."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Post-Renovation Cleanup Guide for Homes"
+  schemaTitle="Construction Dust Is Destroying Your Home"
   description="Construction dust damages your HVAC, floors, and electronics — and harms your health. Learn why DIY doesn't work and what professional post-construction cleaning actually involves."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Construction Dust Is Destroying Your Home"
-    description="Just finished renovations? That fine dust isn't just annoying—it's damaging your home and health. Learn how to properly clean up after construction."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -78,12 +50,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           That fine white powder left behind after renovations isn't just annoying — it's damaging your HVAC, floors, electronics, and your family's health.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
@@ -525,5 +493,5 @@ const faqSchema = {
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

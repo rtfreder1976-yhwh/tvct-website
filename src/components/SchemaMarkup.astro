@@ -22,6 +22,11 @@ interface Props {
   publishDate?: string;
   modifiedDate?: string;
   author?: string;
+  // Optional named-person author for BlogPosting E-E-A-T. When authorId is set,
+  // the article's `author` is emitted as a Person (@id, worksFor → org) instead
+  // of the default Organization. Anchors to a real, resolvable bio (/about#todd).
+  authorId?: string;
+  authorTitle?: string;
   image?: string;
   // HowTo schema props (for step-by-step blog posts)
   howToSteps?: Array<{ name: string; text: string; image?: string }>;
@@ -46,6 +51,8 @@ const {
   publishDate,
   modifiedDate,
   author = "The Valley Clean Team",
+  authorId,
+  authorTitle,
   image,
   howToSteps,
   totalTime,
@@ -357,11 +364,21 @@ const articleSchema =
           : publishDate
             ? new Date(publishDate).toISOString()
             : new Date().toISOString(),
-        author: {
-          "@type": "Organization",
-          name: author,
-          "@id": "https://thevalleycleanteam.com/#organization",
-        },
+        // Named-person author (E-E-A-T) when authorId is provided; otherwise
+        // fall back to the Organization as author (legacy default).
+        author: authorId
+          ? {
+              "@type": "Person",
+              "@id": authorId,
+              name: author,
+              ...(authorTitle ? { jobTitle: authorTitle } : {}),
+              worksFor: { "@id": "https://thevalleycleanteam.com/#organization" },
+            }
+          : {
+              "@type": "Organization",
+              name: author,
+              "@id": "https://thevalleycleanteam.com/#organization",
+            },
         publisher: {
           "@type": "Organization",
           name: "The Valley Clean Team",

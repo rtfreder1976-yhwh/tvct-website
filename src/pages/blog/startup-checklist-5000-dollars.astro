@@ -1,26 +1,18 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 
 const draft = false;
 const publishDate = "April 1, 2026";
-const author = "The Valley Clean Team";
 const readTime = "6 min read";
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="The $5,000 Startup Checklist"
   description="Want to start a local service business without debt? Discover the exact $5,000 startup checklist Todd and Christen used to launch The Valley Clean Team."
+  schemaTitle="The $5,000 Startup Checklist: How to Launch a Local Business"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="The $5,000 Startup Checklist: How to Launch a Local Business"
-    description="Want to start a local service business without debt? Discover the exact $5,000 startup checklist Todd and Christen used to launch The Valley Clean Team."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-blue-900 via-gray-800 to-blue-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,12 +24,8 @@ const readTime = "6 min read";
           The $5,000 Startup<br>
           <span class="text-blue-400">Checklist</span>
         </h1>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -122,4 +110,4 @@ const readTime = "6 min read";
     </div>
   </section>
 
-</BaseLayout>
+</BlogPostLayout>

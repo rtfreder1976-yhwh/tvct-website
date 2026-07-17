@@ -1,68 +1,40 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "November 26, 2025";
 const modifiedDate = "April 29, 2026";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Why do cleaning services do a bad job?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most cleaning service disappointments come from five root causes: low barriers to entry (anyone can start a company with no training), race-to-the-bottom pricing that forces corners to be cut, no standardized systems or checklists, high staff turnover, and franchises prioritizing volume over quality. Look for companies with documented processes, proper insurance, background-checked staff, and a satisfaction guarantee."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What should I ask a cleaning company before hiring them?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ask these 7 questions: (1) Can you show proof of insurance? (2) What's included and not included? (3) What's your quality control process? (4) Will I have the same cleaner each visit? (5) What happens if I'm not satisfied? (6) Do you background-check employees? (7) How long have your cleaners been with you? A good company answers all of these confidently."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I find a reliable cleaning service?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Look for: documented cleaning checklists, liability insurance and workers' comp, background-checked employees, long staff tenure (low turnover), fast communication response times, mid-range pricing (not the cheapest), a clear satisfaction guarantee, and recent positive reviews with professional responses to complaints."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is it normal for the first cleaning to be imperfect?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes — the first clean is establishing a baseline, not maintaining one. The cleaner is learning your home's layout and your preferences for the first time. Give feedback after the first visit. A good company takes it seriously and improves by the second or third clean. If the same problems persist after feedback, move on."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "Why do cleaning services do a bad job?",
+    answer: "Most cleaning service disappointments come from five root causes: low barriers to entry (anyone can start a company with no training), race-to-the-bottom pricing that forces corners to be cut, no standardized systems or checklists, high staff turnover, and franchises prioritizing volume over quality. Look for companies with documented processes, proper insurance, background-checked staff, and a satisfaction guarantee."
+  },
+  {
+    question: "What should I ask a cleaning company before hiring them?",
+    answer: "Ask these 7 questions: (1) Can you show proof of insurance? (2) What's included and not included? (3) What's your quality control process? (4) Will I have the same cleaner each visit? (5) What happens if I'm not satisfied? (6) Do you background-check employees? (7) How long have your cleaners been with you? A good company answers all of these confidently."
+  },
+  {
+    question: "How do I find a reliable cleaning service?",
+    answer: "Look for: documented cleaning checklists, liability insurance and workers' comp, background-checked employees, long staff tenure (low turnover), fast communication response times, mid-range pricing (not the cheapest), a clear satisfaction guarantee, and recent positive reviews with professional responses to complaints."
+  },
+  {
+    question: "Is it normal for the first cleaning to be imperfect?",
+    answer: "Yes — the first clean is establishing a baseline, not maintaining one. The cleaner is learning your home's layout and your preferences for the first time. Give feedback after the first visit. A good company takes it seriously and improves by the second or third clean. If the same problems persist after feedback, move on."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Why Cleaning Services Disappoint"
   description="5 reasons cleaning companies let you down — and the 7 questions to ask before hiring. A cleaning company tells you the truth about the industry."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  schemaTitle="Why Cleaning Services Disappoint & How to Fix"
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Why Cleaning Services Disappoint & How to Fix"
-    description="Tired of cleaning services that overpromise and underdeliver? Here's what goes wrong and exactly what to look for in a reliable cleaning company."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
 
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -78,12 +50,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           A cleaning company tells you the uncomfortable truth about why the industry lets people down — and exactly what to look for.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
@@ -499,5 +467,5 @@ const faqSchema = {
     </div>
   </section>
 
-  
-</BaseLayout>
+
+</BlogPostLayout>

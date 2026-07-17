@@ -1,78 +1,42 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "March 2025";
-const author = "The Valley Clean Team";
 const readTime = "11 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "When should I schedule spring cleaning in Nashville, TN?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The best time for spring cleaning in Nashville is mid-March to early April. Wait until the worst pollen has passed (usually late March), but complete cleaning before summer humidity arrives. Book 3-4 weeks ahead—Nashville cleaning services fill up fast during spring."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much does spring cleaning cost in Nashville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Spring deep cleaning in Nashville typically costs $250-$450 for a 3-bedroom home. Belle Meade and Franklin homes (often larger) may run $400-$600+. Nashville pricing is 20-30% higher than Alabama markets due to the city's elevated cost of living."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in a spring deep cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Spring deep cleaning includes everything in standard cleaning plus: inside windows, baseboards, ceiling fans, light fixtures, inside appliances (oven, refrigerator), behind furniture, cabinet fronts, door frames, air vents, and detailed scrubbing throughout."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should Airbnb hosts schedule spring cleaning differently?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, Nashville Airbnb hosts should schedule spring deep cleaning during a booking gap in March or early April. This is more intensive than turnover cleaning and addresses annual maintenance tasks. Consider blocking 1-2 days for the cleaning plus any needed repairs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I find a reliable spring cleaning service in Nashville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Look for liability insurance ($2M recommended for Nashville's larger homes), bonding, background-checked employees, and strong local reviews. Nashville's rapid growth means many new operators—verify credentials and check reviews from the past 6-12 months."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "When should I schedule spring cleaning in Nashville, TN?",
+    answer: "The best time for spring cleaning in Nashville is mid-March to early April. Wait until the worst pollen has passed (usually late March), but complete cleaning before summer humidity arrives. Book 3-4 weeks ahead—Nashville cleaning services fill up fast during spring."
+  },
+  {
+    question: "How much does spring cleaning cost in Nashville?",
+    answer: "Spring deep cleaning in Nashville typically costs $250-$450 for a 3-bedroom home. Belle Meade and Franklin homes (often larger) may run $400-$600+. Nashville pricing is 20-30% higher than Alabama markets due to the city's elevated cost of living."
+  },
+  {
+    question: "What's included in a spring deep cleaning?",
+    answer: "Spring deep cleaning includes everything in standard cleaning plus: inside windows, baseboards, ceiling fans, light fixtures, inside appliances (oven, refrigerator), behind furniture, cabinet fronts, door frames, air vents, and detailed scrubbing throughout."
+  },
+  {
+    question: "Should Airbnb hosts schedule spring cleaning differently?",
+    answer: "Yes, Nashville Airbnb hosts should schedule spring deep cleaning during a booking gap in March or early April. This is more intensive than turnover cleaning and addresses annual maintenance tasks. Consider blocking 1-2 days for the cleaning plus any needed repairs."
+  },
+  {
+    question: "How do I find a reliable spring cleaning service in Nashville?",
+    answer: "Look for liability insurance ($2M recommended for Nashville's larger homes), bonding, background-checked employees, and strong local reviews. Nashville's rapid growth means many new operators—verify credentials and check reviews from the past 6-12 months."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Spring Cleaning Guide Nashville TN 2025"
   description="Complete spring cleaning guide for Nashville, TN. Room-by-room checklist for Belle Meade, Green Hills, Franklin & Brentwood. Plus tips for Airbnb hosts."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  schemaTitle="Spring Cleaning Guide for Nashville, TN: Your Complete 2025 Checklist"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Spring Cleaning Guide for Nashville, TN: Your Complete 2025 Checklist"
-    description="Everything you need to know about spring cleaning in Nashville and Middle Tennessee. Room-by-room checklist, neighborhood tips, Airbnb host section, and professional vs DIY comparison."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,12 +50,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Your complete checklist for refreshing your Music City home—from downtown condos to Belle Meade estates.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -432,4 +392,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>

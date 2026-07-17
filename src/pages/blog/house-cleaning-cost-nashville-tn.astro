@@ -1,77 +1,43 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "February 2026";
-const author = "The Valley Clean Team";
 const readTime = "9 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How much does house cleaning cost in Nashville, TN?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "House cleaning in Nashville costs $150-$225 for standard cleaning of a 3-bedroom home, $250-$400 for deep cleaning, and $300-$500 for move-out cleaning. Nashville prices are the highest in our service area due to the city's rapid growth and elevated cost of living.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Why is house cleaning more expensive in Nashville?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Nashville's explosive population growth, booming economy, and high cost of living have pushed service prices up across the board. Demand for cleaning services far exceeds supply, especially for quality providers. Prices are 20-40% higher than most Alabama markets.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How much does Airbnb turnover cleaning cost in Nashville?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Airbnb turnover cleaning in Nashville typically costs $100-$200 depending on property size and requirements. This includes cleaning between guests, linen changes, restocking supplies, and ensuring the property is guest-ready. Many hosts pay $125-$150 for a standard 2-bedroom property.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How much do recurring cleaning services cost in Nashville?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Recurring cleaning in Nashville offers 10-20% savings. Weekly service averages $125-$190 per visit, bi-weekly runs $140-$210, and monthly service costs $145-$220. Many Nashville professionals choose weekly service to maximize their limited free time.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Do Nashville cleaning prices vary by neighborhood?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Prices vary based on home size and travel distance. Belle Meade and Green Hills homes tend to be larger with higher quotes. Franklin and Brentwood in Williamson County often see premium pricing. Downtown and East Nashville have smaller spaces with more moderate costs.",
-      },
-    },
-  ],
-};
+// FAQ single source of truth — BlogPostLayout emits the FAQPage schema.
+const faqs = [
+  {
+    question: "How much does house cleaning cost in Nashville, TN?",
+    answer: "House cleaning in Nashville costs $150-$225 for standard cleaning of a 3-bedroom home, $250-$400 for deep cleaning, and $300-$500 for move-out cleaning. Nashville prices are the highest in our service area due to the city's rapid growth and elevated cost of living.",
+  },
+  {
+    question: "Why is house cleaning more expensive in Nashville?",
+    answer: "Nashville's explosive population growth, booming economy, and high cost of living have pushed service prices up across the board. Demand for cleaning services far exceeds supply, especially for quality providers. Prices are 20-40% higher than most Alabama markets.",
+  },
+  {
+    question: "How much does Airbnb turnover cleaning cost in Nashville?",
+    answer: "Airbnb turnover cleaning in Nashville typically costs $100-$200 depending on property size and requirements. This includes cleaning between guests, linen changes, restocking supplies, and ensuring the property is guest-ready. Many hosts pay $125-$150 for a standard 2-bedroom property.",
+  },
+  {
+    question: "How much do recurring cleaning services cost in Nashville?",
+    answer: "Recurring cleaning in Nashville offers 10-20% savings. Weekly service averages $125-$190 per visit, bi-weekly runs $140-$210, and monthly service costs $145-$220. Many Nashville professionals choose weekly service to maximize their limited free time.",
+  },
+  {
+    question: "Do Nashville cleaning prices vary by neighborhood?",
+    answer: "Prices vary based on home size and travel distance. Belle Meade and Green Hills homes tend to be larger with higher quotes. Franklin and Brentwood in Williamson County often see premium pricing. Downtown and East Nashville have smaller spaces with more moderate costs.",
+  },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="House Cleaning Cost in Nashville, TN (2026 Prices) | Valley Clean Team"
+  schemaTitle="Nashville House Cleaning Prices 2026: $130–$350 for Most Homes"
   description="Real 2026 house cleaning rates in Nashville: standard cleans from $130, deep cleans from $220, move-out from $280. Veteran-owned, insured, 5-star rated."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Nashville House Cleaning Prices 2026: $130–$350 for Most Homes"
-    description="Complete guide to house cleaning prices in Nashville, Tennessee. Real pricing for standard cleaning, deep cleaning, move-out cleaning, and Airbnb turnover in Franklin, Brentwood, and Metro Nashville."
-    publishDate={publishDate}
-    author={author}
-  />
-
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-
   <!-- Hero Section -->
   <section
     class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
@@ -92,14 +58,8 @@ const faqSchema = {
           Real pricing for Music City. The highest in our service area—here's
           why.
         </p>
-        <div
-          class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-        >
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -675,4 +635,4 @@ const faqSchema = {
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>

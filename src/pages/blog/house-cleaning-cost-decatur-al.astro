@@ -1,76 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "February 2025";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: [
-        {
-            "@type": "Question",
-            name: "How much does house cleaning cost in Decatur, AL?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "House cleaning in Decatur, AL costs $125-$185 for standard cleaning of a 3-bedroom home, $200-$325 for deep cleaning, and $250-$425 for move-out cleaning. Decatur pricing attracts competitive rates, typically 10% lower than Huntsville.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you clean historic homes in Old Decatur or Albany?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, we specialize in cleaning historic Victorian homes in Old Decatur and Albany. We use gentle products and specific techniques to care for original hardwood floors, antique fixtures, and period details found in these historic districts.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "How much do recurring cleaning services cost in Decatur?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Recurring cleaning in Decatur offers 10-20% savings. Weekly service averages $100-$145 per visit, bi-weekly runs $115-$160, and monthly service costs $125-$180. Many Decatur families choose bi-weekly service.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you serve Priceville and Hartselle?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, we serve the entire Decatur metro area including Priceville, Hartselle, Trinity, and Moulton. Our team covers all of Morgan County with the same consistent pricing.",
-            },
-        },
-        {
-            "@type": "Question",
-            name: "Do you offer cleaning for Airbnb rentals near Point Mallard?",
-            acceptedAnswer: {
-                "@type": "Answer",
-                text: "Yes, we provide specialized turnover cleaning for short-term rentals near Point Mallard Park and Wheeler Lake. We understand the tight schedules required between guests and ensure 5-star standard cleanliness.",
-            },
-        },
-    ],
-};
+const faqs = [
+    {
+        question: "How much does house cleaning cost in Decatur, AL?",
+        answer: "House cleaning in Decatur, AL costs $125-$185 for standard cleaning of a 3-bedroom home, $200-$325 for deep cleaning, and $250-$425 for move-out cleaning. Decatur pricing attracts competitive rates, typically 10% lower than Huntsville.",
+    },
+    {
+        question: "Do you clean historic homes in Old Decatur or Albany?",
+        answer: "Yes, we specialize in cleaning historic Victorian homes in Old Decatur and Albany. We use gentle products and specific techniques to care for original hardwood floors, antique fixtures, and period details found in these historic districts.",
+    },
+    {
+        question: "How much do recurring cleaning services cost in Decatur?",
+        answer: "Recurring cleaning in Decatur offers 10-20% savings. Weekly service averages $100-$145 per visit, bi-weekly runs $115-$160, and monthly service costs $125-$180. Many Decatur families choose bi-weekly service.",
+    },
+    {
+        question: "Do you serve Priceville and Hartselle?",
+        answer: "Yes, we serve the entire Decatur metro area including Priceville, Hartselle, Trinity, and Moulton. Our team covers all of Morgan County with the same consistent pricing.",
+    },
+    {
+        question: "Do you offer cleaning for Airbnb rentals near Point Mallard?",
+        answer: "Yes, we provide specialized turnover cleaning for short-term rentals near Point Mallard Park and Wheeler Lake. We understand the tight schedules required between guests and ensure 5-star standard cleanliness.",
+    },
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
     title="House Cleaning Cost Decatur AL 2025"
     description="How much does house cleaning cost in Decatur, AL? Real 2025 pricing for standard cleaning ($125+), deep cleaning ($200+), and move-out services in Morgan County."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+    schemaTitle="House Cleaning Cost in Decatur, AL: 2025 Pricing Guide"
+    publishDate={publishDate}
+    faqs={faqs}
 >
-    <SchemaMarkup
-        type="article"
-        title="House Cleaning Cost in Decatur, AL: 2025 Pricing Guide"
-        description="Complete guide to house cleaning prices in Decatur, Alabama. Real pricing for standard cleaning, deep cleaning, move-out cleaning, and recurring services in Morgan County."
-        publishDate={publishDate}
-        author={author}
-    />
-
-    <!-- FAQ Schema for AEO -->
-    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
     <!-- Hero Section -->
     <section
@@ -92,14 +58,8 @@ const faqSchema = {
                     Real pricing for The River City. No vague ranges. No
                     surprises.
                 </p>
-                <div
-                    class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-                >
-                    <span>{publishDate}</span>
-                    <span>•</span>
-                    <span>{readTime}</span>
-                    <span>•</span>
-                    <span>By {author}</span>
+                <div class="mb-8">
+                    <BlogByline variant="dark" date={publishDate} readTime={readTime} />
                 </div>
             </div>
         </div>
@@ -628,4 +588,4 @@ const faqSchema = {
             </div>
         </div>
     </section>
-</BaseLayout>
+</BlogPostLayout>

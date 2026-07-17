@@ -1,0 +1,56 @@
+---
+/**
+ * Standardized blog byline — the single canonical author/date/read-time line.
+ *
+ * Replaces the 4 divergent hand-rolled byline patterns across the blog posts
+ * (`<span>By {author}</span>`, bare `{author}`, etc.). The named author links
+ * to a real, resolvable bio anchor (/about#todd) so the visible byline matches
+ * the BlogPosting Person schema — the E-E-A-T signal search/AI engines weight.
+ *
+ * Drop this in where a post's old byline row was. It is presentation-only; the
+ * JSON-LD is emitted by BlogPostLayout via SchemaMarkup.
+ */
+interface Props {
+  author?: string;
+  authorUrl?: string;
+  authorTitle?: string;
+  /** Accepts any of the 3 date shapes used across posts (string / Date / ISO). */
+  date?: string | Date;
+  readTime?: string;
+  /** Light text for dark hero backgrounds; defaults to muted gray. */
+  variant?: "light" | "dark";
+}
+
+const {
+  author = "Todd Frederickson",
+  authorUrl = "/about#todd",
+  authorTitle = "Co-Founder",
+  date,
+  readTime,
+  variant = "light",
+} = Astro.props;
+
+// Normalize whatever date shape the post supplied into a readable label.
+let dateLabel = "";
+if (date) {
+  const d = date instanceof Date ? date : new Date(date);
+  dateLabel = isNaN(d.getTime())
+    ? String(date) // if it wasn't a parseable date, show it verbatim
+    : d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+}
+
+const textClass = variant === "dark" ? "text-gray-300" : "text-gray-500";
+const linkClass = variant === "dark" ? "text-white hover:text-[#FFA985]" : "text-[#333333] hover:text-[#FFA985]";
+---
+
+<div class={`flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm ${textClass}`}>
+  <span>
+    By{" "}
+    <a href={authorUrl} rel="author" class={`font-semibold underline-offset-2 hover:underline ${linkClass}`}>{author}</a>
+    {authorTitle && <span class="font-normal"> · {authorTitle}</span>}
+  </span>
+  {dateLabel && <span aria-hidden="true">·</span>}
+  {dateLabel && <span>Updated {dateLabel}</span>}
+  {readTime && <span aria-hidden="true">·</span>}
+  {readTime && <span>{readTime}</span>}
+</div>

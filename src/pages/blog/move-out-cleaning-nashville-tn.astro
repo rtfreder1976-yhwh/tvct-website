@@ -1,81 +1,45 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BlogByline from '../../components/BlogByline.astro';
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "May 2025";
 const modifiedDate = "April 29, 2026";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does move-out cleaning cost in Nashville, TN?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Move-out cleaning in Nashville costs $300-$500 for a typical 3-bedroom home. Larger homes in Belle Meade or Franklin run $500-$750+. Downtown condos and Gulch apartments typically cost $225-$400. Nashville pricing is 20-30% higher than Alabama markets due to cost of living."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's included in move-out cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Move-out cleaning includes everything in deep cleaning plus specific move-out tasks: inside all appliances (oven, refrigerator, dishwasher), inside all cabinets and drawers, closet interiors, baseboards throughout, window tracks, light fixtures, and ensuring the home is inspection-ready."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "When should I schedule move-out cleaning in Nashville?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Schedule move-out cleaning for the day after you've removed all belongings but before your final walkthrough. Book at least 2-3 weeks ahead in Nashville—the market is extremely competitive and month-end appointments fill very quickly."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do Nashville Airbnb owners need move-out cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "If you're ending an Airbnb lease or selling a property that was used as a short-term rental, yes. STR properties see heavy use and need thorough move-out cleaning to restore them to market condition. This is different from turnover cleaning between guests."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Will move-out cleaning help me get my deposit back?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, professional move-out cleaning significantly improves your chances of getting your full security deposit back. Nashville landlords and property managers typically deduct $300-$600+ for cleaning if the home isn't left in good condition."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "How much does move-out cleaning cost in Nashville, TN?",
+    answer: "Move-out cleaning in Nashville costs $300-$500 for a typical 3-bedroom home. Larger homes in Belle Meade or Franklin run $500-$750+. Downtown condos and Gulch apartments typically cost $225-$400. Nashville pricing is 20-30% higher than Alabama markets due to cost of living."
+  },
+  {
+    question: "What's included in move-out cleaning?",
+    answer: "Move-out cleaning includes everything in deep cleaning plus specific move-out tasks: inside all appliances (oven, refrigerator, dishwasher), inside all cabinets and drawers, closet interiors, baseboards throughout, window tracks, light fixtures, and ensuring the home is inspection-ready."
+  },
+  {
+    question: "When should I schedule move-out cleaning in Nashville?",
+    answer: "Schedule move-out cleaning for the day after you've removed all belongings but before your final walkthrough. Book at least 2-3 weeks ahead in Nashville—the market is extremely competitive and month-end appointments fill very quickly."
+  },
+  {
+    question: "Do Nashville Airbnb owners need move-out cleaning?",
+    answer: "If you're ending an Airbnb lease or selling a property that was used as a short-term rental, yes. STR properties see heavy use and need thorough move-out cleaning to restore them to market condition. This is different from turnover cleaning between guests."
+  },
+  {
+    question: "Will move-out cleaning help me get my deposit back?",
+    answer: "Yes, professional move-out cleaning significantly improves your chances of getting your full security deposit back. Nashville landlords and property managers typically deduct $300-$600+ for cleaning if the home isn't left in good condition."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Move-Out Cleaning Nashville TN Guide"
+  schemaTitle="Move-Out Cleaning in Nashville, TN: Get Your Full Deposit Back"
   canonicalUrl="https://thevalleycleanteam.com/locations/nashville/move-out-cleaning"
   description="Move-out cleaning in Nashville from $225. What's included, pricing by neighborhood (Belle Meade, East Nashville, Franklin), and how to book before month-end fills up."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Move-Out Cleaning in Nashville, TN: Get Your Full Deposit Back"
-    description="Complete guide to move-out cleaning services in Nashville and Middle Tennessee. Pricing by neighborhood, what's included, and scheduling tips for Music City moves."
-    publishDate={publishDate}
-    modifiedDate={modifiedDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
   <!-- Hero Section -->
   <section class="pt-24 pb-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,12 +53,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Get your full deposit back. Pricing from $225 — Belle Meade, East Nashville, Franklin, The Gulch, and all of Middle Tennessee.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
           <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-[#FFA985] rounded-full hover:bg-[#ff9a70] transition shadow-lg">
@@ -480,4 +440,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>

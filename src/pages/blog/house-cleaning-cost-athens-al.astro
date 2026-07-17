@@ -1,76 +1,42 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 const publishDate = "February 2025";
-const author = "The Valley Clean Team";
 const readTime = "8 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How much does house cleaning cost in Athens, AL?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "House cleaning in Athens, AL costs $125-$175 for standard cleaning of a 3-bedroom home, $200-$300 for deep cleaning, and $250-$400 for move-out cleaning. Athens pricing is comparable to Florence and slightly lower than Huntsville.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is house cleaning cheaper in Athens than Huntsville?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes, Athens cleaning prices are typically 10-15% lower than Huntsville. Limestone County has a lower cost of living than Madison County, which translates to more affordable service prices while maintaining quality.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How much do recurring cleaning services cost in Athens?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Recurring cleaning in Athens offers 10-20% savings. Weekly service averages $100-$140 per visit, bi-weekly runs $110-$155, and monthly service costs $120-$170. Most Athens families choose bi-weekly service.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Do Athens cleaning companies also serve Elkmont and Ardmore?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes, most Athens-based cleaning companies serve all of Limestone County including Elkmont, Ardmore, Tanner, East Limestone, and surrounding areas. Some may charge a small travel fee for more distant locations.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Should I hire an independent cleaner or a company in Athens?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Athens has many independent cleaners advertising on Facebook, but many lack insurance. Professional companies cost 10-20% more but provide liability coverage, consistent quality, and backup staff if your regular cleaner is unavailable.",
-      },
-    },
-  ],
-};
+const faqs = [
+  {
+    question: "How much does house cleaning cost in Athens, AL?",
+    answer: "House cleaning in Athens, AL costs $125-$175 for standard cleaning of a 3-bedroom home, $200-$300 for deep cleaning, and $250-$400 for move-out cleaning. Athens pricing is comparable to Florence and slightly lower than Huntsville."
+  },
+  {
+    question: "Is house cleaning cheaper in Athens than Huntsville?",
+    answer: "Yes, Athens cleaning prices are typically 10-15% lower than Huntsville. Limestone County has a lower cost of living than Madison County, which translates to more affordable service prices while maintaining quality."
+  },
+  {
+    question: "How much do recurring cleaning services cost in Athens?",
+    answer: "Recurring cleaning in Athens offers 10-20% savings. Weekly service averages $100-$140 per visit, bi-weekly runs $110-$155, and monthly service costs $120-$170. Most Athens families choose bi-weekly service."
+  },
+  {
+    question: "Do Athens cleaning companies also serve Elkmont and Ardmore?",
+    answer: "Yes, most Athens-based cleaning companies serve all of Limestone County including Elkmont, Ardmore, Tanner, East Limestone, and surrounding areas. Some may charge a small travel fee for more distant locations."
+  },
+  {
+    question: "Should I hire an independent cleaner or a company in Athens?",
+    answer: "Athens has many independent cleaners advertising on Facebook, but many lack insurance. Professional companies cost 10-20% more but provide liability coverage, consistent quality, and backup staff if your regular cleaner is unavailable."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="House Cleaning Cost Athens AL 2026"
+  schemaTitle="House Cleaning Cost in Athens, AL: 2025 Pricing Guide"
   description="How much does house cleaning cost in Athens, AL? 2026 pricing: standard $125+, deep clean $200+, move-out services. Real rates for Limestone County."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="House Cleaning Cost in Athens, AL: 2025 Pricing Guide"
-    description="Complete guide to house cleaning prices in Athens, Alabama. Real pricing for standard cleaning, deep cleaning, move-out cleaning, and recurring services in Limestone County."
-    publishDate={publishDate}
-    author={author}
-  />
-
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero Section -->
   <section
@@ -91,14 +57,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Real pricing for Limestone County. No vague ranges. No surprises.
         </p>
-        <div
-          class="flex items-center justify-center space-x-4 text-gray-400 mb-8"
-        >
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -631,4 +591,4 @@ const faqSchema = {
       </div>
     </div>
   </section>
-</BaseLayout>
+</BlogPostLayout>

@@ -1,32 +1,23 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SchemaMarkup from "../../components/SchemaMarkup.astro";
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
 
 // Make this page dynamic via SSR
 export const prerender = false;
 
 const publishDate = new Date("April 13 2026");
-const author = "The Valley Clean Team";
 const readTime = "5 min read";
 
 const isPublished = new Date().getTime() >= publishDate.getTime();
-
-// FAQ Schema data for AEO optimization
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Deep Clean Value Before Selling in Shoals"
   description={isPublished ? "Selling your Shoals-area home? A professional deep clean can add real value and speed up your sale. See what Florence, Tuscumbia & Muscle Shoals sellers gain." : "Coming Soon: How Much Value Does a Deep Clean Add Before Selling a Home in the Shoals?"}
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  schemaTitle="How Much Value Does a Deep Clean Add Before Selling a Home in the Shoals?"
+  publishDate={publishDate}
 >
-  <SchemaMarkup
-    type="article"
-    title="How Much Value Does a Deep Clean Add Before Selling a Home in the Shoals?"
-    description="Selling a home in the Shoals? Discover how a professional deep clean maximizes your property value, attracts better offers, and speeds up the sale process."
-    publishDate="April 13 2026"
-    author={author}
-  />
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,12 +31,8 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           {isPublished ? "Expert Cleaning Guide" : "Coming April 13 2026."}
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>April 13 2026</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -213,4 +200,4 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
       </div>
     </article>
   )}
-</BaseLayout>
+</BlogPostLayout>

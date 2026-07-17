@@ -1,78 +1,42 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import SchemaMarkup from '../../components/SchemaMarkup.astro';
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
 import Icon from '../../components/Icon.astro';
 
 const publishDate = "December 17, 2024";
-const author = "The Valley Clean Team";
 const readTime = "10 min read";
 
-// FAQ Schema data for AEO optimization
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does house cleaning cost in Nashville, TN?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "House cleaning in Nashville typically costs between $150 and $400, depending on home size, location, and service type. Nashville prices are higher than other Tennessee and Alabama markets due to the city's rapid growth and higher cost of living. Standard cleaning for an average 3-bedroom home starts around $150-$225, while deep cleaning runs $250-$400."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I have my house professionally cleaned?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most families benefit from bi-weekly professional cleaning, which maintains cleanliness without excessive cost. Homes with pets, children, or high traffic may need weekly service, while singles or couples often find monthly cleaning sufficient."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's the difference between standard cleaning and deep cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Standard cleaning covers regular maintenance: vacuuming, mopping, bathroom sanitizing, dusting, and kitchen cleaning. Deep cleaning adds intensive tasks like inside appliances, baseboards, window tracks, and detailed scrubbing—typically needed seasonally or before special events."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are cleaning companies in Nashville insured?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Reputable cleaning companies carry liability insurance and are bonded to protect homeowners. Always ask for proof before booking. The Valley Clean Team is fully insured with $2M coverage that protects your home and belongings."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do Nashville cleaning companies offer Airbnb turnover cleaning?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, many Nashville cleaning companies specialize in short-term rental turnover due to the city's booming tourism industry. The Valley Clean Team offers Airbnb and VRBO turnover cleaning with fast turnaround times to meet tight check-in schedules."
-      }
-    }
-  ]
-};
+const faqs = [
+  {
+    question: "How much does house cleaning cost in Nashville, TN?",
+    answer: "House cleaning in Nashville typically costs between $150 and $400, depending on home size, location, and service type. Nashville prices are higher than other Tennessee and Alabama markets due to the city's rapid growth and higher cost of living. Standard cleaning for an average 3-bedroom home starts around $150-$225, while deep cleaning runs $250-$400."
+  },
+  {
+    question: "How often should I have my house professionally cleaned?",
+    answer: "Most families benefit from bi-weekly professional cleaning, which maintains cleanliness without excessive cost. Homes with pets, children, or high traffic may need weekly service, while singles or couples often find monthly cleaning sufficient."
+  },
+  {
+    question: "What's the difference between standard cleaning and deep cleaning?",
+    answer: "Standard cleaning covers regular maintenance: vacuuming, mopping, bathroom sanitizing, dusting, and kitchen cleaning. Deep cleaning adds intensive tasks like inside appliances, baseboards, window tracks, and detailed scrubbing—typically needed seasonally or before special events."
+  },
+  {
+    question: "Are cleaning companies in Nashville insured?",
+    answer: "Reputable cleaning companies carry liability insurance and are bonded to protect homeowners. Always ask for proof before booking. The Valley Clean Team is fully insured with $2M coverage that protects your home and belongings."
+  },
+  {
+    question: "Do Nashville cleaning companies offer Airbnb turnover cleaning?",
+    answer: "Yes, many Nashville cleaning companies specialize in short-term rental turnover due to the city's booming tourism industry. The Valley Clean Team offers Airbnb and VRBO turnover cleaning with fast turnaround times to meet tight check-in schedules."
+  }
+];
 ---
 
-<BaseLayout
+<BlogPostLayout
   title="Reliable Cleaning Company in Nashville TN"
+  schemaTitle="Can Anyone Recommend a Reliable Cleaning Company in Nashville, TN?"
   description="Looking for a reliable cleaning company in Nashville, TN? Compare top-rated local services, pricing starting at $150, and find the right fit for your home."
-  ogImage="https://thevalleycleanteam.com/og-image.png"
+  publishDate={publishDate}
+  faqs={faqs}
 >
-  <SchemaMarkup
-    type="article"
-    title="Can Anyone Recommend a Reliable Cleaning Company in Nashville, TN?"
-    description="Compare the most reliable cleaning companies in Nashville, TN. Detailed guide covering residential and commercial services, pricing, and how to choose the best cleaner for your needs."
-    publishDate={publishDate}
-    author={author}
-  />
-  
-  <!-- FAQ Schema for AEO -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  
-  
   <!-- Hero Section -->
   <section class="pt-24 pb-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -86,12 +50,8 @@ const faqSchema = {
         <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           A straightforward guide to finding trustworthy cleaning services in Music City.
         </p>
-        <div class="flex items-center justify-center space-x-4 text-gray-400 mb-8">
-          <span>{publishDate}</span>
-          <span>•</span>
-          <span>{readTime}</span>
-          <span>•</span>
-          <span>By {author}</span>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
         </div>
       </div>
     </div>
@@ -365,4 +325,4 @@ const faqSchema = {
     </div>
   </section>
 
-  </BaseLayout>
+  </BlogPostLayout>
