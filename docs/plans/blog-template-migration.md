@@ -149,12 +149,29 @@ this is Todd's pricing call. Groups:
   is-hiring-house-cleaner-worth-it ("deep from $200, recurring from $120"),
   house-cleaning-cost-{athens,decatur,madison,florence} metas.
 
-**NEEDS-JUDGMENT (may be intentional scoped floors, not errors):**
-- **$199 move-out "for standard apartments"** — losing-your-security-deposit,
+**NEEDS-JUDGMENT — RESOLVED 2026-07-17** (Todd confirmed floors via the pricing
+sheet; there is NO sub-$351 move-out tier — smallest home 750 sqft = $351):
+- [x] **$199 move-out "for standard apartments"** → **$351** — losing-your-security-deposit,
   maidpro-athens-vs, move-out-cleaning-athens-al, move-out-cleaning-huntsville-guide.
-- **$225 Nashville move-out** (condos/apartments) — move-out-cleaning-nashville-tn.
-- **$325 move-in-out** in the two otherwise-correct posts (house-cleaning-cost-huntsville-al,
-  why-19-dollar-costs-more-shoals) — $26 under the $351 floor.
+  Where woven into by-size tables, rebuilt with real sheet numbers (apt $351,
+  3BR $456–$491, larger custom). Market-range lines ("condos typically cost…")
+  reworded to floor, not flattened.
+- [x] **$225 Nashville move-out** → **$351** — move-out-cleaning-nashville-tn; its
+  by-neighborhood + by-size tables had low-ends below floor, all raised to ≥$351
+  (Nashville still priced above AL per the post's narrative).
+- [x] **$325 move-in-out** → **$351** — house-cleaning-cost-huntsville-al, why-19-dollar-costs-more-shoals.
+
+**ALSO CORRECTED 2026-07-17:** an earlier price-fix commit wrongly set is-hiring's
+RECURRING claim to $176. Recurring is NOT $176 — that's the one-time STANDARD floor.
+Per the sheet, recurring starts at ~$123/visit (weekly, smallest home); Todd rounds
+to **$124**. Fixed is-hiring meta + badge to "recurring from $124".
+
+### Authoritative price floors (Todd's pricing sheet, 2026-07-17)
+Standard one-time **$176** · Recurring (weekly) **~$124** (biweekly $132 / monthly $149)
+· Deep **$276** · Move-in/out **$351** (same floor all sizes). By-size grid exists in
+the sheet; use it when a post shows by-size tables. NOTE: live `/pricing` `MINIMUMS`
+object ({regular 200, deep 200, moveinout 350}) is a separate "absolute minimum job"
+concept, not the advertised "from" floor.
 
 **MATCH (already correct — cite $176/$276/$351):** bear-brothers-vs, maidpro-vs-huntsville,
 maidpro-athens (floors), moving-to-huntsville-first-week-checklist, house-cleaning-cost-huntsville-al
