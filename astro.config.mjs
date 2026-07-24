@@ -152,6 +152,15 @@ export default defineConfig({
         'https://thevalleycleanteam.com/trust',
         'https://thevalleycleanteam.com/luxury-homes',
         'https://thevalleycleanteam.com/booking',
+        // foreclosure-reo-cleaning has no per-city literal .astro file (unlike
+        // every other service) — it's served entirely by the SSR-only
+        // [city]/[slug].astro route, so @astrojs/sitemap's automatic
+        // prerendered-route discovery never finds it. List each combo here
+        // explicitly, or it silently never reaches the sitemap.
+        ...[
+          'huntsville', 'nashville', 'athens', 'decatur', 'florence',
+          'mountain-brook', 'madison', 'muscle-shoals', 'tuscumbia', 'west-nashville',
+        ].map((city) => `https://thevalleycleanteam.com/locations/${city}/foreclosure-reo-cleaning`),
       ],
       serialize(item) {
         // Set custom priorities based on page type
