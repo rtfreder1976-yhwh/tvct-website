@@ -1,7 +1,12 @@
 {
   "_comment": "LCP gate is 3000ms (warn) in CI to account for Lighthouse's simulated 4x CPU throttle on mobile, which adds ~500ms of unavoidable simulated layout cost on a 1600+ element DOM. Real-world field LCP target stays at the Core Web Vitals 2500ms threshold; track that via PageSpeed Insights / CrUX, not this CI gate.",
+  "_comment_runs": "numberOfRuns is 3 because single-run collection made this gate unreliable: three CI runs against identical site code returned performance scores of 0.55, 0.79 and 0.49, and total-blocking-time swung from under 300ms to 2677ms. A real regression would have been invisible inside that spread. Asserting against the median run makes the gate meaningful.",
   "ci": {
+    "collect": {
+      "numberOfRuns": 3
+    },
     "assert": {
+      "aggregationMethod": "median-run",
       "assertions": {
         "categories:performance": ["error", { "minScore": 0.85 }],
         "categories:accessibility": ["error", { "minScore": 0.9 }],

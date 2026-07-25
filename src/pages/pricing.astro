@@ -846,7 +846,11 @@ import Icon from "../components/Icon.astro";
     // Move in/out (Deep + $75)
     moveinout: [351, 386, 421, 456, 491, 526, 581, 636, 691, 746, 801, 856, 911, 966, 1021, 1076, 1131, 1181],
   };
-  const MINIMUMS: Record<string, number> = { regular: 200, deep: 200, moveinout: 350 };
+  // Floors must not sit above the first bracket price, or the calculator
+  // advertises a starting rate no customer can actually reach. regular was 200
+  // against a 176 bracket price, so the smallest home always quoted 200-220
+  // while the tier card, the homepage band and 90+ pages advertised "from $176".
+  const MINIMUMS: Record<string, number> = { regular: 176, deep: 200, moveinout: 350 };
 
   function bracketIndex(size: number): number {
     // pick the first bracket >= size, else the largest
@@ -877,4 +881,21 @@ import Icon from "../components/Icon.astro";
   bedrooms?.addEventListener("change", calculatePrice);
   bathrooms?.addEventListener("change", calculatePrice);
   serviceType?.addEventListener("change", calculatePrice);
+
+  // Honour ?service= so a homepage price card lands on its own calculator
+  // state. Without this every card opened the default Deep Cleaning estimate,
+  // so "Regular cleaning from $176" arrived showing $451-$495.
+  function applyServiceFromQuery() {
+    const wanted = new URLSearchParams(window.location.search).get("service");
+    if (!wanted || !serviceType) return;
+    const select = serviceType as HTMLSelectElement;
+    if (Array.from(select.options).some((o) => o.value === wanted)) {
+      select.value = wanted;
+    }
+  }
+
+  // Compute on load rather than trusting the markup's hardcoded estimate, which
+  // silently goes stale whenever the price table or the default selects change.
+  applyServiceFromQuery();
+  calculatePrice();
 </script>

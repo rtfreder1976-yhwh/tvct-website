@@ -27,9 +27,12 @@ export const MARKET_PHONES = {
 // When the real GBP numbers change, update ONLY this block.
 export const REVIEWS = {
   rating: "4.9",        // exact GBP average, used in schema ratingValue
-  count: 150,           // exact GBP review count, used in schema reviewCount
-  countDisplay: "150+", // rounded form for marketing copy ("150+ reviews")
+  count: 148,           // exact GBP review count, used in schema reviewCount
+  countDisplay: "148",  // display form for marketing copy
 } as const;
+// count verified 2026-07-25 against the live Google Business Profile: 4.9 from
+// 148 reviews. It had been 150 here, which published an inflated reviewCount in
+// AggregateRating schema. Re-verify before changing — do not round up.
 
 // Canonical business hours (single source of truth) — schema + visible text.
 // Mon–Fri 9am–5pm; weekends by appointment (no fixed Saturday/Sunday hours).
@@ -324,7 +327,7 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
     { q: "Do you bring your own cleaning supplies to Huntsville homes?", a: "Yes, we bring all pet-safe, eco-friendly supplies and equipment. You don't need to provide anything." },
     { q: "Can I get recurring cleaning service in Huntsville?", a: "Yes! We offer weekly, biweekly, and monthly recurring cleaning with up to 20% savings and consistent teams." },
     { q: "Do you clean offices in Huntsville?", a: "Yes, we provide commercial cleaning for Huntsville offices, including Research Park businesses and medical facilities." },
-    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with flexible scheduling and 150 5-star reviews." },
+    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with flexible scheduling and a 4.9 rating from 148 reviews." },
     { q: "Do you offer Airbnb cleaning in Huntsville?", a: "Yes! We provide fast-turnaround Airbnb and vacation rental cleaning with guest-ready presentation for Huntsville hosts." },
     { q: "Are your cleaning products safe for allergies?", a: "Yes, our hypoallergenic, fragrance-free options are perfect for allergy sufferers. Many Huntsville customers choose us specifically for this." },
   ],
