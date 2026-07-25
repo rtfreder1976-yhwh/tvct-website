@@ -9,14 +9,14 @@ Every item in this document points at something that is actually on the page tod
 
 ## Status: what has been fixed
 
-Findings **3, 4, 5, 6, 9, 10, 11, 12, 13, 14** and the gate half of **16** are shipped. Finding **7** and the honest half of **8** are shipped. The rest are blocked on inputs only you have:
+Findings **3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 17** and the gate half of **16** are shipped. Finding **7** and the honest half of **8** are shipped. The rest are blocked on inputs only you have:
 
 | # | Status |
 |---|---|
 | 1, 2 | **Yours** — the BookingKoala quote form is being rebuilt separately |
 | 3 | ✅ Pricing added to nav (desktop + mobile); `from $99 / $175 / $225` band added under the hero |
 | 4 | ✅ Gallery "3+ Years Experience" → "$2M Liability Insured"; hero relabelled "Avg. Cleaner Experience" |
-| 5 | ✅ "150 5-Star Reviews" → "4.9★ from 150 Reviews" across 30 files |
+| 5 | ✅ "150 5-Star Reviews" → "4.9★ from 148 Reviews" across 30 files. Count verified live: GBP is **148**, not 150 — `schemaData.ts` was publishing the inflated number as `reviewCount` in AggregateRating schema |
 | 6 | ✅ One promise everywhere: "within 2 hours, 7 days a week". "Answered live" and "Mon-Fri, 9am-5pm" removed |
 | 7 | ✅ `ui-avatars.com` avatar replaced with a locally rendered initial; synthetic "Michelle T." quote replaced with the real Rhonda B. Google review |
 | 8 | ⚠️ **Partial** — the duplicated Cloudinary "Post-Construction" card is deleted and the unsupported "Before & After" badge is now "Our Work". Genuine before/after pairs still need real photos from you |
@@ -25,7 +25,8 @@ Findings **3, 4, 5, 6, 9, 10, 11, 12, 13, 14** and the gate half of **16** are s
 | 11 | ✅ Keyword-stuffed "near me" paragraph deleted |
 | 12 | ✅ Third CTA card now points at `/booking` and reads "Book Online" |
 | 13 | ✅ Decatur → `/locations/decatur`, Tuscumbia → `/locations/tuscumbia`, Hartselle → `/locations/morgan-county`, Franklin → `/locations/nashville`, footer careers → `/careers` |
-| 14 | ✅ Unverifiable Yelp/Thumbtack badges removed; "0 Complaints" → "24hr Re-Clean Guarantee" |
+| 14 | ✅ "0 Complaints" → "24hr Re-Clean Guarantee". Thumbtack **verified accurate** (4.9, 27 reviews, Top Pro) and restored as a real link. Yelp **not restored** — see #17 |
+| 17 | ⚠️ **New, found while verifying #14** — the site advertised a Yelp rating it does not have |
 | 15 | ⏳ **Needs your data** — I will not invent testimonials. Send recent Google reviews and I will swap the 2023 ones out |
 | 16 | ✅ Gate fixed (`numberOfRuns: 3`, median-run assertions). ⏳ The ~3.1 s paint itself is still open — that is real engineering work |
 
@@ -374,6 +375,33 @@ I have **three** runs against **byte-identical site code** (every commit on the 
 4. Convert the remaining PNGs (`logo.png` in `Navigation.astro:26` and `Footer.astro:217`, `og-image.png`) — small individually, free to do, listed in the minor items below.
 
 **Scope note:** this finding is diagnosis only. Fixing it is an engineering effort, not a copy change, and it's outside what this audit PR touches — the Lighthouse job fails on this branch because the deployed site fails the 0.85 performance gate, not because of anything in this document.
+
+---
+
+### 17. The site advertised a Yelp rating 2.2 stars higher than the real one
+**Severity: HIGH** · *Found on 2026-07-25 while verifying #14 against the live platforms.*
+
+**Where it was on the page:** the "Trusted Across Multiple Platforms" badge row — the Yelp card, reading **"4.9 Rating / 25+ Reviews."**
+
+**What the live profile actually says** (yelp.com/biz/the-valley-clean-team-tuscumbia):
+
+| | Claimed on site | Actual |
+|---|---|---|
+| Rating | 4.9 | **2.7** |
+| Reviews | 25+ | **3** |
+
+The three reviews are Cara F. (2★, Jan 2026), Kristie C. (1★, May 2025) and M H. (5★, Jan 2023).
+
+This is a different category from every other finding in this document. The rest are weak messaging, contradictions, or unverified claims. This one is a specific, checkable number about a third party, published on your homepage, that is wrong by 2.2 stars and roughly 8× on volume. A competitor, a journalist, or an unhappy customer can disprove it in one click. Note also that it sat directly beneath a "0 Complaints" tile.
+
+**Fix — already shipped:** the Yelp badge is not restored, and `ReviewBadges.astro` carries a comment recording the real numbers so it doesn't get re-added by reflex. Thumbtack, which was verified accurate at 4.9 from 27 reviews with a live Top Pro badge, *is* restored as a real link.
+
+**Two things worth your attention that I can't fix in code:**
+
+1. **Three reviews is a tiny sample and Yelp filters aggressively.** A 2.7 there is not meaningful evidence about your service quality and I would not treat it as such. But it is a public page that ranks for your business name, and Cara F.'s review states you offered a re-clean and never followed through — that is your own 24-hour guarantee, the strongest asset on your site, publicly recorded as unhonored. Responding to that review is worth more than the badge ever was.
+2. **Kristie C.'s review publicly alleges you gate Google reviews** so that only 5-star ones appear. I have no way to evaluate that claim and am not asserting it's true. But it is live, it is findable, and review gating violates Google's policies — so you should know the accusation exists rather than discover it from a customer.
+
+**Still unverified:** the Facebook badge claims "4.9 Rating / 50+ Reviews". I did not confirm it. Given that one of the four platform claims turned out to be wrong by this margin, it is worth checking before you trust the other.
 
 ---
 
