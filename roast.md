@@ -320,28 +320,30 @@ Footer reads © 2026. So a visitor today sees a business with 150 reviews whose 
 
 **Where on the page:** the whole homepage, on mobile. This one isn't a judgment call — it's measured by your own CI (`.github/workflows/lighthouse.yml`, run against the Vercel preview).
 
-I have two runs against **byte-identical site code** (both commits changed only this markdown file). Reading them together is more informative than either alone:
+I have **three** runs against **byte-identical site code** (every commit on the audit branch changed only this markdown file). Reading them together is far more informative than any one alone:
 
-| Metric | Threshold | Run A | Run B | Stable? |
-|---|---|---|---|---|
-| Performance score (`/`) | ≥ 0.85 | **0.55** ❌ | **0.79** ❌ | fails both times, but ±24 pts |
-| First Contentful Paint (`/`) | ≤ 2,000 ms | 3,153 ms ⚠️ | 3,067 ms ⚠️ | **yes — ±3%** |
-| Largest Contentful Paint (`/`) | ≤ 3,000 ms | 3,153 ms ⚠️ | 3,067 ms ⚠️ | **yes — ±3%** |
-| Total Blocking Time (`/`) | ≤ 300 ms | **1,525 ms** ❌ | passed | **no — wild** |
-| FCP (`/services/house-cleaning`) | ≤ 2,000 ms | 2,963 ms ⚠️ | 2,042 ms ⚠️ | no — ±900 ms |
-| FCP (`/get-quote`) | ≤ 2,000 ms | 2,783 ms ⚠️ | 2,901 ms ⚠️ | yes — ±4% |
+| Metric | Threshold | Run A | Run B | Run C | Verdict |
+|---|---|---|---|---|---|
+| Performance score (`/`) | ≥ 0.85 | 0.55 ❌ | 0.79 ❌ | 0.49 ❌ | **fails 3/3**, but swings 30 pts |
+| First Contentful Paint (`/`) | ≤ 2,000 ms | 3,153 ms | 3,067 ms | 3,208 ms | **stable — never under 3.0 s** |
+| Largest Contentful Paint (`/`) | ≤ 3,000 ms | 3,153 ms | 3,067 ms | 3,658 ms | over budget 3/3 |
+| Total Blocking Time (`/`) | ≤ 300 ms | 1,525 ms ❌ | passed | 2,677 ms ❌ | **unusable — <300 to 2,677** |
+| FCP (`/services/house-cleaning`) | ≤ 2,000 ms | 2,963 ms | 2,042 ms | 3,059 ms | over budget 3/3, ±50% |
+| FCP (`/get-quote`) | ≤ 2,000 ms | 2,783 ms | 2,901 ms | 3,058 ms | **stable — never under 2.7 s** |
+| LCP (`/get-quote`) | ≤ 3,000 ms | — | — | 3,058 ms ❌ | tripped once |
 
 **The real finding, separated from the noise:**
 
-- **Your homepage takes ~3.1 s to paint anything, reproducibly.** This is the number that holds still across runs, and it's the one that matters. FCP and LCP are the *same value* in both runs, which tells you the hero image is both the first and the largest paint — until it lands, the visitor sees blank. Local-service mobile traffic arriving from a search or Maps result on cellular does not reliably wait 3 seconds. Your own project standard requires LCP within 2.5 s.
-- **`/get-quote` paints at ~2.8–2.9 s, also reproducibly** — and that's *before* the BookingKoala iframe inside it begins loading its own form. Stack that on finding #2 and the real time-to-usable-form on your conversion page is meaningfully worse than 2.9 s. This is the most expensive slow page you own.
-- **Ignore the Total Blocking Time number until you can measure it properly.** Run A reported 1,525 ms — 5× over budget — and Run B passed the same assertion on the same code. That's not an improvement, it's variance. Any conclusion drawn from a single TBT sample here is unsafe, including the one I'd have drawn from Run A alone.
+- **Your homepage has never once painted in under 3.0 seconds.** FCP was 3,153 / 3,067 / 3,208 ms across three independent runs — a ±2% spread. This is the most trustworthy number in the whole audit, and it's a failure every time. Local-service mobile traffic arriving from a search or Maps result on cellular does not reliably wait 3 seconds. Your own project standard requires LCP within 2.5 s; you are over 3 s on every page tested.
+- **`/get-quote` has never painted in under 2.7 s either** (2,783 / 2,901 / 3,058 ms) — and that's *before* the BookingKoala iframe inside it begins loading its own form. Stack that on finding #2 and the real time-to-usable-form on your conversion page is meaningfully worse than 3 s. This is the most expensive slow page you own.
+- **Ignore Total Blocking Time until you can measure it properly.** It read 1,525 ms, then passed, then 2,677 ms — on identical code. That's a range from "fine" to "9× over budget" with nothing changing. Any conclusion from a single TBT sample here is unsafe.
+- **One caveat on the hero, since it changes what you'd optimize:** in Runs A and B, FCP and LCP were the *same* value, which would mean the hero image is both the first and the largest paint. Run C broke that — FCP 3,208 ms but LCP 3,658 ms. So the hero is *probably* the LCP element but isn't reliably so under load, and something else can become the largest paint. Confirm which element it actually is in the Lighthouse report before optimizing for it, rather than assuming it's the hero.
 
-**Why the noise exists (and it's a real, separate problem):** the workflow runs Lighthouse **once** per URL — the logs read `Running Lighthouse 1 time(s)`. There's no `numberOfRuns` setting, so every gate decision rests on a single unrepeated sample taken on a shared CI runner with unpredictable neighbours. That's why the score swung 24 points on identical code. As configured, this check cannot distinguish a real regression from runner noise, which means over time it will be ignored — the worst outcome for a quality gate.
+**Why the noise exists (and it's a real, separate problem):** the workflow runs Lighthouse **once** per URL — the logs read `Running Lighthouse 1 time(s)`. There's no `numberOfRuns` setting, so every gate decision rests on a single unrepeated sample taken on a shared CI runner with unpredictable neighbours. That's how the score landed on 0.55, 0.79, and 0.49 for the same commit content. As configured, this check cannot distinguish a real regression from runner noise — so a genuine 10-point regression would be invisible inside the spread, and the check will eventually be ignored. That's the worst end state for a quality gate.
 
 **Ship today, in this order:**
-1. **Fix the gate before chasing the numbers (15 minutes).** Add `numberOfRuns: 3` to the `treosh/lighthouse-ci-action` step so assertions run against a median instead of a coin flip. Until this is done you cannot tell whether any performance work actually helped — and that makes step 2 unmeasurable.
-2. **Then attack LCP, which is the stable failure.** Since LCP *is* FCP on the homepage, every millisecond off the hero is a millisecond off both. The preload hints at `index.astro:62-79` are already correctly media-gated, so the remaining cost is the image payload itself and whatever sits ahead of it in the request queue. Same story on `/get-quote`.
+1. **Fix the gate before chasing the numbers (15 minutes).** Add `numberOfRuns: 3` to the `treosh/lighthouse-ci-action` step so assertions run against a median instead of a coin flip. Until this is done you cannot tell whether any performance work actually helped — which makes step 2 unmeasurable and step 3 impossible.
+2. **Then attack paint time, the failure that reproduces.** FCP is over 3 s on the homepage and over 2.7 s on `/get-quote` in every run. Start by confirming from the Lighthouse report which element is actually the LCP — the preload hints at `index.astro:62-79` are already correctly media-gated, so if it *is* the hero the remaining cost is the image payload and whatever sits ahead of it in the request queue.
 3. **Only then look at main-thread work.** With a median in place, re-read TBT. If it's genuinely high, the analytics/`gtag` calls wired into the CTAs (e.g. `BookingCTA.astro:80`) and other third-party tags are the first place to profile — but confirm the number is real before spending a day on it.
 4. Convert the remaining PNGs (`logo.png` in `Navigation.astro:26` and `Footer.astro:217`, `og-image.png`) — small individually, free to do, listed in the minor items below.
 
