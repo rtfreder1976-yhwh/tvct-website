@@ -7,6 +7,32 @@ Every item in this document points at something that is actually on the page tod
 
 ---
 
+## Status: what has been fixed
+
+Findings **3, 4, 5, 6, 9, 10, 11, 12, 13, 14** and the gate half of **16** are shipped. Finding **7** and the honest half of **8** are shipped. The rest are blocked on inputs only you have:
+
+| # | Status |
+|---|---|
+| 1, 2 | **Yours** — the BookingKoala quote form is being rebuilt separately |
+| 3 | ✅ Pricing added to nav (desktop + mobile); `from $99 / $175 / $225` band added under the hero |
+| 4 | ✅ Gallery "3+ Years Experience" → "$2M Liability Insured"; hero relabelled "Avg. Cleaner Experience" |
+| 5 | ✅ "150 5-Star Reviews" → "4.9★ from 150 Reviews" across 30 files |
+| 6 | ✅ One promise everywhere: "within 2 hours, 7 days a week". "Answered live" and "Mon-Fri, 9am-5pm" removed |
+| 7 | ✅ `ui-avatars.com` avatar replaced with a locally rendered initial; synthetic "Michelle T." quote replaced with the real Rhonda B. Google review |
+| 8 | ⚠️ **Partial** — the duplicated Cloudinary "Post-Construction" card is deleted and the unsupported "Before & After" badge is now "Our Work". Genuine before/after pairs still need real photos from you |
+| 9 | ✅ Mobile order is now H1 → subhead → CTA → image |
+| 10 | ✅ New H1 "The Same Cleaning Team, Every Single Visit"; the "concierge model matches homes with cleaners" subhead is gone |
+| 11 | ✅ Keyword-stuffed "near me" paragraph deleted |
+| 12 | ✅ Third CTA card now points at `/booking` and reads "Book Online" |
+| 13 | ✅ Decatur → `/locations/decatur`, Tuscumbia → `/locations/tuscumbia`, Hartselle → `/locations/morgan-county`, Franklin → `/locations/nashville`, footer careers → `/careers` |
+| 14 | ✅ Unverifiable Yelp/Thumbtack badges removed; "0 Complaints" → "24hr Re-Clean Guarantee" |
+| 15 | ⏳ **Needs your data** — I will not invent testimonials. Send recent Google reviews and I will swap the 2023 ones out |
+| 16 | ✅ Gate fixed (`numberOfRuns: 3`, median-run assertions). ⏳ The ~3.1 s paint itself is still open — that is real engineering work |
+
+**Blocked on you:** real before/after photo pairs (#8), recent reviews (#15), Yelp/Thumbtack profile URLs if those accounts exist (#14).
+
+---
+
 ## The one-paragraph verdict
 
 You have built a *trust* site and shipped it as a *conversion* site. The credibility layer is genuinely strong — $2M liability, bonded, veteran-owned, 8 real named Google reviews with service type and date, a 24-hour re-clean guarantee. That's better than most of your competitors. But the entire machine funnels into one button, that button makes a promise the destination does not keep, and the destination is a third-party iframe with no fallback. Meanwhile the page contradicts itself on experience, review count, and response time within a single scroll. You are spending your trust equity to get the click, then burning it at the moment of highest intent.
@@ -353,7 +379,7 @@ I have **three** runs against **byte-identical site code** (every commit on the 
 
 ## Minor items (batch these into one commit)
 
-- **Logo ships as PNG in the nav and footer while `/get-quote` does it correctly.** `src/components/Navigation.astro:26` and `src/components/Footer.astro:217` load `/images/logo.png` raw. `src/pages/get-quote.astro:33-36` wraps the same logo in a `<picture>` with a `/images/logo.webp` source. The WebP already exists — copy the three-line `<picture>` block into the other two files. Your own project standard requires WebP.
+- ~~**Logo ships as PNG in the nav and footer.**~~ **Retracted — I was wrong.** `Navigation.astro:24-27` and `Footer.astro:215-218` both already wrap the logo in a `<picture>` with a `/images/logo.webp` source and a PNG fallback, exactly as they should. My original grep matched only the `<img>` line and missed the wrapper. Nothing to fix here.
 - **`og-image.png` is a PNG** — every social share and text-message preview of your site pays for it. Convert to WebP with a PNG fallback.
 - **"Text Us" is an approved secondary CTA in your brand guidelines and appears nowhere on the homepage.** In residential cleaning, text-to-book converts strongly against form-fills. Add it next to the phone numbers in the hero.
 - **Two phone numbers in the header on every page** (AL and TN, `Navigation.astro`). Every visitor reads both and must self-identify by state before acting. Consider a single number with routing, or show only the number matching the page's market on location pages.

@@ -104,20 +104,25 @@ import BookingCTA from "../components/BookingCTA.astro";
       <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
         <!-- Left Column - Headline & Contact -->
         <div class="text-center lg:text-left">
-          <!-- Hero Image - Mobile visible, desktop accent (LCP element on mobile) -->
-          <div class="mb-6 lg:hidden">
-            <img
-              src="/images/hero-400w.avif"
-              alt="The Valley Clean Team - Professional home cleaning"
-              class="w-full max-w-md mx-auto rounded-2xl shadow-xl"
-              loading="eager"
-              fetchpriority="high"
-              decoding="sync"
-              width="400"
-              height="267"
-            />
-          </div>
-          <!-- Mobile CTA Button - Above the fold -->
+          {/*
+            Order matters on mobile: headline and value proposition come first,
+            then the CTA, then the image. Previously the photo and button both
+            rendered above the H1, so the first thing a phone visitor saw was a
+            button asking them to commit before anything explained the offer.
+          */}
+          <h1
+            class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-[#333333]"
+          >
+            The Same Cleaning Team, <span class="gold-gradient"
+              >Every Single Visit</span
+            >
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-700 mb-8">
+            Insured, background-checked cleaners in Huntsville, Athens, the
+            Shoals, Mountain Brook &amp; Nashville — with post-clean photos, so
+            you know exactly what you paid for.
+          </p>
+          <!-- Mobile CTA Button - directly under the value proposition -->
           <div class="lg:hidden mb-6">
             <a
               href="/get-quote"
@@ -131,27 +136,21 @@ import BookingCTA from "../components/BookingCTA.astro";
               Takes 60 seconds. No credit card required.
             </p>
           </div>
-          <h1
-            class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-[#333333]"
-          >
-            House Cleaning Services in <span class="gold-gradient"
-              >Alabama & Tennessee</span
-            >
-          </h1>
-          <p class="text-xl md:text-2xl text-gray-700 mb-6">
-            Our luxury concierge model matches homes with vetted, insured
-            cleaners who meet strict white glove standards.
-          </p>
-          <p class="text-lg text-gray-600 mb-8">
-            Looking for <strong>home cleaning services near me</strong>? The
-            Valley Clean Team takes care of your home while you focus on what
-            matters. Whether you need standard maintenance or detailed <strong
-              >house cleaners near me</strong
-            >, our professional team ensures a spotless space, tailored to your
-            needs.
-          </p>
+          <!-- Hero Image - Mobile visible, desktop accent -->
+          <div class="mb-8 lg:hidden">
+            <img
+              src="/images/hero-400w.avif"
+              alt="The Valley Clean Team cleaning a home in Huntsville, Alabama"
+              class="w-full max-w-md mx-auto rounded-2xl shadow-xl"
+              loading="eager"
+              fetchpriority="high"
+              decoding="sync"
+              width="400"
+              height="267"
+            />
+          </div>
           <div
-            class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6"
+            class="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 sm:gap-6"
           >
             <a
               href="tel:2568261100"
@@ -159,6 +158,13 @@ import BookingCTA from "../components/BookingCTA.astro";
             >
               <Icon name="phone" class="w-5 h-5 text-[#FFA985] mr-2" />
               <span class="font-semibold">256-826-1100</span>
+            </a>
+            <a
+              href="sms:+12568261100"
+              class="flex items-center text-gray-700 hover:text-[#FFA985] transition text-lg"
+            >
+              <Icon name="comments" class="w-5 h-5 text-[#FFA985] mr-2" />
+              <span class="font-semibold">Text Us</span>
             </a>
             <a
               href="mailto:hello@thevalleycleanteam.com"
@@ -181,18 +187,54 @@ import BookingCTA from "../components/BookingCTA.astro";
       <!-- Stats -->
       <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
         <div class="text-center">
-          <div class="text-4xl font-bold text-[#FFA985] mb-2">15+</div>
-          <p class="text-gray-600">Years Cleaner Experience</p>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">15 yrs</div>
+          <p class="text-gray-600">Avg. Cleaner Experience</p>
         </div>
         <div class="text-center">
           <div class="text-4xl font-bold text-[#FFA985] mb-2">1,047+</div>
           <p class="text-gray-600">Cleanings Completed</p>
         </div>
         <div class="text-center">
-          <div class="text-4xl font-bold text-[#FFA985] mb-2">150</div>
-          <p class="text-gray-600">5-Star Reviews</p>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">4.9★</div>
+          <p class="text-gray-600">From 150 Google Reviews</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Starting Prices -->
+  <section class="px-6 pb-4">
+    <div class="container mx-auto max-w-4xl">
+      <div class="grid sm:grid-cols-3 gap-4 mb-4">
+        <a
+          href="/pricing"
+          class="bg-white rounded-2xl p-6 border-2 border-gray-200 hover:border-[#FFA985] transition text-center"
+        >
+          <p class="text-sm text-gray-500 mb-1">Recurring cleaning</p>
+          <p class="text-3xl font-bold text-[#333333]">from $99</p>
+        </a>
+        <a
+          href="/pricing"
+          class="bg-white rounded-2xl p-6 border-2 border-[#FFA985] hover:bg-[#FFA985]/5 transition text-center"
+        >
+          <p class="text-sm text-gray-500 mb-1">Deep cleaning</p>
+          <p class="text-3xl font-bold text-[#333333]">from $175</p>
+        </a>
+        <a
+          href="/pricing"
+          class="bg-white rounded-2xl p-6 border-2 border-gray-200 hover:border-[#FFA985] transition text-center"
+        >
+          <p class="text-sm text-gray-500 mb-1">Move-in / move-out</p>
+          <p class="text-3xl font-bold text-[#333333]">from $225</p>
+        </a>
+      </div>
+      <p class="text-center text-sm text-gray-500">
+        Final price depends on your home's size and condition — we send a free,
+        no-obligation quote within 2 hours.
+        <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline"
+          >See full pricing</a
+        >
+      </p>
     </div>
   </section>
 
@@ -663,9 +705,9 @@ import BookingCTA from "../components/BookingCTA.astro";
           >
             <Icon name="phone" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-2">Call Us Now</h3>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Call or Text Now</h3>
           <p class="text-[#FFA985] text-2xl font-bold mb-2">256-826-1100</p>
-          <p class="text-sm text-gray-500">Mon-Fri, 9am-5pm</p>
+          <p class="text-sm text-gray-500">We reply within 2 hours, 7 days a week</p>
         </a>
 
         <!-- Get Quote -->
@@ -683,9 +725,14 @@ import BookingCTA from "../components/BookingCTA.astro";
           <p class="text-sm text-[#FFA985] font-semibold">No credit card required</p>
         </a>
 
-        <!-- Book Online -->
+        {/*
+          Third card now points at /booking, which is where you actually pick a
+          date and time. It previously linked to /get-quote — the same
+          destination as the card beside it — so two of the three "choices"
+          were the same link with different promises.
+        */}
         <a
-          href="/get-quote"
+          href="/booking"
           class="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#FFA985] transition group text-center"
         >
           <div
@@ -693,7 +740,7 @@ import BookingCTA from "../components/BookingCTA.astro";
           >
             <Icon name="calendar-check" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-xl font-bold text-[#333333] mb-2">Claim Your Clean Home</h3>
+          <h3 class="text-xl font-bold text-[#333333] mb-2">Book Online</h3>
           <p class="text-gray-600 mb-2">Pick your date & time. We handle the rest.</p>
           <p class="text-sm text-gray-500">Same-day service available</p>
         </a>
