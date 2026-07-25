@@ -17,7 +17,7 @@ Findings **3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 17** and the gate half of **16** a
 | 3 | ✅ Pricing added to nav (desktop + mobile); `from $99 / $175 / $225` band added under the hero |
 | 4 | ✅ Gallery "3+ Years Experience" → "$2M Liability Insured"; hero relabelled "Avg. Cleaner Experience" |
 | 5 | ✅ "150 5-Star Reviews" → "4.9★ from 148 Reviews" across 30 files. Count verified live: GBP is **148**, not 150 — `schemaData.ts` was publishing the inflated number as `reviewCount` in AggregateRating schema |
-| 6 | ✅ One promise everywhere: "within 2 hours, 7 days a week". "Answered live" and "Mon-Fri, 9am-5pm" removed |
+| 6 | ✅ One promise everywhere: "within 2 hours during business hours". "Answered live" removed. Hours now read "Mon–Fri 9am–5pm · Weekends by appointment" — the canonical `BUSINESS_HOURS` value, which resolves the contradiction without inventing weekend coverage |
 | 7 | ✅ `ui-avatars.com` avatar replaced with a locally rendered initial; synthetic "Michelle T." quote replaced with the real Rhonda B. Google review |
 | 8 | ⚠️ **Partial** — the duplicated Cloudinary "Post-Construction" card is deleted and the unsupported "Before & After" badge is now "Our Work". Genuine before/after pairs still need real photos from you |
 | 9 | ✅ Mobile order is now H1 → subhead → CTA → image |
@@ -30,7 +30,9 @@ Findings **3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 17** and the gate half of **16** a
 | 15 | ⏳ **Needs your data** — I will not invent testimonials. Send recent Google reviews and I will swap the 2023 ones out |
 | 16 | ✅ Gate fixed (`numberOfRuns: 3`, median-run assertions). ⏳ The ~3.1 s paint itself is still open — that is real engineering work |
 
-**Blocked on you:** real before/after photo pairs (#8), recent reviews (#15), Yelp/Thumbtack profile URLs if those accounts exist (#14).
+**Blocked on you:** real before/after photo pairs (#8), recent Google review text (#15 — Google blocks scraping, so this needs a GBP export), and the ~3.1 s paint (#16), which is engineering work rather than copy.
+
+**Worth your judgment, not code:** responding to the Yelp reviews (#17), and confirming whether the Facebook badge's "4.9 / 50+ reviews" is real — it is the one platform claim still unverified.
 
 ---
 
