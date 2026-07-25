@@ -881,4 +881,21 @@ import Icon from "../components/Icon.astro";
   bedrooms?.addEventListener("change", calculatePrice);
   bathrooms?.addEventListener("change", calculatePrice);
   serviceType?.addEventListener("change", calculatePrice);
+
+  // Honour ?service= so a homepage price card lands on its own calculator
+  // state. Without this every card opened the default Deep Cleaning estimate,
+  // so "Regular cleaning from $176" arrived showing $451-$495.
+  function applyServiceFromQuery() {
+    const wanted = new URLSearchParams(window.location.search).get("service");
+    if (!wanted || !serviceType) return;
+    const select = serviceType as HTMLSelectElement;
+    if (Array.from(select.options).some((o) => o.value === wanted)) {
+      select.value = wanted;
+    }
+  }
+
+  // Compute on load rather than trusting the markup's hardcoded estimate, which
+  // silently goes stale whenever the price table or the default selects change.
+  applyServiceFromQuery();
+  calculatePrice();
 </script>
