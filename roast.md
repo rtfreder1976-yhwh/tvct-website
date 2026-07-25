@@ -101,6 +101,7 @@ Do not ship a third option. The gap between the button and the page is the whole
 | 13 | City links that dead-end at `/contact` | MEDIUM |
 | 14 | Two of four review platforms aren't clickable; "0 Complaints" | MEDIUM |
 | 15 | Newest testimonial is 18 months old on a © 2026 site | LOW-MEDIUM |
+| 16 | Homepage scores 0.55 performance with 1.5s of blocking time | HIGH |
 
 ---
 
@@ -314,6 +315,37 @@ Footer reads © 2026. So a visitor today sees a business with 150 reviews whose 
 
 ---
 
+### 16. Your homepage scores 0.55 on performance and blocks the main thread for 1.5 seconds
+**Severity: HIGH**
+
+**Where on the page:** the whole homepage, on mobile. This one isn't a judgment call — it's measured by your own CI. The Lighthouse CI job on this repo (`.github/workflows/lighthouse.yml`, run against the Vercel preview) reports:
+
+| Metric | Your threshold | Measured |
+|---|---|---|
+| Performance score (`/`) | ≥ 0.85 | **0.55** ❌ |
+| Total Blocking Time (`/`) | ≤ 300 ms | **1,524 ms** ❌ |
+| First Contentful Paint (`/`) | ≤ 2,000 ms | 3,153 ms ⚠️ |
+| Largest Contentful Paint (`/`) | ≤ 3,000 ms | 3,153 ms ⚠️ |
+| First Contentful Paint (`/services/house-cleaning`) | ≤ 2,000 ms | 2,963 ms ⚠️ |
+| First Contentful Paint (`/get-quote`) | ≤ 2,000 ms | 2,783 ms ⚠️ |
+
+**What these numbers mean in conversion terms:**
+
+- **Nothing at all is on screen for 3.15 seconds.** FCP and LCP are the *same value* on the homepage, which tells you the hero image is both the first and the largest paint. Until it lands, the visitor sees blank. Local-service mobile traffic — much of it arriving from a phone on cellular, from a Google Maps or search result — does not reliably wait 3 seconds.
+- **1,524 ms of Total Blocking Time is the more serious number.** That's the main thread frozen for over a second and a half. During that window taps do nothing. A visitor who hits "See My Price" during that window gets no response and taps again, or leaves. This is a mostly-static Astro site, so 1.5s of blocking is script cost, not content cost — the analytics/`gtag` calls wired into the CTAs (e.g. `BookingCTA.astro:80`) and other third-party tags are the first place to profile.
+- **`/get-quote` takes 2.78 s to paint anything** — and that's *before* the BookingKoala iframe inside it starts loading its own form. Stack that on finding #2 and the real time-to-usable-form on the conversion page is meaningfully worse than 2.78 s.
+
+Your own project standard requires LCP within 2.5 s. The homepage is at 3.15 s and the performance budget is failing by a 30-point margin.
+
+**Ship today (about half a day, in this order):**
+1. **Profile the JS first — it's the biggest number.** Run `npm run lighthouse` locally and open the "Reduce JavaScript execution time" and "Minimize main-thread work" items. Defer every third-party tag that isn't needed for first paint; analytics in particular should never be render-blocking. TBT is where the 30 points are.
+2. **Get the hero painting sooner.** Since LCP *is* FCP, every millisecond off the hero image is a millisecond off both metrics. The preload hints at `index.astro:62-79` are already correctly media-gated — so the remaining cost is the file itself and whatever is blocking ahead of it in the queue.
+3. Convert the remaining PNGs (`logo.png` in `Navigation.astro:26` and `Footer.astro:217`, `og-image.png`) — small individually, free to do, and listed in the minor items below.
+
+**Scope note:** this finding is diagnosis only. Fixing it is a real engineering effort, not a copy change, and it is outside what this audit PR touches — the Lighthouse job fails on this branch because the deployed site scores 0.55, not because of anything in this document.
+
+---
+
 ## Minor items (batch these into one commit)
 
 - **Logo ships as PNG in the nav and footer while `/get-quote` does it correctly.** `src/components/Navigation.astro:26` and `src/components/Footer.astro:217` load `/images/logo.png` raw. `src/pages/get-quote.astro:33-36` wraps the same logo in a `<picture>` with a `/images/logo.webp` source. The WebP already exists — copy the three-line `<picture>` block into the other two files. Your own project standard requires WebP.
@@ -345,6 +377,8 @@ All copy and asset swaps, no engineering. Half a day of work total. Each one ind
 
 **Week three — messaging and routing (#9, #10, #11, #12, #13, #15).**
 Rewrite the hero, reorder the mobile block, collapse the final CTA to two real doors, fix the city links, refresh the testimonials.
+
+**Parallel track — performance (#16).** This one doesn't compete with the copy work above because it's a different kind of effort and probably a different person. It's also the only finding with hard measured numbers attached, and 1,524 ms of blocking time degrades every other fix in this document — a faster CTA is worth less if the tap doesn't register. Start with the JS profiling step; that's where the 30 points are.
 
 **Ongoing — the thing this audit can't fix for you:** a post-clean review request. Your most recent published review is from January 2025. Everything on this page is designed to convert a stranger using social proof, and the social proof has a shelf life.
 
