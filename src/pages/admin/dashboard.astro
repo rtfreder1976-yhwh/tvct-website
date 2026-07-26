@@ -126,26 +126,41 @@ const barPct = (part: number | null, whole: number | null) =>
 // Note: `.map()` always returns an array, so the previous `|| [...fake]`
 // fallback after it was unreachable and has been removed rather than kept.
 const rawRankings = rankingsData?.rankings ?? rankingsData?.items ?? [];
+
+// api/rankings.ts returns { keyword, position, clicks, impressions, ctr, url }.
+// It supplies NO `change` and NO `volume` — Search Console is queried for a
+// single period, and search volume is not a GSC metric at all. Defaulting them
+// to 0 printed "Vol 0" and "no movement" for every live keyword, which is the
+// same invented-measurement problem this change exists to remove. They are
+// null until something actually computes them (period-over-period comparison
+// for change; a keyword tool for volume).
 const rankings = rawRankings.map((k: any) => {
+  const rawChange = k.change ?? null;
+  const rawVolume = typeof k.volume === 'string'
+    ? (parseInt(k.volume.replace(/,/g, ''), 10) || null)
+    : (k.volume ?? null);
   const pos = parseFloat(k.position);
-  const change = k.change ?? 0;
   return {
     keyword: k.keyword,
-    position: pos,
-    previous: parseFloat((pos - change).toFixed(1)),
-    change,
+    position: Number.isNaN(pos) ? null : pos,
+    change: rawChange as number | null,
     market: detectMarket(k.keyword, k.url ?? ''),
-    volume: typeof k.volume === 'string' ? parseInt(k.volume.replace(/,/g, ''), 10) || 0 : (k.volume ?? 0),
+    volume: rawVolume as number | null,
+    clicks: k.clicks ?? null,
+    impressions: k.impressions ?? null,
   };
 });
 
+const hasMovement = rankings.some((k: any) => k.change !== null);
 const rankingSummary = rankingsData ? {
   total: rankingsData.totalKeywords ?? rankings.length,
-  avgPosition: parseFloat(rankingsData.avgPosition) || 0,
-  top3: rankings.filter((k: any) => k.position <= 3).length,
-  top10: rankings.filter((k: any) => k.position <= 10).length,
-  improved: rankings.filter((k: any) => k.change > 0).length,
-  declined: rankings.filter((k: any) => k.change < 0).length,
+  avgPosition: parseFloat(rankingsData.avgPosition) || null,
+  top3: rankings.filter((k: any) => k.position !== null && k.position <= 3).length,
+  top10: rankings.filter((k: any) => k.position !== null && k.position <= 10).length,
+  // Null rather than 0 when nothing reports movement — "0 improved" is a
+  // measurement, "we don't track this yet" is not.
+  improved: hasMovement ? rankings.filter((k: any) => (k.change ?? 0) > 0).length : null,
+  declined: hasMovement ? rankings.filter((k: any) => (k.change ?? 0) < 0).length : null,
 } : { total: null, avgPosition: null, top3: null, top10: null, improved: null, declined: null };
 
 // ---- Traffic ----
@@ -181,29 +196,40 @@ const traffic = {
 // `|| [850, 890, 950, …]` fallback substituted a placeholder series whenever a
 // bucket came out falsy. Removing the fallback exposed it; this renders the
 // series at its real granularity instead.
-const monthlySessions: number[] = trafficData?.monthlyTrend ?? [];
 const weekLabels = buildWeekLabels(4); // still used by the leads series
 const organicShare = currentOrganic !== null && currentSessions
   ? currentOrganic / currentSessions : null;
 
-// Labels are derived rather than returned: the endpoint drops the `month`
-// dimension when it maps to bare numbers. The series ends with the current
-// month, which is how api/traffic.ts constructs the range.
-function buildMonthLabels(count: number): string[] {
-  const labels: string[] = [];
-  const now = new Date();
-  for (let i = count - 1; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    labels.push(d.toLocaleString('default', { month: 'short' }));
-  }
-  return labels;
-}
-const monthLabels = buildMonthLabels(monthlySessions.length);
-const trafficTrend = monthlySessions.map((sessions, i) => ({
-  week: monthLabels[i] ?? '',
+// Prefer the labelled series. GA4 omits months with no rows, so deriving
+// labels from the array length alone would slide every subsequent value onto
+// the wrong month — real traffic attributed to a period it did not happen in.
+// api/traffic.ts now returns `monthlyTrendPoints` with the `yearMonth`
+// dimension intact; when only the bare `monthlyTrend` array is available (an
+// older deployment of the function), the bars render without month labels
+// rather than with guessed ones.
+type TrendPoint = { month: string; sessions: number };
+const trendPoints: TrendPoint[] = trafficData?.monthlyTrendPoints ?? [];
+const bareTrend: number[] = trafficData?.monthlyTrend ?? [];
+
+// GA4 `yearMonth` arrives as "202607".
+const monthLabel = (ym: string) => {
+  const m = /^(\d{4})(\d{2})$/.exec(ym ?? '');
+  if (!m) return '';
+  return new Date(Number(m[1]), Number(m[2]) - 1, 1)
+    .toLocaleString('default', { month: 'short' });
+};
+
+const trafficSeries: { label: string; sessions: number }[] = trendPoints.length
+  ? trendPoints.map((p) => ({ label: monthLabel(p.month), sessions: p.sessions }))
+  : bareTrend.map((sessions) => ({ label: '', sessions }));
+
+const trafficTrend = trafficSeries.map(({ label, sessions }) => ({
+  week: label,
   sessions,
   organic: organicShare === null ? null : Math.round(sessions * organicShare),
 }));
+// True when we are drawing bars we cannot attribute to specific months.
+const trafficPeriodsUnknown = trendPoints.length === 0 && bareTrend.length > 0;
 // Bars scaled to the actual peak; the old hardcoded /1200 divisor clipped or
 // flattened the chart for any series that did not happen to sit near 1200.
 const trafficPeak = Math.max(...trafficTrend.map((t) => t.sessions), 1);
@@ -275,9 +301,9 @@ if (sessionsChange !== null && sessionsChange > 5 && organicChange !== null) {
 if (sessionsChange !== null && sessionsChange < -5) {
   alerts.push({ type: "warning", message: `Traffic down ${Math.abs(sessionsChange)}% vs last period`, date: "Today" });
 }
-const topGainer = [...rankings].filter((k: any) => k.change > 0).sort((a: any, b: any) => b.change - a.change)[0];
+const topGainer = [...rankings].filter((k: any) => k.change !== null && k.change > 0).sort((a: any, b: any) => b.change - a.change)[0];
 if (topGainer) alerts.push({ type: "success", message: `↑${topGainer.change} positions: "${topGainer.keyword}" now #${topGainer.position}`, date: "This period" });
-const topLoser = [...rankings].filter((k: any) => k.change < 0).sort((a: any, b: any) => a.change - b.change)[0];
+const topLoser = [...rankings].filter((k: any) => k.change !== null && k.change < 0).sort((a: any, b: any) => a.change - b.change)[0];
 if (topLoser)  alerts.push({ type: "warning", message: `↓${Math.abs(topLoser.change)} positions: "${topLoser.keyword}" now #${topLoser.position}`, date: "This period" });
 if (leads.change !== null && leads.change > 10) {
   alerts.push({ type: "success", message: `Leads up ${leads.change}% vs last 30 days`, date: "Today" });
@@ -451,12 +477,14 @@ const marketColors: Record<string, string> = {
                       </span>
                     </td>
                     <td class="px-4 py-3 text-center">
-                      <span class={`font-bold ${kw.position <= 3 ? 'text-green-600' : kw.position <= 10 ? 'text-blue-600' : 'text-gray-600'}`}>
-                        {kw.position}
+                      <span class={`font-bold ${kw.position === null ? 'text-gray-400' : kw.position <= 3 ? 'text-green-600' : kw.position <= 10 ? 'text-blue-600' : 'text-gray-600'}`}>
+                        {num(kw.position)}
                       </span>
                     </td>
                     <td class="px-4 py-3 text-center">
-                      {kw.change > 0 ? (
+                      {kw.change === null ? (
+                        <span class="text-gray-300" title="Not tracked — Search Console is queried for a single period">{NA}</span>
+                      ) : kw.change > 0 ? (
                         <span class="text-green-600 font-medium">↑{kw.change}</span>
                       ) : kw.change < 0 ? (
                         <span class="text-red-600 font-medium">↓{Math.abs(kw.change)}</span>
@@ -464,7 +492,7 @@ const marketColors: Record<string, string> = {
                         <span class="text-gray-400">-</span>
                       )}
                     </td>
-                    <td class="px-4 py-3 text-center text-gray-500">{kw.volume}</td>
+                    <td class="px-4 py-3 text-center text-gray-500" title={kw.volume === null ? "Search volume is not a Search Console metric" : undefined}>{num(kw.volume)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -477,7 +505,10 @@ const marketColors: Record<string, string> = {
           <!-- Traffic Trend -->
           <div class="bg-white rounded-xl shadow-sm p-6">
             <h2 class="text-lg font-bold text-[#333] mb-1">Traffic Trend</h2>
-            <p class="text-xs text-gray-400 mb-4">Sessions per month (GA4)</p>
+            <p class="text-xs text-gray-400 mb-4">
+              Sessions per month (GA4)
+              {trafficPeriodsUnknown && ' — periods unlabelled: this deployment of /api/traffic does not return month dimensions'}
+            </p>
             {dashboardData.trafficTrend.length === 0 ? (
               <div class="h-48 flex items-center justify-center text-center text-gray-400 text-sm">
                 No traffic data — GA4 is {dataStatus.traffic}.
