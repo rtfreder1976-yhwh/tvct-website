@@ -123,6 +123,13 @@ try {
   }
 } catch { /* if the scan fails, fall back to including everything */ }
 
+// Pages retired in favour of the hosted BookingKoala flow. They still exist as
+// .astro files, but vercel.json now 301s each path straight to
+// thevalleycleanteam.bookingkoala.com/booknow, so listing them in the sitemap
+// would advertise URLs that only redirect off-site. Exact-path matches so
+// /booking-commercial and /booking-complete are unaffected.
+const retiredPaths = new Set(['/booking', '/get-quote']);
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
@@ -144,7 +151,7 @@ export default defineConfig({
     sitemap({
       // /recurring is the noindex SMS conversion page — exact-path match so the
       // indexable /locations/*/recurring-maid-service pages are NOT excluded.
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !retiredPaths.has(new URL(page).pathname.replace(/\/$/, '')) && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
       customPages: [
@@ -160,7 +167,6 @@ export default defineConfig({
         'https://thevalleycleanteam.com/about',
         'https://thevalleycleanteam.com/trust',
         'https://thevalleycleanteam.com/luxury-homes',
-        'https://thevalleycleanteam.com/booking',
         // foreclosure-reo-cleaning has no per-city literal .astro file (unlike
         // every other service) — it's served entirely by the SSR-only
         // [city]/[slug].astro route, so @astrojs/sitemap's automatic
