@@ -24,11 +24,16 @@ jobs:
           BASE: ${{ steps.vercel_preview.outputs.url }}
           BYPASS: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: |
+          # Only audit pages we actually own and can fix. /get-quote used to be
+          # the third URL here, but it now 301s to the hosted BookingKoala flow,
+          # so Lighthouse followed the redirect off-site and scored their app
+          # (performance 0.29, TBT 2248ms) instead of ours. /pricing is the
+          # closest remaining high-intent page that we still serve.
           Q="x-vercel-protection-bypass=$BYPASS&x-vercel-set-bypass-cookie=true"
           {
             echo "home=$BASE/?$Q"
             echo "house=$BASE/services/house-cleaning?$Q"
-            echo "quote=$BASE/get-quote?$Q"
+            echo "pricing=$BASE/pricing?$Q"
           } >> "$GITHUB_OUTPUT"
 
       - name: Run Lighthouse CI against preview
@@ -37,7 +42,7 @@ jobs:
           urls: |
             ${{ steps.urls.outputs.home }}
             ${{ steps.urls.outputs.house }}
-            ${{ steps.urls.outputs.quote }}
+            ${{ steps.urls.outputs.pricing }}
           uploadArtifacts: true
           temporaryPublicStorage: false
           configPath: .github/lighthouserc.json
