@@ -2,6 +2,10 @@
 export const prerender = false;
 
 import BaseLayout from "../../layouts/BaseLayout.astro";
+// Own-business review figures come from the single source of truth rather than
+// being retyped here — this row previously read "146 reviews / 5.0 rating",
+// which matched neither the real Google profile nor the rest of the site.
+import { REVIEWS } from "../../constants/schemaData";
 
 // ---------------------------------------------------------------------------
 // Admin authentication — checks for a secret cookie or ?key= query param.
@@ -96,7 +100,25 @@ const dataStatus: Record<string, 'live' | 'fallback' | 'offline'> = {
   leads:    leadsSource    as 'live' | 'fallback' | 'offline',
 };
 
+// ---- Display helpers ----------------------------------------------------
+// This dashboard previously substituted hardcoded sample numbers whenever an
+// upstream API was unavailable, so a failed GA4 or GSC call rendered as
+// confident-looking metrics (1,020 sessions, 42.3% bounce, 16 quote forms)
+// with nothing on screen to distinguish them from measured data. Every metric
+// below is now null when there is no live source, and nulls render as an em
+// dash. An empty panel is recoverable; a fabricated one is not.
+const NA = '—';
+const num = (v: number | null | undefined) =>
+  v === null || v === undefined || Number.isNaN(v) ? NA : v.toLocaleString();
+const pct = (v: number | null | undefined) =>
+  v === null || v === undefined || Number.isNaN(v) ? NA : `${v > 0 ? '+' : ''}${v}%`;
+// Bar widths must not throw on null; an unknown value gets no bar.
+const barPct = (part: number | null, whole: number | null) =>
+  part === null || whole === null || !whole ? 0 : (part / whole) * 100;
+
 // ---- Rankings ----
+// Note: `.map()` always returns an array, so the previous `|| [...fake]`
+// fallback after it was unreachable and has been removed rather than kept.
 const rawRankings = rankingsData?.items ?? [];
 const rankings = rawRankings.map((k: any) => {
   const pos = parseFloat(k.position);
@@ -109,13 +131,7 @@ const rankings = rawRankings.map((k: any) => {
     market: detectMarket(k.keyword, k.url ?? ''),
     volume: typeof k.volume === 'string' ? parseInt(k.volume.replace(/,/g, ''), 10) || 0 : (k.volume ?? 0),
   };
-}) || [
-  { keyword: "cleaning service huntsville al", position: 4, previous: 6, change: 2, market: "huntsville", volume: 720 },
-  { keyword: "house cleaning huntsville", position: 7, previous: 8, change: 1, market: "huntsville", volume: 480 },
-  { keyword: "cleaning service athens al", position: 2, previous: 3, change: 1, market: "athens", volume: 170 },
-  { keyword: "cleaning service florence al", position: 5, previous: 4, change: -1, market: "florence", volume: 210 },
-  { keyword: "cleaning service nashville tn", position: 28, previous: 35, change: 7, market: "nashville", volume: 1900 },
-];
+});
 
 const rankingSummary = rankingsData ? {
   total: rankings.length,
@@ -124,55 +140,88 @@ const rankingSummary = rankingsData ? {
   top10: rankings.filter((k: any) => k.position <= 10).length,
   improved: rankings.filter((k: any) => k.change > 0).length,
   declined: rankings.filter((k: any) => k.change < 0).length,
-} : { total: 12, avgPosition: 7.4, top3: 4, top10: 10, improved: 9, declined: 1 };
+} : { total: null, avgPosition: null, top3: null, top10: null, improved: null, declined: null };
 
 // ---- Traffic ----
-const currentSessions  = trafficData?.current?.sessions  ?? 1020;
-const previousSessions = trafficData?.previous?.sessions ?? 910;
-const currentOrganic   = trafficData?.current?.organic   ?? Math.round(currentSessions * 0.65);
-const previousOrganic  = Math.round(previousSessions * 0.65);
-const sessionsChange   = previousSessions > 0
-  ? parseFloat(((currentSessions - previousSessions) / previousSessions * 100).toFixed(1)) : 0;
-const organicChange    = previousOrganic > 0
-  ? parseFloat(((currentOrganic - previousOrganic) / previousOrganic * 100).toFixed(1)) : 0;
+// Organic was previously derived as 65% of sessions whenever GA4 did not
+// report it. That is a guess, not a measurement, so it is now null unless the
+// API supplies it.
+const currentSessions: number | null  = trafficData?.current?.sessions  ?? null;
+const previousSessions: number | null = trafficData?.previous?.sessions ?? null;
+const currentOrganic: number | null   = trafficData?.current?.organic   ?? null;
+const previousOrganic: number | null  = trafficData?.previous?.organic  ?? null;
+const bounceRate: number | null = trafficData?.current?.bounceRate !== undefined
+  ? parseFloat(trafficData.current.bounceRate) : null;
+
+const changePct = (cur: number | null, prev: number | null) =>
+  cur === null || prev === null || prev <= 0
+    ? null : parseFloat(((cur - prev) / prev * 100).toFixed(1));
+const sessionsChange = changePct(currentSessions, previousSessions);
+const organicChange  = changePct(currentOrganic, previousOrganic);
 
 const traffic = {
-  current:  { sessions: currentSessions, organic: currentOrganic, bounceRate: parseFloat(trafficData?.current?.bounceRate ?? '42.3') },
+  current:  { sessions: currentSessions, organic: currentOrganic, bounceRate },
   previous: { sessions: previousSessions, organic: previousOrganic },
   change:   { sessions: sessionsChange, organic: organicChange },
 };
 
-// Build weekly trend from daily array (30 days → 4 weeks)
+// Weekly trend from the daily array (30 days → 4 weeks). Empty when GA4 gave
+// us nothing; the chart renders an explicit "no data" state rather than the
+// [850, 890, 950, …] placeholder series it used to invent.
 const dailyTrend: number[] = trafficData?.monthlyTrend ?? [];
 const weekLabels = buildWeekLabels(4);
-const trafficTrend = weekLabels.map((week, i) => {
+const organicShare = currentOrganic !== null && currentSessions
+  ? currentOrganic / currentSessions : null;
+const trafficTrend = dailyTrend.length ? weekLabels.map((week, i) => {
   const start = Math.max(0, dailyTrend.length - (4 - i) * 7);
   const end   = Math.max(0, dailyTrend.length - (3 - i) * 7);
-  const weekSessions = dailyTrend.slice(start, end).reduce((a: number, b: number) => a + b, 0) || [850, 890, 950, currentSessions][i];
-  return { week, sessions: weekSessions, organic: Math.round(weekSessions * (currentOrganic / Math.max(currentSessions, 1))) };
-});
+  const weekSessions = dailyTrend.slice(start, end).reduce((a: number, b: number) => a + b, 0);
+  return {
+    week,
+    sessions: weekSessions,
+    organic: organicShare === null ? null : Math.round(weekSessions * organicShare),
+  };
+}) : [];
 
 // ---- Leads ----
+// This page was written against the contract of the Astro /api/leads route
+// that used to live in src/pages/api/. That route never ran in production —
+// the root Vercel function in api/leads.ts shadowed it — so every field below
+// was missing and silently replaced by a sample number. The mapping now
+// follows the contract the root function actually returns.
+//
+//   quoteForms  <- formSubmissions   (renamed upstream)
+//   emails      <- emails            (replaces the invented "chat" bucket)
+//   byMarket    -> not computed by the root function at all
+//   weeklyTrend -> root reports monthlyTrend; different granularity, so it is
+//                  not re-labelled as weekly
+const leadsTotal: number | null    = leadsData?.totalLeads ?? null;
+const leadsPrevious: number | null = leadsData?.previousTotal ?? null;
 const leads = {
   current:  {
-    total:      leadsData?.totalLeads ?? 26,
-    quoteForms: leadsData?.quoteForms ?? 16,
-    phoneCalls: leadsData?.phoneCalls ?? 8,
-    chat:       leadsData?.chat       ?? 2,
+    total:      leadsTotal,
+    quoteForms: leadsData?.formSubmissions ?? null,
+    phoneCalls: leadsData?.phoneCalls ?? null,
+    emails:     leadsData?.emails ?? null,
   },
-  previous: { total: leadsData?.previousTotal ?? 22 },
-  change:   leadsData?.change ?? 18.2,
-  byMarket: leadsData?.byMarket ?? { huntsville: 12, athens: 5, florence: 4, birmingham: 3, nashville: 2 },
+  previous: { total: leadsPrevious },
+  change:   changePct(leadsTotal, leadsPrevious),
+  byMarket: (leadsData?.byMarket ?? null) as Record<string, number> | null,
 };
 
-const leadsWeekly: number[] = leadsData?.weeklyTrend ?? [18, 20, 24, leads.current.total];
-const leadsTrend = weekLabels.map((week, i) => ({
+// Root /api/leads exposes no weekly series, so this stays empty rather than
+// presenting [18, 20, 24, …] and a 35%-of-total "converted" line as measured.
+const leadsWeekly: number[] = leadsData?.weeklyTrend ?? [];
+const leadsTrend = leadsWeekly.length ? weekLabels.map((week, i) => ({
   week,
   total: leadsWeekly[i] ?? 0,
-  converted: Math.round((leadsWeekly[i] ?? 0) * 0.35),
-}));
+  converted: null as number | null,
+})) : [];
 
-// ---- Conversions (static — no automated source yet) ----
+// ---- Conversions (NOT WIRED UP — hand-entered constants) ----
+// These have never had a data source. They are kept so the layout is intact
+// but are flagged in the UI as unverified rather than shown as measurements.
+const CONVERSIONS_ARE_ESTIMATES = true;
 const conversions = {
   leadToQuote:    72.5,
   quoteToBooked:  45.2,
@@ -181,7 +230,9 @@ const conversions = {
   monthlyRevenue: 12850,
 };
 
-// ---- Competitors (static — no automated source) ----
+// ---- Competitors (NOT WIRED UP — hand-entered constants) ----
+// Positions, review counts and ratings here are illustrative, not scraped.
+const COMPETITORS_ARE_ESTIMATES = true;
 const competitors = [
   { name: "Molly Maid Huntsville",   avgPosition: 5.2, keywords: 45,  reviews: 89,  rating: 4.6, trend: "stable" },
   { name: "Merry Maids Birmingham",  avgPosition: 6.8, keywords: 38,  reviews: 124, rating: 4.4, trend: "down"   },
@@ -189,15 +240,34 @@ const competitors = [
 ];
 
 // ---- Alerts: auto-generate from live data ----
+// Guarded on non-null now. Previously these fired off the fabricated 1020-vs-910
+// session defaults, so an offline GA4 still produced a confident
+// "Organic traffic up 12% vs last period" banner.
 const alerts: { type: string; message: string; date: string }[] = [];
-if (sessionsChange > 5)  alerts.push({ type: "success", message: `Organic traffic up ${organicChange}% vs last period`, date: "Today" });
-if (sessionsChange < -5) alerts.push({ type: "warning", message: `Traffic down ${Math.abs(sessionsChange)}% vs last period`, date: "Today" });
+if (sessionsChange !== null && sessionsChange > 5 && organicChange !== null) {
+  alerts.push({ type: "success", message: `Organic traffic up ${organicChange}% vs last period`, date: "Today" });
+}
+if (sessionsChange !== null && sessionsChange < -5) {
+  alerts.push({ type: "warning", message: `Traffic down ${Math.abs(sessionsChange)}% vs last period`, date: "Today" });
+}
 const topGainer = [...rankings].filter((k: any) => k.change > 0).sort((a: any, b: any) => b.change - a.change)[0];
 if (topGainer) alerts.push({ type: "success", message: `↑${topGainer.change} positions: "${topGainer.keyword}" now #${topGainer.position}`, date: "This period" });
 const topLoser = [...rankings].filter((k: any) => k.change < 0).sort((a: any, b: any) => a.change - b.change)[0];
 if (topLoser)  alerts.push({ type: "warning", message: `↓${Math.abs(topLoser.change)} positions: "${topLoser.keyword}" now #${topLoser.position}`, date: "This period" });
-if (leadsData?.change > 10) alerts.push({ type: "success", message: `Leads up ${leadsData.change}% vs last 30 days`, date: "Today" });
-if (!alerts.length) alerts.push({ type: "info", message: "All metrics stable — no significant changes detected", date: "Today" });
+if (leads.change !== null && leads.change > 10) {
+  alerts.push({ type: "success", message: `Leads up ${leads.change}% vs last 30 days`, date: "Today" });
+}
+
+// Never claim "all metrics stable" when the reason nothing fired is that no
+// data arrived — say which feeds are down instead.
+const downFeeds = Object.entries(dataStatus)
+  .filter(([, s]) => s !== 'live')
+  .map(([k]) => ({ rankings: 'Search Console', traffic: 'GA4', leads: 'GoHighLevel' }[k] ?? k));
+if (!alerts.length) {
+  alerts.push(downFeeds.length
+    ? { type: "warning", message: `No data from ${downFeeds.join(', ')} — metrics below are incomplete`, date: "Now" }
+    : { type: "info", message: "All metrics stable — no significant changes detected", date: "Today" });
+}
 
 const dashboardData = {
   generated_at: new Date().toISOString(),
@@ -285,33 +355,39 @@ const marketColors: Record<string, string> = {
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
         <div class="bg-white rounded-xl p-4 shadow-sm">
           <p class="text-gray-500 text-sm">Avg Position</p>
-          <p class="text-3xl font-bold text-[#333]">{dashboardData.rankingSummary.avgPosition}</p>
-          <p class="text-green-600 text-sm">Top 10: {dashboardData.rankingSummary.top10}</p>
+          <p class="text-3xl font-bold text-[#333]">{num(dashboardData.rankingSummary.avgPosition)}</p>
+          <p class="text-gray-500 text-sm">Top 10: {num(dashboardData.rankingSummary.top10)}</p>
         </div>
         <div class="bg-white rounded-xl p-4 shadow-sm">
           <p class="text-gray-500 text-sm">Weekly Sessions</p>
-          <p class="text-3xl font-bold text-[#333]">{dashboardData.traffic.current.sessions.toLocaleString()}</p>
-          <p class="text-green-600 text-sm">+{dashboardData.traffic.change.sessions}%</p>
+          <p class="text-3xl font-bold text-[#333]">{num(dashboardData.traffic.current.sessions)}</p>
+          <p class="text-gray-500 text-sm">{pct(dashboardData.traffic.change.sessions)}</p>
         </div>
         <div class="bg-white rounded-xl p-4 shadow-sm">
           <p class="text-gray-500 text-sm">Organic Traffic</p>
-          <p class="text-3xl font-bold text-[#333]">{dashboardData.traffic.current.organic.toLocaleString()}</p>
-          <p class="text-green-600 text-sm">+{dashboardData.traffic.change.organic}%</p>
+          <p class="text-3xl font-bold text-[#333]">{num(dashboardData.traffic.current.organic)}</p>
+          <p class="text-gray-500 text-sm">{pct(dashboardData.traffic.change.organic)}</p>
         </div>
         <div class="bg-white rounded-xl p-4 shadow-sm">
-          <p class="text-gray-500 text-sm">Weekly Leads</p>
-          <p class="text-3xl font-bold text-[#333]">{dashboardData.leads.current.total}</p>
-          <p class="text-green-600 text-sm">+{dashboardData.leads.change}%</p>
+          <p class="text-gray-500 text-sm">Leads (30d)</p>
+          <p class="text-3xl font-bold text-[#333]">{num(dashboardData.leads.current.total)}</p>
+          <p class="text-gray-500 text-sm">{pct(dashboardData.leads.change)}</p>
         </div>
-        <div class="bg-white rounded-xl p-4 shadow-sm">
-          <p class="text-gray-500 text-sm">Conversion Rate</p>
-          <p class="text-3xl font-bold text-[#333]">{dashboardData.conversions.overall}%</p>
-          <p class="text-gray-500 text-sm">Lead → Booked</p>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-dashed border-gray-300">
+          <p class="text-gray-500 text-sm flex items-center gap-1">
+            Conversion Rate
+            <span class="text-[10px] uppercase tracking-wide bg-gray-200 text-gray-600 px-1 rounded">est</span>
+          </p>
+          <p class="text-3xl font-bold text-gray-400">{dashboardData.conversions.overall}%</p>
+          <p class="text-gray-400 text-sm">Not connected</p>
         </div>
-        <div class="bg-white rounded-xl p-4 shadow-sm">
-          <p class="text-gray-500 text-sm">Monthly Revenue</p>
-          <p class="text-3xl font-bold text-[#333]">${dashboardData.conversions.monthlyRevenue.toLocaleString()}</p>
-          <p class="text-gray-500 text-sm">Avg: ${dashboardData.conversions.avgDealValue}</p>
+        <div class="bg-white rounded-xl p-4 shadow-sm border border-dashed border-gray-300">
+          <p class="text-gray-500 text-sm flex items-center gap-1">
+            Monthly Revenue
+            <span class="text-[10px] uppercase tracking-wide bg-gray-200 text-gray-600 px-1 rounded">est</span>
+          </p>
+          <p class="text-3xl font-bold text-gray-400">${dashboardData.conversions.monthlyRevenue.toLocaleString()}</p>
+          <p class="text-gray-400 text-sm">Not connected</p>
         </div>
       </div>
 
@@ -321,10 +397,15 @@ const marketColors: Record<string, string> = {
           <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
             <h2 class="text-lg font-bold text-[#333]">Keyword Rankings</h2>
             <div class="flex gap-2 text-sm">
-              <span class="text-green-600">↑{dashboardData.rankingSummary.improved}</span>
-              <span class="text-red-600">↓{dashboardData.rankingSummary.declined}</span>
+              <span class="text-green-600">↑{num(dashboardData.rankingSummary.improved)}</span>
+              <span class="text-red-600">↓{num(dashboardData.rankingSummary.declined)}</span>
             </div>
           </div>
+          {dashboardData.rankings.length === 0 && (
+            <div class="px-6 py-10 text-center text-gray-400 text-sm">
+              No ranking data — Search Console is {dataStatus.rankings}.
+            </div>
+          )}
           <div class="overflow-x-auto">
             <table class="w-full text-sm">
               <thead class="bg-gray-50">
@@ -371,25 +452,33 @@ const marketColors: Record<string, string> = {
           <!-- Traffic Trend -->
           <div class="bg-white rounded-xl shadow-sm p-6">
             <h2 class="text-lg font-bold text-[#333] mb-4">Traffic Trend</h2>
-            <div class="h-48 flex items-end gap-2">
-              {dashboardData.trafficTrend.map((week) => (
-                <div class="flex-1 flex flex-col items-center">
-                  <div class="w-full flex flex-col gap-1">
-                    <div
-                      class="bg-[#FFA985] rounded-t"
-                      style={`height: ${(week.sessions / 1200) * 150}px`}
-                      title={`Sessions: ${week.sessions}`}
-                    />
-                    <div
-                      class="bg-blue-400 rounded-b"
-                      style={`height: ${(week.organic / 1200) * 150}px`}
-                      title={`Organic: ${week.organic}`}
-                    />
+            {dashboardData.trafficTrend.length === 0 ? (
+              <div class="h-48 flex items-center justify-center text-center text-gray-400 text-sm">
+                No traffic data — GA4 is {dataStatus.traffic}.
+              </div>
+            ) : (
+              <div class="h-48 flex items-end gap-2">
+                {dashboardData.trafficTrend.map((week) => (
+                  <div class="flex-1 flex flex-col items-center">
+                    <div class="w-full flex flex-col gap-1">
+                      <div
+                        class="bg-[#FFA985] rounded-t"
+                        style={`height: ${(week.sessions / 1200) * 150}px`}
+                        title={`Sessions: ${week.sessions}`}
+                      />
+                      {week.organic !== null && (
+                        <div
+                          class="bg-blue-400 rounded-b"
+                          style={`height: ${(week.organic / 1200) * 150}px`}
+                          title={`Organic: ${week.organic}`}
+                        />
+                      )}
+                    </div>
+                    <span class="text-xs text-gray-500 mt-2">{week.week}</span>
                   </div>
-                  <span class="text-xs text-gray-500 mt-2">{week.week}</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
             <div class="flex gap-4 mt-4 text-sm">
               <span class="flex items-center gap-2">
                 <span class="w-3 h-3 bg-[#FFA985] rounded"></span> Sessions
@@ -403,38 +492,30 @@ const marketColors: Record<string, string> = {
           <!-- Leads by Source -->
           <div class="bg-white rounded-xl shadow-sm p-6">
             <h2 class="text-lg font-bold text-[#333] mb-4">Leads by Source</h2>
-            <div class="space-y-3">
-              <div class="flex items-center">
-                <span class="w-24 text-sm text-gray-600">Quote Forms</span>
-                <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    class="h-full bg-[#FFA985]"
-                    style={`width: ${(dashboardData.leads.current.quoteForms / dashboardData.leads.current.total) * 100}%`}
-                  />
-                </div>
-                <span class="w-12 text-right text-sm font-medium">{dashboardData.leads.current.quoteForms}</span>
+            {dashboardData.leads.current.total === null ? (
+              <div class="py-8 text-center text-gray-400 text-sm">
+                No lead data — GoHighLevel is {dataStatus.leads}.
               </div>
-              <div class="flex items-center">
-                <span class="w-24 text-sm text-gray-600">Phone Calls</span>
-                <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    class="h-full bg-blue-400"
-                    style={`width: ${(dashboardData.leads.current.phoneCalls / dashboardData.leads.current.total) * 100}%`}
-                  />
-                </div>
-                <span class="w-12 text-right text-sm font-medium">{dashboardData.leads.current.phoneCalls}</span>
+            ) : (
+              <div class="space-y-3">
+                {[
+                  { label: 'Quote Forms', value: dashboardData.leads.current.quoteForms, color: 'bg-[#FFA985]' },
+                  { label: 'Phone Calls', value: dashboardData.leads.current.phoneCalls, color: 'bg-blue-400' },
+                  { label: 'Email',       value: dashboardData.leads.current.emails,     color: 'bg-green-400' },
+                ].map((row) => (
+                  <div class="flex items-center">
+                    <span class="w-24 text-sm text-gray-600">{row.label}</span>
+                    <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
+                      <div
+                        class={`h-full ${row.color}`}
+                        style={`width: ${barPct(row.value, dashboardData.leads.current.total)}%`}
+                      />
+                    </div>
+                    <span class="w-12 text-right text-sm font-medium">{num(row.value)}</span>
+                  </div>
+                ))}
               </div>
-              <div class="flex items-center">
-                <span class="w-24 text-sm text-gray-600">Chat</span>
-                <div class="flex-1 h-6 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    class="h-full bg-green-400"
-                    style={`width: ${(dashboardData.leads.current.chat / dashboardData.leads.current.total) * 100}%`}
-                  />
-                </div>
-                <span class="w-12 text-right text-sm font-medium">{dashboardData.leads.current.chat}</span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -443,27 +524,42 @@ const marketColors: Record<string, string> = {
         <!-- Leads by Market -->
         <div class="bg-white rounded-xl shadow-sm p-6">
           <h2 class="text-lg font-bold text-[#333] mb-4">Leads by Market</h2>
-          <div class="space-y-3">
-            {Object.entries(dashboardData.leads.byMarket).sort((a, b) => b[1] - a[1]).map(([market, count]) => (
-              <div class="flex items-center">
-                <span class={`w-28 text-sm px-2 py-1 rounded ${marketColors[market]}`}>
-                  {market.charAt(0).toUpperCase() + market.slice(1)}
-                </span>
-                <div class="flex-1 mx-4 h-6 bg-gray-100 rounded-full overflow-hidden">
-                  <div
-                    class="h-full bg-[#FFA985]"
-                    style={`width: ${(count / 12) * 100}%`}
-                  />
-                </div>
-                <span class="w-8 text-right text-sm font-medium">{count}</span>
-              </div>
-            ))}
-          </div>
+          {dashboardData.leads.byMarket === null ? (
+            <div class="py-8 text-center text-gray-400 text-sm">
+              Not available — <code class="text-xs">/api/leads</code> does not break leads down by market.
+            </div>
+          ) : (
+            <div class="space-y-3">
+              {(() => {
+                const entries = Object.entries(dashboardData.leads.byMarket).sort((a, b) => b[1] - a[1]);
+                const max = Math.max(...entries.map(([, c]) => c), 1);
+                return entries.map(([market, count]) => (
+                  <div class="flex items-center">
+                    <span class={`w-28 text-sm px-2 py-1 rounded ${marketColors[market] ?? 'bg-gray-100 text-gray-700'}`}>
+                      {market.charAt(0).toUpperCase() + market.slice(1)}
+                    </span>
+                    <div class="flex-1 mx-4 h-6 bg-gray-100 rounded-full overflow-hidden">
+                      <div class="h-full bg-[#FFA985]" style={`width: ${(count / max) * 100}%`} />
+                    </div>
+                    <span class="w-8 text-right text-sm font-medium">{count}</span>
+                  </div>
+                ));
+              })()}
+            </div>
+          )}
         </div>
 
         <!-- Conversion Funnel -->
-        <div class="bg-white rounded-xl shadow-sm p-6">
-          <h2 class="text-lg font-bold text-[#333] mb-4">Conversion Funnel</h2>
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-dashed border-gray-300">
+          <div class="flex items-center justify-between mb-1">
+            <h2 class="text-lg font-bold text-[#333]">Conversion Funnel</h2>
+            <span class="text-[10px] uppercase tracking-wide bg-gray-200 text-gray-600 px-1.5 py-0.5 rounded">
+              Estimate — not connected
+            </span>
+          </div>
+          <p class="text-xs text-gray-400 mb-4">
+            Hand-entered figures. No data source is wired to this panel.
+          </p>
           <div class="space-y-4">
             <div class="relative">
               <div class="flex justify-between mb-1">
@@ -497,9 +593,18 @@ const marketColors: Record<string, string> = {
       </div>
 
       <!-- Competitor Tracking -->
-      <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
+      <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-8 border border-dashed border-gray-300">
         <div class="px-6 py-4 border-b border-gray-100">
-          <h2 class="text-lg font-bold text-[#333]">Competitor Tracking</h2>
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold text-[#333]">Competitor Tracking</h2>
+            <span class="text-[10px] uppercase tracking-wide bg-gray-200 text-gray-600 px-1.5 py-0.5 rounded">
+              Estimate — not connected
+            </span>
+          </div>
+          <p class="text-xs text-gray-400 mt-1">
+            Competitor rows are hand-entered and not scraped. Your own row uses live
+            ranking data plus the canonical review figures.
+          </p>
         </div>
         <div class="overflow-x-auto">
           <table class="w-full text-sm">
@@ -516,10 +621,10 @@ const marketColors: Record<string, string> = {
             <tbody>
               <tr class="border-b border-gray-50 bg-[#FFA985]/5">
                 <td class="px-4 py-3 font-bold text-[#333]">The Valley Clean Team (You)</td>
-                <td class="px-4 py-3 text-center font-bold">{dashboardData.rankingSummary.avgPosition}</td>
-                <td class="px-4 py-3 text-center">{dashboardData.rankingSummary.total}</td>
-                <td class="px-4 py-3 text-center">146</td>
-                <td class="px-4 py-3 text-center">5.0</td>
+                <td class="px-4 py-3 text-center font-bold">{num(dashboardData.rankingSummary.avgPosition)}</td>
+                <td class="px-4 py-3 text-center">{num(dashboardData.rankingSummary.total)}</td>
+                <td class="px-4 py-3 text-center">{REVIEWS.count}</td>
+                <td class="px-4 py-3 text-center">{REVIEWS.rating}</td>
                 <td class="px-4 py-3 text-center text-green-600">↑</td>
               </tr>
               {dashboardData.competitors.map((comp) => (
