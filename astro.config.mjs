@@ -126,9 +126,13 @@ try {
 // Pages retired in favour of the hosted BookingKoala flow. They still exist as
 // .astro files, but vercel.json now 301s each path straight to
 // thevalleycleanteam.bookingkoala.com/booknow, so listing them in the sitemap
-// would advertise URLs that only redirect off-site. Exact-path matches so
-// /booking-commercial and /booking-complete are unaffected.
-const retiredPaths = new Set(['/booking', '/get-quote']);
+// would advertise URLs that only redirect off-site.
+//
+// /booking-commercial is included because the booknow flow's first step now
+// asks business vs residential, so a separate commercial booking page is
+// redundant. Exact-path matches, so /booking-complete (the post-booking thank
+// you page, already filtered below) and /commercial-quote are unaffected.
+const retiredPaths = new Set(['/booking', '/get-quote', '/booking-commercial']);
 
 // https://astro.build/config
 export default defineConfig({
