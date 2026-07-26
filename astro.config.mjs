@@ -127,8 +127,17 @@ try {
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
   trailingSlash: 'never',
-  output: 'server',
-  prerender: true,
+  // 'static' prerenders every page at build time; routes that genuinely need
+  // per-request rendering opt out with `export const prerender = false` and
+  // still run as serverless functions (the three /api routes, /admin/dashboard,
+  // and the location [city]/[slug] route all already declare it).
+  //
+  // This was previously `output: 'server'` alongside a top-level
+  // `prerender: true`, which is not a real Astro config option and was silently
+  // ignored. The result was that 362 of 363 pages — the homepage, /pricing,
+  // /get-quote, every location and blog page — invoked a serverless function on
+  // every request instead of being served as static HTML from the CDN edge.
+  output: 'static',
 
   integrations: [
     tailwind(),
