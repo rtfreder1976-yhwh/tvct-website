@@ -117,9 +117,15 @@ const barPct = (part: number | null, whole: number | null) =>
   part === null || whole === null || !whole ? 0 : (part / whole) * 100;
 
 // ---- Rankings ----
+// api/rankings.ts returns `data.rankings` (plus avgPosition / totalKeywords).
+// This read `data.items`, which the endpoint has never exposed, so a perfectly
+// healthy Search Console response produced an empty table while the header
+// badge said "GSC Live". `items` is kept as a fallback in case an older
+// deployment of the function is still serving.
+//
 // Note: `.map()` always returns an array, so the previous `|| [...fake]`
 // fallback after it was unreachable and has been removed rather than kept.
-const rawRankings = rankingsData?.items ?? [];
+const rawRankings = rankingsData?.rankings ?? rankingsData?.items ?? [];
 const rankings = rawRankings.map((k: any) => {
   const pos = parseFloat(k.position);
   const change = k.change ?? 0;
@@ -134,7 +140,7 @@ const rankings = rawRankings.map((k: any) => {
 });
 
 const rankingSummary = rankingsData ? {
-  total: rankings.length,
+  total: rankingsData.totalKeywords ?? rankings.length,
   avgPosition: parseFloat(rankingsData.avgPosition) || 0,
   top3: rankings.filter((k: any) => k.position <= 3).length,
   top10: rankings.filter((k: any) => k.position <= 10).length,
@@ -165,23 +171,42 @@ const traffic = {
   change:   { sessions: sessionsChange, organic: organicChange },
 };
 
-// Weekly trend from the daily array (30 days → 4 weeks). Empty when GA4 gave
-// us nothing; the chart renders an explicit "no data" state rather than the
-// [850, 890, 950, …] placeholder series it used to invent.
-const dailyTrend: number[] = trafficData?.monthlyTrend ?? [];
-const weekLabels = buildWeekLabels(4);
+// api/traffic.ts builds this from a GA4 report starting six months back on the
+// 1st, then returns `trend.map(t => t.sessions)` — so it is one session total
+// per MONTH, roughly six entries, not daily samples.
+//
+// This was previously sliced into seven-day windows to make four weekly bars.
+// With a ~6-element array every slice resolved to slice(0, 0), so all four
+// buckets summed to zero. That went unnoticed because a
+// `|| [850, 890, 950, …]` fallback substituted a placeholder series whenever a
+// bucket came out falsy. Removing the fallback exposed it; this renders the
+// series at its real granularity instead.
+const monthlySessions: number[] = trafficData?.monthlyTrend ?? [];
+const weekLabels = buildWeekLabels(4); // still used by the leads series
 const organicShare = currentOrganic !== null && currentSessions
   ? currentOrganic / currentSessions : null;
-const trafficTrend = dailyTrend.length ? weekLabels.map((week, i) => {
-  const start = Math.max(0, dailyTrend.length - (4 - i) * 7);
-  const end   = Math.max(0, dailyTrend.length - (3 - i) * 7);
-  const weekSessions = dailyTrend.slice(start, end).reduce((a: number, b: number) => a + b, 0);
-  return {
-    week,
-    sessions: weekSessions,
-    organic: organicShare === null ? null : Math.round(weekSessions * organicShare),
-  };
-}) : [];
+
+// Labels are derived rather than returned: the endpoint drops the `month`
+// dimension when it maps to bare numbers. The series ends with the current
+// month, which is how api/traffic.ts constructs the range.
+function buildMonthLabels(count: number): string[] {
+  const labels: string[] = [];
+  const now = new Date();
+  for (let i = count - 1; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    labels.push(d.toLocaleString('default', { month: 'short' }));
+  }
+  return labels;
+}
+const monthLabels = buildMonthLabels(monthlySessions.length);
+const trafficTrend = monthlySessions.map((sessions, i) => ({
+  week: monthLabels[i] ?? '',
+  sessions,
+  organic: organicShare === null ? null : Math.round(sessions * organicShare),
+}));
+// Bars scaled to the actual peak; the old hardcoded /1200 divisor clipped or
+// flattened the chart for any series that did not happen to sit near 1200.
+const trafficPeak = Math.max(...trafficTrend.map((t) => t.sessions), 1);
 
 // ---- Leads ----
 // This page was written against the contract of the Astro /api/leads route
@@ -451,30 +476,31 @@ const marketColors: Record<string, string> = {
         <div class="space-y-8">
           <!-- Traffic Trend -->
           <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-lg font-bold text-[#333] mb-4">Traffic Trend</h2>
+            <h2 class="text-lg font-bold text-[#333] mb-1">Traffic Trend</h2>
+            <p class="text-xs text-gray-400 mb-4">Sessions per month (GA4)</p>
             {dashboardData.trafficTrend.length === 0 ? (
               <div class="h-48 flex items-center justify-center text-center text-gray-400 text-sm">
                 No traffic data — GA4 is {dataStatus.traffic}.
               </div>
             ) : (
               <div class="h-48 flex items-end gap-2">
-                {dashboardData.trafficTrend.map((week) => (
+                {dashboardData.trafficTrend.map((month) => (
                   <div class="flex-1 flex flex-col items-center">
                     <div class="w-full flex flex-col gap-1">
                       <div
                         class="bg-[#FFA985] rounded-t"
-                        style={`height: ${(week.sessions / 1200) * 150}px`}
-                        title={`Sessions: ${week.sessions}`}
+                        style={`height: ${(month.sessions / trafficPeak) * 130}px`}
+                        title={`Sessions: ${month.sessions}`}
                       />
-                      {week.organic !== null && (
+                      {month.organic !== null && (
                         <div
                           class="bg-blue-400 rounded-b"
-                          style={`height: ${(week.organic / 1200) * 150}px`}
-                          title={`Organic: ${week.organic}`}
+                          style={`height: ${(month.organic / trafficPeak) * 130}px`}
+                          title={`Organic: ${month.organic}`}
                         />
                       )}
                     </div>
-                    <span class="text-xs text-gray-500 mt-2">{week.week}</span>
+                    <span class="text-xs text-gray-500 mt-2">{month.week}</span>
                   </div>
                 ))}
               </div>
