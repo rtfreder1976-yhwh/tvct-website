@@ -156,11 +156,10 @@ export default defineConfig({
         // every other service) — it's served entirely by the SSR-only
         // [city]/[slug].astro route, so @astrojs/sitemap's automatic
         // prerendered-route discovery never finds it. List each combo here
-        // explicitly, or it silently never reaches the sitemap.
-        ...[
-          'huntsville', 'nashville', 'athens', 'decatur', 'florence',
-          'mountain-brook', 'madison', 'muscle-shoals', 'tuscumbia', 'west-nashville',
-        ].map((city) => `https://thevalleycleanteam.com/locations/${city}/foreclosure-reo-cleaning`),
+        // explicitly (derived from locations.json, not hand-duplicated, so a
+        // new city can't silently go missing from the sitemap).
+        ...JSON.parse(readFileSync('./src/data/locations.json', 'utf8'))
+          .map((l) => `https://thevalleycleanteam.com/locations/${l.slug}/foreclosure-reo-cleaning`),
       ],
       serialize(item) {
         // Set custom priorities based on page type

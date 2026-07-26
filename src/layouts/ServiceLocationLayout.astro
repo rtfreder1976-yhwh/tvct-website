@@ -425,6 +425,9 @@ const canonicalUrl = `https://thevalleycleanteam.com/locations/${citySlug}/${ser
 
 // Commercial/office services require on-site consultation, not instant online quotes
 const isCommercial = ["commercial-cleaning", "office-cleaning", "dental-office-cleaning", "medical-office-cleaning"].includes(serviceSlug);
+// Custom-quote, non-instant-booking service — like isCommercial, but with
+// real-estate/property wording instead of office/facility wording.
+const isForeclosureReo = serviceSlug === "foreclosure-reo-cleaning";
 
 // Schema for Service with enhanced areaServed
 const areaServedSchema =
@@ -502,6 +505,10 @@ const areaServedSchema =
         };
 
 // Schema for Service
+// Non-numeric price_start values (e.g. "Call" for custom-quote services) have
+// no digits to report — omit `offers` entirely rather than emit an empty/
+// invalid PriceSpecification.price.
+const numericPrice = price.replace(/[^0-9]/g, "");
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -519,15 +526,17 @@ const serviceSchema = {
   },
   areaServed: areaServedSchema,
   description: serviceDescription,
-  offers: {
-    "@type": "Offer",
-    priceSpecification: {
-      "@type": "PriceSpecification",
-      price: price.replace(/[^0-9]/g, ""),
-      priceCurrency: "USD",
-      unitText: "per service",
+  ...(numericPrice && {
+    offers: {
+      "@type": "Offer",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: numericPrice,
+        priceCurrency: "USD",
+        unitText: "per service",
+      },
     },
-  },
+  }),
 };
 
 // FAQ Schema
@@ -722,6 +731,22 @@ const compareHref = bestOfByCity[citySlug];
                   </p>
                 </div>
               </div>
+            ) : isForeclosureReo ? (
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-gray-600 text-sm">Pricing</p>
+                  <p class="text-4xl font-bold text-[#333333]">{price}</p>
+                  <p class="text-xs text-gray-400 mt-1">Custom quoted after photos or a walkthrough</p>
+                </div>
+                <div class="text-right">
+                  <p class="text-green-600 font-semibold">
+                    <Icon name="check-circle" class="w-5 h-5 mr-1" /> Realtor & Bank Trusted
+                  </p>
+                  <p class="text-green-600 font-semibold">
+                    <Icon name="check-circle" class="w-5 h-5 mr-1" /> No Obligation
+                  </p>
+                </div>
+              </div>
             ) : (
               <div class="flex items-center justify-between">
                 <div>
@@ -769,6 +794,13 @@ const compareHref = bestOfByCity[citySlug];
               >
                 <Icon name="building" class="w-5 h-5 mr-2" />Schedule a Walkthrough
               </a>
+            ) : isForeclosureReo ? (
+              <a
+                href="/get-quote"
+                class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition shadow-md"
+              >
+                <Icon name="key" class="w-5 h-5 mr-2" />Request a Quote
+              </a>
             ) : (
               <a
                 href="/get-quote"
@@ -798,6 +830,29 @@ const compareHref = bestOfByCity[citySlug];
                 class="btn-primary w-full py-4 rounded-full text-lg font-semibold block text-center shadow-lg mb-3"
               >
                 <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Free Walkthrough
+              </a>
+              <a
+                href={phoneHref}
+                class="w-full py-4 rounded-full text-lg font-semibold block text-center border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
+              >
+                <Icon name="phone" class="w-5 h-5 mr-2" />Call {phoneDisplay}
+              </a>
+              <p class="text-sm text-gray-400 mt-4">We respond within 2 business hours.</p>
+            </div>
+          ) : isForeclosureReo ? (
+            <div class="text-center">
+              <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-4">
+                <Icon name="key" class="w-8 h-8 text-[#333333]" />
+              </div>
+              <h2 class="text-2xl font-bold text-[#333333] mb-2">
+                Get Your Free Custom Quote
+              </h2>
+              <p class="text-gray-600 mb-6">Every foreclosure and REO property is different. Send photos or schedule a quick walkthrough — then we give you an exact number. No guesswork, no surprises.</p>
+              <a
+                href="/get-quote"
+                class="btn-primary w-full py-4 rounded-full text-lg font-semibold block text-center shadow-lg mb-3"
+              >
+                <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Quote
               </a>
               <a
                 href={phoneHref}
@@ -1397,6 +1452,15 @@ const compareHref = bestOfByCity[citySlug];
                 <div class="text-5xl font-bold text-[#FFA985] mb-1">{price}</div>
                 <p class="text-gray-500 text-sm">Custom quoted after your free on-site walkthrough.</p>
               </>
+            ) : isForeclosureReo ? (
+              <>
+                <p class="text-gray-600 mb-4">
+                  Every foreclosure and REO property is different. Pricing depends on size, condition, and how much is left behind. We quote from photos or a quick walkthrough.
+                </p>
+                <p class="text-sm text-gray-400 mb-1">Pricing</p>
+                <div class="text-5xl font-bold text-[#FFA985] mb-1">{price}</div>
+                <p class="text-gray-500 text-sm">Custom quoted after photos or a walkthrough.</p>
+              </>
             ) : (
               <>
                 <p class="text-gray-600 mb-4">
@@ -1425,6 +1489,24 @@ const compareHref = bestOfByCity[citySlug];
                 </a>
                 <p class="text-center text-sm text-gray-500">
                   <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Fully bonded &amp; insured for commercial work
+                </p>
+              </>
+            ) : isForeclosureReo ? (
+              <>
+                <a
+                  href="/get-quote"
+                  class="btn-primary w-full py-4 rounded-full text-lg font-semibold text-center block shadow-lg"
+                >
+                  <Icon name="calendar-check" class="w-5 h-5 mr-2" />Request a Quote
+                </a>
+                <a
+                  href={phoneHref}
+                  class="w-full py-4 rounded-full text-lg font-semibold text-center block border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition"
+                >
+                  <Icon name="phone" class="w-5 h-5 mr-2" />Call {phoneDisplay}
+                </a>
+                <p class="text-center text-sm text-gray-500">
+                  <Icon name="shield-alt" class="w-5 h-5 mr-1" /> Fully bonded &amp; insured
                 </p>
               </>
             ) : (
@@ -1589,6 +1671,39 @@ const compareHref = bestOfByCity[citySlug];
               class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
             >
               <Icon name="building" class="w-5 h-5 mr-2" />Request a Free Walkthrough
+            </a>
+          </div>
+        </>
+      ) : isForeclosureReo ? (
+        <>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6 text-[#333333]">
+            Get your {city} property listing-ready.
+          </h2>
+          <p class="text-xl text-gray-600 mb-4">
+            Send photos or schedule a walkthrough — we'll give you an exact price, no guesswork.
+          </p>
+          <div
+            class="inline-block bg-green-50 border border-green-200 px-6 py-3 rounded-full mb-8"
+          >
+            <span class="text-green-700 font-semibold text-lg">
+              <Icon
+                name="calendar-check"
+                class="w-5 h-5 text-green-600 mr-2"
+              />Realtor &amp; Bank Trusted — No Obligation
+            </span>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={phoneHref}
+              class="btn-primary px-10 py-5 rounded-full text-xl font-semibold shadow-lg hover:shadow-xl transition"
+            >
+              <Icon name="phone" class="w-5 h-5 mr-2" />Call Now: {phoneDisplay}
+            </a>
+            <a
+              href="/get-quote"
+              class="px-10 py-5 rounded-full text-xl font-semibold border-2 border-[#333333] text-[#333333] hover:bg-[#333333] hover:text-white transition shadow-md"
+            >
+              <Icon name="key" class="w-5 h-5 mr-2" />Request a Quote
             </a>
           </div>
         </>
