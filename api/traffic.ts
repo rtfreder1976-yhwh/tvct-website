@@ -136,7 +136,15 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
       data: {
         current,
         previous,
+        // Bare session totals, kept for existing consumers that index this
+        // array positionally (src/pages/dashboard.astro).
         monthlyTrend: trend.map(t => t.sessions),
+        // Same series with its GA4 `yearMonth` dimension retained. Consumers
+        // that label a chart need this: GA4 omits months with no rows, so the
+        // length of `monthlyTrend` alone cannot tell you which months the
+        // values belong to, and deriving labels from the array length
+        // misattributes real traffic to the wrong periods.
+        monthlyTrendPoints: trend,
         topPages: pages,
         dateRange: {
           start: formatDate(startDate),
