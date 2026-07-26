@@ -1,7 +1,7 @@
 /**
  * Centralized Testimonials Data
  * Real Google Reviews - Each review appears on ONE location only
- * Last updated: December 2024
+ * Last updated: July 2026 (homepage set refreshed from live GBP)
  */
 
 export interface Testimonial {
@@ -402,70 +402,80 @@ export const deepCleaningTestimonials: Testimonial[] = [
   }
 ];
 
-// GENERAL / HOMEPAGE TESTIMONIALS (Best overall)
+// GENERAL / HOMEPAGE TESTIMONIALS (most recent Google reviews)
+//
+// Refreshed 2026-07-25 from the live Google Business Profile. The previous set
+// led with reviews from 2023-2024 on a site whose footer reads (c) 2026, which
+// read as a business that had stopped collecting them.
+//
+// Only complete, verbatim review text is used here — reviews that Google
+// truncated behind "View full review" are deliberately excluded rather than
+// paraphrased. Dates are derived from Google's relative timestamps ("2 weeks
+// ago"), so they are accurate to the month but worth spot-checking against the
+// dashboard if exact dates ever matter.
 export const homepageTestimonials: Testimonial[] = [
   {
-    name: "Mckala H.",
-    initial: "M",
-    text: "The Valley Clean Team cleaned my home expertly. They always kept me up to date on arrival time and finish time. The people cleaning the house were very nice. The house smelled clean and fresh when they finished. I recommend this business wholeheartedly.",
+    name: "Erica H.",
+    initial: "E",
+    text: "Brittany did an awesome job! Very friendly too.",
     service: "House Cleaning",
-    date: "October 2024",
+    date: "July 2026",
     source: "via Google"
   },
   {
-    name: "Brandi S.",
+    name: "Brandi C.",
     initial: "B",
-    text: "I highly recommend The Valley Clean Team. The service was excellent, from our initial conversations, to the cleaning, to the follow-up. I knew exactly what to expect the entire process.",
-    service: "Deep Cleaning",
-    date: "May 2024",
-    source: "via Google"
-  },
-  {
-    name: "Ginny B.",
-    initial: "G",
-    text: "The Valley Clean Team has been a great company to hire for a professional detailed house cleaning. Todd, the owner, goes out of his way to accommodate and arrange cleaning times. I have been very pleased with the cleaning crews I've had. They're professional and knowledgeable about cleaning homes.",
+    text: "Cassandra was very friendly and well oriented. Everything was clean and fresh smelling when she was done.",
     service: "House Cleaning",
-    date: "March 2024",
+    date: "June 2026",
     source: "via Google"
   },
   {
-    name: "Tina R.",
+    name: "Carol S.",
+    initial: "C",
+    text: "Great job for the move out clean from Kassandra! My sellers are super happy!! It is nice to be able to pack up and go without the hassles of a final clean. Thank you!!",
+    service: "Move-Out Cleaning",
+    date: "June 2026",
+    source: "via Google"
+  },
+  {
+    name: "Tina B.",
     initial: "T",
-    text: "I had a hard time relinquishing my house cleaning to someone else but I'm a mom, wife and full time employee and lord knows I'm tired. I realize I cannot do it all. They were quick to get me scheduled, they showed up on time and quickly got to work. They did a great job!",
-    service: "Deep Cleaning",
-    date: "April 2023",
-    source: "via Google"
-  },
-  {
-    name: "Chris P.",
-    initial: "C",
-    text: "Incredibly done. Very clean once they were complete! Bathrooms, floors, kitchen, everything was knocked out. Oh yeah, and they were awesome to my dog!!",
-    service: "Deep Cleaning",
-    date: "January 2023",
-    source: "via Google"
-  },
-  {
-    name: "Rhonda B.",
-    initial: "R",
-    text: "This was one of the best and most pleasant experiences. The automatic response was greatly appreciated. Then the modern app that helps make everything smooth along with the notifications of arrival and leaving are fantastic! Getting the photos helped a lot. Def recommend!",
+    text: "Kassandra was amazing, she worked long and hard. Great attitude and obviously enjoyed her work. Todd has great customer service and really cares about his clients wants and needs. I would absolutely refer them.",
     service: "House Cleaning",
-    date: "January 2025",
+    date: "May 2026",
     source: "via Google"
   },
   {
-    name: "Christina T.",
-    initial: "C",
-    text: "Todd, Sissy, and Tiffany were AMAZING!!!! I can be VERY PICKY about everything and these people were professional, kind, and thorough!",
-    service: "Deep Cleaning",
-    date: "March 2024",
-    source: "via Google"
-  },
-  {
-    name: "Abigail R.",
-    initial: "A",
-    text: "Thorough and friendly. I would absolutely recommend The Valley Clean Team to anyone I know.",
+    name: "Megan D.",
+    initial: "M",
+    text: "Great experience with valley clean team. They communicated well and were able to get us in quickly.",
     service: "House Cleaning",
-    date: "May 2024",
+    date: "May 2026",
+    source: "via Google"
+  },
+  {
+    name: "Letitia Y.",
+    initial: "L",
+    text: "Good service very nice people to work with and helpful. Kassandra did a good job doing what we needed done and even did some helpful extra things that weren't expected.",
+    service: "House Cleaning",
+    date: "April 2026",
+    source: "via Google"
+  },
+  {
+    name: "Skyler P.",
+    initial: "S",
+    text: "They were a pleasure to work with and did a really good job with the move-out cleaning of our rental home.",
+    service: "Move-Out Cleaning",
+    date: "April 2026",
+    source: "via Google"
+  },
+  {
+    name: "Cody G.",
+    initial: "C",
+    text: "Great company. Customer service top notch. Katie was absolutely amazing. 10 out of 10. She went above and beyond to make sure we were happy in our clean new home. Process was very transparent and fair. 100% recommend",
+    service: "House Cleaning",
+    date: "February 2026",
     source: "via Google"
   }
 ];
