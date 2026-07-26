@@ -161,6 +161,14 @@ export default defineConfig({
         'https://thevalleycleanteam.com/trust',
         'https://thevalleycleanteam.com/luxury-homes',
         'https://thevalleycleanteam.com/booking',
+        // foreclosure-reo-cleaning has no per-city literal .astro file (unlike
+        // every other service) — it's served entirely by the SSR-only
+        // [city]/[slug].astro route, so @astrojs/sitemap's automatic
+        // prerendered-route discovery never finds it. List each combo here
+        // explicitly (derived from locations.json, not hand-duplicated, so a
+        // new city can't silently go missing from the sitemap).
+        ...JSON.parse(readFileSync('./src/data/locations.json', 'utf8'))
+          .map((l) => `https://thevalleycleanteam.com/locations/${l.slug}/foreclosure-reo-cleaning`),
       ],
       serialize(item) {
         // Set custom priorities based on page type

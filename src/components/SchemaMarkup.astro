@@ -309,7 +309,10 @@ const serviceSchema = serviceName
       const stateAbbr =
         state === "Alabama" ? "AL" : state === "Tennessee" ? "TN" : "AL";
       const citySlug = city ? city.toLowerCase().replace(/\s+/g, "-") : "";
-      const servicePrice_ = servicePrice?.replace(/[^0-9.]/g, "") || "149.00";
+      // No fallback price: a fabricated number (e.g. the old "149.00"
+      // default) would misrepresent custom-quote services. Omit the Offer
+      // entirely when no real, numeric price was passed in.
+      const servicePrice_ = servicePrice?.replace(/[^0-9.]/g, "");
 
       // For city+service pages, reference local business; for service-only pages, reference org
       const providerId = city
@@ -327,14 +330,16 @@ const serviceSchema = serviceName
               name: `${city} ${stateAbbr} ZIP ${cityConfig?.zips?.split("-")[0] || "35801"}`,
             }
           : areasServed,
-        offers: {
-          "@type": "Offer",
-          priceCurrency: "USD",
-          price: servicePrice_,
-          description: city
-            ? `Pet-safe ${serviceName.toLowerCase()} for ${city} homes—non-toxic products included`
-            : `Pet-safe ${serviceName.toLowerCase()}—non-toxic products included`,
-        },
+        ...(servicePrice_ && {
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "USD",
+            price: servicePrice_,
+            description: city
+              ? `Pet-safe ${serviceName.toLowerCase()} for ${city} homes—non-toxic products included`
+              : `Pet-safe ${serviceName.toLowerCase()}—non-toxic products included`,
+          },
+        }),
         mainEntityOfPage: {
           "@type": "WebPage",
           headline: city
