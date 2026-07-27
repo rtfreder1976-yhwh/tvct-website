@@ -123,6 +123,38 @@ try {
   }
 } catch { /* if the scan fails, fall back to including everything */ }
 
+// ---------------------------------------------------------------------------
+// URLs served only by the SSR-only /locations/[city]/[slug].astro route.
+// ---------------------------------------------------------------------------
+// @astrojs/sitemap discovers pages by walking prerendered routes, so anything
+// that route generates from locations.json/services.json — and has no matching
+// static .astro file of its own — is invisible to it. Computed here (not
+// hand-listed) so a new city, neighborhood, or service can't silently go
+// missing from the sitemap the way the Huntsville neighborhoods did.
+function dynamicOnlyLocationUrls() {
+  const locations = JSON.parse(readFileSync('./src/data/locations.json', 'utf8'));
+  const services = JSON.parse(readFileSync('./src/data/services.json', 'utf8'));
+  const pagesDir = fileURLToPath(new URL('./src/pages/locations', import.meta.url));
+
+  const hasStaticFile = (citySlug, slug) =>
+    existsSync(`${pagesDir}/${citySlug}/${slug}.astro`);
+
+  const urls = [];
+  for (const loc of locations) {
+    for (const svc of services) {
+      if (!hasStaticFile(loc.slug, svc.slug)) {
+        urls.push(`https://thevalleycleanteam.com/locations/${loc.slug}/${svc.slug}`);
+      }
+    }
+    for (const hood of loc.neighborhoods ?? []) {
+      if (!hasStaticFile(loc.slug, hood.slug)) {
+        urls.push(`https://thevalleycleanteam.com/locations/${loc.slug}/${hood.slug}`);
+      }
+    }
+  }
+  return urls;
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
@@ -161,14 +193,11 @@ export default defineConfig({
         'https://thevalleycleanteam.com/trust',
         'https://thevalleycleanteam.com/luxury-homes',
         'https://thevalleycleanteam.com/booking',
-        // foreclosure-reo-cleaning has no per-city literal .astro file (unlike
-        // every other service) — it's served entirely by the SSR-only
-        // [city]/[slug].astro route, so @astrojs/sitemap's automatic
-        // prerendered-route discovery never finds it. List each combo here
-        // explicitly (derived from locations.json, not hand-duplicated, so a
-        // new city can't silently go missing from the sitemap).
-        ...JSON.parse(readFileSync('./src/data/locations.json', 'utf8'))
-          .map((l) => `https://thevalleycleanteam.com/locations/${l.slug}/foreclosure-reo-cleaning`),
+        // Every neighborhood/service combo served only by the SSR-only
+        // [city]/[slug].astro route (no static .astro file of its own) —
+        // see dynamicOnlyLocationUrls() above for why this can't just rely
+        // on @astrojs/sitemap's automatic route discovery.
+        ...dynamicOnlyLocationUrls(),
       ],
       serialize(item) {
         // Set custom priorities based on page type

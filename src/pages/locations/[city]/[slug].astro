@@ -43,8 +43,31 @@ const fullTitle = neighborhood
     ? `${hoodName} Cleaning | ${city}`
     : "";
 
+// Several near-identical neighborhood pages (only the name/city swapped) is a
+// duplicate-meta-description risk, so this rotates through a small set of
+// phrasings, deterministically keyed on the neighborhood slug — same
+// neighborhood always gets the same description across builds, but siblings
+// in the same city (and same-named neighborhoods across different cities)
+// don't collide.
+const descriptionTemplates = [
+    (h: string, c: string, r: string) =>
+        `Professional house cleaning in ${h}, ${c}. Veteran-owned, $2M insured, serving all of ${r}. Free quote in 60 seconds!`,
+    (h: string, c: string, r: string) =>
+        `Trusted house cleaners for ${h} and the greater ${c} area. Background-checked, $2M insured, flexible scheduling. Free quote today.`,
+    (h: string, c: string, r: string) =>
+        `Looking for house cleaning in ${h}, ${c}? Veteran-owned team, ${r} coverage, satisfaction guaranteed. Get a free quote.`,
+    (h: string, c: string, r: string) =>
+        `${h} house cleaning done right. Insured, background-checked crews serving ${c} and ${r}. Request your free quote now.`,
+];
+
+function templateIndex(slug: string): number {
+    let hash = 0;
+    for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+    return hash % descriptionTemplates.length;
+}
+
 const neighborhoodDescription = neighborhood
-    ? `Professional house cleaning in ${hoodName}, ${city}. Veteran-owned, $2M insured. Same-day available. 100% satisfaction guaranteed. Get your free quote!`
+    ? descriptionTemplates[templateIndex(slug)](hoodName, city, location.region_name || city)
     : "";
 
 const neighborhoodFaqs = neighborhood
