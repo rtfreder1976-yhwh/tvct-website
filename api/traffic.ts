@@ -1,5 +1,6 @@
 import type { ApiRequest, ApiResponse } from './_types.js';
 import { google } from 'googleapis';
+import { normalizePrivateKey } from './_google-auth.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -12,13 +13,26 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
 
   try {
     const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+    const rawKey = process.env.GOOGLE_PRIVATE_KEY;
     const propertyId = process.env.GA4_PROPERTY_ID;
 
-    if (!clientEmail || !privateKey || !propertyId) {
+    if (!clientEmail || !rawKey || !propertyId) {
       return res.status(500).json({
         error: 'Missing Google Analytics credentials',
         message: 'Set GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, and GA4_PROPERTY_ID environment variables'
+      });
+    }
+
+    // A malformed key otherwise surfaces as the opaque OpenSSL message
+    // "error:1E08010C:DECODER routines::unsupported", which is identical for
+    // every way of getting the value wrong and so says nothing about the cause.
+    let privateKey: string;
+    try {
+      privateKey = normalizePrivateKey(rawKey);
+    } catch (err) {
+      return res.status(500).json({
+        error: 'Invalid Google credentials',
+        message: err instanceof Error ? err.message : String(err),
       });
     }
 

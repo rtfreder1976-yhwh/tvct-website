@@ -1,5 +1,6 @@
 import type { ApiRequest, ApiResponse } from './_types.js';
 import { google } from 'googleapis';
+import { normalizePrivateKey } from './_google-auth.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   // Set CORS headers
@@ -13,8 +14,30 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
 
   try {
     const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+    const rawKey = process.env.GOOGLE_PRIVATE_KEY;
     const siteUrl = process.env.GOOGLE_SITE_URL || 'https://thevalleycleanteam.com';
+
+    // Validate the key up front so a malformed one is reported as a credential
+    // problem. Previously a bad key threw inside the per-keyword loop, where the
+    // catch turned it into `position: null`; those rows were then filtered out
+    // and the endpoint answered 200 with `rankings: []` — an auth failure
+    // presented as "no keywords ranked".
+    let privateKey: string | undefined;
+    let keyError: string | null = null;
+    if (rawKey) {
+      try {
+        privateKey = normalizePrivateKey(rawKey);
+      } catch (err) {
+        keyError = err instanceof Error ? err.message : String(err);
+      }
+    }
+
+    if (keyError) {
+      return res.status(500).json({
+        error: 'Invalid Google credentials',
+        message: keyError,
+      });
+    }
 
     if (!clientEmail || !privateKey) {
       return res.status(500).json({
