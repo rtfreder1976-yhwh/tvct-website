@@ -1,6 +1,7 @@
 import type { ApiRequest, ApiResponse } from './_types.js';
 import { google } from 'googleapis';
 import { normalizePrivateKey } from './_google-auth.js';
+import { resolveSearchConsoleSite } from './_google-discovery.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   // Set CORS headers
@@ -15,7 +16,6 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
   try {
     const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
     const rawKey = process.env.GOOGLE_PRIVATE_KEY;
-    const siteUrl = process.env.GOOGLE_SITE_URL || 'https://thevalleycleanteam.com';
 
     // Validate the key up front so a malformed one is reported as a credential
     // problem. Previously a bad key threw inside the per-keyword loop, where the
@@ -53,6 +53,25 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     });
 
     const searchconsole = google.searchconsole({ version: 'v1', auth });
+
+    // The previous default — a bare `https://thevalleycleanteam.com` — is only
+    // correct if that exact URL-prefix property exists. For a domain property
+    // the verified string is `sc-domain:thevalleycleanteam.com`, and querying
+    // the wrong one returns a permission error per keyword that this endpoint
+    // used to swallow into an empty rankings list. Ask which properties the
+    // service account is actually verified for instead of assuming.
+    const resolvedSite = await resolveSearchConsoleSite(
+      auth,
+      clientEmail,
+      'thevalleycleanteam.com'
+    );
+    if (!resolvedSite.ok) {
+      return res.status(500).json({
+        error: resolvedSite.error,
+        message: resolvedSite.message,
+      });
+    }
+    const siteUrl = resolvedSite.value;
 
     const endDate = new Date();
     const startDate = new Date();
@@ -131,6 +150,11 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
         dateRange: {
           start: formatDate(startDate),
           end: formatDate(endDate)
+        },
+        site: {
+          url: siteUrl,
+          source: resolvedSite.source,
+          ...(resolvedSite.note ? { warning: resolvedSite.note } : {})
         }
       }
     });
