@@ -2,15 +2,16 @@ import type { ApiRequest, ApiResponse } from './_types.js';
 import { google } from 'googleapis';
 import { normalizePrivateKey } from './_google-auth.js';
 import { resolveGa4PropertyId } from './_google-discovery.js';
+import { requireAdmin, setPrivateApiHeaders } from './_admin-auth.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
-  res.setHeader('Cache-Control', 'public, max-age=3600');
+  setPrivateApiHeaders(res);
 
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (!requireAdmin(req, res)) return;
 
   try {
     const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
