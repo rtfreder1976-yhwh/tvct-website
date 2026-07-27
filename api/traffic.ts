@@ -1,6 +1,7 @@
 import type { ApiRequest, ApiResponse } from './_types.js';
 import { google } from 'googleapis';
 import { normalizePrivateKey } from './_google-auth.js';
+import { resolveGa4PropertyId } from './_google-discovery.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,12 +15,14 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
   try {
     const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
     const rawKey = process.env.GOOGLE_PRIVATE_KEY;
-    const propertyId = process.env.GA4_PROPERTY_ID;
 
-    if (!clientEmail || !rawKey || !propertyId) {
+    // GA4_PROPERTY_ID is deliberately not required: it is discoverable from the
+    // credentials themselves, so demanding it turns a solvable lookup into a
+    // manual step that fails silently when done wrong.
+    if (!clientEmail || !rawKey) {
       return res.status(500).json({
         error: 'Missing Google Analytics credentials',
-        message: 'Set GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, and GA4_PROPERTY_ID environment variables'
+        message: 'Set GOOGLE_SERVICE_ACCOUNT_EMAIL and GOOGLE_PRIVATE_KEY environment variables'
       });
     }
 
@@ -41,6 +44,15 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
       key: privateKey,
       scopes: ['https://www.googleapis.com/auth/analytics.readonly']
     });
+
+    const resolvedProperty = await resolveGa4PropertyId(auth, clientEmail);
+    if (!resolvedProperty.ok) {
+      return res.status(500).json({
+        error: resolvedProperty.error,
+        message: resolvedProperty.message,
+      });
+    }
+    const propertyId = resolvedProperty.value;
 
     const analyticsData = google.analyticsdata({ version: 'v1beta', auth });
 
@@ -163,6 +175,14 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
         dateRange: {
           start: formatDate(startDate),
           end: formatDate(endDate)
+        },
+        // Which property these numbers came from, and whether it was configured
+        // or discovered. Without this, a dashboard reading the wrong property
+        // looks identical to one reading the right property badly.
+        property: {
+          id: propertyId,
+          source: resolvedProperty.source,
+          ...(resolvedProperty.note ? { warning: resolvedProperty.note } : {})
         }
       }
     });

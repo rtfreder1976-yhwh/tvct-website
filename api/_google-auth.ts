@@ -56,9 +56,19 @@ export function normalizePrivateKey(raw: string | undefined): string {
   }
 
   if (!key.includes('BEGIN')) {
+    // The service-account JSON has two adjacent fields whose names differ by
+    // one word, and the short one is far easier to copy by accident. Naming
+    // that specifically beats "not a PEM key", which leaves you re-checking a
+    // value that was never the right field to begin with.
+    const looksLikeKeyId = /^[0-9a-f]{40}$/i.test(key);
     throw new Error(
       'GOOGLE_PRIVATE_KEY does not look like a PEM key — it has no "-----BEGIN..." header. ' +
-      'Paste the value of the `private_key` field from the service-account JSON.'
+      (looksLikeKeyId
+        ? 'The value is 40 hex characters, which is the `private_key_id` field. ' +
+          'You want the `private_key` field instead: it is about 1,700 characters ' +
+          'long and starts with "-----BEGIN PRIVATE KEY-----".'
+        : 'Paste the value of the `private_key` field from the service-account JSON ' +
+          '— the long one starting with "-----BEGIN PRIVATE KEY-----", not `private_key_id`.')
     );
   }
 
