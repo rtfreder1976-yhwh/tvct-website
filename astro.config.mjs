@@ -123,6 +123,17 @@ try {
   }
 } catch { /* if the scan fails, fall back to including everything */ }
 
+// Pages retired in favour of the hosted BookingKoala flow. They still exist as
+// .astro files, but vercel.json now 301s each path straight to
+// thevalleycleanteam.bookingkoala.com/booknow, so listing them in the sitemap
+// would advertise URLs that only redirect off-site.
+//
+// /booking-commercial is included because the booknow flow's first step now
+// asks business vs residential, so a separate commercial booking page is
+// redundant. Exact-path matches, so /booking-complete (the post-booking thank
+// you page, already filtered below) and /commercial-quote are unaffected.
+const retiredPaths = new Set(['/booking', '/get-quote', '/booking-commercial']);
+
 // ---------------------------------------------------------------------------
 // URLs served only by the SSR-only /locations/[city]/[slug].astro route.
 // ---------------------------------------------------------------------------
@@ -176,7 +187,7 @@ export default defineConfig({
     sitemap({
       // /recurring is the noindex SMS conversion page — exact-path match so the
       // indexable /locations/*/recurring-maid-service pages are NOT excluded.
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && !page.includes('/careers') && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !retiredPaths.has(new URL(page).pathname.replace(/\/$/, '')) && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
       customPages: [
@@ -192,11 +203,12 @@ export default defineConfig({
         'https://thevalleycleanteam.com/about',
         'https://thevalleycleanteam.com/trust',
         'https://thevalleycleanteam.com/luxury-homes',
-        'https://thevalleycleanteam.com/booking',
         // Every neighborhood/service combo served only by the SSR-only
         // [city]/[slug].astro route (no static .astro file of its own) —
         // see dynamicOnlyLocationUrls() above for why this can't just rely
-        // on @astrojs/sitemap's automatic route discovery.
+        // on @astrojs/sitemap's automatic route discovery. Supersedes the
+        // old foreclosure-only hardcoded mapping (this covers it too, plus
+        // every other dynamic-only combo).
         ...dynamicOnlyLocationUrls(),
       ],
       serialize(item) {
