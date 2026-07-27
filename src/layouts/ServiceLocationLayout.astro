@@ -429,6 +429,19 @@ const isCommercial = ["commercial-cleaning", "office-cleaning", "dental-office-c
 // real-estate/property wording instead of office/facility wording.
 const isForeclosureReo = serviceSlug === "foreclosure-reo-cleaning";
 
+// Separately incorporated municipalities near Mountain Brook that some
+// mountain-brook pages' `neighborhoods` prop includes as extended service
+// area (confirmed real coverage, not a metro-wide overclaim). These are NOT
+// contained within Mountain Brook and get a sibling City entry instead of a
+// nested Place — everything else in the prop (Crestline Village, English
+// Village, Office Park Drive, etc.) is Mountain Brook's own named
+// villages/areas and keeps the original nested-Place behavior.
+const EXTERNAL_MOUNTAIN_BROOK_AREA_CITIES = new Set([
+  "Vestavia Hills",
+  "Homewood",
+  "Cahaba Heights",
+]);
+
 // Schema for Service with enhanced areaServed
 const areaServedSchema =
   citySlug === "mountain-brook" && neighborhoods.length > 0
@@ -438,15 +451,23 @@ const areaServedSchema =
           name: city,
           containedInPlace: { "@type": "State", name: state },
         },
-        ...neighborhoods.map((neighborhood) => ({
-          "@type": "Place",
-          name: neighborhood,
-          containedInPlace: {
-            "@type": "City",
-            name: city,
-            containedInPlace: { "@type": "State", name: state },
-          },
-        })),
+        ...neighborhoods.map((neighborhood) =>
+          EXTERNAL_MOUNTAIN_BROOK_AREA_CITIES.has(neighborhood)
+            ? {
+                "@type": "City",
+                name: neighborhood,
+                containedInPlace: { "@type": "State", name: state },
+              }
+            : {
+                "@type": "Place",
+                name: neighborhood,
+                containedInPlace: {
+                  "@type": "City",
+                  name: city,
+                  containedInPlace: { "@type": "State", name: state },
+                },
+              },
+        ),
       ]
     : citySlug === "muscle-shoals"
       ? [
