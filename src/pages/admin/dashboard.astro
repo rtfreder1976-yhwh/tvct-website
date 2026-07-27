@@ -42,7 +42,10 @@ const keyFromQuery = Astro.url.searchParams.get('key');
 if (keyFromQuery) {
     Astro.response.headers.set(
         'Set-Cookie',
-        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/admin; Max-Age=28800`
+        // Path=/ rather than /admin: the browser must send this cookie to
+        // /api/* too, which is where /dashboard reads its data from. Scoped to
+        // /admin it would never be attached to an API request.
+        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`
     );
 }
 
@@ -73,10 +76,14 @@ function buildWeekLabels(count: number): string[] {
 
 const origin = Astro.url.origin;
 
+// These fetches run on the server, so the secret goes in a header and never
+// reaches the browser. The data endpoints now refuse unauthenticated requests.
+const adminHeaders = { 'x-admin-key': ADMIN_SECRET };
+
 const [rankingsResult, trafficResult, leadsResult] = await Promise.allSettled([
-  fetch(`${origin}/api/rankings`).then(r => r.json()),
-  fetch(`${origin}/api/traffic`).then(r => r.json()),
-  fetch(`${origin}/api/leads`).then(r => r.json()),
+  fetch(`${origin}/api/rankings`, { headers: adminHeaders }).then(r => r.json()),
+  fetch(`${origin}/api/traffic`,  { headers: adminHeaders }).then(r => r.json()),
+  fetch(`${origin}/api/leads`,    { headers: adminHeaders }).then(r => r.json()),
 ]);
 
 const rankingsData = rankingsResult.status === 'fulfilled' && rankingsResult.value?.success

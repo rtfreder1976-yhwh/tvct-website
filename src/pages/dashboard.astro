@@ -3,6 +3,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 export const prerender = false;
 
+// ---------------------------------------------------------------------------
+// Admin authentication — same server-side gate as /admin/dashboard.
+//
+// This page previously guarded itself with a password compared in an
+// `is:inline` script, which meant the password was shipped verbatim to every
+// visitor in the page source, and the gate itself was a CSS overlay that could
+// be removed from devtools. It protected nothing. The check now happens on the
+// server, before any markup is produced.
+// ---------------------------------------------------------------------------
+const ADMIN_SECRET = import.meta.env.ADMIN_SECRET;
+
+function isAuthorized(): boolean {
+    if (!ADMIN_SECRET) return false; // Deny all if not configured
+
+    const queryKey = Astro.url.searchParams.get("key");
+    if (queryKey && queryKey === ADMIN_SECRET) return true;
+
+    const cookie = Astro.request.headers.get("cookie") ?? "";
+    const adminCookie = cookie
+        .split(";")
+        .map((c) => c.trim())
+        .find((c) => c.startsWith("admin_session="));
+    return adminCookie?.split("=")[1] === ADMIN_SECRET;
+}
+
+if (!isAuthorized()) {
+    return new Response(
+        "Unauthorized — visit /dashboard?key=YOUR_ADMIN_SECRET to log in.",
+        { status: 401, headers: { "Content-Type": "text/plain" } },
+    );
+}
+
+// Exchange the query key for the session cookie so the secret stops appearing
+// in the URL bar, and so the browser attaches it to the /api/* fetches below.
+const keyFromQuery = Astro.url.searchParams.get("key");
+if (keyFromQuery) {
+    Astro.response.headers.set(
+        "Set-Cookie",
+        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`,
+    );
+}
+
 // Sample data - In production, this would come from Google Search Console, Analytics, etc.
 const keywordRankings = [
   {
@@ -119,86 +161,10 @@ const topPages = [
   description="Internal SEO dashboard for tracking rankings, traffic, leads, and competitor analysis."
   noindex={true}
 >
-  <!-- Password Protection Lock -->
-  <div
-    id="auth-overlay"
-    class="fixed inset-0 z-50 bg-[#333333] flex items-center justify-center flex-col p-4 transition-opacity duration-300"
-  >
-    <div
-      class="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full text-center"
-    >
-      <div
-        class="w-16 h-16 bg-[#FFA985]/20 rounded-full flex items-center justify-center mx-auto mb-4"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-8 h-8 text-[#FFA985]"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          ><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path
-            d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg
-        >
-      </div>
-      <h2 class="text-2xl font-bold text-[#333333] mb-2">Secure Area</h2>
-      <p class="text-gray-600 mb-6">
-        Please enter the dashboard password to proceed.
-      </p>
-
-      <div class="space-y-4 text-left">
-        <div>
-          <input
-            type="password"
-            id="auth-password"
-            class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent transition-all"
-            placeholder="Dashboard Password..."
-            required
-            onkeypress="if(event.key === 'Enter') checkAuth()"
-          />
-          <p id="auth-error" class="hidden text-red-500 text-sm mt-2">
-            Incorrect password. Please try again.
-          </p>
-        </div>
-        <button
-          onclick="checkAuth()"
-          class="w-full bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold py-3 px-6 rounded-xl hover:shadow-lg transition-all"
-        >
-          Access Dashboard
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <script is:inline>
-    // Initial check before DOM load finishes
-    if (sessionStorage.getItem("tvct_admin_auth") === "true") {
-      const style = document.createElement("style");
-      style.textContent = "#auth-overlay { display: none !important; }";
-      document.head.appendChild(style);
-    }
-
-    // Function to check password when submitted
-    function checkAuth() {
-      const input = document.getElementById("auth-password").value;
-      const errorMsg = document.getElementById("auth-error");
-
-      // Setting password to something simple but effective
-      if (input === "ValleyClean2026") {
-        sessionStorage.setItem("tvct_admin_auth", "true");
-        const overlay = document.getElementById("auth-overlay");
-        overlay.classList.add("opacity-0");
-        setTimeout(() => {
-          overlay.style.display = "none";
-        }, 300);
-      } else {
-        errorMsg.classList.remove("hidden");
-        document.getElementById("auth-password").value = "";
-      }
-    }
-  </script>
+  {/* The client-side password overlay that used to sit here was removed: the
+      password was a literal in an is:inline script, so it shipped to every
+      visitor, and the overlay was CSS that devtools could delete. Reaching this
+      markup at all now requires passing the server-side check above. */}
 
   <div id="main-content" class="pt-24 pb-20 px-4 md:px-6">
     <div class="max-w-7xl mx-auto">

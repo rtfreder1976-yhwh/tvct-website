@@ -1,13 +1,16 @@
 import type { ApiRequest, ApiResponse } from './_types.js';
+import { requireAdmin, setPrivateApiHeaders } from './_admin-auth.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
-  res.setHeader('Cache-Control', 'public, max-age=3600');
+  // This endpoint returns GoHighLevel contact records — customer names, emails
+  // and phone numbers — so the gate goes on before any of that is fetched.
+  setPrivateApiHeaders(res);
 
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (!requireAdmin(req, res)) return;
 
   try {
     const apiKey = process.env.GHL_API_KEY;
