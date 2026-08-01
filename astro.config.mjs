@@ -134,6 +134,27 @@ try {
 // you page, already filtered below) and /commercial-quote are unaffected.
 const retiredPaths = new Set(['/booking', '/get-quote', '/booking-commercial']);
 
+// ---------------------------------------------------------------------------
+// Claim verification gate.
+// ---------------------------------------------------------------------------
+// src/data/claims.ts is the single source of truth for every factual claim the
+// site makes — pricing, review counts, identity, credentials, performance. Any
+// claim nobody has verified is TODO_VERIFY, and this integration stops the
+// build rather than letting a placeholder reach a page or, worse, JSON-LD.
+//
+// It runs before any page renders and reports every outstanding claim at once,
+// so the failure output is the complete list of what still needs answering
+// rather than whichever one happened to be checked first.
+const claimsGate = {
+  name: 'claims-gate',
+  hooks: {
+    'astro:config:setup': async () => {
+      const { assertClaims } = await import('./src/data/claims.ts');
+      assertClaims();
+    },
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
@@ -151,6 +172,7 @@ export default defineConfig({
   output: 'static',
 
   integrations: [
+    claimsGate,
     tailwind(),
     sitemap({
       // /recurring is the noindex SMS conversion page — exact-path match so the

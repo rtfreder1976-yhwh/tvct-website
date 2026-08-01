@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import { hasCertifications } from "../data/claims";
 ---
 
 <style>
@@ -36,11 +37,16 @@ import Icon from "./Icon.astro";
         <p class="font-semibold text-xs">15 Years Avg.</p>
         <p class="text-gray-300 text-xs">Cleaner Experience</p>
       </div>
-      <div>
-        <Icon name="certificate" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">Certified</p>
-        <p class="text-gray-300 text-xs">Professional Cleaners</p>
-      </div>
+      {/* Gated: no named certifying body exists anywhere in the repo, so this
+          badge asserts a credential nobody issued. It renders again as soon as
+          CERTIFICATIONS in src/data/claims.ts has a real entry. */}
+      {hasCertifications() && (
+        <div>
+          <Icon name="certificate" class="w-5 h-5 text-[#FFA985] mb-2" />
+          <p class="font-semibold">Certified</p>
+          <p class="text-gray-300 text-xs">Professional Cleaners</p>
+        </div>
+      )}
       <div>
         <Icon name="home" class="w-5 h-5 text-[#FFA985] mb-2" />
         <p class="font-semibold">Family Owned</p>
@@ -159,7 +165,7 @@ import Icon from "./Icon.astro";
           <li class="flex items-start">
             <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
             <span
-              ><strong>Professionally Trained</strong> - Certified cleaning techniques</span
+              ><strong>Professionally Trained</strong>{hasCertifications() && " - Certified cleaning techniques"}</span
             >
           </li>
           <li class="flex items-start">
