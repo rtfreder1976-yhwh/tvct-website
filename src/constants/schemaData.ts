@@ -1,3 +1,5 @@
+import { PRICING } from "../data/claims";
+
 // City configurations with competitive intelligence
 export interface CityConfig {
   lat: string;
@@ -208,7 +210,7 @@ export const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: 176.00,
+      price: PRICING.regular.amount,
       priceCurrency: "USD",
       description: "Starting price for 2-bedroom home",
     },
@@ -224,7 +226,7 @@ export const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: 276.00,
+      price: PRICING.deep.amount,
       priceCurrency: "USD",
       description: "Starting price",
     },
@@ -235,15 +237,18 @@ export const petSafeServiceCatalog = [
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#regular-cleaning",
       name: "Recurring House Cleaning",
-      description: "Weekly, biweekly, or monthly pet-safe cleaning service with consistent teams. Save up to 20%.",
+      description: "Weekly, biweekly, or monthly pet-safe cleaning service with consistent teams. Save up to 30%.",
       provider: { "@id": "https://thevalleycleanteam.com/#organization" },
     },
-    priceSpecification: {
-      "@type": "PriceSpecification",
-      price: 99.00,
-      priceCurrency: "USD",
-      description: "Starting weekly price",
-    },
+    // No price. This offer published a $99 "starting weekly price" on 202 pages,
+    // which is the retired tier. There is no defensible replacement yet: /pricing
+    // says weekly is 30% off "the standard cleaning price" but labels $176 as the
+    // base rate for the weekly/biweekly product itself, and neither reading
+    // reproduces the per-visit rates on the location pages. An Offer without a
+    // price is valid structured data; a wrong price is what Google indexes.
+    // Restore this once RECURRING_DISCOUNTS.appliesTo in src/data/claims.ts is
+    // resolved. The "up to 20%" in the description was also wrong — /pricing
+    // says weekly 30%, biweekly 25%, monthly 15%.
   },
   {
     "@type": "Offer",
@@ -256,7 +261,7 @@ export const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: 351.00,
+      price: PRICING.moveInOut.amount,
       priceCurrency: "USD",
       description: "Starting price",
     },
@@ -293,7 +298,7 @@ export const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: 300.00,
+      price: PRICING.postConstruction.amount,
       priceCurrency: "USD",
       description: "Starting price",
     },

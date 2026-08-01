@@ -1,5 +1,11 @@
 ---
 import Icon from "./Icon.astro";
+// "Certified — Professional Cleaners" named no issuing body and shipped in the
+// sitewide footer, so it appeared on every page. Gated on hasCertifications()
+// until CERTIFICATIONS in src/data/claims.ts lists a real credential.
+import { hasCertifications } from "../data/claims";
+
+const showCertified = hasCertifications();
 ---
 
 <style>
@@ -36,11 +42,13 @@ import Icon from "./Icon.astro";
         <p class="font-semibold text-xs">15 Years Avg.</p>
         <p class="text-gray-300 text-xs">Cleaner Experience</p>
       </div>
+      {showCertified && (
       <div>
         <Icon name="certificate" class="w-5 h-5 text-[#FFA985] mb-2" />
         <p class="font-semibold">Certified</p>
         <p class="text-gray-300 text-xs">Professional Cleaners</p>
       </div>
+      )}
       <div>
         <Icon name="home" class="w-5 h-5 text-[#FFA985] mb-2" />
         <p class="font-semibold">Family Owned</p>
