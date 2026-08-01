@@ -270,9 +270,9 @@ const localSchema = city
               },
               priceSpecification: {
                 "@type": "PriceSpecification",
-                price: 99.00,
+                price: 176.00,
                 priceCurrency: "USD",
-                description: "Starting at $99",
+                description: "Starting at $176",
               },
             },
             {
@@ -528,8 +528,8 @@ const eventSchemas =
             description:
               "Get your home guest-ready before Helen Keller Festival",
             url: "https://thevalleycleanteam.com/locations/tuscumbia",
-            priceCurrency: "USD",
-            price: 149,
+            // TODO_VERIFY(pricing): was price: 149 - retired pricing. Omitted
+            // rather than guessed; restore when the festival rate is confirmed.
             availability: "https://schema.org/InStock",
             seller: {
               "@type": "Organization",
@@ -599,15 +599,11 @@ const airbnbCleaningSchema =
             containedInPlace: { "@type": "State", name: "Alabama" },
           },
         ],
-        offers: {
-          "@type": "Offer",
-          priceSpecification: {
-            "@type": "PriceSpecification",
-            price: 99,
-            priceCurrency: "USD",
-            description: "Starting price for standard turnover",
-          },
-        },
+        // TODO_VERIFY(pricing): the turnover Offer previously published $99,
+        // which is retired pricing. No current turnover rate exists anywhere in
+        // this repo, so the Offer is omitted rather than fabricated - same rule
+        // as the serviceSchema Offer above. Restore it once Todd supplies the
+        // real starting rate for Airbnb/short-term-rental turnovers.
         termsOfService: "https://thevalleycleanteam.com/terms",
         hasOfferCatalog: {
           "@type": "OfferCatalog",
@@ -664,7 +660,7 @@ const moveOutCleaningSchema =
           "@type": "Offer",
           priceSpecification: {
             "@type": "PriceSpecification",
-            price: 199,
+            price: 351,
             priceCurrency: "USD",
             description: "Starting price for move-out cleaning",
           },
