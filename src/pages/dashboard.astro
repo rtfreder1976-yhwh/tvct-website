@@ -25,7 +25,11 @@ function isAuthorized(): boolean {
         .split(";")
         .map((c) => c.trim())
         .find((c) => c.startsWith("admin_session="));
-    return adminCookie?.split("=")[1] === ADMIN_SECRET;
+    // Slice past the first "=" rather than split on it: ADMIN_SECRET may itself
+    // contain "=" (padded base64 routinely does), and split("=")[1] would
+    // truncate the value and reject a valid session with a 401. This matches
+    // how api/_admin-auth.ts parses the very same cookie.
+    return adminCookie?.slice("admin_session=".length) === ADMIN_SECRET;
 }
 
 if (!isAuthorized()) {
@@ -35,14 +39,22 @@ if (!isAuthorized()) {
     );
 }
 
-// Exchange the query key for the session cookie so the secret stops appearing
-// in the URL bar, and so the browser attaches it to the /api/* fetches below.
+// Exchange the query key for a session cookie, then REDIRECT to the same path
+// without ?key=. Setting the cookie alone does NOT get the secret out of the
+// URL bar — this response is still the credential-bearing URL, and it lands in
+// browser history and referrer records. The 302 is what removes it. The cookie
+// is also what the browser attaches to the /api/* fetches below.
 const keyFromQuery = Astro.url.searchParams.get("key");
 if (keyFromQuery) {
-    Astro.response.headers.set(
-        "Set-Cookie",
-        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`,
-    );
+    const cleanUrl = new URL(Astro.url);
+    cleanUrl.searchParams.delete("key");
+    return new Response(null, {
+        status: 302,
+        headers: {
+            Location: cleanUrl.pathname + cleanUrl.search,
+            "Set-Cookie": `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`,
+        },
+    });
 }
 
 // Sample data - In production, this would come from Google Search Console, Analytics, etc.

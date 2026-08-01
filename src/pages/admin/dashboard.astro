@@ -27,7 +27,11 @@ function isAuthorized(): boolean {
         .split(';')
         .map(c => c.trim())
         .find(c => c.startsWith('admin_session='));
-    return adminCookie?.split('=')[1] === ADMIN_SECRET;
+    // Slice past the first "=" rather than split on it: ADMIN_SECRET may itself
+    // contain "=" (padded base64 routinely does), and split("=")[1] would
+    // truncate the value and reject a valid session with a 401. This matches
+    // how api/_admin-auth.ts parses the very same cookie.
+    return adminCookie?.slice('admin_session='.length) === ADMIN_SECRET;
 }
 
 if (!isAuthorized()) {
@@ -37,16 +41,25 @@ if (!isAuthorized()) {
     });
 }
 
-// Set session cookie on first auth so the dashboard stays accessible (8-hour expiry)
+// Exchange the query key for a session cookie, then REDIRECT to the same path
+// without ?key=. Setting the cookie while still rendering the credential-bearing
+// URL would leave the secret in the address bar, browser history and referrer
+// records — the same leak that makes ?key= unacceptable on the /api/* routes.
+// The 302 is what actually gets it out of the URL.
 const keyFromQuery = Astro.url.searchParams.get('key');
 if (keyFromQuery) {
-    Astro.response.headers.set(
-        'Set-Cookie',
-        // Path=/ rather than /admin: the browser must send this cookie to
-        // /api/* too, which is where /dashboard reads its data from. Scoped to
-        // /admin it would never be attached to an API request.
-        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`
-    );
+    const cleanUrl = new URL(Astro.url);
+    cleanUrl.searchParams.delete('key');
+    return new Response(null, {
+        status: 302,
+        headers: {
+            Location: cleanUrl.pathname + cleanUrl.search,
+            // Path=/ rather than /admin: the browser must send this cookie to
+            // /api/* too, which is where /dashboard reads its data from. Scoped
+            // to /admin it would never be attached to an API request.
+            'Set-Cookie': `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`,
+        },
+    });
 }
 
 // ---------------------------------------------------------------------------
