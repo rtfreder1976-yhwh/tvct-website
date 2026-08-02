@@ -9,44 +9,24 @@ import { REVIEWS } from "../../constants/schemaData";
 
 // ---------------------------------------------------------------------------
 // Admin authentication — checks for a secret cookie or ?key= query param.
-// Set ADMIN_SECRET in your Vercel environment variables.
+// Set ADMIN_SECRET in your Vercel environment variables (16+ characters).
 // To log in: visit /admin/dashboard?key=YOUR_SECRET (sets a session cookie).
 // ---------------------------------------------------------------------------
+import { authorizeAdmin } from "../../lib/adminAuth";
+
 const ADMIN_SECRET = import.meta.env.ADMIN_SECRET;
 
-function isAuthorized(): boolean {
-    if (!ADMIN_SECRET) return false; // Deny all if not configured
-
-    // Check query param (used for initial login link)
-    const queryKey = Astro.url.searchParams.get('key');
-    if (queryKey && queryKey === ADMIN_SECRET) return true;
-
-    // Check session cookie (set on first auth)
-    const cookie = Astro.request.headers.get('cookie') ?? '';
-    const adminCookie = cookie
-        .split(';')
-        .map(c => c.trim())
-        .find(c => c.startsWith('admin_session='));
-    return adminCookie?.split('=')[1] === ADMIN_SECRET;
+const auth = authorizeAdmin(
+    Astro.url,
+    Astro.request,
+    ADMIN_SECRET,
+    '/admin/dashboard',
+);
+if (!auth.ok) {
+    return auth.response;
 }
-
-if (!isAuthorized()) {
-    return new Response('Unauthorized — visit /admin/dashboard?key=YOUR_ADMIN_SECRET to log in.', {
-        status: 401,
-        headers: { 'Content-Type': 'text/plain' },
-    });
-}
-
-// Set session cookie on first auth so the dashboard stays accessible (8-hour expiry)
-const keyFromQuery = Astro.url.searchParams.get('key');
-if (keyFromQuery) {
-    Astro.response.headers.set(
-        'Set-Cookie',
-        // Path=/ rather than /admin: the browser must send this cookie to
-        // /api/* too, which is where /dashboard reads its data from. Scoped to
-        // /admin it would never be attached to an API request.
-        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`
-    );
+if (auth.setCookie) {
+    Astro.response.headers.set('Set-Cookie', auth.setCookie);
 }
 
 // ---------------------------------------------------------------------------

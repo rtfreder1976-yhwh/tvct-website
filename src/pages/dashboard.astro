@@ -12,37 +12,24 @@ export const prerender = false;
 // be removed from devtools. It protected nothing. The check now happens on the
 // server, before any markup is produced.
 // ---------------------------------------------------------------------------
+import { authorizeAdmin } from "../lib/adminAuth";
+
 const ADMIN_SECRET = import.meta.env.ADMIN_SECRET;
 
-function isAuthorized(): boolean {
-    if (!ADMIN_SECRET) return false; // Deny all if not configured
-
-    const queryKey = Astro.url.searchParams.get("key");
-    if (queryKey && queryKey === ADMIN_SECRET) return true;
-
-    const cookie = Astro.request.headers.get("cookie") ?? "";
-    const adminCookie = cookie
-        .split(";")
-        .map((c) => c.trim())
-        .find((c) => c.startsWith("admin_session="));
-    return adminCookie?.split("=")[1] === ADMIN_SECRET;
+// The helper also exchanges a valid ?key= for the session cookie, so the secret
+// stops appearing in the URL bar and the browser attaches it to the /api/*
+// fetches this page makes.
+const auth = authorizeAdmin(
+    Astro.url,
+    Astro.request,
+    ADMIN_SECRET,
+    "/dashboard",
+);
+if (!auth.ok) {
+    return auth.response;
 }
-
-if (!isAuthorized()) {
-    return new Response(
-        "Unauthorized — visit /dashboard?key=YOUR_ADMIN_SECRET to log in.",
-        { status: 401, headers: { "Content-Type": "text/plain" } },
-    );
-}
-
-// Exchange the query key for the session cookie so the secret stops appearing
-// in the URL bar, and so the browser attaches it to the /api/* fetches below.
-const keyFromQuery = Astro.url.searchParams.get("key");
-if (keyFromQuery) {
-    Astro.response.headers.set(
-        "Set-Cookie",
-        `admin_session=${ADMIN_SECRET}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=28800`,
-    );
+if (auth.setCookie) {
+    Astro.response.headers.set("Set-Cookie", auth.setCookie);
 }
 
 // Sample data - In production, this would come from Google Search Console, Analytics, etc.
