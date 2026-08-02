@@ -111,7 +111,7 @@ export const standaloneServiceIntent: Record<string, ServiceIntent> = {
     problem:
       "A medical or dental facility can't gamble on cleaning. A missed disinfection step is a compliance and infection-control risk — and most cleaners aren't trained for healthcare-grade protocols or carry the right insurance.",
     options: [
-      { label: "A general janitorial service", detail: "Cleans the floors, but isn't trained on OSHA, bloodborne-pathogen, or clinical disinfection standards." },
+      { label: "A general janitorial service", detail: "Cleans the floors, but works from a generic checklist with no routine built for a clinical space." },
       { label: "An in-house solo cleaner", detail: "No backup if they're out, and the compliance liability for a missed protocol sits with you." },
       { label: "The Valley Clean Team", isUs: true, detail: "Healthcare-aware, insured, background-checked crews following clinical disinfection protocols on a dependable schedule — with a single point of contact." },
     ],

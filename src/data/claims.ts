@@ -14,9 +14,8 @@
  *   1. A claim that appears on more than one page belongs here, not in the page.
  *   2. A value nobody has verified is TODO_VERIFY. It is not a guess, and it is
  *      not omitted — assertClaims() fails the build until someone resolves it.
- *   3. Where the codebase held several values for one claim, every competing
- *      value is recorded in a CONFLICT comment with its source, so whoever
- *      resolves it can see what they are choosing between.
+ *   3. Every value below carries the date and source it was verified against.
+ *      Re-verify before changing; do not round in the business's favour.
  */
 
 /**
@@ -48,32 +47,42 @@ export const PRICING = {
 } as const;
 
 /**
- * Recurring discounts, per the /pricing FAQ.
+ * Recurring discounts, per the /pricing FAQ. Confirmed by Todd 2026-08-02:
+ * the percentages are correct and PRICING.regular is the pre-discount list
+ * price, so a recurring per-visit rate is that base minus the discount.
  *
- * CONFLICT: it is not established whether these come off PRICING.regular or off
- * a higher "standard cleaning price". /pricing labels $176 as the base rate for
- * the "Weekly or Bi-Weekly" product while simultaneously badging it "Save up to
- * 30%", which reads both ways.
- *   - If off $176: weekly $123.20, biweekly $132, monthly $149.60
- *   - Location pages currently publish: $99/visit (5 biweekly pages),
- *     $119/week, $109/visit, $89/week, $129/week, $109/week, $125/visit
- * None of the published per-visit rates match either reading. Until this is
- * settled, no page should compute a per-visit price from these.
- *   src/pages/pricing.astro:754, src/pages/locations/{decatur,huntsville,
- *   athens,muscle-shoals,florence}/biweekly-cleaning.astro
+ * This retires the per-visit rates that were live on location pages
+ * ($99/visit, $119/week, $109/visit, $89/week, $129/week, $109/week) — none of
+ * them matched this schedule.
  */
 export const RECURRING_DISCOUNTS = {
   weekly: 0.3,
   biweekly: 0.25,
   monthly: 0.15,
-  /** Does the discount apply to PRICING.regular, or to a higher list price? */
-  appliesTo: TODO_VERIFY as Claim<"regular_base" | "separate_list_price">,
+  appliesTo: "regular_base" as const,
+} as const;
+
+/**
+ * Per-visit recurring rates, derived rather than retyped.
+ *
+ * Display rounds UP to whole dollars. Rounding down would advertise a price
+ * below what is actually charged, which is the one direction that matters:
+ * weekly is $123.20, so it advertises as $124, not $123.
+ */
+function recurringRate(discount: number) {
+  const amount = PRICING.regular.amount * (1 - discount);
+  return { amount, display: `$${Math.ceil(amount)}` };
+}
+
+export const RECURRING_PRICING = {
+  weekly: recurringRate(RECURRING_DISCOUNTS.weekly), // $123.20 -> "$124"
+  biweekly: recurringRate(RECURRING_DISCOUNTS.biweekly), // $132.00 -> "$132"
+  monthly: recurringRate(RECURRING_DISCOUNTS.monthly), // $149.60 -> "$150"
 } as const;
 
 // ---------------------------------------------------------------------------
 // REVIEWS — mirrors constants/schemaData.ts REVIEWS, which was verified
 // 2026-07-25 against the live Google Business Profile. Do not round up.
-// CONFLICT: "5.0" appears in 259 files and "146" in 2; both predate that check.
 // ---------------------------------------------------------------------------
 
 export const REVIEWS = {
@@ -84,75 +93,74 @@ export const REVIEWS = {
 } as const;
 
 // ---------------------------------------------------------------------------
-// CHECKLIST SIZES
+// CHECKLIST SIZES — actual array lengths, not claims.
 //
-// Each service page defines its own checklistData array; these are the actual
-// computed lengths as of 2026-08-01, not claims:
-//   deep-cleaning.astro            57  (already rendered as a computed "57+")
-//   move-in-out-cleaning.astro     49
-//   post-construction-cleaning.astro 37
-//   components/CleaningChecklist.astro  61 total, tagged per service:
-//     deep 55 · weekly 44 · monthly 55 · moveInOut 44   (component is unused)
+// `standard` confirmed by Todd 2026-08-02 as the Weekly/Bi-Weekly column of the
+// residential cleaning checklist PDF, and independently counted from that PDF:
+// 61 tasks total, 44 ticked for Weekly/Bi-Weekly (All Rooms 8, Kitchen 11,
+// Bathrooms 9, Bedrooms 4, Laundry 5, Dining 2, Living 2, Office 3, Extras 0).
+// That matches the `weekly` flag count in components/CleaningChecklist.astro,
+// which is the same checklist digitised.
 //
-// CONFLICT: 44 files claim a "49-point checklist" for the STANDARD/recurring
-// clean ("a 49-point checklist for every standard clean", "each biweekly visit
-// includes our comprehensive 49-point checklist"). But 49 is the move-in/out
-// array length, and no standard-clean array has 49 entries — the candidates are
-// 44 (CleaningChecklist weekly flag) or 61 (that component's full list).
-// Replacing "49-point" with the deep-clean 57 would be wrong in a new way.
-// Also live: 60-point (4 files), 47-point (1), 200-Point (1).
+// So the "49-point checklist" claim in 44 files was wrong: 49 is the
+// move-in/out column. The standard clean is 44 points.
 // ---------------------------------------------------------------------------
 
 export const CHECKLIST = {
+  standard: 44,
   deep: 57,
   moveInOut: 49,
   postConstruction: 37,
-  /** Size of the standard/recurring clean checklist. See CONFLICT above. */
-  standard: TODO_VERIFY as Claim<number>,
+  /** Every task on the checklist, across all service levels. */
+  total: 61,
 } as const;
 
 // ---------------------------------------------------------------------------
-// IDENTITY
-//
-// CONFLICT — four phrases are live, and they are not interchangeable:
-//   "veteran-owned"          270 files
-//   "women-led"               53 files
-//   "women-owned"             35 files
-//   "Family Owned & Operated"  components/Footer.astro:144
-//
-// "woman-owned" carries a specific >=51% ownership meaning and is a
-// certifiable status; do not normalise toward it without confirmation.
-// One exact phrase is needed, then it applies everywhere.
+// IDENTITY — confirmed by Todd 2026-08-02: veteran owned, woman owned, and
+// family owned. "women-led" (53 files) was the weaker of the two gender claims
+// and is retired in favour of the ownership claim, which is the certifiable one.
 // ---------------------------------------------------------------------------
 
 export const IDENTITY = {
-  primaryPhrase: TODO_VERIFY as Claim<string>,
-  isVeteranOwned: TODO_VERIFY as Claim<boolean>,
-  isWomanOwned: TODO_VERIFY as Claim<boolean>,
-  isFamilyOwned: TODO_VERIFY as Claim<boolean>,
+  primaryPhrase: "veteran- and woman-owned",
+  /** For sentence-initial use. */
+  primaryPhraseCapitalized: "Veteran- and woman-owned",
+  isVeteranOwned: true,
+  isWomanOwned: true,
+  isFamilyOwned: true,
 } as const;
 
 // ---------------------------------------------------------------------------
-// POSITIONING
+// POSITIONING — confirmed by Todd 2026-08-02: luxury framing is kept only on
+// the premium markets and the white-glove service, and retired everywhere else
+// in favour of transparent value, which is what a $176 entry price supports.
 //
-// CONFLICT: "luxury" appears in 78 files including the sitewide footer tagline,
-// against a $176 entry price and the plain, practical voice used everywhere
-// else. The choice is between "transparent value + operational rigor" and
-// "luxury/concierge". Do not strip "luxury" until this is decided.
+// The premium markets are the ones already tagged as such in schemaData's
+// cityConfigs ("Luxury market—..." edge).
 // ---------------------------------------------------------------------------
 
 export const POSITIONING = {
-  stance: TODO_VERIFY as Claim<"transparent_value" | "luxury_concierge">,
+  stance: "transparent_value" as const,
+  /** Pages/markets that keep the luxury framing. */
+  luxuryScope: ["Mountain Brook", "West Nashville"] as readonly string[],
+  luxuryServices: ["white-glove-cleaning", "luxury-homes"] as readonly string[],
 } as const;
+
+export function usesLuxuryFraming(marketOrService?: string): boolean {
+  if (!marketOrService) return false;
+  return (
+    POSITIONING.luxuryScope.includes(marketOrService) ||
+    POSITIONING.luxuryServices.includes(marketOrService)
+  );
+}
 
 // ---------------------------------------------------------------------------
 // CERTIFICATIONS
 //
-// Empty on purpose. No named certifying body appears anywhere in the repo, but
-// a "Certified — Professional Cleaners" trust badge renders regardless
-// (components/TrustBadges.astro:73 and :108). An unattributed certification
-// claim is the kind a competitor reports. The badge is gated on
-// hasCertifications() so it cannot render while this list is empty.
+// Empty on purpose. No named certifying body appears anywhere in the repo, and
+// Todd confirmed 2026-08-02 that the team is not certified. The "Certified —
+// Professional Cleaners" badge is gated on hasCertifications() so it cannot
+// render while this list is empty.
 // ---------------------------------------------------------------------------
 
 export interface Certification {
@@ -172,48 +180,53 @@ export function hasCertifications(): boolean {
 // ---------------------------------------------------------------------------
 // CLINICAL / HEALTHCARE COMPLIANCE
 //
-// "OSHA" appears in 34 files, none naming a standard. The honest scope depends
-// on three things that either exist or do not; canClaimClinicalCompliance()
-// requires all three, so the credentialed copy cannot ship on a partial basis.
+// Confirmed by Todd 2026-08-02: the team is NOT trained or certified in any of
+// this. "OSHA" appeared in 34 files, none naming a standard, alongside
+// "OSHA-compliant sanitization" and "trained in medical-grade cleaning
+// standards" — all retired.
+//
+// These stay as explicit `false` rather than being deleted: the gate has to
+// keep returning false, and a future reader needs to see that this was checked
+// and answered, not merely never filled in.
 // ---------------------------------------------------------------------------
 
 export const CLINICAL = {
   /** Bloodborne pathogens training, 29 CFR 1910.1030. */
-  bloodbornePathogensTraining: TODO_VERIFY as Claim<boolean>,
+  bloodbornePathogensTraining: false,
   /** Named EPA-registered disinfectant, e.g. "Oxivir Tb, EPA Reg. No. 70627-56". */
-  epaRegisteredDisinfectant: TODO_VERIFY as Claim<string>,
+  epaRegisteredDisinfectant: null as string | null,
   /** A written, followed medical cleaning protocol. */
-  writtenMedicalProtocol: TODO_VERIFY as Claim<boolean>,
+  writtenMedicalProtocol: false,
 } as const;
 
 export function canClaimClinicalCompliance(): boolean {
   return (
     CLINICAL.bloodbornePathogensTraining === true &&
     typeof CLINICAL.epaRegisteredDisinfectant === "string" &&
-    CLINICAL.epaRegisteredDisinfectant !== TODO_VERIFY &&
+    CLINICAL.epaRegisteredDisinfectant.length > 0 &&
     CLINICAL.writtenMedicalProtocol === true
   );
 }
 
 // ---------------------------------------------------------------------------
-// PERFORMANCE CLAIMS — published but unverified. Left in place and flagged
-// rather than silently deleted; each needs a number someone can stand behind.
+// PERFORMANCE — confirmed by Todd 2026-08-02.
+// On-time and repeat-rate both come from BookingKoala reporting.
 // ---------------------------------------------------------------------------
 
 export const PERFORMANCE = {
-  /** "98% on-time arrival" — 4 files. Measured how, over what window? */
-  onTimeArrivalPct: TODO_VERIFY as Claim<number>,
-  /** "85% repeat customer rate" — 1 file. */
-  repeatCustomerPct: TODO_VERIFY as Claim<number>,
-  /** "15 years cleaner experience on average" — 8 files. */
-  avgCleanerExperienceYears: TODO_VERIFY as Claim<number>,
-  /** "1,047+" — 17 files, used for both "cleanings" and "customers". */
-  cleaningsCompleted: TODO_VERIFY as Claim<number>,
+  /** BookingKoala data. */
+  onTimeArrivalPct: 98,
+  /** BookingKoala data. */
+  repeatCustomerPct: 85,
+  avgCleanerExperienceYears: 15,
   /**
-   * CONFLICT: quote-response SLA is published as 2 hours, 2 business hours and
-   * 24 hours on the medical page alone.
+   * Customers served, not cleanings performed. The old "1,047+" was used for
+   * both nouns interchangeably; there is no separately verified cleanings
+   * figure, so that claim is retired rather than guessed at.
    */
-  quoteResponseSla: TODO_VERIFY as Claim<string>,
+  customersServed: 1500,
+  customersServedDisplay: "1,500+",
+  quoteResponseSla: "2 business hours",
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -271,6 +284,29 @@ export function assertClaims(): void {
       impossible.push(`RECURRING_DISCOUNTS.${k} is not a fraction between 0 and 1 (${v})`);
   }
 
+  // A more frequent visit must not cost more than a less frequent one, and no
+  // recurring rate may exceed the list price it is discounted from.
+  if (RECURRING_PRICING.weekly.amount > RECURRING_PRICING.biweekly.amount)
+    impossible.push("RECURRING_PRICING.weekly costs more per visit than biweekly");
+  if (RECURRING_PRICING.biweekly.amount > RECURRING_PRICING.monthly.amount)
+    impossible.push("RECURRING_PRICING.biweekly costs more per visit than monthly");
+  if (RECURRING_PRICING.monthly.amount > PRICING.regular.amount)
+    impossible.push("RECURRING_PRICING.monthly exceeds the undiscounted PRICING.regular");
+
+  // Percentage claims must be percentages.
+  for (const k of ["onTimeArrivalPct", "repeatCustomerPct"] as const) {
+    const v = PERFORMANCE[k];
+    if (typeof v === "number" && (v < 0 || v > 100))
+      impossible.push(`PERFORMANCE.${k} is not a 0-100 percentage (${v})`);
+  }
+
+  // Checklist arithmetic: no service level may claim more tasks than exist.
+  for (const k of ["standard", "deep", "moveInOut", "postConstruction"] as const) {
+    const v = CHECKLIST[k];
+    if (typeof v === "number" && v > CHECKLIST.total)
+      impossible.push(`CHECKLIST.${k} (${v}) exceeds CHECKLIST.total (${CHECKLIST.total})`);
+  }
+
   // A rating out of five, and a review count that is a whole number.
   const rating = Number(REVIEWS.rating);
   if (!Number.isFinite(rating) || rating < 0 || rating > 5)
@@ -287,6 +323,10 @@ export function assertClaims(): void {
     if (!c.body?.trim()) impossible.push(`CERTIFICATIONS[${i}] has no issuing body`);
   });
 
+  // The clinical gate must not be able to open on a partial basis.
+  if (canClaimClinicalCompliance() && !CLINICAL.epaRegisteredDisinfectant)
+    impossible.push("canClaimClinicalCompliance() is true without a named disinfectant");
+
   if (unresolved.length === 0 && impossible.length === 0) return;
 
   const lines = ["Unverified or impossible claims — the build stops here.", ""];
@@ -294,8 +334,7 @@ export function assertClaims(): void {
     lines.push(`${unresolved.length} claim(s) still set to ${TODO_VERIFY}:`);
     lines.push(...unresolved.map((u) => `  - ${u}`));
     lines.push("");
-    lines.push("Each needs a real value in src/data/claims.ts. See the CONFLICT");
-    lines.push("comments there for the competing values already live in the repo.");
+    lines.push("Each needs a real value in src/data/claims.ts.");
   }
   if (impossible.length) {
     if (unresolved.length) lines.push("");
