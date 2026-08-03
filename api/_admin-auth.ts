@@ -24,6 +24,15 @@ import type { ApiRequest, ApiResponse } from './_types.js';
  * exchange it for the cookie.
  */
 
+/**
+ * Keep in step with ADMIN_SECRET_MIN_LENGTH in `src/lib/adminAuth.ts`, which
+ * gates the dashboard pages that call these endpoints. If the page threshold is
+ * lower, a short secret lets you into a dashboard whose every request then
+ * fails here — the page loads, the data does not, and nothing says why.
+ *
+ * The two are not imported across the boundary on purpose: this file is bundled
+ * by Vercel's own root-`api/` builder, not by Astro.
+ */
 const SECRET_MIN_LENGTH = 16;
 
 /** Constant-time compare that does not leak length through early return. */
