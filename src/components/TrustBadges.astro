@@ -1,5 +1,10 @@
 ---
 import Icon from './Icon.astro';
+// The "Certified" badge and the "Professional Cleaning Certified" line named no
+// issuing body — there is no certifying authority recorded anywhere in the repo.
+// Both are gated on hasCertifications(), so they stay hidden until CERTIFICATIONS
+// in src/data/claims.ts lists a real credential with a real issuer.
+import { hasCertifications } from '../data/claims';
 
 interface Props {
   variant?: 'full' | 'compact' | 'inline' | 'section';
@@ -7,6 +12,7 @@ interface Props {
 }
 
 const { variant = 'full', showGuarantee = true } = Astro.props;
+const showCertified = hasCertifications();
 ---
 
 {variant === 'section' && (
@@ -66,6 +72,7 @@ const { variant = 'full', showGuarantee = true } = Astro.props;
           <p class="text-xs text-gray-600">Owned</p>
         </div>
 
+        {showCertified && (
         <div class="trust-badge">
           <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
             <Icon name="certificate" class="w-6 h-6 text-white" />
@@ -73,6 +80,7 @@ const { variant = 'full', showGuarantee = true } = Astro.props;
           <h4 class="font-bold text-[#333333] text-sm mb-1">Certified</h4>
           <p class="text-xs text-gray-600">Trained</p>
         </div>
+        )}
 
         <div class="trust-badge">
           <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
@@ -105,7 +113,9 @@ const { variant = 'full', showGuarantee = true } = Astro.props;
             Certifications & Training
           </h3>
           <ul class="space-y-2 text-sm text-gray-600">
+            {showCertified && (
             <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Professional Cleaning Certified</li>
+            )}
             <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Eco-Friendly Products Trained</li>
             <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Specialty Surface Care</li>
             <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Safety & Sanitation</li>
