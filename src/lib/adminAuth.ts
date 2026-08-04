@@ -157,8 +157,12 @@ export function authorizeAdmin(
     };
   }
 
+  // Normalised for the same reason as the configured value: a cookie minted
+  // before this code deployed carries the raw, untrimmed secret, and would
+  // otherwise be rejected until the user worked out that signing in again fixes
+  // it. The caller still has to know the secret itself.
   const cookie = request.headers.get('cookie') ?? '';
-  const presented = cookieValue(cookie, ADMIN_COOKIE_NAME);
+  const presented = normalizeSecret(cookieValue(cookie, ADMIN_COOKIE_NAME));
   if (presented && secretsMatch(presented, adminSecret)) {
     return { ok: true };
   }

@@ -115,8 +115,15 @@ export function requireAdmin(req: ApiRequest, res: ApiResponse): boolean {
     return false;
   }
 
-  const presented =
-    headerValue(req, 'x-admin-key') ?? cookieValue(req, 'admin_session');
+  // The presented credential is normalised too, not just the configured one.
+  // Otherwise a cookie minted before this code deployed — carrying the raw,
+  // untrimmed value — is rejected until the user notices and signs in again,
+  // and any caller echoing the environment variable verbatim fails the same
+  // way. Trimming whitespace and wrapping quotes off an offered secret costs
+  // nothing: the caller still has to know the secret itself.
+  const presented = normalizeSecret(
+    headerValue(req, 'x-admin-key') ?? cookieValue(req, 'admin_session'),
+  );
 
   if (!presented || !secretsMatch(presented, secret)) {
     res.status(401).json({
