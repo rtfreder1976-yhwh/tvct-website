@@ -35,6 +35,27 @@ import type { ApiRequest, ApiResponse } from './_types.js';
  */
 const SECRET_MIN_LENGTH = 16;
 
+/**
+ * Strips the stray characters an environment variable picks up when pasted
+ * into a hosting dashboard — a trailing newline or space, or the quotes that
+ * came with the value. Any of them makes the secret compare unequal to the
+ * identical-looking string a human sends, with nothing visible to explain it.
+ *
+ * Mirrors `normalizeSecret` in `src/lib/adminAuth.ts`; if only one side
+ * trimmed, the dashboard page and the endpoints behind it would disagree about
+ * whether the same request is authorised.
+ */
+function normalizeSecret(raw: string | undefined): string | undefined {
+  if (raw === undefined) return undefined;
+  let s = raw.trim();
+  if (s.length >= 2 &&
+      ((s.startsWith('"') && s.endsWith('"')) ||
+       (s.startsWith("'") && s.endsWith("'")))) {
+    s = s.slice(1, -1).trim();
+  }
+  return s;
+}
+
 /** Constant-time compare that does not leak length through early return. */
 function secretsMatch(a: string, b: string): boolean {
   const bufA = Buffer.from(a, 'utf8');
@@ -79,7 +100,7 @@ function cookieValue(req: ApiRequest, name: string): string | undefined {
  * already written the response, so callers should simply return.
  */
 export function requireAdmin(req: ApiRequest, res: ApiResponse): boolean {
-  const secret = process.env.ADMIN_SECRET;
+  const secret = normalizeSecret(process.env.ADMIN_SECRET);
 
   // Fail closed. An unset secret must not mean "let everyone in", and a short
   // one is guessable enough that accepting it would be false reassurance.
@@ -94,8 +115,15 @@ export function requireAdmin(req: ApiRequest, res: ApiResponse): boolean {
     return false;
   }
 
-  const presented =
-    headerValue(req, 'x-admin-key') ?? cookieValue(req, 'admin_session');
+  // The presented credential is normalised too, not just the configured one.
+  // Otherwise a cookie minted before this code deployed — carrying the raw,
+  // untrimmed value — is rejected until the user notices and signs in again,
+  // and any caller echoing the environment variable verbatim fails the same
+  // way. Trimming whitespace and wrapping quotes off an offered secret costs
+  // nothing: the caller still has to know the secret itself.
+  const presented = normalizeSecret(
+    headerValue(req, 'x-admin-key') ?? cookieValue(req, 'admin_session'),
+  );
 
   if (!presented || !secretsMatch(presented, secret)) {
     res.status(401).json({

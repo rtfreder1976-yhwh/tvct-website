@@ -12,9 +12,13 @@ import { REVIEWS } from "../../constants/schemaData";
 // Set ADMIN_SECRET in your Vercel environment variables (16+ characters).
 // To log in: visit /admin/dashboard?key=YOUR_SECRET (sets a session cookie).
 // ---------------------------------------------------------------------------
-import { authorizeAdmin } from "../../lib/adminAuth";
+import { authorizeAdmin, normalizeSecret } from "../../lib/adminAuth";
 
-const ADMIN_SECRET = import.meta.env.ADMIN_SECRET;
+// Normalised here as well as inside authorizeAdmin, because this value is also
+// sent onward as the `x-admin-key` header below. Sending the raw environment
+// value while the endpoints compare against the normalised one would authorise
+// the page and 401 every request it makes — the page loads, its data does not.
+const ADMIN_SECRET = normalizeSecret(import.meta.env.ADMIN_SECRET);
 
 const auth = authorizeAdmin(
     Astro.url,
