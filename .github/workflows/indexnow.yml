@@ -10,6 +10,11 @@ on:
   deployment_status:
   workflow_dispatch:
 
+# Checkout is the only thing this needs the token for. It writes nothing to the
+# repo and touches no other GitHub resource.
+permissions:
+  contents: read
+
 # A later deploy supersedes an in-flight ping for an older one.
 concurrency:
   group: indexnow
