@@ -1,0 +1,42 @@
+name: IndexNow Ping
+
+# Fires once Vercel reports a PRODUCTION deployment succeeded, so the ping goes
+# out after the new content is actually live. Pinging at build time (the old
+# postbuild hook) sent engines to look at the previous deploy.
+#
+# Preview deployments are ignored — they must never tell engines to re-crawl
+# production.
+on:
+  deployment_status:
+  workflow_dispatch:
+
+# Checkout is the only thing this needs the token for. It writes nothing to the
+# repo and touches no other GitHub resource.
+permissions:
+  contents: read
+
+# A later deploy supersedes an in-flight ping for an older one.
+concurrency:
+  group: indexnow
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    # deployment_status fires for every state (pending/in_progress/failure/…)
+    # and every environment; only success on production should get through.
+    # workflow_dispatch carries no deployment payload, so let it through too.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       contains(fromJSON('["production", "Production"]'), github.event.deployment.environment))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No npm install: the script uses only built-in fetch.
+      - name: Submit sitemap URLs to IndexNow
+        run: node scripts/indexnow-ping.js
