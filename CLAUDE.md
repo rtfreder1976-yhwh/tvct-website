@@ -88,7 +88,8 @@ Follow this exact pattern:
 - Recurring Cleaning (weekly, biweekly, monthly)
 
 ### Tier 2: Specialty Services (Low Competition, High Value)
-- Emergency/Same-Day Cleaning
+- Relocation/PCS Move-In Cleaning (Huntsville, Madison, Athens, Decatur only — government/military/contractor
+  relocations tied to Redstone Arsenal, FBI, and Space Force transitions)
 - Post-Construction Cleaning
 - Airbnb/Vacation Rental Cleaning
 - Hoarding Cleanup
@@ -101,18 +102,18 @@ Follow this exact pattern:
 
 ### Athens, AL (Priority 1 - Easiest Wins)
 Primary: cleaning service Athens AL, house cleaning Athens Alabama, maid service Athens AL
-Emergency: emergency cleaning Athens AL, same day cleaning Athens Alabama
-Specialty: move out cleaning Athens AL, post-construction cleaning Athens
+Specialty: move out cleaning Athens AL, post-construction cleaning Athens, PCS/relocation cleaning Athens AL
 
 ### Florence/Shoals (Priority 2)
 Primary: cleaning service Florence AL, house cleaning Muscle Shoals, maid service Shoals area
 Location variations: Tuscumbia, Sheffield, Killen, Rogersville
-Specialty: emergency cleaning Florence AL, Airbnb cleaning Shoals
+Specialty: Airbnb cleaning Shoals
 
 ### Huntsville (Priority 3 - Home Base)
 Primary: cleaning service Huntsville AL, house cleaning Huntsville, maid service Huntsville
 Neighborhoods: Madison, Hampton Cove, Harvest, Meridianville, Owens Cross Roads
-Specialty: commercial cleaning Huntsville, office cleaning Huntsville
+Specialty: commercial cleaning Huntsville, office cleaning Huntsville, move-in cleaning for military/PCS
+  relocation Huntsville, new-to-Huntsville cleaning (Redstone Arsenal, FBI, Space Force transfers)
 
 ### Mountain Brook/Birmingham (Priority 4)
 Primary: cleaning service Mountain Brook, house cleaning Mountain Brook AL
