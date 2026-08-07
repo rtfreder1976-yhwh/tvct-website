@@ -119,16 +119,28 @@ value is what you want to rely on.)
 #### What cannot be restored this way
 
 - **`booking_started`** — BK has no trigger for "entered the booking flow."
-  There is no automated source for this event. Don't expect it in PostHog.
-- **`booking_abandoned`** — BK surfaces fall-outs (the "Abandoned Cart / HOT
-  Leads" feature), but it is not in the Zapier trigger list. If it is only an
-  in-app report or a notification email, it cannot feed this endpoint
-  automatically. Confirm how BK exposes it before promising this event.
+  There is no automated source for this event.
+- **`booking_abandoned`** — **confirmed 2026-08-07: BK exposes fall-outs only as
+  a report/list inside its dashboard**, not as a Zapier trigger and not as a
+  notification. A screen you read is not a signal that can be piped anywhere, so
+  there is no automated source for this event either.
 
-Booking-funnel *coverage* is therefore partial: completions yes, the
-start/abandon pair no. The GHL "Abandoned Booking Recovery" workflow, which
-triggers on `booking_started`, has no live input — see
-GHL_ABANDONED_BOOKING_WORKFLOW.md.
+Treat both as retired. Don't add them to dashboards or funnels expecting data,
+and don't re-add site-side beacons to fake them — that was #94's bug.
+
+Consequences:
+
+- **Abandoned-booking recovery is currently manual**: someone reads the BK
+  dashboard list and follows up. The GHL "Abandoned Booking Recovery" workflow
+  triggers on `booking_started` and therefore has no live input at all — see
+  GHL_ABANDONED_BOOKING_WORKFLOW.md.
+- **Worth checking when you build the lead Zap:** incomplete bookings sometimes
+  land in BookingKoala's *leads* module as records in their own right. If they
+  do, the leads-module Zap will pick them up and you get abandonment coverage
+  for free. Look at what actually arrives before concluding it doesn't.
+- If recovery automation matters, the question for BookingKoala support is
+  whether their Abandoned Cart feature can be made to *act* (send its own
+  follow-up) rather than only report.
 
 | Env var | Required | Purpose |
 |---|---|---|

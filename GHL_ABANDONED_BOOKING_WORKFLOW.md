@@ -40,12 +40,25 @@ follow-ups that recover lost bookings. Last updated: 2026-08-07._
 > |---|---|
 > | `booking_completed` | ✅ available via the BK "Booking created" Zapier trigger |
 > | `booking_started` | ❌ no BK trigger exists — **Workflow A cannot fire** |
-> | `booking_abandoned` | ❓ BK surfaces fall-outs in-app ("Abandoned Cart / HOT Leads") but not as a Zapier trigger |
+> | `booking_abandoned` | ❌ **confirmed 2026-08-07:** BK exposes fall-outs only as a report/list in its dashboard — not a trigger, not a notification |
 >
-> **Workflow A is designed correctly and is currently unfeedable.** Before
-> building it, settle how BookingKoala exposes a fall-out — if it is only an
-> in-app report or a notification email, recovery has to be driven from BK's own
-> side (its Abandoned Cart funnel), not from GHL via this endpoint.
+> **So Workflow A is designed correctly and cannot be fed. Don't build it yet.**
+> Its trigger event has no automated source and neither does its branch event.
+> Building it would produce a workflow that silently never fires — which is how
+> this whole area went unnoticed for three weeks in the first place.
+>
+> **Abandoned-booking recovery is manual today:** someone reads the BK dashboard
+> list and follows up. The SMS/email copy in this document and in
+> `GHL_COPY_PASTE_ASSETS.md` is still good — use it by hand.
+>
+> Two things worth checking before accepting that:
+>
+> 1. **Do incomplete bookings appear in BK's *leads* module?** They often do. If
+>    so, the lead Zap already picks them up and abandonment coverage comes for
+>    free. Check what actually arrives once the Zap is live.
+> 2. **Can BK's Abandoned Cart feature *act* rather than only report?** That is a
+>    question for BookingKoala support. If it can send its own follow-up, that is
+>    a better home for recovery than GHL — it sits where the data already is.
 >
 > Setup and transport detail: see "BookingKoala webhook setup" in
 > `PROJECT_CONTEXT.md`.
@@ -191,12 +204,15 @@ have no name/phone** (nothing was captured upstream). For those:
       no BK trigger for either, so Workflow A below has no input until that is
       resolved (likely by driving recovery from BK's own Abandoned Cart funnel).
 - [ ] Confirm a test lead produces a hello@ email (that stopped 2026-07-17 too).
-- [ ] In GHL, create Workflow A with the trigger filter `funnel_event = booking_started`.
-- [ ] Add the 30-min wait + booked-check + SMS with the magic link.
-- [ ] Add the `booking_completed` removal trigger so booked clients exit.
+- [ ] ~~Create Workflow A with the trigger filter `funnel_event = booking_started`~~
+      — **blocked**, no automated source for that event. See the warning above.
+- [ ] Instead: check whether incomplete bookings show up in BK's leads module
+      once the lead Zap is running. If they do, revisit Workflow A with
+      `quote_form_submitted` + a "did they book?" check as the trigger.
 - [ ] Fix the magic link before relying on it — it points at `/booking`, which
       is now a 301 to BookingKoala, and the prefill logic that made its query
-      params work was deleted with that page.
+      params work was deleted with that page. Manual follow-up from the BK
+      dashboard needs a working link too.
 - [ ] (Optional) Build Workflow B branches + the ad-retargeting audiences.
 
 ## Retargeting ideas menu (beyond GHL automation)
