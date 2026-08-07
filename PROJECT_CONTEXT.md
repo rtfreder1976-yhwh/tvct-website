@@ -130,17 +130,18 @@ and don't re-add site-side beacons to fake them — that was #94's bug.
 
 Consequences:
 
-- **Abandoned-booking recovery is currently manual**: someone reads the BK
-  dashboard list and follows up. The GHL "Abandoned Booking Recovery" workflow
-  triggers on `booking_started` and therefore has no live input at all — see
-  GHL_ABANDONED_BOOKING_WORKFLOW.md.
-- **Worth checking when you build the lead Zap:** incomplete bookings sometimes
-  land in BookingKoala's *leads* module as records in their own right. If they
-  do, the leads-module Zap will pick them up and you get abandonment coverage
-  for free. Look at what actually arrives before concluding it doesn't.
-- If recovery automation matters, the question for BookingKoala support is
-  whether their Abandoned Cart feature can be made to *act* (send its own
-  follow-up) rather than only report.
+- **Recovery belongs in BookingKoala.** BK can engage abandoners by SMS and
+  email itself; that feature is simply not switched on yet. Enabling it is the
+  fix — it needs no trigger, no Zap, and no magic link, and it judges
+  abandonment where the data lives. The GHL "Abandoned Booking Recovery"
+  workflow triggers on `booking_started`, has no possible input, and should not
+  be built. See GHL_ABANDONED_BOOKING_WORKFLOW.md.
+- **Abandonment recovery ≠ abandonment reporting.** BK acting on a fall-out
+  emits nothing Zapier can see, so `booking_abandoned` stays absent from PostHog
+  even once recovery works. One thing that could change that: incomplete
+  bookings sometimes land in BK's *leads* module as records in their own right,
+  in which case the lead Zap picks them up for free. Check what actually arrives
+  before concluding it doesn't.
 
 | Env var | Required | Purpose |
 |---|---|---|

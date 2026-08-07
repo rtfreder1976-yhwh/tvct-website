@@ -47,18 +47,34 @@ follow-ups that recover lost bookings. Last updated: 2026-08-07._
 > Building it would produce a workflow that silently never fires — which is how
 > this whole area went unnoticed for three weeks in the first place.
 >
-> **Abandoned-booking recovery is manual today:** someone reads the BK dashboard
-> list and follows up. The SMS/email copy in this document and in
-> `GHL_COPY_PASTE_ASSETS.md` is still good — use it by hand.
+> ### ✅ The fix for recovery is in BookingKoala, not GHL
 >
-> Two things worth checking before accepting that:
+> **BookingKoala can engage abandoners by SMS and email itself — that feature is
+> just not switched on yet** (confirmed 2026-08-07). Turning it on is the whole
+> answer, and it is strictly better than Workflow A ever was:
 >
-> 1. **Do incomplete bookings appear in BK's *leads* module?** They often do. If
->    so, the lead Zap already picks them up and abandonment coverage comes for
->    free. Check what actually arrives once the Zap is live.
-> 2. **Can BK's Abandoned Cart feature *act* rather than only report?** That is a
->    question for BookingKoala support. If it can send its own follow-up, that is
->    a better home for recovery than GHL — it sits where the data already is.
+> - It sits where the data already is. No trigger to source, no Zap to maintain,
+>   no `booking_started` event that cannot be produced.
+> - Its follow-up links back into BookingKoala's own booking flow, so it
+>   sidesteps the broken magic link entirely (that link points at `/booking`,
+>   now a 301, and its prefill logic was deleted with the page).
+> - It fires on BK's own judgement of abandonment, which is the only place that
+>   judgement can be made correctly — the exact thing #94 proved the website
+>   cannot do.
+>
+> **So: enable BK's abandoned-cart SMS/email follow-up, and do not build
+> Workflow A.** The copy in this document and in `GHL_COPY_PASTE_ASSETS.md` is
+> still good — paste it into BookingKoala's templates instead of GHL's.
+>
+> One thing this does *not* fix: `booking_abandoned` in PostHog. BK acting on an
+> abandonment doesn't emit anything Zapier can see, so the event stays dark and
+> abandonment stays invisible in analytics. Recovery works; reporting on it
+> doesn't. Accept that, or ask BookingKoala whether their abandoned-cart
+> automation can also fire a Zapier trigger.
+>
+> Also worth checking once the lead Zap is live: **do incomplete bookings appear
+> in BK's *leads* module?** If they do, the lead Zap already picks them up and
+> you get abandonment visibility for free.
 >
 > Setup and transport detail: see "BookingKoala webhook setup" in
 > `PROJECT_CONTEXT.md`.
@@ -204,11 +220,15 @@ have no name/phone** (nothing was captured upstream). For those:
       no BK trigger for either, so Workflow A below has no input until that is
       resolved (likely by driving recovery from BK's own Abandoned Cart funnel).
 - [ ] Confirm a test lead produces a hello@ email (that stopped 2026-07-17 too).
+- [ ] **Enable BookingKoala's abandoned-cart SMS + email follow-up.** This is the
+      recovery mechanism — paste the copy from `GHL_COPY_PASTE_ASSETS.md` into
+      BK's templates. It replaces Workflow A entirely.
 - [ ] ~~Create Workflow A with the trigger filter `funnel_event = booking_started`~~
-      — **blocked**, no automated source for that event. See the warning above.
-- [ ] Instead: check whether incomplete bookings show up in BK's leads module
-      once the lead Zap is running. If they do, revisit Workflow A with
-      `quote_form_submitted` + a "did they book?" check as the trigger.
+      — **don't build it.** No automated source for its trigger, and BK's own
+      follow-up does the job better. See the warning above.
+- [ ] (Optional) Check whether incomplete bookings show up in BK's leads module
+      once the lead Zap is running — that would restore abandonment *visibility*
+      in PostHog, which BK's follow-up alone does not.
 - [ ] Fix the magic link before relying on it — it points at `/booking`, which
       is now a 301 to BookingKoala, and the prefill logic that made its query
       params work was deleted with that page. Manual follow-up from the BK
