@@ -23,14 +23,32 @@ follow-ups that recover lost bookings. Last updated: 2026-08-07._
 >
 > - The **workflow designs below (A and B) are still correct** — same trigger
 >   field, same values, same branching. Nothing in GHL needs rebuilding.
-> - The **"what the website sends" and "lifecycle" descriptions are now about
->   what BookingKoala sends**, relayed by that endpoint.
 > - Do **not** ask for the site-side beacons back. Completion happens inside
 >   BookingKoala's own pages, so the site cannot distinguish "booked" from
 >   "still deciding" — that is exactly the bug #94 removed.
 >
-> Setup, env vars and the event-name mapping caveat: see "BookingKoala webhook
-> setup" in `PROJECT_CONTEXT.md`.
+> ### ⛔ But Workflow A currently has no live trigger
+>
+> BookingKoala has **no native webhook** — data leaves it only via Zapier or
+> Make — and its Zapier trigger list (booking created/updated, customer
+> created/updated, card on hold, charge declined, booking cancelled, invoice
+> paid, quote created) contains **nothing for a started or abandoned booking**.
+>
+> That means, of the two events this workflow depends on:
+>
+> | Event | Status |
+> |---|---|
+> | `booking_completed` | ✅ available via the BK "Booking created" Zapier trigger |
+> | `booking_started` | ❌ no BK trigger exists — **Workflow A cannot fire** |
+> | `booking_abandoned` | ❓ BK surfaces fall-outs in-app ("Abandoned Cart / HOT Leads") but not as a Zapier trigger |
+>
+> **Workflow A is designed correctly and is currently unfeedable.** Before
+> building it, settle how BookingKoala exposes a fall-out — if it is only an
+> in-app report or a notification email, recovery has to be driven from BK's own
+> side (its Abandoned Cart funnel), not from GHL via this endpoint.
+>
+> Setup and transport detail: see "BookingKoala webhook setup" in
+> `PROJECT_CONTEXT.md`.
 
 ---
 
@@ -159,15 +177,19 @@ have no name/phone** (nothing was captured upstream). For those:
 - [ ] Set `BK_WEBHOOK_SECRET` in Vercel (Production), min 16 chars. **Until this
       is set, `/api/bookingkoala-webhook` returns 503 to everything** — it fails
       closed rather than accepting unauthenticated writes to the CRM.
-- [ ] In BookingKoala, point the lead-form, booking and abandoned-cart webhooks
-      at `https://thevalleycleanteam.com/api/bookingkoala-webhook` with the
-      header `x-bk-webhook-secret: <BK_WEBHOOK_SECRET>`.
-- [ ] Fire one of each event type, then read the Vercel logs. Any
-      `unrecognised event type` line means BookingKoala's name for that event
-      isn't in `EVENT_MAP` yet — add the real name and redeploy. **Do this
-      before trusting the numbers.**
-- [ ] Confirm in PostHog that `quote_form_submitted` and the three `booking_*`
-      events are arriving again (they stopped 2026-07-17 and 2026-07-10).
+- [ ] Build the **lead Zap**: BK leads module (or "Quote created") → Webhooks by
+      Zapier POST → `https://thevalleycleanteam.com/api/bookingkoala-webhook`,
+      header `x-bk-webhook-secret: <BK_WEBHOOK_SECRET>`, body `event` =
+      `quote_form_submitted` plus the contact fields.
+- [ ] Build the **booking Zap**: BK "Booking created" → same POST, `event` =
+      `booking_completed`.
+- [ ] Fire one of each, then read the Vercel logs. An `unrecognised event type`
+      line means the `event` value didn't match — fix the Zap's payload.
+- [ ] Confirm in PostHog that `quote_form_submitted` and `booking_completed` are
+      arriving again (they stopped 2026-07-17 and 2026-07-10).
+- [ ] Decide what to do about `booking_started` / `booking_abandoned` — there is
+      no BK trigger for either, so Workflow A below has no input until that is
+      resolved (likely by driving recovery from BK's own Abandoned Cart funnel).
 - [ ] Confirm a test lead produces a hello@ email (that stopped 2026-07-17 too).
 - [ ] In GHL, create Workflow A with the trigger filter `funnel_event = booking_started`.
 - [ ] Add the 30-min wait + booked-check + SMS with the magic link.

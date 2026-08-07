@@ -87,16 +87,48 @@ Three GHL webhooks (set as Vercel env vars):
 
 ### BookingKoala webhook setup
 
-Point every BookingKoala webhook (lead form, booking created/completed,
-abandoned cart) at:
+**BookingKoala has no native "POST to any URL" webhook.** Outbound data leaves
+BK only through **Zapier** or **Make**. So the transport is:
 
 ```
-https://thevalleycleanteam.com/api/bookingkoala-webhook
+BookingKoala --(Zapier trigger)--> Webhooks by Zapier (POST)
+                                     --> /api/bookingkoala-webhook
+                                           --> PostHog + GHL + Resend
 ```
 
-with the header `x-bk-webhook-secret: <BK_WEBHOOK_SECRET>` (or
-`Authorization: Bearer <BK_WEBHOOK_SECRET>` if that's the only field the
-BookingKoala UI offers).
+Build one Zap per event:
+
+| Zap | BK trigger | POST body `event` |
+|---|---|---|
+| Lead | Leads module → Zapier (see BK's "Setting up Zapier in the leads module"), or the **Quote created** trigger | `quote_form_submitted` |
+| Booking | **Booking created** | `booking_completed` |
+
+Zapier action: **Webhooks by Zapier → POST**
+- URL: `https://thevalleycleanteam.com/api/bookingkoala-webhook`
+- Payload type: JSON
+- Headers: `x-bk-webhook-secret: <BK_WEBHOOK_SECRET>`
+- Data: `event` plus `name` / `email` / `phone` / `service` / `location` mapped
+  from the BK trigger's fields.
+
+Because you control the payload in Zapier, **set `event` explicitly** to the
+value in the table. The endpoint's alias matching then has nothing to guess.
+(BK's own trigger names happen to map correctly too — `quote_created` contains
+"quote", `booking_created` matches the completion pattern — but an explicit
+value is what you want to rely on.)
+
+#### What cannot be restored this way
+
+- **`booking_started`** — BK has no trigger for "entered the booking flow."
+  There is no automated source for this event. Don't expect it in PostHog.
+- **`booking_abandoned`** — BK surfaces fall-outs (the "Abandoned Cart / HOT
+  Leads" feature), but it is not in the Zapier trigger list. If it is only an
+  in-app report or a notification email, it cannot feed this endpoint
+  automatically. Confirm how BK exposes it before promising this event.
+
+Booking-funnel *coverage* is therefore partial: completions yes, the
+start/abandon pair no. The GHL "Abandoned Booking Recovery" workflow, which
+triggers on `booking_started`, has no live input — see
+GHL_ABANDONED_BOOKING_WORKFLOW.md.
 
 | Env var | Required | Purpose |
 |---|---|---|
