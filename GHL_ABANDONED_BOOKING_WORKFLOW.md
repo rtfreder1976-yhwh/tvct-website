@@ -1,31 +1,68 @@
 # GoHighLevel — Abandoned-Booking Recovery Workflow
 
-_How to turn the new booking-funnel signals into automatic SMS/email/owner-call
-follow-ups that recover lost bookings. Last updated: 2026-06-05._
+_How to turn the booking-funnel signals into automatic SMS/email/owner-call
+follow-ups that recover lost bookings. Last updated: 2026-08-07._
 
 ---
 
-## What the website now sends you
+> ## ⚠️ The source of these events changed — read this first
+>
+> This document was written when **the website** detected the booking funnel
+> and posted `funnel_event` to GHL from `/booking`. **That is no longer true.**
+>
+> - **2026-07-10 (#94)** removed the site-side beacons. They were false-firing
+>   `booking_completed` on every `/booking` visit, which poisoned this very
+>   workflow — real customers were being enrolled in recovery. Removing them
+>   was correct, but from that day GHL received no booking events at all.
+> - **2026-07-27 (#109)** retired `/booking`, `/get-quote` and
+>   `/booking-commercial` entirely; they now 301 to hosted BookingKoala.
+>
+> **The events now originate in BookingKoala** and reach GHL through
+> `/api/bookingkoala-webhook` on this site, which normalises them and forwards
+> to the same GHL webhooks with the same `funnel_event` field. So:
+>
+> - The **workflow designs below (A and B) are still correct** — same trigger
+>   field, same values, same branching. Nothing in GHL needs rebuilding.
+> - The **"what the website sends" and "lifecycle" descriptions are now about
+>   what BookingKoala sends**, relayed by that endpoint.
+> - Do **not** ask for the site-side beacons back. Completion happens inside
+>   BookingKoala's own pages, so the site cannot distinguish "booked" from
+>   "still deciding" — that is exactly the bug #94 removed.
+>
+> Setup, env vars and the event-name mapping caveat: see "BookingKoala webhook
+> setup" in `PROJECT_CONTEXT.md`.
 
-Every event posts to your existing GHL inbound webhook (the same one the quote
-form uses). Each booking-funnel event arrives with these fields:
+---
+
+## What reaches your GHL webhook
+
+BookingKoala posts to `/api/bookingkoala-webhook`, which forwards to your GHL
+inbound webhook (the same one the quote form uses) in this shape:
 
 | Field | Example | Use |
 |---|---|---|
-| `source` | `Booking Page Pre-Capture` | Identifies booking-funnel events |
+| `source` | `BookingKoala` | Identifies webhook-relayed events (was `Booking Page Pre-Capture` before 2026-07-10) |
 | `funnel_event` | `booking_started` / `booking_abandoned` / `booking_completed` | **The trigger/branch field** |
 | `name` | `Jane Doe` | Lead match + personalization |
 | `phone` | `2565550100` | SMS + match |
 | `email` | `jane@x.com` | Email + match |
 | `service` | `Deep Cleaning` | Personalization |
-| `location_city` | `Huntsville` | Personalization |
-| `seconds_in_iframe` | `47` | (optional) how long before they bailed |
+| `location` | `Huntsville` | Personalization (the field is `location`, not `location_city` — the old table was wrong) |
+| `seconds_in_iframe` | `''` | Always empty now. It measured time in the on-site iframe, which no longer exists. |
 
 **Lifecycle:**
-1. Lead fills `/get-quote` → already in GHL as an opportunity (existing behavior).
-2. Lead enters BookingKoala → `funnel_event: booking_started`.
+1. Lead fills the BookingKoala **lead form** → `quote_form_submitted` in
+   PostHog, an ordinary lead (empty `funnel_event`) in GHL, plus a hello@ email.
+2. Lead enters the BookingKoala **booking flow** → `funnel_event: booking_started`.
 3. Lead **leaves without booking** → `funnel_event: booking_abandoned`. ← recover this.
 4. Lead completes → `funnel_event: booking_completed`. ← stop the recovery.
+
+Steps 2–4 depend on BookingKoala actually emitting webhooks for those moments
+(its booking events and its "Abandoned Cart (HOT Leads)" funnel). Step 3 in
+particular is BookingKoala's judgement of abandonment, not a timer on our side.
+If a step produces nothing, check the Vercel logs for
+`unrecognised event type` before assuming the workflow is at fault — the event
+name may just need adding to `EVENT_MAP` in `api/bookingkoala-webhook.ts`.
 
 ---
 
@@ -99,15 +136,16 @@ Same trigger as A, but branch the message using `seconds_in_iframe` or service:
 
 ## Workflow C — Direct-to-booking visitors (no gateway form)
 
-Some people land on `/booking` straight from an ad/Google without filling
-`/get-quote`. If they abandon, the event still fires but **may have no
-name/phone** (nothing was captured upstream). For those:
+Some people reach the BookingKoala booking flow straight from an ad/Google
+without filling the lead form. If they abandon, the event still fires but **may
+have no name/phone** (nothing was captured upstream). For those:
 - You can't SMS them (no number), but the **Meta `InitiateCheckout` + GA4
-  `begin_checkout`** events still fire → they land in your **ad-retargeting
-  audiences**. Run a "Still need that {city} clean?" retargeting ad at them.
-- To capture them directly, add a tiny name+phone field on `/booking` *before*
-  the iframe (a future enhancement — ask the dev to wire the existing
-  "Booking Page Pre-Capture" path to a visible mini-form).
+  `begin_checkout`** events still fire from BookingKoala's own native tags →
+  they land in your **ad-retargeting audiences**. Run a "Still need that {city}
+  clean?" retargeting ad at them.
+- To capture them directly, use BookingKoala's own lead-capture step. The old
+  suggestion here — add a mini-form on `/booking` and wire it to the "Booking
+  Page Pre-Capture" path — is dead: that page was retired in #109.
 
 ---
 
@@ -118,11 +156,25 @@ name/phone** (nothing was captured upstream). For those:
       (Optional: set `GHL_BOOKING_EVENT_WEBHOOK_URL` for a *separate* webhook if
       you want booking events on their own GHL workflow trigger instead of the
       shared form webhook.)
+- [ ] Set `BK_WEBHOOK_SECRET` in Vercel (Production), min 16 chars. **Until this
+      is set, `/api/bookingkoala-webhook` returns 503 to everything** — it fails
+      closed rather than accepting unauthenticated writes to the CRM.
+- [ ] In BookingKoala, point the lead-form, booking and abandoned-cart webhooks
+      at `https://thevalleycleanteam.com/api/bookingkoala-webhook` with the
+      header `x-bk-webhook-secret: <BK_WEBHOOK_SECRET>`.
+- [ ] Fire one of each event type, then read the Vercel logs. Any
+      `unrecognised event type` line means BookingKoala's name for that event
+      isn't in `EVENT_MAP` yet — add the real name and redeploy. **Do this
+      before trusting the numbers.**
+- [ ] Confirm in PostHog that `quote_form_submitted` and the three `booking_*`
+      events are arriving again (they stopped 2026-07-17 and 2026-07-10).
+- [ ] Confirm a test lead produces a hello@ email (that stopped 2026-07-17 too).
 - [ ] In GHL, create Workflow A with the trigger filter `funnel_event = booking_started`.
 - [ ] Add the 30-min wait + booked-check + SMS with the magic link.
 - [ ] Add the `booking_completed` removal trigger so booked clients exit.
-- [ ] Test: open `/booking`, start the form, close the tab → confirm a
-      `booking_abandoned` event hits GHL and the workflow fires.
+- [ ] Fix the magic link before relying on it — it points at `/booking`, which
+      is now a 301 to BookingKoala, and the prefill logic that made its query
+      params work was deleted with that page.
 - [ ] (Optional) Build Workflow B branches + the ad-retargeting audiences.
 
 ## Retargeting ideas menu (beyond GHL automation)

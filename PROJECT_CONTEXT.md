@@ -38,11 +38,44 @@ in production**. Same shadow pattern affects `leads`, `rankings`, `traffic`.
 
 ### How leads & booking events flow
 
+Both funnels now live in hosted BookingKoala, not on this site. `/get-quote`,
+`/booking` and `/booking-commercial` are 301s to BookingKoala (#109,
+2026-07-27), so **BookingKoala webhooks are the only live source** of leads and
+booking events:
+
 ```
-/get-quote form → POST /api/submit-form → Resend email → GHL webhook (route by event type)
-/booking page  → POST /api/submit-form with funnel_event=booking_started/abandoned/completed
-                                       → GHL webhook (routed by funnel_event)
+BookingKoala lead form  → POST /api/bookingkoala-webhook → PostHog quote_form_submitted
+                                                        → GHL quote webhook
+                                                        → Resend email to hello@
+BookingKoala booking /  → POST /api/bookingkoala-webhook → PostHog booking_started |
+  abandoned-cart events                                     booking_abandoned |
+                                                            booking_completed
+                                                        → GHL webhook (by event)
+                                                        → no email (by design)
+
+on-site forms (careers, → POST /api/submit-form        → same three destinations
+  QuoteForm component,                                    (leads only; newsletter
+  blog newsletter)                                         is rejected, see below)
 ```
+
+Both endpoints share one fan-out implementation in `api/_lead-delivery.ts`, so
+the two paths cannot drift apart.
+
+**History worth knowing.** The site used to own both funnels and POST them to
+`/api/submit-form`. That broke in two steps and nothing replaced it for three
+weeks:
+
+- **2026-07-10 (#94)** removed the site-side booking beacons — they were
+  false-firing `booking_completed` on every `/booking` visit (23 in one day).
+  Correct removal, but it ended all three booking events.
+- **2026-07-17 (0ab7262)** replaced the `/get-quote` form with a BookingKoala
+  embed and deleted the POST. That ended `quote_form_submitted` (last event
+  2026-07-17), the GHL quote workflow, **and** the hello@ lead email (last one
+  2026-07-17 14:54 UTC).
+
+`/api/bookingkoala-webhook` exists to restore all three destinations. Don't
+re-add site-side beacons — completion happens inside BookingKoala, so the site
+genuinely cannot tell "booked" from "still deciding."
 
 Three GHL webhooks (set as Vercel env vars):
 
@@ -51,6 +84,39 @@ Three GHL webhooks (set as Vercel env vars):
 | Quote form lead (funnel_event empty) | `...d053e0` | hardcoded as fallback | "Website Quote Form — New Lead" + "Incoming Quote Form - Hybrid V2" |
 | `booking_started` / `booking_abandoned` | `...248e1d` | `GHL_BOOKING_WEBHOOK_URL` | "Abandoned Booking Recovery" |
 | `booking_completed` | `...7bb3b8` | `GHL_BOOKING_COMPLETED_WEBHOOK_URL` | "Booking Completed - Mark Booked" |
+
+### BookingKoala webhook setup
+
+Point every BookingKoala webhook (lead form, booking created/completed,
+abandoned cart) at:
+
+```
+https://thevalleycleanteam.com/api/bookingkoala-webhook
+```
+
+with the header `x-bk-webhook-secret: <BK_WEBHOOK_SECRET>` (or
+`Authorization: Bearer <BK_WEBHOOK_SECRET>` if that's the only field the
+BookingKoala UI offers).
+
+| Env var | Required | Purpose |
+|---|---|---|
+| `BK_WEBHOOK_SECRET` | **Yes**, min 16 chars | Shared secret. Without it the endpoint 503s every request — it will not accept unauthenticated writes to the CRM and lead inbox. |
+| `RESEND_API_KEY` | Yes | hello@ lead notification |
+| `GHL_BOOKING_WEBHOOK_URL` | Optional | Falls back to the quote webhook |
+| `GHL_BOOKING_COMPLETED_WEBHOOK_URL` | Optional | Falls back to the recovery webhook |
+
+**Event-name mapping is best-effort until verified against a live payload.**
+BookingKoala's webhook field names aren't pinned by a schema we control, so
+`api/bookingkoala-webhook.ts` matches a list of common aliases (`EVENT_MAP` and
+the `pick()` calls). Anything it can't classify returns HTTP 200 and logs
+`BookingKoala webhook: unrecognised event type. type=… keys=…` — **check the
+Vercel logs after the first real delivery of each event type** and add the
+actual names to `EVENT_MAP`. A 200 with `"classified": false` means nothing was
+sent onward.
+
+Note: BookingKoala retries are at-least-once and this endpoint holds no state,
+so a retried delivery produces a duplicate GHL record, PostHog event and email.
+If that shows up in practice, dedupe on BookingKoala's own event id.
 
 ### GHL workflows in production
 
@@ -163,6 +229,32 @@ BookingKoala rate sheet:
 
 ## How to verify any AI-assistant claim against reality
 
-- **Live API check:** `curl -X POST https://thevalleycleanteam.com/api/submit-form -H "Content-Type: application/json" -d '{"source":"Booking Page Pre-Capture","funnel_event":"booking_started","name":"Test","phone":"2565550100","email":"t@x.com"}'` should return `{"success":true,"message":"Event received","funnel_event":"booking_started"}`.
-- **Quote form smoke test:** same endpoint with `source: "Get Quote Form"` should return `"Check your texts!"` + an `emailId` (Resend).
-- **Magic link prefill test:** open `/booking?phone=12053700194&f_name=Todd&l_name=X&email=t@x.com` — Step 2 of BookingKoala should show name, email, and phone correctly as `(205) 370-0194` (the leading `1` stripped server-side).
+- **BookingKoala webhook check** (the live lead path):
+  ```
+  curl -X POST https://thevalleycleanteam.com/api/bookingkoala-webhook \
+    -H "Content-Type: application/json" \
+    -H "x-bk-webhook-secret: $BK_WEBHOOK_SECRET" \
+    -d '{"event":"lead_created","name":"Test","phone":"2565550100","email":"t@x.com"}'
+  ```
+  should return `{"ok":true,"classified":true,"event":"quote_form_submitted","emailed":true}`.
+  Without the header it must return 401 — if it returns 200, the secret is not
+  set and the endpoint is open. `"classified":false` means the event name didn't
+  match `EVENT_MAP` and nothing was forwarded.
+- **Booking event check:** same call with `"event":"booking_completed"` should
+  return `"event":"booking_completed","emailed":false`.
+- **On-site form check:** `curl -X POST https://thevalleycleanteam.com/api/submit-form -H "Content-Type: application/json" -d '{"source":"Career Application","name":"Test","phone":"2565550100","email":"t@x.com"}'` should return `"Check your texts!"` + an `emailId` (Resend).
+- **PostHog check:** the four events are `quote_form_submitted`,
+  `booking_started`, `booking_abandoned`, `booking_completed`. Webhook-sourced
+  ones carry `source: "BookingKoala"`; the pre-2026-07-17 history carries
+  `source: "Get Quote Form"`. A gap between 2026-07-17 and whenever the webhook
+  went live is expected and explained above — it is not a query bug.
+
+**Known stale:** the `funnel_event` POST to `/api/submit-form` still works and
+is still accepted, but no site code sends it any more. Don't treat a passing
+`funnel_event` curl as evidence that the booking funnel is being tracked — the
+live source is the BookingKoala webhook.
+
+**Also broken by #109, not yet fixed:** the recovery "magic link" below points
+at `/booking`, which is now a 301 to BookingKoala. The phone-normalisation and
+prefill logic that made those query params work lived in the deleted
+`booking.astro`, so the merge-field link no longer prefills as documented.
