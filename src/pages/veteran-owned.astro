@@ -17,19 +17,19 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
-import { REVIEWS } from "../constants/schemaData";
+import { REVIEWS, CHECKLIST } from "../data/claims";
 import { startingPrice } from "../data/pricing";
 
 const title = "Veteran-Owned Cleaning Company AL & TN | Valley Clean Team";
 const description =
-  "The Valley Clean Team is veteran-owned and women-owned, $2M insured, bonded, and background-checked. Serving Huntsville, Athens, Florence, Mountain Brook & Nashville.";
+  "The Valley Clean Team is veteran- and woman-owned, $2M insured, bonded, and background-checked. Serving Huntsville, Athens, Florence, Mountain Brook & Nashville.";
 
 // One row per verifiable credential. Kept as data so the visible table and the
 // FAQ answers below draw on the same wording.
 const credentials = [
   {
     label: "Ownership",
-    value: "Veteran-owned and women-owned",
+    value: "Veteran- and woman-owned",
     detail:
       "Founded in 2022 by Todd and Christen Frederickson, a husband-and-wife team. Not a franchise — the owners answer the phone.",
   },
@@ -64,7 +64,7 @@ const credentials = [
   },
   {
     label: "Quality standard",
-    value: "49-point checklist",
+    value: `${CHECKLIST.standard}-point checklist`,
     detail: "Post-clean photos on request, and a re-clean within 24 hours if anything is missed.",
   },
   {
@@ -82,7 +82,7 @@ const credentials = [
 const faqs = [
   {
     question: "Is The Valley Clean Team really veteran-owned?",
-    answer: `Yes. The Valley Clean Team is a veteran-owned and women-owned cleaning company founded in 2022 by Todd and Christen Frederickson, a husband-and-wife team based in North Alabama. It is an independent local business, not a franchise of a national brand. The company serves Huntsville, Madison, Athens, Decatur, Florence, Muscle Shoals, Tuscumbia, Sheffield, Mountain Brook and Birmingham in Alabama, and Nashville in Tennessee.`,
+    answer: `Yes. The Valley Clean Team is a veteran- and woman-owned cleaning company founded in 2022 by Todd and Christen Frederickson, a husband-and-wife team based in North Alabama. It is an independent local business, not a franchise of a national brand. The company serves Huntsville, Madison, Athens, Decatur, Florence, Muscle Shoals, Tuscumbia, Sheffield, Mountain Brook and Birmingham in Alabama, and Nashville in Tennessee.`,
   },
   {
     question: "Are your cleaners insured and background-checked?",
@@ -94,7 +94,7 @@ const faqs = [
   },
   {
     question: "What does veteran-owned actually change about the cleaning?",
-    answer: `Three concrete things: the same background-checked team returns to your home instead of a rotating crew, the price we quote is the price you pay with no post-booking adjustments, and every clean is worked against a written 49-point checklist rather than a cleaner's memory. If something is missed, we re-clean it within 24 hours at no charge.`,
+    answer: `Three concrete things: the same background-checked team returns to your home instead of a rotating crew, the price we quote is the price you pay with no post-booking adjustments, and every clean is worked against a written ${CHECKLIST.standard}-point checklist rather than a cleaner's memory. If something is missed, we re-clean it within 24 hours at no charge.`,
   },
   {
     question: "Is a veteran-owned cleaning service more expensive?",
@@ -135,8 +135,7 @@ const faqSchema = {
         class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
       >
         <span class="text-[#FFA985] font-semibold">
-          <Icon name="flag-usa" class="w-5 h-5 mr-2" />Veteran-Owned &
-          Women-Owned
+          <Icon name="flag-usa" class="w-5 h-5 mr-2" />Veteran- & Woman-Owned
         </span>
       </div>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#333333]">
@@ -145,7 +144,7 @@ const faqSchema = {
 
       <!-- Answer capsule: the whole page in one liftable paragraph. -->
       <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-        The Valley Clean Team is a veteran-owned and women-owned cleaning company
+        The Valley Clean Team is a veteran- and woman-owned cleaning company
         founded in 2022, serving Alabama and Tennessee. We carry $2,000,000 in
         general liability insurance, are bonded and workers'-comp covered, and
         every cleaner is a background-checked W-2 employee. We hold a {

@@ -7,6 +7,7 @@ import {
   BUSINESS_HOURS,
   type CityConfig
 } from "../constants/schemaData";
+import { PRICING } from "../data/claims";
 
 interface Props {
   type?: "organization" | "local" | "service" | "article";
@@ -159,7 +160,7 @@ const getOrganizationSchema = (includeDepartments = true) => ({
     },
     {
       "@type": "PropertyValue",
-      name: "Women-Owned",
+      name: "Woman-Owned",
       value: true,
       description: "Co-owned and operated by Christen Frederickson.",
     },
@@ -214,7 +215,7 @@ const getOrganizationSchema = (includeDepartments = true) => ({
     {
       "@type": "EducationalOccupationalCredential",
       credentialCategory: "Business Certification",
-      name: "Women-Owned Business",
+      name: "Woman-Owned Business",
     },
     {
       "@type": "EducationalOccupationalCredential",
@@ -356,9 +357,9 @@ const localSchema = city
               },
               priceSpecification: {
                 "@type": "PriceSpecification",
-                price: 99.00,
+                price: PRICING.regular.amount,
                 priceCurrency: "USD",
-                description: "Starting at $99",
+                description: `Starting at ${PRICING.regular.display}`,
               },
             },
             {
@@ -615,7 +616,11 @@ const eventSchemas =
               "Get your home guest-ready before Helen Keller Festival",
             url: "https://thevalleycleanteam.com/locations/tuscumbia",
             priceCurrency: "USD",
-            price: 149,
+            // Was $149 — a promotional rate from the retired tier with no
+            // canonical source. Set to the standard regular base rather than
+            // advertise a discount nobody has authorised. If a real festival
+            // promo price exists, put it here.
+            price: PRICING.regular.amount,
             availability: "https://schema.org/InStock",
             seller: {
               "@type": "Organization",
@@ -689,7 +694,7 @@ const airbnbCleaningSchema =
           "@type": "Offer",
           priceSpecification: {
             "@type": "PriceSpecification",
-            price: 99,
+            price: PRICING.airbnbTurnover.amount,
             priceCurrency: "USD",
             description: "Starting price for standard turnover",
           },
@@ -750,7 +755,7 @@ const moveOutCleaningSchema =
           "@type": "Offer",
           priceSpecification: {
             "@type": "PriceSpecification",
-            price: 199,
+            price: PRICING.moveInOut.amount,
             priceCurrency: "USD",
             description: "Starting price for move-out cleaning",
           },

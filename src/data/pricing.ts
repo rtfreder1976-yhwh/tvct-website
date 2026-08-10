@@ -13,9 +13,22 @@
  * hand the same arrays to the calculator via `define:vars`, so the visible
  * table, the schema Offers and the interactive estimate can never drift apart.
  *
- * Brackets and prices come straight from the company pricing sheet and match
- * the BookingKoala booking form.
+ * SOURCE OF TRUTH: "New TVCT Cleaning Biz Pricing – Cleaning Pricing" sheet,
+ * supplied by Todd and verified against these arrays on 2026-08-10. All three
+ * published tables below (brackets, standard, deep, move-in/out) match that
+ * sheet value-for-value.
+ *
+ * On the sheet but deliberately NOT published here, because publishing a price
+ * is a business decision and nobody has asked for these to go live:
+ *   - Construction Clean Up ($526 … $1,820, "50% more than Move In/Out")
+ *   - Per-visit recurring rows (weekly -30%, bi-weekly -25%, monthly -15%);
+ *     claims.ts RECURRING_PRICING derives these instead, and rounds UP where
+ *     the sheet rounds down (weekly $124 vs $123, monthly $150 vs $149).
+ *   - Extras (inside oven $50, pet hair $100, blinds $10/each, fridge $75,
+ *     dishwasher $50).
  */
+
+import { PRICING, ClaimsError } from "./claims";
 
 export const SQFT_BRACKETS = [
   750, 1000, 1250, 1500, 1800, 2100, 2400, 2700, 3000, 3300, 3600, 4000, 4400,
@@ -32,11 +45,23 @@ export const PRICE_TABLE: Record<string, number[]> = {
 };
 
 /**
- * Price floors. A floor must never sit above the first bracket price, or the
- * calculator advertises a starting rate no customer can actually reach:
- * `regular` was once 200 against a 176 bracket price, so the smallest home
- * always quoted 200-220 while the tier card, the homepage band and 90+ pages
- * advertised "from $176".
+ * Price floors, from the "Minimum Prices" block at the bottom of the pricing
+ * sheet: Deep Clean $200, Standard Clean $200, Weekly Standard Clean $150,
+ * Move In/Out $350, Construction Clean Up $450.
+ *
+ * `deep` and `moveinout` match the sheet exactly. Neither floor actually binds,
+ * because the first bracket already exceeds it ($276 > $200, $351 > $350) — the
+ * minimum only matters if a smaller job is ever quoted off-table.
+ *
+ * `regular` is the one deliberate divergence: the sheet's Standard Clean
+ * minimum is $200, but its Standard Clean table starts at $176, and $176 is the
+ * number claims.ts carries (verified against /pricing by Todd on 2026-08-02)
+ * and that ~90 pages advertise. Setting this to 200 would make the calculator
+ * quote $200-$220 for a 750 sq ft home while the homepage band, the tier card
+ * and every location page still say "from $176" — the exact drift that was
+ * fixed once already. Raising it is a pricing decision, not a code fix: change
+ * claims.PRICING.regular and the site copy in the same commit, or the build
+ * guard below will (correctly) refuse.
  */
 export const MINIMUMS: Record<string, number> = {
   regular: 176,
@@ -81,6 +106,33 @@ export function priceRangeLabel(service: string, size: number): string {
 export function startingPrice(service: string): number {
   const table = PRICE_TABLE[service] || PRICE_TABLE.regular;
   return Math.max(table[0], MINIMUMS[service] || 200);
+}
+
+/**
+ * Guard: the bracket table below and claims.ts PRICING are two statements of
+ * the same fact — the lowest published price per service. claims.ts is the
+ * authority (it carries the verification date and gates the build); this module
+ * owns the full square-footage curve that claims.ts does not model.
+ *
+ * Without this check the two could drift exactly the way the retired
+ * $99/$149/$175 tier drifted from /pricing: silently, for months, across
+ * hundreds of pages. Failing the build is the cheaper outcome.
+ */
+const CLAIMS_STARTING_PRICE: Record<string, number> = {
+  regular: PRICING.regular.amount,
+  deep: PRICING.deep.amount,
+  moveinout: PRICING.moveInOut.amount,
+};
+
+for (const [service, claimed] of Object.entries(CLAIMS_STARTING_PRICE)) {
+  const derived = Math.max(PRICE_TABLE[service][0], MINIMUMS[service]);
+  if (derived !== claimed) {
+    throw new ClaimsError(
+      `pricing.ts disagrees with claims.ts for "${service}": the rate card starts at ` +
+        `$${derived} but claims.PRICING says $${claimed}. Re-verify against /pricing ` +
+        `and update BOTH, or the site will publish two different starting prices.`,
+    );
+  }
 }
 
 /**

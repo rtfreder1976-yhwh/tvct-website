@@ -5,6 +5,13 @@ on:
     - cron: '0 9 * * 1'
   workflow_dispatch:
 
+# contents:read for the checkout and for lychee's authenticated github.com link
+# checks; issues:write because the failure path opens an issue. Dropping to
+# contents:read alone would break that last step.
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   check-links:
     runs-on: ubuntu-latest

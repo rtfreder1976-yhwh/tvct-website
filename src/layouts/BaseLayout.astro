@@ -11,6 +11,12 @@ import ABTester from "../components/ABTester.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 import LastUpdated from "../components/LastUpdated.astro";
+// Every page renders through this layout, so this is the chokepoint where an
+// unverified claim stops the build. Failing here is the point: it is cheaper to
+// stop a deploy than to publish a number nobody can stand behind.
+import { assertClaims } from "../data/claims";
+
+assertClaims();
 
 const mainCss = mainCssRaw;
 
