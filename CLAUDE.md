@@ -1,214 +1,114 @@
-# The Valley Clean Team - Claude Code Project Instructions
+# The Valley Clean Team — Repository Instructions
 
-## Project Overview
-This is the website for The Valley Clean Team, a veteran-owned and women-owned premium cleaning service operating across multiple markets in Tennessee and Alabama.
+_Last updated: 2026-08-10. These rules describe the current architecture and override historical workflow notes in old commits or closed PRs._
 
-**Tagline:** "Life is messy. We've got this."
+## Project
 
-**Markets Served:**
-- Huntsville, AL (primary hub)
-- Athens, AL
-- Florence/Shoals, AL (Florence, Muscle Shoals, Tuscumbia, Sheffield)
-- Mountain Brook/Birmingham, AL
-- Nashville, TN
+Astro/TypeScript website for The Valley Clean Team, a veteran-owned and woman-owned cleaning company serving Alabama and Tennessee.
 
-## Critical Rules - ALWAYS FOLLOW
+Tagline: “Life is messy. We’ve got this.”
 
-### 1. Performance First (Core Web Vitals)
-Before committing ANY changes, verify:
-- [ ] Images are WebP format with lazy loading
-- [ ] No render-blocking CSS/JS in `<head>`
-- [ ] All images have explicit width/height attributes
-- [ ] No layout shift (CLS) from dynamic content
-- [ ] LCP element loads within 2.5s
+Canonical phones:
+- Alabama: (256) 826-1100
+- Tennessee: (615) 510-1427
 
-Run the performance check: `npm run perf-check` (if available) or manually audit.
+## Non-negotiable architecture rules
 
-### 2. Schema Markup Required
-Every new page MUST include appropriate JSON-LD schema. Reference templates in `/docs/schema/`.
+### 1. Claims are centralized
 
-**Required schema by page type:**
-- Service pages → `LocalBusiness` + `Service` schema
-- Location hub pages → `LocalBusiness` with `areaServed`
-- Neighborhood pages → `LocalBusiness` + `Place` schema
-- Blog/content pages → `Article` + `FAQPage` schema (if FAQs present)
-- Pricing pages → `Service` + `Offer` schema
+`src/data/claims.ts` is authoritative for repeated factual business claims. Never create a second “canonical” price/review/checklist/performance constant in another file.
 
-### 3. URL Structure Standards
-Follow this exact pattern:
-```
-/services/[service-slug]/
-/areas/[market-hub]/
-/areas/[market-hub]/[neighborhood-slug]/
-/blog/[category]/[post-slug]/
-/pricing/
-/about/
-/contact/
-```
+Current key values:
+- Regular cleaning from $200
+- Deep cleaning from $276
+- Move-in/out from $351
+- Airbnb turnover from $125
+- Post-construction from $300
+- Weekly / biweekly / monthly discounts: 30% / 25% / 15%
+- Reviews: 4.9 / 148
+- Standard checklist: 44 items
+- Customers served: 1,500+
+- Quote response: 2 business hours
 
-### 4. Internal Linking Rules
-- Every location page must link to its parent hub
-- Every service page must link to at least 2 related services
-- Every blog post must link to relevant service pages
-- Use descriptive anchor text with keywords (not "click here")
+Generated and structured-data pricing must derive from canonical claims/pricing logic rather than stale `services.json` literals.
 
-### 5. Image Standards
-- Format: WebP (with JPG/PNG fallback)
-- Max width: 1200px for hero images, 800px for content images
-- Always include `alt` text with location + service keywords
-- Use `loading="lazy"` for below-fold images
-- Naming convention: `[service]-[location]-[descriptor].webp`
+### 2. BookingKoala owns customer quote/booking flow
 
-## File References
+Residential and commercial quoting/booking go to BookingKoala.
 
-### Templates
-- Location Hub Template: `/docs/templates/location-hub.astro`
-- Neighborhood Page Template: `/docs/templates/neighborhood-page.astro`
-- Service Page Template: `/docs/templates/service-page.astro`
-- Content Pillar Template: `/docs/templates/content-pillar.astro`
+Do not restore:
+- GoHighLevel / LeadConnector webhooks or contact writes
+- Outscraper quote dependencies
+- `/api/submit-form`
+- GHL booking-started/abandoned/completed fan-out
+- generic website lead forms that bypass BookingKoala
 
-### Schema
-- LocalBusiness Schema: `src/components/Schema.astro'
-- Service Schema: `/docs/schema/service.json`
-- FAQ Schema: `/docs/schema/faq.json`
-- Article Schema: `/docs/schema/article.json`
+GoHighLevel and Outscraper are retired systems for this website.
 
-### Rules & Checklists
-- Core Web Vitals Checklist: `/docs/rules/core-web-vitals.md`
-- SEO Page Checklist: `/docs/rules/seo-checklist.md`
-- Content Guidelines: `/docs/rules/content-guidelines.md`
+### 3. Careers are separate from customer leads
 
-## Service Categories
+The careers application is intentionally disabled until a dedicated BookingKoala 2 cleaner form URL is provided. Cleaner applicants must never be posted into customer quote/CRM infrastructure.
 
-### Tier 1: Core Services (High Traffic)
-- Residential Cleaning
-- Commercial Cleaning
-- Deep Cleaning
-- Move-In/Move-Out Cleaning
-- Recurring Cleaning (weekly, biweekly, monthly)
+### 4. Newsletter is intentionally disabled
 
-### Tier 2: Specialty Services (Low Competition, High Value)
-- Emergency/Same-Day Cleaning
-- Post-Construction Cleaning
-- Airbnb/Vacation Rental Cleaning
-- Hoarding Cleanup
-- Foreclosure/REO Cleaning
+There is no configured newsletter destination. Do not revive the old generic signup POST. A future newsletter implementation needs a dedicated provider and explicit signup contract.
 
-### Tier 3: Add-On Services
-- Organization Services
+## Claim guardrails
 
-## Keyword Targeting by Market
+- Do not advertise emergency or same-day cleaning.
+- Do not claim clinical/medical compliance, OSHA credentials, bloodborne-pathogen training, clinical protocols, or named disinfectant credentials unless verified and added to `claims.ts`.
+- Medical/dental/healthcare pages describe non-clinical facility cleaning.
+- “Luxury” is not the general brand position; use it only where the canonical positioning explicitly allows it.
+- “1,500+” means customers served, never “cleanings completed.”
+- Never publish retired Offer prices: $99, $119, $129, $135, $149, $175, $176, $225, $275, or $400.
+- For custom-quoted commercial/specialty services, omit numeric JSON-LD Offer pricing instead of inventing a number.
 
-### Athens, AL (Priority 1 - Easiest Wins)
-Primary: cleaning service Athens AL, house cleaning Athens Alabama, maid service Athens AL
-Emergency: emergency cleaning Athens AL, same day cleaning Athens Alabama
-Specialty: move out cleaning Athens AL, post-construction cleaning Athens
+## SEO and schema
 
-### Florence/Shoals (Priority 2)
-Primary: cleaning service Florence AL, house cleaning Muscle Shoals, maid service Shoals area
-Location variations: Tuscumbia, Sheffield, Killen, Rogersville
-Specialty: emergency cleaning Florence AL, Airbnb cleaning Shoals
+Use existing layouts/components and the canonical generated location/service route where possible instead of creating bespoke duplicates.
 
-### Huntsville (Priority 3 - Home Base)
-Primary: cleaning service Huntsville AL, house cleaning Huntsville, maid service Huntsville
-Neighborhoods: Madison, Hampton Cove, Harvest, Meridianville, Owens Cross Roads
-Specialty: commercial cleaning Huntsville, office cleaning Huntsville
+Every structured-data claim must be supportable by the same canonical data used in visible copy. Do not add fake city-specific review objects, synthetic testimonials, employee counts, certifications, or operational guarantees solely for schema richness.
 
-### Mountain Brook/Birmingham (Priority 4)
-Primary: cleaning service Mountain Brook, house cleaning Mountain Brook AL
-Neighborhoods: Crestline, English Village, Mountain Brook Village, Cherokee Bend
-Specialty: luxury home cleaning Mountain Brook, estate cleaning Birmingham
+Meta titles/descriptions should be concise and truthful. Avoid creating coverage pages for cities/neighborhoods unless service coverage is actually confirmed.
 
-### Nashville (Priority 5 - Long Term)
-Primary: cleaning service Nashville, house cleaning Nashville TN
-Neighborhoods: Green Hills, Belle Meade, Brentwood, Franklin, East Nashville
-Specialty: Airbnb cleaning Nashville, commercial cleaning Nashville
+## Performance and accessibility
 
-## Brand Voice & Tone
+For UI changes:
+- preserve explicit image dimensions
+- lazy-load below-fold media
+- avoid unnecessary client JavaScript
+- maintain keyboard/focus behavior
+- do not introduce layout shift
+- prefer existing shared components over page-specific copies
 
-### Writing Style
-- Warm, professional, approachable
-- Active voice preferred
-- Second person ("you/your") for customer-facing content
-- Emphasize trust signals: veteran-owned, women-owned, insured, bonded
-- Avoid jargon - speak plainly
+Maps should remain keyless embeds unless there is a verified need for the Google Maps JavaScript API and its key is properly restricted/configured outside source.
 
-### Key Messages
-1. Reliability: "Same team, every time"
-2. Transparency: "The price you see is the price you pay"
-3. Quality: "49-point checklist with post-clean photos"
-4. Speed: "We respond in minutes, not days"
-5. Trust: "Veteran-owned. Women-owned. Community trusted."
+## Admin/security
 
-### CTAs
-Primary: "Get Your Free Quote"
-Secondary: "Book Online Now", "Text Us", "Call Now"
+Admin browser auth uses an 8-hour signed session token derived from `ADMIN_SECRET`; the cookie must never contain the secret itself.
 
-## Contact Information
+Do not weaken authentication, expose secrets in URLs/logs/client bundles, or reintroduce raw credentials into cookies. Any new public API needs explicit abuse controls appropriate to its function.
 
-**Phone (Alabama):** (256) 826-1100
-**Phone (Tennessee):** (615) 510-1427
-**Email:** hello@thevalleycleanteam.com
-**Service Areas:** Huntsville, Athens, Florence, Muscle Shoals, Tuscumbia, Sheffield, Mountain Brook, Birmingham, Nashville
+## Validation before merge
 
-## Agents & Automation
-
-### Performance Agent
-When adding new pages, automatically run:
-1. Image optimization check
-2. Schema validation
-3. Internal link audit
-4. Meta tag verification
-
-### Schema Agent
-When creating pages, automatically generate appropriate JSON-LD based on page type and inject into `<head>`.
-
-### Location Page Agent
-When creating location pages:
-1. Pull correct market data from config
-2. Apply location hub or neighborhood template
-3. Generate LocalBusiness schema with correct service area
-4. Add internal links to parent hub and related services
-5. Generate unique meta title/description with location keywords
-
-## Development Commands
+At minimum:
 
 ```bash
-# Start development server
-npm run dev
-
-# Build for production
+npm run check
+npm run validate:claims
 npm run build
-
-# Preview production build
-npm run preview
-
-# Run performance audit
-npm run lighthouse
-
-# Validate schema markup
-npm run validate-schema
 ```
 
-## Git Commit Standards
+For PRs, also require the repository’s Schema & Claim Validation, Lighthouse, and Vercel checks to pass where applicable.
 
-Use conventional commits:
-- `feat(location):` - New location page
-- `feat(service):` - New service page
-- `fix(perf):` - Performance improvements
-- `fix(seo):` - SEO fixes
-- `content(blog):` - Blog content updates
-- `schema:` - Schema markup changes
+Do not “fix” CI by weakening retired-price or claim validators. Fix the source that generated the invalid output.
 
-## Pre-Commit Checklist
+## Git hygiene
 
-Before every commit, verify:
-- [ ] All images optimized and in WebP format
-- [ ] Schema markup valid (use Google's Rich Results Test)
-- [ ] No broken internal links
-- [ ] Meta title under 60 characters
-- [ ] Meta description under 160 characters
-- [ ] H1 contains primary keyword
-- [ ] Alt text on all images
-- [ ] Mobile responsive verified
-- audit all pages
+Use focused branches/PRs and conventional commit prefixes (`fix:`, `feat:`, `refactor:`, `chore:`, `docs:`). Do not revive stale branches wholesale; port still-useful ideas onto current `main` so canonical pricing, auth, and routing changes are preserved.
+
+## Current intentional follow-ups
+
+- Wire `/careers` to the dedicated BookingKoala 2 cleaner application when its URL is available.
+- Choose a newsletter destination before re-enabling signup.
+- Continue production smoke tests/security-header hardening from current `main`.
