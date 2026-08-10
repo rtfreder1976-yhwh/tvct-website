@@ -1,55 +1,41 @@
 # The Valley Clean Team Website
 
-A luxury cleaning services website built with Astro.
+Astro/TypeScript website for The Valley Clean Team, serving cleaning customers across Alabama and Tennessee.
 
-## Getting Started
+## Architecture at a glance
 
-### Prerequisites
+- **Booking/quotes:** BookingKoala is the customer quoting and booking system.
+- **Business claims:** `src/data/claims.ts` is the canonical source for repeated pricing, review, checklist, ownership, performance, and compliance claims.
+- **Deployment:** Vercel.
+- **Analytics dashboard:** Search Console and GA4 where configured; legacy GHL lead analytics are retired.
+- **Retired systems:** GoHighLevel/LeadConnector and Outscraper must not be reintroduced as website lead/quote dependencies.
 
-- Node.js 22.12+ (matches the `engines` field in package.json)
-- npm or yarn
+See `PROJECT_CONTEXT.md` and `CLAUDE.md` for current repository rules and business guardrails.
 
-### Installation
+## Requirements
 
-1. Install dependencies:
+- Node.js 22.12+
+- npm
+
+## Development
+
 ```bash
 npm install
-```
-
-2. Start the development server:
-```bash
 npm run dev
 ```
 
-3. Build for production:
+## Validation
+
+Before merging meaningful changes:
+
 ```bash
+npm run check
+npm run validate:claims
 npm run build
 ```
 
-4. Preview production build:
-```bash
-npm run preview
-```
-
-## Project Structure
-
-```
-/
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── Navigation.astro
-│   │   └── Footer.astro
-│   ├── layouts/
-│   │   └── BaseLayout.astro
-│   └── pages/
-│       └── index.astro
-├── astro.config.mjs
-├── package.json
-└── tailwind.config.mjs
-```
+GitHub Actions also validates generated JSON-LD and blocks retired Offer prices. Lighthouse and Vercel preview checks run on pull requests.
 
 ## Deployment
 
-This project is configured to deploy to Vercel. Simply push to your GitHub repository and connect it to Vercel.
-
+`main` deploys through the connected Vercel project. Use focused pull requests and merge only after the applicable validation checks are green.
