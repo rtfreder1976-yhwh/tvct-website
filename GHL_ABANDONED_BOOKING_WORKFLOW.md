@@ -206,12 +206,10 @@ have no name/phone** (nothing was captured upstream). For those:
 - [ ] Set `BK_WEBHOOK_SECRET` in Vercel (Production), min 16 chars. **Until this
       is set, `/api/bookingkoala-webhook` returns 503 to everything** — it fails
       closed rather than accepting unauthenticated writes to the CRM.
-- [ ] Build the **lead Zap**: BK leads module (or "Quote created") → Webhooks by
-      Zapier POST → `https://thevalleycleanteam.com/api/bookingkoala-webhook`,
-      header `x-bk-webhook-secret: <BK_WEBHOOK_SECRET>`, body `event` =
-      `quote_form_submitted` plus the contact fields.
-- [ ] Build the **booking Zap**: BK "Booking created" → same POST, `event` =
-      `booking_completed`.
+- [ ] Build the two Zaps — **full step-by-step in
+      `BOOKINGKOALA_ZAPIER_RUNBOOK.md`.** In short: BK leads module (or "Quote
+      created") → Webhooks by Zapier POST with `event` = `quote_form_submitted`,
+      and BK "Booking created" → same POST with `event` = `booking_completed`.
 - [ ] Fire one of each, then read the Vercel logs. An `unrecognised event type`
       line means the `event` value didn't match — fix the Zap's payload.
 - [ ] Confirm in PostHog that `quote_form_submitted` and `booking_completed` are

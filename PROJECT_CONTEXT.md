@@ -96,6 +96,9 @@ BookingKoala --(Zapier trigger)--> Webhooks by Zapier (POST)
                                            --> PostHog + GHL + Resend
 ```
 
+**Step-by-step setup, troubleshooting and the Make alternative live in
+`BOOKINGKOALA_ZAPIER_RUNBOOK.md`.** The summary below is the shape of it.
+
 Build one Zap per event:
 
 | Zap | BK trigger | POST body `event` |
@@ -265,6 +268,7 @@ BookingKoala rate sheet:
 
 | File | Purpose |
 |---|---|
+| `BOOKINGKOALA_ZAPIER_RUNBOOK.md` | **Step-by-step setup** for the two Zaps that feed `/api/bookingkoala-webhook`, plus troubleshooting and the Make alternative |
 | `GHL_COPY_PASTE_ASSETS.md` | **Source of truth** for SMS/email copy, GHL workflow steps |
 | `SEO_AEO_FOLLOWUPS.md` | SEO/AEO follow-up checklist |
 | `CLAUDE.md` | Project-level rules (performance, schema, URL structure, brand voice) |
