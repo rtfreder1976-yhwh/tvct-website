@@ -1,6 +1,6 @@
-import { PRICING } from "../data/claims";
+import { PRICING, RECURRING_DISCOUNTS, REVIEWS } from "../data/claims";
+export { REVIEWS } from "../data/claims";
 
-// City configurations with competitive intelligence
 export interface CityConfig {
   lat: string;
   lng: string;
@@ -15,33 +15,13 @@ export interface CityConfig {
   searchVolume: string;
 }
 
-// Canonical customer-facing phone numbers (single source of truth).
-// AL is the default line; TN markets dial the Tennessee line.
 export const MARKET_PHONES = {
   AL: { display: "256-826-1100", href: "tel:2568261100", schema: "+1-256-826-1100" },
   TN: { display: "615-510-1427", href: "tel:6155101427", schema: "+1-615-510-1427" },
 } as const;
 
-// Canonical review / rating figures (single source of truth).
-// These MUST match the live Google Business Profile. Every page and the
-// AggregateRating schema reads from here so the site can never contradict
-// itself (previously pages shipped 5.0 vs 4.9 and 130/146/200+/700 reviews).
-// When the real GBP numbers change, update ONLY this block.
-export const REVIEWS = {
-  rating: "4.9",        // exact GBP average, used in schema ratingValue
-  count: 148,           // exact GBP review count, used in schema reviewCount
-  countDisplay: "148",  // display form for marketing copy
-} as const;
-// count verified 2026-07-25 against the live Google Business Profile: 4.9 from
-// 148 reviews. It had been 150 here, which published an inflated reviewCount in
-// AggregateRating schema. Re-verify before changing — do not round up.
-
-// Canonical business hours (single source of truth) — schema + visible text.
-// Mon–Fri 9am–5pm; weekends by appointment (no fixed Saturday/Sunday hours).
 export const BUSINESS_HOURS = {
   display: "Mon–Fri: 9:00 AM – 5:00 PM · Sat–Sun: By appointment",
-  // schema.org OpeningHoursSpecification — weekdays only; weekends are
-  // appointment-based so they are intentionally omitted (not a fixed range).
   schema: [
     {
       "@type": "OpeningHoursSpecification",
@@ -52,167 +32,94 @@ export const BUSINESS_HOURS = {
   ],
 } as const;
 
-/**
- * Resolve the correct customer-facing phone number for a market.
- * Accepts either a 2-letter abbreviation ("TN") or a full state name
- * ("Tennessee"), case-insensitively, so callers can't silently fall back
- * to the wrong line by passing an unexpected-but-reasonable value.
- * Anything that isn't clearly Tennessee resolves to the Alabama line.
- */
 export function getMarketPhone(state?: string): (typeof MARKET_PHONES)["AL"] {
   const s = (state ?? "").trim().toLowerCase();
-  const isTN = s === "tn" || s === "tennessee";
-  return isTN ? MARKET_PHONES.TN : MARKET_PHONES.AL;
+  return s === "tn" || s === "tennessee" ? MARKET_PHONES.TN : MARKET_PHONES.AL;
 }
 
 export const cityConfigs: Record<string, CityConfig> = {
   Huntsville: {
-    lat: "34.7304",
-    lng: "-86.5861",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35801-35816",
-    radius: "50000",
-    edge: "Pet-safe underserved (only 20% of competitors mention it)",
-    focusService: "Pet-Safe Deep Cleaning",
-    reviewFocus: "pet-safe deep clean",
-    searchVolume: "high",
+    lat: "34.7304", lng: "-86.5861", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35801-35816", radius: "50000",
+    edge: "North Alabama primary market", focusService: "House Cleaning",
+    reviewFocus: "reliable local service", searchVolume: "high",
   },
   Madison: {
-    lat: "34.6993",
-    lng: "-86.7483",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35756-35758",
-    radius: "25000",
-    edge: "Huntsville overflow market—pet-safe families",
-    focusService: "Recurring Pet-Safe Cleaning",
-    reviewFocus: "family-friendly cleaning",
-    searchVolume: "medium",
+    lat: "34.6993", lng: "-86.7483", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35756-35758", radius: "25000",
+    edge: "Madison County residential market", focusService: "Recurring House Cleaning",
+    reviewFocus: "consistent teams", searchVolume: "medium",
   },
   Athens: {
-    lat: "34.8026",
-    lng: "-86.9717",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35611-35614",
-    radius: "30000",
-    edge: "Limited local competition—pet-safe niche",
-    focusService: "Pet-Safe House Cleaning",
-    reviewFocus: "reliable local service",
-    searchVolume: "low",
+    lat: "34.8026", lng: "-86.9717", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35611-35614", radius: "30000",
+    edge: "Limestone County residential market", focusService: "House Cleaning",
+    reviewFocus: "reliable local service", searchVolume: "low",
   },
   Decatur: {
-    lat: "34.6059",
-    lng: "-86.9833",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35601-35603",
-    radius: "50000",
-    edge: "Pet-safe fills gap in 70% of competitor listings",
-    focusService: "Pet-Safe Move-Out Cleaning",
-    reviewFocus: "move-out cleaning",
-    searchVolume: "medium",
+    lat: "34.6059", lng: "-86.9833", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35601-35603", radius: "50000",
+    edge: "Morgan County residential market", focusService: "Move-Out Cleaning",
+    reviewFocus: "move-out cleaning", searchVolume: "medium",
   },
   "Mountain Brook": {
-    lat: "33.4940",
-    lng: "-86.7520",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35213-35243",
-    radius: "20000",
-    edge: "Luxury market—premium pet-safe services",
-    focusService: "Premium Pet-Safe Deep Cleaning",
-    reviewFocus: "luxury home cleaning",
-    searchVolume: "low",
+    lat: "33.4940", lng: "-86.7520", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35213-35243", radius: "20000",
+    edge: "Premium residential market", focusService: "Premium House Cleaning",
+    reviewFocus: "premium home cleaning", searchVolume: "low",
   },
   Florence: {
-    lat: "34.7998",
-    lng: "-87.6772",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35630-35634",
-    radius: "30000",
-    edge: "Smaller market (less comp)—pet-safe niche can claim strong pack share",
-    focusService: "Pet-Safe House Cleaning",
-    reviewFocus: "reliable local service",
-    searchVolume: "low",
+    lat: "34.7998", lng: "-87.6772", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35630-35634", radius: "30000",
+    edge: "Shoals residential market", focusService: "House Cleaning",
+    reviewFocus: "reliable local service", searchVolume: "low",
   },
   "Muscle Shoals": {
-    lat: "34.7448",
-    lng: "-87.6675",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35661-35662",
-    radius: "35000",
-    edge: "Shoals area consolidation—one provider advantage",
-    focusService: "Pet-Safe House Cleaning",
-    reviewFocus: "local trusted team",
-    searchVolume: "low",
+    lat: "34.7448", lng: "-87.6675", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35661-35662", radius: "35000",
+    edge: "Shoals residential market", focusService: "House Cleaning",
+    reviewFocus: "local trusted team", searchVolume: "low",
   },
   Nashville: {
-    lat: "36.1627",
-    lng: "-86.7816",
-    phone: "+1-615-510-1427",
-    state: "Tennessee",
-    stateAbbr: "TN",
-    zips: "37201-37250",
-    radius: "65000",
-    edge: "High volume (2,900/mo)—no competitors use pet-safe/non-toxic schemas",
-    focusService: "Non-Toxic House Cleaning",
-    reviewFocus: "non-toxic eco cleaning",
-    searchVolume: "very-high",
+    lat: "36.1627", lng: "-86.7816", phone: MARKET_PHONES.TN.schema,
+    state: "Tennessee", stateAbbr: "TN", zips: "37201-37250", radius: "65000",
+    edge: "Tennessee primary market", focusService: "House Cleaning",
+    reviewFocus: "reliable local service", searchVolume: "very-high",
   },
   "West Nashville": {
-    lat: "36.1527",
-    lng: "-86.8816",
-    phone: "+1-615-510-1427",
-    state: "Tennessee",
-    stateAbbr: "TN",
-    zips: "37205-37209",
-    radius: "25000",
-    edge: "Luxury market—Belle Meade, Sylvan Park high-income households",
-    focusService: "Luxury Home Cleaning",
-    reviewFocus: "premium white-glove service",
-    searchVolume: "medium",
+    lat: "36.1527", lng: "-86.8816", phone: MARKET_PHONES.TN.schema,
+    state: "Tennessee", stateAbbr: "TN", zips: "37205-37209", radius: "25000",
+    edge: "Premium residential market", focusService: "Premium House Cleaning",
+    reviewFocus: "premium home cleaning", searchVolume: "medium",
   },
   Tuscumbia: {
-    lat: "34.7312",
-    lng: "-87.7025",
-    phone: "+1-256-826-1100",
-    state: "Alabama",
-    stateAbbr: "AL",
-    zips: "35674",
-    radius: "35000",
-    edge: "Historic homes niche—Helen Keller tourism creates cleaner demand",
-    focusService: "Historic Home Cleaning",
-    reviewFocus: "historic home care",
-    searchVolume: "low",
+    lat: "34.7312", lng: "-87.7025", phone: MARKET_PHONES.AL.schema,
+    state: "Alabama", stateAbbr: "AL", zips: "35674", radius: "35000",
+    edge: "Historic-home market in the Shoals", focusService: "Historic Home Cleaning",
+    reviewFocus: "historic home care", searchVolume: "low",
   },
 };
 
+const recurringDiscountLabel = `${Math.round(RECURRING_DISCOUNTS.weekly * 100)}%`;
+
+/**
+ * Organization-level service catalog. Prices come only from claims.ts; custom
+ * quote services intentionally omit PriceSpecification.
+ */
 export const petSafeServiceCatalog = [
   {
     "@type": "Offer",
     itemOffered: {
       "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#pet-safe-cleaning",
-      name: "Pet-Safe House Cleaning",
-      description: "Non-toxic, allergy-free cleaning for homes with pets. Safe for dogs, cats, and all furry family members.",
+      "@id": "https://thevalleycleanteam.com/#regular-cleaning",
+      name: "Regular House Cleaning",
       provider: { "@id": "https://thevalleycleanteam.com/#organization" },
     },
     priceSpecification: {
       "@type": "PriceSpecification",
       price: PRICING.regular.amount,
       priceCurrency: "USD",
-      description: "Starting price for 2-bedroom home",
+      description: "Starting price",
     },
   },
   {
@@ -220,8 +127,7 @@ export const petSafeServiceCatalog = [
     itemOffered: {
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#deep-cleaning",
-      name: "Pet-Safe Deep Cleaning",
-      description: "Comprehensive top-to-bottom deep cleaning using pet-safe, non-toxic products. Includes baseboards, light fixtures, inside cabinets.",
+      name: "Deep Cleaning",
       provider: { "@id": "https://thevalleycleanteam.com/#organization" },
     },
     priceSpecification: {
@@ -235,28 +141,18 @@ export const petSafeServiceCatalog = [
     "@type": "Offer",
     itemOffered: {
       "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#regular-cleaning",
+      "@id": "https://thevalleycleanteam.com/#recurring-cleaning",
       name: "Recurring House Cleaning",
-      description: "Weekly, biweekly, or monthly pet-safe cleaning service with consistent teams. Save up to 30%.",
+      description: `Weekly, biweekly, or monthly service; weekly discounts up to ${recurringDiscountLabel}.`,
       provider: { "@id": "https://thevalleycleanteam.com/#organization" },
     },
-    // No price. This offer published a $99 "starting weekly price" on 202 pages,
-    // which is the retired tier. There is no defensible replacement yet: /pricing
-    // says weekly is 30% off "the standard cleaning price" but labels $200 as the
-    // base rate for the weekly/biweekly product itself, and neither reading
-    // reproduces the per-visit rates on the location pages. An Offer without a
-    // price is valid structured data; a wrong price is what Google indexes.
-    // Restore this once RECURRING_DISCOUNTS.appliesTo in src/data/claims.ts is
-    // resolved. The "up to 20%" in the description was also wrong — /pricing
-    // says weekly 30%, biweekly 25%, monthly 15%.
   },
   {
     "@type": "Offer",
     itemOffered: {
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#move-cleaning",
-      name: "Pet-Safe Move In/Out Cleaning",
-      description: "Complete move out and move in cleaning with pet-safe products. Get your deposit back or start fresh.",
+      name: "Move In/Out Cleaning",
       provider: { "@id": "https://thevalleycleanteam.com/#organization" },
     },
     priceSpecification: {
@@ -266,25 +162,19 @@ export const petSafeServiceCatalog = [
       description: "Starting price",
     },
   },
-
-  {
-    "@type": "Offer",
-    itemOffered: {
-      "@type": "Service",
-      "@id": "https://thevalleycleanteam.com/#office-cleaning",
-      name: "Commercial & Office Cleaning",
-      description: "Professional cleaning for offices, retail spaces, and commercial properties with flexible scheduling.",
-      provider: { "@id": "https://thevalleycleanteam.com/#organization" },
-    },
-  },
   {
     "@type": "Offer",
     itemOffered: {
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#airbnb-cleaning",
       name: "Airbnb & Vacation Rental Cleaning",
-      description: "Fast turnaround cleaning for short-term rentals with guest-ready presentation.",
       provider: { "@id": "https://thevalleycleanteam.com/#organization" },
+    },
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: PRICING.airbnbTurnover.amount,
+      priceCurrency: "USD",
+      description: "Starting price for a standard turnover",
     },
   },
   {
@@ -293,7 +183,6 @@ export const petSafeServiceCatalog = [
       "@type": "Service",
       "@id": "https://thevalleycleanteam.com/#post-construction",
       name: "Post-Construction Cleaning",
-      description: "Detailed cleaning after construction or renovation. Dust removal, window cleaning, move-in ready.",
       provider: { "@id": "https://thevalleycleanteam.com/#organization" },
     },
     priceSpecification: {
@@ -303,58 +192,17 @@ export const petSafeServiceCatalog = [
       description: "Starting price",
     },
   },
+  {
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      "@id": "https://thevalleycleanteam.com/#commercial-cleaning",
+      name: "Commercial & Office Cleaning",
+      provider: { "@id": "https://thevalleycleanteam.com/#organization" },
+    },
+  },
 ];
 
-export const cityReviewTemplates: Record<string, string> = {
-  Huntsville: "Best pet-safe deep clean in Huntsville—house smells amazing, no allergies! Way better than Rocket Maids.",
-  Madison: "Finally found a family-friendly cleaning service! Pet-safe products and consistent team every time.",
-  Athens: "The Valley Clean Team did an incredible job before our house showing. Professional, thorough, and reliable!",
-  Decatur: "Amazing move-out cleaning! Got our full deposit back. Pet-safe products were a huge plus.",
-  "Mountain Brook": "Premium service for our luxury home. Attention to detail is unmatched. Worth every penny.",
-  Florence: "Reliable cleaning service in the Shoals! They showed up on time and did an incredible job.",
-  "Muscle Shoals": "Local team that knows the area. Trustworthy and thorough—highly recommend!",
-  Nashville: "Non-toxic products that actually work! Finally a cleaning service that's safe for my pets and kids.",
-  "West Nashville": "White-glove service for our Belle Meade home. Discreet, professional, and meticulous—exactly what we needed.",
-  Tuscumbia: "They understand our historic home near Ivy Green. Gentle products, thorough work, and they respect the details of our century-old house.",
-};
-
-export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
-  Huntsville: [
-    { q: "How does pet-safe cleaning work in Huntsville?", a: "We use non-toxic, EPA Safer Choice certified products that are safe for dogs, cats, and children. Our Huntsville team is trained in pet-safe protocols." },
-    { q: "How far in advance should I book cleaning in Huntsville?", a: "We recommend booking 2–3 days in advance for the best availability. We also accommodate short-notice requests based on our schedule — call 256-826-1100 and we'll do our best to fit you in quickly." },
-    { q: "What areas of Huntsville do you serve?", a: "We serve all Huntsville neighborhoods including Five Points, Twickenham, Monte Sano, Jones Valley, Hampton Cove, Big Cove, and Research Park." },
-    { q: "How much does house cleaning cost in Huntsville?", a: "Our Huntsville house cleaning has base rates from $200 for recurring service and $276 for deep cleaning. Your exact price depends on your home's size and condition — we provide a free custom quote before we start." },
-    { q: "Are your Huntsville cleaners insured and bonded?", a: "Yes, all Valley Clean Team members are fully insured with $2M liability coverage, bonded, and background-checked." },
-    { q: "Do you clean homes with multiple pets in Huntsville?", a: "Absolutely! We specialize in homes with pets. Our pet-safe products eliminate odors without harmful chemicals." },
-    { q: "What's included in a deep clean in Huntsville?", a: "Deep cleaning includes baseboards, light fixtures, inside cabinets, appliance exteriors, ceiling fans, and detailed bathroom/kitchen scrubbing." },
-    { q: "Do you offer move-out cleaning in Huntsville?", a: "Yes, our Huntsville move-out cleaning helps you get your full deposit back. We clean everything landlords check." },
-    { q: "How do I book a cleaning in Huntsville?", a: "Book online at thevalleycleanteam.com or call 256-826-1100. We offer free estimates and flexible scheduling." },
-    { q: "Do you bring your own cleaning supplies to Huntsville homes?", a: "Yes, we bring all pet-safe, eco-friendly supplies and equipment. You don't need to provide anything." },
-    { q: "Can I get recurring cleaning service in Huntsville?", a: "Yes! We offer weekly, biweekly, and monthly recurring cleaning with up to 20% savings and consistent teams." },
-    { q: "Do you clean offices in Huntsville?", a: "Yes, we provide commercial cleaning for Huntsville offices, including Research Park businesses and medical facilities." },
-    { q: "What makes Valley Clean Team different from other Huntsville cleaners?", a: "We're the only Huntsville cleaner specializing in pet-safe, non-toxic cleaning with flexible scheduling and a 4.9 rating from 148 reviews." },
-    { q: "Do you offer Airbnb cleaning in Huntsville?", a: "Yes! We provide fast-turnaround Airbnb and vacation rental cleaning with guest-ready presentation for Huntsville hosts." },
-    { q: "Are your cleaning products safe for allergies?", a: "Yes, our hypoallergenic, fragrance-free options are perfect for allergy sufferers. Many Huntsville customers choose us specifically for this." },
-  ],
-  Nashville: [
-    { q: "Do you offer non-toxic house cleaning in Nashville?", a: "Yes! We specialize in non-toxic, pet-safe cleaning in Nashville using EPA Safer Choice certified products safe for pets and children." },
-    { q: "What areas of Nashville do you serve?", a: "We serve Nashville neighborhoods including Belle Meade, Green Hills, Brentwood, Forest Hills, Oak Hill, 12 South, Sylvan Park, and Bellevue." },
-    { q: "How much does house cleaning cost in Nashville TN?", a: "Our Nashville house cleaning starts at $129. We provide customized quotes based on your specific needs and home size." },
-    { q: "How far in advance should I book cleaning in Nashville?", a: "We recommend booking 2–3 days ahead for the best availability. For short-notice requests, call our Nashville line at 615-510-1427 and we'll work to accommodate you based on current schedule." },
-    { q: "Are you pet-friendly cleaners in Nashville?", a: "We're more than pet-friendly — we're pet-safe! Our Nashville team uses products that won't harm your pets." },
-    { q: "Do you offer deep cleaning in Nashville?", a: "Yes, our Nashville deep cleaning is perfect for first-time clients or seasonal refreshing." },
-    { q: "Is Valley Clean Team insured in Tennessee?", a: "Yes, we are fully licensed, insured, and bonded to operate in Nashville and throughout Tennessee." },
-    { q: "Do you clean short-term rentals in Nashville?", a: "Yes! We offer professional turnover cleaning for Airbnb and VRBO hosts in the Nashville area." },
-    { q: "What's included in a Nashville move-out clean?", a: "We cover all surfaces, inside appliances, cabinets, baseboards, and more to ensure your home is ready for the next occupant." },
-    { q: "How do I schedule a cleaning in Nashville?", a: "You can book through our website or by calling 615-510-1427 for our Nashville-specific line." },
-  ],
-  Madison: [
-    { q: "Do you serve all of Madison AL?", a: "Yes, we serve all Madison neighborhoods including Clift Farm, Town Madison, and areas near Madison Blvd." },
-    { q: "Are your Madison cleaners pet-safe?", a: "Yes, we use the same non-toxic, pet-safe products in Madison as we do in all our service areas." },
-    { q: "Do you offer recurring cleaning in Madison?", a: "Yes, many Madison families use our weekly or biweekly recurring services." },
-  ],
-  Florence: [
-    { q: "Do you offer cleaning in Florence and the Shoals?", a: "Yes! We serve Florence, Muscle Shoals, Tuscumbia, and Sheffield with pet-safe cleaning." },
-    { q: "How do I book cleaning in Florence AL?", a: "Book online at thevalleycleanteam.com or call 256-826-1100. We offer flexible scheduling including weekends and can often accommodate short-notice requests based on availability." },
-  ],
-};
+// Keep a real runtime reference so a future accidental shadowed REVIEWS export
+// fails TypeScript/lint review rather than silently diverging.
+void REVIEWS;
