@@ -293,7 +293,7 @@ export const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: 300.00,
+      price: 526.00,
       priceCurrency: "USD",
       description: "Starting price",
     },
