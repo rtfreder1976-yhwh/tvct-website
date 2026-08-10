@@ -1,4 +1,4 @@
-name: Schema Validation
+name: Schema & Claim Validation
 
 on:
   pull_request:
@@ -6,12 +6,11 @@ on:
   push:
     branches: [main]
 
-# Checks out, builds, and greps the built HTML. Writes nothing back to GitHub.
 permissions:
   contents: read
 
 jobs:
-  validate-schema:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,11 +22,17 @@ jobs:
 
       - run: npm ci
 
+      - name: Astro type/content check
+        run: npm run check
+
+      - name: Retired-claim source audit
+        run: npm run validate:claims
+
       - run: npm run build
 
       - name: Extract and validate JSON-LD schemas
         run: |
-          node -e "
+          node - <<'NODE'
           const fs = require('fs');
           const path = require('path');
 
@@ -42,20 +47,43 @@ jobs:
           }
 
           const htmlFiles = findHtmlFiles('dist/client');
+          const retiredOfferPrices = new Set(['99', '119', '129', '135', '149', '175', '176', '225', '275', '400']);
           let errors = 0;
           let checked = 0;
 
+          function walk(value, file) {
+            if (!value || typeof value !== 'object') return;
+
+            if (value['@type'] === 'Offer' || value['@type'] === 'PriceSpecification') {
+              const candidates = [value.price, value.minPrice];
+              for (const candidate of candidates) {
+                if (candidate !== undefined && retiredOfferPrices.has(String(candidate))) {
+                  console.error(`Retired Offer price ${candidate} in ${file}`);
+                  errors++;
+                }
+              }
+            }
+
+            for (const child of Object.values(value)) {
+              if (Array.isArray(child)) child.forEach((item) => walk(item, file));
+              else if (child && typeof child === 'object') walk(child, file);
+            }
+          }
+
           for (const file of htmlFiles) {
             const content = fs.readFileSync(file, 'utf8');
-            const matches = content.match(/<script type=\"application\/ld\+json\">([\s\S]*?)<\/script>/g) || [];
+            const matches = content.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
             for (const match of matches) {
-              const json = match.replace(/<script type=\"application\/ld\+json\">/, '').replace(/<\/script>/, '');
+              const json = match
+                .replace(/<script type="application\/ld\+json">/, '')
+                .replace(/<\/script>/, '');
               try {
                 const parsed = JSON.parse(json);
                 if (!parsed['@context'] || !parsed['@type']) {
                   console.error('Missing @context or @type in ' + file);
                   errors++;
                 }
+                walk(parsed, file);
                 checked++;
               } catch (e) {
                 console.error('Invalid JSON-LD in ' + file + ': ' + e.message);
@@ -64,7 +92,7 @@ jobs:
             }
           }
 
-          console.log('Checked ' + checked + ' schema blocks across ' + htmlFiles.length + ' pages');
-          if (errors > 0) { console.error(errors + ' schema errors found'); process.exit(1); }
-          else console.log('All schemas valid');
-          "
+          console.log(`Checked ${checked} schema blocks across ${htmlFiles.length} pages`);
+          if (errors > 0) process.exit(1);
+          console.log('All schemas and Offer-price invariants valid');
+          NODE
