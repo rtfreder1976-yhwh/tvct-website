@@ -43,8 +43,10 @@ jobs:
       - run: npm run build
 
       - name: Extract and validate JSON-LD schemas
+        shell: bash
         run: |
-          node - <<'NODE'
+          set -o pipefail
+          node - <<'NODE' 2>&1 | tee jsonld-validation.log
           const fs = require('fs');
           const path = require('path');
 
@@ -108,3 +110,12 @@ jobs:
           if (errors > 0) process.exit(1);
           console.log('All schemas and Offer-price invariants valid');
           NODE
+
+      - name: Upload JSON-LD validation diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jsonld-validation-diagnostics
+          path: jsonld-validation.log
+          if-no-files-found: ignore
+          retention-days: 7
