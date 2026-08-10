@@ -21,9 +21,13 @@
  * On the sheet but deliberately NOT published here, because publishing a price
  * is a business decision and nobody has asked for these to go live:
  *   - Construction Clean Up ($526 … $1,820, "50% more than Move In/Out")
- *   - Per-visit recurring rows (weekly -30%, bi-weekly -25%, monthly -15%);
- *     claims.ts RECURRING_PRICING derives these instead, and rounds UP where
- *     the sheet rounds down (weekly $124 vs $123, monthly $150 vs $149).
+ *   - Per-visit recurring rows (weekly -30%, bi-weekly -25%, monthly -15%).
+ *     claims.ts RECURRING_PRICING derives these instead. Note the sheet's own
+ *     rows are computed off the $176 TABLE value, not the $200 minimum, so its
+ *     smallest-bracket weekly ($123) sits below the "Weekly Standard Clean
+ *     $150" minimum printed on the same sheet. We floor to the minimum, which
+ *     is the rule Todd gave on 2026-08-10: where a table value and a minimum
+ *     disagree, the minimum wins.
  *   - Extras (inside oven $50, pet hair $100, blinds $10/each, fridge $75,
  *     dishwasher $50).
  */
@@ -53,18 +57,15 @@ export const PRICE_TABLE: Record<string, number[]> = {
  * because the first bracket already exceeds it ($276 > $200, $351 > $350) — the
  * minimum only matters if a smaller job is ever quoted off-table.
  *
- * `regular` is the one deliberate divergence: the sheet's Standard Clean
- * minimum is $200, but its Standard Clean table starts at $176, and $176 is the
- * number claims.ts carries (verified against /pricing by Todd on 2026-08-02)
- * and that ~90 pages advertise. Setting this to 200 would make the calculator
- * quote $200-$220 for a 750 sq ft home while the homepage band, the tier card
- * and every location page still say "from $176" — the exact drift that was
- * fixed once already. Raising it is a pricing decision, not a code fix: change
- * claims.PRICING.regular and the site copy in the same commit, or the build
- * guard below will (correctly) refuse.
+ * `regular` is $200 even though the Standard Clean table starts at $176.
+ * Confirmed by Todd 2026-08-10: the minimum is the real floor, so $176 is a
+ * table value nobody is ever charged. The site advertised "from $176" in ~90
+ * places before this; that was quoting a price we do not honour, and it is now
+ * $200 everywhere. Only the smallest bracket is affected — from 1,000 sq ft up,
+ * the table price already exceeds the floor.
  */
 export const MINIMUMS: Record<string, number> = {
-  regular: 176,
+  regular: 200,
   deep: 200,
   moveinout: 350,
 };
@@ -96,7 +97,7 @@ export function priceRange(service: string, size: number): { low: number; high: 
   return { low, high };
 }
 
-/** Formatted "$176 - $195" label for a home size + service. */
+/** Formatted "$200 - $220" label for a home size + service. */
 export function priceRangeLabel(service: string, size: number): string {
   const { low, high } = priceRange(service, size);
   return `$${low} - $${high}`;
