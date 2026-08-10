@@ -242,7 +242,7 @@ export const petSafeServiceCatalog = [
     },
     // No price. This offer published a $99 "starting weekly price" on 202 pages,
     // which is the retired tier. There is no defensible replacement yet: /pricing
-    // says weekly is 30% off "the standard cleaning price" but labels $176 as the
+    // says weekly is 30% off "the standard cleaning price" but labels $200 as the
     // base rate for the weekly/biweekly product itself, and neither reading
     // reproduces the per-visit rates on the location pages. An Offer without a
     // price is valid structured data; a wrong price is what Google indexes.
@@ -323,7 +323,7 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
     { q: "How does pet-safe cleaning work in Huntsville?", a: "We use non-toxic, EPA Safer Choice certified products that are safe for dogs, cats, and children. Our Huntsville team is trained in pet-safe protocols." },
     { q: "How far in advance should I book cleaning in Huntsville?", a: "We recommend booking 2–3 days in advance for the best availability. We also accommodate short-notice requests based on our schedule — call 256-826-1100 and we'll do our best to fit you in quickly." },
     { q: "What areas of Huntsville do you serve?", a: "We serve all Huntsville neighborhoods including Five Points, Twickenham, Monte Sano, Jones Valley, Hampton Cove, Big Cove, and Research Park." },
-    { q: "How much does house cleaning cost in Huntsville?", a: "Our Huntsville house cleaning has base rates from $176 for recurring service and $276 for deep cleaning. Your exact price depends on your home's size and condition — we provide a free custom quote before we start." },
+    { q: "How much does house cleaning cost in Huntsville?", a: "Our Huntsville house cleaning has base rates from $200 for recurring service and $276 for deep cleaning. Your exact price depends on your home's size and condition — we provide a free custom quote before we start." },
     { q: "Are your Huntsville cleaners insured and bonded?", a: "Yes, all Valley Clean Team members are fully insured with $2M liability coverage, bonded, and background-checked." },
     { q: "Do you clean homes with multiple pets in Huntsville?", a: "Absolutely! We specialize in homes with pets. Our pet-safe products eliminate odors without harmful chemicals." },
     { q: "What's included in a deep clean in Huntsville?", a: "Deep cleaning includes baseboards, light fixtures, inside cabinets, appliance exteriors, ceiling fans, and detailed bathroom/kitchen scrubbing." },

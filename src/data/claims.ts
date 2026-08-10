@@ -39,7 +39,11 @@ const isUnresolved = (v: unknown): boolean =>
 // ---------------------------------------------------------------------------
 
 export const PRICING = {
-  regular: { amount: 176, display: "$176" },
+  // $200, not the $176 that appears in the sheet's Standard Clean table.
+  // Confirmed by Todd 2026-08-10: the "Standard Clean $200" line in the sheet's
+  // Minimum Prices block is the real floor, so $176 is a table value nobody is
+  // ever actually charged. Advertising it was quoting a price we do not honour.
+  regular: { amount: 200, display: "$200" },
   deep: { amount: 276, display: "$276" },
   moveInOut: { amount: 351, display: "$351" },
   airbnbTurnover: { amount: 125, display: "$125" },
@@ -63,21 +67,31 @@ export const RECURRING_DISCOUNTS = {
 } as const;
 
 /**
+ * Per-visit minimums for recurring service, from the pricing sheet's Minimum
+ * Prices block. Only weekly carries its own floor: at 30% off a $200 base the
+ * arithmetic gives $140, which is below the $150 the sheet says we charge.
+ */
+export const RECURRING_MINIMUMS = {
+  weekly: 150,
+} as const;
+
+/**
  * Per-visit recurring rates, derived rather than retyped.
  *
- * Display rounds UP to whole dollars. Rounding down would advertise a price
- * below what is actually charged, which is the one direction that matters:
- * weekly is $123.20, so it advertises as $124, not $123.
+ * Display rounds UP to whole dollars, and never below the sheet's minimum.
+ * Both rules point the same way: rounding down, or ignoring a floor, would
+ * advertise a price below what is actually charged.
  */
-function recurringRate(discount: number) {
-  const amount = PRICING.regular.amount * (1 - discount);
+function recurringRate(discount: number, floor = 0) {
+  const amount = Math.max(PRICING.regular.amount * (1 - discount), floor);
   return { amount, display: `$${Math.ceil(amount)}` };
 }
 
 export const RECURRING_PRICING = {
-  weekly: recurringRate(RECURRING_DISCOUNTS.weekly), // $123.20 -> "$124"
-  biweekly: recurringRate(RECURRING_DISCOUNTS.biweekly), // $132.00 -> "$132"
-  monthly: recurringRate(RECURRING_DISCOUNTS.monthly), // $149.60 -> "$150"
+  // $140 by arithmetic, floored to the sheet's $150 weekly minimum.
+  weekly: recurringRate(RECURRING_DISCOUNTS.weekly, RECURRING_MINIMUMS.weekly),
+  biweekly: recurringRate(RECURRING_DISCOUNTS.biweekly), // $150.00 -> "$150"
+  monthly: recurringRate(RECURRING_DISCOUNTS.monthly), // $170.00 -> "$170"
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -133,7 +147,7 @@ export const IDENTITY = {
 // ---------------------------------------------------------------------------
 // POSITIONING — confirmed by Todd 2026-08-02: luxury framing is kept only on
 // the premium markets and the white-glove service, and retired everywhere else
-// in favour of transparent value, which is what a $176 entry price supports.
+// in favour of transparent value, which is what a $200 entry price supports.
 //
 // The premium markets are the ones already tagged as such in schemaData's
 // cityConfigs ("Luxury market—..." edge).

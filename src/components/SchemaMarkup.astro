@@ -142,6 +142,92 @@ const getOrganizationSchema = (includeDepartments = true) => ({
   ],
   slogan: "Pet-Safe Cleaning You Can Trust",
   foundingDate: "2022",
+  // Trust signals as machine-readable facts.
+  //
+  // WHY: an AI-visibility crawl found that "insured and background-checked"
+  // was stated in prose across the site but never structured, so assistants
+  // answering "which maid services in Nashville are insured and
+  // background-checked?" cited Google Maps listings instead of the owned
+  // location pages. Prose an assistant has to infer from loses to a directory
+  // that states the fact plainly. These properties state it plainly.
+  additionalProperty: [
+    {
+      "@type": "PropertyValue",
+      name: "Veteran-Owned",
+      value: true,
+      description:
+        "Founded and owned by a U.S. military veteran, Todd Frederickson.",
+    },
+    {
+      "@type": "PropertyValue",
+      name: "Woman-Owned",
+      value: true,
+      description: "Co-owned and operated by Christen Frederickson.",
+    },
+    {
+      "@type": "PropertyValue",
+      name: "Background-Checked Staff",
+      value: true,
+      description:
+        "Every cleaner passes a criminal-history, identity and reference check before entering a client home.",
+    },
+    {
+      "@type": "PropertyValue",
+      name: "General Liability Insurance",
+      value: "$2,000,000",
+      description:
+        "Double the $1,000,000 industry standard. Certificates of insurance available on request.",
+    },
+    {
+      "@type": "PropertyValue",
+      name: "Bonded",
+      value: true,
+      description: "Fidelity bond covering client property.",
+    },
+    {
+      "@type": "PropertyValue",
+      name: "Workers' Compensation Insurance",
+      value: true,
+      description:
+        "Cleaners are W-2 employees covered by workers' compensation, so clients carry no liability for on-site injury.",
+    },
+    {
+      "@type": "PropertyValue",
+      name: "Employment Model",
+      value: "W-2 employees",
+      description:
+        "Cleaners are employees, not gig-app contractors, so the same trained team returns to each home.",
+    },
+    {
+      "@type": "PropertyValue",
+      name: "Satisfaction Guarantee",
+      value: "24-hour re-clean",
+      description:
+        "Report any area of concern within 24 hours and we re-clean it at no charge.",
+    },
+  ],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "Business Certification",
+      name: "Veteran-Owned Business",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "Business Certification",
+      name: "Woman-Owned Business",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "Insurance",
+      name: "$2,000,000 General Liability Insurance, Bonded, Workers' Compensation",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "Background Screening",
+      name: "Criminal background check, identity verification and reference check for every cleaner",
+    },
+  ],
   priceRange: "$$",
   numberOfEmployees: {
     "@type": "QuantitativeValue",
