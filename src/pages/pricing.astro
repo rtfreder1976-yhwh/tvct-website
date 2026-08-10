@@ -179,7 +179,7 @@ import Icon from "../components/Icon.astro";
             >
             <br />
             <span class="text-gray-500 text-sm">Base rate from</span>
-            <div class="text-4xl font-bold text-[#333333]">$176</div>
+            <div class="text-4xl font-bold text-[#333333]">$200</div>
             <span class="text-gray-500 text-xs">custom quoted to your home</span>
           </div>
           <ul class="space-y-3 mb-8">
@@ -846,11 +846,13 @@ import Icon from "../components/Icon.astro";
     // Move in/out (Deep + $75)
     moveinout: [351, 386, 421, 456, 491, 526, 581, 636, 691, 746, 801, 856, 911, 966, 1021, 1076, 1131, 1181],
   };
-  // Floors must not sit above the first bracket price, or the calculator
-  // advertises a starting rate no customer can actually reach. regular was 200
-  // against a 176 bracket price, so the smallest home always quoted 200-220
-  // while the tier card, the homepage band and 90+ pages advertised "from $176".
-  const MINIMUMS: Record<string, number> = { regular: 176, deep: 200, moveinout: 350 };
+  // Floors come from the Minimum Prices box on the company pricing sheet and
+  // are authoritative: where a floor sits above the first bracket price, the
+  // floor wins and the advertised starting rate is raised to match. regular is
+  // the case that bites - the 750 sqft bracket computes 176 but the sheet sets
+  // a 200 minimum, so the smallest home quotes 200 and every "from $..." claim
+  // sitewide reads $200. deep (276) and moveinout (351) already clear theirs.
+  const MINIMUMS: Record<string, number> = { regular: 200, deep: 200, moveinout: 350 };
 
   function bracketIndex(size: number): number {
     // pick the first bracket >= size, else the largest
@@ -884,7 +886,7 @@ import Icon from "../components/Icon.astro";
 
   // Honour ?service= so a homepage price card lands on its own calculator
   // state. Without this every card opened the default Deep Cleaning estimate,
-  // so "Regular cleaning from $176" arrived showing $451-$495.
+  // so "Regular cleaning from $200" arrived showing $451-$495.
   function applyServiceFromQuery() {
     const wanted = new URLSearchParams(window.location.search).get("service");
     if (!wanted || !serviceType) return;

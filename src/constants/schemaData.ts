@@ -208,7 +208,7 @@ export const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: 176.00,
+      price: 200.00,
       priceCurrency: "USD",
       description: "Starting price for 2-bedroom home",
     },
@@ -240,7 +240,7 @@ export const petSafeServiceCatalog = [
     },
     priceSpecification: {
       "@type": "PriceSpecification",
-      price: 176.00,
+      price: 200.00,
       priceCurrency: "USD",
       description: "Starting weekly price",
     },
@@ -318,7 +318,7 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
     { q: "How does pet-safe cleaning work in Huntsville?", a: "We use non-toxic, EPA Safer Choice certified products that are safe for dogs, cats, and children. Our Huntsville team is trained in pet-safe protocols." },
     { q: "How far in advance should I book cleaning in Huntsville?", a: "We recommend booking 2–3 days in advance for the best availability. We also accommodate short-notice requests based on our schedule — call 256-826-1100 and we'll do our best to fit you in quickly." },
     { q: "What areas of Huntsville do you serve?", a: "We serve all Huntsville neighborhoods including Five Points, Twickenham, Monte Sano, Jones Valley, Hampton Cove, Big Cove, and Research Park." },
-    { q: "How much does house cleaning cost in Huntsville?", a: "Our Huntsville house cleaning has base rates from $176 for recurring service and $276 for deep cleaning. Your exact price depends on your home's size and condition — we provide a free custom quote before we start." },
+    { q: "How much does house cleaning cost in Huntsville?", a: "Our Huntsville house cleaning has base rates from $200 for recurring service and $276 for deep cleaning. Your exact price depends on your home's size and condition — we provide a free custom quote before we start." },
     { q: "Are your Huntsville cleaners insured and bonded?", a: "Yes, all Valley Clean Team members are fully insured with $2M liability coverage, bonded, and background-checked." },
     { q: "Do you clean homes with multiple pets in Huntsville?", a: "Absolutely! We specialize in homes with pets. Our pet-safe products eliminate odors without harmful chemicals." },
     { q: "What's included in a deep clean in Huntsville?", a: "Deep cleaning includes baseboards, light fixtures, inside cabinets, appliance exteriors, ceiling fans, and detailed bathroom/kitchen scrubbing." },
@@ -334,7 +334,7 @@ export const cityFAQs: Record<string, Array<{ q: string; a: string }>> = {
   Nashville: [
     { q: "Do you offer non-toxic house cleaning in Nashville?", a: "Yes! We specialize in non-toxic, pet-safe cleaning in Nashville using EPA Safer Choice certified products safe for pets and children." },
     { q: "What areas of Nashville do you serve?", a: "We serve Nashville neighborhoods including Belle Meade, Green Hills, Brentwood, Forest Hills, Oak Hill, 12 South, Sylvan Park, and Bellevue." },
-    { q: "How much does house cleaning cost in Nashville TN?", a: "Our Nashville house cleaning starts at $129. We provide customized quotes based on your specific needs and home size." },
+    { q: "How much does house cleaning cost in Nashville TN?", a: "Our Nashville house cleaning starts at $200. We provide customized quotes based on your specific needs and home size." },
     { q: "How far in advance should I book cleaning in Nashville?", a: "We recommend booking 2–3 days ahead for the best availability. For short-notice requests, call our Nashville line at 615-510-1427 and we'll work to accommodate you based on current schedule." },
     { q: "Are you pet-friendly cleaners in Nashville?", a: "We're more than pet-friendly — we're pet-safe! Our Nashville team uses products that won't harm your pets." },
     { q: "Do you offer deep cleaning in Nashville?", a: "Yes, our Nashville deep cleaning is perfect for first-time clients or seasonal refreshing." },
