@@ -20,6 +20,8 @@ export const MARKET_PHONES = {
   TN: { display: "615-510-1427", href: "tel:6155101427", schema: "+1-615-510-1427" },
 } as const;
 
+type MarketPhone = (typeof MARKET_PHONES)[keyof typeof MARKET_PHONES];
+
 export const BUSINESS_HOURS = {
   display: "Mon–Fri: 9:00 AM – 5:00 PM · Sat–Sun: By appointment",
   schema: [
@@ -32,7 +34,7 @@ export const BUSINESS_HOURS = {
   ],
 } as const;
 
-export function getMarketPhone(state?: string): (typeof MARKET_PHONES)["AL"] {
+export function getMarketPhone(state?: string): MarketPhone {
   const s = (state ?? "").trim().toLowerCase();
   return s === "tn" || s === "tennessee" ? MARKET_PHONES.TN : MARKET_PHONES.AL;
 }
