@@ -98,10 +98,10 @@ const canonicalPrice = service
 function t(template: string | undefined): string {
     if (!template) return "";
     const interpolated = template
-        .replace(/{city}/g, location.name)
-        .replace(/{state}/g, location.state)
-        .replace(/{region_name}/g, location.region_name || location.name)
-        .replace(/{phone}/g, location.phone || "256-826-1100")
+        .replace(/{city}/g, location!.name)
+        .replace(/{state}/g, location!.state)
+        .replace(/{region_name}/g, location!.region_name || location!.name)
+        .replace(/{phone}/g, location!.phone || "256-826-1100")
         .replace(/{price_start}/g, canonicalPrice.replace("/visit", ""));
 
     return service ? normalizeServiceCopy(service.slug, interpolated) : interpolated;
@@ -111,11 +111,10 @@ const serviceTitle = service ? t(service.meta_title_template) : "";
 const serviceDescription = service ? t(service.meta_description_template) : "";
 const serviceIntro = service ? t(service.intro) : "";
 
-const benefits = service?.benefits
-    ? service.benefits.map((b) =>
-          typeof b === "string" ? t(b) : { title: t(b.title), description: t(b.description) },
-      )
-    : [];
+// services.json currently defines benefits as strings. Keep the generated page
+// contract aligned with ServiceLocationLayout's string[] prop rather than
+// widening it to a shape the source data does not contain.
+const benefits = service?.benefits ? service.benefits.map((b) => t(b)) : [];
 
 const includes = service?.includes ? service.includes.map((i) => t(i)) : [];
 

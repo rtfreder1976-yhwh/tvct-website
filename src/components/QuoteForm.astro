@@ -5,6 +5,7 @@ interface Props {
   formId?: string;
   city?: string;
   state?: string;
+  neighborhood?: string;
   serviceName?: string;
   subtitle?: string;
   source?: string;
@@ -16,6 +17,7 @@ const {
   formId = "quote-form",
   city = "",
   state = "AL",
+  neighborhood = "",
   serviceName = "",
   subtitle,
   variant = "embedded",
@@ -26,7 +28,7 @@ const {
   <BookingCTA
     city={city}
     state={state}
-    serviceName={serviceName}
+    serviceName={serviceName || neighborhood}
     subheading={subtitle}
     variant={variant === "card" ? "card" : "embedded"}
   />
