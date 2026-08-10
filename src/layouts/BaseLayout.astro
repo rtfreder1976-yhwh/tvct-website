@@ -10,6 +10,7 @@ import SchemaMarkup from "../components/SchemaMarkup.astro";
 import ABTester from "../components/ABTester.astro";
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import LastUpdated from "../components/LastUpdated.astro";
 
 const mainCss = mainCssRaw;
 
@@ -31,6 +32,12 @@ interface Props {
   serviceName?: string;
   serviceDescription?: string;
   servicePrice?: string;
+  /**
+   * Render the visible "Page last updated" stamp. Defaults to on for content
+   * pages and off for the utility/legal/conversion paths below. Pass an
+   * explicit value to override either way.
+   */
+  showLastUpdated?: boolean;
 }
 
 const {
@@ -51,7 +58,24 @@ const {
   serviceName,
   serviceDescription: serviceDescProp,
   servicePrice,
+  showLastUpdated: showLastUpdatedProp,
 } = Astro.props;
+
+// Visible freshness stamp. An AI-visibility crawl found every freshness-
+// relevant page on the site undated, which suppresses citation on
+// recency-sensitive questions ("what does cleaning cost in 2026"). Rendering it
+// here covers every content page in one place.
+//
+// Excluded below: legal boilerplate (an audit's freshness signal explicitly
+// discounts privacy/terms pages, and a date there implies a policy change that
+// did not happen), conversion/utility pages with no citable content, and the
+// admin area. Blog posts opt out too — BlogPostLayout already renders a dated
+// byline, and a second date at the foot of the post would contradict it.
+const freshnessExcluded =
+  /^\/(privacy|terms|thank-you|booking|booking-complete|booking-commercial|get-quote|commercial-quote|dashboard|admin|blog\/|ads\/|404)/.test(
+    Astro.url.pathname,
+  );
+const showLastUpdated = showLastUpdatedProp ?? !(noindex || freshnessExcluded);
 
 // Generate canonical URL from current page if not provided
 const siteUrl = "https://thevalleycleanteam.com";
@@ -703,6 +727,13 @@ const metaDescription =
       class="focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FFA985]"
     >
       <slot />
+      {
+        showLastUpdated && (
+          <div class="container mx-auto max-w-5xl px-6 pb-10">
+            <LastUpdated label="Page last updated" align="center" />
+          </div>
+        )
+      }
     </main>
     {showFooter && <Footer />}
 

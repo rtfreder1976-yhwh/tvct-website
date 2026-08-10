@@ -30,13 +30,22 @@ const {
   variant = "light",
 } = Astro.props;
 
-// Normalize whatever date shape the post supplied into a readable label.
+// Normalize whatever date shape the post supplied into a readable label, plus
+// a machine-readable YYYY-MM-DD for the <time datetime> attribute. The visible
+// date alone is not enough: an AI-visibility crawl scores freshness off dates
+// it can parse without heuristics, and "Updated July 2025" in a bare <span> is
+// exactly the shape it misses. dateAttr stays null for unparseable values so we
+// never emit a <time> with a bogus datetime.
 let dateLabel = "";
+let dateAttr: string | null = null;
 if (date) {
   const d = date instanceof Date ? date : new Date(date);
-  dateLabel = isNaN(d.getTime())
-    ? String(date) // if it wasn't a parseable date, show it verbatim
-    : d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  if (isNaN(d.getTime())) {
+    dateLabel = String(date); // if it wasn't a parseable date, show it verbatim
+  } else {
+    dateLabel = d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    dateAttr = d.toISOString().slice(0, 10);
+  }
 }
 
 const textClass = variant === "dark" ? "text-gray-300" : "text-gray-500";
@@ -50,7 +59,14 @@ const linkClass = variant === "dark" ? "text-white hover:text-[#FFA985]" : "text
     {authorTitle && <span class="font-normal"> · {authorTitle}</span>}
   </span>
   {dateLabel && <span aria-hidden="true">·</span>}
-  {dateLabel && <span>Updated {dateLabel}</span>}
+  {
+    dateLabel && (
+      <span>
+        Updated{" "}
+        {dateAttr ? <time datetime={dateAttr}>{dateLabel}</time> : dateLabel}
+      </span>
+    )
+  }
   {readTime && <span aria-hidden="true">·</span>}
   {readTime && <span>{readTime}</span>}
 </div>

@@ -1,0 +1,47 @@
+---
+/**
+ * Visible, machine-readable "Last updated" stamp.
+ *
+ * An AI-visibility crawl found the site's freshness-relevant pages undated,
+ * which suppresses citation on recency-sensitive questions. This renders both
+ * halves of the signal that fixes that: a human-readable date and a
+ * `<time datetime="YYYY-MM-DD">` a parser can lift without heuristics.
+ *
+ * The date comes from the page's real last-commit date (see
+ * src/lib/pageFreshness.mjs), the same value the sitemap reports as <lastmod>.
+ * When that can't be resolved — shallow clone, no git, SSR route rendered
+ * outside the repo — this renders NOTHING rather than a fabricated date.
+ * An undated page is a missed citation; a wrongly-dated page is a lie.
+ */
+import { lastmodForPath, formatFreshness, freshnessDateAttr } from "../lib/pageFreshness.mjs";
+
+interface Props {
+  /** Override the resolved date (e.g. a page that tracks a data file). */
+  date?: string;
+  /** Leading word: "Last updated" (default), "Reviewed", "Prices verified"… */
+  label?: string;
+  class?: string;
+  align?: "left" | "center";
+}
+
+const {
+  date,
+  label = "Last updated",
+  class: className = "",
+  align = "left",
+} = Astro.props;
+
+const iso = date ?? lastmodForPath(Astro.url.pathname);
+const display = formatFreshness(iso);
+const attr = freshnessDateAttr(iso);
+---
+
+{
+  display && attr && (
+    <p
+      class={`text-sm text-gray-500 ${align === "center" ? "text-center" : ""} ${className}`}
+    >
+      {label} <time datetime={attr}>{display}</time>
+    </p>
+  )
+}

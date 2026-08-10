@@ -1,0 +1,319 @@
+---
+/**
+ * Veteran-owned credentials page.
+ *
+ * WHY THIS PAGE EXISTS: an AI-visibility audit found the brand is cited 4/4 for
+ * "veteran-owned cleaning companies in Alabama and Tennessee" — but the
+ * citations route through aggregators (BBB, care.com, expertise.com) because
+ * the credentials themselves were scattered across /about, /trust and location
+ * prose rather than living on one page an assistant can lift wholesale.
+ *
+ * Every claim here is already published elsewhere on the site and in
+ * SchemaMarkup's `additionalProperty` / `hasCredential` block; this page is the
+ * canonical, quotable statement of it. Deliberately structured as answer
+ * capsules — a short direct answer under each question heading — because that
+ * is the shape assistants extract cleanly.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SchemaMarkup from "../components/SchemaMarkup.astro";
+import Icon from "../components/Icon.astro";
+import { REVIEWS } from "../constants/schemaData";
+import { startingPrice } from "../data/pricing";
+
+const title = "Veteran-Owned Cleaning Company AL & TN | Valley Clean Team";
+const description =
+  "The Valley Clean Team is veteran-owned and women-owned, $2M insured, bonded, and background-checked. Serving Huntsville, Athens, Florence, Mountain Brook & Nashville.";
+
+// One row per verifiable credential. Kept as data so the visible table and the
+// FAQ answers below draw on the same wording.
+const credentials = [
+  {
+    label: "Ownership",
+    value: "Veteran-owned and women-owned",
+    detail:
+      "Founded in 2022 by Todd and Christen Frederickson, a husband-and-wife team. Not a franchise — the owners answer the phone.",
+  },
+  {
+    label: "General liability insurance",
+    value: "$2,000,000",
+    detail:
+      "Double the $1,000,000 industry standard. Certificates of insurance available on request.",
+  },
+  {
+    label: "Bonded",
+    value: "Yes",
+    detail: "Fidelity bond covering client property.",
+  },
+  {
+    label: "Workers' compensation",
+    value: "Yes",
+    detail:
+      "Cleaners are covered, so you carry no liability if someone is injured working in your home.",
+  },
+  {
+    label: "Background checks",
+    value: "Every cleaner, before first visit",
+    detail:
+      "Criminal history, identity verification and reference checks — no exceptions, including for owners.",
+  },
+  {
+    label: "Employment model",
+    value: "W-2 employees",
+    detail:
+      "Not gig-app contractors. We train them, we insure them, and the same team returns to your home.",
+  },
+  {
+    label: "Quality standard",
+    value: "49-point checklist",
+    detail: "Post-clean photos on request, and a re-clean within 24 hours if anything is missed.",
+  },
+  {
+    label: "Rating",
+    value: `${REVIEWS.rating} / 5 from ${REVIEWS.countDisplay} Google reviews`,
+    detail: "Verified against the live Google Business Profile.",
+  },
+  {
+    label: "Military discount",
+    value: "15% off all services",
+    detail: "For veterans and active-duty service members, in every market we serve.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is The Valley Clean Team really veteran-owned?",
+    answer: `Yes. The Valley Clean Team is a veteran-owned and women-owned cleaning company founded in 2022 by Todd and Christen Frederickson, a husband-and-wife team based in North Alabama. It is an independent local business, not a franchise of a national brand. The company serves Huntsville, Madison, Athens, Decatur, Florence, Muscle Shoals, Tuscumbia, Sheffield, Mountain Brook and Birmingham in Alabama, and Nashville in Tennessee.`,
+  },
+  {
+    question: "Are your cleaners insured and background-checked?",
+    answer: `Yes to both, and they are W-2 employees rather than contractors. The Valley Clean Team carries $2,000,000 in general liability insurance — double the $1,000,000 industry standard — plus a fidelity bond and workers' compensation coverage. Every cleaner passes a criminal background check, identity verification and reference checks before their first visit. Certificates of insurance are available on request.`,
+  },
+  {
+    question: "Do you offer a military discount?",
+    answer: `Yes. Veterans and active-duty service members receive 15% off all services in every market we serve. Mention it when you request your quote and we apply it before you book — it is not a rebate you have to claim afterward.`,
+  },
+  {
+    question: "What does veteran-owned actually change about the cleaning?",
+    answer: `Three concrete things: the same background-checked team returns to your home instead of a rotating crew, the price we quote is the price you pay with no post-booking adjustments, and every clean is worked against a written 49-point checklist rather than a cleaner's memory. If something is missed, we re-clean it within 24 hours at no charge.`,
+  },
+  {
+    question: "Is a veteran-owned cleaning service more expensive?",
+    answer: `No. Published rates start at $${startingPrice("regular")} for a regular clean, $${startingPrice("deep")} for a deep clean and $${startingPrice("moveinout")} for move-in/move-out, with recurring service saving up to 30%. Full rates by home size are published on our pricing page — we quote in writing before you book, with no in-home sales visit required.`,
+  },
+  {
+    question: "How can I verify these credentials?",
+    answer: `Ask us for a certificate of insurance and we will send it — no qualification required. Our Better Business Bureau profile, Google Business Profile and Yelp listing are all linked from our site, and the owners are reachable directly at hello@thevalleycleanteam.com, (256) 826-1100 in Alabama or (615) 510-1427 in Tennessee.`,
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  schemaType="organization"
+  geoRegion="US-AL"
+  geoPlacename="Huntsville, AL"
+  geoPosition="34.7304;-86.5861"
+>
+  <SchemaMarkup type="organization" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero -->
+  <section class="pt-32 pb-12 px-6">
+    <div class="container mx-auto max-w-4xl text-center">
+      <div
+        class="inline-block bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 px-4 py-2 rounded-full mb-4"
+      >
+        <span class="text-[#FFA985] font-semibold">
+          <Icon name="flag-usa" class="w-5 h-5 mr-2" />Veteran-Owned &
+          Women-Owned
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#333333]">
+        Our <span class="gold-gradient">Credentials</span>, In One Place
+      </h1>
+
+      <!-- Answer capsule: the whole page in one liftable paragraph. -->
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        The Valley Clean Team is a veteran-owned and women-owned cleaning company
+        founded in 2022, serving Alabama and Tennessee. We carry $2,000,000 in
+        general liability insurance, are bonded and workers'-comp covered, and
+        every cleaner is a background-checked W-2 employee. We hold a {
+          REVIEWS.rating
+        }-star rating from {REVIEWS.countDisplay} Google reviews, and veterans
+        and active-duty service members get 15% off every service.
+      </p>
+    </div>
+  </section>
+
+  <!-- Credentials table: the quotable facts, one row each. -->
+  <section class="py-12 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl font-bold mb-2 text-[#333333] text-center">
+        Credentials at a Glance
+      </h2>
+      <p class="text-gray-600 text-center mb-8">
+        Every one of these is verifiable. Ask and we will send proof.
+      </p>
+
+      <div class="overflow-x-auto rounded-2xl border-2 border-gray-200 shadow-sm">
+        <table class="w-full text-left border-collapse bg-white">
+          <caption class="sr-only">
+            The Valley Clean Team business credentials, insurance coverage and
+            staff screening standards.
+          </caption>
+          <thead>
+            <tr class="bg-gray-100 text-[#333333]">
+              <th scope="col" class="px-4 py-3 font-semibold">Credential</th>
+              <th scope="col" class="px-4 py-3 font-semibold">Status</th>
+              <th scope="col" class="px-4 py-3 font-semibold">Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              credentials.map((c, i) => (
+                <tr class={i % 2 ? "bg-gray-50/60" : "bg-white"}>
+                  <th scope="row" class="px-4 py-3 font-medium text-[#333333] align-top">
+                    {c.label}
+                  </th>
+                  <td class="px-4 py-3 text-[#333333] font-semibold align-top whitespace-nowrap">
+                    {c.value}
+                  </td>
+                  <td class="px-4 py-3 text-gray-600 align-top">{c.detail}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ: visible copy mirrors the FAQPage schema exactly. -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-2 text-[#333333] text-center">
+        Questions People Actually Ask
+      </h2>
+      <div class="section-divider"></div>
+      <div class="space-y-6 mt-8">
+        {
+          faqs.map((f) => (
+            <div class="bg-white rounded-2xl p-6 border-2 border-gray-200">
+              <h3 class="text-xl font-bold text-[#333333] mb-3">{f.question}</h3>
+              <p class="text-gray-600 leading-relaxed">{f.answer}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Internal links: parent hubs + related services, per the site's linking rules. -->
+  <section class="py-12 px-6 bg-gray-50">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-2xl font-bold mb-6 text-[#333333] text-center">
+        Where We Serve, and What We Clean
+      </h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-bold text-[#333333] mb-3">Veteran-owned cleaning by market</h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/locations/huntsville">
+                House cleaning in Huntsville, AL
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/locations/athens">
+                House cleaning in Athens, AL
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/locations/florence">
+                House cleaning in Florence &amp; the Shoals
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/locations/mountain-brook">
+                House cleaning in Mountain Brook, AL
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/locations/nashville">
+                House cleaning in Nashville, TN
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-[#333333] mb-3">Related pages</h3>
+          <ul class="space-y-2 text-gray-600">
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/pricing">
+                Published cleaning prices by home size
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/trust">
+                How we vet and background-check our cleaners
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/services/regular-cleaning">
+                Recurring house cleaning service
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/services/deep-cleaning">
+                Deep cleaning service
+              </a>
+            </li>
+            <li>
+              <a class="hover:text-[#FFA985] underline-offset-2 hover:underline" href="/about">
+                About Todd &amp; Christen Frederickson
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold mb-4 text-[#333333]">
+        Want the certificate of insurance? Just ask.
+      </h2>
+      <p class="text-gray-600 mb-8">
+        We will send it over — and apply your 15% military discount before you
+        book, not after.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="tel:2568261100"
+          class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg"
+        >
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call (256) 826-1100
+        </a>
+        <a
+          href="https://thevalleycleanteam.bookingkoala.com/booknow"
+          class="px-8 py-4 rounded-full text-lg font-semibold border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition"
+        >
+          <Icon name="calendar" class="w-5 h-5 mr-2" />Get Your Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
