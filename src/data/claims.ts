@@ -215,10 +215,10 @@ export const CLINICAL = {
 
 export function canClaimClinicalCompliance(): boolean {
   return (
-    CLINICAL.bloodbornePathogensTraining === true &&
+    Boolean(CLINICAL.bloodbornePathogensTraining) &&
     typeof CLINICAL.epaRegisteredDisinfectant === "string" &&
     CLINICAL.epaRegisteredDisinfectant.length > 0 &&
-    CLINICAL.writtenMedicalProtocol === true
+    Boolean(CLINICAL.writtenMedicalProtocol)
   );
 }
 
