@@ -4,6 +4,15 @@ on:
   pull_request:
     branches: [main]
 
+# This one is not just contents:read — two steps hand GITHUB_TOKEN to actions
+# that call the API. wait-for-vercel-preview polls the PR's deployments and
+# their statuses until the preview is live, and lighthouse-ci-action uses
+# LHCI_GITHUB_APP_TOKEN to report results back onto the commit.
+permissions:
+  contents: read
+  deployments: read
+  statuses: write
+
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
