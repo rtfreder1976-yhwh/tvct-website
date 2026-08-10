@@ -18,6 +18,12 @@ import ServiceLocationLayout from "../../../layouts/ServiceLocationLayout.astro"
 import Icon from "../../../components/Icon.astro";
 import locations from "../../../data/locations.json";
 import services from "../../../data/services.json";
+import { PERFORMANCE, usesLuxuryFraming } from "../../../data/claims";
+import {
+    canonicalServicePrice,
+    normalizeServiceCopy,
+} from "../../../data/servicePricing";
+import BookingCTA from "../../../components/BookingCTA.astro";
 
 // ---------------------------------------------------------------------------
 // Route resolution
@@ -38,28 +44,34 @@ if (!neighborhood && !service) return new Response(null, { status: 404 });
 const city = location.name;
 const state = location.state;
 const hoodName = neighborhood?.name ?? "";
+const premiumMarket = usesLuxuryFraming(location.name);
+const neighborhoodServiceLabel = premiumMarket
+    ? "Premium House Cleaning"
+    : "Professional House Cleaning";
 
-const fullTitle = neighborhood
-    ? `${hoodName} Cleaning | ${city}`
-    : "";
+const fullTitle = neighborhood ? `${hoodName} Cleaning | ${city}` : "";
 
 const neighborhoodDescription = neighborhood
-    ? `Professional house cleaning in ${hoodName}, ${city}. Veteran-owned, $2M insured. Same-day available. 100% satisfaction guaranteed. Get your free quote!`
+    ? `Professional house cleaning in ${hoodName}, ${city}. Veteran-owned, $2M insured and background-checked. Get your free quote online.`
     : "";
 
 const neighborhoodFaqs = neighborhood
     ? [
           {
               question: `Do you service ${hoodName}?`,
-              answer: `Yes! We are proud to serve ${hoodName} and the surrounding ${city} areas. We have many satisfied clients in your neighborhood.`,
+              answer: `Yes! We are proud to serve ${hoodName} and the surrounding ${city} areas.`,
           },
           {
               question: "Do I need to be home?",
-              answer: "No, many of our clients provide us with a key or garage code. We are fully insured and background-checked for your peace of mind.",
+              answer: "No. Many clients provide a key, garage code, or smart-lock access. Our team is insured and background-checked.",
           },
           {
               question: "What is included in a standard clean?",
               answer: "Our standard maintenance cleaning includes dusting, vacuuming, mopping, bathroom sanitation, and kitchen cleaning. We focus on keeping your home consistently fresh.",
+          },
+          {
+              question: "How quickly will you respond to a quote request?",
+              answer: `We answer quote requests within ${PERFORMANCE.quoteResponseSla} during business hours.`,
           },
       ]
     : [];
@@ -79,14 +91,20 @@ const neighborhoodFaqSchema = neighborhood
 // ---------------------------------------------------------------------------
 // Service-location page variables
 // ---------------------------------------------------------------------------
+const canonicalPrice = service
+    ? canonicalServicePrice(service.slug)
+    : "Call for Quote";
+
 function t(template: string | undefined): string {
     if (!template) return "";
-    return template
+    const interpolated = template
         .replace(/{city}/g, location.name)
         .replace(/{state}/g, location.state)
         .replace(/{region_name}/g, location.region_name || location.name)
         .replace(/{phone}/g, location.phone || "256-826-1100")
-        .replace(/{price_start}/g, service?.price_start || "$125");
+        .replace(/{price_start}/g, canonicalPrice.replace("/visit", ""));
+
+    return service ? normalizeServiceCopy(service.slug, interpolated) : interpolated;
 }
 
 const serviceTitle = service ? t(service.meta_title_template) : "";
@@ -104,7 +122,6 @@ const includes = service?.includes ? service.includes.map((i) => t(i)) : [];
 const serviceFaqs = service?.faqs
     ? service.faqs.map((f) => ({ question: t(f.question), answer: t(f.answer) }))
     : [];
-import BookingCTA from "../../../components/BookingCTA.astro";
 ---
 
 {neighborhood ? (
@@ -122,22 +139,22 @@ import BookingCTA from "../../../components/BookingCTA.astro";
                             </span>
                         </div>
                         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-                            Premium House Cleaning in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">{hoodName}</span>
+                            {neighborhoodServiceLabel} in <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">{hoodName}</span>
                         </h1>
                         <p class="text-xl text-gray-300 mb-6">
-                            Trusted by families and professionals in {hoodName}. We provide reliable, top-tier cleaning services so you can enjoy your free time.
+                            Reliable cleaning for families and professionals in {hoodName}, with an insured, background-checked team and easy online quoting.
                         </p>
 
                         <div class="grid grid-cols-3 gap-4 mb-8">
                             <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
                                 <Icon name="home" class="w-8 h-8 text-[#FFA985] mb-2" />
                                 <p class="text-white font-semibold text-sm">Local</p>
-                                <p class="text-gray-400 text-xs">Experts</p>
+                                <p class="text-gray-400 text-xs">Service</p>
                             </div>
                             <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
                                 <Icon name="shield-alt" class="w-8 h-8 text-[#FFA985] mb-2" />
-                                <p class="text-white font-semibold text-sm">Licensed</p>
-                                <p class="text-gray-400 text-xs">& Insured</p>
+                                <p class="text-white font-semibold text-sm">Insured</p>
+                                <p class="text-gray-400 text-xs">& Bonded</p>
                             </div>
                             <div class="bg-white/10 backdrop-blur rounded-xl p-4 text-center">
                                 <Icon name="calendar-check" class="w-8 h-8 text-[#FFA985] mb-2" />
@@ -162,11 +179,10 @@ import BookingCTA from "../../../components/BookingCTA.astro";
                         </div>
                     </div>
 
-                    <!-- Contact Form -->
                     <div class="bg-white rounded-2xl p-8 shadow-2xl">
                         <div class="text-center mb-6">
                             <span class="bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-gray-900 px-4 py-2 rounded-full text-sm font-bold">
-                                <Icon name="clock" class="w-5 h-5 mr-1" /> FAST RESPONSE
+                                <Icon name="clock" class="w-5 h-5 mr-1" /> RESPONSE WITHIN {PERFORMANCE.quoteResponseSla.toUpperCase()}
                             </span>
                         </div>
                         <h2 class="text-2xl font-bold text-[#333333] mb-2 text-center">Get Your Free Quote</h2>
@@ -177,7 +193,6 @@ import BookingCTA from "../../../components/BookingCTA.astro";
             </div>
         </section>
 
-        <!-- Value Props -->
         <section class="py-20 px-6 bg-white">
             <div class="container mx-auto">
                 <div class="text-center mb-16">
@@ -190,28 +205,27 @@ import BookingCTA from "../../../components/BookingCTA.astro";
                         <Icon name="check-circle" class="w-12 h-12 text-[#FFA985] mx-auto mb-4" />
                         <h3 class="text-xl font-bold mb-2">Consistent Quality</h3>
                         <p class="text-gray-600">
-                            We don't just clean; we care. Our checklist ensures every corner of your {hoodName} home is spotless.
+                            A written checklist keeps the work consistent from visit to visit in your {hoodName} home.
                         </p>
                     </div>
                     <div class="bg-gray-50 rounded-2xl p-8 text-center">
                         <Icon name="user-shield" class="w-12 h-12 text-[#FFA985] mx-auto mb-4" />
                         <h3 class="text-xl font-bold mb-2">Safe & Secure</h3>
                         <p class="text-gray-600">
-                            Fully insured, bonded, and background-checked technicians. Your home is safe with us.
+                            Insured, bonded, and background-checked cleaners. Your home is treated with care.
                         </p>
                     </div>
                     <div class="bg-gray-50 rounded-2xl p-8 text-center">
                         <Icon name="hand-holding-heart" class="w-12 h-12 text-[#FFA985] mx-auto mb-4" />
-                        <h3 class="text-xl font-bold mb-2">Satisfaction Guaranteed</h3>
+                        <h3 class="text-xl font-bold mb-2">Easy to Book</h3>
                         <p class="text-gray-600">
-                            If you're not happy, let us know within 24 hours and we'll make it right.
+                            See your price and request service through our BookingKoala flow without a separate website lead form.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ Section -->
         <section class="py-20 px-6 bg-gray-50">
             <div class="container mx-auto max-w-4xl">
                 <div class="text-center mb-16">
@@ -250,7 +264,7 @@ import BookingCTA from "../../../components/BookingCTA.astro";
         serviceDescription={serviceIntro}
         benefits={benefits}
         includes={includes}
-        price={service!.price_start || "Call for Quote"}
+        price={canonicalPrice}
         faqs={serviceFaqs}
     />
 )}

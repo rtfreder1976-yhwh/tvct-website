@@ -1,9 +1,15 @@
 import type { ApiRequest, ApiResponse } from './_types.js';
 import { requireAdmin, setPrivateApiHeaders } from './_admin-auth.js';
 
+/**
+ * Lead analytics used to read GoHighLevel contacts and infer quote/booking
+ * activity from CRM records. BookingKoala is now the system of record for the
+ * customer funnel, so serving GHL-derived metrics would be stale by design.
+ *
+ * Keep an authenticated tombstone response for the existing dashboard while
+ * that UI is migrated; do not silently substitute fabricated or legacy data.
+ */
 export default async function handler(req: ApiRequest, res: ApiResponse) {
-  // This endpoint returns GoHighLevel contact records — customer names, emails
-  // and phone numbers — so the gate goes on before any of that is fetched.
   setPrivateApiHeaders(res);
 
   if (req.method !== 'GET') {
@@ -12,189 +18,12 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
 
   if (!requireAdmin(req, res)) return;
 
-  try {
-    const apiKey = process.env.GHL_API_KEY;
-    const locationId = process.env.GHL_LOCATION_ID;
-
-    if (!apiKey || !locationId) {
-      return res.status(500).json({
-        error: 'Missing GoHighLevel credentials',
-        message: 'Set GHL_API_KEY and GHL_LOCATION_ID environment variables'
-      });
-    }
-
-    const endDate = new Date();
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 30);
-
-    const prevEndDate = new Date(startDate);
-    prevEndDate.setDate(prevEndDate.getDate() - 1);
-    const prevStartDate = new Date(prevEndDate);
-    prevStartDate.setDate(prevStartDate.getDate() - 30);
-
-    const MAX_PAGES = 10;
-    const MAX_RECORDS = 1000;
-    const contacts: any[] = [];
-    let nextPage: number | string | null = 1;
-    let pagesFetched = 0;
-
-    while (nextPage && pagesFetched < MAX_PAGES && contacts.length < MAX_RECORDS) {
-      const params = new URLSearchParams({
-        locationId,
-        limit: '100'
-      });
-
-      if (typeof nextPage === 'number') {
-        params.set('page', String(nextPage));
-      } else if (typeof nextPage === 'string') {
-        params.set('startAfter', nextPage);
-      }
-
-      const response = await fetch(
-        `https://services.leadconnectorhq.com/contacts/?${params.toString()}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Version': '2021-07-28',
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`GHL API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      const pageContacts = data.contacts || [];
-      contacts.push(...pageContacts);
-      pagesFetched += 1;
-
-      if (pageContacts.length === 0) {
-        nextPage = null;
-        break;
-      }
-
-      const nextPageToken =
-        data?.meta?.nextPage ??
-        data?.nextPage ??
-        data?.meta?.startAfter ??
-        data?.startAfter ??
-        data?.meta?.nextPageToken ??
-        null;
-
-      nextPage = nextPageToken || null;
-
-      if (contacts.length >= MAX_RECORDS) {
-        break;
-      }
-    }
-
-    if (nextPage && (pagesFetched >= MAX_PAGES || contacts.length >= MAX_RECORDS)) {
-      console.warn('Truncated contact pagination', {
-        pagesFetched,
-        contactsFetched: contacts.length,
-        nextPage
-      });
-    }
-
-    const currentPeriodContacts = contacts.filter((contact: any) => {
-      const createdAt = new Date(contact.dateAdded);
-      return createdAt >= startDate && createdAt <= endDate;
-    });
-
-    const previousPeriodContacts = contacts.filter((contact: any) => {
-      const createdAt = new Date(contact.dateAdded);
-      return createdAt >= prevStartDate && createdAt <= prevEndDate;
-    });
-
-    const formSubmissions = currentPeriodContacts.filter((c: any) =>
-      c.source?.toLowerCase().includes('form') ||
-      c.source?.toLowerCase().includes('website') ||
-      !c.source
-    ).length;
-
-    const phoneCalls = currentPeriodContacts.filter((c: any) =>
-      c.source?.toLowerCase().includes('call') ||
-      c.source?.toLowerCase().includes('phone')
-    ).length;
-
-    const emails = currentPeriodContacts.filter((c: any) =>
-      c.source?.toLowerCase().includes('email')
-    ).length;
-
-    let bookings = 0;
-    try {
-      const opportunitiesResponse = await fetch(
-        `https://services.leadconnectorhq.com/opportunities/search?locationId=${locationId}&limit=100`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Version': '2021-07-28',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            locationId,
-            startAfter: startDate.toISOString(),
-            endBefore: endDate.toISOString()
-          })
-        }
-      );
-
-      if (opportunitiesResponse.ok) {
-        const oppData = await opportunitiesResponse.json();
-        bookings = (oppData.opportunities || []).filter((opp: any) =>
-          opp.status === 'won' || opp.status === 'booked'
-        ).length;
-      }
-    } catch (e) {
-      console.error('Error fetching opportunities:', e);
-    }
-
-    const calculateMonthlyTrend = (contacts: any[]): number[] => {
-      const months: { [key: string]: number } = {};
-      for (let i = 6; i >= 0; i--) {
-        const date = new Date();
-        date.setMonth(date.getMonth() - i);
-        const key = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-        months[key] = 0;
-      }
-      contacts.forEach((contact: any) => {
-        const date = new Date(contact.dateAdded);
-        const key = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-        if (months.hasOwnProperty(key)) {
-          months[key]++;
-        }
-      });
-      return Object.values(months);
-    };
-
-    return res.status(200).json({
-      success: true,
-      data: {
-        totalLeads: currentPeriodContacts.length,
-        previousTotal: previousPeriodContacts.length,
-        formSubmissions,
-        phoneCalls,
-        emails,
-        bookings,
-        conversionRate: currentPeriodContacts.length > 0
-          ? ((bookings / currentPeriodContacts.length) * 100).toFixed(2)
-          : '0',
-        monthlyTrend: calculateMonthlyTrend(contacts),
-        dateRange: {
-          start: startDate.toISOString().split('T')[0],
-          end: endDate.toISOString().split('T')[0]
-        }
-      }
-    });
-
-  } catch (error) {
-    console.error('GoHighLevel API error:', error);
-    return res.status(500).json({
-      error: 'Failed to fetch lead data',
-      message: error instanceof Error ? error.message : 'Unknown error'
-    });
-  }
+  return res.status(410).json({
+    success: false,
+    source: 'retired',
+    error: 'Legacy lead analytics retired',
+    message:
+      'GoHighLevel is no longer the source of truth for quote and booking activity. ' +
+      'Use BookingKoala reporting for funnel metrics until a new dashboard adapter is implemented.',
+  });
 }
