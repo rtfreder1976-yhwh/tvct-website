@@ -147,7 +147,7 @@ for (const rule of forbidden) {
 // into an availability promise. Historical redirect paths and neutral mentions
 // are allowed; statements that same-day appointments/openings/availability are
 // available are not, because current availability belongs in BookingKoala.
-// Neutral scheduling-policy language, including same-day cancellation terms, is allowed.
+// Neutral scheduling-policy language is allowed; cancellation terms are not availability claims.
 const sameDayNeutralPatterns = [/same[- ]day cancellations?/i];
 const customerSourceExtensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx']);
 const sameDayAvailabilityPatterns = [
