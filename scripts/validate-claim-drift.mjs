@@ -36,6 +36,16 @@ const required = [
     text: 'REVIEWS.rating',
     why: 'structured rating must consume canonical review data',
   },
+  {
+    file: 'src/layouts/BaseLayout.astro',
+    text: 'REVIEWS.countDisplay',
+    why: 'default metadata must derive its review count from claims.ts',
+  },
+  {
+    file: 'src/layouts/BaseLayout.astro',
+    text: 'IDENTITY.primaryPhraseCapitalized',
+    why: 'default metadata ownership language must derive from claims.ts',
+  },
 ];
 
 const forbidden = [
@@ -78,6 +88,11 @@ const forbidden = [
     file: 'src/components/QuoteForm.astro',
     text: '/api/submit-form',
     why: 'legacy website quote forms are retired in favor of BookingKoala',
+  },
+  {
+    file: 'src/layouts/BaseLayout.astro',
+    text: '150+ 5-star reviews',
+    why: 'default metadata must not reintroduce stale review-count copy',
   },
 ];
 
