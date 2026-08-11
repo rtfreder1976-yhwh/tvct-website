@@ -1,0 +1,38 @@
+name: One-time recurring policy autofix
+
+on:
+  push:
+    branches:
+      - agent/sitewide-policy-consistency
+    paths:
+      - .github/workflows/recurring-policy-autofix-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/sitewide-policy-consistency
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Apply guarded recurring policy fixes
+        run: node scripts/apply-recurring-policy-fixes.mjs
+
+      - name: Remove migration script and commit fixes
+        shell: bash
+        run: |
+          rm scripts/apply-recurring-policy-fixes.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --stat
+          git diff --cached --quiet && exit 1
+          git commit -m "fix: align remaining recurring service pricing"
+          git push origin HEAD:agent/sitewide-policy-consistency
