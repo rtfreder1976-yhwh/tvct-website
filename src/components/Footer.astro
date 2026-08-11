@@ -1,16 +1,9 @@
 ---
 import Icon from "./Icon.astro";
-// "Certified — Professional Cleaners" named no issuing body and shipped in the
-// sitewide footer, so it appeared on every page. Gated on hasCertifications()
-// until CERTIFICATIONS in src/data/claims.ts lists a real credential.
-import { hasCertifications } from "../data/claims";
-
-const showCertified = hasCertifications();
+import { IDENTITY, PERFORMANCE, REVIEWS } from "../data/claims";
 ---
 
 <style>
-  /* Lighthouse tap-targets: enlarge footer link hit areas to >=48px-friendly height
-     and break the tight 4px vertical gap between sibling links. */
   footer ul li > a,
   footer ul li > a:visited {
     display: inline-block;
@@ -19,196 +12,44 @@ const showCertified = hasCertifications();
   }
 </style>
 
-<!-- Trust Credentials Bar -->
-<section
-  class="py-8 px-6 bg-gradient-to-r from-[#333333] to-[#444444] text-white"
->
+<!-- Sitewide proof bar: only facts backed by src/data/claims.ts. -->
+<section class="py-8 px-6 bg-gradient-to-r from-[#333333] to-[#444444] text-white">
   <div class="container mx-auto">
-    <div
-      class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 text-center text-sm"
-    >
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 text-center text-sm">
       <div>
-        <Icon name="id-card" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">Licensed</p>
-        <p class="text-gray-300 text-xs">AL Business License</p>
+        <Icon name="medal" class="w-5 h-5 text-[#FFA985] mb-2" />
+        <p class="font-semibold">Veteran Owned</p>
+        <p class="text-gray-300 text-xs">Verified ownership</p>
       </div>
       <div>
-        <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">$2M Insured</p>
-        <p class="text-gray-300 text-xs">Liability Coverage</p>
+        <Icon name="user-check" class="w-5 h-5 text-[#FFA985] mb-2" />
+        <p class="font-semibold">Woman Owned</p>
+        <p class="text-gray-300 text-xs">Verified ownership</p>
       </div>
-      <div>
-        <Icon name="calendar-check" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold text-xs">15 Years Avg.</p>
-        <p class="text-gray-300 text-xs">Cleaner Experience</p>
-      </div>
-      {showCertified && (
-      <div>
-        <Icon name="certificate" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">Certified</p>
-        <p class="text-gray-300 text-xs">Professional Cleaners</p>
-      </div>
-      )}
       <div>
         <Icon name="home" class="w-5 h-5 text-[#FFA985] mb-2" />
         <p class="font-semibold">Family Owned</p>
-        <p class="text-gray-300 text-xs">Veteran Operated</p>
+        <p class="text-gray-300 text-xs">Locally operated</p>
       </div>
       <div>
-        <Icon name="redo" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">100% Guarantee</p>
-        <p class="text-gray-300 text-xs">Re-Clean Free</p>
+        <Icon name="calendar-check" class="w-5 h-5 text-[#FFA985] mb-2" />
+        <p class="font-semibold">{PERFORMANCE.avgCleanerExperienceYears} Years Avg.</p>
+        <p class="text-gray-300 text-xs">Cleaner experience</p>
+      </div>
+      <div>
+        <Icon name="users" class="w-5 h-5 text-[#FFA985] mb-2" />
+        <p class="font-semibold">{PERFORMANCE.customersServedDisplay}</p>
+        <p class="text-gray-300 text-xs">Customers served</p>
+      </div>
+      <div>
+        <Icon name="star" class="w-5 h-5 text-[#FFA985] mb-2" />
+        <p class="font-semibold">{REVIEWS.rating}★ · {REVIEWS.countDisplay}</p>
+        <p class="text-gray-300 text-xs">Google reviews</p>
       </div>
       <div>
         <Icon name="clock" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">2 Business Hours</p>
-        <p class="text-gray-300 text-xs">Quote Turnaround</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Detailed Trust Information -->
-<section class="py-10 px-6 bg-gray-100 border-t border-gray-200">
-  <div class="container mx-auto">
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Licensing & Insurance -->
-      <div class="bg-white rounded-xl p-6 shadow-sm">
-        <h4 class="font-bold text-[#333333] mb-4 flex items-center">
-          <Icon name="file-contract" class="w-5 h-5 text-[#FFA985] mr-2" />
-          Licensing & Insurance
-        </h4>
-        <ul class="space-y-2 text-sm text-gray-600">
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span>Alabama State Business License</span>
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span>Tennessee Business Registration</span>
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span>$2,000,000 General Liability Insurance</span>
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span>Workers' Compensation Coverage</span>
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span>Bonded for Client Protection</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Our Guarantees -->
-      <div class="bg-white rounded-xl p-6 shadow-sm">
-        <h4 class="font-bold text-[#333333] mb-4 flex items-center">
-          <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
-          Our Service Guarantees
-        </h4>
-        <ul class="space-y-2 text-sm text-gray-600">
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>100% Satisfaction Guarantee</strong> - Not happy? We re-clean
-              free within 24 hours</span
-            >
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>On-Time Guarantee</strong> - We arrive within your scheduled
-              window</span
-            >
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>Damage Protection</strong> - Full coverage for any accidental
-              damage</span
-            >
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>Consistent Quality</strong> - Same high standards, every visit</span
-            >
-          </li>
-        </ul>
-      </div>
-
-      <!-- About Our Team -->
-      <div class="bg-white rounded-xl p-6 shadow-sm">
-        <h4 class="font-bold text-[#333333] mb-4 flex items-center">
-          <Icon name="users" class="w-5 h-5 text-[#FFA985] mr-2" />
-          About Our Team
-        </h4>
-        <ul class="space-y-2 text-sm text-gray-600">
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>Family Owned & Operated</strong> with 15 years cleaner experience on average</span
-            >
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>Veteran Owned</strong> - Military precision & values</span
-            >
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>Background Checked</strong> - Every team member vetted</span
-            >
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>Professionally Trained</strong> - In-house training on our written checklist</span
-            >
-          </li>
-          <li class="flex items-start">
-            <Icon name="check" class="w-4 h-4 text-green-500 mr-2 mt-1" />
-            <span
-              ><strong>1,500+ customers</strong> served, rated 4.9★ across 148 Google reviews</span
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Response Time Promise -->
-    <div
-      class="mt-8 bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 border border-[#FFA985]/20"
-    >
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <div class="flex items-center">
-          <Icon name="bolt" class="w-8 h-8 text-[#FFA985] mr-4" />
-          <div>
-            <h4 class="font-bold text-[#333333]">Our Response Time Promise</h4>
-            <p class="text-gray-600 text-sm">
-              All quote requests answered within 2 business hours.
-              Flexible scheduling available — evenings and weekends included.
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-2">
-          <a
-            href="tel:2568261100"
-            class="btn-primary px-5 py-2 rounded-full font-semibold whitespace-nowrap inline-flex items-center text-sm"
-          >
-            <Icon name="phone" class="w-4 h-4 mr-2" />AL: 256-826-1100
-          </a>
-          <a
-            href="tel:6155101427"
-            class="btn-primary px-5 py-2 rounded-full font-semibold whitespace-nowrap inline-flex items-center text-sm"
-          >
-            <Icon name="phone" class="w-4 h-4 mr-2" />TN: 615-510-1427
-          </a>
-        </div>
+        <p class="font-semibold">{PERFORMANCE.quoteResponseSla}</p>
+        <p class="text-gray-300 text-xs">Quote response SLA</p>
       </div>
     </div>
   </div>
@@ -226,105 +67,37 @@ const showCertified = hasCertifications();
             </picture>
           </a>
         </div>
-        <p class="text-gray-600 mb-3">
-          Thorough, dependable cleaning for your home and office.
-        </p>
+        <p class="text-gray-600 mb-3">Thorough, dependable cleaning for homes and offices.</p>
         <p class="text-gray-500 text-xs">
-          Family owned & veteran operated. Our cleaners average 15 years of professional cleaning experience.
-          Proudly serving Alabama & Tennessee.
+          {IDENTITY.primaryPhraseCapitalized}, family owned, with cleaners averaging {PERFORMANCE.avgCleanerExperienceYears} years of professional cleaning experience. Proudly serving Alabama & Tennessee.
         </p>
       </div>
 
       <div>
         <h4 class="font-bold mb-4 text-[#333333]">Services</h4>
         <ul class="space-y-2 text-gray-600">
-          <li>
-            <a href="/services" class="hover:text-[#FFA985] transition"
-              >All Services</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services/house-cleaning"
-              class="hover:text-[#FFA985] transition">House Cleaning</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services/maid-service"
-              class="hover:text-[#FFA985] transition">Maid Service</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services/deep-cleaning"
-              class="hover:text-[#FFA985] transition">Deep Cleaning</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services/regular-cleaning"
-              class="hover:text-[#FFA985] transition">Regular Cleaning</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services/move-in-out-cleaning"
-              class="hover:text-[#FFA985] transition">Move In/Out</a
-            >
-          </li>
-          <li>
-            <a
-              href="/services/commercial-cleaning"
-              class="hover:text-[#FFA985] transition">Commercial Cleaning</a
-            >
-          </li>
-          <li>
-            <a
-              href="/pricing"
-              class="hover:text-[#FFA985] transition">Pricing</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://thevalleycleanteam.bookingkoala.com/booknow"
-              class="hover:text-[#FFA985] transition">Schedule Cleaning</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://thevalleycleanteam.bookingkoala.com/booknow"
-              class="hover:text-[#FFA985] transition font-semibold"
-              >Instant Quote →</a
-            >
-          </li>
+          <li><a href="/services" class="hover:text-[#FFA985] transition">All Services</a></li>
+          <li><a href="/services/house-cleaning" class="hover:text-[#FFA985] transition">House Cleaning</a></li>
+          <li><a href="/services/maid-service" class="hover:text-[#FFA985] transition">Maid Service</a></li>
+          <li><a href="/services/deep-cleaning" class="hover:text-[#FFA985] transition">Deep Cleaning</a></li>
+          <li><a href="/services/regular-cleaning" class="hover:text-[#FFA985] transition">Regular Cleaning</a></li>
+          <li><a href="/services/move-in-out-cleaning" class="hover:text-[#FFA985] transition">Move In/Out</a></li>
+          <li><a href="/services/commercial-cleaning" class="hover:text-[#FFA985] transition">Commercial Cleaning</a></li>
+          <li><a href="/pricing" class="hover:text-[#FFA985] transition">Pricing</a></li>
+          <li><a href="https://thevalleycleanteam.bookingkoala.com/booknow" class="hover:text-[#FFA985] transition font-semibold">See My Price →</a></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-bold mb-4 text-[#333333]">Specialized Cleaning</h4>
         <ul class="space-y-2 text-gray-600 text-sm">
-          <li>
-            <a href="/medical-clinic-cleaning" class="hover:text-[#FFA985] transition">Medical Clinic Cleaning</a>
-          </li>
-          <li>
-            <a href="/dialysis-center-cleaning" class="hover:text-[#FFA985] transition">Dialysis Center Cleaning</a>
-          </li>
-          <li>
-            <a href="/dental-office-cleaning" class="hover:text-[#FFA985] transition">Dental Office Cleaning</a>
-          </li>
-          <li>
-            <a href="/church-cleaning" class="hover:text-[#FFA985] transition">Church Cleaning</a>
-          </li>
-          <li>
-            <a href="/services/compassionate-clean" class="hover:text-[#FFA985] transition">Compassionate Clean</a>
-          </li>
-          <li>
-            <a href="/luxury-homes" class="hover:text-[#FFA985] transition">Luxury Home Cleaning</a>
-          </li>
-          <li class="pt-2">
-            <a href="/commercial-quote" class="hover:text-[#FFA985] transition font-semibold text-[#FFA985]">Commercial Quote →</a>
-          </li>
+          <li><a href="/medical-clinic-cleaning" class="hover:text-[#FFA985] transition">Medical Clinic Cleaning</a></li>
+          <li><a href="/dialysis-center-cleaning" class="hover:text-[#FFA985] transition">Dialysis Center Cleaning</a></li>
+          <li><a href="/dental-office-cleaning" class="hover:text-[#FFA985] transition">Dental Office Cleaning</a></li>
+          <li><a href="/church-cleaning" class="hover:text-[#FFA985] transition">Church Cleaning</a></li>
+          <li><a href="/services/compassionate-clean" class="hover:text-[#FFA985] transition">Compassionate Clean</a></li>
+          <li><a href="/luxury-homes" class="hover:text-[#FFA985] transition">Luxury Home Cleaning</a></li>
+          <li class="pt-2"><a href="/commercial-quote" class="hover:text-[#FFA985] transition font-semibold text-[#FFA985]">Commercial Quote →</a></li>
         </ul>
       </div>
 
@@ -337,7 +110,6 @@ const showCertified = hasCertifications();
           <li><a href="/blog/airbnb-cleaning-nashville-host-guide" class="hover:text-[#FFA985] transition">Airbnb Cleaning Nashville</a></li>
           <li><a href="/blog/3-red-flags-hiring-cleaning-service" class="hover:text-[#FFA985] transition">3 Red Flags to Watch For</a></li>
           <li><a href="/blog/is-hiring-house-cleaner-worth-it" class="hover:text-[#FFA985] transition">Is a House Cleaner Worth It?</a></li>
-          <li><a href="/blog/commercial-cleaning-huntsville-al" class="hover:text-[#FFA985] transition">Commercial Cleaning Huntsville</a></li>
         </ul>
       </div>
 
@@ -345,7 +117,7 @@ const showCertified = hasCertifications();
         <h4 class="font-bold mb-4 text-[#333333]">Service Areas</h4>
         <div class="grid grid-cols-2 gap-4">
           <ul class="space-y-1 text-gray-600 text-sm">
-            <li class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-1">Alabama Cities</li>
+            <li class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-1">Alabama</li>
             <li><a href="/locations/huntsville" class="hover:text-[#FFA985] transition">Huntsville</a></li>
             <li><a href="/locations/madison" class="hover:text-[#FFA985] transition">Madison</a></li>
             <li><a href="/locations/athens" class="hover:text-[#FFA985] transition">Athens</a></li>
@@ -358,174 +130,44 @@ const showCertified = hasCertifications();
             <li class="font-bold text-gray-800 text-xs uppercase tracking-wider mb-1">Tennessee</li>
             <li><a href="/locations/nashville" class="hover:text-[#FFA985] transition">Nashville</a></li>
             <li><a href="/locations/west-nashville" class="hover:text-[#FFA985] transition">West Nashville</a></li>
-            <li class="pt-2 font-bold text-gray-800 text-xs uppercase tracking-wider mb-1">Regional</li>
-            <li><a href="/locations/lauderdale-county" class="hover:text-[#FFA985] transition">Lauderdale Co.</a></li>
-            <li><a href="/locations/colbert-county" class="hover:text-[#FFA985] transition">Colbert Co.</a></li>
-            <li><a href="/locations/madison-county" class="hover:text-[#FFA985] transition">Madison Co.</a></li>
-            <li><a href="/locations/limestone-county" class="hover:text-[#FFA985] transition">Limestone Co.</a></li>
-            <li><a href="/locations/morgan-county" class="hover:text-[#FFA985] transition">Morgan Co.</a></li>
+            <li class="pt-2"><a href="/locations" class="hover:text-[#FFA985] transition font-semibold">All locations →</a></li>
           </ul>
-        </div>
-        <div class="mt-4">
-          <a href="/locations" class="hover:text-[#FFA985] transition font-semibold text-sm">View All Locations →</a>
         </div>
       </div>
 
       <div>
         <h4 class="font-bold mb-4 text-[#333333]">Contact</h4>
         <ul class="space-y-2 text-gray-600">
-          <li>
-            <a href="tel:2568261100" class="hover:text-[#FFA985] transition">
-              <Icon name="phone" class="w-4 h-4 text-[#FFA985] inline" /> AL: 256-826-1100
-            </a>
-          </li>
-          <li>
-            <a href="tel:6155101427" class="hover:text-[#FFA985] transition">
-              <Icon name="phone" class="w-4 h-4 text-[#FFA985] inline" /> TN: 615-510-1427
-            </a>
-          </li>
-          <li>
-            <a
-              href="mailto:hello@thevalleycleanteam.com"
-              class="hover:text-[#FFA985] transition"
-            >
-              <Icon name="envelope" class="w-4 h-4 text-[#FFA985] inline" /> hello@thevalleycleanteam.com
-            </a>
-          </li>
-          <li>
-            <Icon name="map-marker-alt" class="w-4 h-4 text-[#FFA985] inline" /> Alabama
-            & Tennessee
-          </li>
-          <li class="mt-4 pt-4 border-t border-gray-200">
-            <a
-              href="/careers"
-              class="hover:text-[#FFA985] transition font-bold flex items-center text-[#333333]"
-            >
-              <Icon name="users" class="w-4 h-4 text-[#FFA985] inline mr-2" /> Join
-              Our Team (Careers)
-            </a>
-          </li>
-          <li class="mt-2">
-            <a
-              href="/trust"
-              class="hover:text-[#FFA985] transition font-bold flex items-center text-[#333333]"
-            >
-              <Icon name="shield-alt" class="w-4 h-4 text-[#FFA985] inline mr-2" /> Why
-              Trust Us
-            </a>
-          </li>
+          <li><a href="tel:2568261100" class="hover:text-[#FFA985] transition"><Icon name="phone" class="w-4 h-4 text-[#FFA985] inline" /> AL: 256-826-1100</a></li>
+          <li><a href="tel:6155101427" class="hover:text-[#FFA985] transition"><Icon name="phone" class="w-4 h-4 text-[#FFA985] inline" /> TN: 615-510-1427</a></li>
+          <li><a href="mailto:hello@thevalleycleanteam.com" class="hover:text-[#FFA985] transition"><Icon name="envelope" class="w-4 h-4 text-[#FFA985] inline" /> hello@thevalleycleanteam.com</a></li>
+          <li class="mt-4 pt-4 border-t border-gray-200"><a href="/careers" class="hover:text-[#FFA985] transition font-bold flex items-center text-[#333333]"><Icon name="users" class="w-4 h-4 text-[#FFA985] inline mr-2" />Careers</a></li>
+          <li><a href="/trust" class="hover:text-[#FFA985] transition font-bold flex items-center text-[#333333]"><Icon name="star" class="w-4 h-4 text-[#FFA985] inline mr-2" />Customer Reviews & Trust</a></li>
         </ul>
 
-        <!-- Social Media Links -->
         <div class="flex items-center gap-3 mt-4">
-          <a
-            href="https://www.facebook.com/thevalleycleanteam/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition group"
-            aria-label="Facebook"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-              ><path
-                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-              ></path></svg
-            >
-          </a>
-          <a
-            href="https://www.instagram.com/thevalleycleanteamal/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition group"
-            aria-label="Instagram"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-              ><path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
-              ></path></svg
-            >
-          </a>
-          <a
-            href="https://www.linkedin.com/company/thevalleycleanteam"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition group"
-            aria-label="LinkedIn"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-              ><path
-                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-              ></path></svg
-            >
-          </a>
-          <a
-            href="https://www.google.com/maps?cid=2354162289321042477"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition group"
-            aria-label="Google Reviews"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600 group-hover:text-white"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
-              ><path
-                d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-              ></path></svg
-            >
-          </a>
+          <a href="https://www.facebook.com/thevalleycleanteam/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition" aria-label="Facebook"><Icon name="facebook" class="w-5 h-5 text-gray-600" /></a>
+          <a href="https://www.instagram.com/thevalleycleanteamal/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition" aria-label="Instagram"><Icon name="instagram" class="w-5 h-5 text-gray-600" /></a>
+          <a href="https://www.linkedin.com/company/thevalleycleanteam" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition" aria-label="LinkedIn"><Icon name="briefcase" class="w-5 h-5 text-gray-600" /></a>
+          <a href="https://www.google.com/maps?cid=2354162289321042477" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-200 hover:bg-[#FFA985] flex items-center justify-center transition" aria-label="Google Reviews"><Icon name="star" class="w-5 h-5 text-gray-600" /></a>
         </div>
       </div>
     </div>
 
     <div class="border-t border-gray-200 pt-8 mt-8">
-      <div
-        class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600"
-      >
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600">
         <p>
-          &copy; {new Date().getFullYear()} The Valley Clean Team. All rights reserved. 
-          <span class="mx-2 text-gray-400">|</span> 
+          &copy; {new Date().getFullYear()} The Valley Clean Team. All rights reserved.
+          <span class="mx-2 text-gray-400">|</span>
           <a href="/privacy" class="hover:text-[#FFA985] transition underline underline-offset-4 decoration-gray-300">Privacy Policy</a>
           <span class="mx-2 text-gray-400">|</span>
           <a href="/terms" class="hover:text-[#FFA985] transition underline underline-offset-4 decoration-gray-300">Terms of Service</a>
         </p>
         <div class="flex flex-wrap justify-center gap-4 text-xs">
-          <span
-            ><Icon
-              name="shield-alt"
-              class="w-4 h-4 text-[#FFA985] mr-1 inline"
-            /> Licensed & Insured</span
-          >
-          <span
-            ><Icon name="medal" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> Veteran
-            Owned</span
-          >
-          <span
-            ><Icon name="home" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> Family
-            Operated</span
-          >
-          <span
-            ><Icon
-              name="check-circle"
-              class="w-4 h-4 text-[#FFA985] mr-1 inline"
-            /> Satisfaction Guaranteed</span
-          >
+          <span><Icon name="medal" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Veteran Owned</span>
+          <span><Icon name="user-check" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Woman Owned</span>
+          <span><Icon name="home" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Family Owned</span>
+          <span><Icon name="star" class="w-4 h-4 text-[#FFA985] mr-1 inline" />{REVIEWS.rating}★ Google Rating</span>
         </div>
       </div>
     </div>
