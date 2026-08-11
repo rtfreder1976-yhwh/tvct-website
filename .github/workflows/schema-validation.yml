@@ -29,7 +29,7 @@ jobs:
           git rm -f .github/workflows/one-time-same-day-cleanup.yml scripts/one-time-remove-same-day-promises.mjs
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src .github/workflows/schema-validation.yml
+          git add src scripts/validate-claim-drift.mjs .github/workflows/schema-validation.yml
           git diff --cached --quiet && { echo "No cleanup changes were produced"; exit 1; }
           git commit -m "fix: remove same-day availability promises"
           git push origin HEAD:codex/remove-same-day-promises
