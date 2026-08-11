@@ -147,6 +147,7 @@ for (const rule of forbidden) {
 // into an availability promise. Historical redirect paths and neutral mentions
 // are allowed; statements that same-day appointments/openings/availability are
 // available are not, because current availability belongs in BookingKoala.
+const sameDayNeutralPatterns = [/same[- ]day cancellations?/i];
 const customerSourceExtensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx']);
 const sameDayAvailabilityPatterns = [
   /same[- ]day[^\n.]{0,100}\b(?:available|availability|appointments?|openings?|slots?)\b/i,
@@ -170,6 +171,7 @@ for (const file of walk('src')) {
   const source = fs.readFileSync(file, 'utf8');
   for (const pattern of sameDayAvailabilityPatterns) {
     const match = source.match(pattern);
+    if (match && sameDayNeutralPatterns.some((neutral) => neutral.test(match[0]))) continue;
     if (match) {
       failures.push(
         `${file}: unverified same-day availability promise ${JSON.stringify(match[0].trim())}`,
