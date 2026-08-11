@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TrustBadges from "../components/TrustBadges.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
+import { POLICIES } from "../data/claims";
 import {
   SQFT_BRACKETS,
   PRICE_TABLE,
@@ -22,14 +23,18 @@ const DEFAULT_SIZE = 2000;
 const DEFAULT_SERVICE = "deep";
 const defaultEstimate = priceRangeLabel(DEFAULT_SERVICE, DEFAULT_SIZE);
 
-// Freshness signal: pricing is a recency-sensitive page, and an AI-visibility
-// crawl found it undated. Sourced from the price sheet's last revision so the
-// visible date means something rather than tracking the deploy clock.
-const priceEffectiveDate = "2026-08-10";
+// Freshness signal: pricing is a recency-sensitive page. Keep this tied to the
+// latest verified pricing/policy revision rather than the deploy clock.
+const priceEffectiveDate = "2026-08-11";
 const priceEffectiveLabel = new Date(`${priceEffectiveDate}T12:00:00Z`).toLocaleDateString(
   "en-US",
   { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" },
 );
+
+const petFeeDisplay = `$${POLICIES.pets.feePerPet}/pet`;
+const heavyPetShedDisplay = `+$${POLICIES.pets.heavyShedSurcharge}`;
+const travelFeeDisplay = `$${POLICIES.travelFee.minAmount}–$${POLICIES.travelFee.maxAmount}`;
+const cancellationFeeDisplay = `$${POLICIES.cancellation.feeAmount}`;
 
 // Offer schema built from the same table the page renders, so the structured
 // prices and the visible rate card can never disagree.
@@ -510,8 +515,16 @@ const offerSchema = {
           class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center"
         >
           <Icon name="paw" class="w-8 h-8 text-[#FFA985] mb-4" />
+          <h4 class="font-bold text-[#333333] mb-2">Pet Fee</h4>
+          <p class="text-2xl font-bold text-[#333333]">{petFeeDisplay}</p>
+        </div>
+        <div
+          class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center"
+        >
+          <Icon name="paw" class="w-8 h-8 text-[#FFA985] mb-4" />
           <h4 class="font-bold text-[#333333] mb-2">Extra Pet Hair Shed</h4>
-          <p class="text-2xl font-bold text-[#333333]">+$100</p>
+          <p class="text-2xl font-bold text-[#333333]">{heavyPetShedDisplay}</p>
+          <p class="text-xs text-gray-400 mt-1">Separate from the per-pet fee</p>
         </div>
         <div
           class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center"
@@ -526,6 +539,7 @@ const offerSchema = {
           <Icon name="leaf" class="w-8 h-8 text-[#FFA985] mb-4" />
           <h4 class="font-bold text-[#333333] mb-2">Green Products</h4>
           <p class="text-2xl font-bold text-[#333333]">FREE</p>
+          <p class="text-xs text-gray-400 mt-1">Available upon request</p>
         </div>
       </div>
     </div>
@@ -533,7 +547,7 @@ const offerSchema = {
 
   <!-- Commercial Pricing -->
   <section class="py-20 px-6">
-    <div class="container mx-auto max-w-4xl">
+    <div class="container mx-auto max-w-5xl">
       <div
         class="bg-gradient-to-br from-[#333333] to-[#1a1a2e] rounded-2xl p-8 md:p-12 text-white text-center"
       >
@@ -545,33 +559,36 @@ const offerSchema = {
         <h2 class="text-3xl md:text-4xl font-bold mb-4">
           Commercial & Office Cleaning
         </h2>
-        <p class="text-xl text-gray-300 mb-6">
-          Custom pricing based on your business needs
+        <p class="text-xl text-gray-300 mb-8">
+          Commercial pricing is built around your actual facility and cleaning scope.
         </p>
-        <div class="grid md:grid-cols-3 gap-6 mb-8">
-          <div class="bg-white/10 rounded-xl p-4">
-            <h4 class="font-bold text-[#FFA985]">Small Office</h4>
-            <p class="text-sm text-gray-300">Under 2,000 sq ft</p>
-            <p class="text-xs text-gray-400 mt-2">Base rate from</p>
-            <p class="text-2xl font-bold">$150+</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="bg-white/10 rounded-xl p-5">
+            <p class="text-sm font-bold text-[#FFA985] mb-2">STEP 1</p>
+            <h4 class="font-bold text-lg">Square Footage</h4>
+            <p class="text-sm text-gray-300 mt-2">Tell us the cleanable square footage of your space.</p>
           </div>
-          <div class="bg-white/10 rounded-xl p-4">
-            <h4 class="font-bold text-[#FFA985]">Medium Office</h4>
-            <p class="text-sm text-gray-300">2,000-5,000 sq ft</p>
-            <p class="text-xs text-gray-400 mt-2">Base rate from</p>
-            <p class="text-2xl font-bold">$300+</p>
+          <div class="bg-white/10 rounded-xl p-5">
+            <p class="text-sm font-bold text-[#FFA985] mb-2">STEP 2</p>
+            <h4 class="font-bold text-lg">Task List</h4>
+            <p class="text-sm text-gray-300 mt-2">Choose the cleaning tasks your facility needs completed.</p>
           </div>
-          <div class="bg-white/10 rounded-xl p-4">
-            <h4 class="font-bold text-[#FFA985]">Large Office</h4>
-            <p class="text-sm text-gray-300">5,000+ sq ft</p>
-            <p class="text-2xl font-bold mt-2">Custom Quote</p>
+          <div class="bg-white/10 rounded-xl p-5">
+            <p class="text-sm font-bold text-[#FFA985] mb-2">STEP 3</p>
+            <h4 class="font-bold text-lg">How Many Times Per Week?</h4>
+            <p class="text-sm text-gray-300 mt-2">Tell us how often you need service each week.</p>
+          </div>
+          <div class="bg-white/10 rounded-xl p-5">
+            <p class="text-sm font-bold text-[#FFA985] mb-2">STEP 4</p>
+            <h4 class="font-bold text-lg">Get Your Quote</h4>
+            <p class="text-sm text-gray-300 mt-2">We price the scope from those three inputs and provide your quote.</p>
           </div>
         </div>
         <a
-          href="tel:2568261100"
+          href="/commercial-quote"
           class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition"
         >
-          <Icon name="phone" class="w-5 h-5 mr-2" />Call for Commercial Quote
+          <Icon name="building" class="w-5 h-5 mr-2" />Get Your Commercial Quote
         </a>
       </div>
     </div>
@@ -692,14 +709,6 @@ const offerSchema = {
               supplies & equipment
             </li>
             <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 mr-2 mt-1" />Travel within our
-              service areas
-            </li>
-            <li class="flex items-start">
-              <Icon name="check" class="w-5 h-5 mr-2 mt-1" />Homes with pets
-              (standard conditions)
-            </li>
-            <li class="flex items-start">
               <Icon name="check" class="w-5 h-5 mr-2 mt-1" />Green/eco-friendly
               products upon request
             </li>
@@ -724,8 +733,8 @@ const offerSchema = {
             </li>
             <li class="flex items-start">
               <Icon name="arrow-right" class="w-5 h-5 mr-2 mt-1" /><strong
-                >Heavy pet hair/accidents:</strong
-              > Quoted based on condition
+                >Pets:</strong
+              > {petFeeDisplay}; heavy pet hair shed is a separate {heavyPetShedDisplay} surcharge
             </li>
             <li class="flex items-start">
               <Icon name="arrow-right" class="w-5 h-5 mr-2 mt-1" /><strong
@@ -739,8 +748,8 @@ const offerSchema = {
             </li>
             <li class="flex items-start">
               <Icon name="arrow-right" class="w-5 h-5 mr-2 mt-1" /><strong
-                >Outside core service area:</strong
-              > Travel fee may apply
+                >Travel:</strong
+              > {travelFeeDisplay} when applicable; disclosed upfront
             </li>
           </ul>
         </div>
@@ -758,15 +767,15 @@ const offerSchema = {
     </div>
   </section>
 
-  <!-- Price Match -->
+  <!-- Pricing Philosophy -->
   <section class="py-12 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
     <div class="container mx-auto text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
-        <Icon name="tag" class="w-5 h-5 mr-3" />Price Match Guarantee
+        <Icon name="tag" class="w-5 h-5 mr-3" />Straightforward Pricing
       </h2>
-      <p class="text-xl text-[#333333]/80 max-w-2xl mx-auto">
-        Found a lower price from a licensed, insured competitor? Show us the
-        quote and we'll match it!
+      <p class="text-xl text-[#333333]/80 max-w-3xl mx-auto">
+        We price our work around the service and scope we provide. We do not
+        price-match competitors, and we disclose applicable fees before service.
       </p>
     </div>
   </section>
@@ -812,13 +821,10 @@ const offerSchema = {
           </div>
           <div class="faq-answer">
             <p class="text-gray-600 mt-4">
-              We love pets! <strong
-                >Standard pet households have no extra charge</strong
-              > - normal pet hair and pet-related cleaning is included. For homes
-              with multiple large pets, excessive shedding, or pet accidents that
-              require specialized cleaning, we'll provide an honest quote upfront
-              based on the actual condition. We'll never surprise you with hidden
-              fees.
+              Yes. The standard pet fee is <strong>{petFeeDisplay}</strong>. If a
+              home requires extra work for heavy pet hair shed, the separate
+              <strong>{heavyPetShedDisplay}</strong> heavy-shed surcharge also applies.
+              Applicable pet charges are shown upfront.
             </p>
           </div>
         </div>
@@ -852,11 +858,8 @@ const offerSchema = {
           </div>
           <div class="faq-answer">
             <p class="text-gray-600 mt-4">
-              <strong>No travel fees within our core service areas</strong> (Huntsville,
-              Madison, Athens, Mountain Brook, Muscle Shoals/Florence,
-              Nashville, and West Nashville). For locations outside these areas, a
-              small travel fee may apply - we'll let you know upfront when you request
-              a quote.
+              Travel fees are <strong>{travelFeeDisplay}</strong> when applicable.
+              We disclose any travel fee upfront with your quote.
             </p>
           </div>
         </div>
@@ -892,8 +895,8 @@ const offerSchema = {
           </div>
           <div class="faq-answer">
             <p class="text-gray-600 mt-4">
-              We accept all major credit cards, debit cards, cash, Venmo, Zelle,
-              and checks. Payment is due upon completion of service.
+              We accept credit and debit cards. Payment is due upon completion
+              of service.
             </p>
           </div>
         </div>
@@ -910,10 +913,10 @@ const offerSchema = {
           </div>
           <div class="faq-answer">
             <p class="text-gray-600 mt-4">
-              We understand life happens. Cancellations made 24+ hours in
-              advance have no fee. Cancellations within 24 hours may incur a $50
-              fee. No-shows without notice will be charged the full service
-              amount.
+              Cancellations made 24 or more hours before the appointment have no
+              fee. A <strong>{cancellationFeeDisplay}</strong> fee applies to
+              cancellations made less than 24 hours before the appointment,
+              no-shows, and lock-outs.
             </p>
           </div>
         </div>
