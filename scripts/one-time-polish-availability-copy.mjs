@@ -15,6 +15,7 @@ const replacements = new Map([
   ['Check current service availability in BookingKoala based on schedule', 'Check current service availability in BookingKoala'],
   ['Check current availability in BookingKoala based on schedule', 'Check current availability in BookingKoala'],
   ['Check Current Availability in BookingKoala - Call Now!', 'Check Current Availability in BookingKoala'],
+  ['Same-day service:</strong\n              > +$25-50 rush fee (when available)', 'Scheduling:</strong\n              > Check BookingKoala for current availability'],
   ['Service availability is shown in BookingKoala and\n              includes a $25-50 rush fee depending on the service type. For best\n              availability, we recommend booking at least 24-48 hours in\n              advance. We recommend booking 2–3 days ahead for the best availability. Call 256-826-1100 for current scheduling options.', 'Current scheduling options are shown in BookingKoala. For the best\n              selection, we recommend booking 2–3 days ahead when possible.'],
 ]);
 
