@@ -109,7 +109,9 @@ for (const root of roots) {
         }
       }
 
-      const discountPattern = /(?:save\s+)?(\d+)%[^.\n]{0,80}(?:recurring|discount|one-time)|(?:recurring|discount|save)[^.\n]{0,80}(\d+)%/gi;
+      // Keep both sides non-greedy so "20% ... discount" is captured as 20,
+      // not as the trailing 0 from a backtracking match.
+      const discountPattern = /(?:save\s+)?\b(\d+)%[^.\n]{0,80}?(?:recurring|discount|one-time)|(?:recurring|discount|save)[^.\n]{0,80}?\b(\d+)%/gi;
       for (const match of source.matchAll(discountPattern)) {
         const amount = Number(match[1] ?? match[2]);
         if (amount !== expected.discount) {
