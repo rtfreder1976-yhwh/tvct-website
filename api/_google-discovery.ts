@@ -28,7 +28,17 @@ type JWTAuth = InstanceType<typeof google.auth.JWT>;
 const SITE_MEASUREMENT_ID = process.env.GA4_MEASUREMENT_ID || 'G-LXHE2DSZ7T';
 
 export type Resolution<T> =
-  | { ok: true; value: T; source: 'env' | 'discovered'; note?: string }
+  | {
+      ok: true;
+      value: T;
+      source: 'env' | 'discovered';
+      note?: string;
+      // These fields are absent on success. Declaring them as optional `never`
+      // keeps that invariant while allowing consumers compiled by toolchains
+      // that do not narrow `!result.ok` to inspect failure fields safely.
+      error?: never;
+      message?: never;
+    }
   | { ok: false; error: string; message: string };
 
 function grantAccessMessage(clientEmail: string, what: string, where: string): string {
