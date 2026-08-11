@@ -66,65 +66,78 @@ function cookieValue(cookieHeader: string, name: string): string | undefined {
   return undefined;
 }
 
-/**
- * URLSearchParams interprets `+` as a space. Try the decoded value and the
- * common base64 recovery form so a correctly generated secret is not rejected
- * merely because it was pasted into a URL. `&` still must be percent-encoded.
- */
-function queryKeyCandidates(url: URL): string[] {
-  const decoded = url.searchParams.get('key');
-  if (!decoded) return [];
-  const candidates = new Set<string>([decoded, decoded.replace(/ /g, '+')]);
-  return [...candidates].map(normalizeAdminSecret).filter(Boolean);
+/** Verify a submitted admin secret without ever putting it in a URL. */
+export function adminSecretMatches(
+  candidateRaw: string | undefined,
+  adminSecretRaw: string | undefined,
+): boolean {
+  const candidate = normalizeAdminSecret(candidateRaw);
+  const adminSecret = normalizeAdminSecret(adminSecretRaw);
+
+  if (!candidate || adminSecret.length < ADMIN_SECRET_MIN_LENGTH) return false;
+  return secretsMatch(candidate, adminSecret);
+}
+
+/** Mint the signed browser-session cookie after a successful POST login. */
+export function createAdminSessionCookie(adminSecretRaw: string | undefined): string | null {
+  const adminSecret = normalizeAdminSecret(adminSecretRaw);
+  if (adminSecret.length < ADMIN_SECRET_MIN_LENGTH) return null;
+
+  const token = createSessionToken(adminSecret);
+  return (
+    `${ADMIN_COOKIE_NAME}=${token}; HttpOnly; Secure; SameSite=Strict; ` +
+    `Path=/; Max-Age=${SESSION_MAX_AGE}`
+  );
 }
 
 export type AdminAuthResult =
-  | { ok: true; setCookie?: string }
+  | { ok: true }
   | { ok: false; response: Response };
 
+/**
+ * Browser authorization is cookie-only. The admin secret itself is accepted
+ * only by the POST login page, so it never needs to appear in browser history,
+ * copied URLs, referrers, or server access logs.
+ */
 export function authorizeAdmin(
-  url: URL,
   request: Request,
   adminSecretRaw: string | undefined,
-  loginPath: string,
+  loginPath = '/admin/login',
 ): AdminAuthResult {
-  const deny = (message: string, status: number): AdminAuthResult => ({
-    ok: false,
-    response: new Response(message, {
-      status,
-      headers: {
-        'Content-Type': 'text/plain',
-        'Cache-Control': 'private, no-store, max-age=0',
-        'Referrer-Policy': 'no-referrer',
-      },
-    }),
-  });
-
   const adminSecret = normalizeAdminSecret(adminSecretRaw);
+
   if (!adminSecret) {
-    return deny(
-      'This dashboard is not configured — ADMIN_SECRET is not set in the deployment environment.',
-      503,
-    );
+    return {
+      ok: false,
+      response: new Response(
+        'This dashboard is not configured — ADMIN_SECRET is not set in the deployment environment.',
+        {
+          status: 503,
+          headers: {
+            'Content-Type': 'text/plain',
+            'Cache-Control': 'private, no-store, max-age=0',
+            'Referrer-Policy': 'no-referrer',
+          },
+        },
+      ),
+    };
   }
 
   if (adminSecret.length < ADMIN_SECRET_MIN_LENGTH) {
-    return deny(
-      `ADMIN_SECRET must be at least ${ADMIN_SECRET_MIN_LENGTH} characters.`,
-      503,
-    );
-  }
-
-  for (const queryKey of queryKeyCandidates(url)) {
-    if (secretsMatch(queryKey, adminSecret)) {
-      const token = createSessionToken(adminSecret);
-      return {
-        ok: true,
-        setCookie:
-          `${ADMIN_COOKIE_NAME}=${token}; HttpOnly; Secure; SameSite=Strict; ` +
-          `Path=/; Max-Age=${SESSION_MAX_AGE}`,
-      };
-    }
+    return {
+      ok: false,
+      response: new Response(
+        `ADMIN_SECRET must be at least ${ADMIN_SECRET_MIN_LENGTH} characters.`,
+        {
+          status: 503,
+          headers: {
+            'Content-Type': 'text/plain',
+            'Cache-Control': 'private, no-store, max-age=0',
+            'Referrer-Policy': 'no-referrer',
+          },
+        },
+      ),
+    };
   }
 
   const cookie = request.headers.get('cookie') ?? '';
@@ -133,9 +146,16 @@ export function authorizeAdmin(
     return { ok: true };
   }
 
-  return deny(
-    `Unauthorized — visit ${loginPath}?key=YOUR_ADMIN_SECRET to establish a temporary session. ` +
-      'If the secret contains & or other reserved URL characters, percent-encode them.',
-    401,
-  );
+  return {
+    ok: false,
+    response: new Response(null, {
+      status: 303,
+      headers: {
+        Location: loginPath,
+        'Cache-Control': 'private, no-store, max-age=0',
+        'Referrer-Policy': 'no-referrer',
+        'X-Robots-Tag': 'noindex, nofollow',
+      },
+    }),
+  };
 }
