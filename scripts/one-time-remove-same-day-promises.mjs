@@ -30,6 +30,7 @@ const forbidden = [
   /same[- ]day[^\n.]{0,100}\b(?:available|availability|appointments?|openings?|slots?)\b/i,
   /\b(?:available|availability|appointments?|openings?|slots?)\b[^\n.]{0,100}same[- ]day/i,
 ];
+const neutralSameDayPatterns = [/same[- ]day cancellations?/i];
 
 function walk(dir) {
   const files = [];
@@ -59,11 +60,33 @@ for (const file of walk('src')) {
   }
 }
 
+// Keep the permanent guard strict about service availability while allowing
+// neutral policy wording such as "same-day cancellations".
+const validatorPath = 'scripts/validate-claim-drift.mjs';
+let validator = fs.readFileSync(validatorPath, 'utf8');
+if (!validator.includes('sameDayNeutralPatterns')) {
+  const withNeutralPattern = validator.replace(
+    "const customerSourceExtensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx']);",
+    "const sameDayNeutralPatterns = [/same[- ]day cancellations?/i];\nconst customerSourceExtensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx']);",
+  );
+  const withNeutralSkip = withNeutralPattern.replace(
+    '    if (match) {\n      failures.push(',
+    '    if (match && sameDayNeutralPatterns.some((neutral) => neutral.test(match[0]))) continue;\n    if (match) {\n      failures.push(',
+  );
+  if (withNeutralSkip === validator || !withNeutralSkip.includes('sameDayNeutralPatterns')) {
+    throw new Error('Could not refine permanent same-day claim guard');
+  }
+  validator = withNeutralSkip;
+  fs.writeFileSync(validatorPath, validator);
+  console.log(`updated ${validatorPath}`);
+}
+
 const residuals = [];
 for (const file of walk('src')) {
   const source = fs.readFileSync(file, 'utf8');
   for (const pattern of forbidden) {
     const match = source.match(pattern);
+    if (match && neutralSameDayPatterns.some((neutral) => neutral.test(match[0]))) continue;
     if (match) {
       residuals.push(`${file}: ${JSON.stringify(match[0].trim())}`);
       break;
