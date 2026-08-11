@@ -46,6 +46,16 @@ const required = [
     text: 'IDENTITY.primaryPhraseCapitalized',
     why: 'default metadata ownership language must derive from claims.ts',
   },
+  {
+    file: 'src/pages/admin/login.astro',
+    text: 'Astro.request.method === "POST"',
+    why: 'browser admin authentication must submit the secret in a POST body',
+  },
+  {
+    file: 'src/pages/admin/login.astro',
+    text: 'createAdminSessionCookie',
+    why: 'successful admin login must mint the short-lived signed session cookie',
+  },
 ];
 
 const forbidden = [
@@ -93,6 +103,16 @@ const forbidden = [
     file: 'src/layouts/BaseLayout.astro',
     text: '150+ 5-star reviews',
     why: 'default metadata must not reintroduce stale review-count copy',
+  },
+  {
+    file: 'src/lib/adminAuth.ts',
+    text: "searchParams.get('key')",
+    why: 'ADMIN_SECRET must never be accepted from a browser query string',
+  },
+  {
+    file: 'src/lib/adminAuth.ts',
+    text: '?key=YOUR_ADMIN_SECRET',
+    why: 'admin documentation/errors must not instruct users to put secrets in URLs',
   },
 ];
 

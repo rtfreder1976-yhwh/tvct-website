@@ -62,7 +62,7 @@ function cookieValue(req: ApiRequest, name: string): string | undefined {
 /**
  * Authorize either a trusted server-to-server request carrying ADMIN_SECRET in
  * x-admin-key, or a browser request carrying the short-lived HMAC session token
- * minted by src/lib/adminAuth.ts. The browser never receives ADMIN_SECRET.
+ * minted after a POST to /admin/login. The browser never receives ADMIN_SECRET.
  */
 export function requireAdmin(req: ApiRequest, res: ApiResponse): boolean {
   const secret = normalizeSecret(process.env.ADMIN_SECRET);
@@ -85,7 +85,7 @@ export function requireAdmin(req: ApiRequest, res: ApiResponse): boolean {
     error: 'Unauthorized',
     message:
       'Send the admin secret as an x-admin-key header from a trusted server, ' +
-      'or sign in at /admin/dashboard to establish a temporary browser session.',
+      'or sign in at /admin/login to establish a temporary browser session.',
   });
   return false;
 }
