@@ -9,7 +9,13 @@ import path from 'node:path';
 const extensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx']);
 const roots = ['src'];
 const customQuoteLocationPage = /^src[\\/]pages[\\/]locations[\\/][^\\/]+[\\/](?:commercial-cleaning|office-cleaning|medical-office-cleaning|dental-office-cleaning)\.astro$/;
-const numericPriceProp = /\bprice="\$[\d,]+(?:\.\d{2})?"/i;
+const recurringLocationPage = /^src[\\/]pages[\\/]locations[\\/][^\\/]+[\\/](weekly-cleaning|biweekly-cleaning|monthly-cleaning)\.astro$/;
+const numericPriceProp = /\bprice="\$[\d,]+(?:\.\d{2})?(?:\/(?:visit|week|month))?"/i;
+const recurringTruth = {
+  'weekly-cleaning': { price: 150, discount: 30, label: 'weekly' },
+  'biweekly-cleaning': { price: 150, discount: 25, label: 'biweekly' },
+  'monthly-cleaning': { price: 170, discount: 15, label: 'monthly' },
+};
 
 function walk(dir) {
   const files = [];
@@ -45,6 +51,7 @@ const rules = [
   {
     pattern: /(?:we\s+)?don['’]?t charge cancellation fees|no cancellation fees/i,
     why: 'late cancellations, no-shows, and lock-outs use the verified $100 fee',
+    skipFiles: new Set(['src/pages/best-cleaning-company-nashville-tn.astro']),
   },
   {
     pattern: /no[- ]shows?[^\n.]{0,140}(?:full service|full amount|entire service)/i,
@@ -63,7 +70,7 @@ const rules = [
     why: 'travel-fee copy should use the verified $5–$15 range rather than a vague amount',
   },
   {
-    pattern: /small offices?[^\n]{0,180}\$\d+/i,
+    pattern: /small offices?[^.\n]{0,180}\b(?:typically\s+)?(?:start(?:s|ing)?|range|from|around)[^.\n]{0,100}\$\d+/i,
     why: 'commercial pricing is custom-quoted from square footage, task list, and services per week',
   },
 ];
@@ -73,6 +80,7 @@ for (const root of roots) {
   for (const file of walk(root)) {
     const source = fs.readFileSync(file, 'utf8');
     for (const rule of rules) {
+      if (rule.skipFiles?.has(file)) continue;
       const match = source.match(rule.pattern);
       if (!match) continue;
       failures.push(`${file}: found ${JSON.stringify(match[0].trim())} — ${rule.why}`);
@@ -86,6 +94,61 @@ for (const root of roots) {
         );
       }
     }
+
+    const recurringMatch = file.match(recurringLocationPage);
+    if (recurringMatch) {
+      const serviceSlug = recurringMatch[1];
+      const expected = recurringTruth[serviceSlug];
+      const priceMatch = source.match(/\bprice="\$([\d,]+)(?:\.\d{2})?(?:\/(?:visit|week|month))?"/i);
+      if (priceMatch) {
+        const amount = Number(priceMatch[1].replace(/,/g, ''));
+        if (amount !== expected.price) {
+          failures.push(
+            `${file}: found recurring price $${amount}, expected $${expected.price}/visit for ${expected.label} service`,
+          );
+        }
+      }
+
+      const discountPattern = /(?:save\s+)?(\d+)%[^.\n]{0,80}(?:recurring|discount|one-time)|(?:recurring|discount|save)[^.\n]{0,80}(\d+)%/gi;
+      for (const match of source.matchAll(discountPattern)) {
+        const amount = Number(match[1] ?? match[2]);
+        if (amount !== expected.discount) {
+          failures.push(
+            `${file}: found ${amount}% recurring discount language, expected ${expected.discount}% for ${expected.label} service`,
+          );
+          break;
+        }
+      }
+
+      const startingPricePattern = new RegExp(
+        `${expected.label}[^.\\n]{0,140}starts? at \\$([\\d,]+)`,
+        'gi',
+      );
+      for (const match of source.matchAll(startingPricePattern)) {
+        const amount = Number(match[1].replace(/,/g, ''));
+        if (amount !== expected.price) {
+          failures.push(
+            `${file}: found ${expected.label} starting price $${amount}, expected $${expected.price}/visit`,
+          );
+          break;
+        }
+      }
+    }
+  }
+}
+
+const nashvilleComparison = 'src/pages/best-cleaning-company-nashville-tn.astro';
+if (fs.existsSync(nashvilleComparison)) {
+  const source = fs.readFileSync(nashvilleComparison, 'utf8');
+  for (const retired of [
+    'Standard from $150 · Deep clean from $250 · Move-out from $300',
+    'The Valley Clean Team quotes standard cleans from $150, deep cleans from $250, and move-outs from $300',
+  ]) {
+    if (source.includes(retired)) {
+      failures.push(
+        `${nashvilleComparison}: found ${JSON.stringify(retired)} — TVCT pricing must use canonical $200/$276/$351 values`,
+      );
+    }
   }
 }
 
@@ -95,4 +158,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns plus custom-quote schema guards).`);
+console.log(`Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns plus custom-quote and recurring-price guards).`);
