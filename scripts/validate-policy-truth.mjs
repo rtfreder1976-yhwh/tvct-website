@@ -8,6 +8,8 @@ import path from 'node:path';
  */
 const extensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx']);
 const roots = ['src'];
+const customQuoteLocationPage = /^src[\\/]pages[\\/]locations[\\/][^\\/]+[\\/](?:commercial-cleaning|office-cleaning|medical-office-cleaning|dental-office-cleaning)\.astro$/;
+const numericPriceProp = /\bprice="\$[\d,]+(?:\.\d{2})?"/i;
 
 function walk(dir) {
   const files = [];
@@ -29,16 +31,20 @@ const rules = [
     why: 'competitor price matching is not offered',
   },
   {
-    pattern: /(?:cash|venmo|zelle|checks?)[^\n.]{0,120}(?:payment|accept|accepted)/i,
+    pattern: /(?<!non-)\b(?:cash|venmo|zelle|checks|(?:paper|personal)\s+check)\b[^\n.]{0,120}\b(?:payment|accept|accepted)\b/i,
     why: 'customer payments are credit or debit card only',
   },
   {
-    pattern: /(?:payment|accept|accepted)[^\n.]{0,120}(?:cash|venmo|zelle|checks?)/i,
+    pattern: /\b(?:payment|accept|accepted)\b[^\n.]{0,120}(?<!non-)\b(?:cash|venmo|zelle|checks|(?:paper|personal)\s+check)\b/i,
     why: 'customer payments are credit or debit card only',
   },
   {
     pattern: /(?:cancellations?|cancel)[^\n.]{0,140}\$50\b/i,
     why: 'late cancellations use the verified $100 fee',
+  },
+  {
+    pattern: /(?:we\s+)?don['’]?t charge cancellation fees|no cancellation fees/i,
+    why: 'late cancellations, no-shows, and lock-outs use the verified $100 fee',
   },
   {
     pattern: /no[- ]shows?[^\n.]{0,140}(?:full service|full amount|entire service)/i,
@@ -57,7 +63,7 @@ const rules = [
     why: 'travel-fee copy should use the verified $5–$15 range rather than a vague amount',
   },
   {
-    pattern: /(?:small office|medium office)[^\n]{0,180}\$(?:150|300)\+?/i,
+    pattern: /small offices?[^\n]{0,180}\$\d+/i,
     why: 'commercial pricing is custom-quoted from square footage, task list, and services per week',
   },
 ];
@@ -71,6 +77,15 @@ for (const root of roots) {
       if (!match) continue;
       failures.push(`${file}: found ${JSON.stringify(match[0].trim())} — ${rule.why}`);
     }
+
+    if (customQuoteLocationPage.test(file)) {
+      const match = source.match(numericPriceProp);
+      if (match) {
+        failures.push(
+          `${file}: found ${JSON.stringify(match[0])} — custom-quoted commercial/office pages must not emit a numeric Offer price`,
+        );
+      }
+    }
   }
 }
 
@@ -80,4 +95,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns).`);
+console.log(`Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns plus custom-quote schema guards).`);
