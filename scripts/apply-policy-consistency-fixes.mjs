@@ -2,10 +2,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = 'src';
-const commercialPricingSentence = /Small offices(?: \([^)]*\))? (?:typically |may )?start(?: at| around)? \$\d+(?:[–-]\$\d+)?(?:\/visit| per visit)?\./g;
 const travelFeePhrase = /small travel fee/gi;
 const customQuotePath = /src[\\/]pages[\\/]locations[\\/][^\\/]+[\\/](?:commercial-cleaning|office-cleaning|medical-office-cleaning|dental-office-cleaning)\.astro$/;
 const numericPriceProp = /\bprice="\$[\d,]+(?:\.\d{2})?"/g;
+
+const commercialPricingFiles = new Set([
+  path.join('src', 'pages', 'ads', 'huntsville-commercial-cleaning.astro'),
+  path.join('src', 'pages', 'locations', 'florence', 'commercial-cleaning.astro'),
+  path.join('src', 'pages', 'locations', 'madison', 'commercial-cleaning.astro'),
+  path.join('src', 'pages', 'locations', 'nashville', 'commercial-cleaning.astro'),
+  path.join('src', 'pages', 'locations', 'nashville', 'office-cleaning.astro'),
+  path.join('src', 'pages', 'locations', 'tuscumbia', 'commercial-cleaning.astro'),
+  path.join('src', 'pages', 'locations', 'west-nashville', 'commercial-cleaning.astro'),
+]);
 
 const replacementCommercialPricing = 'Commercial pricing is custom-quoted based on square footage, task list, and services per week.';
 
@@ -28,10 +37,17 @@ for (const file of walk(ROOT)) {
   let source = fs.readFileSync(file, 'utf8');
   const before = source;
 
-  source = source.replace(commercialPricingSentence, () => {
-    commercialPricingCount += 1;
-    return replacementCommercialPricing;
-  });
+  if (commercialPricingFiles.has(file)) {
+    let perFileCount = 0;
+    source = source.replace(/Small offices[^.]*\./g, () => {
+      perFileCount += 1;
+      commercialPricingCount += 1;
+      return replacementCommercialPricing;
+    });
+    if (perFileCount !== 1) {
+      throw new Error(`Expected exactly 1 stale Small offices pricing sentence in ${file}, changed ${perFileCount}.`);
+    }
+  }
 
   source = source.replace(travelFeePhrase, () => {
     travelFeeCount += 1;
@@ -70,8 +86,8 @@ if (trust !== trustBefore) {
   changedFiles.add(trustPath);
 }
 
-if (commercialPricingCount !== 7) {
-  throw new Error(`Expected 7 stale commercial-pricing sentences, changed ${commercialPricingCount}.`);
+if (commercialPricingCount !== commercialPricingFiles.size) {
+  throw new Error(`Expected ${commercialPricingFiles.size} stale commercial-pricing sentences, changed ${commercialPricingCount}.`);
 }
 if (travelFeeCount !== 4) {
   throw new Error(`Expected 4 vague travel-fee phrases, changed ${travelFeeCount}.`);
