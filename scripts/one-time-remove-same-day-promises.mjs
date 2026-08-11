@@ -9,7 +9,10 @@ const replacements = new Map([
   ['same-day or last-minute availability', 'current BookingKoala availability'],
   ['Same-day turnovers available', 'Check current turnover availability in BookingKoala'],
   ['Same-day service available', 'Check current availability in BookingKoala'],
+  ['Same-day service often available', 'Check current availability in BookingKoala'],
+  ['Same-day service is available based on team availability', 'Service availability is shown in BookingKoala'],
   ['same-day availability', 'current BookingKoala availability'],
+  ['Same-day availability', 'Current BookingKoala availability'],
   ['Same-day and next-day service available', 'Check current service availability in BookingKoala'],
   ['same-day turnovers, book in advance to ensure availability', 'turnover scheduling; book in advance and check current availability in BookingKoala'],
   ['Same-Day Service Available', 'Check Current Availability in BookingKoala'],
@@ -19,6 +22,7 @@ const replacements = new Map([
   ['Same-day and next-day service is often available', 'Current scheduling availability is shown in BookingKoala'],
   ['Same-day and next-day availability', 'Current BookingKoala availability'],
   ['same day depending on availability', 'through BookingKoala based on current availability'],
+  ['same-day move-out cleaning in Nashville based on availability', 'move-out cleaning in Nashville based on current BookingKoala availability'],
   ['Same-Day Turnover Available', 'Check Current Turnover Availability in BookingKoala'],
 ]);
 
