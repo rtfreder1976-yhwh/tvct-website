@@ -91,18 +91,20 @@ export function createAdminSessionCookie(adminSecretRaw: string | undefined): st
 }
 
 export type AdminAuthResult =
-  | { ok: true }
+  | { ok: true; setCookie?: string }
   | { ok: false; response: Response };
 
 /**
- * Browser authorization is cookie-only. The admin secret itself is accepted
- * only by the POST login page, so it never needs to appear in browser history,
- * copied URLs, referrers, or server access logs.
+ * Browser authorization is cookie-only. The URL argument remains in the
+ * signature for compatibility with existing dashboard callers, but query
+ * parameters are deliberately ignored. The admin secret itself is accepted
+ * only by the POST login page.
  */
 export function authorizeAdmin(
+  _url: URL,
   request: Request,
   adminSecretRaw: string | undefined,
-  loginPath = '/admin/login',
+  _legacyLoginPath?: string,
 ): AdminAuthResult {
   const adminSecret = normalizeAdminSecret(adminSecretRaw);
 
@@ -151,7 +153,7 @@ export function authorizeAdmin(
     response: new Response(null, {
       status: 303,
       headers: {
-        Location: loginPath,
+        Location: '/admin/login',
         'Cache-Control': 'private, no-store, max-age=0',
         'Referrer-Policy': 'no-referrer',
         'X-Robots-Tag': 'noindex, nofollow',
