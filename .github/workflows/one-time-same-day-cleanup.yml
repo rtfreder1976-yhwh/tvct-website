@@ -1,0 +1,37 @@
+name: One-time Same-Day Claim Cleanup
+
+on:
+  push:
+    branches:
+      - codex/remove-same-day-promises
+    paths:
+      - .github/workflows/one-time-same-day-cleanup.yml
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out cleanup branch
+        uses: actions/checkout@v4
+        with:
+          ref: codex/remove-same-day-promises
+          fetch-depth: 0
+
+      - name: Remove availability promises
+        run: node scripts/one-time-remove-same-day-promises.mjs
+
+      - name: Validate claim architecture
+        run: node scripts/validate-claim-drift.mjs
+
+      - name: Commit cleaned source and remove one-time tooling
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm scripts/one-time-remove-same-day-promises.mjs .github/workflows/one-time-same-day-cleanup.yml
+          git add src
+          git diff --cached --quiet && { echo "No cleanup changes were produced"; exit 1; }
+          git commit -m "fix: remove same-day availability promises"
+          git push origin HEAD:codex/remove-same-day-promises
