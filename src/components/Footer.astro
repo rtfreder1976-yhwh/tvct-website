@@ -1,6 +1,6 @@
 ---
 import Icon from "./Icon.astro";
-import { IDENTITY, PERFORMANCE, REVIEWS } from "../data/claims";
+import { IDENTITY, PERFORMANCE, REVIEWS, TRUST } from "../data/claims";
 ---
 
 <style>
@@ -12,25 +12,37 @@ import { IDENTITY, PERFORMANCE, REVIEWS } from "../data/claims";
   }
 </style>
 
-<!-- Sitewide proof bar: only facts backed by src/data/claims.ts. -->
 <section class="py-8 px-6 bg-gradient-to-r from-[#333333] to-[#444444] text-white">
   <div class="container mx-auto">
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6 text-center text-sm">
-      <div>
-        <Icon name="medal" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">Veteran Owned</p>
-        <p class="text-gray-300 text-xs">Verified ownership</p>
-      </div>
-      <div>
-        <Icon name="user-check" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">Woman Owned</p>
-        <p class="text-gray-300 text-xs">Verified ownership</p>
-      </div>
-      <div>
-        <Icon name="home" class="w-5 h-5 text-[#FFA985] mb-2" />
-        <p class="font-semibold">Family Owned</p>
-        <p class="text-gray-300 text-xs">Locally operated</p>
-      </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 text-center text-sm">
+      {TRUST.isInsured && (
+        <div>
+          <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mb-2" />
+          <p class="font-semibold">Insured</p>
+          <p class="text-gray-300 text-xs">Business coverage</p>
+        </div>
+      )}
+      {TRUST.backgroundChecks && (
+        <div>
+          <Icon name="user-check" class="w-5 h-5 text-[#FFA985] mb-2" />
+          <p class="font-semibold">Background Checked</p>
+          <p class="text-gray-300 text-xs">Cleaner screening</p>
+        </div>
+      )}
+      {TRUST.satisfactionGuarantee && TRUST.freeReclean && (
+        <div>
+          <Icon name="redo" class="w-5 h-5 text-[#FFA985] mb-2" />
+          <p class="font-semibold">100% Satisfaction</p>
+          <p class="text-gray-300 text-xs">Free re-clean if needed</p>
+        </div>
+      )}
+      {TRUST.weekendAvailability && (
+        <div>
+          <Icon name="calendar" class="w-5 h-5 text-[#FFA985] mb-2" />
+          <p class="font-semibold">Weekends Available</p>
+          <p class="text-gray-300 text-xs">Check current openings</p>
+        </div>
+      )}
       <div>
         <Icon name="calendar-check" class="w-5 h-5 text-[#FFA985] mb-2" />
         <p class="font-semibold">{PERFORMANCE.avgCleanerExperienceYears} Years Avg.</p>
@@ -69,7 +81,7 @@ import { IDENTITY, PERFORMANCE, REVIEWS } from "../data/claims";
         </div>
         <p class="text-gray-600 mb-3">Thorough, dependable cleaning for homes and offices.</p>
         <p class="text-gray-500 text-xs">
-          {IDENTITY.primaryPhraseCapitalized}, family owned, with cleaners averaging {PERFORMANCE.avgCleanerExperienceYears} years of professional cleaning experience. Proudly serving Alabama & Tennessee.
+          {IDENTITY.primaryPhraseCapitalized}, family owned, insured, with background-checked cleaners and a 100% satisfaction guarantee with free re-cleaning. Weekend appointments are available; check BookingKoala for current openings.
         </p>
       </div>
 
@@ -164,10 +176,10 @@ import { IDENTITY, PERFORMANCE, REVIEWS } from "../data/claims";
           <a href="/terms" class="hover:text-[#FFA985] transition underline underline-offset-4 decoration-gray-300">Terms of Service</a>
         </p>
         <div class="flex flex-wrap justify-center gap-4 text-xs">
-          <span><Icon name="medal" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Veteran Owned</span>
-          <span><Icon name="user-check" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Woman Owned</span>
-          <span><Icon name="home" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Family Owned</span>
-          <span><Icon name="star" class="w-4 h-4 text-[#FFA985] mr-1 inline" />{REVIEWS.rating}★ Google Rating</span>
+          {TRUST.isInsured && <span><Icon name="shield-alt" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Insured</span>}
+          {TRUST.backgroundChecks && <span><Icon name="user-check" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Background Checked</span>}
+          {TRUST.satisfactionGuarantee && TRUST.freeReclean && <span><Icon name="redo" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Satisfaction Guaranteed</span>}
+          {TRUST.weekendAvailability && <span><Icon name="calendar" class="w-4 h-4 text-[#FFA985] mr-1 inline" />Weekends Available</span>}
         </div>
       </div>
     </div>

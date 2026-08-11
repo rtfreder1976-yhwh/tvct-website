@@ -1,14 +1,13 @@
 ---
 import Icon from './Icon.astro';
-import { IDENTITY, PERFORMANCE, REVIEWS } from '../data/claims';
+import { IDENTITY, PERFORMANCE, REVIEWS, TRUST } from '../data/claims';
 
 interface Props {
   variant?: 'full' | 'compact' | 'inline' | 'section';
-  /** Retained for call-site compatibility; guarantee copy is intentionally retired. */
   showGuarantee?: boolean;
 }
 
-const { variant = 'full' } = Astro.props;
+const { variant = 'full', showGuarantee = true } = Astro.props;
 const reviewSummary = `${REVIEWS.rating}★ across ${REVIEWS.countDisplay} Google reviews`;
 ---
 
@@ -20,29 +19,53 @@ const reviewSummary = `${REVIEWS.rating}★ across ${REVIEWS.countDisplay} Googl
         <div class="section-divider"></div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center mb-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 text-center mb-12">
+        {TRUST.isInsured && (
+          <div class="trust-badge">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+              <Icon name="shield-alt" class="w-6 h-6 text-white" />
+            </div>
+            <h4 class="font-bold text-[#333333] text-sm mb-1">Insured</h4>
+            <p class="text-xs text-gray-600">Business coverage</p>
+          </div>
+        )}
+
+        {TRUST.backgroundChecks && (
+          <div class="trust-badge">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+              <Icon name="user-check" class="w-6 h-6 text-white" />
+            </div>
+            <h4 class="font-bold text-[#333333] text-sm mb-1">Background Checked</h4>
+            <p class="text-xs text-gray-600">Cleaner screening</p>
+          </div>
+        )}
+
+        {showGuarantee && TRUST.satisfactionGuarantee && TRUST.freeReclean && (
+          <div class="trust-badge">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+              <Icon name="redo" class="w-6 h-6 text-white" />
+            </div>
+            <h4 class="font-bold text-[#333333] text-sm mb-1">100% Satisfaction</h4>
+            <p class="text-xs text-gray-600">Free re-clean if needed</p>
+          </div>
+        )}
+
+        {TRUST.weekendAvailability && (
+          <div class="trust-badge">
+            <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
+              <Icon name="calendar" class="w-6 h-6 text-white" />
+            </div>
+            <h4 class="font-bold text-[#333333] text-sm mb-1">Weekends Available</h4>
+            <p class="text-xs text-gray-600">Check current openings</p>
+          </div>
+        )}
+
         <div class="trust-badge">
           <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
             <Icon name="medal" class="w-6 h-6 text-white" />
           </div>
-          <h4 class="font-bold text-[#333333] text-sm mb-1">Veteran Owned</h4>
-          <p class="text-xs text-gray-600">Verified ownership</p>
-        </div>
-
-        <div class="trust-badge">
-          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
-            <Icon name="user-check" class="w-6 h-6 text-white" />
-          </div>
-          <h4 class="font-bold text-[#333333] text-sm mb-1">Woman Owned</h4>
-          <p class="text-xs text-gray-600">Verified ownership</p>
-        </div>
-
-        <div class="trust-badge">
-          <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
-            <Icon name="home" class="w-6 h-6 text-white" />
-          </div>
-          <h4 class="font-bold text-[#333333] text-sm mb-1">Family Owned</h4>
-          <p class="text-xs text-gray-600">Locally operated</p>
+          <h4 class="font-bold text-[#333333] text-sm mb-1">Veteran & Woman Owned</h4>
+          <p class="text-xs text-gray-600">Family owned</p>
         </div>
 
         <div class="trust-badge">
@@ -73,13 +96,13 @@ const reviewSummary = `${REVIEWS.rating}★ across ${REVIEWS.countDisplay} Googl
       <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="font-bold text-[#333333] mb-4 flex items-center">
-            <Icon name="users" class="w-5 h-5 text-[#FFA985] mr-2" />
-            Ownership
+            <Icon name="shield-alt" class="w-5 h-5 text-[#FFA985] mr-2" />
+            Protection & Screening
           </h3>
           <ul class="space-y-2 text-sm text-gray-600">
-            <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />{IDENTITY.primaryPhraseCapitalized}</li>
-            <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Family owned</li>
-            <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Serving customers across Alabama and Tennessee</li>
+            {TRUST.isInsured && <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Insured</li>}
+            {TRUST.backgroundChecks && <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Background checks</li>}
+            <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />{IDENTITY.primaryPhraseCapitalized} and family owned</li>
           </ul>
         </div>
 
@@ -98,12 +121,12 @@ const reviewSummary = `${REVIEWS.rating}★ across ${REVIEWS.countDisplay} Googl
         <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
           <h3 class="font-bold text-[#333333] mb-4 flex items-center">
             <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2" />
-            Customer Proof
+            Service Promise
           </h3>
           <ul class="space-y-2 text-sm text-gray-600">
             <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />{reviewSummary}</li>
-            <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />{PERFORMANCE.customersServedDisplay} customers served</li>
-            <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Quote requests answered within {PERFORMANCE.quoteResponseSla}</li>
+            {showGuarantee && TRUST.satisfactionGuarantee && TRUST.freeReclean && <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />100% satisfaction guarantee with free re-cleaning</li>}
+            {TRUST.weekendAvailability && <li><Icon name="check" class="w-4 h-4 text-green-500 mr-2 inline" />Weekend appointments available; check current openings</li>}
           </ul>
         </div>
       </div>
@@ -114,43 +137,40 @@ const reviewSummary = `${REVIEWS.rating}★ across ${REVIEWS.countDisplay} Googl
 {variant === 'full' && (
   <div class="trust-badges py-6 px-4 bg-white rounded-2xl border border-gray-200 shadow-sm">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="trust-badge">
-        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
-          <Icon name="medal" class="w-5 h-5 text-white" />
+      {TRUST.isInsured && (
+        <div class="trust-badge">
+          <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3"><Icon name="shield-alt" class="w-5 h-5 text-white" /></div>
+          <h4 class="font-bold text-[#333333] text-sm mb-1">Insured</h4>
+          <p class="text-xs text-gray-600">Business coverage</p>
         </div>
-        <h4 class="font-bold text-[#333333] text-sm mb-1">Veteran & Woman Owned</h4>
-        <p class="text-xs text-gray-600">Family owned</p>
-      </div>
-
-      <div class="trust-badge">
-        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
-          <Icon name="calendar-check" class="w-5 h-5 text-white" />
+      )}
+      {TRUST.backgroundChecks && (
+        <div class="trust-badge">
+          <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3"><Icon name="user-check" class="w-5 h-5 text-white" /></div>
+          <h4 class="font-bold text-[#333333] text-sm mb-1">Background Checked</h4>
+          <p class="text-xs text-gray-600">Cleaner screening</p>
         </div>
-        <h4 class="font-bold text-[#333333] text-sm mb-1">{PERFORMANCE.avgCleanerExperienceYears} Years Avg.</h4>
-        <p class="text-xs text-gray-600">Cleaner experience</p>
-      </div>
-
-      <div class="trust-badge">
-        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
-          <Icon name="star" class="w-5 h-5 text-white" />
+      )}
+      {showGuarantee && TRUST.satisfactionGuarantee && TRUST.freeReclean && (
+        <div class="trust-badge">
+          <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3"><Icon name="redo" class="w-5 h-5 text-white" /></div>
+          <h4 class="font-bold text-[#333333] text-sm mb-1">100% Satisfaction</h4>
+          <p class="text-xs text-gray-600">Free re-clean if needed</p>
         </div>
-        <h4 class="font-bold text-[#333333] text-sm mb-1">{REVIEWS.rating}★ Google Rating</h4>
-        <p class="text-xs text-gray-600">{REVIEWS.countDisplay} reviews</p>
-      </div>
-
-      <div class="trust-badge">
-        <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3">
-          <Icon name="users" class="w-5 h-5 text-white" />
+      )}
+      {TRUST.weekendAvailability && (
+        <div class="trust-badge">
+          <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-[#FFA985] to-[#FFC67D] flex items-center justify-center mb-3"><Icon name="calendar" class="w-5 h-5 text-white" /></div>
+          <h4 class="font-bold text-[#333333] text-sm mb-1">Weekends Available</h4>
+          <p class="text-xs text-gray-600">Check current openings</p>
         </div>
-        <h4 class="font-bold text-[#333333] text-sm mb-1">{PERFORMANCE.customersServedDisplay} Customers</h4>
-        <p class="text-xs text-gray-600">Served</p>
-      </div>
+      )}
     </div>
 
     <div class="mt-6 pt-6 border-t border-gray-200 text-center">
       <p class="text-gray-700 font-medium">
-        <Icon name="clock" class="w-5 h-5 text-[#FFA985] mr-2 inline" />
-        Quote requests answered within <span class="text-[#333333] font-bold">{PERFORMANCE.quoteResponseSla}</span>.
+        <Icon name="star" class="w-5 h-5 text-[#FFA985] mr-2 inline" />
+        {IDENTITY.primaryPhraseCapitalized}, family owned · {reviewSummary} · Quotes answered within <span class="text-[#333333] font-bold">{PERFORMANCE.quoteResponseSla}</span>.
       </p>
     </div>
   </div>
@@ -158,30 +178,18 @@ const reviewSummary = `${REVIEWS.rating}★ across ${REVIEWS.countDisplay} Googl
 
 {variant === 'compact' && (
   <div class="trust-badges-compact flex flex-wrap justify-center gap-4 py-4">
-    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
-      <Icon name="medal" class="w-4 h-4 text-[#FFA985] mr-2" />
-      <span class="text-sm font-medium text-[#333333]">Veteran & Woman Owned</span>
-    </div>
-    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
-      <Icon name="home" class="w-4 h-4 text-[#FFA985] mr-2" />
-      <span class="text-sm font-medium text-[#333333]">Family Owned</span>
-    </div>
-    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
-      <Icon name="star" class="w-4 h-4 text-[#FFA985] mr-2" />
-      <span class="text-sm font-medium text-[#333333]">{REVIEWS.rating}★ · {REVIEWS.countDisplay} Reviews</span>
-    </div>
-    <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full">
-      <Icon name="clock" class="w-4 h-4 text-[#FFA985] mr-2" />
-      <span class="text-sm font-medium text-[#333333]">{PERFORMANCE.quoteResponseSla} Quotes</span>
-    </div>
+    {TRUST.isInsured && <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full"><Icon name="shield-alt" class="w-4 h-4 text-[#FFA985] mr-2" /><span class="text-sm font-medium text-[#333333]">Insured</span></div>}
+    {TRUST.backgroundChecks && <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full"><Icon name="user-check" class="w-4 h-4 text-[#FFA985] mr-2" /><span class="text-sm font-medium text-[#333333]">Background Checked</span></div>}
+    {showGuarantee && TRUST.satisfactionGuarantee && TRUST.freeReclean && <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full"><Icon name="redo" class="w-4 h-4 text-[#FFA985] mr-2" /><span class="text-sm font-medium text-[#333333]">100% Satisfaction · Free Re-Clean</span></div>}
+    {TRUST.weekendAvailability && <div class="flex items-center bg-gray-50 px-4 py-2 rounded-full"><Icon name="calendar" class="w-4 h-4 text-[#FFA985] mr-2" /><span class="text-sm font-medium text-[#333333]">Weekends Available</span></div>}
   </div>
 )}
 
 {variant === 'inline' && (
   <div class="trust-badges-inline flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-600">
-    <span><Icon name="medal" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> Veteran & Woman Owned</span>
-    <span><Icon name="home" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> Family Owned</span>
-    <span><Icon name="star" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> {REVIEWS.rating}★ · {REVIEWS.countDisplay} Reviews</span>
-    <span><Icon name="calendar-check" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> {PERFORMANCE.avgCleanerExperienceYears} Years Avg. Experience</span>
+    {TRUST.isInsured && <span><Icon name="shield-alt" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> Insured</span>}
+    {TRUST.backgroundChecks && <span><Icon name="user-check" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> Background Checked</span>}
+    {showGuarantee && TRUST.satisfactionGuarantee && TRUST.freeReclean && <span><Icon name="redo" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> 100% Satisfaction · Free Re-Clean</span>}
+    {TRUST.weekendAvailability && <span><Icon name="calendar" class="w-4 h-4 text-[#FFA985] mr-1 inline" /> Weekends Available</span>}
   </div>
 )}
