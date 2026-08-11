@@ -137,6 +137,65 @@ for (const rule of forbidden) {
   }
 }
 
+// Redirects are part of the public architecture too. Validate destinations as
+// parsed data so formatting changes in vercel.json do not weaken the guard.
+const vercel = JSON.parse(fs.readFileSync('vercel.json', 'utf8'));
+const redirects = Array.isArray(vercel.redirects) ? vercel.redirects : [];
+
+function redirectFor(source) {
+  return redirects.find((redirect) => redirect.source === source);
+}
+
+function requireRedirect(source, destination) {
+  const redirect = redirectFor(source);
+  if (!redirect) {
+    failures.push(`vercel.json: missing redirect ${source} -> ${destination}`);
+    return;
+  }
+  if (redirect.destination !== destination) {
+    failures.push(
+      `vercel.json: ${source} points to ${redirect.destination}, expected ${destination}`,
+    );
+  }
+}
+
+function forbidRedirect(source, why) {
+  const redirect = redirectFor(source);
+  if (redirect) {
+    failures.push(`vercel.json: ${source} must not redirect to ${redirect.destination} — ${why}`);
+  }
+}
+
+for (const source of ['/privacy-policy', '/privacy-policy/']) {
+  requireRedirect(source, '/privacy');
+}
+
+for (const source of ['/customer-login', '/customer-login/']) {
+  requireRedirect(source, 'https://thevalleycleanteam.bookingkoala.com/login');
+}
+
+for (const source of [
+  '/professional-cleaning-jobs-tennessee-valley',
+  '/professional-cleaning-jobs-tennessee-valley/',
+]) {
+  requireRedirect(source, '/careers');
+}
+
+for (const source of ['/terms', '/terms/', '/careers', '/careers/']) {
+  forbidRedirect(source, 'a real Astro page owns this route');
+}
+
+for (const [market, hub] of [
+  ['huntsville', '/locations/huntsville'],
+  ['nashville', '/locations/nashville'],
+  ['athens', '/locations/athens'],
+  ['muscle-shoals', '/locations/muscle-shoals'],
+  ['mountain-brook', '/locations/mountain-brook'],
+]) {
+  requireRedirect(`/${market}-same-day-cleaning`, hub);
+  requireRedirect(`/locations/${market}/same-day-cleaning`, hub);
+}
+
 // These files are deliberately absent after migration. Reintroducing either
 // restores a legacy public ingestion path or a bespoke stale-pricing route.
 for (const retired of [
@@ -154,4 +213,7 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Claim/architecture drift audit passed (${required.length + forbidden.length + 2} invariants checked).`);
+const redirectInvariantCount = 2 + 2 + 2 + 4 + 10;
+console.log(
+  `Claim/architecture drift audit passed (${required.length + forbidden.length + 2 + redirectInvariantCount} invariants checked).`,
+);
