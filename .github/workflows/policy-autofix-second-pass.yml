@@ -1,0 +1,38 @@
+name: One-time policy consistency second pass
+
+on:
+  push:
+    branches:
+      - agent/sitewide-policy-consistency
+    paths:
+      - .github/workflows/policy-autofix-second-pass.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/sitewide-policy-consistency
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Apply remaining verified policy fixes
+        run: node scripts/apply-policy-consistency-fixes-2.mjs
+
+      - name: Remove migration script and commit fixes
+        shell: bash
+        run: |
+          rm scripts/apply-policy-consistency-fixes-2.mjs
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --stat
+          git diff --cached --quiet && exit 1
+          git commit -m "fix: align recurring and commercial policy claims"
+          git push origin HEAD:agent/sitewide-policy-consistency
