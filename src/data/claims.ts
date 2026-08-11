@@ -72,17 +72,53 @@ export const IDENTITY = {
 
 /**
  * Customer-facing trust/service commitments confirmed directly by Todd on
- * 2026-08-11. Keep these deliberately qualitative where the exact policy was
- * not specified: the business is insured, but no coverage amount is asserted;
- * the satisfaction guarantee includes a free re-clean, but no time window is
- * asserted; weekends are available, but evenings are not asserted here.
+ * 2026-08-11. These values are deliberately explicit so verified coverage and
+ * guarantee terms are not removed by future claim-safety passes.
  */
 export const TRUST = {
   isInsured: true,
+  liabilityCoverageAmount: 2_000_000,
+  liabilityCoverageDisplay: "$2 million",
+  workersComp: true,
+  damageClaimsCoveredByInsurance: true,
   backgroundChecks: true,
   satisfactionGuarantee: true,
   freeReclean: true,
+  recleanWindowHours: 24,
   weekendAvailability: true,
+} as const;
+
+/** Business and pricing policies confirmed directly by Todd on 2026-08-11. */
+export const POLICIES = {
+  priceMatching: false,
+  paymentMethods: ["credit card", "debit card"] as const,
+  cancellation: {
+    noticeHours: 24,
+    feeAmount: 100,
+    appliesTo: ["late cancellation", "no-show", "lock-out"] as const,
+  },
+  travelFee: {
+    minAmount: 5,
+    maxAmount: 15,
+  },
+  greenProducts: {
+    availableUponRequest: true,
+    extraCharge: 0,
+  },
+  addOnsAvailable: true,
+  pets: {
+    feePerPet: 25,
+    heavyShedSurcharge: 100,
+  },
+  bookingAhead: {
+    recommendedMinDays: 2,
+    recommendedMaxDays: 3,
+  },
+  commercialQuoteFactors: [
+    "square footage",
+    "task list",
+    "services per week",
+  ] as const,
 } as const;
 
 export const POSITIONING = {
@@ -153,6 +189,7 @@ export function assertClaims(): void {
     CHECKLIST,
     IDENTITY,
     TRUST,
+    POLICIES,
     POSITIONING,
     CLINICAL,
     PERFORMANCE,
@@ -187,6 +224,24 @@ export function assertClaims(): void {
     impossible.push("RECURRING_PRICING.biweekly costs more per visit than monthly");
   if (RECURRING_PRICING.monthly.amount > PRICING.regular.amount)
     impossible.push("RECURRING_PRICING.monthly exceeds the undiscounted PRICING.regular");
+
+  if (TRUST.liabilityCoverageAmount <= 0)
+    impossible.push("TRUST.liabilityCoverageAmount must be positive");
+  if (TRUST.recleanWindowHours <= 0)
+    impossible.push("TRUST.recleanWindowHours must be positive");
+
+  if (POLICIES.priceMatching)
+    impossible.push("POLICIES.priceMatching must remain false unless the policy changes");
+  if (POLICIES.cancellation.noticeHours <= 0 || POLICIES.cancellation.feeAmount <= 0)
+    impossible.push("POLICIES.cancellation must have positive notice hours and fee amount");
+  if (POLICIES.travelFee.minAmount < 0 || POLICIES.travelFee.maxAmount < POLICIES.travelFee.minAmount)
+    impossible.push("POLICIES.travelFee range is invalid");
+  if (POLICIES.greenProducts.extraCharge !== 0)
+    impossible.push("POLICIES.greenProducts.extraCharge must be zero");
+  if (POLICIES.pets.feePerPet <= 0 || POLICIES.pets.heavyShedSurcharge <= 0)
+    impossible.push("POLICIES.pets fees must be positive");
+  if (POLICIES.bookingAhead.recommendedMaxDays < POLICIES.bookingAhead.recommendedMinDays)
+    impossible.push("POLICIES.bookingAhead range is invalid");
 
   for (const k of ["onTimeArrivalPct", "repeatCustomerPct"] as const) {
     const v = PERFORMANCE[k];
