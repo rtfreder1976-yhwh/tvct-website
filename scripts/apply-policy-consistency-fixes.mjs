@@ -89,8 +89,8 @@ if (trust !== trustBefore) {
 if (commercialPricingCount !== commercialPricingFiles.size) {
   throw new Error(`Expected ${commercialPricingFiles.size} stale commercial-pricing sentences, changed ${commercialPricingCount}.`);
 }
-if (travelFeeCount !== 4) {
-  throw new Error(`Expected 4 vague travel-fee phrases, changed ${travelFeeCount}.`);
+if (travelFeeCount !== 7) {
+  throw new Error(`Expected 7 vague travel-fee phrases across the 4 audited Athens pages, changed ${travelFeeCount}.`);
 }
 if (customQuotePricePropCount < 1) {
   throw new Error('Expected at least one numeric custom-quote price prop to retire.');
