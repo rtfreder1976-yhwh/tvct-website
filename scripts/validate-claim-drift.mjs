@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 
 /**
  * Regression checks for architectural invariants that are easy to accidentally
@@ -114,6 +115,11 @@ const forbidden = [
     text: '?key=YOUR_ADMIN_SECRET',
     why: 'admin documentation/errors must not instruct users to put secrets in URLs',
   },
+  {
+    file: 'src/pages/about.astro',
+    text: 'Same-day and weekend appointments available',
+    why: 'same-day appointment availability is not a verified sitewide promise',
+  },
 ];
 
 const failures = [];
@@ -134,6 +140,45 @@ for (const rule of forbidden) {
   const source = fs.readFileSync(rule.file, 'utf8');
   if (source.includes(rule.text)) {
     failures.push(`${rule.file}: found ${JSON.stringify(rule.text)} — ${rule.why}`);
+  }
+}
+
+// Search customer-facing source broadly for language that turns "same-day"
+// into an availability promise. Historical redirect paths and neutral mentions
+// are allowed; statements that same-day appointments/openings/availability are
+// available are not, because current availability belongs in BookingKoala.
+// Neutral scheduling-policy language is allowed; cancellation terms are not availability claims.
+const sameDayNeutralPatterns = [/same[- ]day cancellations?/i];
+const customerSourceExtensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx']);
+const sameDayAvailabilityPatterns = [
+  /same[- ]day[^\n.]{0,100}\b(?:available|availability|appointments?|openings?|slots?)\b/i,
+  /\b(?:available|availability|appointments?|openings?|slots?)\b[^\n.]{0,100}same[- ]day/i,
+];
+
+function walk(dir) {
+  const files = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...walk(full));
+    } else if (customerSourceExtensions.has(path.extname(entry.name))) {
+      files.push(full);
+    }
+  }
+  return files;
+}
+
+for (const file of walk('src')) {
+  const source = fs.readFileSync(file, 'utf8');
+  for (const pattern of sameDayAvailabilityPatterns) {
+    const match = source.match(pattern);
+    if (match && sameDayNeutralPatterns.some((neutral) => neutral.test(match[0]))) continue;
+    if (match) {
+      failures.push(
+        `${file}: unverified same-day availability promise ${JSON.stringify(match[0].trim())}`,
+      );
+      break;
+    }
   }
 }
 
@@ -215,5 +260,5 @@ if (failures.length) {
 
 const redirectInvariantCount = 2 + 2 + 2 + 4 + 10;
 console.log(
-  `Claim/architecture drift audit passed (${required.length + forbidden.length + 2 + redirectInvariantCount} invariants checked).`,
+  `Claim/architecture drift audit passed (${required.length + forbidden.length + 2 + redirectInvariantCount} fixed invariants + repository-wide same-day availability scan).`,
 );
