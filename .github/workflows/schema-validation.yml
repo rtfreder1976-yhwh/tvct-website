@@ -38,7 +38,19 @@ jobs:
           retention-days: 7
 
       - name: Retired-claim source audit
-        run: npm run validate:claims
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run validate:claims 2>&1 | tee claims-validation.log
+
+      - name: Upload claim validation diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: claim-validation-diagnostics
+          path: claims-validation.log
+          if-no-files-found: error
+          retention-days: 7
 
       - run: npm run build
 
