@@ -404,6 +404,12 @@ const metaDescription =
 
     <!-- Critical CSS - Inlined for fastest FCP/LCP -->
     <style is:inline>
+      /* Tailwind 4 emits its responsive utilities inside cascade layers. Keep
+         these critical fallbacks in the base layer so utilities such as
+         `hidden xl:flex`, `hidden lg:block`, and responsive image sizing can
+         override them once the full stylesheet is parsed. */
+      @layer theme, base, components, utilities;
+      @layer base {
       /* Critical CSS - Above the fold styles */
       *,
       *::before,
@@ -710,6 +716,7 @@ const metaDescription =
         font-weight: 700;
         font-display: swap;
         src: url(/fonts/playfair-display-700.woff2) format("woff2");
+      }
       }
     </style>
 
