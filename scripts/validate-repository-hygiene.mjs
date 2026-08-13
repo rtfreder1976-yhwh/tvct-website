@@ -84,7 +84,7 @@ for (const file of trackedAndUnignoredFiles) {
       contactKeyPattern.test(normalizedKey(field)),
     );
 
-    if (header.length > 1 && hasContactColumn && lines.length > 1) {
+    if (hasContactColumn && lines.length > 1) {
       report(file, "contains contact-oriented columns and data rows");
     }
 
