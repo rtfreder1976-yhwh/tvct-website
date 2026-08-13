@@ -59,11 +59,7 @@ function cookieValue(req: ApiRequest, name: string): string | undefined {
   return undefined;
 }
 
-/**
- * Authorize either a trusted server-to-server request carrying ADMIN_SECRET in
- * x-admin-key, or a browser request carrying the short-lived HMAC session token
- * minted after a POST to /admin/login. The browser never receives ADMIN_SECRET.
- */
+/** Authorize the short-lived HMAC session minted after a POST to /admin/login. */
 export function requireAdmin(req: ApiRequest, res: ApiResponse): boolean {
   const secret = normalizeSecret(process.env.ADMIN_SECRET);
 
@@ -75,24 +71,19 @@ export function requireAdmin(req: ApiRequest, res: ApiResponse): boolean {
     return false;
   }
 
-  const headerKey = normalizeSecret(headerValue(req, 'x-admin-key'));
-  if (headerKey && secretsMatch(headerKey, secret)) return true;
-
-  const session = cookieValue(req, 'admin_session');
+  const session = cookieValue(req, '__Host-tvct_admin_session');
   if (session && validSessionToken(session, secret)) return true;
 
   res.status(401).json({
     error: 'Unauthorized',
-    message:
-      'Send the admin secret as an x-admin-key header from a trusted server, ' +
-      'or sign in at /admin/login to establish a temporary browser session.',
+    message: 'Sign in at /admin/login to establish a temporary browser session.',
   });
   return false;
 }
 
 export function setPrivateApiHeaders(res: ApiResponse): void {
   res.setHeader('Cache-Control', 'private, no-store, max-age=0');
-  res.setHeader('Vary', 'Cookie, x-admin-key');
+  res.setHeader('Vary', 'Cookie');
   res.setHeader('X-Robots-Tag', 'noindex, nofollow');
   res.setHeader('Referrer-Policy', 'no-referrer');
 }

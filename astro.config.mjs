@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
+import tailwindcss from '@tailwindcss/vite';
 import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 // ---------------------------------------------------------------------------
@@ -71,6 +71,13 @@ const retiredPaths = new Set(['/booking', '/get-quote', '/booking-commercial']);
 export default defineConfig({
   site: 'https://thevalleycleanteam.com',
   trailingSlash: 'never',
+  // Astro 7 defaults to JSX-style whitespace collapsing. Retain the Astro 6
+  // rendering behavior so the framework security upgrade does not alter copy.
+  compressHTML: true,
+  security: {
+    // Reject cross-origin state-changing requests before admin login code runs.
+    checkOrigin: true,
+  },
   // 'static' prerenders every page at build time; routes that genuinely need
   // per-request rendering opt out with `export const prerender = false` and
   // still run as serverless functions (the three /api routes, /admin/dashboard,
@@ -84,7 +91,6 @@ export default defineConfig({
   output: 'static',
 
   integrations: [
-    tailwind(),
     sitemap({
       // /recurring is the noindex SMS conversion page — exact-path match so the
       // indexable /locations/*/recurring-maid-service pages are NOT excluded.
@@ -192,6 +198,10 @@ export default defineConfig({
   build: {
     format: 'directory',
     inlineStylesheets: 'always'
+  },
+
+  vite: {
+    plugins: [tailwindcss()],
   },
 
   adapter: vercel()

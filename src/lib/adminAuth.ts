@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 
 /** Server-side admin gate shared by the dashboard pages. */
 export const ADMIN_SECRET_MIN_LENGTH = 16;
-export const ADMIN_COOKIE_NAME = 'admin_session';
+export const ADMIN_COOKIE_NAME = '__Host-tvct_admin_session';
 
 /** 8 hours. */
 const SESSION_MAX_AGE = 28_800;
