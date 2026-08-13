@@ -62,8 +62,9 @@ interface ApiEnvelope<T> {
 
 async function fetchAdminData<T>(path: string): Promise<ApiEnvelope<T>> {
   try {
+    const cookie = Astro.request.headers.get("cookie") ?? "";
     const response = await fetch(`${Astro.url.origin}${path}`, {
-      headers: { "x-admin-key": ADMIN_SECRET },
+      headers: { cookie },
       cache: "no-store",
     });
     const body = (await response.json()) as ApiEnvelope<T>;
