@@ -88,15 +88,13 @@ for (const file of trackedAndUnignoredFiles) {
       report(file, "contains contact-oriented columns and data rows");
     }
 
-    if (extension === ".txt") {
-      const contactOnlyLines = lines.filter((line) => {
-        const value = line.trim();
-        return contactOnlyEmailPattern.test(value) || contactOnlyPhonePattern.test(value);
-      });
+    const contactOnlyLines = lines.filter((line) => {
+      const value = line.trim();
+      return contactOnlyEmailPattern.test(value) || contactOnlyPhonePattern.test(value);
+    });
 
-      if (contactOnlyLines.length >= 2 && contactOnlyLines.length / lines.length >= 0.5) {
-        report(file, "contains a headerless list of email addresses or phone numbers");
-      }
+    if (contactOnlyLines.length >= 2 && contactOnlyLines.length / lines.length >= 0.5) {
+      report(file, "contains a headerless list of email addresses or phone numbers");
     }
   }
 
