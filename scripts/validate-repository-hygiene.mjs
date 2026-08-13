@@ -31,6 +31,10 @@ function normalizedKey(value) {
 
 function containsJsonContactRecord(value) {
   if (Array.isArray(value)) return value.some(containsJsonContactRecord);
+  if (typeof value === "string") {
+    const normalized = value.trim();
+    return contactOnlyEmailPattern.test(normalized) || contactOnlyPhonePattern.test(normalized);
+  }
   if (!value || typeof value !== "object") return false;
 
   const entries = Object.entries(value);
@@ -88,12 +92,16 @@ for (const file of trackedAndUnignoredFiles) {
       report(file, "contains contact-oriented columns and data rows");
     }
 
-    const contactOnlyLines = lines.filter((line) => {
-      const value = line.trim();
-      return contactOnlyEmailPattern.test(value) || contactOnlyPhonePattern.test(value);
+    const contactRows = lines.filter((line) => {
+      const fields = line.split(delimiter).map((field) =>
+        field.replace(/^\s*["']|["']\s*$/g, "").trim(),
+      );
+      return fields.some((value) =>
+        contactOnlyEmailPattern.test(value) || contactOnlyPhonePattern.test(value),
+      );
     });
 
-    if (contactOnlyLines.length >= 2 && contactOnlyLines.length / lines.length >= 0.5) {
+    if (contactRows.length >= 2 && contactRows.length / lines.length >= 0.5) {
       report(file, "contains a headerless list of email addresses or phone numbers");
     }
   }
@@ -125,11 +133,9 @@ for (const file of trackedAndUnignoredFiles) {
         ? spreadsheetXml(file, "xl/sharedStrings.xml") +
           spreadsheetXml(file, "xl/worksheets/*.xml")
         : spreadsheetXml(file, "content.xml");
-    const hasIdentityLabel = /(?:name|contact|organization|company)/i.test(xml);
-
     if (xml.trim() === "") {
       report(file, "is a spreadsheet that CI could not inspect safely");
-    } else if (emailPattern.test(xml) || (phonePattern.test(xml) && hasIdentityLabel)) {
+    } else if (emailPattern.test(xml) || phonePattern.test(xml)) {
       report(file, "contains contact records in a spreadsheet");
     }
   }
