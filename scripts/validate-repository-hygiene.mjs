@@ -20,6 +20,8 @@ const trackedAndUnignoredFiles = execFileSync(
 const violations = new Map();
 const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
 const phonePattern = /(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}/;
+const contactOnlyEmailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+const contactOnlyPhonePattern = /^(?:\+?1[-. ]?)?\(?\d{3}\)?[-. ]?\d{3}[-. ]?\d{4}$/;
 const contactKeyPattern = /^(?:e?mail|emailaddress|phone|phonenumber|telephone|mobile)$/;
 const identityKeyPattern = /^(?:name|firstname|lastname|contactname|organization|company|companyname)$/;
 
@@ -84,6 +86,17 @@ for (const file of trackedAndUnignoredFiles) {
 
     if (header.length > 1 && hasContactColumn && lines.length > 1) {
       report(file, "contains contact-oriented columns and data rows");
+    }
+
+    if (extension === ".txt") {
+      const contactOnlyLines = lines.filter((line) => {
+        const value = line.trim();
+        return contactOnlyEmailPattern.test(value) || contactOnlyPhonePattern.test(value);
+      });
+
+      if (contactOnlyLines.length >= 2 && contactOnlyLines.length / lines.length >= 0.5) {
+        report(file, "contains a headerless list of email addresses or phone numbers");
+      }
     }
   }
 
