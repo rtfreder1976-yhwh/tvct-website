@@ -1,38 +1,21 @@
-# TVCT Outreach System Setup Guide
+# TVCT outreach operations
 
-This system automates marketing outreach to local offices and churches using n8n for data processing and GoHighLevel (GHL) for communication.
+The public website repository contains campaign guidance and reusable messaging. It must not contain prospect exports, generated contact lists, CRM exports, or workflow snapshots with embedded contact records.
 
-## System Components
+## Sources of truth
 
-1.  **Contact List**: Your "outreach file" (CSV or Excel).
-2.  **n8n Workflow** ([OUTREACH_WORKFLOW.json](file:///C:/Users/rtfre/.gemini/antigravity/scratch/TVCT%20Website/OUTREACH_WORKFLOW.json)):
-    *   Reads your file.
-    *   Uploads contacts to GHL with niche-specific tags.
-3.  **GHL Automation** (Logic in [OUTREACH_GHL_LOGIC.md](file:///C:/Users/rtfre/.gemini/antigravity/scratch/TVCT%20Website/docs/OUTREACH_GHL_LOGIC.md)):
-    *   Triggers when tags like `medical_outreach` or `church_outreach` are added.
-    *   Sends personalized Email/SMS sequences.
-4.  **Booking Koala**:
-    *   Link included in all messages: `https://thevalleycleanteam.com/booking`
-    *   Captures the booking and handles the cleaning schedule.
+- Lead and contact records: the approved CRM or restricted operations storage
+- Active ingestion automation: [TVCT Multi-Niche Lead Sync](https://singingriverai.app.n8n.cloud/workflow/3XRabjYiQUWMWl4l)
+- GHL sequence logic and approved CTA: [`docs/OUTREACH_GHL_LOGIC.md`](docs/OUTREACH_GHL_LOGIC.md)
+- Reusable GHL email markup: [`templates/`](templates/)
+- End-to-end operating model: [`docs/GROWTH_ENGINE_SYSTEM_MAP.md`](docs/GROWTH_ENGINE_SYSTEM_MAP.md)
 
-## How to Run Your First Campaign
+## Safe operating flow
 
-### Step 1: Prep your Outreach File
-Ensure your CSV has the following headers: 
-`FirstName`, `LastName`, `Email`, `Phone`, `Organization`, `Category` (Medical, Dental, or Church).
+1. Export lead data only to an approved local or restricted storage location.
+2. Review the batch and prepare the fields expected by the active n8n workflow.
+3. Run a pilot batch of 5–10 records and verify field mapping, tags, sender identity, links, and deliverability.
+4. Use the active n8n/GHL systems for the campaign; do not copy contact data into this repository.
+5. Send commercial traffic to `https://thevalleycleanteam.com/commercial-quote`.
 
-### Step 2: Import n8n Workflow
-1.  Open your n8n instance.
-2.  Create a new workflow and **Import** the `OUTREACH_WORKFLOW.json` file.
-3.  Configure your **GHL HTTP Request** node with your API Key and Location ID.
-
-### Step 3: Setup GHL Campaign
-1.  Create a new Workflow in GHL triggered by **Contact Tag Added**.
-2.  Add branches for `medical_outreach`, `dental_outreach`, and `church_outreach`.
-3.  Add the messaging templates provided in the `OUTREACH_GHL_LOGIC.md` file.
-
-### Step 4: Execute
-Click **Manual Trigger** in n8n to start the batch import!
-
----
-**Note**: We recommend doing a "Pilot Batch" of 5-10 contacts first to verify the messaging tone and deliverability.
+The former repository workflow snapshot and April 2026 CSV exports were retired because they duplicated operational systems and exposed contact data in a public source repository. They are not website build inputs.

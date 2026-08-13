@@ -9,7 +9,7 @@ This document outlines the end-to-end "Whole Process" for TVCT's automated growt
 ```mermaid
 graph TD
     subgraph "Phase 1: Intelligence"
-    A[Outscraper Scrape] --> B[Niche CSV Files]
+    A[Outscraper Scrape] --> B[Restricted Lead Storage]
     end
 
     subgraph "Phase 2: Ingestion"
@@ -50,6 +50,8 @@ graph TD
 **Tools:** Outscraper Google Maps Scraper.
 **Process:** Targeted scraping of localized niches (e.g., zip codes 35630, 35801) to identify facilities.
 **Key Data points:** Name, Category, Rating, Phone, Email, City.
+
+Lead exports and generated contact lists stay in the approved CRM or restricted operations storage. They are never committed to the public website repository.
 
 ### Phase 2: Automated Ingestion (n8n)
 **Tools:** [TVCT: Multi-Niche Lead Sync Workflow](https://singingriverai.app.n8n.cloud/workflow/3XRabjYiQUWMWl4l).
