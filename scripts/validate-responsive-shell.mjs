@@ -63,6 +63,9 @@ try {
     speedInsightsScriptInjected: Boolean(
       document.querySelector('script[src="/_vercel/speed-insights/script.js"]'),
     ),
+    speedInsightsRoute: document.querySelector(
+      'script[src="/_vercel/speed-insights/script.js"]',
+    )?.dataset.route,
   }));
   const desktop = await page.evaluate(() => {
     const nav = document.querySelector('nav[aria-label="Main navigation"]');
@@ -138,6 +141,7 @@ try {
     [telemetry.speedInsightsQueueReady, "Vercel Speed Insights queue was not initialized"],
     [telemetry.analyticsScriptInjected, "Vercel Web Analytics script was not injected"],
     [telemetry.speedInsightsScriptInjected, "Vercel Speed Insights script was not injected"],
+    [telemetry.speedInsightsRoute === "/", `Vercel Speed Insights route is ${telemetry.speedInsightsRoute}`],
     [desktop.desktopNavVisible, "desktop navigation is hidden"],
     [desktop.heroLoaded, "desktop hero image did not load"],
     [desktop.heroVisible, "desktop hero image is hidden"],

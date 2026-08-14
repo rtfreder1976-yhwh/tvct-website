@@ -104,7 +104,7 @@ const metaDescription =
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-route-pattern={Astro.routePattern}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -260,6 +260,9 @@ const metaDescription =
         // Trigger on first interaction
         var events = ["pointerdown", "keydown", "scroll", "touchstart"];
         function onInteract() {
+          // The bundled Vercel module is deferred. Record this synchronously so
+          // it can honor an interaction that occurs before its listeners exist.
+          document.documentElement.dataset.vercelTelemetryInteraction = "true";
           events.forEach(function (e) { window.removeEventListener(e, onInteract, { passive: true }); });
           loadMarketingTags();
         }
@@ -289,7 +292,11 @@ const metaDescription =
         if (vercelTelemetryLoaded) return;
         vercelTelemetryLoaded = true;
         inject({ framework: "astro" });
-        injectSpeedInsights({ framework: "astro", route: window.location.pathname });
+        injectSpeedInsights({
+          framework: "astro",
+          route:
+            document.documentElement.dataset.routePattern || window.location.pathname,
+        });
       }
 
       function onVercelTelemetryInteraction() {
@@ -299,12 +306,16 @@ const metaDescription =
         loadVercelTelemetry();
       }
 
-      vercelTelemetryEvents.forEach((eventName) =>
-        window.addEventListener(eventName, onVercelTelemetryInteraction, {
-          passive: true,
-          once: true,
-        }),
-      );
+      if (document.documentElement.dataset.vercelTelemetryInteraction === "true") {
+        loadVercelTelemetry();
+      } else {
+        vercelTelemetryEvents.forEach((eventName) =>
+          window.addEventListener(eventName, onVercelTelemetryInteraction, {
+            passive: true,
+            once: true,
+          }),
+        );
+      }
       window.setTimeout(loadVercelTelemetry, 15000);
     </script>
 
