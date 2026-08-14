@@ -269,6 +269,29 @@ const bookingKoalaHandoffs = [
   },
 ];
 
+const bookingKoalaAnchorHandoffs = [
+  {
+    file: 'src/components/Footer.astro',
+    labels: ['Commercial Quote →'],
+    url: COMMERCIAL_QUOTE_URL,
+  },
+  {
+    file: 'src/pages/pricing.astro',
+    labels: ['Get Your Commercial Quote', 'Partner With Us'],
+    url: COMMERCIAL_QUOTE_URL,
+  },
+  {
+    file: 'src/components/Navigation.astro',
+    labels: ['Careers'],
+    url: CAREERS_URL,
+  },
+  {
+    file: 'src/components/Footer.astro',
+    labels: ['Careers'],
+    url: CAREERS_URL,
+  },
+];
+
 for (const handoff of bookingKoalaHandoffs) {
   for (const file of handoff.files) {
     if (!fs.existsSync(file)) {
@@ -278,6 +301,29 @@ for (const handoff of bookingKoalaHandoffs) {
     const source = fs.readFileSync(file, 'utf8');
     if (!source.includes(handoff.url)) {
       failures.push(`${file}: missing ${handoff.url} — ${handoff.why}`);
+    }
+  }
+}
+
+for (const handoff of bookingKoalaAnchorHandoffs) {
+  const source = fs.readFileSync(handoff.file, 'utf8');
+  const anchors = [...source.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a\s*>/g)].map((match) => ({
+    href: match[1].match(/\bhref=["']([^"']+)["']/)?.[1],
+    label: match[2].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+  }));
+
+  for (const label of handoff.labels) {
+    const matchingAnchors = anchors.filter((anchor) => anchor.label === label);
+    if (!matchingAnchors.length) {
+      failures.push(`${handoff.file}: missing named link ${JSON.stringify(label)}`);
+      continue;
+    }
+    for (const anchor of matchingAnchors) {
+      if (anchor.href !== handoff.url) {
+        failures.push(
+          `${handoff.file}: ${JSON.stringify(label)} points to ${anchor.href}, expected ${handoff.url}`,
+        );
+      }
     }
   }
 }
@@ -315,6 +361,10 @@ const bookingKoalaHandoffCount = bookingKoalaHandoffs.reduce(
   (count, handoff) => count + handoff.files.length,
   0,
 );
+const bookingKoalaAnchorCount = bookingKoalaAnchorHandoffs.reduce(
+  (count, handoff) => count + handoff.labels.length,
+  0,
+);
 console.log(
-  `Claim/architecture drift audit passed (${required.length + forbidden.length + 2 + redirectInvariantCount + bookingKoalaHandoffCount} fixed invariants + repository-wide same-day availability scan).`,
+  `Claim/architecture drift audit passed (${required.length + forbidden.length + 2 + redirectInvariantCount + bookingKoalaHandoffCount + bookingKoalaAnchorCount} fixed invariants + repository-wide same-day availability scan).`,
 );
