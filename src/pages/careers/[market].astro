@@ -1,0 +1,19 @@
+---
+import ProviderJobPage from "../../components/ProviderJobPage.astro";
+import { providerJobs, type ProviderJob } from "../../data/providerJobs";
+
+export function getStaticPaths() {
+  return providerJobs.map((job) => ({
+    params: { market: job.slug },
+    props: { job },
+  }));
+}
+
+interface Props {
+  job: ProviderJob;
+}
+
+const { job } = Astro.props;
+---
+
+<ProviderJobPage job={job} />
