@@ -56,7 +56,7 @@ This opportunity is a good fit for an experienced cleaner or small cleaning busi
 - Can complete the required screening and onboarding process
 - Carry, or are willing and able to obtain, appropriate general liability insurance before regular assignments
 
-Qualified applicants will complete a short application, an initial screening, a video interview, and a paid test clean. Providers who successfully complete the process may be added to our ready-provider network.
+Qualified applicants will complete a short application, an initial screening, a video interview, and provider onboarding. Providers who successfully complete the process may be added to our ready-provider network.
 
 Apply here: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
 
@@ -103,10 +103,10 @@ If you are an independent cleaner or small cleaning business with professional e
 - Strong attention to detail and a reliable cleaning process
 - The ability to manage availability and service-area limits accurately
 - Willingness to provide before-and-after photos and verify the agreed scope
-- Ability to complete screening, a paid test clean, and provider onboarding
+- Ability to complete screening and provider onboarding
 - Appropriate liability insurance, or the ability to obtain it before regular assignments
 
-Our process includes a short application, initial screening, video interview, and paid test clean. Successful providers may be invited to complete onboarding and join our ready-provider network.
+Our process includes a short application, initial screening, video interview, and provider onboarding. Successful providers may be invited to join our ready-provider network.
 
 Apply here: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
 
@@ -134,7 +134,7 @@ We are interested in experienced solo cleaners and small cleaning teams that ope
 - Job details and flat-rate provider pay before you accept
 - Typical earning equivalent of $25–$45 per hour based on experience, job scope, completion time, and provider efficiency
 - The ability to accept or decline available opportunities
-- A structured application, interview, paid test-clean, and onboarding process
+- A structured application, interview, and onboarding process
 - Clear job scope and customer information for accepted assignments
 - No guaranteed number of jobs, hours, or earnings
 
@@ -153,7 +153,7 @@ We are interested in experienced solo cleaners and small cleaning teams that ope
 - Reliable vehicle and smartphone
 - Professional cleaning supplies and functioning equipment
 - Strong communication, reliability, and attention to detail
-- Ability to complete screening and a paid test clean
+- Ability to complete screening and provider onboarding
 - Appropriate general liability insurance, or ability to obtain it before regular assignments
 
 Apply here: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
@@ -201,7 +201,7 @@ This opportunity is designed for experienced independent cleaners and small clea
 - Take ownership of quality and customer satisfaction
 - Have reliable transportation, a smartphone, supplies, and equipment
 - Can provide before-and-after job documentation when required
-- Can complete the screening, interview, paid test-clean, and onboarding process
+- Can complete the screening, interview, and onboarding process
 - Carry, or can obtain, appropriate general liability insurance before regular assignments
 
 Apply here: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
@@ -216,7 +216,7 @@ The Valley Clean Team considers qualified providers without unlawful discriminat
 
 ### Florence / Shoals
 
-**Experienced independent cleaners in Florence and the Shoals:** The Valley Clean Team is expanding its provider network. Typical earning equivalent is **$25–$45 per hour** based on experience and each job's scope; providers receive flat-rate pay shown before acceptance. We are looking for professional solo cleaners and small cleaning businesses with reliable transportation and their own supplies/equipment. Manage your own availability and service area. Screening includes an application, interview, and paid test clean. Apply: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
+**Experienced independent cleaners in Florence and the Shoals:** The Valley Clean Team is expanding its provider network. Typical earning equivalent is **$25–$45 per hour** based on experience and each job's scope; providers receive flat-rate pay shown before acceptance and are paid weekly. We are looking for professional solo cleaners and small cleaning businesses with reliable transportation and their own supplies/equipment. Manage your own availability and service area. Apply: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
 
 ### Madison
 
@@ -224,7 +224,7 @@ The Valley Clean Team considers qualified providers without unlawful discriminat
 
 ### Huntsville
 
-**Huntsville independent cleaners and small cleaning teams:** The Valley Clean Team is expanding its ready-provider network. Typical earning equivalent is **$25–$45 per hour** based on experience and each job's scope; providers receive flat-rate pay shown before acceptance. We are looking for professional residential cleaners who communicate well, manage their own availability, and bring their own transportation, supplies, and equipment. Our process includes an interview and paid test clean. Apply: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
+**Huntsville independent cleaners and small cleaning teams:** The Valley Clean Team is expanding its ready-provider network. Typical earning equivalent is **$25–$45 per hour** based on experience and each job's scope; providers receive flat-rate pay shown before acceptance and are paid weekly. We are looking for professional residential cleaners who communicate well, manage their own availability, and bring their own transportation, supplies, and equipment. Apply: https://thevalleycleanteam.bookingkoala.com/hiring/form/careers
 
 ### Nashville
 
