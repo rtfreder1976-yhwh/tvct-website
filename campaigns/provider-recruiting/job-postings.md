@@ -43,6 +43,8 @@ This opportunity is a good fit for an experienced cleaner or small cleaning busi
 - Deep cleaning
 - Move-in and move-out cleaning
 - Short-term-rental and turnover cleaning
+- Office and business cleaning
+- Post-construction and renovation cleaning
 
 ### We are looking for providers who
 
@@ -93,6 +95,8 @@ If you are an independent cleaner or small cleaning business with professional e
 - Deep cleaning
 - Move-in and move-out cleaning
 - Short-term-rental and turnover cleaning
+- Office and business cleaning
+- Post-construction and renovation cleaning
 
 ### Strong candidates generally have
 
@@ -137,6 +141,15 @@ We are interested in experienced solo cleaners and small cleaning teams that ope
 - A structured application, interview, and onboarding process
 - Clear job scope and customer information for accepted assignments
 - No guaranteed number of jobs, hours, or earnings
+
+### Services may include
+
+- Recurring residential cleaning
+- Deep cleaning
+- Move-in and move-out cleaning
+- Short-term-rental and turnover cleaning
+- Office and business cleaning
+- Post-construction and renovation cleaning
 
 ### Provider responsibilities
 
@@ -191,6 +204,8 @@ This opportunity is designed for experienced independent cleaners and small clea
 - Deep cleaning
 - Move-in and move-out cleaning
 - Short-term-rental/turnover cleaning
+- Office and business cleaning
+- Post-construction and renovation cleaning
 
 ### We value providers who
 
