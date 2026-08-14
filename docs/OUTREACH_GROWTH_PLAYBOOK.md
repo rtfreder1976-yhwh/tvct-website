@@ -34,7 +34,7 @@ TVCT provides **Reliable Clinical-Grade Care** for the Shoals and Huntsville mar
 
 ## 5. Operational Workflow
 1.  **Lead Ingestion**: n8n parses contacts.
-2.  **Conversion Path**: Drive leads to `thevalleycleanteam.com/commercial-quote`.
+2.  **Conversion Path**: Drive leads to `https://thevalleycleanteam.bookingkoala.com/booknow`.
 3.  **Handoff**: Use the [INTERNAL_COMMERCIAL_CHECKLIST] to address manager pain points during the walkthrough.
 
 ---

@@ -1,38 +1,10 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Icon from "../components/Icon.astro";
+// Cleaner applications are owned by BookingKoala. Keep the established local
+// route as a permanent handoff for saved links and search results.
+export const prerender = false;
 
-const metadata = {
-  title: "Careers - The Valley Clean Team",
-  description:
-    "Join The Valley Clean Team! We're preparing a new application experience for cleaning professionals in Alabama and Tennessee.",
-};
+return Astro.redirect(
+  "https://thevalleycleanteam.bookingkoala.com/hiring/form/careers",
+  301,
+);
 ---
-
-<BaseLayout title={metadata.title} description={metadata.description} noindex={true}>
-  <section class="relative py-20 bg-gradient-to-br from-[#333333] to-[#444444] text-white">
-    <div class="container mx-auto px-6 relative z-10 text-center">
-      <h1 class="font-playfair text-4xl md:text-5xl font-bold mb-4">Join Our Team</h1>
-      <p class="text-xl max-w-2xl mx-auto text-gray-300">
-        We're looking for dedicated, detail-oriented cleaning professionals who take pride in their work.
-      </p>
-    </div>
-  </section>
-
-  <section class="py-16 px-6 bg-gray-50">
-    <div class="container mx-auto max-w-3xl">
-      <div class="bg-white rounded-2xl p-8 xl:p-12 shadow-sm border border-gray-100 text-center">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-[#FFF3ED] flex items-center justify-center">
-          <Icon name="briefcase" class="w-7 h-7 text-[#E8794F]" />
-        </div>
-        <h2 class="font-playfair text-3xl font-bold mb-4 text-[#333333]">New Application Form Coming Soon</h2>
-        <p class="text-gray-600 text-lg max-w-2xl mx-auto mb-4">
-          We're moving cleaner applications to a dedicated hiring form. Online applications are temporarily unavailable while we finish that update.
-        </p>
-        <p class="text-gray-500 max-w-xl mx-auto">
-          Please check back shortly. This page will link directly to the new cleaner application as soon as it is ready.
-        </p>
-      </div>
-    </div>
-  </section>
-</BaseLayout>
