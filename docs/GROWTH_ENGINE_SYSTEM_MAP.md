@@ -29,7 +29,7 @@ graph TD
     end
 
     subgraph "Phase 4: Conversion"
-    F1 & F2 & F3 & F4 --> G[Site: /commercial-quote]
+    F1 & F2 & F3 & F4 --> G[BookingKoala: Commercial Quote]
     G --> H[The Walkthrough Appointment]
     H --> I[INTERNAL_COMMERCIAL_CHECKLIST]
     end
@@ -70,7 +70,7 @@ Lead exports and generated contact lists stay in the approved CRM or restricted 
 - **Workflow Action:** Send "Day 1" intro based on the Niche-Specific variant from the [OUTREACH_GHL_LOGIC].
 
 ### Phase 4: Appointment Conversion (The Walkthrough)
-**Tools:** Astro Site (`/commercial-quote`), GHL Booking Bot.
+**Tools:** [BookingKoala commercial quote](https://thevalleycleanteam.bookingkoala.com/booknow), GHL Booking Bot.
 **Process:**
 1. Lead clicks a link in the SMS/Email.
 2. Form captures specific pain points (e.g., "Missed Trash", "Cleaning surprise").

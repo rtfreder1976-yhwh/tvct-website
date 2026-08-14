@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+const COMMERCIAL_QUOTE_URL = 'https://thevalleycleanteam.bookingkoala.com/booknow';
+const CAREERS_URL = 'https://thevalleycleanteam.bookingkoala.com/hiring/form/careers';
+
 /**
  * Regression checks for architectural invariants that are easy to accidentally
  * undo. Canonical values live in claims.ts; this script checks that high-impact
@@ -56,6 +59,16 @@ const required = [
     file: 'src/pages/admin/login.astro',
     text: 'createAdminSessionCookie',
     why: 'successful admin login must mint the short-lived signed session cookie',
+  },
+  {
+    file: 'src/pages/commercial-quote.astro',
+    text: COMMERCIAL_QUOTE_URL,
+    why: 'the established commercial quote route must hand off to the verified BookingKoala form',
+  },
+  {
+    file: 'src/pages/careers.astro',
+    text: CAREERS_URL,
+    why: 'the established careers route must hand off to the verified BookingKoala form',
   },
 ];
 
@@ -223,11 +236,50 @@ for (const source of [
   '/professional-cleaning-jobs-tennessee-valley',
   '/professional-cleaning-jobs-tennessee-valley/',
 ]) {
-  requireRedirect(source, '/careers');
+  requireRedirect(source, CAREERS_URL);
 }
 
 for (const source of ['/terms', '/terms/', '/careers', '/careers/']) {
-  forbidRedirect(source, 'a real Astro page owns this route');
+  forbidRedirect(source, 'an Astro page owns this route');
+}
+
+const bookingKoalaHandoffs = [
+  {
+    url: COMMERCIAL_QUOTE_URL,
+    files: [
+      'src/components/Footer.astro',
+      'src/pages/pricing.astro',
+      'templates/ghl_email_church.html',
+      'templates/ghl_email_dental.html',
+      'templates/ghl_email_dialysis.html',
+      'templates/ghl_email_medical.html',
+      'README_OUTREACH.md',
+      'docs/OUTREACH_GHL_LOGIC.md',
+      'docs/OUTREACH_GROWTH_PLAYBOOK.md',
+      'docs/GROWTH_ENGINE_SYSTEM_MAP.md',
+      'campaigns/content-plan/post-construction-cleaning-huntsville.md',
+      'campaigns/content-plan/office-cleaning-mountain-brook-birmingham.md',
+    ],
+    why: 'commercial quote CTAs must use the verified BookingKoala destination',
+  },
+  {
+    url: CAREERS_URL,
+    files: ['src/components/Navigation.astro', 'src/components/Footer.astro'],
+    why: 'careers links must use the verified BookingKoala destination',
+  },
+];
+
+for (const handoff of bookingKoalaHandoffs) {
+  for (const file of handoff.files) {
+    if (!fs.existsSync(file)) {
+      failures.push(`${file}: required file is missing — ${handoff.why}`);
+      continue;
+    }
+    const source = fs.readFileSync(file, 'utf8');
+    if (!source.includes(handoff.url)) {
+      failures.push(`${file}: missing ${handoff.url} — ${handoff.why}`);
+    }
+  }
 }
 
 for (const [market, hub] of [
@@ -259,6 +311,10 @@ if (failures.length) {
 }
 
 const redirectInvariantCount = 2 + 2 + 2 + 4 + 10;
+const bookingKoalaHandoffCount = bookingKoalaHandoffs.reduce(
+  (count, handoff) => count + handoff.files.length,
+  0,
+);
 console.log(
-  `Claim/architecture drift audit passed (${required.length + forbidden.length + 2 + redirectInvariantCount} fixed invariants + repository-wide same-day availability scan).`,
+  `Claim/architecture drift audit passed (${required.length + forbidden.length + 2 + redirectInvariantCount + bookingKoalaHandoffCount} fixed invariants + repository-wide same-day availability scan).`,
 );

@@ -71,11 +71,11 @@ Operator-as-buyer. Office manager / practice manager / SMB owner persona. Specif
 - Insurance/COI flexibility specifics for B2B buyers
 
 ## Internal Links
-- Links TO: `/services/commercial-cleaning`, `/medical-clinic-cleaning` (existing), `/dental-office-cleaning` (existing), `/locations/mountain-brook`, `/commercial-quote`
+- Links TO: `/services/commercial-cleaning`, `/medical-clinic-cleaning` (existing), `/dental-office-cleaning` (existing), `/locations/mountain-brook`, `https://thevalleycleanteam.bookingkoala.com/booknow`
 - Links FROM: `/services/commercial-cleaning.astro`, `/locations/mountain-brook/index.astro`
 
 ## CTA
-Primary: "Get a commercial quote" → `/commercial-quote`
+Primary: "Get a commercial quote" → `https://thevalleycleanteam.bookingkoala.com/booknow`
 Secondary: "Speak with a commercial account manager: (256) 826-1100"
 
 ## Priority
