@@ -145,15 +145,13 @@ const metaDescription =
       />
     </noscript>
 
-    <!-- Marketing + product analytics tags: deferred until first user interaction
-         OR a 15s fallback timer, whichever comes first. Keeps GA4/Clarity/Meta
-         Pixel/PostHog AND Vercel Web Analytics + Speed Insights out of the LCP/TBT
-         critical path on initial load (the eager <Analytics/>/<SpeedInsights/>
-         components added ~357ms of script eval to the homepage). dataLayer/fbq are
-         stubbed pre-load so click handlers don't error; PageView fires automatically
-         once each script lands. PostHog cannot run in Partytown (needs main-thread
-         APIs), so it loads here too; analytics remain non-blocking and are not part
-         of quote or booking delivery. -->
+    <!-- Marketing tags are deferred until first user interaction OR a 15s fallback
+         timer, whichever comes first. This keeps GA4/Clarity/Meta Pixel/PostHog out
+         of the LCP/TBT critical path. dataLayer/fbq are stubbed pre-load so click
+         handlers don't error; PageView fires automatically once each script lands.
+         PostHog cannot run in Partytown (needs main-thread APIs), so it loads here
+         too; analytics remain non-blocking and are not part of quote or booking
+         delivery. Vercel telemetry uses the bundled deferred module below. -->
     <script is:inline>
       (function () {
         // Pre-load stubs so any in-page handlers can push without errors.
@@ -257,19 +255,6 @@ const metaDescription =
             capture_pageleave: true,
           });
 
-          // Vercel Web Analytics + Speed Insights. Loaded here (not via the
-          // eager <Analytics/> / <SpeedInsights/> components) so their ~357ms
-          // of script eval stays out of the homepage's LCP/TBT critical path.
-          // inject() registers a pageview on load and patches history so SPA-
-          // style route changes are still tracked; injectSpeedInsights() keeps
-          // sampling real CWV. Both fire on the same first-interaction/15s
-          // trigger as the trackers above — real users hit it within seconds.
-          import("@vercel/analytics")
-            .then(function (m) { m.inject(); })
-            .catch(function () {});
-          import("@vercel/speed-insights")
-            .then(function (m) { m.injectSpeedInsights(); })
-            .catch(function () {});
         }
 
         // Trigger on first interaction
@@ -286,6 +271,41 @@ const metaDescription =
         // Lighthouse trace window and counts all four trackers against TBT.
         setTimeout(loadMarketingTags, 15000);
       })();
+    </script>
+
+    <!-- Astro bundles these package imports into a browser-resolvable module.
+         The previous bare imports lived inside an is:inline script, so browsers
+         could not resolve them and the empty catch blocks hid the failure. Keep
+         the successful first-interaction/15s loading policy while using the
+         supported Vercel SDK injection functions. -->
+    <script>
+      import { inject } from "@vercel/analytics";
+      import { injectSpeedInsights } from "@vercel/speed-insights";
+
+      let vercelTelemetryLoaded = false;
+      const vercelTelemetryEvents = ["pointerdown", "keydown", "scroll", "touchstart"];
+
+      function loadVercelTelemetry() {
+        if (vercelTelemetryLoaded) return;
+        vercelTelemetryLoaded = true;
+        inject({ framework: "astro" });
+        injectSpeedInsights({ framework: "astro", route: window.location.pathname });
+      }
+
+      function onVercelTelemetryInteraction() {
+        vercelTelemetryEvents.forEach((eventName) =>
+          window.removeEventListener(eventName, onVercelTelemetryInteraction),
+        );
+        loadVercelTelemetry();
+      }
+
+      vercelTelemetryEvents.forEach((eventName) =>
+        window.addEventListener(eventName, onVercelTelemetryInteraction, {
+          passive: true,
+          once: true,
+        }),
+      );
+      window.setTimeout(loadVercelTelemetry, 15000);
     </script>
 
     <noscript

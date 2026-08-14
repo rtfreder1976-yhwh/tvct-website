@@ -45,6 +45,25 @@ try {
 
   await page.setViewport({ width: 1280, height: 720 });
   await page.goto(url, { waitUntil: "networkidle0" });
+  await page.evaluate(() => window.dispatchEvent(new Event("pointerdown")));
+  await page.waitForFunction(
+    () =>
+      typeof window.va === "function" &&
+      typeof window.si === "function" &&
+      document.querySelector('script[src="/_vercel/insights/script.js"]') &&
+      document.querySelector('script[src="/_vercel/speed-insights/script.js"]'),
+    { timeout: 5000 },
+  );
+  const telemetry = await page.evaluate(() => ({
+    analyticsQueueReady: typeof window.va === "function",
+    speedInsightsQueueReady: typeof window.si === "function",
+    analyticsScriptInjected: Boolean(
+      document.querySelector('script[src="/_vercel/insights/script.js"]'),
+    ),
+    speedInsightsScriptInjected: Boolean(
+      document.querySelector('script[src="/_vercel/speed-insights/script.js"]'),
+    ),
+  }));
   const desktop = await page.evaluate(() => {
     const nav = document.querySelector('nav[aria-label="Main navigation"]');
     const desktopNav = nav?.querySelector(".hidden.xl\\:flex");
@@ -115,6 +134,10 @@ try {
   });
 
   const failures = [
+    [telemetry.analyticsQueueReady, "Vercel Web Analytics queue was not initialized"],
+    [telemetry.speedInsightsQueueReady, "Vercel Speed Insights queue was not initialized"],
+    [telemetry.analyticsScriptInjected, "Vercel Web Analytics script was not injected"],
+    [telemetry.speedInsightsScriptInjected, "Vercel Speed Insights script was not injected"],
     [desktop.desktopNavVisible, "desktop navigation is hidden"],
     [desktop.heroLoaded, "desktop hero image did not load"],
     [desktop.heroVisible, "desktop hero image is hidden"],
@@ -139,7 +162,7 @@ try {
     }
     process.exitCode = 1;
   } else {
-    console.log("Responsive shell validation passed (desktop, tablet, and mobile navigation/hero invariants).");
+    console.log("Responsive shell validation passed (Vercel telemetry plus desktop, tablet, and mobile navigation/hero invariants).");
   }
 } finally {
   await browser.close();
