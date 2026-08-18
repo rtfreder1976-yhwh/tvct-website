@@ -1,0 +1,47 @@
+---
+import {
+  API_CATALOG_PATH,
+  API_CATALOG_PROFILE,
+} from "../data/apiCatalog";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>API Discovery | The Valley Clean Team</title>
+    <style>
+      :root { color-scheme: light dark; font-family: system-ui, sans-serif; }
+      body { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem; line-height: 1.6; }
+      code { overflow-wrap: anywhere; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>API discovery</h1>
+      <p>
+        The Valley Clean Team publishes its public API catalog in the JSON
+        Linkset format defined by RFC 9727.
+      </p>
+      <h2>Catalog endpoint</h2>
+      <p><code>GET {API_CATALOG_PATH}</code></p>
+      <p>
+        Send <code>Accept: application/linkset+json</code>. A successful request
+        returns <code>200 OK</code> and a <code>linkset</code> array. Each entry
+        identifies an API with an <code>anchor</code> URL and related description
+        and documentation links.
+      </p>
+      <p>
+        <code>HEAD {API_CATALOG_PATH}</code> returns the same discovery headers
+        without a response body.
+      </p>
+      <h2>Machine-readable description</h2>
+      <p><a href="/openapi.json">OpenAPI 3.1 document</a></p>
+      <p>
+        Catalog profile: <a href={API_CATALOG_PROFILE}>{API_CATALOG_PROFILE}</a>
+      </p>
+    </main>
+  </body>
+</html>
