@@ -72,6 +72,33 @@ const openApiDocument = {
         },
       },
     },
+    "/agent/auth/register": {
+      get: {
+        summary: "Get agent integration provisioning instructions",
+        operationId: "getAgentProvisioningInstructions",
+        description:
+          "Returns the supported anonymous and manual-email registration methods. This read-only endpoint does not create an account or issue credentials.",
+        responses: {
+          "200": {
+            description: "Current agent provisioning instructions.",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/AgentProvisioning" },
+              },
+            },
+          },
+        },
+      },
+      head: {
+        summary: "Check agent provisioning instruction availability",
+        operationId: "headAgentProvisioningInstructions",
+        responses: {
+          "200": {
+            description: "Provisioning instructions are available.",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -107,6 +134,37 @@ const openApiDocument = {
             type: "array",
             items: { $ref: "#/components/schemas/CatalogEntry" },
           },
+        },
+      },
+      AgentProvisioning: {
+        type: "object",
+        required: [
+          "audience",
+          "status",
+          "provisioning_uri",
+          "register_uri",
+          "methods_supported",
+          "credential_use",
+        ],
+        properties: {
+          audience: { type: "string", const: "automated_agents" },
+          status: { type: "string", const: "manual_review" },
+          provisioning_uri: { type: "string", format: "uri" },
+          register_uri: { type: "string", format: "uri" },
+          methods_supported: {
+            type: "array",
+            items: { type: "string", enum: ["anonymous", "manual_email"] },
+          },
+          identity_types_supported: {
+            type: "array",
+            items: { type: "string", enum: ["anonymous"] },
+          },
+          credential_types_supported: {
+            type: "array",
+            items: { type: "string", enum: ["none"] },
+          },
+          credential_use: { type: "object" },
+          instructions: { type: "array", items: { type: "string" } },
         },
       },
     },
