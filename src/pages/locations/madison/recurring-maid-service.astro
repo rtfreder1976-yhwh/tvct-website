@@ -1,5 +1,7 @@
 ---
 import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import { RECURRING_DISCOUNTS, RECURRING_PRICING } from '../../../data/claims';
+import { pct } from '../../../data/servicePricing';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Icon from '../../../components/Icon.astro';
 
@@ -81,11 +83,11 @@ const includedServices = [
 const faqs = [
   {
     question: "What recurring cleaning frequencies do you offer in Madison?",
-    answer: "We offer weekly, biweekly (every two weeks), and monthly recurring cleaning in Madison. Weekly provides the deepest savings (30% off) and keeps your home consistently pristine—ideal for busy Town Madison and Clift Farm families. Biweekly is our most popular option for Madison professionals, balancing value and maintenance. Monthly works well for smaller homes or those who do light cleaning between visits."
+    answer: `We offer weekly, biweekly (every two weeks), and monthly recurring cleaning in Madison. Weekly provides the deepest savings (${pct(RECURRING_DISCOUNTS.weekly)} off) and keeps your home consistently pristine—ideal for busy Town Madison and Clift Farm families. Biweekly is our most popular option for Madison professionals, balancing value and maintenance. Monthly works well for smaller homes or those who do light cleaning between visits.`
   },
   {
     question: "How much can I save with recurring maid service in Madison?",
-    answer: "Madison recurring clients save significantly: Weekly service saves 20%, biweekly saves 15%, and monthly saves 10% compared to one-time cleaning rates. For a typical Madison home (2,400-3,200 sq ft), that's $40-70+ savings per cleaning, adding up to $500-1,500+ annually depending on frequency."
+    answer: `Madison recurring clients save significantly: Weekly service saves ${pct(RECURRING_DISCOUNTS.weekly)}, biweekly saves ${pct(RECURRING_DISCOUNTS.biweekly)}, and monthly saves ${pct(RECURRING_DISCOUNTS.monthly)} compared to one-time cleaning rates. For a typical Madison home (2,400-3,200 sq ft), that's $40-70+ savings per cleaning, adding up to $500-1,500+ annually depending on frequency.`
   },
   {
     question: "Do you serve all Madison neighborhoods including Town Madison?",
@@ -134,7 +136,7 @@ const serviceSchema = {
     "name": `${n}, Madison, AL`
   })),
   "serviceType": "Recurring Maid Service",
-  "description": "Professional recurring maid service in Madison, Alabama. Weekly, biweekly, and monthly cleaning with up to 20% savings. No contracts."
+  "description": `Professional recurring maid service in Madison, Alabama. Weekly, biweekly, and monthly cleaning with up to ${pct(RECURRING_DISCOUNTS.weekly)} savings. No contracts.`
 };
 
 const faqSchema = {
@@ -153,7 +155,7 @@ const faqSchema = {
 
 <BaseLayout
   title="Recurring Maid Service Madison AL | Valley Clean Team"
-  description="Recurring maid service in Madison, AL. Save up to 30% with weekly, biweekly or monthly cleaning. Reliable, background-checked teams. Call 256-826-1100"
+  description={`Recurring maid service in Madison, AL. Save up to ${pct(RECURRING_DISCOUNTS.weekly)} with weekly, biweekly or monthly cleaning. Reliable, background-checked teams. Call 256-826-1100`}
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -165,7 +167,7 @@ const faqSchema = {
         <div>
           <div class="inline-block bg-gradient-to-r from-[#FFA985] to-[#FFC67D] px-4 py-2 rounded-full mb-4">
             <span class="text-white font-semibold">
-              <Icon name="sync-alt" class="w-5 h-5 mr-2" />Save Up to 20% on Every Clean
+              <Icon name="sync-alt" class="w-5 h-5 mr-2" />Save Up to {pct(RECURRING_DISCOUNTS.weekly)} on Every Clean
             </span>
           </div>
           <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
@@ -220,8 +222,8 @@ const faqSchema = {
                 <h3 class="text-2xl font-bold text-[#333333] mt-2">Weekly Cleaning</h3>
               </div>
               <div class="text-right">
-                <p class="text-3xl font-bold text-[#FFA985]">30% OFF</p>
-                <p class="text-sm text-gray-500">From $139/visit</p>
+                <p class="text-3xl font-bold text-[#FFA985]">{pct(RECURRING_DISCOUNTS.weekly)} OFF</p>
+                <p class="text-sm text-gray-500">From {RECURRING_PRICING.weekly.display}/visit</p>
               </div>
             </div>
             <p class="text-gray-600 mb-4">Perfect for busy Madison professionals and families with kids or pets. Your home stays pristine with minimal effort.</p>
@@ -240,8 +242,8 @@ const faqSchema = {
                 <h3 class="text-2xl font-bold text-[#333333] mt-2">Biweekly Cleaning</h3>
               </div>
               <div class="text-right">
-                <p class="text-3xl font-bold text-blue-500">15% OFF</p>
-                <p class="text-sm text-gray-500">From $159/visit</p>
+                <p class="text-3xl font-bold text-blue-500">{pct(RECURRING_DISCOUNTS.biweekly)} OFF</p>
+                <p class="text-sm text-gray-500">From {RECURRING_PRICING.biweekly.display}/visit</p>
               </div>
             </div>
             <p class="text-gray-600 mb-4">The sweet spot for most Madison homes. Great balance of value and consistent cleanliness.</p>
@@ -259,8 +261,8 @@ const faqSchema = {
                 <h3 class="text-2xl font-bold text-[#333333]">Monthly Cleaning</h3>
               </div>
               <div class="text-right">
-                <p class="text-3xl font-bold text-gray-600">10% OFF</p>
-                <p class="text-sm text-gray-500">From $179/visit</p>
+                <p class="text-3xl font-bold text-gray-600">{pct(RECURRING_DISCOUNTS.monthly)} OFF</p>
+                <p class="text-sm text-gray-500">From {RECURRING_PRICING.monthly.display}/visit</p>
               </div>
             </div>
             <p class="text-gray-600 mb-4">Monthly deep refresh for those who maintain between visits or have smaller spaces.</p>
@@ -290,7 +292,7 @@ const faqSchema = {
             That's why so many Town Madison, Clift Farm, and Rainbow Mountain Heights families choose recurring maid service. Instead of spending 4-6 hours every Saturday scrubbing bathrooms and mopping floors, you come home to a spotless house—every week, every two weeks, or every month. Your time goes back to you.
           </p>
           <p>
-            With median household incomes exceeding $131,000, Madison families understand the value of their time. Hiring professional cleaners isn't an expense—it's an investment in your quality of life, your family time, and your sanity. And with savings up to 20% on recurring service, it's more affordable than you might think.
+            With median household incomes exceeding $131,000, Madison families understand the value of their time. Hiring professional cleaners isn't an expense—it's an investment in your quality of life, your family time, and your sanity. And with savings up to {pct(RECURRING_DISCOUNTS.weekly)} on recurring service, it's more affordable than you might think.
           </p>
         </div>
       </div>
@@ -313,7 +315,7 @@ const faqSchema = {
             <Icon name="piggy-bank" class="w-8 h-8 text-white" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-2">Save Money</h3>
-          <p class="text-gray-600">Up to 30% off every cleaning. For a typical Madison home, that's $50-80+ savings per visit—hundreds annually.</p>
+          <p class="text-gray-600">Up to {pct(RECURRING_DISCOUNTS.weekly)} off every cleaning. For a typical Madison home, that's $50-80+ savings per visit—hundreds annually.</p>
         </div>
 
         <div class="text-center">

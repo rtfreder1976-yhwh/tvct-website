@@ -1,5 +1,7 @@
 ---
 import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import { RECURRING_DISCOUNTS, RECURRING_PRICING } from '../../../data/claims';
+import { pct } from '../../../data/servicePricing';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Icon from '../../../components/Icon.astro';
 
@@ -25,9 +27,9 @@ const neighborhoods = [
 
 // Service frequencies
 const frequencies = [
-  { name: "Weekly", discount: "30% off", description: "Best for busy families, pet owners, and those who love a consistently spotless home." },
-  { name: "Biweekly", discount: "25% off", description: "Our most popular option—perfect balance of clean home and value." },
-  { name: "Monthly", discount: "15% off", description: "Great for maintaining a clean home with lighter touch-ups between visits." }
+  { name: "Weekly", discount: `${pct(RECURRING_DISCOUNTS.weekly)} off`, description: "Best for busy families, pet owners, and those who love a consistently spotless home." },
+  { name: "Biweekly", discount: `${pct(RECURRING_DISCOUNTS.biweekly)} off`, description: "Our most popular option—perfect balance of clean home and value." },
+  { name: "Monthly", discount: `${pct(RECURRING_DISCOUNTS.monthly)} off`, description: "Great for maintaining a clean home with lighter touch-ups between visits." }
 ];
 
 // What's included
@@ -82,7 +84,7 @@ const includedServices = [
 const faqs = [
   {
     question: "How much does recurring cleaning cost in Decatur?",
-    answer: "Recurring cleaning in Decatur typically starts at $125 per visit, with pricing based on home size and frequency. Weekly clients save 20%, biweekly saves 15%, and monthly saves 10% compared to one-time cleaning rates. Most Decatur homes (1,500-2,500 sq ft) range from $125-$200 per visit. Call (256) 826-1100 for a free quote."
+    answer: `Recurring cleaning in Decatur typically starts at ${RECURRING_PRICING.weekly.display} per visit, with pricing based on home size and frequency. Weekly clients save ${pct(RECURRING_DISCOUNTS.weekly)}, biweekly saves ${pct(RECURRING_DISCOUNTS.biweekly)}, and monthly saves ${pct(RECURRING_DISCOUNTS.monthly)} compared to one-time cleaning rates. Most Decatur homes (1,500-2,500 sq ft) range from ${RECURRING_PRICING.weekly.display} to ${RECURRING_PRICING.monthly.display} per visit depending on frequency. Call (256) 826-1100 for a free quote.`
   },
   {
     question: "What areas of Decatur do you serve?",
@@ -157,7 +159,7 @@ import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
 
 <BaseLayout
   title="Recurring Maid Service Decatur AL | Valley Clean Team"
-  description="Professional recurring maid service in Decatur, AL. Weekly, biweekly, monthly house cleaning. Veteran-owned, insured. Save up to 30%."
+  description={`Professional recurring maid service in Decatur, AL. Weekly, biweekly, monthly house cleaning. Veteran-owned, insured. Save up to ${pct(RECURRING_DISCOUNTS.weekly)}.`}
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -169,14 +171,14 @@ import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
         <div>
           <div class="inline-block bg-blue-50 border border-blue-200 px-4 py-2 rounded-full mb-4">
             <span class="text-blue-700 text-sm font-medium">
-              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Save Up to 20% with Recurring Service
+              <Icon name="calendar-check" class="w-5 h-5 mr-2" />Save Up to {pct(RECURRING_DISCOUNTS.weekly)} with Recurring Service
             </span>
           </div>
           <h1 class="text-4xl md:text-5xl font-bold text-[#333333] mb-6 leading-tight">
             Recurring Maid Service in <span class="gold-gradient">Decatur, Alabama</span>
           </h1>
           <p class="text-xl text-gray-700 mb-6">
-            Come home to clean—every week, every other week, or every month. Our recurring cleaning service keeps your Decatur home consistently spotless while saving you up to 20% compared to one-time cleanings. From Bank Street to Point Mallard, we've got Decatur covered.
+            Come home to clean—every week, every other week, or every month. Our recurring cleaning service keeps your Decatur home consistently spotless while saving you up to {pct(RECURRING_DISCOUNTS.weekly)} compared to one-time cleanings. From Bank Street to Point Mallard, we've got Decatur covered.
           </p>
           
           <!-- Trust Badges -->
@@ -200,12 +202,12 @@ import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
             <div class="flex items-center gap-4">
               <div>
                 <span class="text-sm text-gray-600">Recurring Service From</span>
-                <div class="text-3xl font-bold text-[#FFA985]">$125</div>
+                <div class="text-3xl font-bold text-[#FFA985]">{RECURRING_PRICING.weekly.display}</div>
               </div>
               <div class="text-gray-300">|</div>
               <div>
                 <span class="text-sm text-gray-600">Save Up To</span>
-                <div class="text-2xl font-bold text-green-600">30% Off</div>
+                <div class="text-2xl font-bold text-green-600">{pct(RECURRING_DISCOUNTS.weekly)} Off</div>
               </div>
             </div>
           </div>
@@ -315,7 +317,7 @@ import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
             <Icon name="piggy-bank" class="w-8 h-8 text-[#FFA985]" />
           </div>
           <h3 class="text-xl font-bold text-[#333333] mb-3">Real Savings</h3>
-          <p class="text-gray-600">Up to 30% off with recurring service. The more often we clean, the less time each visit takes, and we pass those savings to you.</p>
+          <p class="text-gray-600">Up to {pct(RECURRING_DISCOUNTS.weekly)} off with recurring service. The more often we clean, the less time each visit takes, and we pass those savings to you.</p>
         </div>
         
         <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
@@ -435,7 +437,7 @@ import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
         Come Home to Clean Every Time
       </h2>
       <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-        Join hundreds of Decatur families who enjoy a consistently clean home without lifting a finger. Save up to 30% with recurring service.
+        Join hundreds of Decatur families who enjoy a consistently clean home without lifting a finger. Save up to {pct(RECURRING_DISCOUNTS.weekly)} with recurring service.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="https://thevalleycleanteam.bookingkoala.com/booknow" class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#FFA985] bg-white rounded-full shadow-lg hover:shadow-xl transition-all">
