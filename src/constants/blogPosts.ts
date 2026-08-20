@@ -403,17 +403,6 @@ export const allBlogPosts: BlogPost[] = [
     icon: "lightbulb",
   },
   {
-    slug: "post-event-cleaning-services-for-corporate-holiday-parties",
-    title: "Post-Event Cleaning Services for Corporate Holiday Parties",
-    excerpt: "Check back on November 16 2026 for our latest article covering post-event cleaning services for corporate holiday parties.",
-    category: "Commercial/Post-Event",
-    filterCategory: "industry",
-    categoryColor: "indigo",
-    date: "November 16 2026",
-    readTime: "5 min read",
-    icon: "building",
-  },
-  {
     slug: "black-friday-special-the-gift-of-a-clean-home",
     title: "Black Friday Special: The Gift of a Clean Home",
     excerpt: "Check back on November 23 2026 for our latest article covering black friday special: the gift of a clean home.",

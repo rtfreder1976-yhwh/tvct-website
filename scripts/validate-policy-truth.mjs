@@ -1,5 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {
+  RETIRED_PRICE_TOKENS,
+  retiredPricePattern,
+  retiredPriceAllowlist,
+} from './retired-price-allowlist.mjs';
 
 /**
  * Repository-wide regression guard for customer-facing business policies.
@@ -154,10 +159,214 @@ if (fs.existsSync(nashvilleComparison)) {
   }
 }
 
+
+// ---------------------------------------------------------------------------
+// Retired Offer price tokens, repository-wide.
+//
+// The rules above are filename-gated: the recurring-price guard only looks at
+// (weekly|biweekly|monthly)-cleaning.astro, and only at a price="$X" prop. That
+// is why nine recurring-maid-service.astro pages carried a retired discount
+// ladder in body copy for months without tripping anything. This scan is
+// repo-wide over every .astro/.ts file, and the allowlist is the only escape.
+// ---------------------------------------------------------------------------
+const scanRoots = ['src'];
+const scannedExtensions = new Set(['.astro', '.ts']);
+const today = new Date().toISOString().slice(0, 10);
+
+const allowByFile = new Map();
+for (const entry of retiredPriceAllowlist) {
+  if (allowByFile.has(entry.file)) {
+    failures.push(`retired-price allowlist: duplicate entry for ${entry.file}`);
+    continue;
+  }
+  allowByFile.set(entry.file, entry);
+}
+
+function findRetiredTokens(source) {
+  const occurrences = [];
+  const counts = new Map();
+  for (const token of RETIRED_PRICE_TOKENS) {
+    for (const match of source.matchAll(retiredPricePattern(token))) {
+      occurrences.push({ token, index: match.index, line: source.slice(0, match.index).split('\n').length });
+      counts.set(token, (counts.get(token) ?? 0) + 1);
+    }
+  }
+  occurrences.sort((a, b) => a.index - b.index);
+  const found = [...counts.entries()].map(([token, n]) => `$${token}×${n}`);
+  return { total: occurrences.length, found, occurrences };
+}
+
+/**
+ * How far from an occurrence the attribution may sit. Every phrase-attributed
+ * occurrence in the repository today is within 342 characters of the wording
+ * that makes the figure someone else's; 400 leaves room for ordinary editing
+ * without widening the window until it stops meaning anything.
+ */
+const ATTRIBUTION_WINDOW = 400;
+
+const globalize = (re) => new RegExp(re.source, re.flags.includes('g') ? re.flags : `${re.flags}g`);
+
+/**
+ * Which column of its table a character offset falls in, or -1 if it is not in
+ * a table row. Cells are counted by opening tag, so the index lines up with the
+ * header cells of the same table.
+ */
+function columnAt(source, index) {
+  const rowStart = source.lastIndexOf('<tr', index);
+  const rowEnd = source.indexOf('</tr>', index);
+  if (rowStart === -1 || rowEnd === -1 || rowEnd < index) return -1;
+  const row = source.slice(rowStart, rowEnd);
+  const offset = index - rowStart;
+  let column = -1;
+  for (const cell of row.matchAll(/<t[dh][\s>]/g)) {
+    if (cell.index <= offset) column += 1;
+    else break;
+  }
+  return column;
+}
+
+/**
+ * Index of the column whose header matches `pattern`, within the table
+ * containing `index`. -1 when there is no such table or no such header.
+ */
+function ownColumnAt(source, index, pattern) {
+  const tableStart = source.lastIndexOf('<table', index);
+  const tableEnd = source.indexOf('</table>', index);
+  if (tableStart === -1 || tableEnd === -1 || tableEnd < index) return -1;
+  const table = source.slice(tableStart, tableEnd);
+  const headers = [...table.matchAll(/<th[\s>][\s\S]*?<\/th>/g)];
+  return headers.findIndex((header) => pattern.test(header[0]));
+}
+
+/**
+ * Attribution is checked per occurrence, not per file. A file-wide test only
+ * proves that one attribution phrase survives somewhere, so in a file holding
+ * several retired figures a single occurrence could quietly lose its
+ * attribution and still read as a TVCT Offer while the file passed.
+ *
+ * An occurrence qualifies either by proximity to the contextPattern, or — for
+ * figures attributed by table position rather than by prose — by sitting in a
+ * market-rate cell of a comparison table.
+ *
+ * That second route is bound to the actual column. Matching the cell shape and
+ * confirming a TVCT header exists somewhere in the file is not enough: a
+ * retired range moved into the TVCT column would keep both of those true while
+ * now reading as our own price. The occurrence must sit in a column other than
+ * the one whose header matches structuralOwnColumn, in the same table.
+ */
+function unattributedOccurrences(source, entry) {
+  const contextIndices = [...source.matchAll(globalize(entry.contextPattern))].map((m) => m.index);
+  const lines = source.split('\n');
+
+  const orphans = [];
+  for (const { token, index, line } of findRetiredTokens(source).occurrences) {
+    if (contextIndices.some((c) => Math.abs(c - index) <= (entry.contextWithin ?? ATTRIBUTION_WINDOW))) {
+      continue;
+    }
+    if (entry.structuralPattern && entry.structuralOwnColumn && entry.structuralPattern.test(lines[line - 1])) {
+      const ownColumn = ownColumnAt(source, index, entry.structuralOwnColumn);
+      const column = columnAt(source, index);
+      if (ownColumn === -1) {
+        orphans.push({ token, line, why: 'the column header it was attributed by is gone' });
+        continue;
+      }
+      if (column === ownColumn) {
+        orphans.push({ token, line, why: "it now sits in TVCT's own column of the comparison table" });
+        continue;
+      }
+      if (column !== -1) continue;
+    }
+    orphans.push({ token, line, why: 'no attribution near it' });
+  }
+  return orphans;
+}
+
+const seenFiles = new Set();
+for (const root of scanRoots) {
+  for (const file of walk(root)) {
+    if (!scannedExtensions.has(path.extname(file))) continue;
+    const key = file.split(path.sep).join('/');
+    const source = fs.readFileSync(file, 'utf8');
+    const { total, found } = findRetiredTokens(source);
+    if (total === 0) continue;
+    seenFiles.add(key);
+
+    const entry = allowByFile.get(key);
+    if (!entry) {
+      failures.push(
+        `${key}: publishes retired price token(s) ${found.join(', ')} — retired Offer prices must not ship. ` +
+          `Fix the source, or add a typed entry to scripts/retired-price-allowlist.mjs explaining why it is not a TVCT price.`,
+      );
+      continue;
+    }
+
+    if (total !== entry.count) {
+      const direction = total > entry.count ? 'more' : 'fewer';
+      failures.push(
+        `${key}: found ${total} retired price token(s) (${found.join(', ')}) but the allowlist permits ${entry.count} — ` +
+          `${direction} than recorded. Re-check the file, then update or remove its allowlist entry.`,
+      );
+    }
+
+    if (entry.type === 'attributed') {
+      if (!entry.contextPattern) {
+        failures.push(`retired-price allowlist: ${key} is 'attributed' but has no contextPattern`);
+      } else if (entry.structuralPattern && !entry.structuralOwnColumn) {
+        failures.push(
+          `retired-price allowlist: ${key} declares a structuralPattern but no structuralOwnColumn — ` +
+            `structural attribution has to name the column the figure must not be in.`,
+        );
+      } else {
+        const orphans = unattributedOccurrences(source, entry);
+        if (orphans.length) {
+          const where = orphans.map((o) => `$${o.token} on line ${o.line} (${o.why})`).join('; ');
+          failures.push(
+            `${key}: allowlisted as 'attributed', but ${orphans.length} occurrence(s) no longer read as ` +
+              `someone else's figure — ${where}. Either restore what attributed it, or treat it as a TVCT price.`,
+          );
+        }
+      }
+    }
+
+    if (entry.type === 'pending' || entry.type === 'deferred') {
+      const required = entry.type === 'pending' ? ['owner', 'question', 'expires'] : ['tracking', 'expires'];
+      const missing = required.filter((field) => !entry[field]);
+      if (missing.length) {
+        failures.push(`retired-price allowlist: ${key} is '${entry.type}' but is missing ${missing.join(', ')}`);
+      }
+      if (entry.expires && entry.expires < today) {
+        const detail =
+          entry.type === 'pending'
+            ? `${entry.owner ?? 'owner'} still owes an answer: ${entry.question ?? '(no question recorded)'}`
+            : `tracked as ${entry.tracking ?? '(untracked)'}`;
+        failures.push(
+          `${key}: retired-price allowance expired on ${entry.expires} — ${detail}. ` +
+            `Resolve it or move the date deliberately; do not let it pass silently.`,
+        );
+      }
+    }
+  }
+}
+
+// Allowlist lint: entries that no longer describe reality.
+for (const entry of retiredPriceAllowlist) {
+  if (!fs.existsSync(entry.file)) {
+    failures.push(`retired-price allowlist: ${entry.file} no longer exists — remove its entry`);
+  } else if (!seenFiles.has(entry.file)) {
+    failures.push(
+      `retired-price allowlist: ${entry.file} no longer contains any retired price token — remove its entry`,
+    );
+  }
+}
+
 if (failures.length) {
   console.error('Verified pricing/policy drift detected:\n');
   for (const failure of failures) console.error(`  - ${failure}`);
   process.exit(1);
 }
 
-console.log(`Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns plus custom-quote and recurring-price guards).`);
+console.log(
+  `Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns, ` +
+    `custom-quote and recurring-price guards, and a repo-wide retired-Offer-price scan with ` +
+    `${retiredPriceAllowlist.length} allowlisted file(s)).`,
+);

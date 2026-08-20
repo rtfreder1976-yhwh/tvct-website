@@ -4,7 +4,7 @@ import {
   RECURRING_PRICING,
 } from "./claims";
 
-const pct = (value: number) => `${Math.round(value * 100)}%`;
+export const pct = (value: number) => `${Math.round(value * 100)}%`;
 
 /**
  * Canonical starting price for programmatic location/service pages.

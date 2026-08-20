@@ -1,5 +1,6 @@
 ---
 import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import { PRICING } from "../../../data/claims";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Icon from '../../../components/Icon.astro';
 
@@ -50,7 +51,7 @@ const includedServices = [
 const faqs = [
   {
     question: "How much does move-out cleaning cost in West Nashville?",
-    answer: "Move-out cleaning in West Nashville typically ranges from $250-$400 for apartments and standard homes. Belle Meade estates, larger properties, and heavily soiled units are quoted individually. Call (615) 510-1427 for a free quote based on your specific property."
+    answer: `Move-out cleaning in West Nashville starts at ${PRICING.moveInOut.display} for apartments and standard homes. Belle Meade estates, larger properties, and heavily soiled units are quoted individually. Call (615) 510-1427 for a free quote based on your specific property.`
   },
   {
     question: "Will move-out cleaning help me get my deposit back?",
@@ -82,7 +83,7 @@ const faqs = [
   },
   {
     question: "What does Tennessee law say about security deposit deductions for cleaning?",
-    answer: "Tennessee landlord-tenant law allows landlords to deduct legitimate cleaning costs from security deposits when a unit isn't returned in the condition it was rented. In West Nashville's premium rental market, where deposits often run $1,500-$3,000+, professional move-out cleaning that costs $250-$400 is a straightforward investment against potential deductions of $500-$1,500 for cleaning issues. The math strongly favors professional cleaning."
+    answer: `Tennessee landlord-tenant law allows landlords to deduct legitimate cleaning costs from security deposits when a unit isn't returned in the condition it was rented. In West Nashville's premium rental market, where deposits often run $1,500-$3,000+, professional move-out cleaning from ${PRICING.moveInOut.display} is a straightforward investment against potential deductions of $500-$1,500 for cleaning issues. The math strongly favors professional cleaning.`
   },
   {
     question: "What do West Nashville landlords check most carefully during move-out?",
@@ -183,13 +184,8 @@ import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
           <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100 inline-block mb-6">
             <div class="flex items-center gap-4">
               <div>
-                <span class="text-sm text-gray-600">Apartments From</span>
-                <div class="text-3xl font-bold text-[#FFA985]">$250</div>
-              </div>
-              <div class="text-gray-300">|</div>
-              <div>
-                <span class="text-sm text-gray-600">Average Homes</span>
-                <div class="text-2xl font-bold text-gray-700">$300-$400</div>
+                <span class="text-sm text-gray-600">Move-Out Cleaning From</span>
+                <div class="text-3xl font-bold text-[#FFA985]">{PRICING.moveInOut.display}</div>
               </div>
             </div>
           </div>

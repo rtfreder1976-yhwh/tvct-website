@@ -6,6 +6,15 @@ import TrustBadges from "../../components/TrustBadges.astro";
 import Icon from "../../components/Icon.astro";
 import ProblemOptions from "../../components/ProblemOptions.astro";
 import { standaloneServiceIntent } from "../../data/serviceIntent.ts";
+import { POLICIES } from "../../data/claims";
+
+// Commercial work is custom-quoted; render the confirmed factors as prose so the
+// sentence cannot drift from POLICIES.commercialQuoteFactors.
+const quoteFactors = POLICIES.commercialQuoteFactors;
+const quoteFactorList =
+  quoteFactors.length > 1
+    ? `${quoteFactors.slice(0, -1).join(", ")}, and ${quoteFactors[quoteFactors.length - 1]}`
+    : quoteFactors[0];
 
 const title = "Commercial Cleaning AL & TN | Valley Clean Team";
 const description =
@@ -295,8 +304,9 @@ import BookingCTA from "../../components/BookingCTA.astro";
             medical clinics, churches, retail, and other business facilities,
             built around a consistent crew and your operating hours. It's for
             business owners and facility managers who need reliable, insured
-            service. The Valley Clean Team's commercial cleaning starts around
-            $0.10 per square foot, uses pet-safe, non-toxic products, and is
+            service. The Valley Clean Team quotes commercial cleaning on
+            {quoteFactorList} rather than a flat
+            rate, uses pet-safe, non-toxic products, and is
             available across Huntsville, Athens, Florence and the Shoals,
             Mountain Brook, and Nashville.
           </p>
