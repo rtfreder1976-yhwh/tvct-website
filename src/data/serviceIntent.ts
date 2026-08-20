@@ -85,15 +85,6 @@ export const standaloneServiceIntent: Record<string, ServiceIntent> = {
       { label: "The Valley Clean Team", isUs: true, detail: "Tell us your product sensitivities and surface requirements when booking so the cleaning plan can account for them." },
     ],
   },
-  "event-cleaning": {
-    problem:
-      "Hosting is stressful enough without the cleanup. Before the event you need the space ready; afterward you may need it reset on a deadline.",
-    options: [
-      { label: "Do it yourself", detail: "Keeps everything in your control, but adds cleaning to an already busy event schedule." },
-      { label: "Ask the venue", detail: "Convenient when available, but confirm whether the service is a basic reset or detailed cleaning." },
-      { label: "The Valley Clean Team", isUs: true, detail: "Pre- or post-event cleaning scoped around the venue, timing, and condition of the space." },
-    ],
-  },
   "neighborhood": {
     problem:
       "Finding a house cleaner you can trust in your neighborhood comes down to reliability, clear pricing, and knowing who is entering your home.",

@@ -125,31 +125,6 @@ export const retiredPriceAllowlist = [
   },
 
 
-  // --- pending: event cleaning has no canonical price ---------------------
-  { file: 'src/pages/locations/huntsville/event-cleaning.astro', count: 6,
-    type: 'pending',
-    owner: 'Todd',
-    question: 'Event cleaning has no canonical price. What are the real pre-event and post-event figures?',
-    expires: '2026-09-30',
-  },
-  { file: 'src/pages/locations/madison/event-cleaning.astro', count: 2,
-    type: 'pending',
-    owner: 'Todd',
-    question: 'Event cleaning has no canonical price. What are the real pre-event and post-event figures?',
-    expires: '2026-09-30',
-  },
-  { file: 'src/pages/locations/nashville/event-cleaning.astro', count: 6,
-    type: 'pending',
-    owner: 'Todd',
-    question: 'Event cleaning has no canonical price. What are the real pre-event and post-event figures?',
-    expires: '2026-09-30',
-  },
-  { file: 'src/pages/locations/west-nashville/event-cleaning.astro', count: 1,
-    type: 'pending',
-    owner: 'Todd',
-    question: 'Event cleaning has no canonical price. What are the real pre-event and post-event figures?',
-    expires: '2026-09-30',
-  },
 
   // --- pending: compassionate clean floor ---------------------------------
   { file: 'src/pages/services/compassionate-clean.astro', count: 2,
