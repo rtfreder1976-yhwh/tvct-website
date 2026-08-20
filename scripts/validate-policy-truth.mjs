@@ -1,5 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {
+  RETIRED_PRICE_TOKENS,
+  retiredPricePattern,
+  retiredPriceAllowlist,
+} from './retired-price-allowlist.mjs';
 
 /**
  * Repository-wide regression guard for customer-facing business policies.
@@ -154,10 +159,118 @@ if (fs.existsSync(nashvilleComparison)) {
   }
 }
 
+
+// ---------------------------------------------------------------------------
+// Retired Offer price tokens, repository-wide.
+//
+// The rules above are filename-gated: the recurring-price guard only looks at
+// (weekly|biweekly|monthly)-cleaning.astro, and only at a price="$X" prop. That
+// is why nine recurring-maid-service.astro pages carried a retired discount
+// ladder in body copy for months without tripping anything. This scan is
+// repo-wide over every .astro/.ts file, and the allowlist is the only escape.
+// ---------------------------------------------------------------------------
+const scanRoots = ['src'];
+const scannedExtensions = new Set(['.astro', '.ts']);
+const today = new Date().toISOString().slice(0, 10);
+
+const allowByFile = new Map();
+for (const entry of retiredPriceAllowlist) {
+  if (allowByFile.has(entry.file)) {
+    failures.push(`retired-price allowlist: duplicate entry for ${entry.file}`);
+    continue;
+  }
+  allowByFile.set(entry.file, entry);
+}
+
+function countRetiredTokens(source) {
+  let total = 0;
+  const found = [];
+  for (const token of RETIRED_PRICE_TOKENS) {
+    const matches = source.match(retiredPricePattern(token));
+    if (matches) {
+      total += matches.length;
+      found.push(`$${token}×${matches.length}`);
+    }
+  }
+  return { total, found };
+}
+
+const seenFiles = new Set();
+for (const root of scanRoots) {
+  for (const file of walk(root)) {
+    if (!scannedExtensions.has(path.extname(file))) continue;
+    const key = file.split(path.sep).join('/');
+    const { total, found } = countRetiredTokens(fs.readFileSync(file, 'utf8'));
+    if (total === 0) continue;
+    seenFiles.add(key);
+
+    const entry = allowByFile.get(key);
+    if (!entry) {
+      failures.push(
+        `${key}: publishes retired price token(s) ${found.join(', ')} — retired Offer prices must not ship. ` +
+          `Fix the source, or add a typed entry to scripts/retired-price-allowlist.mjs explaining why it is not a TVCT price.`,
+      );
+      continue;
+    }
+
+    if (total !== entry.count) {
+      const direction = total > entry.count ? 'more' : 'fewer';
+      failures.push(
+        `${key}: found ${total} retired price token(s) (${found.join(', ')}) but the allowlist permits ${entry.count} — ` +
+          `${direction} than recorded. Re-check the file, then update or remove its allowlist entry.`,
+      );
+    }
+
+    if (entry.type === 'attributed') {
+      if (!entry.contextPattern) {
+        failures.push(`retired-price allowlist: ${key} is 'attributed' but has no contextPattern`);
+      } else if (!entry.contextPattern.test(fs.readFileSync(file, 'utf8'))) {
+        failures.push(
+          `${key}: allowlisted as 'attributed' but its contextPattern no longer matches — ` +
+            `the attribution wording appears to have been edited away while the figure stayed.`,
+        );
+      }
+    }
+
+    if (entry.type === 'pending' || entry.type === 'deferred') {
+      const required = entry.type === 'pending' ? ['owner', 'question', 'expires'] : ['tracking', 'expires'];
+      const missing = required.filter((field) => !entry[field]);
+      if (missing.length) {
+        failures.push(`retired-price allowlist: ${key} is '${entry.type}' but is missing ${missing.join(', ')}`);
+      }
+      if (entry.expires && entry.expires < today) {
+        const detail =
+          entry.type === 'pending'
+            ? `${entry.owner ?? 'owner'} still owes an answer: ${entry.question ?? '(no question recorded)'}`
+            : `tracked as ${entry.tracking ?? '(untracked)'}`;
+        failures.push(
+          `${key}: retired-price allowance expired on ${entry.expires} — ${detail}. ` +
+            `Resolve it or move the date deliberately; do not let it pass silently.`,
+        );
+      }
+    }
+  }
+}
+
+// Allowlist lint: entries that no longer describe reality.
+for (const entry of retiredPriceAllowlist) {
+  if (!fs.existsSync(entry.file)) {
+    failures.push(`retired-price allowlist: ${entry.file} no longer exists — remove its entry`);
+  } else if (!seenFiles.has(entry.file)) {
+    failures.push(
+      `retired-price allowlist: ${entry.file} no longer contains any retired price token — remove its entry`,
+    );
+  }
+}
+
 if (failures.length) {
   console.error('Verified pricing/policy drift detected:\n');
   for (const failure of failures) console.error(`  - ${failure}`);
   process.exit(1);
 }
 
-console.log(`Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns plus custom-quote and recurring-price guards).`);
+console.log(
+  `Verified pricing/policy drift audit passed (${rules.length} repository-wide contradiction patterns, ` +
+    `custom-quote and recurring-price guards, and a repo-wide retired-Offer-price scan with ` +
+    `${retiredPriceAllowlist.length} allowlisted file(s)).`,
+);
