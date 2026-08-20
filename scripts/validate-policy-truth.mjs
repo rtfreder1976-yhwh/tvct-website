@@ -182,17 +182,55 @@ for (const entry of retiredPriceAllowlist) {
   allowByFile.set(entry.file, entry);
 }
 
-function countRetiredTokens(source) {
-  let total = 0;
-  const found = [];
+function findRetiredTokens(source) {
+  const occurrences = [];
+  const counts = new Map();
   for (const token of RETIRED_PRICE_TOKENS) {
-    const matches = source.match(retiredPricePattern(token));
-    if (matches) {
-      total += matches.length;
-      found.push(`$${token}×${matches.length}`);
+    for (const match of source.matchAll(retiredPricePattern(token))) {
+      occurrences.push({ token, index: match.index, line: source.slice(0, match.index).split('\n').length });
+      counts.set(token, (counts.get(token) ?? 0) + 1);
     }
   }
-  return { total, found };
+  occurrences.sort((a, b) => a.index - b.index);
+  const found = [...counts.entries()].map(([token, n]) => `$${token}×${n}`);
+  return { total: occurrences.length, found, occurrences };
+}
+
+/**
+ * How far from an occurrence the attribution may sit. Every phrase-attributed
+ * occurrence in the repository today is within 342 characters of the wording
+ * that makes the figure someone else's; 400 leaves room for ordinary editing
+ * without widening the window until it stops meaning anything.
+ */
+const ATTRIBUTION_WINDOW = 400;
+
+const globalize = (re) => new RegExp(re.source, re.flags.includes('g') ? re.flags : `${re.flags}g`);
+
+/**
+ * Attribution is checked per occurrence, not per file. A file-wide test only
+ * proves that one attribution phrase survives somewhere, so in a file holding
+ * several retired figures a single occurrence could quietly lose its
+ * attribution and still read as a TVCT Offer while the file passed.
+ *
+ * An occurrence qualifies either by proximity to the contextPattern, or — for
+ * figures attributed by table position rather than by prose — by sitting on a
+ * line matching structuralPattern in a file that still contains
+ * structuralAnchor.
+ */
+function unattributedOccurrences(source, entry) {
+  const contextIndices = [...source.matchAll(globalize(entry.contextPattern))].map((m) => m.index);
+  const lines = source.split('\n');
+  const anchored = entry.structuralAnchor ? entry.structuralAnchor.test(source) : false;
+
+  return findRetiredTokens(source).occurrences.filter(({ index, line }) => {
+    if (contextIndices.some((c) => Math.abs(c - index) <= (entry.contextWithin ?? ATTRIBUTION_WINDOW))) {
+      return false;
+    }
+    if (entry.structuralPattern && anchored && entry.structuralPattern.test(lines[line - 1])) {
+      return false;
+    }
+    return true;
+  });
 }
 
 const seenFiles = new Set();
@@ -200,7 +238,8 @@ for (const root of scanRoots) {
   for (const file of walk(root)) {
     if (!scannedExtensions.has(path.extname(file))) continue;
     const key = file.split(path.sep).join('/');
-    const { total, found } = countRetiredTokens(fs.readFileSync(file, 'utf8'));
+    const source = fs.readFileSync(file, 'utf8');
+    const { total, found } = findRetiredTokens(source);
     if (total === 0) continue;
     seenFiles.add(key);
 
@@ -224,11 +263,21 @@ for (const root of scanRoots) {
     if (entry.type === 'attributed') {
       if (!entry.contextPattern) {
         failures.push(`retired-price allowlist: ${key} is 'attributed' but has no contextPattern`);
-      } else if (!entry.contextPattern.test(fs.readFileSync(file, 'utf8'))) {
+      } else if (entry.structuralPattern && !entry.structuralAnchor) {
         failures.push(
-          `${key}: allowlisted as 'attributed' but its contextPattern no longer matches — ` +
-            `the attribution wording appears to have been edited away while the figure stayed.`,
+          `retired-price allowlist: ${key} declares a structuralPattern but no structuralAnchor — ` +
+            `structural attribution has to name the structure it depends on.`,
         );
+      } else {
+        const orphans = unattributedOccurrences(source, entry);
+        if (orphans.length) {
+          const where = orphans.map((o) => `$${o.token} on line ${o.line}`).join(', ');
+          failures.push(
+            `${key}: allowlisted as 'attributed', but ${orphans.length} occurrence(s) have no attribution ` +
+              `within ${entry.contextWithin ?? ATTRIBUTION_WINDOW} characters (${where}) — ` +
+              `either the wording that made the figure someone else's was edited away, or the figure now reads as a TVCT Offer.`,
+          );
+        }
       }
     }
 

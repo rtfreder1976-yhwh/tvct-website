@@ -15,9 +15,16 @@
  * Types:
  *   source     — non-rendered narration (module comments about retired values)
  *   attributed — someone else's figure (competitor, market survey, landlord
- *                deduction). Requires contextPattern, which must still match
- *                the file, so the entry fails loudly if the attribution wording
- *                is edited away and the number is left behind.
+ *                deduction). Requires contextPattern, checked per occurrence
+ *                rather than per file: every retired figure must have the
+ *                attribution wording within ATTRIBUTION_WINDOW characters of
+ *                it. A file-wide test would only prove one attribution phrase
+ *                survives somewhere, so in a file holding several figures one
+ *                could quietly lose its attribution and still read as a TVCT
+ *                Offer. Figures attributed by table position rather than by
+ *                prose declare structuralPattern (matching the occurrence's own
+ *                line) plus structuralAnchor (the structure it depends on),
+ *                so that justification is stated rather than inferred.
  *   pending    — blocked on an unanswered question. Requires owner, question,
  *                and expires. Past the expiry date the build fails rather than
  *                letting the debt go quiet.
@@ -49,31 +56,56 @@ export const retiredPriceAllowlist = [
   { file: 'src/pages/best-cleaning-company-athens-al.astro', count: 3,
     type: 'attributed',
     contextPattern: /insured, professional crew|gig marketplaces/i,
+    // The market-rate column of the "them vs us" comparison table is attributed
+    // by table position rather than by any sentence near it, so it is declared
+    // rather than allowed to ride in on a phrase match elsewhere in the file.
+    structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
+    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-florence-al.astro', count: 3,
     type: 'attributed',
     contextPattern: /insured, professional crew|gig marketplaces/i,
+    // The market-rate column of the "them vs us" comparison table is attributed
+    // by table position rather than by any sentence near it, so it is declared
+    // rather than allowed to ride in on a phrase match elsewhere in the file.
+    structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
+    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-huntsville-al.astro', count: 3,
     type: 'attributed',
     contextPattern: /insured, professional crew|gig marketplaces/i,
+    // The market-rate column of the "them vs us" comparison table is attributed
+    // by table position rather than by any sentence near it, so it is declared
+    // rather than allowed to ride in on a phrase match elsewhere in the file.
+    structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
+    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-mountain-brook-al.astro', count: 3,
     type: 'attributed',
     contextPattern: /insured, professional crew|gig marketplaces/i,
+    // The market-rate column of the "them vs us" comparison table is attributed
+    // by table position rather than by any sentence near it, so it is declared
+    // rather than allowed to ride in on a phrase match elsewhere in the file.
+    structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
+    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-nashville-tn.astro', count: 3,
     type: 'attributed',
     contextPattern: /insured, professional crew|gig marketplaces/i,
+    // The market-rate column of the "them vs us" comparison table is attributed
+    // by table position rather than by any sentence near it, so it is declared
+    // rather than allowed to ride in on a phrase match elsewhere in the file.
+    structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
+    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/blog/losing-your-security-deposit.astro', count: 4,
     type: 'attributed',
-    contextPattern: /cleaning - \\$400|property managers charge/i,
+    contextPattern: /cleaning - \$400|property managers charge/i,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/locations/florence/move-out-cleaning.astro', count: 1,
