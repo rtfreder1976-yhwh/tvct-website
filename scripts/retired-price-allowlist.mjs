@@ -124,25 +124,6 @@ export const retiredPriceAllowlist = [
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
 
-  // --- pending: senior cleaning has no canonical price --------------------
-  { file: 'src/pages/locations/athens/senior-cleaning.astro', count: 1,
-    type: 'pending',
-    owner: 'Todd',
-    question: 'Senior cleaning has no canonical price. What is the real starting figure?',
-    expires: '2026-09-30',
-  },
-  { file: 'src/pages/locations/mountain-brook/senior-cleaning.astro', count: 1,
-    type: 'pending',
-    owner: 'Todd',
-    question: 'Senior cleaning has no canonical price. What is the real starting figure?',
-    expires: '2026-09-30',
-  },
-  { file: 'src/pages/locations/muscle-shoals/senior-cleaning.astro', count: 1,
-    type: 'pending',
-    owner: 'Todd',
-    question: 'Senior cleaning has no canonical price. What is the real starting figure?',
-    expires: '2026-09-30',
-  },
 
   // --- pending: event cleaning has no canonical price ---------------------
   { file: 'src/pages/locations/huntsville/event-cleaning.astro', count: 6,
