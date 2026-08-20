@@ -1,5 +1,6 @@
 ---
 import StickyQuoteBar from "../../../components/StickyQuoteBar.astro";
+import { PRICING } from "../../../data/claims";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Icon from '../../../components/Icon.astro';
 
@@ -122,7 +123,7 @@ const processSteps = [
 const faqs = [
   {
     question: "How much does move-out cleaning cost in Madison?",
-    answer: "Move-out cleaning in Madison starts at $225 for apartments and smaller homes. Most Madison apartments (1,000-1,500 sq ft) run $250-$350, while typical Madison houses (2,400-3,200 sq ft) are $350-$500. We provide exact quotes based on your property's size and condition. Call (256) 826-1100 for a free estimate."
+    answer: `Move-out cleaning in Madison starts at ${PRICING.moveInOut.display} for apartments and smaller homes. Typical Madison houses (2,400-3,200 sq ft) are ${PRICING.moveInOut.display}-$500. We provide exact quotes based on your property's size and condition. Call (256) 826-1100 for a free estimate.`
   },
   {
     question: "Will move-out cleaning help me get my security deposit back?",
@@ -240,17 +241,12 @@ import { standaloneServiceIntent } from "../../../data/serviceIntent.ts";
             <div class="flex items-center gap-4">
               <div>
                 <span class="text-sm text-gray-600">Move-Out Cleaning From</span>
-                <div class="text-3xl font-bold text-[#FFA985]">$225</div>
-              </div>
-              <div class="text-gray-300">|</div>
-              <div>
-                <span class="text-sm text-gray-600">Madison Apartments</span>
-                <div class="text-lg font-semibold text-gray-700">$250-$350</div>
+                <div class="text-3xl font-bold text-[#FFA985]">{PRICING.moveInOut.display}</div>
               </div>
               <div class="text-gray-300">|</div>
               <div>
                 <span class="text-sm text-gray-600">Madison Homes</span>
-                <div class="text-lg font-semibold text-gray-700">$350-$500</div>
+                <div class="text-lg font-semibold text-gray-700">{PRICING.moveInOut.display}-$500</div>
               </div>
             </div>
           </div>
