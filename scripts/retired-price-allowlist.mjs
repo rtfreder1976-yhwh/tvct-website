@@ -23,8 +23,10 @@
  *                could quietly lose its attribution and still read as a TVCT
  *                Offer. Figures attributed by table position rather than by
  *                prose declare structuralPattern (matching the occurrence's own
- *                line) plus structuralAnchor (the structure it depends on),
- *                so that justification is stated rather than inferred.
+ *                line) plus structuralOwnColumn (the header of TVCT's own
+ *                column). The figure must sit in a different column of the same
+ *                table, so a retired range moved into our column is reported
+ *                instead of riding in on the cell shape alone.
  *   pending    — blocked on an unanswered question. Requires owner, question,
  *                and expires. Past the expiry date the build fails rather than
  *                letting the debt go quiet.
@@ -59,8 +61,11 @@ export const retiredPriceAllowlist = [
     // The market-rate column of the "them vs us" comparison table is attributed
     // by table position rather than by any sentence near it, so it is declared
     // rather than allowed to ride in on a phrase match elsewhere in the file.
+    // structuralOwnColumn names TVCT's own column: the figure has to sit in a
+    // different column of the same table, so a range moved into our column is
+    // reported rather than accepted.
     structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
-    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
+    structuralOwnColumn: /The Valley Clean Team/i,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-florence-al.astro', count: 3,
@@ -69,8 +74,11 @@ export const retiredPriceAllowlist = [
     // The market-rate column of the "them vs us" comparison table is attributed
     // by table position rather than by any sentence near it, so it is declared
     // rather than allowed to ride in on a phrase match elsewhere in the file.
+    // structuralOwnColumn names TVCT's own column: the figure has to sit in a
+    // different column of the same table, so a range moved into our column is
+    // reported rather than accepted.
     structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
-    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
+    structuralOwnColumn: /The Valley Clean Team/i,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-huntsville-al.astro', count: 3,
@@ -79,8 +87,11 @@ export const retiredPriceAllowlist = [
     // The market-rate column of the "them vs us" comparison table is attributed
     // by table position rather than by any sentence near it, so it is declared
     // rather than allowed to ride in on a phrase match elsewhere in the file.
+    // structuralOwnColumn names TVCT's own column: the figure has to sit in a
+    // different column of the same table, so a range moved into our column is
+    // reported rather than accepted.
     structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
-    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
+    structuralOwnColumn: /The Valley Clean Team/i,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-mountain-brook-al.astro', count: 3,
@@ -89,8 +100,11 @@ export const retiredPriceAllowlist = [
     // The market-rate column of the "them vs us" comparison table is attributed
     // by table position rather than by any sentence near it, so it is declared
     // rather than allowed to ride in on a phrase match elsewhere in the file.
+    // structuralOwnColumn names TVCT's own column: the figure has to sit in a
+    // different column of the same table, so a range moved into our column is
+    // reported rather than accepted.
     structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
-    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
+    structuralOwnColumn: /The Valley Clean Team/i,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/best-cleaning-company-nashville-tn.astro', count: 3,
@@ -99,8 +113,11 @@ export const retiredPriceAllowlist = [
     // The market-rate column of the "them vs us" comparison table is attributed
     // by table position rather than by any sentence near it, so it is declared
     // rather than allowed to ride in on a phrase match elsewhere in the file.
+    // structuralOwnColumn names TVCT's own column: the figure has to sit in a
+    // different column of the same table, so a range moved into our column is
+    // reported rather than accepted.
     structuralPattern: /^\s*<td[^>]*>\$[\d,]+[–-]\$[\d,]+(?:\s*\/\s*visit)?<\/td>\s*$/,
-    structuralAnchor: /<th[^>]*>\s*The Valley Clean Team\s*<\/th>/,
+    structuralOwnColumn: /The Valley Clean Team/i,
     reason: 'competitor, market, or landlord figure presented as someone else\'s number, not a TVCT offer',
   },
   { file: 'src/pages/blog/losing-your-security-deposit.astro', count: 4,

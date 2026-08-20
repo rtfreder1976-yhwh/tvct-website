@@ -207,30 +207,78 @@ const ATTRIBUTION_WINDOW = 400;
 const globalize = (re) => new RegExp(re.source, re.flags.includes('g') ? re.flags : `${re.flags}g`);
 
 /**
+ * Which column of its table a character offset falls in, or -1 if it is not in
+ * a table row. Cells are counted by opening tag, so the index lines up with the
+ * header cells of the same table.
+ */
+function columnAt(source, index) {
+  const rowStart = source.lastIndexOf('<tr', index);
+  const rowEnd = source.indexOf('</tr>', index);
+  if (rowStart === -1 || rowEnd === -1 || rowEnd < index) return -1;
+  const row = source.slice(rowStart, rowEnd);
+  const offset = index - rowStart;
+  let column = -1;
+  for (const cell of row.matchAll(/<t[dh][\s>]/g)) {
+    if (cell.index <= offset) column += 1;
+    else break;
+  }
+  return column;
+}
+
+/**
+ * Index of the column whose header matches `pattern`, within the table
+ * containing `index`. -1 when there is no such table or no such header.
+ */
+function ownColumnAt(source, index, pattern) {
+  const tableStart = source.lastIndexOf('<table', index);
+  const tableEnd = source.indexOf('</table>', index);
+  if (tableStart === -1 || tableEnd === -1 || tableEnd < index) return -1;
+  const table = source.slice(tableStart, tableEnd);
+  const headers = [...table.matchAll(/<th[\s>][\s\S]*?<\/th>/g)];
+  return headers.findIndex((header) => pattern.test(header[0]));
+}
+
+/**
  * Attribution is checked per occurrence, not per file. A file-wide test only
  * proves that one attribution phrase survives somewhere, so in a file holding
  * several retired figures a single occurrence could quietly lose its
  * attribution and still read as a TVCT Offer while the file passed.
  *
  * An occurrence qualifies either by proximity to the contextPattern, or — for
- * figures attributed by table position rather than by prose — by sitting on a
- * line matching structuralPattern in a file that still contains
- * structuralAnchor.
+ * figures attributed by table position rather than by prose — by sitting in a
+ * market-rate cell of a comparison table.
+ *
+ * That second route is bound to the actual column. Matching the cell shape and
+ * confirming a TVCT header exists somewhere in the file is not enough: a
+ * retired range moved into the TVCT column would keep both of those true while
+ * now reading as our own price. The occurrence must sit in a column other than
+ * the one whose header matches structuralOwnColumn, in the same table.
  */
 function unattributedOccurrences(source, entry) {
   const contextIndices = [...source.matchAll(globalize(entry.contextPattern))].map((m) => m.index);
   const lines = source.split('\n');
-  const anchored = entry.structuralAnchor ? entry.structuralAnchor.test(source) : false;
 
-  return findRetiredTokens(source).occurrences.filter(({ index, line }) => {
+  const orphans = [];
+  for (const { token, index, line } of findRetiredTokens(source).occurrences) {
     if (contextIndices.some((c) => Math.abs(c - index) <= (entry.contextWithin ?? ATTRIBUTION_WINDOW))) {
-      return false;
+      continue;
     }
-    if (entry.structuralPattern && anchored && entry.structuralPattern.test(lines[line - 1])) {
-      return false;
+    if (entry.structuralPattern && entry.structuralOwnColumn && entry.structuralPattern.test(lines[line - 1])) {
+      const ownColumn = ownColumnAt(source, index, entry.structuralOwnColumn);
+      const column = columnAt(source, index);
+      if (ownColumn === -1) {
+        orphans.push({ token, line, why: 'the column header it was attributed by is gone' });
+        continue;
+      }
+      if (column === ownColumn) {
+        orphans.push({ token, line, why: "it now sits in TVCT's own column of the comparison table" });
+        continue;
+      }
+      if (column !== -1) continue;
     }
-    return true;
-  });
+    orphans.push({ token, line, why: 'no attribution near it' });
+  }
+  return orphans;
 }
 
 const seenFiles = new Set();
@@ -263,19 +311,18 @@ for (const root of scanRoots) {
     if (entry.type === 'attributed') {
       if (!entry.contextPattern) {
         failures.push(`retired-price allowlist: ${key} is 'attributed' but has no contextPattern`);
-      } else if (entry.structuralPattern && !entry.structuralAnchor) {
+      } else if (entry.structuralPattern && !entry.structuralOwnColumn) {
         failures.push(
-          `retired-price allowlist: ${key} declares a structuralPattern but no structuralAnchor — ` +
-            `structural attribution has to name the structure it depends on.`,
+          `retired-price allowlist: ${key} declares a structuralPattern but no structuralOwnColumn — ` +
+            `structural attribution has to name the column the figure must not be in.`,
         );
       } else {
         const orphans = unattributedOccurrences(source, entry);
         if (orphans.length) {
-          const where = orphans.map((o) => `$${o.token} on line ${o.line}`).join(', ');
+          const where = orphans.map((o) => `$${o.token} on line ${o.line} (${o.why})`).join('; ');
           failures.push(
-            `${key}: allowlisted as 'attributed', but ${orphans.length} occurrence(s) have no attribution ` +
-              `within ${entry.contextWithin ?? ATTRIBUTION_WINDOW} characters (${where}) — ` +
-              `either the wording that made the figure someone else's was edited away, or the figure now reads as a TVCT Offer.`,
+            `${key}: allowlisted as 'attributed', but ${orphans.length} occurrence(s) no longer read as ` +
+              `someone else's figure — ${where}. Either restore what attributed it, or treat it as a TVCT price.`,
           );
         }
       }
