@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const COMMERCIAL_QUOTE_URL = 'https://thevalleycleanteam.bookingkoala.com/booknow';
+const COMMERCIAL_QUOTE_URL = 'https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning';
 const CAREERS_URL = 'https://thevalleycleanteam.bookingkoala.com/hiring/form/careers';
 
 /**

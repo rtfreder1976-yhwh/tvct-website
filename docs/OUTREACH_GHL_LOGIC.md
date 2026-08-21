@@ -3,7 +3,7 @@
 This document contains emotionally resonant, high-conversion messaging for GoHighLevel, focusing on removing the burden from the Office Manager.
 
 ## 1. Updated Conversion Path
-**All CTA links must point to**: `https://thevalleycleanteam.bookingkoala.com/booknow`
+**All CTA links must point to**: `https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning`
 
 ## 2. Updated Messaging Templates
 
@@ -20,7 +20,7 @@ This document contains emotionally resonant, high-conversion messaging for GoHig
 > "Hi [Contact Name], at The Valley Clean Team, we understand that your facility is more than just a building—it’s a sanctuary for your community. We help local ministries in [Location] maintain a standard of excellence that reflects your mission, ensuring your space is always ready for worship and fellowship. We handle the details so your staff can focus on ministry, not maintenance. Would you be open to a brief walkthrough to see how we can support your stewardship goals?"
 
 ### The "Morning Peace" Follow-Up (Day 3)
-> "Hi [Contact Name], just following up. Most of the managers we partner with came to us because they were tired of being 'the one to catch' missed trash or dusty vents. We built TVCT to take that burden off your desk for good. You can request a facility walkthrough here and start your next Monday without a headache: https://thevalleycleanteam.bookingkoala.com/booknow"
+> "Hi [Contact Name], just following up. Most of the managers we partner with came to us because they were tired of being 'the one to catch' missed trash or dusty vents. We built TVCT to take that burden off your desk for good. You can request a facility walkthrough here and start your next Monday without a headache: https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning"
 
 ---
 *Created by the TVCT Agency-Agent Engine.*
