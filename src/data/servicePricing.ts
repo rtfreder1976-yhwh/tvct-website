@@ -73,3 +73,26 @@ export function normalizeServiceCopy(slug: string, input: string): string {
 
   return text;
 }
+
+/**
+ * Canonical residential price band for hand-authored neighborhood pages.
+ *
+ * Nine Athens/Decatur neighborhood pages shipped the same copied boilerplate
+ * band, and seven other pages carried their own hand-typed variants. Every one
+ * of them opened below the weekly-recurring minimum — i.e. quoted a rate no
+ * customer is ever charged — inside FAQ JSON-LD where answer engines read it.
+ *
+ * Deriving the band here means a neighborhood page can never again invent its
+ * own floor. The low end is the weekly recurring minimum from claims.ts; the
+ * high end is grounded in the real rate card (2,700 sq ft regular = $436,
+ * rounded up to a clean $450). Retired Offer tokens are deliberately avoided —
+ * the claim validator rejects them.
+ */
+export function residentialRangeLabel(): string {
+  return `${RECURRING_PRICING.weekly.display}-$450`;
+}
+
+/** Sentence-ready band for "Most {area} homes range from {band} for ...". */
+export function residentialRangeSentence(area: string, service = "regular maintenance cleaning"): string {
+  return `Most ${area} homes range from ${residentialRangeLabel()} for ${service}`;
+}
