@@ -129,9 +129,10 @@ add cost outside Vacation Rental.
 
 ## Still open
 
-- **Add-on prices disagree** between the sheet and BookingKoala (July snapshot):
-  Inside Fridge sheet $75 vs BK $42.50 · Inside Dishwasher sheet $50 vs BK $35 ·
-  Blinds sheet $10/blind vs BK $20. **Needs Todd's ruling on which is current.**
+- **Add-on prices — RESOLVED 2026-08-20 (Todd): BookingKoala's live values stand.**
+  Inside Fridge $42.50 · Inside Dishwasher $35 · Blinds $20. The sheet's newer
+  figures ($75 / $50 / $10-per-blind) are NOT adopted — correct the spreadsheet
+  to BK's values during the reconciliation.
 - Deep Clean and Move In/Out now **include inside oven + fridge** per the sheet's minimums
   section — currently unpublished, and a genuine selling point.
 - Weekly at 750 sqft shows **−10% margin** in the sheet. The $150 weekly floor should prevent
