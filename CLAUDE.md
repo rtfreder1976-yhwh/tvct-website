@@ -32,9 +32,19 @@ Current key values:
 
 Generated and structured-data pricing must derive from canonical claims/pricing logic rather than stale `services.json` literals.
 
-### 2. BookingKoala owns customer quote/booking flow
+### 2. BookingKoala owns booking; residential CTAs are phone-first
 
-Residential and commercial quoting/booking go to BookingKoala.
+Decision (Todd, 2026-08-21): residential CTAs direct prospects to CALL for a
+quote — tel: links (AL 256-826-1100; TN pages dial 615-510-1427). Do not point
+residential CTAs back at BookingKoala. Secondary CTAs next to a phone button
+may link to /pricing (price research). Commercial CTAs keep their BookingKoala
+link (/booknow/office_cleaning).
+
+BookingKoala remains the system of record for booking. The vercel.json
+redirects (/get-quote, /booking, /booknow → BK) and SchemaMarkup's
+ReserveAction stay pointed at BookingKoala — legacy inbound links and machine
+booking actions still work there; it is just no longer the residential front
+door.
 
 Do not restore:
 - GoHighLevel / LeadConnector webhooks or contact writes

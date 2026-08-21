@@ -21,6 +21,7 @@ const {
   subheading,
 } = Astro.props;
 
+const ctaPhone = state === "TN" ? MARKET_PHONES.TN : MARKET_PHONES.AL;
 const displayCity = city || "Your Area";
 const displayService = serviceName || "Cleaning Service";
 
@@ -70,16 +71,16 @@ const defaultSubheading = subheading
   </div>
 
   <a
-    href="https://thevalleycleanteam.bookingkoala.com/booknow/home_cleaning"
+    href={ctaPhone.href}
     class="block w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold text-center text-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 group"
-    onclick="if(typeof gtag==='function'){gtag('event','cta_click',{event_category:'CTA',event_label:'BookingCTA - Show Me My Price',page_location:window.location.href});}"
+    onclick="if(typeof gtag==='function'){gtag('event','cta_click',{event_category:'CTA',event_label:'BookingCTA - Call for a Free Quote',page_location:window.location.href});}"
   >
-    <Icon name="calendar-check" class="w-5 h-5 inline mr-2 group-hover:scale-110 transition-transform" />
-    Show Me My Price
+    <Icon name="phone" class="w-5 h-5 inline mr-2 group-hover:scale-110 transition-transform" />
+    Call for a Free Quote — {ctaPhone.display}
   </a>
 
   <div class="mt-4 text-center">
-    <p class="text-xs text-gray-400 mb-2">Prefer to talk? Call us directly:</p>
+    <p class="text-xs text-gray-400 mb-2">Both service areas:</p>
     <div class="flex flex-col sm:flex-row justify-center gap-2">
       <a
         href={MARKET_PHONES.AL.href}

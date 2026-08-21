@@ -20,12 +20,13 @@ const testimonial = recurringTestimonials[0]; // Heather C. — "each time is co
 // radio IDs), not the global frequency IDs (3/4/2).
 const RECURRING_SERVICE_ID = 38;
 const UTM = 'utm_source=nps&utm_medium=sms&utm_campaign=recurring-pitch';
-const BOOKING_URL = 'https://thevalleycleanteam.bookingkoala.com/booknow/home_cleaning';
+// Residential CTAs are phone-first (Todd, 2026-08-21): recurring plans are
+// sold on a call, not self-served through BookingKoala.
+const PHONE_HREF = 'tel:2568261100';
 
 // JS-disabled fallback: CTAs still deep-link the service/frequency and keep
 // campaign attribution — only the contact pre-fill needs the script.
-const bookingHref = (frequencyId?: number) =>
-  `${BOOKING_URL}?service_id=${RECURRING_SERVICE_ID}${frequencyId ? `&frequency_id=${frequencyId}` : ''}&${UTM}`;
+const bookingHref = (_frequencyId?: number) => PHONE_HREF;
 
 const plans = [
   {
@@ -104,8 +105,8 @@ const plans = [
         same 44-point checklist, every visit — at up to 30% off.
       </p>
       <a href={bookingHref()} data-service-id={RECURRING_SERVICE_ID} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px]">
-        Set Up My Recurring Clean
-        <Icon name="arrow-right" class="w-5 h-5 ml-2" />
+        Call to Set Up My Recurring Clean
+        <Icon name="phone" class="w-5 h-5 ml-2" />
       </a>
     </div>
   </section>
@@ -135,7 +136,7 @@ const plans = [
                 ? 'btn-primary'
                 : 'border-2 border-[#C75B2A] text-[#333333] hover:bg-[#FFA985]/10 transition'
             }`}>
-              Set Up My Recurring Clean
+              Call to Set Up My Recurring Clean
             </a>
           </div>
         ))}
@@ -203,8 +204,8 @@ const plans = [
         Lock in your spot — our recurring schedule fills fast!
       </h2>
       <a href={bookingHref()} data-service-id={RECURRING_SERVICE_ID} class="js-booking-cta btn-primary w-full sm:w-auto px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center justify-center min-h-[44px] mb-6">
-        Set Up My Recurring Clean
-        <Icon name="arrow-right" class="w-5 h-5 ml-2" />
+        Call to Set Up My Recurring Clean
+        <Icon name="phone" class="w-5 h-5 ml-2" />
       </a>
       <p class="text-gray-600">
         Questions? Text us:
@@ -237,17 +238,8 @@ const plans = [
 
       // Each CTA carries its own BookingKoala deep link (data-service-id /
       // data-frequency-id) — plan cards pre-select their frequency radio,
-      // hero/final CTAs pre-select just the recurring service.
-      var ctas = document.querySelectorAll('a.js-booking-cta');
-      for (var i = 0; i < ctas.length; i++) {
-        var parts = contact.slice();
-        var sid = ctas[i].getAttribute('data-service-id');
-        var fid = ctas[i].getAttribute('data-frequency-id');
-        if (sid) parts.push('service_id=' + encodeURIComponent(sid));
-        if (fid) parts.push('frequency_id=' + encodeURIComponent(fid));
-        parts.push('utm_source=nps', 'utm_medium=sms', 'utm_campaign=recurring-pitch');
-        ctas[i].setAttribute('href', 'https://thevalleycleanteam.bookingkoala.com/booknow/home_cleaning?' + parts.join('&'));
-      }
+      // Residential CTAs are phone-first; the js-booking-cta hrefs already
+      // point at tel: and must not be rewritten to BookingKoala.
 
       // Personalize the H1 when f_name is present. textContent only — the
       // name is reflected URL input, so it must never reach innerHTML. The
