@@ -54,6 +54,7 @@ const offerSchema = {
     regular: "Regular Cleaning",
     deep: "Deep Cleaning",
     moveinout: "Move In/Out Cleaning",
+    postconstruction: "Post-Construction Cleaning",
   }).map(([key, label]) => ({
     "@type": "Offer",
     name: label,
@@ -69,6 +70,30 @@ const offerSchema = {
     url: "https://thevalleycleanteam.com/pricing",
   })),
 };
+
+// AggregateOffer carries the whole published span in one machine-readable node.
+// The site had no lowPrice/highPrice anywhere before this; answer engines
+// quoting "what does X cost" want a bounded range, not a single "starting at".
+// Kept separate from the per-service Offers above so each still carries its own
+// min/max, and both ends derive from the rate card so they cannot drift.
+const aggregateOfferSchema = {
+  "@context": "https://schema.org",
+  "@type": "AggregateOffer",
+  "@id": "https://thevalleycleanteam.com/pricing#aggregateoffer",
+  itemOffered: { "@id": "https://thevalleycleanteam.com/pricing#service" },
+  priceCurrency: "USD",
+  lowPrice: Math.min(
+    ...["regular", "deep", "moveinout", "postconstruction"].map(startingPrice),
+  ),
+  highPrice: Math.max(
+    ...["regular", "deep", "moveinout", "postconstruction"].map(
+      (k) => PRICE_TABLE[k][PRICE_TABLE[k].length - 1],
+    ),
+  ),
+  offerCount: RATE_CARD_ROWS.length * 4,
+  availability: "https://schema.org/InStock",
+  url: "https://thevalleycleanteam.com/pricing",
+};
 ---
 
 <BaseLayout
@@ -78,6 +103,7 @@ const offerSchema = {
 >
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(offerSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(aggregateOfferSchema)} />
 
   <!-- Hero Section -->
   <section class="pt-32 pb-12 px-6">
@@ -220,13 +246,17 @@ const offerSchema = {
     <div class="container mx-auto max-w-4xl">
       <div class="text-center mb-8">
         <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
-          House Cleaning Prices by Home Size
+          How much does house cleaning cost by home size?
         </h2>
         <div class="section-divider"></div>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          These are our published rates across Alabama and Tennessee — the same
-          numbers the booking form uses. No "starting at," no in-home sales
-          visit before you get a number.
+          A 1,500 sq ft home is <strong>${RATE_CARD_ROWS[3].regular}</strong> for
+          a regular clean, <strong>${RATE_CARD_ROWS[3].deep}</strong> for a deep
+          clean, and <strong>${RATE_CARD_ROWS[3].moveinout}</strong> for a
+          move-in/out. Full rates by square footage are below — these are our
+          published prices across Alabama and Tennessee, the same numbers the
+          booking form uses. No "starting at," no in-home sales visit before you
+          get a number.
         </p>
         <p class="text-sm text-gray-500 mt-3">
           Prices effective{" "}
@@ -248,6 +278,7 @@ const offerSchema = {
               <th scope="col" class="px-4 py-3 font-semibold">Regular cleaning</th>
               <th scope="col" class="px-4 py-3 font-semibold">Deep cleaning</th>
               <th scope="col" class="px-4 py-3 font-semibold">Move in/out</th>
+              <th scope="col" class="px-4 py-3 font-semibold">Post-construction</th>
             </tr>
           </thead>
           <tbody>
@@ -256,9 +287,10 @@ const offerSchema = {
                 <th scope="row" class="px-4 py-3 font-medium text-[#333333]">
                   {row.label}
                 </th>
-                <td class="px-4 py-3 text-gray-700">${row.regular}</td>
-                <td class="px-4 py-3 text-gray-700">${row.deep}</td>
-                <td class="px-4 py-3 text-gray-700">${row.moveinout}</td>
+                <td class="px-4 py-3 text-gray-700">${row.regular.toLocaleString()}</td>
+                <td class="px-4 py-3 text-gray-700">${row.deep.toLocaleString()}</td>
+                <td class="px-4 py-3 text-gray-700">${row.moveinout.toLocaleString()}</td>
+                <td class="px-4 py-3 text-gray-700">${row.postconstruction.toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
@@ -267,9 +299,11 @@ const offerSchema = {
 
       <p class="text-sm text-gray-500 mt-4 max-w-3xl">
         Prices are per visit and include supplies, equipment, and a
-        background-checked team. Homes in heavier condition may need a deep
-        clean first — we tell you that before you book, not after. Final price
-        is confirmed in writing before we start.
+        background-checked team. <strong>Deep cleans and move-in/out cleans
+        also include inside the oven and inside the refrigerator</strong> —
+        both are paid add-ons on a regular clean. Homes in heavier condition may
+        need a deep clean first — we tell you that before you book, not after.
+        Final price is confirmed in writing before we start.
       </p>
     </div>
   </section>
@@ -801,10 +835,16 @@ const offerSchema = {
           </div>
           <div class="faq-answer">
             <p class="text-gray-600 mt-4">
-              Pricing is based on home size (square footage), number of bedrooms
-              and bathrooms, type of service requested, and current condition of
-              the home. We provide exact quotes after understanding your
-              specific needs.
+              Price is set by square footage and service type, looked up from
+              the rate card above — not estimated per hour. A regular clean
+              starts at <strong>${MINIMUMS.regular}</strong>, a deep clean at <strong>${startingPrice("deep")}</strong>, a move-in/out at <strong>${startingPrice("moveinout")}</strong>, and post-construction at <strong>${startingPrice("postconstruction")}</strong>. From there,
+              recurring service takes 30% off weekly, 25% off biweekly, or 15%
+              off monthly; a pet fee of {petFeeDisplay} applies, and a
+              {travelFeeDisplay} travel fee depends on your service area.
+              Condition matters too — a home that has gone a long time between
+              cleans may need a deep clean first, and we tell you that before
+              you book. Your exact price is confirmed in writing before we
+              start.
             </p>
           </div>
         </div>

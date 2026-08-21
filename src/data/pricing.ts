@@ -13,14 +13,22 @@
  * hand the same arrays to the calculator via `define:vars`, so the visible
  * table, the schema Offers and the interactive estimate can never drift apart.
  *
- * SOURCE OF TRUTH: "New TVCT Cleaning Biz Pricing – Cleaning Pricing" sheet,
- * supplied by Todd and verified against these arrays on 2026-08-10. All three
- * published tables below (brackets, standard, deep, move-in/out) match that
- * sheet value-for-value.
+ * SOURCE OF TRUTH: the live BookingKoala rate card (Settings → Industries →
+ * Home Cleaning → Form 1 → Pricing Parameter), read directly on 2026-08-20 and
+ * matched bracket-for-bracket against these arrays. BookingKoala wins any
+ * disagreement because it is what actually bills the customer.
+ *
+ * Originally transcribed from the "New TVCT Cleaning Biz Pricing" sheet on
+ * 2026-08-10. The 2026-08-20 review found the site was correct and BookingKoala
+ * had two stalled brackets (5201-5600 stuck at $821, 5601-6000 stuck at $876);
+ * those were corrected in BookingKoala to $876/$931 to match this table.
+ *
+ * Extended 2026-08-20: brackets now run to 10,000+ sq ft (was 6,500), and
+ * post-construction is published alongside the other three services. Both
+ * ranges are transcribed from the live BookingKoala parameters.
  *
  * On the sheet but deliberately NOT published here, because publishing a price
  * is a business decision and nobody has asked for these to go live:
- *   - Construction Clean Up ($526 … $1,820, "50% more than Move In/Out")
  *   - Per-visit recurring rows (weekly -30%, bi-weekly -25%, monthly -15%).
  *     claims.ts RECURRING_PRICING derives these instead. Note the sheet's own
  *     rows are computed off the $176 TABLE value, not the $200 minimum, so its
@@ -36,16 +44,21 @@ import { PRICING, ClaimsError } from "./claims";
 
 export const SQFT_BRACKETS = [
   750, 1000, 1250, 1500, 1800, 2100, 2400, 2700, 3000, 3300, 3600, 4000, 4400,
-  4700, 5200, 5600, 6000, 6500,
+  4700, 5200, 5600, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000,
 ] as const;
 
 export const PRICE_TABLE: Record<string, number[]> = {
   // Standard / regular clean
-  regular:   [176, 211, 246, 281, 316, 351, 381, 436, 491, 546, 601, 656, 711, 766, 821, 876, 931, 1045],
+  regular:   [176, 211, 246, 281, 316, 351, 381, 436, 491, 546, 601, 656, 711, 766, 821, 876, 931, 1045, 1200, 1375, 1550, 1725, 1900, 2075, 2250],
   // First / deep clean
-  deep:      [276, 311, 346, 381, 416, 451, 506, 561, 616, 671, 726, 781, 836, 891, 946, 1001, 1056, 1170],
-  // Move in/out (Deep + $75)
-  moveinout: [351, 386, 421, 456, 491, 526, 581, 636, 691, 746, 801, 856, 911, 966, 1021, 1076, 1131, 1181],
+  deep:      [276, 311, 346, 381, 416, 451, 506, 561, 616, 671, 726, 781, 836, 891, 946, 1001, 1056, 1170, 1350, 1550, 1750, 1950, 2150, 2350, 2550],
+  // Move in/out (Deep + $75 through 6,500; the extended range is set directly)
+  moveinout: [351, 386, 421, 456, 491, 526, 581, 636, 691, 746, 801, 856, 911, 966, 1021, 1076, 1131, 1181, 1425, 1625, 1825, 2025, 2225, 2425, 2625],
+  // Post-construction / post-renovation. Through 6,500 this is Move In/Out x 1.5.
+  // From 6,501 up it switches to a flat $0.50/sq ft: the multiplier underpriced
+  // large new builds against Nashville market rates ($3,200-$4,400 for 8,000
+  // sq ft), so the jump from $1,820 to $3,500 at 6,501 is deliberate, not a typo.
+  postconstruction: [526, 579, 631, 684, 736, 789, 871, 954, 1036, 1119, 1201, 1284, 1366, 1449, 1531, 1614, 1696, 1820, 3500, 3750, 4000, 4250, 4500, 4750, 5000],
 };
 
 /**
@@ -68,12 +81,14 @@ export const MINIMUMS: Record<string, number> = {
   regular: 200,
   deep: 200,
   moveinout: 350,
+  postconstruction: 450,
 };
 
 export const SERVICE_LABELS: Record<string, string> = {
   regular: "Regular Cleaning",
   deep: "Deep Cleaning",
   moveinout: "Move In/Out Cleaning",
+  postconstruction: "Post-Construction",
 };
 
 /** Pick the first bracket >= size, else the largest. */
@@ -123,6 +138,7 @@ const CLAIMS_STARTING_PRICE: Record<string, number> = {
   regular: PRICING.regular.amount,
   deep: PRICING.deep.amount,
   moveinout: PRICING.moveInOut.amount,
+  postconstruction: PRICING.postConstruction.amount,
 };
 
 for (const [service, claimed] of Object.entries(CLAIMS_STARTING_PRICE)) {
@@ -149,4 +165,8 @@ export const RATE_CARD_ROWS = SQFT_BRACKETS.map((sqft, i) => ({
   regular: Math.max(PRICE_TABLE.regular[i], MINIMUMS.regular),
   deep: Math.max(PRICE_TABLE.deep[i], MINIMUMS.deep),
   moveinout: Math.max(PRICE_TABLE.moveinout[i], MINIMUMS.moveinout),
+  postconstruction: Math.max(
+    PRICE_TABLE.postconstruction[i],
+    MINIMUMS.postconstruction,
+  ),
 }));

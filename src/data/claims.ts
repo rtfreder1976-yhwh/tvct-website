@@ -15,13 +15,36 @@ const isUnresolved = (v: unknown): boolean =>
   (typeof v === "object" && v !== null && Object.values(v).some(isUnresolved));
 
 // Pricing confirmed by Todd. These are the advertised starting prices.
+//
+// postConstruction was $300 until 2026-08-20. That was below the service's own
+// $450 minimum and contradicted both the pricing sheet and the live
+// BookingKoala rate card, which bill $526 for the smallest bracket. Verified
+// directly against BookingKoala pricing parameters (variable 171, "Up to 750
+// sqft", $526.00) on 2026-08-20 and corrected.
 export const PRICING = {
   regular: { amount: 200, display: "$200" },
   deep: { amount: 276, display: "$276" },
   moveInOut: { amount: 351, display: "$351" },
   airbnbTurnover: { amount: 125, display: "$125" },
-  postConstruction: { amount: 300, display: "$300" },
+  postConstruction: { amount: 526, display: "$526" },
 } as const;
+
+/**
+ * schema.org LocalBusiness `priceRange`.
+ *
+ * This is the relative Google/Yelp band for the category and locale, not a
+ * dollar figure: "$" budget, "$$" mid-range, "$$$" upscale, "$$$$" highest.
+ *
+ * Set to "$$$" on 2026-08-20 (Todd). The site had drifted to a mix of 55 "$$"
+ * and 12 "$$$" declarations. "$$" understated a premium, insured,
+ * veteran-and-woman-owned service whose residential AOV runs about $249 and
+ * whose 1,500 sq ft deep clean is $381.
+ *
+ * Note this earns no rich result — Google retired LocalBusiness price display.
+ * It is a positioning signal that answer engines still read when they
+ * characterise the business.
+ */
+export const PRICE_RANGE_BAND = "$$$" as const;
 
 export const RECURRING_DISCOUNTS = {
   weekly: 0.3,

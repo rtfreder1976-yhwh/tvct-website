@@ -59,6 +59,23 @@ const rules = [
     skipFiles: new Set(['src/pages/best-cleaning-company-nashville-tn.astro']),
   },
   {
+    // Residential price RANGES whose low end sits under the published floor.
+    // The retired-Offer-price scan only catches "from $X" / "starting at $X",
+    // so a hand-authored "homes range from $135-$300 for regular cleaning"
+    // slipped through on four location pages and quoted a rate we do not
+    // honour — inside FAQ JSON-LD, where answer engines read it.
+    //
+    // $150 is the weekly-recurring minimum and the lowest number the site is
+    // allowed to pair with residential cleaning; anything under it is a price
+    // no customer is ever charged. Commercial, medical, dental and estate
+    // ranges are deliberately NOT matched: those are custom-quote services
+    // with no authoritative residential equivalent.
+    pattern:
+      /\b(?:homes?|houses?)\b[^\n.]{0,60}\brange[sd]?\s+from\s+\$(?:1[0-4][0-9]|[1-9][0-9]|[1-9])(?![0-9])[^\n.]{0,80}\b(?:regular|standard|house|home|recurring)\s+cleaning/i,
+    why:
+      'residential cleaning ranges must not start below the $150 recurring minimum (see claims.ts RECURRING_MINIMUMS / pricing.ts MINIMUMS)',
+  },
+  {
     pattern: /no[- ]shows?[^\n.]{0,140}(?:full service|full amount|entire service)/i,
     why: 'no-shows use the verified $100 fee',
   },
