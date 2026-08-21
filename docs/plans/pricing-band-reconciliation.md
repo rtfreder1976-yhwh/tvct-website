@@ -127,12 +127,51 @@ add cost outside Vacation Rental.
 
 ---
 
+## ✅ COMPLETED 2026-08-21 — spreadsheet reconciled
+
+`TVCT_Pricing_Extended.xlsx` (in `~/Downloads`) now matches BookingKoala.
+Original preserved as `TVCT_Pricing_Extended.BACKUP-2026-08-21.xlsx`.
+
+What changed:
+1. **Headers re-banded.** Columns now carry BK band **upper bounds** (750, 1000,
+   … 6499, 6999 … 10000) instead of the old single sq-ft figures. Kept numeric
+   so every existing per-sq-ft / labor-hour / margin formula still evaluates.
+2. **Added the missing 26th band.** BK splits `6,001–6,499` and `6,500–6,999`;
+   the sheet had one column for both, which shifted every value above 6,500 by
+   one position. Added column AA and re-seated Deep / Standard / Move-In-Out
+   (incl. the Monthly/Bi-Weekly/Weekly discount rows) across 26 bands.
+3. **Fixed a corrupted cell.** Standard Clean at the up-to-750 band read **`2`**
+   — should be **$176** (BK variable 113). It was silently poisoning the
+   Standard-margin row.
+4. **Add-ons corrected to BK's live values** per the ruling below: Blinds
+   $10/blind → **$20 flat**, Inside Fridge $75 → **$42.50**, Inside Dishwasher
+   $50 → **$35**.
+5. Post-Construction left on its own **25** bands (its cut-points genuinely
+   differ: 4,401–4,700 / 4,701–5,200). Verified 1:1 against BK — no shift.
+
+Verified: Standard + Post-Construction rows match BK exactly; 78 header/price
+pairs numeric and positive (no `#VALUE!`/`#DIV/0!`); no `#REF!`; all 19 merged
+ranges intact.
+
+### ⚠️ Surfaced by the fix — needs a business decision
+
+With `B11` corrected, the true low-end margins are visible for the first time:
+
+| Band | Weekly price | Margin |
+|---|---|---|
+| up to 750 | $123 | **−10.0%** |
+| 751–1,000 | $147 | 0.6% |
+| 1,001–1,250 | $172 | 8.5% |
+| … | | below 38% target until ~4,400 sqft |
+
+The $150 weekly minimum does **not** rescue it — $150 at 750 sqft is still only
+10.7%. Weekly recurring is unprofitable at the small end. Not changed here
+(pricing decision, not a data-entry fix).
+
 ## Still open
 
 - **Add-on prices — RESOLVED 2026-08-20 (Todd): BookingKoala's live values stand.**
-  Inside Fridge $42.50 · Inside Dishwasher $35 · Blinds $20. The sheet's newer
-  figures ($75 / $50 / $10-per-blind) are NOT adopted — correct the spreadsheet
-  to BK's values during the reconciliation.
+  Inside Fridge $42.50 · Inside Dishwasher $35 · Blinds $20. ✅ Applied 2026-08-21.
 - Deep Clean and Move In/Out now **include inside oven + fridge** per the sheet's minimums
   section — currently unpublished, and a genuine selling point.
 - Weekly at 750 sqft shows **−10% margin** in the sheet. The $150 weekly floor should prevent
