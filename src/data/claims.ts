@@ -15,12 +15,18 @@ const isUnresolved = (v: unknown): boolean =>
   (typeof v === "object" && v !== null && Object.values(v).some(isUnresolved));
 
 // Pricing confirmed by Todd. These are the advertised starting prices.
+//
+// postConstruction was $300 until 2026-08-20. That was below the service's own
+// $450 minimum and contradicted both the pricing sheet and the live
+// BookingKoala rate card, which bill $526 for the smallest bracket. Verified
+// directly against BookingKoala pricing parameters (variable 171, "Up to 750
+// sqft", $526.00) on 2026-08-20 and corrected.
 export const PRICING = {
   regular: { amount: 200, display: "$200" },
   deep: { amount: 276, display: "$276" },
   moveInOut: { amount: 351, display: "$351" },
   airbnbTurnover: { amount: 125, display: "$125" },
-  postConstruction: { amount: 300, display: "$300" },
+  postConstruction: { amount: 526, display: "$526" },
 } as const;
 
 export const RECURRING_DISCOUNTS = {
