@@ -5,23 +5,7 @@ import TrustBadges from "../components/TrustBadges.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
 import { POLICIES } from "../data/claims";
-import {
-  SQFT_BRACKETS,
-  PRICE_TABLE,
-  MINIMUMS,
-  RATE_CARD_ROWS,
-  priceRangeLabel,
-  startingPrice,
-} from "../data/pricing";
-
-// The calculator's default state (2,000 sq ft / Deep Cleaning) rendered on the
-// server. This used to be a hardcoded "$451 - $495" literal that silently went
-// stale whenever the price table or the default <option selected> changed;
-// deriving it means the pre-JS number is always the number the calculator
-// computes, and crawlers that never run JS still read a true price.
-const DEFAULT_SIZE = 2000;
-const DEFAULT_SERVICE = "deep";
-const defaultEstimate = priceRangeLabel(DEFAULT_SERVICE, DEFAULT_SIZE);
+import { MINIMUMS, startingPrice } from "../data/pricing";
 
 // Freshness signal: pricing is a recency-sensitive page. Keep this tied to the
 // latest verified pricing/policy revision rather than the deploy clock.
@@ -61,8 +45,10 @@ const offerSchema = {
     priceSpecification: {
       "@type": "PriceSpecification",
       priceCurrency: "USD",
+      // Starting price only — published pricing is limited to "from" figures
+      // (2026-08-21), so schema must not expose the ladder tops the visible
+      // page no longer carries.
       minPrice: startingPrice(key),
-      maxPrice: PRICE_TABLE[key][PRICE_TABLE[key].length - 1],
       valueAddedTaxIncluded: false,
     },
     priceValidUntil: "2026-12-31",
@@ -71,29 +57,6 @@ const offerSchema = {
   })),
 };
 
-// AggregateOffer carries the whole published span in one machine-readable node.
-// The site had no lowPrice/highPrice anywhere before this; answer engines
-// quoting "what does X cost" want a bounded range, not a single "starting at".
-// Kept separate from the per-service Offers above so each still carries its own
-// min/max, and both ends derive from the rate card so they cannot drift.
-const aggregateOfferSchema = {
-  "@context": "https://schema.org",
-  "@type": "AggregateOffer",
-  "@id": "https://thevalleycleanteam.com/pricing#aggregateoffer",
-  itemOffered: { "@id": "https://thevalleycleanteam.com/pricing#service" },
-  priceCurrency: "USD",
-  lowPrice: Math.min(
-    ...["regular", "deep", "moveinout", "postconstruction"].map(startingPrice),
-  ),
-  highPrice: Math.max(
-    ...["regular", "deep", "moveinout", "postconstruction"].map(
-      (k) => PRICE_TABLE[k][PRICE_TABLE[k].length - 1],
-    ),
-  ),
-  offerCount: RATE_CARD_ROWS.length * 4,
-  availability: "https://schema.org/InStock",
-  url: "https://thevalleycleanteam.com/pricing",
-};
 ---
 
 <BaseLayout
@@ -103,7 +66,6 @@ const aggregateOfferSchema = {
 >
   <SchemaMarkup type="organization" />
   <script type="application/ld+json" set:html={JSON.stringify(offerSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(aggregateOfferSchema)} />
 
   <!-- Hero Section -->
   <section class="pt-32 pb-12 px-6">
@@ -128,183 +90,30 @@ const aggregateOfferSchema = {
     </div>
   </section>
 
-  <!-- Pricing Calculator -->
+  <!-- Phone-first quote CTA (replaced the interactive calculator + full rate
+       card, 2026-08-21: published pricing is limited to starting prices so the
+       exact number happens on a call). -->
   <section class="py-12 px-6 bg-gray-50">
-    <div class="container mx-auto max-w-4xl">
-      <div
-        class="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#FFA985]/20"
-      >
-        <h2 class="text-3xl font-bold text-center mb-2 text-[#333333]">
-          <Icon name="calculator" class="w-5 h-5 text-[#FFA985] mr-3" />Instant
-          Price Estimate
+    <div class="container mx-auto max-w-3xl text-center">
+      <div class="bg-white rounded-2xl p-8 shadow-xl border-2 border-[#FFA985]/20">
+        <h2 class="text-3xl font-bold mb-3 text-[#333333]">
+          How much does house cleaning cost?
         </h2>
-        <p class="text-center text-gray-600 mb-8">
-          Get a ballpark range in seconds — we confirm your exact price before we start
+        <p class="text-lg text-gray-600 mb-6">
+          Regular cleaning starts at <strong>$200</strong>, deep cleaning at
+          <strong>$276</strong>, move-in/out at <strong>$351</strong>, and
+          post-construction at <strong>$526</strong> — with recurring service up
+          to 30% off. Your exact price depends on your home's size and
+          condition, so we quote it on a quick call and confirm it in writing
+          before we start.
         </p>
-
-        <div class="grid md:grid-cols-2 gap-6 mb-8">
-          <div>
-            <label for="homeSize" class="block text-gray-700 font-semibold mb-2"
-              >Home Size (sq ft)</label
-            >
-            <select
-              id="homeSize"
-              class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]"
-            >
-              <option value="1000">Under 1,000 sq ft</option>
-              <option value="1500">1,000 - 1,500 sq ft</option>
-              <option value="2000" selected>1,500 - 2,000 sq ft</option>
-              <option value="2500">2,000 - 2,500 sq ft</option>
-              <option value="3000">2,500 - 3,000 sq ft</option>
-              <option value="3500">3,000 - 3,500 sq ft</option>
-              <option value="4000">3,500+ sq ft</option>
-            </select>
-          </div>
-          <div>
-            <label for="bedrooms" class="block text-gray-700 font-semibold mb-2"
-              >Number of Bedrooms</label
-            >
-            <select
-              id="bedrooms"
-              class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]"
-            >
-              <option value="1">1 Bedroom</option>
-              <option value="2">2 Bedrooms</option>
-              <option value="3" selected>3 Bedrooms</option>
-              <option value="4">4 Bedrooms</option>
-              <option value="5">5+ Bedrooms</option>
-            </select>
-          </div>
-          <div>
-            <label
-              for="bathrooms"
-              class="block text-gray-700 font-semibold mb-2"
-              >Number of Bathrooms</label
-            >
-            <select
-              id="bathrooms"
-              class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]"
-            >
-              <option value="1">1 Bathroom</option>
-              <option value="2" selected>2 Bathrooms</option>
-              <option value="3">3 Bathrooms</option>
-              <option value="4">4+ Bathrooms</option>
-            </select>
-          </div>
-          <div>
-            <label
-              for="serviceType"
-              class="block text-gray-700 font-semibold mb-2">Service Type</label
-            >
-            <select
-              id="serviceType"
-              class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:outline-none focus:border-[#FFA985]"
-            >
-              <option value="regular">Regular Cleaning</option>
-              <option value="deep" selected>Deep Cleaning</option>
-              <option value="moveinout">Move In/Out Cleaning</option>
-            </select>
-          </div>
-        </div>
-
-        <div
-          class="bg-gradient-to-r from-[#FFA985]/10 to-[#FFC67D]/10 rounded-xl p-6 text-center mb-6"
-        >
-          <p class="text-gray-600 mb-2">Your Estimated Price Range</p>
-          <div class="text-5xl font-bold text-[#333333]" id="priceEstimate">
-            {defaultEstimate}
-          </div>
-          <p class="text-sm text-gray-500 mt-2">
-            This is a ballpark range based on what you entered. Your exact quote depends on your home's current condition, layout, and any add-ons. We confirm your final price before we start.
-          </p>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="tel:2568261100"
-            class="btn-primary px-8 py-4 rounded-full text-lg font-semibold text-center shadow-lg"
-          >
-            <Icon name="phone" class="w-5 h-5 mr-2" />Call for Exact Quote
-          </a>
-          <a
-            href="tel:2568261100"
-            class="px-8 py-4 rounded-full text-lg font-semibold text-center border-2 border-[#FFA985] text-[#FFA985] hover:bg-[#FFA985] hover:text-white transition"
-          >
-            <Icon name="phone" class="w-5 h-5 mr-2" />Get Your Free Quote
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Published rate card.
-       Rendered server-side from src/data/pricing.ts. Before this existed the
-       full square-footage table lived only inside the calculator's JS bundle,
-       so an assistant reading the HTML could quote "from $200" but not a single
-       real price for a real home size. Every bracket is now plain text. -->
-  <section class="py-16 px-6 bg-white" id="rate-card">
-    <div class="container mx-auto max-w-4xl">
-      <div class="text-center mb-8">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#333333]">
-          How much does house cleaning cost by home size?
-        </h2>
-        <div class="section-divider"></div>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          A 1,500 sq ft home is <strong>${RATE_CARD_ROWS[3].regular}</strong> for
-          a regular clean, <strong>${RATE_CARD_ROWS[3].deep}</strong> for a deep
-          clean, and <strong>${RATE_CARD_ROWS[3].moveinout}</strong> for a
-          move-in/out. Full rates by square footage are below — these are our
-          published prices across Alabama and Tennessee, the same numbers the
-          booking form uses. No "starting at," no in-home sales visit before you
-          get a number.
-        </p>
+        <a href="tel:2568261100" class="btn-primary inline-flex items-center px-10 py-4 rounded-full text-lg font-semibold shadow-lg">
+          <Icon name="phone" class="w-5 h-5 mr-2" />Call for Your Exact Price
+        </a>
         <p class="text-sm text-gray-500 mt-3">
-          Prices effective{" "}
-          <time datetime={priceEffectiveDate}>{priceEffectiveLabel}</time> ·
-          Recurring service saves up to 30% off the regular rate
+          AL 256-826-1100 · TN 615-510-1427 · quoted in minutes, never a surprise
         </p>
       </div>
-
-      <div class="overflow-x-auto rounded-2xl border-2 border-gray-200 shadow-sm">
-        <table class="w-full text-left border-collapse bg-white">
-          <caption class="sr-only">
-            The Valley Clean Team published house cleaning prices by home square
-            footage, effective {priceEffectiveLabel}. Prices in US dollars per
-            visit.
-          </caption>
-          <thead>
-            <tr class="bg-gray-50 text-[#333333]">
-              <th scope="col" class="px-4 py-3 font-semibold">Home size</th>
-              <th scope="col" class="px-4 py-3 font-semibold">Regular cleaning</th>
-              <th scope="col" class="px-4 py-3 font-semibold">Deep cleaning</th>
-              <th scope="col" class="px-4 py-3 font-semibold">Move in/out</th>
-              <th scope="col" class="px-4 py-3 font-semibold">Post-construction</th>
-            </tr>
-          </thead>
-          <tbody>
-            {RATE_CARD_ROWS.map((row, i) => (
-              <tr class={i % 2 ? "bg-gray-50/60" : "bg-white"}>
-                <th scope="row" class="px-4 py-3 font-medium text-[#333333]">
-                  {row.label}
-                </th>
-                <td class="px-4 py-3 text-gray-700">${row.regular.toLocaleString()}</td>
-                <td class="px-4 py-3 text-gray-700">${row.deep.toLocaleString()}</td>
-                <td class="px-4 py-3 text-gray-700">${row.moveinout.toLocaleString()}</td>
-                <td class="px-4 py-3 text-gray-700">${row.postconstruction.toLocaleString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <p class="text-sm text-gray-500 mt-4 max-w-3xl">
-        Prices are per visit and include supplies, equipment, and a
-        background-checked team. <strong>Deep cleans and move-in/out cleans
-        also include inside the oven and inside the refrigerator</strong> —
-        both are paid add-ons on a regular clean. Homes in heavier condition may
-        need a deep clean first — we tell you that before you book, not after.
-        Final price is confirmed in writing before we start.
-      </p>
     </div>
   </section>
 
@@ -520,7 +329,7 @@ const aggregateOfferSchema = {
         >
           <Icon name="couch" class="w-8 h-8 text-[#FFA985] mb-4" />
           <h4 class="font-bold text-[#333333] mb-2">Inside Fridge</h4>
-          <p class="text-2xl font-bold text-[#333333]">+$75</p>
+          <p class="text-sm font-semibold text-gray-500">Priced with your quote</p>
           <p class="text-xs text-gray-400 mt-1">Included in Move In/Out</p>
         </div>
         <div
@@ -528,7 +337,7 @@ const aggregateOfferSchema = {
         >
           <Icon name="fire" class="w-8 h-8 text-[#FFA985] mb-4" />
           <h4 class="font-bold text-[#333333] mb-2">Inside Oven</h4>
-          <p class="text-2xl font-bold text-[#333333]">+$50</p>
+          <p class="text-sm font-semibold text-gray-500">Priced with your quote</p>
           <p class="text-xs text-gray-400 mt-1">Included in Deep Clean</p>
         </div>
         <div
@@ -536,14 +345,14 @@ const aggregateOfferSchema = {
         >
           <Icon name="box" class="w-8 h-8 text-[#FFA985] mb-4" />
           <h4 class="font-bold text-[#333333] mb-2">Inside Dishwasher</h4>
-          <p class="text-2xl font-bold text-[#333333]">+$50</p>
+          <p class="text-sm font-semibold text-gray-500">Priced with your quote</p>
         </div>
         <div
           class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center"
         >
           <Icon name="window-maximize" class="w-8 h-8 text-[#FFA985] mb-4" />
           <h4 class="font-bold text-[#333333] mb-2">Wet-Wipe Window Blinds</h4>
-          <p class="text-2xl font-bold text-[#333333]">+$10/each</p>
+          <p class="text-sm font-semibold text-gray-500">Priced with your quote</p>
         </div>
         <div
           class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center"
@@ -565,7 +374,7 @@ const aggregateOfferSchema = {
         >
           <Icon name="tshirt" class="w-8 h-8 text-[#FFA985] mb-4" />
           <h4 class="font-bold text-[#333333] mb-2">Laundry Service</h4>
-          <p class="text-2xl font-bold text-[#333333]">+$25/load</p>
+          <p class="text-sm font-semibold text-gray-500">Priced with your quote</p>
         </div>
         <div
           class="bg-white rounded-xl p-6 shadow-md border border-gray-200 text-center"
@@ -992,74 +801,3 @@ const aggregateOfferSchema = {
   </section>
 </BaseLayout>
 
-<script define:vars={{ SQFT_BRACKETS: [...SQFT_BRACKETS], PRICE_TABLE, MINIMUMS }}>
-  // Price Calculator
-  const homeSize = document.getElementById("homeSize");
-  const bedrooms = document.getElementById("bedrooms");
-  const bathrooms = document.getElementById("bathrooms");
-  const serviceType = document.getElementById("serviceType");
-  const priceEstimate = document.getElementById("priceEstimate");
-
-  // SQFT_BRACKETS / PRICE_TABLE / MINIMUMS are injected above from
-  // src/data/pricing.ts — the same module that renders the visible rate card
-  // and the Offer schema. Keeping one source of truth is what stops the
-  // interactive estimate from drifting away from the published table.
-
-  function bracketIndex(size) {
-    // pick the first bracket >= size, else the largest
-    for (let i = 0; i < SQFT_BRACKETS.length; i++) {
-      if (size <= SQFT_BRACKETS[i]) return i;
-    }
-    return SQFT_BRACKETS.length - 1;
-  }
-
-  function calculatePrice() {
-    if (!homeSize || !serviceType || !priceEstimate) return;
-
-    const size = parseInt(homeSize.value);
-    const service = serviceType.value;
-
-    const table = PRICE_TABLE[service] || PRICE_TABLE.regular;
-    let price = table[bracketIndex(size)];
-    price = Math.max(price, MINIMUMS[service] || 200);
-
-    // Show a tight range around the table price so the on-page number reads as an
-    // estimate (final confirmed in BookingKoala / before the clean).
-    const low = price;
-    const high = Math.round((price * 1.1) / 5) * 5; // ~+10%, rounded to $5
-    if (priceEstimate) priceEstimate.textContent = `$${low} - $${high}`;
-  }
-
-  homeSize?.addEventListener("change", calculatePrice);
-  bedrooms?.addEventListener("change", calculatePrice);
-  bathrooms?.addEventListener("change", calculatePrice);
-  serviceType?.addEventListener("change", calculatePrice);
-
-  // Honour #service= so a homepage price card lands on its own calculator
-  // state. Without this every card opened the default Deep Cleaning estimate,
-  // so "Regular cleaning from $200" arrived showing the deep-clean range.
-  //
-  // This deliberately reads a HASH fragment, not a query string. The old
-  // `/pricing?service=regular` links minted three extra crawlable URLs that
-  // served byte-identical HTML, which an AI-visibility crawl flagged as a
-  // duplicate-content cluster with duplicate <title> tags. Fragments are never
-  // sent to the server and are ignored by crawlers, so the preselect behaviour
-  // survives without a second indexable URL. The ?service= form is still read
-  // as a fallback so older external links and ad destinations keep working.
-  function applyServiceFromQuery() {
-    const wanted =
-      new URLSearchParams(window.location.hash.replace(/^#/, "")).get("service") ||
-      new URLSearchParams(window.location.search).get("service");
-    if (!wanted || !serviceType) return;
-    const select = serviceType;
-    if (Array.from(select.options).some((o) => o.value === wanted)) {
-      select.value = wanted;
-    }
-  }
-
-  // Recompute on load so a #service= deep link updates the number. The
-  // server-rendered estimate already matches the default selects (both derive
-  // from src/data/pricing.ts), so this is a no-op without a fragment.
-  applyServiceFromQuery();
-  calculatePrice();
-</script>
