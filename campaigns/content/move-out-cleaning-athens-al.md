@@ -1,6 +1,6 @@
 ---
 title: "Move-Out Cleaning in Athens, AL: The Deposit-Back Checklist (2026)"
-meta_description: "Move-out cleaning in Athens, AL from $199. The room-by-room checklist landlords actually inspect, real local pricing, and the 7 spots that quietly cost you your deposit."
+meta_description: "Move-out cleaning in Athens, AL from $351. The room-by-room checklist landlords actually inspect, real local pricing, and the 7 spots that quietly cost you your deposit."
 primary_keyword: "move out cleaning Athens AL"
 secondary_keywords:
   - "move out cleaning cost Athens Alabama"
@@ -22,7 +22,7 @@ schema_article: |
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Move-Out Cleaning in Athens, AL: The Deposit-Back Checklist (2026)",
-    "description": "Move-out cleaning in Athens, AL from $199. The room-by-room checklist landlords actually inspect, real local pricing, and the 7 spots that quietly cost you your deposit.",
+    "description": "Move-out cleaning in Athens, AL from $351. The room-by-room checklist landlords actually inspect, real local pricing, and the 7 spots that quietly cost you your deposit.",
     "author": { "@type": "Organization", "name": "The Valley Clean Team" },
     "datePublished": "2026-07-09",
     "dateModified": "2026-07-09",
@@ -47,7 +47,7 @@ schema_faq: |
         "name": "How much does move-out cleaning cost in Athens, AL?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Move-out cleaning in Athens starts at $199 for apartments and 1-2 bedroom homes. An average 3-bedroom Athens home runs $225-$299. Larger homes and rentals in rough condition get a custom quote. Gig-app cleaners advertise around $19-$22/hour, but those are hourly teaser rates without insurance or a re-clean guarantee, and a move-out clean is priced by the job, not the hour."
+          "text": "Move-out cleaning in Athens starts at $351 for apartments and 1-2 bedroom homes. An average 3-bedroom Athens home runs $456-$526. Larger homes and rentals in rough condition get a custom quote. Gig-app cleaners advertise around $19-$22/hour, but those are hourly teaser rates without insurance or a re-clean guarantee, and a move-out clean is priced by the job, not the hour."
         }
       },
       {
@@ -87,7 +87,7 @@ schema_faq: |
         "name": "Is move-out cleaning worth it?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "If your deposit is larger than the cost of the clean, usually yes. An Athens move-out clean from $199 that recovers a $500-$1,000 deposit pays for itself. It's less clearly worth it if your deposit is small, you have the time to clean to inspection standard yourself, and your unit is in good shape. The honest math depends on your deposit, your time, and your unit's condition."
+          "text": "If your deposit is larger than the cost of the clean, usually yes. An Athens move-out clean from $351 that recovers a $500-$1,000 deposit pays for itself. It's less clearly worth it if your deposit is small, you have the time to clean to inspection standard yourself, and your unit is in good shape. The honest math depends on your deposit, your time, and your unit's condition."
         }
       },
       {
@@ -104,7 +104,7 @@ schema_faq: |
 
 # Move-Out Cleaning in Athens, AL: The Deposit-Back Checklist (2026)
 
-Move-out cleaning in Athens starts at $199 for an apartment, and the whole point of it is money — your deposit. Your Athens landlord has the legal right to deduct cleaning costs from what you get back, and over the years landlords here have gotten thorough about it. The oven interior. The refrigerator drip pan. The window tracks that haven't been touched since you moved in. This guide is the room-by-room list they actually inspect, what it costs to do it right in Limestone County, and the seven spots that quietly cost renters their deposit even after a full weekend of scrubbing.
+Move-out cleaning in Athens starts at $351 for an apartment, and the whole point of it is money — your deposit. Your Athens landlord has the legal right to deduct cleaning costs from what you get back, and over the years landlords here have gotten thorough about it. The oven interior. The refrigerator drip pan. The window tracks that haven't been touched since you moved in. This guide is the room-by-room list they actually inspect, what it costs to do it right in Limestone County, and the seven spots that quietly cost renters their deposit even after a full weekend of scrubbing.
 
 This isn't a generic national checklist. We've cleaned move-outs in Athens hundreds of times — apartment complexes on US-72, single-family rentals in established neighborhoods, newer townhomes near the Hwy 31 corridor. The list below is the one that comes from doing the work.
 
@@ -172,14 +172,14 @@ Here's what it actually runs in Athens and Limestone County in 2026:
 
 | Home size | Typical move-out clean |
 |---|---|
-| Apartment / 1-2 bedroom | From $199 |
-| 3-bedroom home | $225-$299 |
+| Apartment / 1-2 bedroom | From $351 |
+| 3-bedroom home | $456-$526 |
 | 4+ bedroom / larger home | Custom quote |
 | Poor condition (any size) | Custom quote |
 
 For comparison, the gig apps (Care.com, Homeaglow, Thumbtack) advertise around $19-$22 per hour in Athens. That number looks cheaper until you run it out: a 3-bedroom move-out is 4-6 hours of detailed work, so the "cheap" hourly rate lands in the same range — except with no insurance, no consistency, and no one to call if the landlord rejects the clean.
 
-**The DIY math, honestly.** If your deposit is $500-$1,000 and your unit needs real work, a $199-$299 professional clean that protects it is easy money. If your deposit is small, your unit is in good shape, and you have a free weekend, cleaning it yourself can be the right call. The trap is the middle: renters who spend a full weekend cleaning, miss two or three inspection points, and lose the deposit anyway. That's the worst outcome — the labor *and* the deduction.
+**The DIY math, honestly.** If your deposit is $500-$1,000 and your unit needs real work, a $351-$526 professional clean that protects it is easy money. If your deposit is small, your unit is in good shape, and you have a free weekend, cleaning it yourself can be the right call. The trap is the middle: renters who spend a full weekend cleaning, miss two or three inspection points, and lose the deposit anyway. That's the worst outcome — the labor *and* the deduction.
 
 ## 7 spots that void your deposit even if you cleaned
 
@@ -219,7 +219,7 @@ Most Athens leases time the final walk-through for the last day of the month, so
 
 ### How much does move-out cleaning cost in Athens, AL?
 
-Move-out cleaning in Athens starts at $199 for apartments and 1-2 bedroom homes. An average 3-bedroom runs $225-$299, and larger or rougher units get a custom quote. Gig apps advertise ~$19-$22/hour, but a move-out is priced by the job, and those rates come without insurance or a re-clean guarantee.
+Move-out cleaning in Athens starts at $351 for apartments and 1-2 bedroom homes. An average 3-bedroom runs $456-$526, and larger or rougher units get a custom quote. Gig apps advertise ~$19-$22/hour, but a move-out is priced by the job, and those rates come without insurance or a re-clean guarantee.
 
 ### What's included in a move-out cleaning?
 
@@ -239,7 +239,7 @@ Read your lease. Many Athens apartment leases require *professional* carpet clea
 
 ### Is move-out cleaning worth it?
 
-If your deposit is bigger than the cost of the clean, usually yes — a clean from $199 that recovers a $500-$1,000 deposit pays for itself. It's less clear-cut if your deposit is small, your unit's in good shape, and you have time to clean to standard yourself.
+If your deposit is bigger than the cost of the clean, usually yes — a clean from $351 that recovers a $500-$1,000 deposit pays for itself. It's less clear-cut if your deposit is small, your unit's in good shape, and you have time to clean to standard yourself.
 
 ### What's the difference between move-in and move-out cleaning?
 
@@ -247,7 +247,7 @@ Move-out cleaning readies an empty unit for a landlord's inspection so you get y
 
 ## The Valley Clean Team's Athens move-out clean
 
-We do [move-in and move-out cleaning](/services/move-in-out-cleaning) across Athens and all of [Limestone County](/locations/athens) — apartments on US-72, single-family rentals, townhomes near Hwy 31. Every move-out clean is a flat quoted price from $199, backed by our 72-hour re-clean guarantee, done by an insured, background-checked team that has cleaned to Athens landlord standards hundreds of times.
+We do [move-in and move-out cleaning](/services/move-in-out-cleaning) across Athens and all of [Limestone County](/locations/athens) — apartments on US-72, single-family rentals, townhomes near Hwy 31. Every move-out clean is a flat quoted price from $351, backed by our 72-hour re-clean guarantee, done by an insured, background-checked team that has cleaned to Athens landlord standards hundreds of times.
 
 If your landlord gave you a checklist, send it over and we'll work straight down it. If they didn't, we already know the list.
 
