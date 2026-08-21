@@ -29,6 +29,23 @@ export const PRICING = {
   postConstruction: { amount: 526, display: "$526" },
 } as const;
 
+/**
+ * schema.org LocalBusiness `priceRange`.
+ *
+ * This is the relative Google/Yelp band for the category and locale, not a
+ * dollar figure: "$" budget, "$$" mid-range, "$$$" upscale, "$$$$" highest.
+ *
+ * Set to "$$$" on 2026-08-20 (Todd). The site had drifted to a mix of 55 "$$"
+ * and 12 "$$$" declarations. "$$" understated a premium, insured,
+ * veteran-and-woman-owned service whose residential AOV runs about $249 and
+ * whose 1,500 sq ft deep clean is $381.
+ *
+ * Note this earns no rich result — Google retired LocalBusiness price display.
+ * It is a positioning signal that answer engines still read when they
+ * characterise the business.
+ */
+export const PRICE_RANGE_BAND = "$$$" as const;
+
 export const RECURRING_DISCOUNTS = {
   weekly: 0.3,
   biweekly: 0.25,

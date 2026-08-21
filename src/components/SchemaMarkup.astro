@@ -5,7 +5,7 @@ import {
   BUSINESS_HOURS,
   type CityConfig,
 } from "../constants/schemaData";
-import { IDENTITY, PRICING, REVIEWS } from "../data/claims";
+import { IDENTITY, PRICE_RANGE_BAND, PRICING, REVIEWS } from "../data/claims";
 
 interface Props {
   type?: "organization" | "local" | "service" | "article";
@@ -131,7 +131,7 @@ const getOrganizationSchema = (includeDepartments = true) => ({
       value: IDENTITY.isFamilyOwned,
     },
   ],
-  priceRange: "$$",
+  priceRange: PRICE_RANGE_BAND,
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: REVIEWS.rating,
@@ -194,7 +194,7 @@ const localSchema = city
         telephone: config.phone,
         email: "hello@thevalleycleanteam.com",
         image: "https://thevalleycleanteam.com/og-image.png",
-        priceRange: "$$",
+        priceRange: PRICE_RANGE_BAND,
         areaServed: [
           { "@type": "City", name: city },
           { "@type": "AdministrativeArea", name: `ZIP ${config.zips}` },
