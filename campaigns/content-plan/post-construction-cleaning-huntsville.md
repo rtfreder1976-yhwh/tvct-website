@@ -75,7 +75,7 @@ Operationally serious. Treat the GC superintendent as the primary reader, with a
 - Reference to local construction context
 
 ## Internal Links
-- Links TO: `/services/post-construction-cleaning`, `/locations/huntsville`, `/locations/madison`, `/blog/construction-dust-destroying-home` (existing), `/get-quote`, `https://thevalleycleanteam.bookingkoala.com/booknow`
+- Links TO: `/services/post-construction-cleaning`, `/locations/huntsville`, `/locations/madison`, `/blog/construction-dust-destroying-home` (existing), `/get-quote`, `https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning`
 - Links FROM: `/services/post-construction-cleaning.astro`, `/locations/huntsville/index.astro`
 
 ## CTA
