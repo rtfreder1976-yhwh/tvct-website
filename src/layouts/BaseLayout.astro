@@ -184,13 +184,18 @@ const metaDescription =
         // so before first interaction window.posthog does not exist at all and
         // an early call button tap captures nothing. Queue those calls here and
         // replay them once the real library has initialized.
+        //
+        // This MUST be an Array. The loader below is invoked as
+        // `(document, window.posthog || [])` and treats that argument as the
+        // array it pushes into. Handing it a plain object breaks the loader
+        // outright (no .push), so PostHog never initializes at all.
         if (!window.posthog) {
-          window.posthog = {
-            _preloadQueue: [],
-            capture: function () {
-              window.posthog._preloadQueue.push(Array.prototype.slice.call(arguments));
-            },
+          var posthogStub = [];
+          posthogStub._preloadQueue = [];
+          posthogStub.capture = function () {
+            posthogStub._preloadQueue.push(Array.prototype.slice.call(arguments));
           };
+          window.posthog = posthogStub;
         }
 
         var loaded = false;
