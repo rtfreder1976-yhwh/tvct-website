@@ -22,7 +22,14 @@
  * 2026-08-22: the 26 neighborhood and county FAQ pages were fixed and their
  * entries removed — those opened their pricing range at the $150 weekly-
  * recurring minimum (or lower) while describing one-time regular cleaning,
- * whose floor is $200. 36 findings across 22 files remain, listed below.
+ * whose floor is $200.
+ *
+ * 2026-08-22 (later): the 8 cost guides were fixed and removed too. Those were
+ * the highest-value entries — they are the pages a buyer reads to learn what
+ * things cost, and they advertised post-construction from $350-$450 against a
+ * $526 floor, Airbnb turnover from $100 against $125, and move-in/out from
+ * $325 against $351. All now interpolate from claims.ts. 17 findings across
+ * 14 files remain, listed below.
  *
  * EVERY ENTRY IS A BUG, NOT AN EXEMPTION
  * --------------------------------------
@@ -77,22 +84,6 @@ export const serviceFloorAllowlist = [
   // These enumerate every service with a "From $X" and were not updated when
   // pricing was reconciled. Highest-value entries to clear: they are exactly
   // the pages a buyer reads to learn what things cost.
-  { file: 'src/pages/blog/house-cleaning-cost-alabama.astro', count: 3,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
-  { file: 'src/pages/blog/house-cleaning-cost-athens-al.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
-  { file: 'src/pages/blog/house-cleaning-cost-decatur-al.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
-  { file: 'src/pages/blog/house-cleaning-cost-florence-al.astro', count: 3,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
-  { file: 'src/pages/blog/house-cleaning-cost-huntsville-al.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
-  { file: 'src/pages/blog/house-cleaning-cost-madison-al.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
-  { file: 'src/pages/blog/house-cleaning-cost-nashville-tn.astro', count: 3,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
-  { file: 'src/pages/blog/why-19-dollar-cleaning-costs-more-shoals.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: COST_GUIDE_STALE },
 
   // --- blog: deep-clean ranges opening below the $276 floor ----------------
   { file: 'src/pages/blog/deep-cleaning-cost-shoals-guide.astro', count: 1,

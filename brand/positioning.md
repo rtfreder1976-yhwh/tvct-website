@@ -37,7 +37,13 @@ only — it says nothing about how fast we clean. Same-day cleaning remains bann
 
 ---
 
-## 🚧 IN FLIGHT — dual capture: call OR lead form (Todd, 2026-08-22)
+## 🚧 DEFERRED — dual capture: call OR lead form (Todd, 2026-08-22)
+
+**Status (Todd, 2026-08-22): DEFERRED.** The lead form and its landing page will be built as
+part of a `/start-here` skills pass, not now. Nothing in `vercel.json` changes until then — the
+BookingKoala redirects stay exactly as they are. **Commercial CTAs are also on hold:** `CLAUDE.md`
+still says commercial keeps the BookingKoala link (`/booknow/office_cleaning`), and that rule
+stands until the form work happens. Do not change commercial routing in the meantime.
 
 **Decision:** prospects get **two** ways in — call for a firm price, **or** fill out a quote
 request form. Applies to **both homeowners and businesses**. This supersedes phone-only.
@@ -128,7 +134,7 @@ it in the window.** That is a Type 2 mechanism (revealed, not invented): the one
 explains it first owns it.
 
 **4. It matches the canonical stance.**
-`POSITIONING.stance = "transparent_value"` and `POLICIES.priceMatching = false`. TVCT does
+`POSITIONING.stance = "premium"` and `POLICIES.priceMatching = false`. TVCT does
 not compete on being cheapest and does not chase competitor quotes. "The price is the
 price" is the exact consumer-facing expression of a no-price-matching, transparent-value
 posture — it converts a policy that could read as rigid into a promise that reads as

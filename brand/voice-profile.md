@@ -10,10 +10,10 @@
 > traceable to `src/data/claims.ts`. Nothing here may be used to justify a claim that file does not
 > contain.
 >
-> **Tone decision (Todd, 2026-08-22):** premium is the general voice default. This conflicts in
-> specific, listed ways with `POSITIONING.stance = "transparent_value"` and the scoped
-> `luxuryScope`. See **⚠️ UNRESOLVED** at the end of this document — that section is not optional
-> reading.
+> **Tone decision (Todd, 2026-08-22):** premium is the general voice default, and it is now
+> canonical — `POSITIONING.stance = "premium"` in `src/data/claims.ts`. Luxury *vocabulary*
+> stays gated to `luxuryScope` (Mountain Brook, West Nashville). See **✅ RESOLVED** near the
+> end of this document for what moved and what deliberately did not.
 
 ---
 
@@ -456,27 +456,55 @@ you get.
 
 ---
 
-## ⚠️ UNRESOLVED — premium default vs. claims.ts
+## ✅ RESOLVED — premium is the canonical stance
 
-Todd chose a **premium general default** on 2026-08-22. That decision was made against advice and is
-built above as instructed. It is **not** reconciled with the code, and it should not be quietly
-reconciled by softening the copy. Below is every specific place this profile pushes past what
-`src/data/claims.ts` and `CLAUDE.md` currently authorize. Each needs a decision: **move the code, or
-move the copy.**
+Todd confirmed **Premium** on 2026-08-22, and the code was moved to match:
+`POSITIONING.stance` in `src/data/claims.ts` is now **`"premium"`** (was `"transparent_value"`).
 
-Nothing in `claims.ts` was edited.
+**What changed:** the stance label only.
 
-### The three sources in tension
+**What deliberately did NOT change:**
 
-| Source | What it says |
+- `POSITIONING.luxuryScope` stays `["Mountain Brook", "West Nashville"]`, still enforced by
+  `usesLuxuryFraming()`.
+- The `CLAUDE.md` guardrail — "'Luxury' is not the general brand position" — stands as written.
+
+**The distinction this profile is built on, now backed by code:**
+
+> **Premium is the register.** Elevated, precise, confident, quality-forward — carried by
+> specificity and restraint, not adjectives. It applies everywhere.
+>
+> **Luxury is a vocabulary.** "Estate", "white-glove", "concierge", "bespoke". It stays gated to
+> Mountain Brook and West Nashville.
+
+This also resolves an inconsistency that predated the rebuild: `PRICE_RANGE_BAND` has been `"$$$"`
+since 2026-08-20 while the stance still said `transparent_value` fifty lines below it. Those now
+agree. Transparency remains a core *proof* — flat pricing, a firm price on the call, published
+policies — it is simply no longer the stance label.
+
+The eight tension points below are kept as the record of what was weighed. They are no longer
+blockers; items 1-6 are now authorized, and items 7-8 are noted resolutions.
+
+### The three sources that WERE in tension (historical — resolved 2026-08-22)
+
+> Kept as the record of what was weighed. The stance row below is **superseded**:
+> `POSITIONING.stance` is now `"premium"`. The `luxuryScope` and `CLAUDE.md` rows still stand.
+
+| Source | What it said (before 2026-08-22) |
 |---|---|
-| `src/data/claims.ts` | `POSITIONING.stance = "transparent_value"` |
+| `src/data/claims.ts` | ~~`POSITIONING.stance = "transparent_value"`~~ → now `"premium"` |
 | `src/data/claims.ts` | `POSITIONING.luxuryScope = ["Mountain Brook", "West Nashville"]`, enforced by `usesLuxuryFraming()` |
 | `CLAUDE.md` | "'Luxury' is not the general brand position; use it only where the canonical positioning explicitly allows it." |
 | `brand/creative-kit.md` | Visual brand is warm/friendly/approachable — peach `#FFA985` + charcoal, Playfair + Inter; explicitly lists "'Luxury' framing" as a prompt guardrail to avoid |
 | `claims.ts` (supporting) | `PRICE_RANGE_BAND = "$$$"` — the one code signal that *does* lean premium |
 
-### Flagged conflicts, line by line
+### Flagged conflicts, line by line — ALL RESOLVED 2026-08-22
+
+> **These are closed.** Todd chose premium and `POSITIONING.stance` moved to `"premium"`, so
+> items 1-6 are now authorized rather than pending. Each still says "Conflict:
+> `transparent_value`" and some say "Decision needed" — that is the *original* analysis,
+> preserved so the reasoning is auditable. **Do not action those prompts.** Nothing below
+> requires a decision.
 
 **1. Voice Summary — "Elevated, exact, and unhurried… the most competent person in the room."**
 Conflict: `stance = "transparent_value"`. A transparent-value stance normally reads as
