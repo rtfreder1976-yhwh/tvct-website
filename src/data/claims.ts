@@ -197,6 +197,46 @@ export const PERFORMANCE = {
   quoteResponseSla: "2 business hours",
 } as const;
 
+/**
+ * Phone-quote commitment. Confirmed by Todd 2026-08-22.
+ *
+ * A caller reaching a live person during business hours gets a FIRM FLAT PRICE on the
+ * call for a standard residential home — not a range, not a "starting at", and not a
+ * callback. The quoted number is the number billed.
+ *
+ * This is possible because pricing is deterministic: whoever answers reads the sq-ft
+ * bracket rate card rather than estimating. It is the reason the claim is safe to make.
+ *
+ * `priceHeld: true` is the load-bearing part. The price moves ONLY when the customer
+ * added scope after the quote, or the home was misstated at quote time (square footage,
+ * bedroom/bath count, pets). Condition found on arrival is NOT a permitted reason to
+ * revise a quoted price.
+ *
+ * OUT OF SCOPE — these still route to `quoteResponseSla` ("2 business hours"):
+ * after-hours and voicemail, commercial inquiries, post-construction, and homes
+ * outside the published sq-ft brackets.
+ */
+export const QUOTE_ON_CALL = {
+  available: true,
+  scope: "most standard residential homes" as const,
+  hours: "business hours" as const,
+  priceHeld: true,
+  /** The only permitted reasons a quoted price may change. */
+  priceChangeExceptions: [
+    "customer added scope after the quote",
+    "home details misstated at quote time (sq ft, bedrooms, baths, pets)",
+  ] as const,
+  /** Inquiry types that fall back to the 2-business-hour SLA instead. */
+  fallbackToSla: [
+    "after hours or voicemail",
+    "commercial",
+    "post-construction",
+    "homes outside the published square-footage brackets",
+  ] as const,
+  confirmedBy: "Todd",
+  confirmedOn: "2026-08-22",
+} as const;
+
 export class ClaimsError extends Error {
   constructor(message: string) {
     super(message);
@@ -216,6 +256,7 @@ export function assertClaims(): void {
     POSITIONING,
     CLINICAL,
     PERFORMANCE,
+    QUOTE_ON_CALL,
   };
 
   for (const [groupName, group] of Object.entries(groups)) {
