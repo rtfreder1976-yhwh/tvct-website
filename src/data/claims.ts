@@ -144,8 +144,25 @@ export const POLICIES = {
   ] as const,
 } as const;
 
+/**
+ * Brand stance. Confirmed by Todd 2026-08-22.
+ *
+ * "premium" describes the REGISTER: elevated, precise, confident, quality-
+ * forward. It is carried by specificity and restraint, not by adjectives.
+ * This is consistent with PRICE_RANGE_BAND "$$$" above.
+ *
+ * It is NOT a licence for luxury vocabulary. "Estate", "white-glove",
+ * "concierge" and "bespoke" remain gated to `luxuryScope` below and are
+ * enforced by usesLuxuryFraming(). Premium is how the whole brand sounds;
+ * luxury is a specific vocabulary for two specific markets.
+ *
+ * Was "transparent_value" until 2026-08-22. That value predated the rebuilt
+ * voice profile and contradicted PRICE_RANGE_BAND, which has been "$$$" since
+ * 2026-08-20. Transparency is still a core proof (flat pricing, a firm price
+ * on the call, published policies) — it is just no longer the stance label.
+ */
 export const POSITIONING = {
-  stance: "transparent_value" as const,
+  stance: "premium" as const,
   luxuryScope: ["Mountain Brook", "West Nashville"] as readonly string[],
   luxuryServices: ["white-glove-cleaning", "luxury-homes"] as readonly string[],
 } as const;

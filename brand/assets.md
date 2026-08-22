@@ -45,6 +45,8 @@ _Append-only log of marketing assets created by skills._
 | Animated logo GIF (fast, 1s loop) | Marketing logo asset | 2026-05-24 | brand | ready for use | `public/images/logo-animated.gif`. 332×95, 11 KB, 24 frames @ 24fps. Shine sweep across logo, masked to logo alpha. **For external marketing use only** (email signatures, social, ads) — NOT for site nav/footer (would tank LCP). Built deterministically with sharp + ffmpeg, no AI. |
 | Animated logo GIF (slow, 3s loop with pause) | Marketing logo asset | 2026-05-24 | brand | ready for use | `public/images/logo-animated-slow.gif`. 332×95, 12 KB, 1s shine + 2s static pause. Use this version for repeat-view contexts (email signatures, profile headers) where the constant motion of the fast version would be distracting. |
 
+| Competitor intel: Bear Brothers | Competitive analysis | 2026-08-22 | foundation | active | `brand/competitors.md`. Verified from live pages (their booking page modified 2026-08-05). Key finding: they price on bed/bath count, not square footage — a 3bd/3ba is $425 regardless of home size. Four openings documented. Re-verify by 2026-11-22. |
+
 ## Retired assets
 
 | Asset | Retired | Reason |

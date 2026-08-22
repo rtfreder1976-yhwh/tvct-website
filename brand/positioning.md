@@ -37,7 +37,13 @@ only — it says nothing about how fast we clean. Same-day cleaning remains bann
 
 ---
 
-## 🚧 IN FLIGHT — dual capture: call OR lead form (Todd, 2026-08-22)
+## 🚧 DEFERRED — dual capture: call OR lead form (Todd, 2026-08-22)
+
+**Status (Todd, 2026-08-22): DEFERRED.** The lead form and its landing page will be built as
+part of a `/start-here` skills pass, not now. Nothing in `vercel.json` changes until then — the
+BookingKoala redirects stay exactly as they are. **Commercial CTAs are also on hold:** `CLAUDE.md`
+still says commercial keeps the BookingKoala link (`/booknow/office_cleaning`), and that rule
+stands until the form work happens. Do not change commercial routing in the meantime.
 
 **Decision:** prospects get **two** ways in — call for a firm price, **or** fill out a quote
 request form. Applies to **both homeowners and businesses**. This supersedes phone-only.
