@@ -50,5 +50,16 @@ Weekly recurring is **margin-negative at the small end**: −10.0% at ≤750 sqf
 +0.6% at 1,000 sqft, and below the 38% target until roughly 4,400 sqft. A $150
 weekly floor does not rescue it ($150 @ 750 sqft = 10.7%).
 
-Deliberately unchanged pending a decision. Full table:
+Modeled 2026-08-21 in the workbook's **FLOOR SCENARIO** block (Pricing Table
+rows 63-70). Change `Assumptions!B52` to re-model a different floor; the billed
+prices and margins recalculate. Two findings worth knowing:
+
+- Breakeven is **$145**, so the current $150 weekly minimum is set essentially
+  at breakeven and is *negative* in Zone 5.
+- The 38% target needs **$471** at the small end and is simply unreachable
+  there; the $70/job fixed cost is the real driver, not the 30% discount.
+
+Analysis and the floor tradeoff table:
+[`../plans/small-end-margin-decision.md`](../plans/small-end-margin-decision.md)
+Band reconciliation detail:
 [`../plans/pricing-band-reconciliation.md`](../plans/pricing-band-reconciliation.md)
