@@ -906,6 +906,45 @@ const metaDescription =
     </script>
 
     <script is:inline>
+      // Engagement context for conversion events.
+      //
+      // Both values are read on demand at click time rather than tracked with a
+      // scroll listener, so there is no per-frame work and nothing to throttle.
+      // maxScroll updates only when a conversion fires, which is the only
+      // moment the number is used.
+      function pageEngagement() {
+        var pageStart =
+          (window.performance &&
+            window.performance.timing &&
+            window.performance.timing.domContentLoadedEventEnd) ||
+          0;
+        var seconds = pageStart
+          ? Math.round((Date.now() - pageStart) / 1000)
+          : Math.round((window.performance && window.performance.now ? window.performance.now() : 0) / 1000);
+
+        var doc = document.documentElement;
+        var body = document.body;
+        var scrollTop = window.pageYOffset || doc.scrollTop || 0;
+        var viewport = window.innerHeight || doc.clientHeight || 0;
+        var full = Math.max(
+          doc.scrollHeight || 0,
+          body ? body.scrollHeight : 0,
+          doc.offsetHeight || 0,
+        );
+        // A page shorter than the viewport is fully seen: report 100 rather
+        // than dividing by a scrollable distance of zero.
+        var scrollable = full - viewport;
+        var percent =
+          scrollable > 0
+            ? Math.round(((scrollTop + viewport) / full) * 100)
+            : 100;
+
+        return {
+          seconds_on_page: seconds >= 0 && seconds < 86400 ? seconds : null,
+          scroll_depth_percent: Math.max(0, Math.min(100, percent)),
+        };
+      }
+
       // Global Click Tracking for Analytics
       document.addEventListener("click", function (e) {
         var target = e.target.closest("a");
@@ -937,10 +976,15 @@ const metaDescription =
           // site's primary conversion, so PostHog funnels can answer which
           // locations and services actually drive calls.
           if (window.posthog && typeof window.posthog.capture === "function") {
+            var engagement = pageEngagement();
             window.posthog.capture("phone_click", {
               phone_number: href.replace("tel:", ""),
               page_path: window.location.pathname,
               link_text: (target.innerText || "").trim().slice(0, 100),
+              // How far down and how long before they called: separates an
+              // instant hero tap from someone who read the pricing first.
+              scroll_depth_percent: engagement.scroll_depth_percent,
+              seconds_on_page: engagement.seconds_on_page,
             });
           }
         } else if (href.startsWith("mailto:")) {
