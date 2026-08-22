@@ -1,3 +1,19 @@
+> # ⛔ RETIRED — 2026-08-22
+>
+> **Do not ship, deploy, or extend anything in this directory.** Todd retired this
+> campaign and is rebuilding from scratch on a new angle.
+>
+> **Why it was retired — two independent reasons:**
+> 1. **Banned claim.** The entire funnel is built on the *same-day cleaning* angle.
+>    `CLAUDE.md`: "Do not advertise emergency or same-day cleaning."
+> 2. **Dead infrastructure.** `/api/submit-form` is deleted, `src/pages/checklist.astro`
+>    is gone, and GoHighLevel is retired for website marketing.
+>
+> **New direction:** flat-rate pricing + call for an immediate quote. Phone-first CTAs
+> for residential *and* commercial. See `brand/positioning.md`.
+>
+> The prose here is still useful as **raw material**. The funnel architecture is not.
+
 # Campaign: The 2-Hour Quote Checklist
 
 ## Goal

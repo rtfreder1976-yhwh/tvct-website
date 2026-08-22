@@ -2,13 +2,22 @@
 
 _Append-only log of marketing assets created by skills._
 
+> **⚠️ PALETTE CORRECTION — 2026-08-22.** Every **visual** asset dated **2026-05-14** below was
+> generated on a wrong, auto-guessed palette (navy `#1B2A41` / cream `#F5EFE6` / brass `#C9A86B`).
+> The real brand is peach `#FFA985` + charcoal `#333333`. Those images are **off-brand — do not
+> publish or reuse without regenerating.** The generator scripts `scripts/gen_explorations.py`,
+> `gen_final_batch.py`, `gen_round2_batch.py`, and `gen_slide01_fix.py` were **corrected on
+> 2026-08-22** — prompts now use peach/charcoal, Playfair Display + Inter, canonical `claims.ts`
+> pricing, and no same-day claims. They are safe to re-run to regenerate the images below.
+> Text assets (emails, copy, briefs) are unaffected by this.
+
 | Asset | Type | Date | Campaign | Status | Notes |
 | ----- | ---- | ---- | -------- | ------ | ----- |
 | The 2-Hour Quote Checklist | Lead magnet (checklist) | 2026-05-13 | 2-hour-quote-checklist | draft | 7 items + 3 bonus questions. Speed-themed; bridges to same-day booking. Built by /lead-magnet. |
 | Opt-in landing page | Landing page (control + proof-led variants) | 2026-05-13 | 2-hour-quote-checklist | draft | ~1,180 words. Self-scored 59/70 (84%). 7 headline variants, 6 CTA variants, 5 A/B tests defined. Built by /direct-response-copy. |
 | Welcome email sequence (7 emails) | Welcome + conversion sequence | 2026-05-13 | 2-hour-quote-checklist | draft | 12-day cadence (Tue/Thu 7:30 AM CT). 3 subject variants per email + A/B test recommendations. Sign-off rotation Todd/Christen. Built by /email-sequences. |
 | Social distribution kit (13 pieces) | Multi-platform social | 2026-05-13 | 2-hour-quote-checklist | draft | IG (2 carousels + 2 reels) · Facebook (3 posts) · Nextdoor (3 hyperlocal posts) · LinkedIn (1 carousel + 2 personal-profile posts). 3-week schedule.md included. Built by /content-atomizer. |
-| Creative kit (visual identity) | Brand creative system | 2026-05-14 | foundation | locked | Cream `#F5EFE6` + navy `#1B2A41` + brass `#C9A86B`. Editorial serif headlines, humanist sans body. Studio McGee / Kinfolk reference. `brand/creative-kit.md`. Built by /creative. |
+| Creative kit (visual identity) | Brand creative system | 2026-05-14 | foundation | **SUPERSEDED 2026-08-22** | ~~Cream `#F5EFE6` + navy `#1B2A41` + brass `#C9A86B`~~ — **wrong palette, auto-guessed by /creative.** Corrected to peach `#FFA985` + charcoal `#333333`, Playfair Display + Inter. See current `brand/creative-kit.md`. |
 | IG carousel-01 slide pack (9 slides, 1080×1080) | Instagram carousel graphics | 2026-05-14 | 2-hour-quote-checklist | draft | Combo direction: cream slides 1/2/8, navy numbered cards 3–7, photo-led CTA on 9. Generated via Replicate Nano Banana Pro. Path: `creative-output/social-graphics/instagram/feed/2hr-checklist-carousel-01/`. Slide 1 regenerated once to fix "take take" typo. |
 | Lead-magnet PDF cover (1080×1350) | Lead-magnet visual | 2026-05-14 | 2-hour-quote-checklist | draft | Photo-led: clipboard on white-oak island, morning light. Title on cream paper in navy serif. Path: `creative-output/social-graphics/lead-magnet/checklist-cover-4x5-v1.png`. |
 | Facebook post-01 header (16:9) | Facebook lead-post image | 2026-05-14 | 2-hour-quote-checklist | draft | Photo-led: phone on kitchen island showing the PDF cover, mug beside it, navy serif overline in negative space. Path: `creative-output/social-graphics/facebook/post-01-header-16x9-v1.png`. |
@@ -40,4 +49,8 @@ _Append-only log of marketing assets created by skills._
 
 | Asset | Retired | Reason |
 | ----- | ------- | ------ |
-| _(empty)_ | | |
+| **Entire `2-hour-quote-checklist` campaign** | 2026-08-22 | **Retired by Todd. Rebuilding from scratch on the new angle.** Two independent reasons it could not ship as-built: (1) the whole funnel was architected on the **same-day cleaning** angle, which `CLAUDE.md` bans; (2) its delivery path is **gone** — `/api/submit-form` deleted, `src/pages/checklist.astro` removed, and GoHighLevel retired for website use. Includes: the checklist lead magnet, opt-in landing page, 7-email welcome sequence, 13-piece social kit, ~30 generated images, 7 GHL email templates, and the GHL setup guide. **Copy is salvageable as raw material; the funnel architecture is not.** |
+| IG carousel-01 slide pack (9 slides) | 2026-08-22 | Wrong palette (navy/cream/brass) + same-day angle. Regenerate from corrected `scripts/gen_final_batch.py`. |
+| Round-2 social visual batch (18 images) | 2026-08-22 | Wrong palette + retired prices ($99/$175/$225) rendered into slide-06. Regenerate from corrected `scripts/gen_round2_batch.py`. |
+| Lead-magnet PDF cover + FB post-01 header | 2026-08-22 | Wrong palette. Regenerate from corrected scripts. |
+| 7 email templates in LeadConnector (GHL) | 2026-08-22 | GHL retired for website marketing per `CLAUDE.md`. Templates still exist in the GHL account; do not extend them. |

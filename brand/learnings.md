@@ -3,13 +3,41 @@
 _What worked, what didn't, audience insights. Append-only._
 
 ## What works
-_(none logged yet)_
+
+- **Verify brand memory against the codebase, not against itself.** `#FFA985` appears
+  6,016 times in `src/**/*.astro`; the palette `creative-kit.md` claimed appeared 0 times.
+  One grep settled a question that had already cost a wrong image batch. Logged 2026-08-22.
+- **Grep the generator, not just the doc.** Correcting `creative-kit.md` would have left the
+  wrong palette armed in four Replicate scripts that hardcoded the hex values in prompts.
+  The doc describes intent; the script is what actually runs. Logged 2026-08-22.
 
 ## What doesn't work
-_(none logged yet)_
+
+- **Auto-generated foundation files drift into banned claims.** Both `creative-kit.md`
+  (palette) and `voice-profile.md` / `positioning.md` (same-day, 49-point, 130+ reviews,
+  "1,047+ cleanings") were auto-generated in May 2026 and silently contradicted rules the
+  repo adopted later. Every skill downstream treats them as authoritative. Re-verify any
+  foundation file older than the guardrails it must obey. Logged 2026-08-22.
+- **Building a whole funnel on one unverified claim is a total loss.** The
+  `2-hour-quote-checklist` campaign — lead magnet, landing page, 7 emails, ~30 images,
+  GHL templates — was architected on same-day cleaning, which is banned. Retired unbuilt.
+  Check the lead claim against `claims.ts` and `CLAUDE.md` BEFORE producing assets.
+  Logged 2026-08-22.
+- **Retired prices reach graphics through prompt strings.** `$99 / $175 / $225` were
+  hardcoded into an image prompt and would have rendered into a publishable price-list
+  graphic. Claim validators check site source, not Python prompt literals. Logged 2026-08-22.
 
 ## Audience insights
-_(none logged yet)_
+
+- **CTR is the constraint, not ranking position.** Positions 4-10 already convert at 0.29%;
+  brand CTR is 21.6% while local CTR is 0.07% — because TVCT is absent from the map pack
+  outside the Shoals. More content does not fix this. Logged 2026-08-22.
+- **`phone_click` has recorded zero real conversions to date.** Instrumentation is verified
+  working; the conversions genuinely are not happening yet. Any phone-first CTA claim needs
+  a real baseline before it can be called a win. Logged 2026-08-22.
+- **MaidPro Huntsville/Shoals shares TVCT's identity claims** — also veteran/women-owned,
+  also a numbered checklist. Origin-story positioning is NOT a differentiator in the two
+  largest markets. Logged 2026-08-22.
 
 ## Session checkpoint — 2026-05-13
 

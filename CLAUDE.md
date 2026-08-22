@@ -23,7 +23,7 @@ Current key values:
 - Deep cleaning from $276
 - Move-in/out from $351
 - Airbnb turnover from $125
-- Post-construction from $300
+- Post-construction from $526
 - Weekly / biweekly / monthly discounts: 30% / 25% / 15%
 - Reviews: 4.9 / 148
 - Standard checklist: 44 items

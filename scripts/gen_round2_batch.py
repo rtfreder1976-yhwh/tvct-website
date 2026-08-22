@@ -31,37 +31,37 @@ EXPOSE_BASE = (
     "glossy effects, exclamation points, all-caps stacking, comic effects."
 )
 
-# Brand-aligned cream and navy bases for LinkedIn / non-expose slides
-CREAM_BASE = (
-    "Editorial typographic poster, 1080x1080 square. Soft cream paper "
-    "background (#F5EFE6) with subtle natural paper-grain texture. Bold "
-    "modern editorial serif typography in deep navy (#1B2A41). Brass-gold "
-    "accent (#C9A86B) reserved for ONE element only. Generous negative space, "
-    "10 percent margin. Single focal point. Studio McGee and Kinfolk magazine "
-    "aesthetic. Quietly premium. Avoid: exclamation points, sparkles, neon "
-    "colors, gradients, drop shadows, photographic elements, cartoon, "
-    "all-caps stacking."
+# Brand-aligned light and charcoal bases for LinkedIn / non-expose slides
+LIGHT_BASE = (
+    "Editorial typographic poster, 1080x1080 square. Soft light grey "
+    "background (#E5E5EA), clean and smooth. Warm high-contrast serif "
+    "typography (Playfair Display style) in charcoal (#333333). Peach "
+    "accent (#FFA985) reserved for ONE element only. Generous negative space, "
+    "10 percent margin. Single focal point. Warm, friendly, approachable, "
+    "trustworthy. Avoid: navy, cream, brass, gold, luxury editorial styling, "
+    "exclamation points, sparkles, neon colors, gradients, drop shadows, "
+    "photographic elements, cartoon, all-caps stacking."
 )
 
-NAVY_BASE = (
-    "Editorial typographic poster, 1080x1080 square. Deep navy background "
-    "(#1B2A41) with subtle matte texture. Bold modern editorial serif "
-    "typography in soft cream (#F5EFE6). Brass-gold accent (#C9A86B) reserved "
-    "for ONE element only. Generous negative space. Single focal point. "
-    "Late-night editorial, Bloomberg Businessweek aesthetic. Quietly premium, "
-    "restrained. Avoid: bright accents, sparkles, gradients, drop shadows, "
+CHARCOAL_BASE = (
+    "Editorial typographic poster, 1080x1080 square. Deep charcoal background "
+    "(#333333) with subtle matte texture. Warm high-contrast serif "
+    "typography (Playfair Display style) in soft off-white. Peach (#FFA985) "
+    "accent reserved for ONE element only. Generous negative space. Single "
+    "focal point. Warm and confident rather than cold or corporate. "
+    "Avoid: navy, cream, brass, gold, sparkles, gradients, drop shadows, "
     "glossy effects, exclamation points, all-caps stacking, photographic "
     "elements."
 )
 
 PHOTO_BASE = (
-    "Lifestyle photograph in the editorial style of Magnolia Journal or "
-    "Kinfolk magazine. Soft morning light from an east-facing window, warm "
-    "5000K color temperature, slight film grain. Real residential interior "
-    "with white-oak cabinetry, soft cream walls. Composition has generous "
+    "Warm, real, lived-in residential lifestyle photograph — a home someone "
+    "actually lives in, not a showroom. Soft natural daylight from a window, "
+    "warm 5000K color temperature, slight film grain. Real residential interior "
+    "with white-oak cabinetry, soft white walls. Composition has generous "
     "negative space for typography overlay. Avoid: stock-photo cleaners, "
     "feather dusters, sparkles, neon, harsh studio flash, multiple people, "
-    "comic effects."
+    "comic effects, cream or brass color grading, luxury-magazine styling."
 )
 
 
@@ -80,7 +80,7 @@ ASSETS = [
         "instagram/feed/2hr-checklist-carousel-02", "slide-02-the-pattern.png", "1:1",
         EXPOSE_BASE + " Composition left-aligned, four short lines stacked with "
         "vertical space between each, all in white editorial serif: Line 1 (in "
-        "quotation marks): \"It is starting at $99.\" Line 2: \"You book.\" Line 3: "
+        "quotation marks): \"It is starting at $89.\" Line 2: \"You book.\" Line 3: "
         "\"The cleaner shows up.\" Line 4, in red (#C32D2D): \"The bill is $260.\""
     ),
     (
@@ -112,20 +112,20 @@ ASSETS = [
     ),
     (
         "instagram/feed/2hr-checklist-carousel-02", "slide-06-our-flat-starts.png", "1:1",
-        CREAM_BASE + " A navy serif headline at top: \"For reference, our flat "
+        LIGHT_BASE + " A charcoal serif headline at top: \"For reference, our flat "
         "starting prices:\" Below it, three lines arranged as a clean price list, "
-        "each on its own line in navy humanist sans-serif: Line 1: \"Recurring — "
-        "from $99\" Line 2: \"Deep clean — from $175\" Line 3: \"Move-in / out — "
-        "from $225\" Below those, in smaller navy italic serif: \"Final price "
-        "depends on size and condition.\" In brass-gold (#C9A86B), one final "
+        "each on its own line in charcoal humanist sans-serif: Line 1: \"Regular — "
+        "from $200\" Line 2: \"Deep clean — from $276\" Line 3: \"Move-in / out — "
+        "from $351\" Below those, in smaller charcoal italic serif: \"Final price "
+        "depends on size and condition.\" In peach (#FFA985), one final "
         "underlined line: \"Not on the day.\""
     ),
     (
         "instagram/feed/2hr-checklist-carousel-02", "slide-07-cta.png", "1:1",
-        CREAM_BASE + " A navy serif headline, centered: \"The full 7-question "
-        "checklist is free.\" Below the headline, in smaller navy humanist "
+        LIGHT_BASE + " A charcoal serif headline, centered: \"The full 7-question "
+        "checklist is free.\" Below the headline, in smaller charcoal humanist "
         "sans-serif: \"Link in bio · or DM \\\"checklist\\\"\" Below that, "
-        "additional space, then a small brass-gold word-mark at the bottom: "
+        "additional space, then a small charcoal word-mark at the bottom: "
         "\"The Valley Clean Team — Same team, every time.\""
     ),
 
@@ -136,8 +136,8 @@ ASSETS = [
         "of a vintage analog stopwatch with large clear numerals (0:00) sitting on "
         "a clean white-oak kitchen counter. A hand reaches into frame from the "
         "left to press the start button. Soft morning light. Slight film grain. "
-        "Across the upper third, large bold navy serif text overlay (on cream "
-        "ground plate): \"If your cleaner is taking 3 days to quote you...\" "
+        "Across the upper third, large bold charcoal serif text overlay (on a soft "
+        "light grey ground plate): \"If your cleaner is taking 3 days to quote you...\" "
         "Composition has the stopwatch in the lower two-thirds, generous negative "
         "space for the text in the upper third."
     ),
@@ -145,7 +145,7 @@ ASSETS = [
         "instagram/reels", "reel-02-hook-frame-9x16.png", "9:16",
         PHOTO_BASE + " Aspect ratio 9:16 portrait. Close-up photograph of a "
         "smartphone screen at 9:47 PM Saturday: a Google search bar shows the "
-        "phrase \"house cleaner Huntsville same day\" being typed (cursor visible). "
+        "phrase \"house cleaner Huntsville\" being typed (cursor visible). "
         "The phone is held in a hand, slightly tilted, with a softly blurred warm "
         "lamp-lit room in the background. Across the upper third, large bold "
         "centered text overlay in white (with a thin black drop shadow for "
@@ -178,35 +178,35 @@ ASSETS = [
     # ---- LinkedIn carousel — slides 1, 4, 7, 8 (brand palette) ----
     (
         "linkedin/carousel", "slide-01-cover.png", "1:1",
-        CREAM_BASE + " The composition reads on three lines, left-aligned, with "
-        "generous vertical spacing: Line 1 (large navy editorial serif): \"Why your "
-        "cleaner takes 5 days to quote you.\" Below it, in smaller italic navy "
+        LIGHT_BASE + " The composition reads on three lines, left-aligned, with "
+        "generous vertical spacing: Line 1 (large charcoal editorial serif): \"Why your "
+        "cleaner takes 5 days to quote you.\" Below it, in smaller italic charcoal "
         "serif, in parentheses on two lines: \"(And what we did differently when we "
-        "built ours.)\" At the bottom, in small navy humanist sans-serif: "
+        "built ours.)\" At the bottom, in small charcoal humanist sans-serif: "
         "\"— Todd Freder · The Valley Clean Team\""
     ),
     (
         "linkedin/carousel", "slide-04-the-inversion.png", "1:1",
-        NAVY_BASE + " A cream serif heading at top: \"What if you ran it the other "
-        "direction?\" Below it, four short lines in cream serif, each on its own "
-        "line, with brass-gold (#C9A86B) right-pointing arrows preceding each: "
+        CHARCOAL_BASE + " An off-white serif heading at top: \"What if you ran it the other "
+        "direction?\" Below it, four short lines in off-white serif, each on its own "
+        "line, with peach (#FFA985) right-pointing arrows preceding each: "
         "Line 1: \"Quote in under 2 hours.\" Line 2: \"Flat price (no starting "
-        "at).\" Line 3: \"Same-day arrival window.\" Line 4: \"In writing.\""
+        "at).\" Line 3: \"A firm arrival window.\" Line 4: \"In writing.\""
     ),
     (
         "linkedin/carousel", "slide-07-the-lesson.png", "1:1",
-        NAVY_BASE + " A cream serif headline centered: \"The lesson:\" A blank "
-        "line. Then a slightly larger cream serif statement on three lines: "
+        CHARCOAL_BASE + " An off-white serif headline centered: \"The lesson:\" A blank "
+        "line. Then a slightly larger off-white serif statement on three lines: "
         "\"Operational inconvenience\" \"is somebody else's\" \"competitive moat.\" "
-        "Below, in smaller cream humanist sans-serif italic: \"Stay inconvenient.\""
+        "Below, in smaller off-white humanist sans-serif italic: \"Stay inconvenient.\""
     ),
     (
         "linkedin/carousel", "slide-08-cta.png", "1:1",
-        CREAM_BASE + " A navy serif headline at top: \"If this helped, share it "
-        "with whoever needs it.\" Below the headline, in smaller navy humanist "
+        LIGHT_BASE + " A charcoal serif headline at top: \"If this helped, share it "
+        "with whoever needs it.\" Below the headline, in smaller charcoal humanist "
         "sans-serif: \"And if you run a service business, the free 2-hour quote "
         "checklist we built is in the comments. Steal whatever's useful.\" Below "
-        "that, a small brass-gold word-mark at the bottom: \"— Todd Freder · "
+        "that, a small charcoal word-mark at the bottom: \"— Todd Freder · "
         "The Valley Clean Team\""
     ),
 
