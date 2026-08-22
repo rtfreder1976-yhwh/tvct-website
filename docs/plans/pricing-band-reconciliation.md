@@ -4,6 +4,10 @@
 **Purpose:** Align "TVCT_Pricing_Extended.xlsx" band boundaries to BookingKoala.
 **Rule:** **BookingKoala is authoritative** — it is what actually bills customers.
 
+**Canonical workbook:** `docs/pricing/TVCT_Pricing_Extended.xlsx` (see
+[`../pricing/README.md`](../pricing/README.md)). Copies in `~/Downloads` and
+Google Drive are retired — do not edit them.
+
 ---
 
 ## Changes made live in BookingKoala 2026-08-20
