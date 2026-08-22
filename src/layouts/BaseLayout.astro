@@ -169,6 +169,29 @@ const metaDescription =
           fbq.version = "2.0";
           fbq.queue = [];
         }
+        // Stub gtag the same way. Without this, a click that lands between the
+        // user's first interaction and gtag.js finishing its async load hits
+        // `typeof gtag === "function"` as false and the event is dropped. That
+        // window is worst on mobile data, and it disproportionately eats the
+        // highest-intent action on the site: an immediate tap on a call button.
+        // Pushing into dataLayer is exactly what the real gtag does, so queued
+        // calls are adopted when gtag.js lands.
+        if (!window.gtag) {
+          window.gtag = function () { window.dataLayer.push(arguments); };
+        }
+        // Same problem, same fix, for PostHog. Its official snippet builds a
+        // queuing stub, but that snippet only runs inside loadMarketingTags(),
+        // so before first interaction window.posthog does not exist at all and
+        // an early call button tap captures nothing. Queue those calls here and
+        // replay them once the real library has initialized.
+        if (!window.posthog) {
+          window.posthog = {
+            _preloadQueue: [],
+            capture: function () {
+              window.posthog._preloadQueue.push(Array.prototype.slice.call(arguments));
+            },
+          };
+        }
 
         var loaded = false;
         function loadMarketingTags() {
@@ -204,6 +227,10 @@ const metaDescription =
           document.head.appendChild(fb);
 
           // PostHog (async loader stub + init; phc_ key is publishable, not secret)
+          // Hold anything the pre-load stub queued — the snippet below replaces
+          // window.posthog outright, so grab the queue before that happens.
+          var posthogPreloadQueue =
+            (window.posthog && window.posthog._preloadQueue) || [];
           !(function (t, e) {
             var o, n, p, r;
             e.__SV ||
@@ -255,6 +282,12 @@ const metaDescription =
             capture_pageleave: true,
           });
 
+          // Replay clicks that happened before the library finished loading.
+          posthogPreloadQueue.forEach(function (args) {
+            try {
+              posthog.capture.apply(posthog, args);
+            } catch (e) {}
+          });
         }
 
         // Trigger on first interaction
@@ -894,6 +927,17 @@ const metaDescription =
               value: href,
             });
           }
+          // GoHighLevel records that a call happened; it cannot know which page
+          // produced it. This event is the only per-page attribution for the
+          // site's primary conversion, so PostHog funnels can answer which
+          // locations and services actually drive calls.
+          if (window.posthog && typeof window.posthog.capture === "function") {
+            window.posthog.capture("phone_click", {
+              phone_number: href.replace("tel:", ""),
+              page_path: window.location.pathname,
+              link_text: (target.innerText || "").trim().slice(0, 100),
+            });
+          }
         } else if (href.startsWith("mailto:")) {
           // Track Email Click
           if (window.dataLayer) {
@@ -910,6 +954,11 @@ const metaDescription =
               event_category: "contact",
               event_label: "email",
               value: href,
+            });
+          }
+          if (window.posthog && typeof window.posthog.capture === "function") {
+            window.posthog.capture("email_click", {
+              page_path: window.location.pathname,
             });
           }
         }
