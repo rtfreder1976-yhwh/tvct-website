@@ -64,6 +64,45 @@ function spreadsheetXml(file, pattern) {
   }
 }
 
+// Count cells whose ENTIRE value is an email address or phone number.
+//
+// Testing the raw spreadsheet XML instead produces false positives on any
+// workbook, because the phone pattern is unanchored and the XML is full of
+// long digit runs that are not contact data: Excel stamps revision GUIDs like
+// {00000000-0001-0000-0100-000000000000} into every sheet, and stores
+// full-precision floats such as 145.45454545454544 or 0.2311111111. Reading
+// cell values and anchoring the match mirrors what the CSV and JSON paths
+// already do, so a genuine contact list is still caught while arithmetic and
+// Microsoft's own bookkeeping are not.
+function spreadsheetContactCellCount(xml) {
+  let count = 0;
+  // <t> carries shared and inline strings; <v> carries literal cell values.
+  for (const match of xml.matchAll(/<(?:t|v)(?:\s[^>]*)?>([\s\S]*?)<\/(?:t|v)>/g)) {
+    const value = match[1]
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'")
+      .replace(/&amp;/g, "&")
+      .trim();
+    if (value === "") continue;
+    // A decimal is arithmetic, not a phone number. Excel writes computed cells
+    // at full precision, so a figure like 340.9090909 (the $340.91 floor-check
+    // result) otherwise satisfies the phone pattern as 340-909-0909. Only
+    // fractional/exponent values are excluded -- a bare run of digits stays
+    // eligible, so an unformatted 10-digit phone number is still caught.
+    // Emails can never be numeric, so only the phone test needs this guard.
+    const isDecimal = /^-?\d*\.\d+(?:[eE][-+]?\d+)?$|[eE][-+]?\d+$/.test(value);
+    if (
+      contactOnlyEmailPattern.test(value) ||
+      (!isDecimal && contactOnlyPhonePattern.test(value))
+    ) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
 function report(file, reason) {
   if (!violations.has(file)) violations.set(file, reason);
 }
@@ -135,7 +174,7 @@ for (const file of trackedAndUnignoredFiles) {
         : spreadsheetXml(file, "content.xml");
     if (xml.trim() === "") {
       report(file, "is a spreadsheet that CI could not inspect safely");
-    } else if (emailPattern.test(xml) || phonePattern.test(xml)) {
+    } else if (spreadsheetContactCellCount(xml) > 0) {
       report(file, "contains contact records in a spreadsheet");
     }
   }
