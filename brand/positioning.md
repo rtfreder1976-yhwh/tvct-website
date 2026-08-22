@@ -134,7 +134,7 @@ it in the window.** That is a Type 2 mechanism (revealed, not invented): the one
 explains it first owns it.
 
 **4. It matches the canonical stance.**
-`POSITIONING.stance = "transparent_value"` and `POLICIES.priceMatching = false`. TVCT does
+`POSITIONING.stance = "premium"` and `POLICIES.priceMatching = false`. TVCT does
 not compete on being cheapest and does not chase competitor quotes. "The price is the
 price" is the exact consumer-facing expression of a no-price-matching, transparent-value
 posture — it converts a policy that could read as rigid into a promise that reads as
