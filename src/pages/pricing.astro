@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TrustBadges from "../components/TrustBadges.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
-import { POLICIES } from "../data/claims";
+import { POLICIES, PRICING } from "../data/claims";
 import { MINIMUMS, startingPrice } from "../data/pricing";
 
 // Freshness signal: pricing is a recency-sensitive page. Keep this tied to the
@@ -60,8 +60,8 @@ const offerSchema = {
 ---
 
 <BaseLayout
-  title="Cleaning Prices | Valley Clean Team"
-  description="Transparent cleaning service pricing in Alabama & Tennessee. Affordable maid service quotes for Huntsville, Nashville, Mountain Brook & more. No hidden fees!"
+  title="Cleaning Prices — The Price Is the Price | Valley Clean Team"
+  description={`Regular from ${PRICING.regular.display}, deep from ${PRICING.deep.display}, move-out from ${PRICING.moveInOut.display}. Call and we read you a firm flat price for your square footage. No "starting at."`}
   ogImage="https://thevalleycleanteam.com/og-image.png"
 >
   <SchemaMarkup type="organization" />
@@ -81,10 +81,10 @@ const offerSchema = {
       <h1
         class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-[#333333]"
       >
-        Simple, <span class="gold-gradient">Honest Pricing</span>
+        The price is <span class="gold-gradient">the price.</span>
       </h1>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-        Every home is different — so every price is too. We show you real base rates so you can budget with confidence, then quote your exact price before we ever start. No surprises. No pressure.
+        Regular cleaning starts at {PRICING.regular.display}. Deep cleaning {PRICING.deep.display}. Move-in/out {PRICING.moveInOut.display}. Those are real starting prices, not teasers. Your exact number depends on square footage — and we already have it written down for every home size. Call and we will read it to you.
       </p>
       <TrustBadges variant="inline" />
     </div>

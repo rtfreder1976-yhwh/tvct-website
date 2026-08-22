@@ -47,6 +47,8 @@ _Append-only log of marketing assets created by skills._
 
 | Competitor intel: Bear Brothers | Competitive analysis | 2026-08-22 | foundation | active | `brand/competitors.md`. Verified from live pages (their booking page modified 2026-08-05). Key finding: they price on bed/bath count, not square footage — a 3bd/3ba is $425 regardless of home size. Four openings documented. Re-verify by 2026-11-22. |
 
+| Homepage + /pricing hero & meta rewrite | Landing copy | 2026-08-22 | price-is-the-price | live (pending merge) | First application of "The Price Is the Price" to site copy. H1 "Your exact price. On the phone." Meta title/description rewritten on both. CTA "Call for a Free Quote" → "Get your price" on the two pages. Self-scored 56/70. Built by /direct-response-copy. |
+
 ## Retired assets
 
 | Asset | Retired | Reason |
