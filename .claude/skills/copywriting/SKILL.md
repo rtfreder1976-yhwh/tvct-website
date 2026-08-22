@@ -1,3 +1,8 @@
+---
+name: copywriting
+description: Elevated direct-response copywriting framework for The Valley Clean Team. Use when writing or editing customer-facing copy — headlines, subheads, body copy, CTAs, meta titles and descriptions, service and location page content, email, or ads. Enforces specificity, proof hierarchy, and operator voice over corporate jargon and guru hype.
+---
+
 # Elevated Direct Response Copywriting
 
 Write copy that converts using this framework. Apply these principles to any copy request.
@@ -26,7 +31,21 @@ Hierarchy of credibility (use in this order):
 
 ### CTA
 Formula: **Action verb + what they get + →**
-- Examples: "Get the checklist →" / "Book your free estimate →" / "Start your trial →"
+- Examples: "Get the checklist →" / "Call for your free quote →" / "See pricing →"
+
+Residential CTAs are phone-first: AL (256) 826-1100, TN (615) 510-1427. Commercial
+CTAs keep their BookingKoala link. See CLAUDE.md for the full rule.
+
+## Sourcing numbers
+
+Every number in copy comes from `src/data/claims.ts`. Never invent a statistic to
+make a line land harder — pull the canonical value or drop the number.
+
+Current canonical figures: 4.9 rating / 148 reviews, 44-item standard checklist,
+1,500+ customers served, quotes answered within 2 business hours.
+
+Check the claim guardrails in CLAUDE.md before writing: no emergency or same-day
+cleaning, no clinical or medical compliance claims, no retired prices.
 
 ## Tone
 
@@ -57,7 +76,7 @@ You're not a corporation. You're not a guru. You're someone who figured somethin
 "Transform Your Home with Professional Cleaning Services"
 
 ### Good Headline
-"Your cleaners are missing 23 spots. Here's the checklist we use to catch them all."
+"Most cleaners work off a mental list. Ours is 44 items, and you get to see it."
 
 ---
 
@@ -65,7 +84,7 @@ You're not a corporation. You're not a guru. You're someone who figured somethin
 "Contact Us Today"
 
 ### Good CTA
-"Get your free quote in 60 seconds →"
+"Call for your free quote → (256) 826-1100"
 
 ---
 
@@ -73,4 +92,4 @@ You're not a corporation. You're not a guru. You're someone who figured somethin
 "We leverage industry-leading solutions to deliver transformative results for your home cleaning needs."
 
 ### Good Body Copy
-"We clean homes in Nashville. 847 of them last year. Most clients book us every two weeks. Here's why they stay."
+"We've cleaned for 1,500+ customers across Alabama and Tennessee. They rate us 4.9 across 148 reviews. Most book us every two weeks. Here's why they stay."
