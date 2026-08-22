@@ -179,6 +179,19 @@ const metaDescription =
         if (!window.gtag) {
           window.gtag = function () { window.dataLayer.push(arguments); };
         }
+        // Only the real site reports. Vercel preview deployments
+        // (*.vercel.app) and local dev share this production PostHog/GA4/Meta
+        // config, so without this guard every Lighthouse CI audit of a preview
+        // build lands in production analytics as a brand-new "person" — Chrome
+        // on Android, two events, never seen again. That was ~55% of all events
+        // and ~83% of all persons, which wrecks bounce rate, visitor counts and
+        // any before/after SEO baseline measured against them.
+        var ANALYTICS_HOST = "thevalleycleanteam.com";
+        function analyticsEnabled() {
+          var h = window.location.hostname;
+          return h === ANALYTICS_HOST || h === "www." + ANALYTICS_HOST;
+        }
+
         // Same problem, same fix, for PostHog. Its official snippet builds a
         // queuing stub, but that snippet only runs inside loadMarketingTags(),
         // so before first interaction window.posthog does not exist at all and
@@ -189,7 +202,10 @@ const metaDescription =
         // `(document, window.posthog || [])` and treats that argument as the
         // array it pushes into. Handing it a plain object breaks the loader
         // outright (no .push), so PostHog never initializes at all.
-        if (!window.posthog) {
+        // Off-production the stub is never flushed (loadMarketingTags bails),
+        // so skip it entirely and let the `typeof capture === "function"`
+        // guards at the call sites no-op instead of queueing forever.
+        if (!window.posthog && analyticsEnabled()) {
           var posthogStub = [];
           posthogStub._preloadQueue = [];
           posthogStub.capture = function () {
@@ -201,6 +217,7 @@ const metaDescription =
         var loaded = false;
         function loadMarketingTags() {
           if (loaded) return;
+          if (!analyticsEnabled()) return;
           loaded = true;
 
           // Google Analytics 4
