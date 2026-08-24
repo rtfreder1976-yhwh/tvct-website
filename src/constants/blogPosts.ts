@@ -1033,7 +1033,7 @@ export const allBlogPosts: BlogPost[] = [
     slug: "new-year-fresh-start-cleaning",
     title: "New Year Deep Clean: Start Fresh in 2026",
     excerpt:
-      "There's no better way to welcome a new year than with a spotlessly clean home. This complete room-by-room deep cleaning guide for Alabama and Tennessee homes covers a January reset, the mental health benefits, and when to call in the pros.",
+      "There's no better way to welcome a new year than with a clean home. This complete room-by-room deep cleaning guide for Alabama and Tennessee homes covers a January reset, the mental health benefits, and when to call in the pros.",
     category: "Seasonal",
     filterCategory: "holiday",
     categoryColor: "indigo",
