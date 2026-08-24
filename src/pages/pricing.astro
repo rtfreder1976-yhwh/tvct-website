@@ -61,7 +61,7 @@ const offerSchema = {
 
 <BaseLayout
   title="Cleaning Prices — The Price Is the Price | Valley Clean Team"
-  description={`Regular from ${PRICING.regular.display}, deep from ${PRICING.deep.display}, move-out from ${PRICING.moveInOut.display}. Call and we read you a firm flat price for your square footage. No "starting at."`}
+  description={`Regular from ${PRICING.regular.display}, deep from ${PRICING.deep.display}, move-out from ${PRICING.moveInOut.display}. Call with your square footage and the type of cleaning and you'll have your exact number before you hang up. The number we quote is the number we bill.`}
   ogImage="https://thevalleycleanteam.com/og-image.png"
 >
   <SchemaMarkup type="organization" />
@@ -84,7 +84,7 @@ const offerSchema = {
         The price is <span class="gold-gradient">the price.</span>
       </h1>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-        Regular cleaning starts at {PRICING.regular.display}. Deep cleaning {PRICING.deep.display}. Move-in/out {PRICING.moveInOut.display}. Those are real starting prices, not teasers. Your exact number depends on square footage — and we already have it written down for every home size. Call and we will read it to you.
+        Regular cleaning starts at {PRICING.regular.display}. Deep cleaning {PRICING.deep.display}. Move-in/out {PRICING.moveInOut.display}. Those are real starting prices, not teasers. Your exact number depends on your square footage and the type of cleaning &mdash; call with both and you&rsquo;ll have it before you hang up. The number we quote is the number we bill.
       </p>
       <TrustBadges variant="inline" />
     </div>
@@ -610,16 +610,23 @@ const offerSchema = {
     </div>
   </section>
 
-  <!-- Pricing Philosophy -->
-  <section class="py-12 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
-    <div class="container mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-[#333333] mb-4">
-        <Icon name="tag" class="w-5 h-5 mr-3" />Straightforward Pricing
+  <!-- Why we cost more (brand brief, 2026-08-23: explain the price, never defend it) -->
+  <section class="py-16 px-6 bg-gradient-to-r from-[#FFA985] to-[#FFC67D]">
+    <div class="container mx-auto max-w-3xl">
+      <h2 class="text-3xl md:text-4xl font-bold text-[#333333] mb-6 text-center">
+        <Icon name="tag" class="w-5 h-5 mr-3" />Here&rsquo;s what you&rsquo;re actually paying for.
       </h2>
-      <p class="text-xl text-[rgba(51,51,51,0.8)] max-w-3xl mx-auto">
-        We price our work around the service and scope we provide. We do not
-        price-match competitors, and we disclose applicable fees before service.
-      </p>
+      <div class="space-y-5 text-lg text-[rgba(51,51,51,0.85)]">
+        <p>
+          A {PRICING.regular.display} clean and a $120 clean aren&rsquo;t the same product. Ours includes a 44-item checklist (57 for deep cleans) that gets finished whether or not the crew is running behind. It includes cleaners who are background-checked and covered by $2 million in liability insurance. And it includes a promise most companies won&rsquo;t put in writing: if we missed something, tell us within 24 hours and we&rsquo;ll come back and fix it at no charge.
+        </p>
+        <p>
+          It also includes a straight answer about money. The prices above are real starting points, not bait. Call with your square footage and the type of cleaning you want, and you&rsquo;ll have your exact number before you hang up. That number doesn&rsquo;t change unless you add work. We do not price-match competitors, and we tell you every fee before service. We think that&rsquo;s how adults should be able to buy things.
+        </p>
+        <p>
+          We&rsquo;re not for everyone. If you&rsquo;re collecting three quotes so you can take the lowest one, we&rsquo;ll save you the call &mdash; it won&rsquo;t be us.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -644,8 +651,8 @@ const offerSchema = {
           </div>
           <div class="faq-answer">
             <p class="text-gray-600 mt-4">
-              Price is set by square footage and service type, looked up from
-              the rate card above — not estimated per hour. A regular clean
+              Price is set by square footage and service type — not estimated
+              per hour, and not a guess we revise when we see the house. A regular clean
               starts at <strong>${MINIMUMS.regular}</strong>, a deep clean at <strong>${startingPrice("deep")}</strong>, a move-in/out at <strong>${startingPrice("moveinout")}</strong>, and post-construction at <strong>${startingPrice("postconstruction")}</strong>. From there,
               recurring service takes 30% off weekly, 25% off biweekly, or 15%
               off monthly; a pet fee of {petFeeDisplay} applies, and a
