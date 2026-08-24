@@ -6,6 +6,7 @@ _Initialized 2026-08-22 by /start-here (fresh start). Append-only. Every skill t
 
 | Asset | Type | Date | Campaign | Status | Notes |
 | ----- | ---- | ---- | -------- | ------ | ----- |
+| GHL legacy template audit | Audit | 2026-08-24 | ghl-esp | done | 38 templates: 29 BLOCK, 9 REWRITE, 0 salvageable; worst: $97 offer everywhere. campaigns/ghl-esp/template-audit-2026-08-24.md |
 | GSC baseline (before metas) | Measurement | 2026-08-24 | exact-price-metas | captured | 18-page rewrite set = 113 clicks / 26.8K impr / 0.42% CTR; re-pull ~2026-09-21. campaigns/exact-price-metas/gsc-baseline-2026-08-24.md |
 | Keyword plan | Strategy | 2026-08-23 | foundation | draft | CTR-first: 12+ money-page title/meta rewrites ranked, gaps, teach-content topics; live SERP checks. brand/keyword-plan.md |
 | Voice copy samples (10 formats) | Copy | 2026-08-23 | foundation-voice-samples | draft v3 | Christen reviewed v1, Todd reviewed v2 (owner roles, price drivers, re-clean wording, wrong-fit); v3 awaiting sign-off; hero, pricing panel, About, GBP, FB, email, SMS, review replies, blog intro, fit section. campaigns/foundation-voice-samples/voice-copy-samples.md |
@@ -14,6 +15,7 @@ _Initialized 2026-08-22 by /start-here (fresh start). Append-only. Every skill t
 | Voice profile | Brand foundation | 2026-08-23 | foundation | draft | Updated to brand-brief.md; witty-not-funny; expert-company-sounds-human; 11 reference brands; VCT Voice Test. Provisional pending Christen. brand/voice-profile.md |
 | Creative kit | Brand foundation | 2026-08-23 | foundation | draft | Setup mode; authoritative peach/charcoal palette from brand guide (navy/cream/brass was wrong); typography + logo + photo direction pulled from repo. brand/creative-kit.md |
 | Audience profile | Brand foundation | 2026-08-23 | foundation | draft | Built from brief + positioning + verified Stripe/GSC/PostHog facts; inferences marked. brand/audience.md |
+| GBP/FB/IG social batch 01 (15 posts) | Social | 2026-08-24 | gbp-facebook-batch-01 | draft | 8 GBP + 4 FB + 2 IG + 1 LI; teach-one-thing + exact-price patterns; 3-week schedule. Pending Todd/Christen review |
 | Competitor intel | Brand foundation | 2026-08-23 | foundation | draft | Ported from positioning.md live-verified table (2026-08-22) + salvaged 2026-05 notes; per-competitor cards + saturation map. brand/competitors.md |
 
 ## Retired

@@ -19,8 +19,8 @@ _Initialized 2026-08-22 by /start-here (fresh start, second pass). Updated 2026-
 | **Google Business Profile** | Local pack presence (Tuscumbia pin). 4.9 / 148 reviews. | ✓ live |
 | **Github** | Patch and version control/checks, repos live here | ✓ live |
 | **Vercel** | Hosting for the Astro site; env keys live here, no local `.env`. | ✓ live |
-| **Email ESP** | — | ○ not connected (GHL social-posting API available, unused)|
-| **Social scheduling** | — | ○ not connected (GHL social-posting API available, unused) |
+| **Email ESP** | **GoHighLevel** (decided by Todd 2026-08-24). Sending subdomain u.thevalleycleanteam.com configured. Capture path stays BookingKoala → Zapier → GHL — the WEBSITE still never writes to GHL (CLAUDE.md). Templates pushed via MCP; workflow wiring manual in GHL UI or via n8n. Newsletter still needs its own explicit signup contract. | ✓ chosen |
+| **Social scheduling** | **GHL Social Planner** via MCP (verified 2026-08-24): GBP + LinkedIn + Pinterest + YouTube connected; **Facebook + Instagram tokens EXPIRED — Todd must reconnect** in GHL before those can be queued. First batch: campaigns/gbp-facebook-batch-01 awaiting review. | ✓ partial |
 
 ## Other MCP servers available
 
