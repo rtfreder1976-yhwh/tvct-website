@@ -6,6 +6,8 @@ _Initialized 2026-08-22 by /start-here (fresh start). Append-only. Every skill t
 
 | Asset | Type | Date | Campaign | Status | Notes |
 | ----- | ---- | ---- | -------- | ------ | ----- |
+| GSC baseline (before metas) | Measurement | 2026-08-24 | exact-price-metas | captured | 18-page rewrite set = 113 clicks / 26.8K impr / 0.42% CTR; re-pull ~2026-09-21. campaigns/exact-price-metas/gsc-baseline-2026-08-24.md |
+| Keyword plan | Strategy | 2026-08-23 | foundation | draft | CTR-first: 12+ money-page title/meta rewrites ranked, gaps, teach-content topics; live SERP checks. brand/keyword-plan.md |
 | Voice copy samples (10 formats) | Copy | 2026-08-23 | foundation-voice-samples | draft v3 | Christen reviewed v1, Todd reviewed v2 (owner roles, price drivers, re-clean wording, wrong-fit); v3 awaiting sign-off; hero, pricing panel, About, GBP, FB, email, SMS, review replies, blog intro, fit section. campaigns/foundation-voice-samples/voice-copy-samples.md |
 | Brand brief (voice & website copy) | Brand foundation | 2026-08-23 | foundation | approved | AUTHORITATIVE source from Todd; voice-profile.md and positioning.md derive from it. brand/brand-brief.md |
 | Positioning (5 angles, ⭐ The Experts Who Happen to Be Likable) | Brand foundation | 2026-08-23 | foundation | draft | Re-ranked to brand-brief.md: expert-company-sounds-human primary, Posted Price as transparency proof (angle ②, still owns the SERP); 9 competitors scraped live 2026-08-22, not re-run; 12-ad matrix re-seeded in brand/positioning.md |
