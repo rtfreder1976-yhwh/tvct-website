@@ -2,6 +2,7 @@
 import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
 import BlogByline from "../../components/BlogByline.astro";
 import Icon from "../../components/Icon.astro";
+import { PRICING, CHECKLIST } from "../../data/claims";
 
 // Make this page dynamic via SSR
 export const prerender = false;
@@ -14,9 +15,9 @@ const isPublished = new Date().getTime() >= publishDate.getTime();
 ---
 
 <BlogPostLayout
-  title="Move-Out Cleaning Costs Nashville 2026"
+  title={`Move-Out Cleaning Cost in Nashville: From ${PRICING.moveInOut.display}, Firm`}
   schemaTitle="Move-Out Cleaning Costs in Nashville: 2026 Updated Guide"
-  description={isPublished ? "Move-out cleaning costs in Nashville for 2026: real pricing by neighborhood, what's included, and how to protect your security deposit. Updated guide for tenants." : "Coming Soon: Move-Out Cleaning Costs in Nashville: 2026 Updated Guide"}
+  description={isPublished ? `Move-out cleaning from ${PRICING.moveInOut.display} in Nashville: the ${CHECKLIST.moveInOut}-item list landlords check, what's not included, and one call for your exact number. (615) 510-1427` : "Coming Soon: Move-Out Cleaning Costs in Nashville: 2026 Updated Guide"}
   publishDate={publishDate}
   noindex={!isPublished}
 >
