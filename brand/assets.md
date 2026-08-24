@@ -1,60 +1,20 @@
 # Asset Registry — The Valley Clean Team
 
-_Append-only log of marketing assets created by skills._
+_Initialized 2026-08-22 by /start-here (fresh start). Append-only. Every skill that creates an asset adds a row._
 
-> **⚠️ PALETTE CORRECTION — 2026-08-22.** Every **visual** asset dated **2026-05-14** below was
-> generated on a wrong, auto-guessed palette (navy `#1B2A41` / cream `#F5EFE6` / brass `#C9A86B`).
-> The real brand is peach `#FFA985` + charcoal `#333333`. Those images are **off-brand — do not
-> publish or reuse without regenerating.** The generator scripts `scripts/gen_explorations.py`,
-> `gen_final_batch.py`, `gen_round2_batch.py`, and `gen_slide01_fix.py` were **corrected on
-> 2026-08-22** — prompts now use peach/charcoal, Playfair Display + Inter, canonical `claims.ts`
-> pricing, and no same-day claims. They are safe to re-run to regenerate the images below.
-> Text assets (emails, copy, briefs) are unaffected by this.
+## Active
 
 | Asset | Type | Date | Campaign | Status | Notes |
 | ----- | ---- | ---- | -------- | ------ | ----- |
-| The 2-Hour Quote Checklist | Lead magnet (checklist) | 2026-05-13 | 2-hour-quote-checklist | draft | 7 items + 3 bonus questions. Speed-themed; bridges to same-day booking. Built by /lead-magnet. |
-| Opt-in landing page | Landing page (control + proof-led variants) | 2026-05-13 | 2-hour-quote-checklist | draft | ~1,180 words. Self-scored 59/70 (84%). 7 headline variants, 6 CTA variants, 5 A/B tests defined. Built by /direct-response-copy. |
-| Welcome email sequence (7 emails) | Welcome + conversion sequence | 2026-05-13 | 2-hour-quote-checklist | draft | 12-day cadence (Tue/Thu 7:30 AM CT). 3 subject variants per email + A/B test recommendations. Sign-off rotation Todd/Christen. Built by /email-sequences. |
-| Social distribution kit (13 pieces) | Multi-platform social | 2026-05-13 | 2-hour-quote-checklist | draft | IG (2 carousels + 2 reels) · Facebook (3 posts) · Nextdoor (3 hyperlocal posts) · LinkedIn (1 carousel + 2 personal-profile posts). 3-week schedule.md included. Built by /content-atomizer. |
-| Creative kit (visual identity) | Brand creative system | 2026-05-14 | foundation | **SUPERSEDED 2026-08-22** | ~~Cream `#F5EFE6` + navy `#1B2A41` + brass `#C9A86B`~~ — **wrong palette, auto-guessed by /creative.** Corrected to peach `#FFA985` + charcoal `#333333`, Playfair Display + Inter. See current `brand/creative-kit.md`. |
-| IG carousel-01 slide pack (9 slides, 1080×1080) | Instagram carousel graphics | 2026-05-14 | 2-hour-quote-checklist | draft | Combo direction: cream slides 1/2/8, navy numbered cards 3–7, photo-led CTA on 9. Generated via Replicate Nano Banana Pro. Path: `creative-output/social-graphics/instagram/feed/2hr-checklist-carousel-01/`. Slide 1 regenerated once to fix "take take" typo. |
-| Lead-magnet PDF cover (1080×1350) | Lead-magnet visual | 2026-05-14 | 2-hour-quote-checklist | draft | Photo-led: clipboard on white-oak island, morning light. Title on cream paper in navy serif. Path: `creative-output/social-graphics/lead-magnet/checklist-cover-4x5-v1.png`. |
-| Facebook post-01 header (16:9) | Facebook lead-post image | 2026-05-14 | 2-hour-quote-checklist | draft | Photo-led: phone on kitchen island showing the PDF cover, mug beside it, navy serif overline in negative space. Path: `creative-output/social-graphics/facebook/post-01-header-16x9-v1.png`. |
-| Direction exploration round (3 variants) | Creative exploration archive | 2026-05-14 | 2-hour-quote-checklist | archived | Tested editorial cream / dark navy luxe / photo-led on slide-01 hook. Combo selected. Path: `creative-output/explorations/2hr-checklist/`. |
-| 7 email templates uploaded to LeadConnector | GHL email templates (HTML) | 2026-05-14 | 2-hour-quote-checklist | deployed (API) | Brand-styled HTML, all 7 emails. Prefix `TVCT — 2hr Checklist #` in GHL Templates. Subject A variant set; preview text in preheader. Pushed via `scripts/ghl_push_templates.py`. IDs in `creative-output/_ghl_push_results.json`. |
-| GHL plumbing: tag + 2 custom fields | LeadConnector contact infrastructure | 2026-05-14 | 2-hour-quote-checklist | deployed (API) | Tag `2hr-checklist-optin` (id XDbdW3DodlWipxHUadFo). Custom fields `contact.optin_zip` (id nr7YDOuinHvO6cJdPR2B) and `contact.optin_source` (id UnrSRwuERykbjiHWyrhN). Smoke-tested end-to-end. |
-| GHL setup guide (form + workflow click-by-click) | Deployment doc | 2026-05-14 | 2-hour-quote-checklist | ready for execution | ~15–20 min UI checklist for the form + workflow steps the API can't do. Path: `campaigns/2-hour-quote-checklist/GHL-SETUP-GUIDE.md`. |
-| Landing page `/checklist` on Astro site | Astro page (SSR via Vercel) | 2026-05-14 | 2-hour-quote-checklist | built, pending deploy | Single-route opt-in page using BaseLayout, brand creative-kit colors, FAQ schema, GHL submission via existing `/api/submit-form` webhook. New allowed source `2-Hour Quote Checklist Opt-in` added to API allowlist. Path: `src/pages/checklist.astro`. URL: thevalleycleanteam.com/checklist. |
-| Round-2 social visual batch (18 images) | Multi-platform social graphics | 2026-05-14 | 2-hour-quote-checklist | draft | IG carousel-02 (7 slides, black/red exposé pivoting to cream on slides 6-7), 2 IG reel hook frames (9:16), 2 FB post headers (16:9), LinkedIn carousel (4 key slides), 3 Nextdoor hyperlocal photos. Paths under `creative-output/social-graphics/`. Spend ~$0.65. Results in `creative-output/_round2_results.json`. |
-| Blog: MaidPro vs The Valley Clean Team (Huntsville) | Article (BlogPosting + FAQPage schema) | 2026-05-22 | play-2-content-12-week | published | Article 1 of 12. `/blog/maidpro-vs-the-valley-clean-team-huntsville`. PR #34. |
-| Blog: Why $19/hr cleaning in the Shoals costs more | Article (BlogPosting + FAQPage schema) | 2026-05-24 | play-2-content-12-week | published | Article 2 of 12. `/blog/why-19-dollar-cleaning-costs-more-shoals`. PR #45. 7-Q FAQ schema. |
-| Keyword plan (regenerated v2) | Strategic plan | 2026-05-24 | play-2-content-12-week | active | `brand/keyword-plan.md`. 5 validated pillars, 10 content briefs ready for Articles 3-12, 12-week calendar. Based on SERP data across all 5 markets. Built by /keyword-research. |
-| Brief: Huntsville house cleaning cost | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 3 — DO FIRST Wk 1. `campaigns/content-plan/huntsville-house-cleaning-cost.md`. Pillar: Local Cost & Pricing. |
-| Brief: Move-out cleaning Athens deposit-back | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 4 — DO FIRST Wk 2. `campaigns/content-plan/move-out-cleaning-athens-deposit.md`. Pillar: Buyer Journey. |
-| Brief: MaidPro Athens vs TVCT | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 5 — DO SECOND Wk 3. `campaigns/content-plan/maidpro-athens-vs-tvct.md`. Pillar: Comparison. |
-| Brief: Mountain Brook luxury cleaning guide | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 6 — DO SECOND Wk 4. `campaigns/content-plan/mountain-brook-luxury-cleaning-guide.md`. Pillar: Specialty. Blue ocean. |
-| Brief: Nashville Airbnb fee economics | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 7 — DO THIRD Wk 5. `campaigns/content-plan/nashville-airbnb-cleaning-fee-economics.md`. Pillar: Specialty. |
-| Brief: Post-construction cleaning Huntsville | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 8 — QUICK WIN Wk 6. `campaigns/content-plan/post-construction-cleaning-huntsville.md`. Pillar: Specialty. Zero AL competitors in SERP. |
-| Brief: Mountain Brook house cleaning cost | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 9 — DO THIRD Wk 7. `campaigns/content-plan/mountain-brook-house-cleaning-cost.md`. Pillar: Local Cost & Pricing. |
-| Brief: Bear Brothers vs TVCT | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 10 — QUICK WIN Wk 8. `campaigns/content-plan/bear-brothers-vs-tvct.md`. Pillar: Comparison. Direct positioning competitor. |
-| Brief: Moving to Huntsville first-week checklist | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 11 — QUICK WIN Wk 9. `campaigns/content-plan/moving-to-huntsville-first-week-checklist.md`. Pillar: Buyer Journey. Honest veteran-owned lead OK for PCS audience. |
-| Brief: Office cleaning Mountain Brook-Birmingham | Content brief | 2026-05-24 | play-2-content-12-week | planning | Article 12 — LONG PLAY Wk 10. `campaigns/content-plan/office-cleaning-mountain-brook-birmingham.md`. Pillar: Specialty. B2B persona. |
-| Blog: House cleaning cost Huntsville AL (2026 refresh) | Article (BlogPosting + FAQPage schema) | 2026-05-24 | play-2-content-12-week | published | Article 3 of 12. `/blog/house-cleaning-cost-huntsville-al`. PR #47. Refreshed 2024 scaffold at same URL. 8-Q FAQ. |
-| Animated favicon (SVG with SMIL twinkle) | Favicon | 2026-05-24 | brand | live | `public/favicon.svg`. Two corner sparkles pulse + scale on 2.4s loop, staggered 0.6s. Animates in Firefox tabs; static fallback in Chrome/Safari. No site code change needed (BaseLayout already references it). Built without AI generation — pure SVG SMIL. |
-| Animated logo GIF (fast, 1s loop) | Marketing logo asset | 2026-05-24 | brand | ready for use | `public/images/logo-animated.gif`. 332×95, 11 KB, 24 frames @ 24fps. Shine sweep across logo, masked to logo alpha. **For external marketing use only** (email signatures, social, ads) — NOT for site nav/footer (would tank LCP). Built deterministically with sharp + ffmpeg, no AI. |
-| Animated logo GIF (slow, 3s loop with pause) | Marketing logo asset | 2026-05-24 | brand | ready for use | `public/images/logo-animated-slow.gif`. 332×95, 12 KB, 1s shine + 2s static pause. Use this version for repeat-view contexts (email signatures, profile headers) where the constant motion of the fast version would be distracting. |
+| Voice copy samples (10 formats) | Copy | 2026-08-23 | foundation-voice-samples | draft v3 | Christen reviewed v1, Todd reviewed v2 (owner roles, price drivers, re-clean wording, wrong-fit); v3 awaiting sign-off; hero, pricing panel, About, GBP, FB, email, SMS, review replies, blog intro, fit section. campaigns/foundation-voice-samples/voice-copy-samples.md |
+| Brand brief (voice & website copy) | Brand foundation | 2026-08-23 | foundation | approved | AUTHORITATIVE source from Todd; voice-profile.md and positioning.md derive from it. brand/brand-brief.md |
+| Positioning (5 angles, ⭐ The Experts Who Happen to Be Likable) | Brand foundation | 2026-08-23 | foundation | draft | Re-ranked to brand-brief.md: expert-company-sounds-human primary, Posted Price as transparency proof (angle ②, still owns the SERP); 9 competitors scraped live 2026-08-22, not re-run; 12-ad matrix re-seeded in brand/positioning.md |
+| Voice profile | Brand foundation | 2026-08-23 | foundation | draft | Updated to brand-brief.md; witty-not-funny; expert-company-sounds-human; 11 reference brands; VCT Voice Test. Provisional pending Christen. brand/voice-profile.md |
+| Creative kit | Brand foundation | 2026-08-23 | foundation | draft | Setup mode; authoritative peach/charcoal palette from brand guide (navy/cream/brass was wrong); typography + logo + photo direction pulled from repo. brand/creative-kit.md |
+| Audience profile | Brand foundation | 2026-08-23 | foundation | draft | Built from brief + positioning + verified Stripe/GSC/PostHog facts; inferences marked. brand/audience.md |
+| Competitor intel | Brand foundation | 2026-08-23 | foundation | draft | Ported from positioning.md live-verified table (2026-08-22) + salvaged 2026-05 notes; per-competitor cards + saturation map. brand/competitors.md |
 
-| Competitor intel: Bear Brothers | Competitive analysis | 2026-08-22 | foundation | active | `brand/competitors.md`. Verified from live pages (their booking page modified 2026-08-05). Key finding: they price on bed/bath count, not square footage — a 3bd/3ba is $425 regardless of home size. Four openings documented. Re-verify by 2026-11-22. |
-
-| Homepage + /pricing hero & meta rewrite | Landing copy | 2026-08-22 | price-is-the-price | live (pending merge) | First application of "The Price Is the Price" to site copy. H1 "Your exact price. On the phone." Meta title/description rewritten on both. CTA "Call for a Free Quote" → "Get your price" on the two pages. Self-scored 56/70. Built by /direct-response-copy. |
-
-## Retired assets
+## Retired
 
 | Asset | Retired | Reason |
 | ----- | ------- | ------ |
-| **Entire `2-hour-quote-checklist` campaign** | 2026-08-22 | **Retired by Todd. Rebuilding from scratch on the new angle.** Two independent reasons it could not ship as-built: (1) the whole funnel was architected on the **same-day cleaning** angle, which `CLAUDE.md` bans; (2) its delivery path is **gone** — `/api/submit-form` deleted, `src/pages/checklist.astro` removed, and GoHighLevel retired for website use. Includes: the checklist lead magnet, opt-in landing page, 7-email welcome sequence, 13-piece social kit, ~30 generated images, 7 GHL email templates, and the GHL setup guide. **Copy is salvageable as raw material; the funnel architecture is not.** |
-| IG carousel-01 slide pack (9 slides) | 2026-08-22 | Wrong palette (navy/cream/brass) + same-day angle. Regenerate from corrected `scripts/gen_final_batch.py`. |
-| Round-2 social visual batch (18 images) | 2026-08-22 | Wrong palette + retired prices ($99/$175/$225) rendered into slide-06. Regenerate from corrected `scripts/gen_round2_batch.py`. |
-| Lead-magnet PDF cover + FB post-01 header | 2026-08-22 | Wrong palette. Regenerate from corrected scripts. |
-| 7 email templates in LeadConnector (GHL) | 2026-08-22 | GHL retired for website marketing per `CLAUDE.md`. Templates still exist in the GHL account; do not extend them. |

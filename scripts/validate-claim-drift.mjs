@@ -257,8 +257,6 @@ const bookingKoalaHandoffs = [
       'docs/OUTREACH_GHL_LOGIC.md',
       'docs/OUTREACH_GROWTH_PLAYBOOK.md',
       'docs/GROWTH_ENGINE_SYSTEM_MAP.md',
-      'campaigns/content-plan/post-construction-cleaning-huntsville.md',
-      'campaigns/content-plan/office-cleaning-mountain-brook-birmingham.md',
     ],
     why: 'commercial quote CTAs must use the verified BookingKoala destination',
   },

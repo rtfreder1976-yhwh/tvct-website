@@ -1,505 +1,263 @@
 # Positioning — The Valley Clean Team
 
-_Rebuilt 2026-08-22 by /positioning-angles. Replaces the 2026-05-13 auto-generated file._
+## Last Updated
+2026-08-23 by /positioning-angles (update mode; reconciled to `brand/brand-brief.md`, Todd's authoritative brief of 2026-08-23)
 
-> **Why this file was rebuilt.** The previous version's ⭐ recommended angle was
-> "Booked in 2 hours. Cleaned today." The "cleaned today" half is a **banned claim** —
-> CLAUDE.md prohibits same-day and emergency cleaning language outright. That file also
-> carried several stale or wrong numbers (49-point checklist, "130+ reviews",
-> "recurring discounts up to 20%", $300 post-construction). None of those survive here.
-> Anything quoted below traces to `src/data/claims.ts` or `src/data/pricing.ts`.
+**What moved and why:** the prior ⭐ (2026-08-22) was THE POSTED PRICE, a price-certainty angle. The brief says the company does not compete primarily on price; the primary position is an expert company that sounds human, with the higher price explained through expertise, systems, accountability and consistency. The Posted Price survives intact as the lead *proof* of the honesty/transparency trait and as angle ② in its own right (it still owns the cost-intent SERP), but it is no longer the headline value claim.
+
+Competitor table below was verified live on 2026-08-22 and was not re-run. Every number in this document traces to `src/data/claims.ts` or `src/data/pricing.ts`. If a claim is not in those files, it is not in this document.
 
 ---
 
-## ✅ CANONICALIZED — approved 2026-08-22
+## Core Positioning (from brand-brief.md)
 
-The primary angle rests on a claim that is **now canonical**. Todd approved it and it is in
-`src/data/claims.ts` as `QUOTE_ON_CALL`. `npm run validate:claims` passes.
+The Valley Clean Team is a **premium residential cleaning company** ("premium" is the internal stance label, `POSITIONING.stance`; it is not a word for copy). We charge more than many competitors because we provide more than basic cleaning: **expertise, experience, reliable systems, accountability, consistency, and a professional customer experience.**
 
-> **"You get a firm, flat price on the phone call."** — approved, with the scope below.
+**We do NOT want to compete primarily on price.**
 
-**Todd's answers to the three gating questions:**
+The brand should communicate:
+1. We know what we're doing.
+2. We take cleaning seriously.
+3. We have high standards.
+4. We're honest about what we do and what we don't do.
+5. We're transparent about pricing and expectations.
+6. We're friendly and approachable.
+7. We're confident enough to occasionally be witty.
+8. We treat customers like intelligent adults.
+9. We don't need to constantly tell people we're "premium" or "exceptional." The quality of our communication should demonstrate it.
 
-1. **Scope** — most standard residential homes.
-2. **Hours** — business hours, live person.
-3. **Is the price held?** — **YES.** The quoted number is the number billed. It moves only if
-   the customer **added scope** after the quote, or the home was **misstated at quote time**
-   (sq ft, bedrooms, baths, pets). **Condition found on arrival is not a permitted reason to
-   revise a quoted price.**
+**Core statement:** *We're the experts who happen to be really likable people.*
 
-Answer 3 is the load-bearing one, and it came back strong — so this stays a **firm price**
-angle, not a "fast estimate" angle. "The price is the price" is literally true.
+> We're trying to make an expert company sound human — not make a cleaning company sound fun.
 
-**Boundaries that still apply.** These route to `quoteResponseSla` ("2 business hours"),
-NOT to a price on the call: after-hours/voicemail, **commercial**, **post-construction**, and
-homes outside the published square-footage brackets. And this claim concerns the **quote**
-only — it says nothing about how fast we clean. Same-day cleaning remains banned.
+**Premium value drivers (what the higher price is connected to, per the brief):** experience, expertise, systems, consistency, reliability, accountability, quality control, customer communication, professional standards, the overall experience. The goal is for the customer to conclude: "Now I understand why they cost more."
 
----
-
-## 🚧 DEFERRED — dual capture: call OR lead form (Todd, 2026-08-22)
-
-**Status (Todd, 2026-08-22): DEFERRED.** The lead form and its landing page will be built as
-part of a `/start-here` skills pass, not now. Nothing in `vercel.json` changes until then — the
-BookingKoala redirects stay exactly as they are. **Commercial CTAs are also on hold:** `CLAUDE.md`
-still says commercial keeps the BookingKoala link (`/booknow/office_cleaning`), and that rule
-stands until the form work happens. Do not change commercial routing in the meantime.
-
-**Decision:** prospects get **two** ways in — call for a firm price, **or** fill out a quote
-request form. Applies to **both homeowners and businesses**. This supersedes phone-only.
-
-**HOLD in effect.** Do not change the BookingKoala redirects in `vercel.json` until the lead
-form exists. Today `/get-quote`, `/booking`, and `/booknow` all 30x straight to
-`bookingkoala.com/booknow/home_cleaning`. `/get-quote` is the natural home for the new form,
-so that redirect is the one that must be retired **as part of** shipping the form — not before,
-or the URL dead-ends.
-
-**Still open — settle at build time:**
-
-- **Where the form submits.** `/api/submit-form` is deleted and `CLAUDE.md` forbids generic
-  forms that bypass BookingKoala. Two viable paths: (a) embed BookingKoala's **native Lead
-  Form** — the precedent already used on `/get-quote` (commit `0ab7262`), no new endpoint,
-  BK keeps capture; or (b) a **new Astro API route** posting into BK — more control, but it is
-  new public API surface and `CLAUDE.md` requires explicit abuse controls (rate limiting, spam
-  protection).
-- **Commercial routing.** `CLAUDE.md` still says commercial CTAs keep the BookingKoala link
-  (`/booknow/office_cleaning`). Todd wants businesses able to call or use the form. The repo
-  rule needs an explicit update, or the next contributor reverts it.
-
-**Copy implication now:** CTAs read as *call **or** request a quote*, not phone-only. But the
-`QUOTE_ON_CALL` firm-price promise applies to the **call** path only — a form submission falls
-under `quoteResponseSla` ("2 business hours"). Do not let form copy imply an instant price.
+**Pricing posture:** explain it, never defend it. "We're not the cheapest option. That's intentional." Then say what the customer is actually paying for.
 
 ---
 
-## Primary Positioning ⭐
+## Primary Positioning
 
-**Angle name:** The Price Is the Price
+**Angle: ⭐ THE EXPERTS WHO HAPPEN TO BE LIKABLE** ("Not the cheapest. That's intentional.")
 
-**One-liner:**
-Most cleaning companies make you wait days for a number that changes anyway. Call The
-Valley Clean Team during business hours and a real person gives you a firm flat price for
-your home — the price you're quoted is the price you pay.
+**Dunford statement:**
+For busy households in Huntsville/Madison, the Shoals and the Nashville suburbs who want the house handled by people who know what they're doing, The Valley Clean Team is the residential cleaning company that runs a disciplined, repeatable system and is honest about what it costs, what's included, and who it's right for. Unlike interchangeable cleaning-company marketing and "starting at" estimates, we publish the price, explain the work, and tell you plainly if we're not the right fit.
 
-**Positioning statement (Dunford form):**
-For North Alabama and Middle Tennessee homeowners who need a house cleaned and are tired
-of chasing estimates, The Valley Clean Team is an insured residential and commercial
-cleaning company that quotes a firm flat price on the phone. Unlike the national chains
-that schedule an in-home estimator before naming a number — and unlike the low-ball
-"starting at" ads that climb 30–80% by the day of service — the number you hear on the
-call is the number you pay.
+**One-sentence statement:** We cost more than many cleaning companies, on purpose, and we'd rather show you the system behind that number than talk you into it.
 
-**The transformation:**
-From *"I've called four places, nobody will tell me what this costs, and I still don't
-have a cleaner"* → *"I made one call, I know exactly what it costs, it's booked."*
+**Psychology:** The market is Stage 3 (crowded, identical claims). When every site says "insured, background-checked, satisfaction guaranteed, free estimate," the buyer has nothing to compare except price, so price wins by default. The only way out of that comparison is to give the buyer a different thing to evaluate: competence they can see (teaching, specificity, a system with numbers) and honesty they can feel (what's included, what isn't, who we're not for). A company willing to disqualify a customer reads as confident, and confidence is the signal that says "these people know what they're doing." Likability is the bonus that makes them pick up the phone.
 
-**The enemy (two heads, one frustration):**
+**Mechanism (the "how"):** The System. Nobody at TVCT is guessing.
+- The price comes off an internal 25-bracket square-footage rate card, four services, 750 to 10,000+ sq ft (`pricing.ts` RATE_CARD_ROWS), so it can be quoted firm in one call and held (`QUOTE_ON_CALL`). Publicly we post real starting prices only (deliberate, 2026-08-21) — the exact number is the reason to call.
+- The work is a published checklist per service: 44 items standard, 57 deep, 49 move-in/out, 37 post-construction (`CHECKLIST`). The difference between services is a list, not an adjective.
+- The people are background-checked employees covered by $2 million in liability insurance (`TRUST`; workers' comp is false — never claim), averaging 15 years of cleaning experience (`PERFORMANCE.avgCleanerExperienceYears`).
+- The accountability is $2 million in liability coverage, damage claims covered by insurance, and a free re-clean within 24 hours (`TRUST`).
+- The consistency shows up as 98% on-time arrival and 85% repeat customers (`PERFORMANCE`).
+- The policies are published, including the ones that cost the customer money: 24-hour cancellation notice / $100 fee, $5-$15 travel fee, $25 per pet, green products at no extra charge (`POLICIES`). Treating people like adults means telling them the fee before it happens.
 
-1. **The estimate runaround.** Molly Maid sends an estimator to walk your home before
-   quoting. Merry Maids publishes no price list and routes you to a consultation. MaidPro
-   offers a "free estimate" you have to request. Every one of these puts days and a
-   stranger-in-your-house between the customer and a number.
-2. **"Starting at" bait.** The documented industry pattern where a headline rate exists
-   to get a foot in the door and the real invoice lands far higher — extras billed for a
-   second bathroom, for appliance exteriors, for things any reasonable person assumed
-   were included.
+**Enemy (primary):** Generic, interchangeable cleaning-company marketing. "We make your home sparkle." "Sit back and relax." "Attention to detail." "We treat your home like our own." Copy that could be any company, which is exactly why the buyer ends up comparing on price.
 
-These are the same emotional wound: **the customer does not trust that the number they
-were shown is real.** TVCT's answer is not "cheaper." It is "certain."
+**Enemy (secondary):** The estimator and the "starting at" upsell: the number that exists to get you on the phone and is gone by the time the team arrives.
 
----
+**Proof stack (in order of use):**
+1. **The Exact Price (lead proof of honesty):** real starting prices published on /pricing (not teasers); the exact number is read in one call, firm for most standard residential homes during business hours, held with two exceptions that are both the customer's own changes (`QUOTE_ON_CALL.priceHeld`, `.priceChangeExceptions`). See angle ②.
+2. Published checklists, 44 / 57 / 49 / 37 items (`CHECKLIST`) — what's included, stated as a list
+3. Crew averaging 15 years of experience; employees, not contractors (`PERFORMANCE.avgCleanerExperienceYears`, `TRUST.workersComp`)
+4. 98% on-time arrival, 85% repeat customers (`PERFORMANCE`)
+5. $2 million liability coverage, background checks, free re-clean within 24 hours (`TRUST`; workers' comp is false — never claim)
+6. 4.9 stars, 148 Google reviews, verified 2026-07-25 (`REVIEWS`)
+7. 1,500+ customers served (`PERFORMANCE.customersServedDisplay`) — customers, never "cleanings"
+8. Starting prices: regular $200, deep $276, move-in/out $351, Airbnb turnover $125, post-construction $526 (`PRICING`); recurring 30% / 25% / 15% off the regular base (`RECURRING_DISCOUNTS`)
+9. No price matching (`POLICIES.priceMatching: false`) — stated calmly, never apologized for
+10. Veteran- and woman-owned, family-owned (`IDENTITY`) — a fact about who answers the phone, not a sales line
 
-## Why this angle wins
+**Out-of-scope fallbacks (say them, do not hide them):** after-hours/voicemail, commercial, post-construction and homes outside the brackets get a written quote within 2 business hours (`QUOTE_ON_CALL.fallbackToSla`, `PERFORMANCE.quoteResponseSla`). Bookings are recommended 2-3 days ahead (`POLICIES.bookingAhead`); no same-day.
 
-**1. It attacks a bottleneck that is actually CTR/conversion, not ranking.**
-Per brand memory, positions 4–10 already convert at 0.29% and the problem is that people
-do not click and do not call. "Get a free estimate" is the single most saturated,
-lowest-information CTA in this category — it reads identically across every listing in the
-SERP. A number-on-the-call promise gives the snippet something no neighbor listing has,
-and it converts the click into a phone call rather than a form.
+### Who we ARE for
+- Busy households (dual-income, young kids, two careers) who want the house handled on a schedule by people who know what they're doing — the every-other-week customer (`RECURRING_DISCOUNTS`, 85% repeat)
+- People who have been burned by a no-show, a gig cleaner who varied visit to visit, or a price that grew once the crew was inside
+- People who want to know the number and what's included before anyone comes to the door
+- Homes where "done properly" matters more than "done cheapest"
+- Customers who would rather be told "that's not included, here's what it costs" than discover it on the invoice
 
-**2. It is the one differentiator that survives the MaidPro collision.**
-MaidPro Huntsville/Shoals is also veteran- and woman-owned and also runs a numbered
-checklist. Those trust signals are *neutralized* in TVCT's two most important markets —
-leading with them invites a comparison against a franchise with more brand recognition.
-Pricing certainty is the differentiator MaidPro cannot mirror, because franchise pricing
-policy is not theirs to set.
+### Who we're NOT for
+- Bargain hunters collecting three quotes to take the lowest
+- Hourly-rate shoppers comparing us to $18-$25/hr gig teasers
+- One-off price-match seekers — we do not price match (`POLICIES.priceMatching: false`)
+- Anyone who needs a crew today; we book 2-3 days out and do not do same-day
+- Anyone who wants a "starting at" number to negotiate down from
 
-**3. TVCT can actually deliver it, which is rare.**
-`src/data/pricing.ts` holds a deterministic square-footage rate card: 25 brackets from
-750 to 10,000 sq ft, across regular, deep, move-in/out, and post-construction. Whoever
-answers the phone can produce a real number for essentially any standard home without
-looking at it first. **The capability already exists — this angle just names it and puts
-it in the window.** That is a Type 2 mechanism (revealed, not invented): the one who
-explains it first owns it.
+Say this without edge. The brief's line is the model: "We're not the right cleaning company for everyone. And we're okay with that." Then say who we are right for.
 
-**4. It matches the canonical stance.**
-`POSITIONING.stance = "premium"` and `POLICIES.priceMatching = false`. TVCT does
-not compete on being cheapest and does not chase competitor quotes. "The price is the
-price" is the exact consumer-facing expression of a no-price-matching, transparent-value
-posture — it converts a policy that could read as rigid into a promise that reads as
-honest.
+**Best channels / audience:**
+- Homepage hero and About page (this is the on-page position; the SERP title/meta still belong to ②, see "Where each angle lives")
+- /pricing: a "why we cost more" panel above or beside the rate card, written as an explanation, not a defense
+- Expertise content: blog posts and GBP posts that teach (surface differences, why deep vs regular, what a move-out clean actually covers) — the white-space no competitor occupies
+- The phone call itself: "explain, don't defend" is a script, not just copy
+- Google Business Profile description and review responses (the map-pack gap outside the Shoals)
+- Post-first-clean email/SMS (BookingKoala): the system is what makes the second booking feel safe
 
-**5. It is defensible against the closest threat.**
-Bear Brothers (Birmingham/Huntsville) already advertises a phone quote "in under five
-minutes, no in-home estimator visit needed." **Speed of quote is therefore partially
-claimed and must not be the lead.** But their guarantee covers re-cleaning only — it says
-nothing about price finality, and their site does not commit to the quoted number being
-final. The white space is not *fast*, it is *firm*. Lead with finality; let speed be the
-supporting detail.
+**Headline candidates (brief's voice; none use best/premium/luxury/exceptional/superior/unmatched/unparalleled/elite/five-star):**
+1. "We're not the cheapest option. That's intentional." — positioning headline
+2. "We're not the right cleaning company for everyone." — positioning / qualifying headline
+3. "We're the people who notice the stuff you weren't looking for." — expertise, shown not claimed
+4. "Curious what your house would actually cost to clean properly? Let's figure it out." — CTA / transparency headline (brief verbatim; runs long, use where space allows)
+5. "Your exact price. On the phone." — **transparency-proof headline** (current live H1). Keep it; it is proof of trait 5, not the positioning headline
+6. "Here's what you're actually paying for." — pricing-explanation headline, pairs with a driver list
+7. "You shouldn't have to chase your cleaning company for an answer." — accountability
+8. "Not every surface cleans the same way. We know which is which." — expertise demonstrated
 
----
+Supporting lines (social, asides, not H1s): "You know that weird little ledge nobody ever cleans? Yeah. We know about it." / "No one needs to come look at your house to tell you the price." / "The number we quote is the number we bill."
 
-## The mechanism (name it, then explain it)
-
-**Name:** The Bracket Book
-
-**Explanation for copy (2 sentences):**
-Every home size from 750 to 10,000 square feet already has a set price for every service
-we offer, written down before you ever call. So when you tell us your square footage and
-what you need, we are reading you a number — not inventing one, and not guessing what you
-will pay.
-
-**Why the mechanism matters:** It answers the skeptic's real question — *"How can you
-possibly know without seeing it?"* Without the mechanism, "firm price on the call" sounds
-like a bluff a salesperson will walk back. With it, the promise becomes obviously
-operable, and simultaneously explains why the chains *can't* do it: they price per-home
-per-estimator, so they have nothing to read from.
-
-Use "The Bracket Book" as an internal name and an explanatory device. Do not
-trademark-style it or over-brand it in customer copy.
+**Where each angle lives (the SERP/page split):** the CTR problem is at the SERP, where a cost-intent searcher wants a number. Title tags and meta descriptions on cost guides and /pricing keep The Exact Price (②): lead with the real starting price for the service (public numbers only — do not surface internal card brackets in metas), then "your exact number in one call — firm." The page they land on carries ⭐: the system behind the number, what's included, who it's for.
 
 ---
 
-## Proof stack
+## This, But Not That (positioning guardrails from the brief)
+- Smart, but not academic.
+- Premium, but not pretentious.
+- Friendly, but not cutesy.
+- Witty, but not comedic.
+- Honest, but not blunt.
+- Confident, but not cocky.
+- Professional, but not corporate.
+- Helpful, but not preachy.
+- Modern, but not trendy for the sake of being trendy.
 
-Ranked by conversion weight for this specific angle. Every item is canonical today unless
-marked.
-
-**Tier 1 — proves the pricing promise:**
-- Published square-footage rate card, 750–10,000 sq ft, all four residential services
-  (`src/data/pricing.ts`) — the single strongest asset. It is the receipt for the claim.
-- Flat upfront pricing; TVCT does not advertise "starting at" as its retail promise
-- Published starting prices: regular **$200**, deep **$276**, move-in/out **$351**,
-  Airbnb turnover **$125**, post-construction **$526**
-- Recurring discounts stated as real numbers: weekly **30%**, biweekly **25%**,
-  monthly **15%**
-- Published policies rather than surprise line items: 24-hour cancellation notice
-  ($100 fee), travel fee $5–15, pets $25/pet, green products free on request
-- `PERFORMANCE.quoteResponseSla` = **2 business hours** — the fallback promise
-- ⚠️ *PENDING:* firm price on the call (`PERFORMANCE.quoteOnCall`)
-
-**Tier 2 — proves you can trust the team behind the price:**
-- **$2 million** liability coverage, workers comp, background checks
-- Satisfaction guarantee with a free re-clean within **24 hours**
-- **98%** on-time arrival
-- **44-item** standard checklist *(see market notes — suppress in Huntsville and Shoals)*
-
-**Tier 3 — proves other people already believed it:**
-- **4.9** rating across **148** reviews
-- **1,500+ customers served** — never "cleanings completed"
-- **85%** repeat customers — the strongest quiet proof that the price held; people do not
-  rebook a company that surprised them on the invoice
-- **15 years** average cleaner experience
-- Same team every visit; weekend availability
-
-**Pairing rule:** every pricing claim ships with a trust claim. "Firm price on the call"
-alone reads as a discount pitch. "Firm price on the call, from a $2M-insured,
-background-checked team" reads as a premium one. This matters because `PRICE_RANGE_BAND`
-is `$$$` — TVCT is not the cheap option and must never sound like it.
+Applied to positioning: disqualify customers calmly, never smugly; explain price, never defend or apologize; demonstrate expertise by teaching, never by saying "we're experts"; joke about baseboards and the industry, never about the customer's house.
 
 ---
 
-## Headline candidates
+## Competitive Landscape Summary
 
-**Tier 1 — recommended, lead with these** *(all gated on claim approval)*
+Live research 2026-08-22 (WebSearch + Firecrawl; MaidPro/Merry Maids via Firecrawl after 403s). Not re-run 2026-08-23.
 
-1. **"The price we say on the phone is the price you pay."**
-   Plainest, most repeatable, hardest to misread. Best default for the homepage hero.
-2. **"Get your exact price on the call. Not in three days."**
-   Sharpens against the estimate runaround directly. Strong for paid search.
-3. **"No estimator in your living room. No 'starting at.' Just your price."**
-   Names both enemies in one line. Best for meta descriptions and ad copy where the
-   competitive contrast does the clicking.
-4. **"Call. Get a real number. Book it."**
-   Three-beat, phone-first, mobile-friendly. Strong sticky-bar or above-the-fold CTA.
+**Sophistication: Stage 3 — crowded; the market needs a mechanism.** Nine operators make near-identical promises (insured, background-checked, satisfaction guarantee, free re-clean, free estimate). Trust claims are table stakes. Quote *speed* is partially claimed. Quote *certainty* (a published number that is held) is unclaimed. So is *explanation*: nobody teaches, nobody says why they cost what they cost, nobody says who they are not for.
 
-**Tier 2 — supporting and section headers**
+**Primary alternative (what customers do instead):** Request a free estimate from a franchise and wait for an in-home visit (Molly Maid, Merry Maids); or book a solo/gig cleaner at $18-$25/hr teaser rates (Care.com Huntsville avg ~$19/hr) and accept variability; or do nothing and keep searching cost guides.
 
-5. "Every home size already has a price. We just read you yours."
-   *(The mechanism, stated plainly. Ideal above the rate card.)*
-6. "Life is messy. Pricing shouldn't be."
-   *(Tagline bridge. Use sparingly — it is charming but it soft-pedals the promise.)*
-7. "1,500+ homes. One price, quoted once."
+**Competitors analyzed (verbatim hero/value copy):**
+| Competitor | Market | Headline / key claim | Quote model | Proof |
+| --- | --- | --- | --- | --- |
+| MaidPro Huntsville / The Shoals | HSV + Shoals | "49-Point Checklist", "Get A Free Estimate", Best of Cleaning Awards 2019-2023 | Free estimate | 4.7 / 310 reviews |
+| Bear Brothers Cleaning | HSV, N. AL incl. Florence/Muscle Shoals | "Beary Clean Guaranteed, or we re-clean for free"; "Free phone quote in under five minutes, no in-home estimator visit needed"; "$2,000,000 in insurance" | Phone, minutes | "2,000+ cleans", "250+ 5-star reviews"; discloses it is a referral agency that does not employ the cleaners |
+| Two Maids Huntsville | HSV | "Your day just got a whole lot better"; "Call for a Free Estimate"; "Calculate Your Price" | Free estimate / calculator | 4.7 / 487 reviews; "trusted by 1,000 households daily nationwide" |
+| Molly Maid (HSV/Decatur/Athens) | HSV | "A clean you can count on"; "Neighborly Done Right Promise"; "Request a Free Quote in under 2 minutes" | Complimentary in-home estimate | 4.8 / 381; "1.5M customers since the 1980s" |
+| The Cleaning Authority Huntsville | HSV/Madison | "Life's Too Short to Clean Your Own Home"; "Detail-Clean Rotation System"; "Immediate, Accurate Online Quotes" | Online quote / free estimate | 4.8 Google |
+| Merry Maids Huntsville | HSV | "re-energize your home"; "40 years of experience"; "Start my quote" | Free quote | Women's Choice Award |
+| Hive Home Services | Nashville | "Fixed flat rates. No hidden fees."; "Know the price before we arrive"; per-bedroom prices listed | Instant online, flat by bedrooms | Re-clean guarantee |
+| Maid Cleaning Nashville | Nashville | "Nashville's Premier Luxury Cleaning Service"; "Always-Deep"; sq-ft brackets "from $X" | Online, 60 seconds | "800+ 5-star reviews", "5,000+ satisfied customers" |
+| Music City Maid Service | Nashville | "transparent flat-rate structure... know the exact price"; "book in 60 seconds" | Instant online quote | "700+ 5-star reviews", 14 years |
+| Solo / gig cleaners | All | $18-$25/hr teaser; established independents $30-$50/hr | Hourly, negotiated | None portable |
 
-**Sub-head (recommended pairing with #1 or #2):**
+**Saturated claims (3+ sites; do not lead with these):**
+- Insured / background-checked
+- Satisfaction guarantee, free re-clean within 24 hours
+- "Free estimate" / "free quote" as the CTA
+- Eco-friendly / green products
+- A named checklist or system (49-Point, Detail-Clean Rotation, Always-Deep)
+- Review-count social proof (250 to 800+)
+- Lifestyle-relief copy ("Your day just got a whole lot better", "Life's Too Short", "re-energize your home") — the generic register the brief bans
 
-> Tell us your square footage and what you need — most standard homes get a firm flat
-> price right on the call. Insured to $2 million, background-checked, and the same team
-> every visit. Serving North Alabama and Middle Tennessee.
+**Partially claimed (1-2 sites):**
+- Phone quote in minutes, no estimator visit — Bear Brothers (HSV). "No estimator" alone is no longer white space in Huntsville.
+- "Know the price before we arrive" / flat rate by bedrooms — Hive (Nashville only)
+- Square-footage bracket pricing published on the page — Maid Cleaning Nashville (Nashville only; still "from $X")
+- "$2,000,000 insurance" — Bear Brothers
+- "Luxury" / "premier" framing — Maid Cleaning Nashville, MaidPro (asserted, never explained)
 
-**Pre-approval fallback sub-head** (use until `quoteOnCall` is canonical):
-
-> Call for your exact price, or send details and we'll come back within 2 business hours
-> with a flat quote. Insured to $2 million, background-checked, same team every visit.
-
-**Banned in every headline:** same-day, today, emergency, immediately, right now,
-"cleaned today," "24/7." *Immediate* is acceptable **only** when modifying the **quote**
-("immediate quote"), never the cleaning. Even there, prefer "firm" or "exact" — they
-carry the differentiator, where "immediate" drifts toward the banned territory and toward
-Bear Brothers' claimed speed ground.
-
----
-
-## Objection handling
-
-| Objection | Response | Backed by |
-|---|---|---|
-| "How can you quote without seeing my house?" | Every home size already has a set price for every service. Tell us your square footage and we read you the number. | The Bracket Book / `pricing.ts` |
-| "What if the price changes when you arrive?" | The quote holds for the home you described. It only moves if the scope does — you added rooms, or the square footage was different than stated. | ⚠️ Requires Todd's confirmation (Q3 above) |
-| "That's more than the $19/hr I saw online." | That's a gig marketplace — different stranger each visit, no insurance, no accountability. We're $2M insured, background-checked, and it's the same team every time. | `TRUST`, same-team |
-| "Can you match a competitor's quote?" | No — we don't price-match. We publish one honest price and hold it. | `POLICIES.priceMatching = false` |
-| "Why should I trust the number?" | 85% of our customers rebook. Nobody rebooks a company that surprised them on the invoice. | `PERFORMANCE.repeatCustomerPct` |
-| "What if I'm not happy?" | Free re-clean within 24 hours, satisfaction guaranteed. | `TRUST.freeReclean` |
-| "I need it cleaned today." | **Never promise same-day.** Redirect: "We book 2–3 days out — let's get your price now and grab the first slot that works." | `POLICIES.bookingAhead`; same-day is banned |
-| Very large home / heavy post-construction / commercial | Honest carve-out: "For a home this size / a job in this condition, I want to get you an accurate number rather than a fast one — we'll come back within 2 business hours." | `quoteResponseSla` |
-
-**On the carve-out:** do not hide it. Stating "most standard homes" openly is what makes
-the promise credible — an unqualified absolute invites the reader to hunt for the catch.
-The carve-out *is* a trust asset. Copy should say **most standard homes**, never "all
-homes."
+**White space identified:**
+- **Expertise-led, teach-the-customer content.** No competitor explains the work: why a surface is cleaned one way and not another, what a deep clean adds over a regular one, what "not included" actually means. The closest is MaidPro's "49-Point Checklist" (a named list, not an explanation) and The Cleaning Authority's "Detail-Clean Rotation System" (a named process, not taught). Naming a system is partially claimed; explaining one is open in all three markets.
+- **Explaining the price.** Maid Cleaning Nashville asserts "luxury"; Hive positions cheap ("$119-$149"). Nobody says "here's why we cost more" and then itemizes what the money buys.
+- **Qualifying the customer.** All nine sell to everyone. Nobody says "we're not for you if…"
+- Nobody says the quoted price is HELD. Every published number is "from", "starting at", or "estimated." A held price with two named exceptions is unclaimed in all three markets.
+- Nobody in Huntsville or the Shoals publishes a square-footage rate card at all.
+- Workers'-comp employees vs. referral-agency contractors is unspoken; Bear Brothers' own disclosure opens it.
+- "Veteran- and woman-owned" appears on no competitor site in any of the three markets.
+- Commercial: no one promises a written quote on a clock.
 
 ---
 
-## Market-by-market notes
+## All Angles Explored (re-ranked 2026-08-23)
 
-| Market | Lead with | Suppress | Notes |
-|---|---|---|---|
-| **Huntsville** | Price certainty, insurance, same team | ❌ veteran-owned, ❌ woman-owned, ❌ "44-item checklist" | **MaidPro collision zone.** MaidPro Huntsville is veteran/woman-owned with a numbered checklist. Bear Brothers also operates here with a 5-minute phone quote — so lead on *firm*, not *fast*. Hardest market; the pricing angle is the only clean differentiator. |
-| **Florence / Shoals** | Price certainty, local presence, same team | ❌ veteran-owned, ❌ woman-owned, ❌ "44-item checklist" | **MaidPro collision zone.** Bear Brothers also present (Muscle Shoals). Per brand memory this is the one market where TVCT does appear in the map pack — pricing clarity converts existing visibility. |
-| **Athens** | Price certainty **+** veteran- and woman-owned | — | No MaidPro collision found. Full identity stack is available here — use it as a secondary trust layer under the pricing lead. |
-| **Birmingham / Mountain Brook** | Price certainty; **Mountain Brook only:** luxury framing | Do not extend luxury framing outside Mountain Brook | Bear Brothers is the direct positioning competitor here and claims the fast-quote ground. Differentiate on **finality**, not speed. Luxury framing is code-scoped via `usesLuxuryFraming()` to Mountain Brook only. |
-| **Nashville / West Nashville** | Price certainty; **West Nashville only:** luxury framing | — | TN pages must dial **(615) 510-1427**. Luxury framing scoped to West Nashville only. |
-| **Commercial (all markets)** | 2-business-hour quote SLA, insurance, consistency | ❌ Do not promise a firm price on the call | Commercial pricing genuinely depends on square footage, task list, and services per week (`POLICIES.commercialQuoteFactors`). The 2-hour SLA is the right promise here. Omit numeric JSON-LD Offer pricing for custom-quoted commercial. |
+### Angle 1: ⭐ THE EXPERTS WHO HAPPEN TO BE LIKABLE (selected)
+- Statement: We cost more than many cleaning companies, on purpose, and we'd rather show you the system behind that number than talk you into it.
+- Psychology: Escapes the price comparison by giving the buyer competence and honesty to evaluate instead; willingness to disqualify reads as confidence.
+- Headline: "We're not the cheapest option. That's intentional."
+- Enemy: generic, interchangeable cleaning-company marketing; secondarily the estimator / "starting at" upsell.
+- Lead proof: The Exact Price (angle ②), then checklists, crew experience, on-time/repeat rates, coverage, reviews.
+- Best for: homepage, About, /pricing explanation panel, teach-content, GBP, phone script, post-first-clean retention. All three markets.
+- Test: specific (15 yrs, 44/57 items, 98%, 85%, two price exceptions), differentiated (no competitor explains or qualifies), believable (every driver has a number in claims.ts), relevant (busy households tired of interchangeable options), leads somewhere (the headline is the About page and the pricing panel).
 
-**Standing rule:** the pricing angle is the one message that works in **every** market
-without collision. Identity and checklist claims are market-conditional. That is precisely
-why pricing is the lead and identity is support — it is the only angle that scales across
-the whole footprint.
+### Angle 2: THE EXACT PRICE (lead proof; owns the SERP)
+- Statement: Real starting prices are on the site. Your exact price takes one phone call — and the number we quote is the number we bill.
+- Psychology: Removes the upsell risk that stops a cost-intent searcher from tapping the phone number; turns the call into a confirmation of a number they already saw.
+- Headline: "Your exact price. On the phone." (live H1) / "One call. One number. That's your bill."
+- Role now: proof of trait 5 (transparent about pricing). It is the mechanism that makes "honest" believable, and it is still the only thing that works in a title tag. It is no longer the value claim: the value is the system; the firm number is what the system lets us promise.
+- How to land it without spilling everything (Todd, 2026-08-23): we do NOT publish the full card — if every price were posted there'd be no reason to call. Starting prices earn the click and prove the floor is real; the promise is that ONE call yields ONE exact, final number. Never write "every home already has a price" (nobody quotes like that) or "we read it off the card on our pricing page."
+- Proof: `pricing.ts` RATE_CARD_ROWS (25 brackets x 4 services — internal), `QUOTE_ON_CALL` (firm on the call, held, two exceptions, fallbacks), `PRICING`, `RECURRING_DISCOUNTS`.
+- Supporting line (was Angle 2 "The No-Estimator Clean"): "No one needs to come look at your house to tell you the price." Bear Brothers claims phone quotes in minutes, so this is a line under The Exact Price, not an angle of its own. The edge over Bear Brothers is the held, exact price.
+- Best for: cost-guide titles/metas, /pricing, paid search on "house cleaning cost [city]", GBP Q&A, phone CTA microcopy ("Get your price").
+- Guardrail: held-price language must carry the two exceptions on the page and scope to "most standard residential homes, business hours."
 
----
+### Angle 3: OUR PEOPLE, NOT AN APP'S (accountability + consistency)
+- Statement: Veteran- and woman-owned, with background-checked cleaners on our payroll covered by $2 million in liability insurance, not contractors dispatched by a referral platform or a franchise call center.
+- Psychology: "Who is actually in my house" is the second anxiety after price; maps to the brief's accountability and consistency drivers.
+- Headline: "Insured, background-checked, on our payroll. Not a referral app."
+- Proof: `IDENTITY`, `TRUST.workersComp`, `TRUST.liabilityCoverageDisplay`, `TRUST.backgroundChecks`, `PERFORMANCE.avgCleanerExperienceYears` (15), `.onTimeArrivalPct` (98), `.repeatCustomerPct` (85).
+- Best for: About page, GBP description, review responses, Huntsville (against Bear Brothers' referral model), Madison / Hampton Cove.
+- Caveat: do not claim "same team every visit" unless added to claims.ts; do not imply a competitor is unsafe, only that ours are employees.
 
-## CTA architecture
+### Angle 4: THE EVERY-OTHER-WEEK HOUSE (consistency + systems)
+- Statement: Built for households that want the house reset on a schedule, at a per-visit price that is lower than a one-off and does not change.
+- Psychology: The recurring customer is who the system is for; a fixed recurring price compounds "no surprises," and the 85% repeat rate is the proof that the system holds up over months, not one visit.
+- Headline: "Every other week, 25% off, and the price never moves."
+- Proof: `RECURRING_DISCOUNTS` (30/25/15), `RECURRING_PRICING` (weekly from $150 floor, biweekly from $150, monthly from $170), `PERFORMANCE.repeatCustomerPct` 85%, `CHECKLIST.standard` 44.
+- Best for: post-first-clean email/SMS (BookingKoala), pricing page second panel, Nashville suburbs, retention.
+- Caveat: weekly under ~1,000 sq ft has a known margin problem; lead with biweekly.
 
-**Todd's decision, 2026-08-22: phone-first for BOTH residential and commercial.**
+### Angle 5: THE TWO-HOUR WRITTEN QUOTE (commercial — secondary segment)
+- Statement: Office, dental and church facility managers get a written cleaning quote within 2 business hours, priced from square footage, task list and visits per week, not a walkthrough three days out.
+- Psychology: Speed + specificity for a buyer comparing three vendors; non-clinical facility cleaning only.
+- Headline: "A written quote in 2 business hours. Square footage, task list, visits per week."
+- Proof: `PERFORMANCE.quoteResponseSla`, `POLICIES.commercialQuoteFactors`, `TRUST`, BookingKoala /booknow/office_cleaning.
+- Tension, noted: the brief defines TVCT as a *residential* company. Commercial stays because CLAUDE.md keeps commercial CTAs and the revenue is real, but it is a secondary segment: never in the residential hero, never blended into the homepage position, its own pages and outreach only.
+- Caveat: no clinical, OSHA, bloodborne-pathogen or disinfectant claims (`CLINICAL` all false; `CERTIFICATIONS` empty).
 
-- Alabama pages → **(256) 826-1100**
-- Tennessee pages → **(615) 510-1427**
-- Secondary CTA next to the phone button may link to `/pricing` (price research intent) —
-  this pairs unusually well with this angle, since the rate card *is* the proof
-- BookingKoala remains system of record; `vercel.json` redirects and SchemaMarkup
-  `ReserveAction` stay pointed at BK
+### Considered and rejected
+- Price certainty as the headline value claim (the prior ⭐): not rejected, demoted. The brief rules out competing primarily on price; the mechanism is kept as proof and as the SERP angle.
+- A "fun cleaning company" angle (Liquid Death / Method register as the lead): the brief is explicit that this is not a comedy brand; wit is seasoning, not the position.
+- The 24-hour free re-clean as a lead (risk reversal): saturated, five competitors say it. Keep as proof line only.
+- "Luxury" / "white-glove": gated to Mountain Brook, West Nashville and the two luxury service slugs (`POSITIONING.luxuryScope`); not the general position.
+- "We're the experts" said outright: the brief bans announcing expertise; it must be demonstrated.
+- Speed of arrival / same-day: prohibited by CLAUDE.md.
 
-> ### 🚩 CLAUDE.md conflict — needs an explicit update
->
-> `CLAUDE.md` currently states: *"Commercial CTAs keep their BookingKoala link
-> (/booknow/office_cleaning)."* Todd's 2026-08-22 instruction **overrides** this — commercial
-> CTAs go phone-first too.
->
-> **This file does not have authority to change CLAUDE.md, and I did not edit it.**
-> Someone must update the "BookingKoala owns booking" section of CLAUDE.md to record the
-> new decision before commercial CTA code changes land, or the repo rules and the shipped
-> code will contradict each other and the next contributor will "fix" it back.
-
----
-
-## Competitive landscape
-
-```
-──────────────────────────────────────────────────
-
-  COMPETITIVE MESSAGING LANDSCAPE
-  Verified 2026-08-22
-
-──────────────────────────────────────────────────
-
-  Competitors Analyzed
-  ├── MaidPro (Huntsville / Shoals / Athens)
-  │   — "Free estimate", numbered checklist,
-  │     veteran + woman-owned. No public price.
-  ├── Molly Maid — "Request a free in-home
-  │   estimate"; estimator walks your home
-  │   BEFORE a number is named.
-  ├── Merry Maids — publishes no price list;
-  │   routes to consultation. "Every home is
-  │   different."
-  ├── Bear Brothers (Birmingham / Huntsville)
-  │   — "Beary Clean Guaranteed"; phone quote
-  │     "in under five minutes, no in-home
-  │     estimator." Guarantee covers RE-CLEAN
-  │     only — silent on price finality.
-  ├── The Cleaning Authority — 24-hr re-clean
-  │   guarantee (reactive).
-  ├── The Maids — "96% would recommend."
-  └── Homeaglow / Handy / Care.com — fast and
-      cheap, gig pools, no consistency.
-
-  ──────────────────────────────────────────────
-
-  Saturated Claims (do not lead with these)
-  ├── "Free estimate" / "Get a free quote"
-  ├── "Licensed, bonded and insured"
-  ├── "Satisfaction guaranteed / free re-clean"
-  ├── "Background-checked professionals"
-  └── "Top-rated / best in [city]"
-
-  Partially Claimed
-  ├── Fast phone quote — Bear Brothers
-  │   ("under five minutes"). DO NOT lead here.
-  ├── Same cleaner recurring — Bear Brothers,
-  │   Molly Maid, MaidPro
-  └── Veteran + woman-owned + numbered
-      checklist — MaidPro, in TVCT's two
-      biggest AL markets
-
-  Underexploited Territory  ← the opening
-  ├── Nobody guarantees the quoted price is
-  │   FINAL. Bear Brothers is fast but silent
-  │   on finality; the chains won't quote at
-  │   all until they've walked the house.
-  ├── Nobody publishes a full size-by-size
-  │   rate card. TVCT already has one built.
-  ├── Nobody names the "starting at" bait
-  │   pattern out loud and positions against
-  │   it — despite it being the industry's
-  │   best-documented consumer complaint.
-  └── Nobody makes NOT price-matching a
-      virtue ("one honest price, held").
-
-──────────────────────────────────────────────────
-```
-
-**Market assessment**
-
-```
-  Sophistication:  Stage 3 — mechanism needed
-  Transformation:  From "nobody will tell me
-                   what this costs" to "I know,
-                   and it's booked."
-  Mechanism:       The Bracket Book — every home
-                   size is priced in advance
-  Primary alt.:    Call 3–4 companies, wait days
-                   for estimates, compare, stall
-```
-
-Stage 3 is the correct read: the market has heard every promise, has been burned by
-"starting at," and is now skeptical. Skeptical markets do not respond to bigger claims —
-they respond to **mechanisms**. That is why the rate card must appear alongside the
-promise rather than a page away.
+### Why ⭐ The Experts Who Happen to Be Likable
+The brief sets the position and it is sound strategy: at Stage 3 the buyer needs a mechanism, and "the system, explained" is a mechanism no competitor in any of the three markets offers. It also solves the problem The Exact Price could not solve alone: a real number wins the click, but on its own it invites price comparison, which is the game the business does not want to play. Leading with the system and proving it with the exact, held price gets the click *and* changes what the buyer compares.
 
 ---
 
-## Secondary / alternative angles
+## 12-Ad Testing Matrix Seed — Angle: ⭐ The Experts Who Happen to Be Likable
 
-Supporting material. **Not** proposals to replace the primary — Todd's lead angle is
-settled. Each of these works as a section, a campaign, or a test, and each reinforces the
-primary rather than competing with it.
+Cell IDs: EX-H{hook}-{format}. Formats: A static image, B short video (owner to camera / phone screen), C carousel. CTA for all residential cells: "Get your price" with the tel: link (AL 256-826-1100; TN 615-510-1427). Cells marked (from PP-…) are carried over from the former Posted Price (now Exact Price) matrix because they still fit; they are now proof cells under the new angle.
 
-### ② The Same Four Faces
-**Statement:** Not a rotating pool of strangers — the same background-checked team at your
-door every visit.
-**Psychology:** The unspoken fear in home services is not bad cleaning; it is *strangers
-in my house, different ones each time.* Aggregators are structurally incapable of matching
-this.
-**Headline:** "The same team, every visit. You'll learn their names."
-**Best for:** Recurring-service conversion, aggregator switchers, families with kids/pets.
-**Caution:** Bear Brothers, Molly Maid and MaidPro all make versions of this claim. Strong
-as a *supporting* section, weak as a lead. Pairs naturally with the 85% repeat-customer
-stat.
+| | A — Static | B — Video | C — Carousel |
+| --- | --- | --- | --- |
+| **H1 Direct** "We're not the cheapest option. That's intentional." | EX-H1-A: plain text on peach (#FFA985). Body: "Here's what you're paying for: a crew averaging 15 years of experience, a 44-item checklist, a price that holds, and a re-clean within 24 hours if we missed something." | EX-H1-B: owner to camera, 20s: "We're not the cheapest. We're not trying to be. Here's what the difference buys you." Three items, no adjectives. | EX-H1-C: slide 1 the line; slides 2-5 one driver each (expertise 15 yrs, system 44/57 items, accountability $2M + 24-hr re-clean, consistency 98% / 85%); slide 6 CTA. |
+| **H2 Question** "Curious what your house would actually cost to clean properly?" | EX-H2-A (from PP-H1-A): rate card crop, one row highlighted (1,500 sq ft: regular $281, deep $381). Body: "Published by square footage. Tell us the size, we tell you the number. It holds." | EX-H2-B (from PP-H2-B): phone-screen recording of /pricing scrolling to the caller's bracket, voiceover explaining what "properly" means for that service. | EX-H2-C: slide 1 the question; slides 2-4 what "properly" means (44 vs 57 items, what a move-out adds, what isn't included); slide 5 the bracket; slide 6 CTA. |
+| **H3 Proof** "Your exact price. On the phone." | EX-H3-A (from PP-H2-A): "starting at" struck through. Body: "The number we quote is the number we bill. Two exceptions, both yours: you add scope, or the house is bigger than you said." | EX-H3-B (from PP-H1-B): owner reads the card on camera, 15s: "Tell me your square footage. I'll tell you the price. It doesn't change when we get there." | EX-H3-C (from PP-H3-C): slide 1 "4.9 stars, 148 reviews, one price list"; slides 2-4 three verbatim attributed reviews; slide 5 the card; slide 6 CTA. |
+| **H4 Contrarian** "We're not the right cleaning company for everyone." | EX-H4-A: plain text. Body: "If you want the lowest of three quotes, we're not it. If you want the house handled by people who know what they're doing, at a number that doesn't move, call." | EX-H4-B: owner to camera: "We don't price match. Here's who we're right for, and who we're honestly not." Calm, matter-of-fact. | EX-H4-C: slide 1 the line; slide 2 "Not for you if…" (three items from the NOT-for list); slide 3 "For you if…" (three items); slide 4 the system; slide 5 the price holds; slide 6 CTA. |
 
-### ③ The Rebook Rate
-**Statement:** 85% of our customers book us again — the number that actually measures
-whether a cleaning company is good.
-**Psychology:** Star ratings are assumed inflated. A repeat rate is a harder, stranger,
-more credible statistic, and it *indirectly proves the pricing promise* — nobody rebooks a
-company that surprised them on the invoice.
-**Headline:** "85% of our customers book us again. Ratings can be gamed. That can't."
-**Best for:** Skeptical comparison shoppers; review-heavy SERPs where 4.9 ratings are
-everywhere and indistinguishable.
-**Caution:** Never imply competitors fake reviews. Frame as "this is a better metric," not
-"theirs are fake."
-
-### ④ Recurring Math
-**Statement:** Weekly service is 30% off every visit — the discount is published, not
-negotiated.
-**Psychology:** Converts a price objection into an upsell and lifts LTV. A *published*
-discount reinforces the transparency angle rather than diluting it.
-**Headline:** "Weekly, 30% off. Biweekly, 25%. Monthly, 15%. Published, not negotiated."
-**Best for:** Pricing page, recurring-service pages, post-quote follow-up.
-**⚠️ Business caution:** Per brand memory, **weekly recurring margin is negative under
-~1,000 sq ft**. Do not run this as an acquisition campaign into small homes until that
-pricing decision is resolved. Safe as on-site upsell copy to already-qualified leads.
+Develop first: EX-H1-A, EX-H4-B, EX-H2-A, EX-H3-B. Track by cell ID in PostHog UTM (filter to AL/TN + production hostname).
 
 ---
 
-## Messaging do / don't
-
-**Do**
-- Lead with **finality** of price ("firm", "exact", "the price you pay"), not speed
-- Show the rate card near every pricing promise — mechanism beside claim
-- Say "**most standard homes**"; name the carve-out openly
-- Pair every price claim with a trust claim ($2M insured, background-checked)
-- Use phone-first CTAs; `/pricing` as the secondary link
-- Say "1,500+ **customers served**"
-- Attack the *pattern* ("starting at" bait, estimator visits), never a named competitor
-
-**Don't**
-- ❌ Never same-day, today, emergency, or 24/7 — banned outright
-- ❌ Never lead Huntsville or Shoals with veteran-owned, woman-owned, or the checklist number
-- ❌ Never say 49 items — it is 44, and 49 is MaidPro's number
-- ❌ Never "130+ reviews" — it is 4.9 / 148
-- ❌ Never "cleanings completed" for the 1,500+ figure
-- ❌ Never publish retired prices: $99, $119, $129, $135, $149, $175, $176, $225, $275, $400
-- ❌ No clinical, medical, OSHA, or certification claims — none are held
-- ❌ No luxury framing outside Mountain Brook and West Nashville
-- ❌ Don't compete on hourly rate against gig platforms — reframe to insured + consistent
-- ❌ Don't promise a firm phone price for **commercial** — use the 2-business-hour SLA
-- ❌ Don't ship the firm-price claim at all until `quoteOnCall` is canonical
-
----
-
-## Guardrail tensions logged
-
-1. **`quoteOnCall` is not canonical.** The lead angle depends on a claim that does not
-   exist in `claims.ts`. Human gate, not an automated one — `validate:claims` cannot catch
-   it. **Blocking for published copy.**
-2. **CLAUDE.md contradicts the new commercial CTA decision.** Repo rules still say
-   commercial CTAs keep the BookingKoala link. Not edited here by design; needs an
-   explicit update.
-3. **`PRICING.postConstruction` is $526**, not the $300 in the old positioning file and in
-   parts of CLAUDE.md's key-values list. `claims.ts` is authoritative and was corrected
-   2026-08-20 against BookingKoala. CLAUDE.md's summary list is stale on this line.
-4. **Bear Brothers partially occupies the fast-quote ground** with a sub-5-minute phone
-   quote. Mitigated by leading on finality rather than speed — but if they ever add a
-   price-lock guarantee, this angle needs re-sharpening. Worth re-checking quarterly.
-5. **"Immediate" drifts toward banned territory.** Todd's framing uses "immediate quote."
-   Safe only when modifying *quote*; "firm"/"exact" are preferred because they carry the
-   actual differentiator and cannot be misread as same-day service.
-6. **Weekly recurring margin is negative under ~1,000 sq ft.** The 30% discount is
-   canonical and publishable, but should not anchor acquisition campaigns aimed at small
-   homes until resolved.
-7. **44-item checklist is suppressed in 2 of 5 markets** due to the MaidPro collision,
-   which weakens it as a global proof point. Reflected in the tiering above.
-
----
-
-## Downstream
-
-Copy, landing pages, ads, and meta descriptions should build from the **primary angle**
-and the **Tier 1 headlines** — subject to the pending-canonicalization gate. Until Todd
-approves `quoteOnCall`, ship the 2-business-hour fallback and hold the firm-price
-headlines in draft.
-
-`brand/voice-profile.md` is being rebuilt in parallel and was deliberately **not** read for
-this file — it currently contains banned claims. Re-check tone alignment against the
-rebuilt voice profile before copy ships.
+## Guardrails carried into every downstream asset
+- Prices only from `claims.ts` / `pricing.ts`; never $99, $119, $129, $135, $149, $175, $176, $225, $275, $400.
+- "1,500+" is customers served, never cleanings completed.
+- No same-day / emergency. No clinical, OSHA, bloodborne-pathogen, disinfectant or certification claims (`CLINICAL` all false; `CERTIFICATIONS` empty).
+- "Premium" is the internal stance label, not copy. Banned oversell words in copy: best, premium, luxury, exceptional, superior, unmatched, unparalleled, elite, five-star. "Luxury" vocabulary only inside `POSITIONING.luxuryScope`.
+- Banned generic phrases (brief, rule 1): "make your home sparkle", "sit back and relax", "treat your home like our own", "attention to detail", "customer satisfaction is our top priority", "locally owned and operated", "go above and beyond", "take back your time", "let us do the dirty work", "a cleaner, healthier home", "professional cleaning you can trust".
+- Held-price language must carry the two exceptions somewhere on the page and must scope to "most standard residential homes, business hours."
+- Never make the customer's house the joke.
+- Canonical phones: AL (256) 826-1100, TN (615) 510-1427.
