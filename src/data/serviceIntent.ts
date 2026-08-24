@@ -33,11 +33,11 @@ export const standaloneServiceIntent: Record<string, ServiceIntent> = {
   },
   "maid-service": {
     problem:
-      "You want a clean home without managing it. The biggest difference between providers is whether the team learns your home and whether there is a company standing behind the work.",
+      "You want a clean home without managing it. The biggest difference between providers is whether the work follows a written checklist and whether there is a company standing behind it.",
     options: [
       { label: "Hire an individual cleaner", detail: "Personal service can work well, but backup coverage depends on that one person." },
       { label: "A large rotating provider", detail: "Broad coverage, but the specific cleaners may change from visit to visit." },
-      { label: "The Valley Clean Team", isUs: true, detail: "A consistent team that learns your home, backed by an insured and bonded company." },
+      { label: "The Valley Clean Team", isUs: true, detail: "The same 44-item checklist every visit, backed by an insured and bonded company." },
     ],
   },
   "move-in-out-cleaning": {

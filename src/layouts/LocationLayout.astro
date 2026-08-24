@@ -4,6 +4,7 @@ import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
 import BookingCTA from "../components/BookingCTA.astro";
 import { getMarketPhone } from "../constants/schemaData";
+import { REVIEWS } from "../data/claims";
 
 interface Props {
   title: string;
@@ -119,7 +120,7 @@ const geoPlacename = `${city}, ${state}`;
 const faqs = [
   {
     question: `How much does house cleaning cost in ${city}?`,
-    answer: `House cleaning in ${city} has base rates from $200 for recurring cleaning, $276 for deep cleaning, and $351 for move-in/out cleaning. Your exact price depends on your home's size, layout, and current condition — every home is different. We provide a free, no-obligation custom quote before we ever start. Call ${phoneDisplay} for your exact estimate.`,
+    answer: `House cleaning in ${city} has base rates from $200 for recurring cleaning, $276 for deep cleaning, and $351 for move-in/out cleaning. Your exact price depends on your home's size, layout, and current condition — every home is different. Tell us your square footage and the type of cleaning; your exact number on the call — the number we quote is the number we bill. Call ${phoneDisplay}.`,
   },
   {
     question: `How far in advance should I book cleaning in ${city}?`,
@@ -271,8 +272,8 @@ const faqSchema = {
           <p class="text-gray-600">Homes Cleaned</p>
         </div>
         <div>
-          <div class="text-4xl font-bold text-[#FFA985] mb-2">150</div>
-          <p class="text-gray-600">5-Star Reviews</p>
+          <div class="text-4xl font-bold text-[#FFA985] mb-2">{REVIEWS.countDisplay}</div>
+          <p class="text-gray-600">Google Reviews, Rated {REVIEWS.rating}</p>
         </div>
         <div>
           <div class="text-4xl font-bold text-[#FFA985] mb-2">$2M</div>
@@ -539,7 +540,7 @@ const faqSchema = {
           </h2>
           <p class="text-gray-700 mb-4">
             The Valley Clean Team has been proudly serving {city} and the greater
-            {region} area with exceptional residential and commercial cleaning services.
+            {region} area with residential and commercial cleaning.
             Our team of trained professionals understands the unique needs of local
             homeowners and businesses, delivering consistent quality that exceeds
             expectations every time.
@@ -551,8 +552,8 @@ const faqSchema = {
             products that are safe for your family, pets, and the environment.
           </p>
           <p class="text-gray-700">
-            As a veteran-owned business, we bring military precision and
-            attention to detail to every job. Our cleaners are
+            As a veteran-owned business, we run every job off the same
+            written 44-item checklist. Our cleaners are
             background-checked, fully insured, and committed to treating your
             home with the respect it deserves. That's why {city} families continue
             to trust The Valley Clean Team for all their cleaning needs.
@@ -634,7 +635,7 @@ const faqSchema = {
         </h2>
         <div class="section-divider"></div>
         <p class="text-xl text-gray-600">
-          Simple booking process, exceptional results
+          One call to book. The same 44-item checklist on the day.
         </p>
       </div>
 
@@ -685,8 +686,7 @@ const faqSchema = {
           </div>
           <h3 class="text-lg font-bold mb-2 text-[#333333]">Enjoy Your Home</h3>
           <p class="text-gray-600 text-sm">
-            Come home to a spotless, fresh-smelling house. Not satisfied? Let us
-            know and we'll re-clean for free.
+            Come home to a clean house. If we missed something, tell us within 24 hours and we’ll schedule a re-clean right away, no charge.
           </p>
         </div>
       </div>
@@ -727,7 +727,7 @@ const faqSchema = {
             </h3>
             <p class="text-gray-600 mb-4">
               Thorough deep cleaning for {city} homes. Perfect for spring cleaning
-              or getting your home spotless.
+              or resetting built-up areas.
             </p>
             <a
               href="/pricing"
@@ -784,8 +784,8 @@ const faqSchema = {
               Move In/Out Cleaning
             </h3>
             <p class="text-gray-600 mb-4">
-              Moving in {city}? We ensure your new home is spotless or help you
-              get your deposit back.
+              Moving in {city}? We clean the new place before you unpack, or the
+              old one to help you get your deposit back.
             </p>
             <a
               href="/pricing"
@@ -841,8 +841,8 @@ const faqSchema = {
               Airbnb Cleaning
             </h3>
             <p class="text-gray-600 mb-4">
-              Fast turnaround cleaning for {city} vacation rental hosts. Same-day
-              service available.
+              Turnover cleaning for {city} vacation rental hosts, timed to your
+              checkout. We typically book 2–3 days out.
             </p>
             <a
               href="/pricing"
@@ -957,9 +957,9 @@ const faqSchema = {
               fill="currentColor"
             />
           </div>
-          <h3 class="text-2xl font-bold mb-3 text-[#333333]">5-Star Rated</h3>
+          <h3 class="text-2xl font-bold mb-3 text-[#333333]">Rated {REVIEWS.rating} on Google</h3>
           <p class="text-gray-600">
-            150 verified 5-star reviews from satisfied customers across all our
+            {REVIEWS.rating} stars from {REVIEWS.countDisplay} Google reviews across our
             service areas.
           </p>
         </div>
@@ -991,8 +991,7 @@ const faqSchema = {
             Satisfaction Guarantee
           </h3>
           <p class="text-gray-600">
-            Not satisfied? We'll re-clean for free, no questions asked. That's
-            our promise to you.
+            If we missed something, tell us within 24 hours and we’ll schedule a re-clean right away, no charge.
           </p>
         </div>
       </div>

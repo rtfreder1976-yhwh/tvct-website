@@ -102,7 +102,8 @@ export const TRUST = {
   isInsured: true,
   liabilityCoverageAmount: 2_000_000,
   liabilityCoverageDisplay: "$2 million",
-  workersComp: true,
+  // Not verified — Todd, 2026-08-23. Do not claim.
+  workersComp: false,
   damageClaimsCoveredByInsurance: true,
   backgroundChecks: true,
   satisfactionGuarantee: true,
