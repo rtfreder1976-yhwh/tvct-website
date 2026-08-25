@@ -1,6 +1,6 @@
 # The Valley Clean Team — Repository Instructions
 
-_Last updated: 2026-08-10. These rules describe the current architecture and override historical workflow notes in old commits or closed PRs._
+_Last updated: 2026-08-24. These rules describe the current architecture and override historical workflow notes in old commits or closed PRs._
 
 ## Project
 
@@ -32,28 +32,35 @@ Current key values:
 
 Generated and structured-data pricing must derive from canonical claims/pricing logic rather than stale `services.json` literals.
 
-### 2. BookingKoala owns booking; residential CTAs are phone-first
+### 2. Lead capture and booking (transition in progress)
 
-Decision (Todd, 2026-08-21): residential CTAs direct prospects to CALL for a
-quote — tel: links (AL 256-826-1100; TN pages dial 615-510-1427). Do not point
-residential CTAs back at BookingKoala. Secondary CTAs next to a phone button
-may link to /pricing (price research). Commercial CTAs keep their BookingKoala
-link (/booknow/office_cleaning).
+Decision (Todd, 2026-08-24): TVCT is **moving away from BookingKoala's
+customer-facing lead and quote forms**. BookingKoala remains the internal
+system of record for booking/ops until a replacement ships, but it is no
+longer the design target for customer-facing capture. New site-owned
+lead-capture forms and flows — feeding GoHighLevel (the ESP/CRM) through
+deliberate integrations — are now permitted and expected. Design them
+intentionally: explicit capture contract, abuse controls, no secrets in
+client bundles. The design framework and non-negotiables live in project
+memory (quote-flow-redesign).
 
-BookingKoala remains the system of record for booking. The vercel.json
-redirects (/get-quote, /booking, /booknow → BK) and SchemaMarkup's
-ReserveAction stay pointed at BookingKoala — legacy inbound links and machine
-booking actions still work there; it is just no longer the residential front
-door.
+Until the replacement flow ships:
+- Residential CTAs stay phone-first (decision 2026-08-21): tel: links,
+  AL 256-826-1100; TN pages dial 615-510-1427. Secondary CTAs next to a
+  phone button may link to /pricing.
+- Commercial CTAs keep their BookingKoala link (/booknow/office_cleaning).
+- The vercel.json redirects (/get-quote, /booking, /booknow → BK) and
+  SchemaMarkup's ReserveAction stay pointed at BookingKoala.
 
-Do not restore:
-- GoHighLevel / LeadConnector webhooks or contact writes
+Still retired — do not resurrect the old implementations as-is:
+- the old `/api/submit-form` endpoint and its ad-hoc GHL webhook wiring
 - Outscraper quote dependencies
-- `/api/submit-form`
-- GHL booking-started/abandoned/completed fan-out
-- generic website lead forms that bypass BookingKoala
+- the old GHL booking-started/abandoned/completed browser-heuristic fan-out
 
-GoHighLevel and Outscraper are retired systems for this website.
+These are prohibitions on reviving broken legacy code, not on building the
+new capture flow. Outscraper stays fully retired; GoHighLevel is current
+(ESP/CRM decision 2026-08-24) and new integrations with it are fine when
+deliberately designed.
 
 ### 3. Careers are separate from customer leads
 
@@ -119,6 +126,7 @@ Use focused branches/PRs and conventional commit prefixes (`fix:`, `feat:`, `ref
 
 ## Current intentional follow-ups
 
+- Design and ship the replacement lead/quote capture flow (BK customer-facing forms being retired — decision 2026-08-24; framework in project memory: quote-flow-redesign).
 - Wire `/careers` to the dedicated BookingKoala 2 cleaner application when its URL is available.
 - Choose a newsletter destination before re-enabling signup.
 - Continue production smoke tests/security-header hardening from current `main`.
