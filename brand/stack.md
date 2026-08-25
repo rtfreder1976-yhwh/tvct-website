@@ -20,7 +20,7 @@ _Initialized 2026-08-22 by /start-here (fresh start, second pass). Updated 2026-
 | **Github** | Patch and version control/checks, repos live here | ✓ live |
 | **Vercel** | Hosting for the Astro site; env keys live here, no local `.env`. | ✓ live |
 | **Email ESP** | **GoHighLevel** (decided by Todd 2026-08-24). Sending subdomain u.thevalleycleanteam.com configured. Capture path stays BookingKoala → Zapier → GHL — the WEBSITE still never writes to GHL (CLAUDE.md). Templates pushed via MCP; workflow wiring manual in GHL UI or via n8n. Newsletter still needs its own explicit signup contract. | ✓ chosen |
-| **Social scheduling** | **GHL Social Planner** via MCP (verified 2026-08-24): GBP + LinkedIn + Pinterest + YouTube connected; **Facebook + Instagram tokens EXPIRED — Todd must reconnect** in GHL before those can be queued. First batch: campaigns/gbp-facebook-batch-01 awaiting review. | ✓ partial |
+| **Social scheduling** | **GHL Social Planner** via MCP. **All six platforms connected and unexpired (verified 2026-08-25): GBP, Facebook, Instagram, LinkedIn, Pinterest, YouTube.** Todd reconnected FB + IG on 2026-08-24 (tokens good to Oct 23). GBP and YouTube tokens carry a rolling ~daily expiry that GHL refreshes — spot-check before a scheduled batch. First batch: campaigns/gbp-facebook-batch-01 awaiting Todd/Christen review. | ✓ connected |
 
 ## Other MCP servers available
 

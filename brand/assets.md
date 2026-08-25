@@ -6,6 +6,7 @@ _Initialized 2026-08-22 by /start-here (fresh start). Append-only. Every skill t
 
 | Asset | Type | Date | Campaign | Status | Notes |
 | ----- | ---- | ---- | -------- | ------ | ----- |
+| "The Exact Price" VSL (script + 3 emails) | Video script + email sequence | 2026-08-25 | vsl-exact-price | draft | ~3:40 script, 5 beats, works for Todd-on-camera / AI avatar / voiceover; 3-email sequence to drive views; for /pricing + homepage embed AND email. Avatar-vs-real-presenter risk flagged in brief for Todd's call. campaigns/vsl-exact-price/ |
 | Commercial Hiring Sheet | Lead magnet (checklist) | 2026-08-24 | commercial-hiring-sheet | draft | "12 questions to ask any commercial cleaning company"; buyer-side scorecard TVCT passes by design; for medical batch #4 outreach + walkthrough leave-behind; gated site download deferred until new capture form. campaigns/commercial-hiring-sheet/ |
 | Quote follow-up sequence (4 emails) | Email sequence | 2026-08-24 | ghl-esp | draft | Replaces blocked legacy Quoting Follow up folder; Day 0/2/5/9, no scarcity, phone-first, signed Todd; 3 subject variants each. campaigns/ghl-esp/quote-follow-up/ — pending Todd/Christen review, then push to GHL as new folder |
 | GHL legacy template audit | Audit | 2026-08-24 | ghl-esp | done | 38 templates: 29 BLOCK, 9 REWRITE, 0 salvageable; worst: $97 offer everywhere. campaigns/ghl-esp/template-audit-2026-08-24.md |
