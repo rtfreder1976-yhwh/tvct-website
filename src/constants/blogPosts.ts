@@ -217,8 +217,8 @@ export const allBlogPosts: BlogPost[] = [
   },
   {
     slug: "the-military-precision-approach-to-cleaning-your-home",
-    title: "The Military-Precision Approach to Cleaning Your Home",
-    excerpt: "Check back on July 20 2026 for our latest article covering the military-precision approach to cleaning your home.",
+    title: "What 'Military Precision' Actually Means in Your House",
+    excerpt: "Every veteran-owned cleaning company says it. Here's what it actually means here: a written 44-item checklist, the same order every visit, and owning the result.",
     category: "Brand Story/Trust",
     filterCategory: "industry",
     categoryColor: "blue",
@@ -393,8 +393,8 @@ export const allBlogPosts: BlogPost[] = [
   },
   {
     slug: "why-we-value-military-precision-accountability-veterans-day-feature",
-    title: "Why We Value Military-Precision Accountability (Veterans Day Feature)",
-    excerpt: "Check back on November 9 2026 for our latest article covering why we value military-precision accountability (veterans day feature).",
+    title: "What Service Taught Us About Running a Company (A Veterans Day Note)",
+    excerpt: "Check back on November 9 2026 for our Veterans Day note: the two habits the Air Force taught our founder, and how they show up in your house.",
     category: "Brand Story/Trust",
     filterCategory: "industry",
     categoryColor: "blue",
