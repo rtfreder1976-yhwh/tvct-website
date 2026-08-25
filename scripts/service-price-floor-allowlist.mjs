@@ -112,11 +112,4 @@ export const serviceFloorAllowlist = [
   { file: 'src/pages/blog/move-out-cleaning-costs-in-nashville-2026-updated-guide.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES,
     reason: 'move-out answer block opens at $200; the move-in/out floor is $351' },
-  { file: 'src/pages/locations/decatur/move-out-cleaning.astro', count: 1,
-    type: 'debt', expires: BACKLOG_EXPIRES,
-    reason: 'move-out FAQ range opens at $200; the move-in/out floor is $351' },
-  { file: 'src/pages/locations/mountain-brook/move-out-cleaning.astro', count: 1,
-    type: 'debt', expires: BACKLOG_EXPIRES,
-    reason: 'states "starts at $350" — one dollar under the $351 floor; almost certainly a stale rounding of the old price' },
-
 ];
