@@ -67,8 +67,8 @@ export const cityConfigs: Record<string, CityConfig> = {
   "Mountain Brook": {
     lat: "33.4940", lng: "-86.7520", phone: MARKET_PHONES.AL.schema,
     state: "Alabama", stateAbbr: "AL", zips: "35213-35243", radius: "20000",
-    edge: "Premium residential market", focusService: "Premium House Cleaning",
-    reviewFocus: "premium home cleaning", searchVolume: "low",
+    edge: "Estate and historic-home market", focusService: "Estate Cleaning",
+    reviewFocus: "care for fine finishes", searchVolume: "low",
   },
   Florence: {
     lat: "34.7998", lng: "-87.6772", phone: MARKET_PHONES.AL.schema,
@@ -91,8 +91,8 @@ export const cityConfigs: Record<string, CityConfig> = {
   "West Nashville": {
     lat: "36.1527", lng: "-86.8816", phone: MARKET_PHONES.TN.schema,
     state: "Tennessee", stateAbbr: "TN", zips: "37205-37209", radius: "25000",
-    edge: "Premium residential market", focusService: "Premium House Cleaning",
-    reviewFocus: "premium home cleaning", searchVolume: "medium",
+    edge: "Established residential market", focusService: "House Cleaning",
+    reviewFocus: "consistent teams", searchVolume: "medium",
   },
   Tuscumbia: {
     lat: "34.7312", lng: "-87.7025", phone: MARKET_PHONES.AL.schema,
