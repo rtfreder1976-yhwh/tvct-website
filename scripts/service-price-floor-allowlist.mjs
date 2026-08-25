@@ -88,8 +88,6 @@ export const serviceFloorAllowlist = [
   // --- blog: deep-clean ranges opening below the $276 floor ----------------
   { file: 'src/pages/blog/deep-cleaning-cost-shoals-guide.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
-  { file: 'src/pages/blog/how-to-budget-for-house-cleaning-services-in-2026.astro', count: 1,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
   { file: 'src/pages/blog/spring-cleaning-guide-athens-al.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
   { file: 'src/pages/blog/spring-cleaning-guide-florence-al.astro', count: 1,
@@ -108,10 +106,6 @@ export const serviceFloorAllowlist = [
   { file: 'src/pages/blog/reliable-cleaning-company-athens-al.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
   { file: 'src/pages/blog/reliable-cleaning-company-florence-al.astro', count: 1,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
-  { file: 'src/pages/blog/reliable-cleaning-company-huntsville-al.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
-  { file: 'src/pages/blog/reliable-cleaning-company-nashville-tn.astro', count: 2,
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
 
   // --- move-out pages quoting below the $351 floor -------------------------
