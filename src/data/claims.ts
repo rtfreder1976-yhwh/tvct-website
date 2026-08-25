@@ -104,6 +104,8 @@ export const TRUST = {
   liabilityCoverageDisplay: "$2 million",
   // Not verified — Todd, 2026-08-23. Do not claim.
   workersComp: false,
+  // Confirmed FALSE by Todd 2026-08-24: "We are insured but not bonded." Never claim.
+  bonded: false,
   damageClaimsCoveredByInsurance: true,
   backgroundChecks: true,
   satisfactionGuarantee: true,

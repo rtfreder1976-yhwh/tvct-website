@@ -516,7 +516,7 @@ export const allBlogPosts: BlogPost[] = [
   {
     slug: "commercial-cleaning-huntsville-al",
     title: "Commercial Cleaning Services in Huntsville, AL",
-    excerpt: "Professional commercial cleaning for Huntsville businesses. Flexible scheduling, bonded and insured teams, and consistent quality every visit.",
+    excerpt: "Professional commercial cleaning for Huntsville businesses. Flexible scheduling, $2M-insured and background-checked teams, and consistent quality every visit.",
     category: "Commercial/B2B",
     filterCategory: "industry",
     categoryColor: "indigo",
