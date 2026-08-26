@@ -51,6 +51,16 @@ Straight line. One CTA per email.
 - No scarcity, no countdowns, no "free quote/estimate/assessment," no exclamation marks, no oversell words.
 - Canonical facts only: $2M liability, background-checked cleaners, written quote within 2 business hours, 3 quote inputs (`POLICIES.commercialQuoteFactors`), 98% on-time arrival, 85% repeat, 15-year average cleaner experience, 4.9 from 148 Google reviews, 1,500+ customers served.
 
+## SMS (added 2026-08-25)
+
+`sms/sms-touches.md` — but read its warning first. **Commercial SMS is not the same as residential SMS:** an Apollo-enriched phone number is not consent, and a cold text to a practice manager can cost the deal. The rule written there is that **no SMS goes to the medical batch #4 until the contact has engaged first.** The two drafted touches (Day 5 COI offer, Day 22 conditional close) are for warm commercial conversations only.
+
+## VSL integration (added 2026-08-25)
+
+Email 2 carries an optional VSL paragraph at the bottom of its file, framed as *something to forward* rather than "watch our video" — commercial buyers usually have to justify the choice to someone who was not on the call, so a shareable link does work an email cannot. Full rationale: `campaigns/vsl-exact-price/distribution-map.md`.
+
+**Before any push to GHL:** grep for `[VIDEO LINK]`. Nothing containing that placeholder may send.
+
 ## Merge fields (GHL)
 
 - `{{contact.first_name}}` — every email

@@ -43,6 +43,16 @@ Straight line. One CTA per email, phone-first.
 - Re-clean wording is client-reported: "tell us within 24 hours and we'll get a re-clean on the schedule right away, at no charge."
 - Quote validity: no claim that the quote is held forever, and no fake expiry — Email 4 names the real constraint (the schedule) instead.
 
+## SMS (added 2026-08-25)
+
+Two SMS touches in `sms/sms-touches.md` — Day 1 (spam rescue on the quote) and Day 6 (make the "no" easy). GHL SMS confirmed live by Todd. Email carries the sequence; SMS covers only the two moments where a text genuinely beats an email. An optional third VSL touch is documented there for once the video exists.
+
+## VSL integration (added 2026-08-25)
+
+Email 2 carries an **optional VSL variant** at the bottom of its file — swap the opening two paragraphs once "The Exact Price" video is produced. Email 2 is the right slot because the recipient already has their price and is comparing; the video explains why the number holds. Deliberately **not** in email 1 (delivering the number is that email's only job) or email 4 (asking for a decision, so a video reads as a stall). Full rationale: `campaigns/vsl-exact-price/distribution-map.md`.
+
+**Before any push to GHL:** grep the campaign for `[VIDEO LINK]`. Nothing containing that placeholder may send.
+
 ## Merge fields (GHL)
 
 - `{{contact.first_name}}` — used in every email.

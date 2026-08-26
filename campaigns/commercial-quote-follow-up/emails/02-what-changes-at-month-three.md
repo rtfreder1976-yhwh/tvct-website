@@ -56,3 +56,13 @@ If it would help to see the actual checklist we would run for your space, reply 
 Todd Frederickson
 The Valley Clean Team
 (256) 826-1100
+
+---
+
+## Optional: VSL variant
+
+Once "The Exact Price" video exists (`campaigns/vsl-exact-price/script.md`), this paragraph can be added directly above the sign-off. Do not send with `[VIDEO LINK]` unresolved.
+
+> If it is useful for whoever else is weighing this decision with you, we recorded a short explanation of how we price and how the checklist works — about three and a half minutes: [VIDEO LINK]
+
+**Why it is framed that way:** commercial buyers usually have to justify the choice to someone who was not on the call. A link they can forward does work an email cannot. Keep the framing as "something to pass along," never "watch our video" — the measured register applies.

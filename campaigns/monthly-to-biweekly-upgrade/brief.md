@@ -65,6 +65,12 @@ Three emails, not seven. These are current customers; over-selling them risks th
 - Signed Todd. Warm residential register, one dry aside maximum per email.
 - **No exclamation marks. No oversell words.**
 
+## SMS (added 2026-08-25)
+
+**One** touch only, in `sms/sms-touches.md`, Day 14, and only to customers who did not reply to any of the three emails. These are 11 existing customers; the relationship is worth more than the upgrade, and two texts about spending more money would damage something that currently works.
+
+**No VSL touch here** — deliberate. Existing customers do not need a prospect-facing explainer about pricing they have already lived. Sending it would read as condescending.
+
 ## Merge fields
 
 `{{contact.first_name}}` only. Deliberately no merge of their current price or next visit date — those risk being stale or wrong in a small list, and being wrong to an existing customer costs more than the personalization gains.

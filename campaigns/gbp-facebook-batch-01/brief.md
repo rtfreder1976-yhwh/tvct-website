@@ -38,6 +38,20 @@ All numbers from `src/data/claims.ts` at write time: from $200 / $276 / $351 / $
 - **LinkedIn:** once (Tue morning, week 2). Commercial audience only.
 - **Phones:** AL (256) 826-1100 is the default everywhere below. Any TN-targeted placement (TN-geo boost, Nashville-area group share, a TN GBP if one ever exists) swaps in (615) 510-1427.
 
+## VSL video cuts — batch 02 (planned 2026-08-25, blocked on production)
+
+Batch 01 is text and static images only. Once "The Exact Price" video exists (`campaigns/vsl-exact-price/script.md`), its five beats each yield a short vertical cut. **This is not written yet** — it needs the footage first, and captions must be burned in since most views are muted on mobile (74% of real AL/TN traffic).
+
+| Cut | Source beat | Runtime | Platform |
+| --- | --- | --- | --- |
+| "Not the cheapest. That's intentional." | Beat 1 | ~20s | Reels, GBP video, YouTube Short |
+| "Square footage + type of cleaning. That's the formula." | Beat 2 | ~35s | Reels, Facebook |
+| "44 items, same order, every visit" | Beat 3 | ~30s | Reels, GBP |
+| **"Who we're not for"** | Beat 4 | ~30s | Facebook, Reels — **the strongest cut**; the wrong-fit beat is the most shareable thing in the script |
+| "Call and you'll have your number" | Beat 5 | ~15s | GBP with Call now button |
+
+Full placement logic across every channel: `campaigns/vsl-exact-price/distribution-map.md`.
+
 ## Scheduling
 
 No scheduler is connected. GHL's social-posting API exists in the stack (`mcp__gohighlevel__social-media-posting_*`) and could queue these once accounts are linked — flagged as an option only; **not used**. All posts carry recommended times for manual posting after review.
