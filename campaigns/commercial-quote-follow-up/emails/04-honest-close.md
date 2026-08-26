@@ -41,7 +41,7 @@ Day 21, Tuesday-Thursday 9:00 AM CT. Three weeks respects a real approval or bud
 
 Hi {{contact.first_name}},
 
-This is my last note about the quote for {{contact.company_name}}. Three weeks feels like the right amount of follow-up, and past that it turns into pestering.
+This is my last note about your cleaning quote. Three weeks feels like the right amount of follow-up, and past that it turns into pestering.
 
 Any of these three is a genuinely useful answer:
 

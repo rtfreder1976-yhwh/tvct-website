@@ -28,7 +28,7 @@ That cuts two ways here, and both matter:
 1. **Do not create demand we cannot serve.** If eleven customers doubled frequency tomorrow, could the schedule absorb it? **Todd must answer this before the sequence sends.** Selling a slot we cannot staff converts a happy monthly customer into a churned one, and the data already shows that is exactly how we lose people.
 2. **Recurring slots are the scarce thing, and that is honest to say.** A biweekly customer holds a standing spot. That is a real, non-manufactured reason to act — but it must be stated as a fact, never as a countdown or a scarcity tactic.
 
-**Recommendation: hold this sequence until Todd confirms capacity headroom.** The copy is ready either way.
+✅ **RESOLVED 2026-08-25 — Todd confirmed the schedule can absorb the upgrades.** The sequence is cleared to send after Christen's copy review. Recommend still watching for any cancellation in the weeks following the send: if capacity gets tight, that shows up as churn in exactly the group we just moved.
 
 ## Sequence Type
 
@@ -75,7 +75,7 @@ Conversions out of 11, tracked manually in BookingKoala. Also worth watching: an
 
 ## Status
 
-draft — **blocked on Todd's capacity answer before it can send**
+draft — capacity cleared by Todd 2026-08-25; now awaiting Christen's copy review only
 
 ## Voice notes
 

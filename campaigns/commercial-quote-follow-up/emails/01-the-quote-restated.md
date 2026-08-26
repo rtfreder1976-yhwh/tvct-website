@@ -4,7 +4,7 @@ sequence: commercial-quote-follow-up
 purpose: Deliver/restate the quote and show the three inputs behind the number
 send_day: 0
 send_time: "Within 2 business hours of the quote going out"
-subject_line_a: "Your cleaning quote for {{contact.company_name}}"
+subject_line_a: "Your cleaning quote from The Valley Clean Team"
 subject_line_b: "Square footage, task list, visits per week"
 subject_line_c: "The quote, and how we built it"
 recommended_subject: "a"
@@ -17,9 +17,10 @@ status: draft
 
 ## Subject Line Variants
 
-### A: "Your cleaning quote for {{contact.company_name}}" — recommended
-Names the company, which gets it past a scanning facility manager and makes it findable later when they search their inbox during a comparison. Highest open for a delivery email.
-*(If `company_name` is unavailable in GHL, use: "Your cleaning quote from The Valley Clean Team")*
+### A: "Your cleaning quote from The Valley Clean Team" — recommended
+Names the sender, which makes the email findable later when the buyer searches their inbox during a vendor comparison. Highest open for a delivery email.
+
+> **Optional upgrade:** if GHL's standard Company Name field is populated for these contacts, `"Your cleaning quote for {{contact.company_name}}"` performs better — naming the buyer's own organization gets past a scanning facility manager. Verified 2026-08-25 that no *custom* `company_name` field exists in this location (60 contact fields checked); GHL's built-in standard field may still be available but could not be confirmed via API. **Send one test to yourself before using the merge version** — an unresolved tag renders as literal text to a prospect.
 
 ### B: "Square footage, task list, visits per week"
 The three inputs as the subject. Unusual enough to stand out, and it signals the quote is built from a method rather than a guess — which is the entire commercial angle.
@@ -42,7 +43,7 @@ Day 0, within 2 business hours of the quote. The 2-business-hour written quote i
 
 Hi {{contact.first_name}},
 
-Your quote for {{contact.company_name}} is attached, sent within two business hours as promised.
+Your cleaning quote is attached, sent within two business hours as promised.
 
 Three things set that number: the square footage of the space, the task list you want covered, and how many visits per week. Nothing else moves it. If any of those three change, the number changes and we will show you exactly how.
 

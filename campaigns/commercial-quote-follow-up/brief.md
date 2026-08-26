@@ -54,7 +54,7 @@ Straight line. One CTA per email.
 ## Merge fields (GHL)
 
 - `{{contact.first_name}}` — every email
-- `{{contact.company_name}}` — used in emails 1 and 4; **verify this field exists in GHL before push.** If it does not, the copy works with it removed (noted inline in each file).
+- ~~`{{contact.company_name}}`~~ **REMOVED 2026-08-25.** Verified against the GHL API: no custom `company_name` field exists in this location (all 60 contact custom fields checked). GHL's built-in *standard* Company Name field may still be available, but the API endpoint only returns custom fields so it could not be confirmed. Emails 1 and 4 now read naturally without it. Email 1 documents the optional merge upgrade if Todd confirms the standard field is populated — **test-send to yourself first**, since an unresolved tag renders as literal text to a prospect.
 - Quote amount is **not** merged — copy references "the quote we sent" so the sequence works without a custom field.
 
 ## Pairs with
