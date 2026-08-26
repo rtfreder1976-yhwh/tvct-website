@@ -525,6 +525,17 @@ export const allBlogPosts: BlogPost[] = [
     icon: "building",
   },
   {
+    slug: "commercial-cleaning-nashville-tn",
+    title: "Commercial Cleaning Services in Nashville, TN",
+    excerpt: "Commercial cleaning for Nashville offices, studios, medical suites and restaurants. Quoted from square footage, task list and visits per week, with a written quote within 2 business hours.",
+    category: "Commercial/B2B",
+    filterCategory: "industry",
+    categoryColor: "indigo",
+    date: "August 2025",
+    readTime: "11 min read",
+    icon: "building",
+  },
+  {
     slug: "commercial-cleaning-florence-al",
     title: "Commercial Cleaning Services in Florence, AL",
     excerpt: "Top-rated commercial cleaning in Florence, AL for offices, retail stores, and professional spaces. Serving the entire Shoals area.",
@@ -563,6 +574,18 @@ export const allBlogPosts: BlogPost[] = [
     readTime: "6 min read",
     icon: "home",
     image: "/images/gallery/move_out.webp",
+  },
+  {
+    slug: "move-out-cleaning-huntsville-al",
+    title: "Move-Out Cleaning in Huntsville, AL: What It Costs and What's Included",
+    excerpt:
+      "What move-out cleaning covers in Huntsville, what it costs, and how it maps to a landlord's inspection list — including notes for PCS moves through Redstone.",
+    category: "Move-Out Guide",
+    filterCategory: "move-out",
+    categoryColor: "blue",
+    date: "May 2025",
+    readTime: "9 min read",
+    icon: "home",
   },
   {
     slug: "is-hiring-house-cleaner-worth-it",
