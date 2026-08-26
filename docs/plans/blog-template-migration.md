@@ -1,8 +1,29 @@
 # Blog Template Migration + Named-Author E-E-A-T
 
-Status: **PLAN — pilot not yet started**
+Status: ✅ **COMPLETE — verified 2026-08-25**
 Owner: Todd
 Created: 2026-07-16
+Completed: verified 2026-08-25 (audit: `blog-template-migration-audit-2026-08-25.md`)
+
+> ⚠️ **This document's counts below are historical and were never updated as the
+> migration proceeded.** It said "~103 posts remaining" for weeks after the work
+> was actually finished, which kept phantom work on the roadmap. The verified
+> state as of 2026-08-25:
+>
+> - **107 of 107** blog posts render `BlogPostLayout` **and** `BlogByline`
+> - **0** still import `BaseLayout` or `SchemaMarkup` directly
+> - **0** inline `application/ld+json` blocks or hard-coded visible dates remain
+> - 37 posts are publish-gated (`prerender = false`) but fully migrated
+>
+> A guard now enforces this: `scripts/validate-blog-integrity.mjs`, wired into
+> `npm run validate:claims`. It fails the build on template drift, on orphaned
+> posts (file with no `blogPosts.ts` entry), and on dangling entries.
+>
+> **Still genuinely open, and NOT a template concern:** the stale-price flag list
+> further down was audited against a `$176` floor. `claims.ts` now says regular
+> from **$200**, so those specific numbers are themselves out of date. Re-run
+> that audit before acting on it — it is a pricing/content decision, not a
+> migration step.
 
 ## Goal
 

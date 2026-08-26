@@ -104,6 +104,8 @@ export const TRUST = {
   liabilityCoverageDisplay: "$2 million",
   // Not verified — Todd, 2026-08-23. Do not claim.
   workersComp: false,
+  // Confirmed FALSE by Todd 2026-08-24: "We are insured but not bonded." Never claim.
+  bonded: false,
   damageClaimsCoveredByInsurance: true,
   backgroundChecks: true,
   satisfactionGuarantee: true,
@@ -213,6 +215,14 @@ export const PERFORMANCE = {
   customersServed: 1500,
   customersServedDisplay: "1,500+",
   quoteResponseSla: "2 business hours",
+  /**
+   * Texts and messages get a near-immediate reply during business hours —
+   * Todd, 2026-08-24: "more like 15 seconds if they do something besides
+   * call, like message or SMS us." Published copy says "minutes" so the
+   * claim holds even when a reply takes longer; quoteResponseSla remains
+   * the written worst-case commitment.
+   */
+  textReplyDisplay: "Texts answered in minutes",
 } as const;
 
 /**

@@ -37,7 +37,7 @@ export const standaloneServiceIntent: Record<string, ServiceIntent> = {
     options: [
       { label: "Hire an individual cleaner", detail: "Personal service can work well, but backup coverage depends on that one person." },
       { label: "A large rotating provider", detail: "Broad coverage, but the specific cleaners may change from visit to visit." },
-      { label: "The Valley Clean Team", isUs: true, detail: "The same 44-item checklist every visit, backed by an insured and bonded company." },
+      { label: "The Valley Clean Team", isUs: true, detail: "The same 44-item checklist every visit, backed by $2 million in liability insurance." },
     ],
   },
   "move-in-out-cleaning": {
@@ -91,7 +91,7 @@ export const standaloneServiceIntent: Record<string, ServiceIntent> = {
     options: [
       { label: "An individual or gig cleaner", detail: "May offer flexibility and a low price; compare insurance, backup coverage, and consistency." },
       { label: "A large franchise", detail: "Provides broad coverage, though the assigned crew may change depending on scheduling." },
-      { label: "The Valley Clean Team", isUs: true, detail: "An insured, bonded, background-checked team with an upfront quote and consistent scheduling." },
+      { label: "The Valley Clean Team", isUs: true, detail: "An insured, background-checked team with an upfront quote and consistent scheduling." },
     ],
   },
   "medical-cleaning": {

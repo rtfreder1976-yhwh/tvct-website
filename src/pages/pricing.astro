@@ -4,7 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import TrustBadges from "../components/TrustBadges.astro";
 import SchemaMarkup from "../components/SchemaMarkup.astro";
 import Icon from "../components/Icon.astro";
-import { POLICIES, PRICING } from "../data/claims";
+import { POLICIES, PRICING, CHECKLIST, RECURRING_DISCOUNTS } from "../data/claims";
 import { MINIMUMS, startingPrice } from "../data/pricing";
 
 // Freshness signal: pricing is a recency-sensitive page. Keep this tied to the
@@ -60,8 +60,8 @@ const offerSchema = {
 ---
 
 <BaseLayout
-  title="Cleaning Prices — The Price Is the Price | Valley Clean Team"
-  description={`Regular from ${PRICING.regular.display}, deep from ${PRICING.deep.display}, move-out from ${PRICING.moveInOut.display}. Call with your square footage and the type of cleaning and you'll have your exact number before you hang up. The number we quote is the number we bill.`}
+  title={`Cleaning Prices: Regular ${PRICING.regular.display}, Deep ${PRICING.deep.display}, Move-Out ${PRICING.moveInOut.display}`}
+  description={`Real starting prices for AL & TN homes, recurring ${Math.round(RECURRING_DISCOUNTS.weekly * 100)}% / ${Math.round(RECURRING_DISCOUNTS.biweekly * 100)}% / ${Math.round(RECURRING_DISCOUNTS.monthly * 100)}% off, and what's on the ${CHECKLIST.standard}-item checklist. Call for your exact number. (256) 826-1100`}
   ogImage="https://thevalleycleanteam.com/og-image.png"
 >
   <SchemaMarkup type="organization" />

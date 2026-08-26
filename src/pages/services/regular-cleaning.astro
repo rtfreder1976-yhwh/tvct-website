@@ -6,11 +6,11 @@ import TrustBadges from "../../components/TrustBadges.astro";
 import Icon from "../../components/Icon.astro";
 import ProblemOptions from "../../components/ProblemOptions.astro";
 import { standaloneServiceIntent } from "../../data/serviceIntent.ts";
-import { RECURRING_PRICING } from "../../data/claims";
+import { RECURRING_PRICING, RECURRING_DISCOUNTS, PRICING, CHECKLIST } from "../../data/claims";
 
-const title = "Regular House Cleaning in Alabama & Tennessee";
+const title = `Regular House Cleaning from ${PRICING.regular.display}: Weekly Saves ${Math.round(RECURRING_DISCOUNTS.weekly * 100)}%`;
 const description =
-  "Trusted recurring maid service in Huntsville, AL & Nashville, TN. Weekly, bi-weekly & monthly plans. Save 20% on recurring bookings. Veteran-owned, 4.9★ from 148 reviews.";
+  `Regular cleaning from ${PRICING.regular.display}, ${CHECKLIST.standard}-item checklist every visit. Weekly ${Math.round(RECURRING_DISCOUNTS.weekly * 100)}% off, biweekly ${Math.round(RECURRING_DISCOUNTS.biweekly * 100)}%, monthly ${Math.round(RECURRING_DISCOUNTS.monthly * 100)}%. Exact number in one call. (256) 826-1100`;
 
 const serviceSchema = {
   "@context": "https://schema.org",
@@ -92,7 +92,7 @@ const faqs = [
   {
     question: "Are your cleaners background checked?",
     answer:
-      "Yes, every maid service team member undergoes thorough background checks. We're also fully insured with $2M liability coverage and bonded for your protection.",
+      "Yes, every maid service team member undergoes a thorough background check, and we carry $2 million in liability coverage on every visit.",
   },
 ];
 
@@ -243,9 +243,9 @@ const pricingPlans = [
 const benefits = [
   {
     icon: "clock",
-    title: "Reclaim Your Time",
+    title: "Your Weekends, Returned",
     description:
-      "Stop spending weekends cleaning. We handle it so you can enjoy life.",
+      "Stop spending Saturdays cleaning. We handle it on a schedule, the same way every visit.",
   },
   {
     icon: "heart",
@@ -763,7 +763,7 @@ import BookingCTA from "../../components/BookingCTA.astro";
         Ready for a <span class="gold-gradient">Consistently Clean Home</span>?
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Start your regular cleaning service today and reclaim your weekends
+        Start your regular cleaning service and get your weekends back
       </p>
       <div
         class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8"

@@ -88,8 +88,6 @@ export const serviceFloorAllowlist = [
   // --- blog: deep-clean ranges opening below the $276 floor ----------------
   { file: 'src/pages/blog/deep-cleaning-cost-shoals-guide.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
-  { file: 'src/pages/blog/how-to-budget-for-house-cleaning-services-in-2026.astro', count: 1,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
   { file: 'src/pages/blog/spring-cleaning-guide-athens-al.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
   { file: 'src/pages/blog/spring-cleaning-guide-florence-al.astro', count: 1,
@@ -109,20 +107,9 @@ export const serviceFloorAllowlist = [
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
   { file: 'src/pages/blog/reliable-cleaning-company-florence-al.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
-  { file: 'src/pages/blog/reliable-cleaning-company-huntsville-al.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
-  { file: 'src/pages/blog/reliable-cleaning-company-nashville-tn.astro', count: 2,
-    type: 'debt', expires: BACKLOG_EXPIRES, reason: MARKET_RANGE_AS_OURS },
 
   // --- move-out pages quoting below the $351 floor -------------------------
   { file: 'src/pages/blog/move-out-cleaning-costs-in-nashville-2026-updated-guide.astro', count: 1,
     type: 'debt', expires: BACKLOG_EXPIRES,
     reason: 'move-out answer block opens at $200; the move-in/out floor is $351' },
-  { file: 'src/pages/locations/decatur/move-out-cleaning.astro', count: 1,
-    type: 'debt', expires: BACKLOG_EXPIRES,
-    reason: 'move-out FAQ range opens at $200; the move-in/out floor is $351' },
-  { file: 'src/pages/locations/mountain-brook/move-out-cleaning.astro', count: 1,
-    type: 'debt', expires: BACKLOG_EXPIRES,
-    reason: 'states "starts at $350" — one dollar under the $351 floor; almost certainly a stale rounding of the old price' },
-
 ];
