@@ -1,0 +1,536 @@
+<title>Koalified Clip Plan v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    --ground:        #FAF9F8;
+    --surface:       #FFFFFF;
+    --surface-sunk:  #F2F0EE;
+    --ink:           #333333;
+    --ink-soft:      #6B6560;
+    --ink-faint:     #948D87;
+    --rule:          #E3DFDB;
+    --accent:        #FFA985;
+    --accent-deep:   #C4693C;
+    --warn:          #B4453C;
+    --warn-ground:   #FBF0EF;
+    --warn-rule:     #EBD3D0;
+    --ok:            #4A7C59;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:        #1A1817;
+      --surface:       #232120;
+      --surface-sunk:  #2C2927;
+      --ink:           #EDE9E5;
+      --ink-soft:      #B0A9A2;
+      --ink-faint:     #857E77;
+      --rule:          #3A3634;
+      --accent:        #FFA985;
+      --accent-deep:   #FFC29F;
+      --warn:          #E88A80;
+      --warn-ground:   #2E2321;
+      --warn-rule:     #4A3330;
+      --ok:            #8FBF9E;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:        #1A1817;
+    --surface:       #232120;
+    --surface-sunk:  #2C2927;
+    --ink:           #EDE9E5;
+    --ink-soft:      #B0A9A2;
+    --ink-faint:     #857E77;
+    --rule:          #3A3634;
+    --accent:        #FFA985;
+    --accent-deep:   #FFC29F;
+    --warn:          #E88A80;
+    --warn-ground:   #2E2321;
+    --warn-rule:     #4A3330;
+    --ok:            #8FBF9E;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 50rem; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+
+  /* ---- masthead ---- */
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: 1.75rem; margin-bottom: 2.5rem; }
+  .eyebrow {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent-deep); margin: 0 0 0.75rem;
+  }
+  h1 {
+    font-family: "Playfair Display", Georgia, serif; font-weight: 700;
+    font-size: clamp(2.1rem, 5.5vw, 3rem); line-height: 1.1;
+    margin: 0 0 0.75rem; text-wrap: balance; letter-spacing: -0.01em;
+  }
+  .standfirst { font-size: 1.0625rem; color: var(--ink-soft); margin: 0; max-width: 40rem; }
+
+  .meta { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.5rem; }
+  .meta div { font-size: 0.8125rem; }
+  .meta dt {
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.15rem;
+  }
+  .meta dd { margin: 0; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  /* ---- how to use ---- */
+  .howto {
+    background: var(--surface-sunk); border-radius: 4px;
+    padding: 1.25rem 1.5rem; margin-bottom: 3rem;
+  }
+  .howto p { margin: 0 0 0.6rem; font-size: 0.9375rem; }
+  .howto p:last-child { margin-bottom: 0; }
+  .howto strong { font-weight: 600; }
+
+  /* ---- section headers ---- */
+  h2 {
+    font-family: "Playfair Display", Georgia, serif; font-weight: 700;
+    font-size: 1.6rem; margin: 3.5rem 0 0.4rem; text-wrap: balance;
+  }
+  h2:first-of-type { margin-top: 0; }
+  .section-note { color: var(--ink-soft); font-size: 0.9375rem; margin: 0 0 1.75rem; }
+
+  /* ---- clip cards ---- */
+  .clip {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 1.5rem 1.75rem; margin-bottom: 1rem;
+  }
+  .clip-head {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    flex-wrap: wrap; margin-bottom: 0.9rem;
+  }
+  .rank {
+    font-family: "Playfair Display", Georgia, serif; font-size: 1.5rem;
+    font-weight: 700; color: var(--accent-deep); line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .clip-title { font-size: 1.0625rem; font-weight: 600; margin: 0; flex: 1 1 14rem; }
+  .tc {
+    font-size: 0.8125rem; font-weight: 600; font-variant-numeric: tabular-nums;
+    color: var(--ink); background: var(--surface-sunk);
+    padding: 0.2rem 0.55rem; border-radius: 3px; white-space: nowrap;
+  }
+  .run { font-size: 0.8125rem; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+
+  blockquote {
+    margin: 0 0 0.9rem; padding-left: 1rem;
+    border-left: 3px solid var(--accent); color: var(--ink);
+    font-size: 0.9375rem;
+  }
+  blockquote p { margin: 0 0 0.5rem; }
+  blockquote p:last-child { margin-bottom: 0; }
+  .who { font-weight: 600; color: var(--accent-deep); }
+
+  .why { font-size: 0.9375rem; color: var(--ink-soft); margin: 0 0 0.9rem; }
+  .why strong { color: var(--ink); font-weight: 600; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--ink-soft);
+    border: 1px solid var(--rule); border-radius: 99px; padding: 0.2rem 0.6rem;
+  }
+
+  .editor-note {
+    margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px dashed var(--rule);
+    font-size: 0.875rem; color: var(--ink-soft);
+  }
+  .editor-note strong { color: var(--ink); font-weight: 600; }
+
+  /* ---- christen list ---- */
+  ol.christen { list-style: none; padding: 0; margin: 0; counter-reset: c; }
+  ol.christen li {
+    counter-increment: c; position: relative;
+    padding: 0 0 1.1rem 2.4rem; margin-bottom: 1.1rem;
+    border-bottom: 1px solid var(--rule); font-size: 0.9375rem;
+  }
+  ol.christen li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  ol.christen li::before {
+    content: counter(c); position: absolute; left: 0; top: 0.05rem;
+    font-size: 0.8125rem; font-weight: 700; color: var(--accent-deep);
+    font-variant-numeric: tabular-nums;
+  }
+  ol.christen q { font-style: normal; font-weight: 500; }
+  ol.christen .tc { margin-left: 0.4rem; }
+  ol.christen .gloss { display: block; color: var(--ink-soft); margin-top: 0.3rem; font-size: 0.875rem; }
+
+  /* ---- flags ---- */
+  .flag {
+    background: var(--warn-ground); border: 1px solid var(--warn-rule);
+    border-radius: 4px; padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+  }
+  .flag h3 {
+    font-size: 0.9375rem; font-weight: 700; margin: 0 0 0.5rem; color: var(--warn);
+    display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .flag p { margin: 0 0 0.55rem; font-size: 0.9375rem; }
+  .flag p:last-child { margin-bottom: 0; }
+  .flag .tc { background: var(--surface); }
+
+  .clear {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-left: 3px solid var(--ok);
+    border-radius: 4px; padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+  }
+  .clear h3 { font-size: 0.9375rem; font-weight: 700; margin: 0 0 0.5rem; color: var(--ok); }
+  .clear p { margin: 0 0 0.55rem; font-size: 0.9375rem; }
+  .clear p:last-child { margin-bottom: 0; }
+
+  /* ---- changes table ---- */
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th, td { text-align: left; padding: 0.6rem 0.9rem 0.6rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th {
+    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  td s { color: var(--ink-faint); text-decoration-thickness: 1px; }
+
+  footer {
+    margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--ink-faint);
+  }
+  footer p { margin: 0 0 0.4rem; }
+
+  a { color: var(--accent-deep); text-underline-offset: 2px; }
+  a:focus-visible, .tag:focus-visible { outline: 2px solid var(--accent-deep); outline-offset: 2px; }
+
+  @media (max-width: 34rem) {
+    .wrap { padding: 2.5rem 1.1rem 4rem; }
+    .clip { padding: 1.25rem 1.15rem; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">For Christen &middot; second pass</p>
+    <h1>Koalified Clip Plan v2</h1>
+    <p class="standfirst">Fourteen new short-form cuts from the BookingKoala podcast interview &mdash; moments the first pass missed. Nothing here overlaps the eight clips or six quote cards already made.</p>
+    <dl class="meta">
+      <div><dt>Source</dt><dd>2h 39m interview</dd></div>
+      <div><dt>New cuts</dt><dd>14 (+1 optional)</dd></div>
+      <div><dt>Christen-led</dt><dd>6 of 14</dd></div>
+      <div><dt>Status</dt><dd>Draft &mdash; nothing published</dd></div>
+    </dl>
+  </header>
+
+  <div class="howto">
+    <p><strong>What we need from you:</strong> a yes, a no, or a note on each cut. The timecodes are for whoever edits &mdash; you don't need to check those.</p>
+    <p><strong>One thing needs your explicit permission:</strong> see the last flag at the bottom. It's about you, and nothing happens with it unless you say so.</p>
+  </div>
+
+  <h2>The cuts</h2>
+  <p class="section-note">Ranked strongest first. Runtimes are the full version; most have a shorter alternate noted.</p>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">1</span>
+      <h3 class="clip-title">&ldquo;The next year, my father died&rdquo;</h3>
+      <span class="tc">02:31:37</span><span class="run">~35s</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Host:</span> &ldquo;First, are you guys happy? Just overall, in life&hellip;&rdquo;</p>
+      <p><span class="who">Christen:</span> &ldquo;Yes. We have had a lot of hard knocks as we have mentioned and some we haven't mentioned.&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;Yeah. I'll mention it now&hellip; my daughter was born in 2021. Like the next year, my father died&hellip; But yes, we are&hellip;&rdquo;</p>
+    </blockquote>
+    <p class="why">The most vulnerable turn in the interview, and pass 1 missed it entirely. A soft question, Christen's &ldquo;some we haven't mentioned,&rdquo; then Todd volunteers the thing they'd left out. <strong>The answer is still yes</strong> &mdash; that's the whole cut.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">Facebook</span><span class="tag">YT Short</span></div>
+    <p class="editor-note"><strong>Keep separate</strong> from the already-made &ldquo;Welcome home&rdquo; clip about Todd's father. It's stronger standing alone.</p>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">2</span>
+      <h3 class="clip-title">The master key to every house on the market</h3>
+      <span class="tc">02:12:05</span><span class="run">~67s &middot; 28s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Todd:</span> &ldquo;We went into a realtor's association. No other cleaning companies are in the realtor's association at all&hellip; you get access to every lockbox&hellip; We already have our own master key to every property that's on the MLS. And they're just like, oh, you do. That's great.&rdquo;</p>
+      <p><span class="who">Christen:</span> &ldquo;It was a small amount&hellip; if we don't get this to work, then it's just a couple hundred bucks or whatever.&rdquo;</p>
+    </blockquote>
+    <p class="why">The best teachable moment in the interview, and nobody else in the industry is doing it. Specific, repeatable, and it has a real <strong>&ldquo;wait, you can do that?&rdquo;</strong> payoff.</p>
+    <div class="tags"><span class="tag">TikTok</span><span class="tag">Reel</span><span class="tag">LinkedIn</span><span class="tag">YT Short</span></div>
+    <p class="editor-note">Keep the fee vague (&ldquo;a couple hundred bucks&rdquo;) rather than stating a precise figure.</p>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">3</span>
+      <h3 class="clip-title">&ldquo;You can't clean in the dark&rdquo;</h3>
+      <span class="tc">01:25:17</span><span class="run">~41s &middot; 20s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Todd:</span> &ldquo;A lot of cleaners are like, oh, I would love to take that four p.m. start job for a three thousand square foot house. And I'm like, no, you can't clean in the dark. You can't clean windows. There's no sunlight, because that regular light don't work&hellip;&rdquo;</p>
+      <p><span class="who">Christen:</span> &ldquo;You can't clean in the dark.&rdquo;</p>
+    </blockquote>
+    <p class="why">A genuinely surprising, physically true detail almost no homeowner knows &mdash; sunlight shows streaks lamp light hides. It also quietly explains a policy people push back on, without sounding like a rule. <strong>The most algorithm-friendly cut in the batch.</strong></p>
+    <div class="tags"><span class="tag">TikTok</span><span class="tag">Reel</span><span class="tag">YT Short</span></div>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">4</span>
+      <h3 class="clip-title">Walking away from the apartment complex</h3>
+      <span class="tc">01:27:51</span><span class="run">~61s &middot; 30s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;So, I'm the contract reader. You just gotta say no. And I immediately, I'm like, nope.&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;I don't care how much money this is. We're not in this.&rdquo;</p>
+      <p><span class="who">Christen:</span> &ldquo;And every contract is negotiable. And if this contract is not negotiable, they're not going to be good business partners.&rdquo;</p>
+    </blockquote>
+    <p class="why">Big money on the table, and they walk. Christen's line is <strong>the sharpest thing she says all interview</strong> and a genuinely useful heuristic. Both voices trade cleanly, so it reads as a partnership rather than a monologue.</p>
+    <div class="tags"><span class="tag">LinkedIn</span><span class="tag">Reel</span><span class="tag">TikTok</span></div>
+    <p class="editor-note"><strong>Careful with the number.</strong> The $5 million policy is what <em>they demanded</em>, not what we carry (we carry $2M). Safest: caption it &ldquo;a multi-million-dollar policy&rdquo; and skip the figure.</p>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">5</span>
+      <h3 class="clip-title">&ldquo;We said no to a corporate account&rdquo;</h3>
+      <span class="tc">00:50:36</span><span class="run">~29s</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;We can say no to this corporate account, even though it's going to be a lot of money, but we really want to make sure that this provider is happy&hellip; Because the provider is more important to us than that contract is.&rdquo;</p>
+    </blockquote>
+    <p class="why">Christen alone, one breath, a real decision with a cost. Most companies make this claim; almost none can point to a turned-down check. Pairs with #4 as a two-part &ldquo;what we say no to&rdquo; series.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">LinkedIn</span><span class="tag">Quote card</span></div>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">6</span>
+      <h3 class="clip-title">&ldquo;I smell lemon&rdquo;</h3>
+      <span class="tc">01:14:12</span><span class="run">~48s &middot; 25s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Todd:</span> &ldquo;I'm always on the lookout for things to clean and people to do it. So I've been to a store and I'm like, hey, I smell lemon. Let's see. Okay, who's in the bathroom? And I'll literally walk up and say&hellip; do you do employees or do you like a contract?&hellip; So I don't have any shame when it comes to that stuff.&rdquo;</p>
+    </blockquote>
+    <p class="why">Specific, funny, repeatable. A concrete recruiting tactic disguised as a personality quirk &mdash; it lands as a bit rather than advice.</p>
+    <div class="tags"><span class="tag">TikTok</span><span class="tag">Reel</span><span class="tag">YT Short</span></div>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">7</span>
+      <h3 class="clip-title">The death stare in the store</h3>
+      <span class="tc">01:15:31 + 01:18:44</span><span class="run">~50s two-part</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;He's the extrovert of the relationship. I'm definitely more in my head&hellip;&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;&hellip;a two second thing that you say ends up in a fifteen minute conversation.&rdquo;</p>
+      <p><span class="who">Christen:</span> &ldquo;She's standing holding the bags, giving me the death stare. And I'm like, okay, time to go.&rdquo;</p>
+    </blockquote>
+    <p class="why">The funniest exchange in the interview, skipped entirely by pass 1. <strong>Christen gets the laugh line</strong> &mdash; exactly the kind of moment that makes a two-owner business feel like real people.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">TikTok</span><span class="tag">Facebook</span></div>
+    <p class="editor-note">&ldquo;Golden retriever energy&rdquo; is <strong>the host's</strong> phrase, not Todd's. Use as on-screen text, don't attribute it to him.</p>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">8</span>
+      <h3 class="clip-title">&ldquo;$250,000 in year one&rdquo;</h3>
+      <span class="tc">01:55:44</span><span class="run">~36s</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Host:</span> &ldquo;How much revenue have you guys done this year?&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;We're expected to close out probably 250,000 is our projection right now.&rdquo;</p>
+      <p><span class="who">Host:</span> &ldquo;That's amazing. Congratulations. Because first year, those are big numbers.&rdquo;</p>
+    </blockquote>
+    <p class="why">The one hard business number pass 1 didn't take &mdash; attached to a company started with under $5K, no loan, in the same year as a broken leg, a layoff, a newborn, and a death in the family. The host's reaction does the selling.</p>
+    <div class="tags"><span class="tag">LinkedIn</span><span class="tag">TikTok</span><span class="tag">YT Short</span></div>
+    <p class="editor-note">Extend to <strong>01:56:47</strong> to end on &ldquo;we're just very blessed&hellip; and we're just thankful&rdquo; &mdash; recommended, it keeps the number from reading as a flex.</p>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">9</span>
+      <h3 class="clip-title">&ldquo;They don't want to be a number&rdquo;</h3>
+      <span class="tc">01:46:36</span><span class="run">~38s</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;Be honest with your clients. When we first started, we were like, hey, you're our very first clean&hellip; get their buy-in, make them part of your success. Because they don't want to feel like a number.&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;&hellip;like you're taking a chance on us. And so let us help you help us.&rdquo;</p>
+    </blockquote>
+    <p class="why">Christen-led, teachable, quietly contrarian: most new businesses hide their newness, and she says tell them. A clean principle with an actual mechanism under it.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">LinkedIn</span><span class="tag">TikTok</span><span class="tag">Quote card</span></div>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">10</span>
+      <h3 class="clip-title">&ldquo;Because they're a house cleaner, they're not valued&rdquo;</h3>
+      <span class="tc">01:01:19</span><span class="run">~40s &middot; 22s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;These people&hellip; doing this hard work that requires attention to detail and planning and follow through and time management&hellip; but because they're a house cleaner, they're not valued in our society. And we don't just run the business. We actually do the work too.&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;Go see how much it takes after you go clean five thousand square feet of a hard pine floor.&rdquo;</p>
+    </blockquote>
+    <p class="why">A contrarian claim with real heat behind it. The turn is <strong>&ldquo;we actually do the work too&rdquo;</strong> &mdash; it converts an opinion into a credential. Todd's pine-floor line keeps it concrete instead of preachy.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">TikTok</span><span class="tag">Facebook</span><span class="tag">Quote card</span></div>
+    <p class="editor-note"><strong>Timecode needs a spot-check</strong> before cutting &mdash; see the note at the bottom.</p>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">11</span>
+      <h3 class="clip-title">&ldquo;Could you be dehydrated?&rdquo;</h3>
+      <span class="tc">01:00:20</span><span class="run">~44s &middot; 23s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;Oh, I forgot to have lunch. I'm in somebody's shower. I'm sorry &mdash; what did you say?&hellip; Not doing that.&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;We really have to look out for our providers&hellip; So I got to make sure &mdash; hey, you're slowing down over there. Could you be dehydrated?&rdquo;</p>
+    </blockquote>
+    <p class="why">The most unexpectedly specific care detail in the interview. Not a policy &mdash; a person actually watching. This is the concrete version of what the 50/50 clip says abstractly.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">TikTok</span><span class="tag">Facebook</span></div>
+    <p class="editor-note">Keep Todd's full phrasing intact. Don't trim it in a way that implies an employment relationship, and don't use it to argue about labor models. <strong>It works as care.</strong></p>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">12</span>
+      <h3 class="clip-title">&ldquo;We're not like the cable guy&rdquo;</h3>
+      <span class="tc">01:30:52</span><span class="run">~46s &middot; 25s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Todd:</span> &ldquo;We're not like the cable guy who you have to wait one to five hours on&hellip; everybody's waited on a plumber and then you took a half day off work and it turned into a whole day&hellip; We set the appointment at 9 a.m. So we're going to be there at 9 a.m. We don't have any wiggle room. There is no range.&rdquo;</p>
+      <p>&ldquo;I can think of one time we were late and it was like a state funeral or something.&rdquo;</p>
+    </blockquote>
+    <p class="why">Universal grievance &rarr; specific promise &rarr; a funny, credible exception. A complete three-beat structure inside 45 seconds, which is rare. <strong>The best purely customer-facing clip here</strong> &mdash; it sells a real differentiator without touching price.</p>
+    <div class="tags"><span class="tag">Facebook</span><span class="tag">Reel</span><span class="tag">TikTok</span><span class="tag">YT Short</span></div>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">13</span>
+      <h3 class="clip-title">&ldquo;Failure is the greatest teacher&rdquo;</h3>
+      <span class="tc">02:34:23</span><span class="run">~49s</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;Many things can be true at the same time&hellip; failure is the greatest teacher.&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;Because I have failed&hellip; scarcity and failure give you an opportunity to pick yourself back up off the mat and to innovate. And I innovate every day. So, today was to innovate how to get chocolate milk.&rdquo;</p>
+    </blockquote>
+    <p class="why">Would be a platitude, except Todd immediately undercuts it with chocolate milk &mdash; which is exactly the witty-not-funny register. <strong>The undercut is the reason to cut this.</strong> Christen's &ldquo;many things can be true at the same time&rdquo; is the better quote card.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">TikTok</span><span class="tag">Quote card</span></div>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">14</span>
+      <h3 class="clip-title">&ldquo;You're just older and still confused&rdquo;</h3>
+      <span class="tc">02:35:22</span><span class="run">~48s &middot; 25s tight</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Host:</span> &ldquo;What advice would you both give to your 10-year-old selves?&rdquo;</p>
+      <p><span class="who">Christen:</span> &ldquo;You don't have to do all the things. You don't have to do them all. And that's okay.&rdquo;</p>
+      <p><span class="who">Todd:</span> &ldquo;Have fun while you can&hellip; You don't have it all figured out. You're just older and still confused.&rdquo;</p>
+    </blockquote>
+    <p class="why">The natural closer. Both owners answer the same question in one take &mdash; the cleanest two-voice moment in the interview. Christen's line is the through-line of her whole appearance.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">TikTok</span><span class="tag">YT Short</span><span class="tag">Split quote card</span></div>
+  </article>
+
+  <article class="clip">
+    <div class="clip-head">
+      <span class="rank">+1</span>
+      <h3 class="clip-title">Christen cleans after bedtime <span style="font-weight:400;color:var(--ink-faint)">&mdash; optional</span></h3>
+      <span class="tc">01:33:53</span><span class="run">~33s trimmed</span>
+    </div>
+    <blockquote>
+      <p><span class="who">Christen:</span> &ldquo;I like to do the commercial jobs after Charlotte goes to sleep&hellip; it's nothing I ever thought I would be doing&hellip; there's something that I need to help with with our company. And I don't know yet what that exactly is. And it turned out, it's teaching people.&rdquo;</p>
+    </blockquote>
+    <p class="why">Strong owner-does-the-work proof, and a real story with a turn &mdash; she went looking for her role and found it by accident. Only outside the main ranking because the audio wanders and needs careful trimming.</p>
+    <div class="tags"><span class="tag">Reel</span><span class="tag">LinkedIn</span></div>
+  </article>
+
+  <h2>Your strongest material</h2>
+  <p class="section-note">Pass 1 credited you with two moments. You carry considerably more than that &mdash; here it is ranked, in case any of these are worth a quote card on their own.</p>
+
+  <ol class="christen">
+    <li><q>Every contract is negotiable. And if this contract is not negotiable, they're not going to be good business partners.</q> <span class="tc">01:28:31</span><span class="gloss">Your sharpest line in the interview.</span></li>
+    <li><q>The provider is more important to us than that contract is.</q> <span class="tc">00:50:57</span><span class="gloss">A values claim with a turned-down check behind it.</span></li>
+    <li><q>Because they're a house cleaner, they're not valued in our society. And we don't just run the business. We actually do the work too.</q> <span class="tc">01:01:33</span><span class="gloss">Your most forceful delivery.</span></li>
+    <li><q>You don't have to do all the things. You don't have to do them all. And that's okay.</q> <span class="tc">02:35:36</span><span class="gloss">Your thesis, said plainly.</span></li>
+    <li><q>Make them part of your success. Because they don't want to feel like a number.</q> <span class="tc">01:46:52</span><span class="gloss">Teachable, and specific about how.</span></li>
+    <li><q>She's standing holding the bags, giving me the death stare.</q> <span class="tc">01:19:18</span><span class="gloss">Your funniest moment.</span></li>
+    <li><q>Many things can be true at the same time.</q> <span class="tc">02:34:27</span><span class="gloss">The best single-sentence quote card in the whole batch.</span></li>
+  </ol>
+
+  <h2>Flags</h2>
+  <p class="section-note">Things the editor must not cut, or must handle carefully. Two are good news.</p>
+
+  <div class="clear">
+    <h3>Cleared &mdash; Air Force is correct, and it's on tape</h3>
+    <p>Todd names it himself: <em>&ldquo;I went to the Air Force, was in the National Guard reserve component of the Air Force, spent 10 years in that.&rdquo;</em> <span class="tc">00:16:10</span></p>
+    <p>The word &ldquo;Army&rdquo; appears <strong>nowhere</strong> in two hours and thirty-nine minutes. That error was entirely ours in the website copy &mdash; never yours, and never on tape.</p>
+  </div>
+
+  <div class="clear">
+    <h3>Cleared &mdash; no &ldquo;bonded&rdquo; claim anywhere</h3>
+    <p>Neither &ldquo;bonded&rdquo; nor &ldquo;bond&rdquo; appears in the transcript. The only insurance discussion is about what a prospective client demanded, not what we carry.</p>
+  </div>
+
+  <div class="flag">
+    <h3>Fix needed in a clip that's already made</h3>
+    <p>The dementia-client clip from pass 1 starts at 01:06:43 &mdash; which includes Todd saying <em>&ldquo;I'm 75 bucks or something&rdquo;</em> at <span class="tc">01:06:55</span>. Regular cleaning is now from $200, so a stray &ldquo;$75&rdquo; on screen is a retired price.</p>
+    <p><strong>Move the in-point to 01:06:59</strong> to start after it.</p>
+  </div>
+
+  <div class="flag">
+    <h3>Numbers that can't be published as-is</h3>
+    <p><strong>Provider pay range</strong> &mdash; &ldquo;$25 to $55 an hour&rdquo; <span class="tc">01:21:56</span>. A year old; re-verify before using as a recruiting claim.</p>
+    <p><strong>Review count</strong> &mdash; a garbled goal figure around 01:59. Canonical is 4.9 from 148.</p>
+    <p><strong>BookingKoala's software pricing</strong> &mdash; quoted by the host <span class="tc">01:39:59</span>. Not our price, and possibly stale.</p>
+  </div>
+
+  <div class="flag">
+    <h3>Don't sharpen the contractor material</h3>
+    <p>Todd's &ldquo;they're not employees, but they're still humans&rdquo; is fine <em>inside</em> cut #11 with the full phrasing. But no clip should argue that subcontracting is better for cleaners than employment &mdash; the interview doesn't make that argument, and neither should we.</p>
+  </div>
+
+  <div class="flag">
+    <h3>This one is yours to decide</h3>
+    <p>At <span class="tc">02:33:07</span> you say: <em>&ldquo;we haven't always been happy. And I myself had many years of struggle with mental health, depression and things of that nature. And been through a lot.&rdquo;</em></p>
+    <p>It's genuine and it's well said, and it would almost certainly perform. <strong>We have not cut it and won't unless you say so.</strong> It's your health history, and turning that into marketing without your explicit yes would be wrong regardless of how it would do.</p>
+    <p>If you do want it used, the natural window is 02:33:00&ndash;02:33:50, ending on <em>&ldquo;that cultivation of gratitude&hellip; has really gotten me and us through a lot of things.&rdquo;</em></p>
+  </div>
+
+  <h2>Also fixed in the older campaign</h2>
+  <p class="section-note">The rest of the podcast campaign was written five weeks ago and had gone stale. Corrected throughout:</p>
+
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th>Was</th><th>Now</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><s>Standard from $176</s></td><td>from $200</td><td>Current canonical floor</td></tr>
+        <tr><td><s>&ldquo;Get a free quote&rdquo;</s></td><td>&ldquo;Your exact price&rdquo;</td><td>A quote is a number, not a gift</td></tr>
+        <tr><td><s>&ldquo;premium cleaning company&rdquo;</s></td><td>&ldquo;cleaning company&rdquo;</td><td>We don't announce premium</td></tr>
+        <tr><td><s>&ldquo;Most cleaning companies pay their cleaners around 20%&hellip;&rdquo;</s></td><td>Removed</td><td>Publishing competitors' pay invites a fight we gain nothing from</td></tr>
+        <tr><td><s>&ldquo;$10 an hour elsewhere&rdquo;</s></td><td>Removed</td><td>Same reason</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="why" style="margin-top:1rem">The 50/50 split, provider autonomy, and the dementia-client story all survive &mdash; those are the substance. What went was the comparison wrapped around them.</p>
+
+  <footer>
+    <p><strong>Two timecodes need a spot-check before cutting:</strong> #10 and #11. The machine transcript's stamps drift against the surrounding dialogue in those two windows. Anchor phrases to search for: &ldquo;because they're a house cleaner&rdquo; and &ldquo;Could you be dehydrated?&rdquo;</p>
+    <p>Caption spellings the machine transcript gets wrong: <strong>Christen</strong> (not Kristin), <strong>Koalified</strong> (not qualified), <strong>TVA</strong>, <strong>BookingKoala</strong>, <strong>BNI</strong>.</p>
+    <p>Prepared 25 August 2026 &middot; nothing in this document has been published.</p>
+  </footer>
+
+</div>

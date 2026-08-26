@@ -1,4 +1,15 @@
-# Koalified Podcast — Short-Clip & Pull-Quote Plan
+# Koalified Podcast — Short-Clip & Pull-Quote Plan (PASS 1)
+
+> ## ⚠️ This is PASS 1. It is not the current plan.
+>
+> **The current plan is [`clip-plan-v2-2026-08-25.md`](./clip-plan-v2-2026-08-25.md)** — 14 additional cuts, created 2026-08-25.
+>
+> **Keep this file.** It is not superseded, it is the *other half*:
+> - The 8 clips and 6 quote cards below are the ones already selected. v2 deliberately does not overlap them, and lists them as off-limits.
+> - The 6 quote-card graphics in `../social/quote-cards/` were made from these.
+> - **One correction to apply here:** Clip 4 (dementia client) has an in-point of 01:06:43, which includes Todd saying "I'm 75 bucks or something" at 01:06:55. That is a retired price (regular is now from $200). **Move the in-point to 01:06:59.**
+>
+> Read both files together. Pass 1 = what's claimed; v2 = what's new.
 
 **The Valley Clean Team (Todd & Christen Frederickson)**
 Source video (2h39m): https://assets.cdn.filesafe.space/iKQIBhpKVL2XVPgU7HMd/media/69cd47d64ee1429efc165296.mp4
