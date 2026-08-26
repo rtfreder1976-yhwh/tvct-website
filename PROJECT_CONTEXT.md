@@ -58,7 +58,9 @@ BookingKoala is the customer quoting/booking system.
 
 ### Careers
 
-The old cleaner application form is disabled. Cleaner recruiting will use a dedicated BookingKoala 2 application form once its final URL is supplied. Do not route cleaner applications through customer-lead infrastructure.
+Cleaner applications are owned by BookingKoala. `/careers` is a live 301 to the dedicated hiring form at `thevalleycleanteam.bookingkoala.com/hiring/form/careers` (confirmed live 2026-08-25). The old site-hosted application form stays retired.
+
+Do not route cleaner applications through customer-lead infrastructure. That separation is the point of this section and it has not changed.
 
 ### Newsletter
 
@@ -103,7 +105,7 @@ GitHub Actions additionally validates generated JSON-LD and retired Offer-price 
 
 ## Current deferred work
 
-- Connect `/careers` to the new BookingKoala 2 cleaner application URL when supplied.
+- ~~Connect `/careers` to the new BookingKoala 2 cleaner application URL when supplied.~~ **Done** — `/careers` 301s to the live hiring form (confirmed 2026-08-25).
 - Decide whether a newsletter is still desired and, if so, choose a dedicated destination before re-enabling signup.
 - Continue security-header hardening and production smoke testing as separate, current-main work.
 
