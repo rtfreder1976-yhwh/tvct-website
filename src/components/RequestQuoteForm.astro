@@ -1,0 +1,169 @@
+---
+import Icon from "./Icon.astro";
+import { PERFORMANCE } from "../data/claims.ts";
+
+const SERVICE_OPTIONS = [
+  { value: "regular", label: "Regular Cleaning" },
+  { value: "deep", label: "Deep Cleaning" },
+  { value: "moveInOut", label: "Move-In / Move-Out" },
+  { value: "airbnbTurnover", label: "Airbnb Turnover" },
+  { value: "postConstruction", label: "Post-Construction" },
+  { value: "commercial", label: "Commercial / Office" },
+];
+
+const CITY_OPTIONS = [
+  "Huntsville, AL",
+  "Madison, AL",
+  "Athens, AL",
+  "Florence, AL",
+  "Muscle Shoals, AL",
+  "Mountain Brook, AL",
+  "Nashville, TN",
+  "Other",
+];
+---
+
+<form id="request-quote-form" class="space-y-4" novalidate>
+  <!-- Honeypot: hidden from real users via CSS, bots fill every field -->
+  <div class="absolute -left-[9999px]" aria-hidden="true">
+    <label for="website">Leave this field blank</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-4">
+    <div>
+      <label for="name" class="block text-sm font-semibold text-gray-700 mb-1">Name *</label>
+      <input type="text" id="name" name="name" required autocomplete="name"
+        class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
+    </div>
+    <div>
+      <label for="phone" class="block text-sm font-semibold text-gray-700 mb-1">Phone *</label>
+      <input type="tel" id="phone" name="phone" required autocomplete="tel"
+        class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
+    </div>
+  </div>
+
+  <div>
+    <label for="email" class="block text-sm font-semibold text-gray-700 mb-1">Email *</label>
+    <input type="email" id="email" name="email" required autocomplete="email"
+      class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
+  </div>
+
+  <div class="grid sm:grid-cols-2 gap-4">
+    <div>
+      <label for="serviceType" class="block text-sm font-semibold text-gray-700 mb-1">Service Type *</label>
+      <select id="serviceType" name="serviceType" required
+        class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent">
+        <option value="" disabled selected>Select a service</option>
+        {SERVICE_OPTIONS.map((opt) => (
+          <option value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
+    </div>
+    <div>
+      <label for="city" class="block text-sm font-semibold text-gray-700 mb-1">City / Area *</label>
+      <select id="city" name="city" required
+        class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent">
+        <option value="" disabled selected>Select your area</option>
+        {CITY_OPTIONS.map((city) => (
+          <option value={city}>{city}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label for="sqft" class="block text-sm font-semibold text-gray-700 mb-1">Approx. Square Footage <span class="font-normal text-gray-400">(optional)</span></label>
+    <input type="number" id="sqft" name="sqft" min="0" step="1" inputmode="numeric" placeholder="e.g. 1800"
+      class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
+  </div>
+
+  <fieldset>
+    <legend class="block text-sm font-semibold text-gray-700 mb-1">Preferred contact method</legend>
+    <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+      <label class="inline-flex items-center gap-1.5">
+        <input type="radio" name="preferredContact" value="either" checked class="text-[#FFA985] focus:ring-[#FFA985]" />
+        Either
+      </label>
+      <label class="inline-flex items-center gap-1.5">
+        <input type="radio" name="preferredContact" value="text" class="text-[#FFA985] focus:ring-[#FFA985]" />
+        Text
+      </label>
+      <label class="inline-flex items-center gap-1.5">
+        <input type="radio" name="preferredContact" value="email" class="text-[#FFA985] focus:ring-[#FFA985]" />
+        Email
+      </label>
+    </div>
+  </fieldset>
+
+  <div>
+    <label for="message" class="block text-sm font-semibold text-gray-700 mb-1">Anything else we should know? <span class="font-normal text-gray-400">(optional)</span></label>
+    <textarea id="message" name="message" rows="3"
+      class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent"></textarea>
+  </div>
+
+  <p id="request-quote-error" class="hidden text-sm text-red-600" role="alert"></p>
+
+  <button type="submit" id="request-quote-submit"
+    class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold px-6 py-3.5 rounded-full text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed">
+    <Icon name="paper-plane" class="w-4 h-4" />
+    <span data-submit-label>Send My Request</span>
+  </button>
+
+  <p class="text-xs text-center text-gray-400">
+    We reply within {PERFORMANCE.quoteResponseSla} &nbsp;·&nbsp; No spam, ever
+  </p>
+</form>
+
+<div id="request-quote-success" class="hidden text-center py-8">
+  <div class="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+    <Icon name="check-circle" class="w-7 h-7 text-green-600" />
+  </div>
+  <h3 class="text-xl font-bold text-[#333333] mb-2">Got it — thank you!</h3>
+  <p class="text-gray-500 text-sm max-w-sm mx-auto">
+    We'll reach out within {PERFORMANCE.quoteResponseSla}. {PERFORMANCE.textReplyDisplay}.
+  </p>
+</div>
+
+<script>
+  const form = document.getElementById("request-quote-form") as HTMLFormElement | null;
+  const errorEl = document.getElementById("request-quote-error");
+  const submitBtn = document.getElementById("request-quote-submit") as HTMLButtonElement | null;
+  const submitLabel = submitBtn?.querySelector("[data-submit-label]");
+  const successEl = document.getElementById("request-quote-success");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!submitBtn || !errorEl) return;
+
+    errorEl.classList.add("hidden");
+    errorEl.textContent = "";
+    submitBtn.disabled = true;
+    if (submitLabel) submitLabel.textContent = "Sending...";
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch("/api/request-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again or call us.");
+      }
+
+      form.classList.add("hidden");
+      successEl?.classList.remove("hidden");
+    } catch (err) {
+      errorEl.textContent =
+        err instanceof Error ? err.message : "Something went wrong. Please try again or call us.";
+      errorEl.classList.remove("hidden");
+      submitBtn.disabled = false;
+      if (submitLabel) submitLabel.textContent = "Send My Request";
+    }
+  });
+</script>
