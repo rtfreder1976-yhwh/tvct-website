@@ -1,6 +1,6 @@
 # The Valley Clean Team — Project Context
 
-_Last updated: 2026-08-10. This document describes the current `main` architecture. Historical GHL/Outscraper workflows are retired and must not be restored from old commits or closed PRs._
+_Last updated: 2026-08-25. This document describes the current `main` architecture. The historical GHL and Outscraper **workflows** are retired and must not be restored from old commits or closed PRs — note that GoHighLevel itself is current (ESP/CRM, decided 2026-08-24); it is the old wiring that is dead, not the platform. Where this file and `CLAUDE.md` disagree, CLAUDE.md wins._
 
 ## Business
 
@@ -54,11 +54,15 @@ BookingKoala is the customer quoting/booking system.
 - Commercial quote traffic goes to BookingKoala.
 - Shared `QuoteForm.astro` behavior is a BookingKoala CTA, not a local lead form.
 - The old public `/api/submit-form` lead fan-out endpoint has been removed.
-- GoHighLevel and Outscraper are retired. Do not add GHL webhooks, LeadConnector API calls, GHL contact writes, or Outscraper quote dependencies back into the site.
+- **Outscraper is fully retired.** Do not add Outscraper quote dependencies back into the site.
+- **GoHighLevel is current** — it is the ESP/CRM as of Todd's 2026-08-24 decision. What stays retired is the *old implementation*: the `/api/submit-form` ad-hoc webhook wiring and the booking-started/abandoned/completed browser-heuristic fan-out. Do not restore either from history.
+- The site itself still does not write to GHL. Capture currently flows BookingKoala → Zapier → GHL. New site-owned capture feeding GHL through a deliberate integration is permitted and expected once designed — see CLAUDE.md §2 and project memory `quote-flow-redesign`. Any such integration needs an explicit capture contract, abuse controls, and no secrets in client bundles.
 
 ### Careers
 
-The old cleaner application form is disabled. Cleaner recruiting will use a dedicated BookingKoala 2 application form once its final URL is supplied. Do not route cleaner applications through customer-lead infrastructure.
+Cleaner applications are owned by BookingKoala. `/careers` is a live 301 to the dedicated hiring form at `thevalleycleanteam.bookingkoala.com/hiring/form/careers` (confirmed live 2026-08-25). The old site-hosted application form stays retired.
+
+Do not route cleaner applications through customer-lead infrastructure. That separation is the point of this section and it has not changed.
 
 ### Newsletter
 
@@ -87,7 +91,7 @@ Admin browser sessions use a signed, expiring token; the browser cookie never co
 - Browser sessions expire after 8 hours.
 - Rotating `ADMIN_SECRET` invalidates existing sessions.
 - `/admin/dashboard` uses live Search Console and GA4 data where configured.
-- Legacy GHL lead analytics are retired and must not be presented as current funnel truth.
+- The legacy GHL lead-analytics fan-out is retired and must not be presented as current funnel truth. (GHL itself is current as the ESP/CRM — it is the old browser-heuristic event data that is untrustworthy, not the platform.)
 
 ## CI / verification
 
@@ -103,10 +107,12 @@ GitHub Actions additionally validates generated JSON-LD and retired Offer-price 
 
 ## Current deferred work
 
-- Connect `/careers` to the new BookingKoala 2 cleaner application URL when supplied.
+- ~~Connect `/careers` to the new BookingKoala 2 cleaner application URL when supplied.~~ **Done** — `/careers` 301s to the live hiring form (confirmed 2026-08-25).
 - Decide whether a newsletter is still desired and, if so, choose a dedicated destination before re-enabling signup.
 - Continue security-header hardening and production smoke testing as separate, current-main work.
 
 ## Historical material
 
 Closed PRs and old commits can contain useful research, but they are not configuration documentation. In particular, do not copy old GHL webhook URLs, `$176` regular pricing, old review/checklist counts, same-day language, or clinical claims from repository history back into current code.
+
+Copying an old GHL webhook URL is still prohibited even though GoHighLevel is the current ESP/CRM. A new integration gets designed deliberately; it does not get resurrected from a stale endpoint in history.

@@ -64,7 +64,11 @@ deliberately designed.
 
 ### 3. Careers are separate from customer leads
 
-The careers application is intentionally disabled until a dedicated BookingKoala 2 cleaner form URL is provided. Cleaner applicants must never be posted into customer quote/CRM infrastructure.
+Cleaner applications are owned by BookingKoala. `/careers` is a live 301 to the dedicated hiring form at `thevalleycleanteam.bookingkoala.com/hiring/form/careers` (confirmed live by Todd, 2026-08-25). Nav, footer, `ProviderJobPage`, and the `vercel.json` redirects all point at the same URL.
+
+**The rule this section exists for is unchanged:** cleaner applicants must never be posted into customer quote/CRM infrastructure. The hiring form is deliberately separate from anything customer-facing, and it stays that way.
+
+In marketing copy, link the branded path `thevalleycleanteam.com/careers` rather than the raw BookingKoala URL — it survives the form URL changing.
 
 ### 4. Newsletter is intentionally disabled
 
@@ -127,6 +131,6 @@ Use focused branches/PRs and conventional commit prefixes (`fix:`, `feat:`, `ref
 ## Current intentional follow-ups
 
 - Design and ship the replacement lead/quote capture flow (BK customer-facing forms being retired — decision 2026-08-24; framework in project memory: quote-flow-redesign).
-- Wire `/careers` to the dedicated BookingKoala 2 cleaner application when its URL is available.
+- ~~Wire `/careers` to the dedicated BookingKoala 2 cleaner application when its URL is available.~~ **Done** — `/careers` 301s to the live hiring form (confirmed 2026-08-25). See §3.
 - Choose a newsletter destination before re-enabling signup.
 - Continue production smoke tests/security-header hardening from current `main`.

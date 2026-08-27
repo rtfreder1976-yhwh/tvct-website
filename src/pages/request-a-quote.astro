@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import RequestQuoteForm from '../components/RequestQuoteForm.astro';
+import { REVIEWS, PERFORMANCE, TRUST } from '../data/claims.ts';
+---
+
+<BaseLayout
+  title="Request a Quote (No Call Needed) | Valley Clean Team"
+  description="Can't call right now, or we're closed? Tell us what you need and we'll follow up fast. Serving Huntsville, Athens, Florence, Nashville & surrounding areas."
+  showNav={false}
+  showFooter={true}
+  schemaType="none"
+>
+  <style slot="preload">
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.4s ease both; }
+
+    .trust-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.78rem;
+      color: #555;
+    }
+  </style>
+
+  <!-- Header -->
+  <header class="py-4 px-6 border-b border-gray-100 bg-white/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <div class="container mx-auto flex justify-between items-center max-w-5xl">
+      <a href="/" class="inline-block">
+        <picture>
+          <source srcset="/images/logo.webp" type="image/webp" />
+          <img src="/images/logo.png" alt="The Valley Clean Team" class="h-10 md:h-12 w-auto object-contain" width="332" height="95" fetchpriority="high" decoding="async" />
+        </picture>
+      </a>
+      <div class="flex items-center gap-4 text-sm">
+        <a href="tel:2568261100" class="hidden sm:flex items-center font-semibold text-gray-600 hover:text-[#FFA985] transition">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          256-826-1100
+        </a>
+        <a href="tel:6155101427" class="hidden md:flex items-center font-semibold text-gray-600 hover:text-[#FFA985] transition">
+          <Icon name="phone" class="w-4 h-4 mr-1 text-[#FFA985]" />
+          615-510-1427
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="min-h-screen bg-gradient-to-br from-gray-50 to-white py-10 px-6">
+    <div class="container mx-auto max-w-xl">
+
+      <!-- Headline -->
+      <div class="text-center mb-8 fade-up">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#333333] mt-3 mb-3 tracking-tight">
+          Can't Call Right Now? Tell Us What You Need.
+        </h1>
+        <p class="text-gray-500 text-base max-w-md mx-auto leading-relaxed">
+          Whether we're closed or you'd rather not talk on the phone, fill this out and we'll follow up — usually within {PERFORMANCE.quoteResponseSla}.
+        </p>
+      </div>
+
+      <!-- Trust chips -->
+      <div class="flex flex-wrap justify-center gap-4 mb-8 fade-up" style="animation-delay:0.05s">
+        <span class="trust-chip">
+          <Icon name="shield-halved" class="w-4 h-4 text-green-500" />
+          Insured for {TRUST.liabilityCoverageDisplay}
+        </span>
+        <span class="trust-chip">
+          <Icon name="star" class="w-4 h-4 text-[#FFA985]" fill="currentColor" />
+          {REVIEWS.rating}★ from {REVIEWS.countDisplay} Reviews
+        </span>
+        <span class="trust-chip">
+          <Icon name="clock" class="w-4 h-4 text-blue-500" />
+          We reply within {PERFORMANCE.quoteResponseSla}
+        </span>
+      </div>
+
+      <!-- Form card -->
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-5 md:p-7 fade-up" style="animation-delay:0.1s">
+        <RequestQuoteForm />
+      </div>
+
+      <!-- Prefer to call -->
+      <div class="mt-6 text-center fade-up" style="animation-delay:0.2s">
+        <p class="text-sm text-gray-400 mb-3">Prefer to talk to someone now?</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-3">
+          <a href="tel:2568261100" class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-gray-700 hover:text-[#FFA985] transition">
+            <Icon name="phone" class="w-4 h-4 text-[#FFA985]" />
+            Alabama: 256-826-1100
+          </a>
+          <a href="tel:6155101427" class="inline-flex items-center justify-center gap-2 text-sm font-semibold text-gray-700 hover:text-[#FFA985] transition">
+            <Icon name="phone" class="w-4 h-4 text-[#FFA985]" />
+            Tennessee: 615-510-1427
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</BaseLayout>
