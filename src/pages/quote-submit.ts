@@ -136,6 +136,17 @@ export const POST: APIRoute = async ({ request }) => {
   // retired /api/submit-form GHL wiring.
   const webhookUrl = import.meta.env.N8N_QUOTE_WEBHOOK_URL;
 
+  // Shared secret proving this request came from the site. The n8n webhook is
+  // otherwise open to anyone who learns its URL — `ignoreBots` had to be turned
+  // off because it 403'd Vercel (trap 2 in docs/quote-capture-flow.md), which
+  // left the door unlocked.
+  //
+  // Sending it is harmless while n8n is not yet checking, so the site side can
+  // ship first. Turn on Header Auth in n8n only AFTER this is deployed with the
+  // value set, or every lead 403s — the same silent failure as trap 2, where
+  // the form looks healthy while dropping 100% of real traffic.
+  const webhookSecret = import.meta.env.N8N_QUOTE_WEBHOOK_SECRET;
+
   // Everything the lead said, in one object. Logged verbatim on any delivery
   // failure so a lost lead can be reconstructed and contacted by hand — the
   // whole reason this endpoint still answers 200 when delivery breaks.
@@ -181,7 +192,12 @@ export const POST: APIRoute = async ({ request }) => {
     try {
       const res = await fetch(webhookUrl, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          // Omitted entirely when unset so the header is never sent empty —
+          // an empty value would satisfy a misconfigured check.
+          ...(webhookSecret ? { "X-TVCT-Webhook-Secret": webhookSecret } : {}),
+        },
         body: JSON.stringify(payload),
         signal: AbortSignal.timeout(8000),
       });
@@ -193,6 +209,16 @@ export const POST: APIRoute = async ({ request }) => {
         console.error("[quote-submit] n8n rejected the submission", {
           attempt,
           status: res.status,
+          // 401/403 almost always means the shared secret drifted apart
+          // between Vercel and the n8n webhook credential. Call it out by
+          // name: the generic message sent us hunting the wrong thing once
+          // already (trap 2).
+          ...(res.status === 401 || res.status === 403
+            ? {
+                likelyCause:
+                  "N8N_QUOTE_WEBHOOK_SECRET does not match the n8n webhook's Header Auth credential",
+              }
+            : {}),
         });
       }
     } catch (err) {
