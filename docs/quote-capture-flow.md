@@ -12,14 +12,27 @@ everywhere; this is the path for someone who can't or won't call.
 ## The path a lead takes
 
 ```
-/request-a-quote (static page)
-  → POST /quote-submit          (Astro endpoint, Vercel serverless)
-  → n8n webhook                 (tvct-request-a-quote)
-  → Data table                  (tvct_quote_requests — raw lead, always)
-  → GHL contact upsert          (matched on EMAIL)
-  → GHL phone update            (separate call, see "duplicate phones")
-  → GHL auto-reply email        (to the address the prospect typed)
+/request-a-quote (static page)          /commercial-hiring-sheet (gate)
+  → POST /quote-submit                    → POST /quote-submit
+    formType: "quote"                       formType: "hiring-sheet"
+              \                                     /
+               → n8n webhook (tvct-request-a-quote)
+               → Data table  (tvct_quote_requests — raw lead, always)
+               → GHL contact upsert (matched on EMAIL)
+               → GHL phone update   (separate call, see "duplicate phones")
+               → IF "Which Form?"
+                  ├─ quote        → auto-reply → Quotes opportunity
+                  │                 → Todd SMS → prospect SMS receipt
+                  └─ hiring-sheet → sheet delivery email, and nothing else
 ```
+
+**Two forms, one endpoint, one workflow.** Both share `/quote-submit` because
+the three traps below were expensive to find and a second endpoint would have
+to rediscover all of them. They diverge at the `Which Form?` IF node: a
+hiring-sheet download is top-of-funnel interest, not a buying signal, so it
+deliberately creates **no opportunity** and **does not page Todd**. Putting
+downloaders in the Quotes pipeline would muddy it exactly the way mixing in
+BookingKoala's pipeline would.
 
 **Site → n8n → GHL.** The site holds no GHL credential — only the n8n webhook
 URL in `N8N_QUOTE_WEBHOOK_URL`. n8n owns everything downstream.
@@ -28,7 +41,10 @@ URL in `N8N_QUOTE_WEBHOOK_URL`. n8n owns everything downstream.
 |---|---|
 | Page | `src/pages/request-a-quote.astro` |
 | Form | `src/components/RequestQuoteForm.astro` |
-| Endpoint | `src/pages/quote-submit.ts` |
+| Sheet gate | `src/pages/commercial-hiring-sheet.astro` |
+| Sheet gate form | `src/components/HiringSheetForm.astro` |
+| The sheet itself | `src/pages/commercial-hiring-sheet/read.astro` (noindex) |
+| Endpoint | `src/pages/quote-submit.ts` (both forms) |
 | Workflow | n8n `VCT — Website Quote Request Intake` (`00Z4VELE4rKJmEry`) |
 | Raw leads | n8n Data table `tvct_quote_requests` |
 | GHL credential | `GHL TVCT (PIT)` (`cmUzO69GqShiNjOl`) |
@@ -134,6 +150,30 @@ needed to quote the job by hand is there.
 
 Delivery retries **once** first — a cold start or brief n8n restart shouldn't
 cost a lead. Two failures means an outage, and the log is the fallback.
+
+## The commercial hiring sheet gate (added 2026-08-28)
+
+`/commercial-hiring-sheet` is the indexable landing page; `/commercial-hiring-sheet/read`
+is the sheet behind it. Three decisions worth keeping:
+
+**The sheet is a page, not a PDF.** Every claim on it reads from `claims.ts`, so
+it cannot go stale the way a checked-in binary would. Print CSS covers the
+walkthrough leave-behind — Todd prints it from the browser.
+
+**`/read` is noindex AND excluded from the sitemap** (`astro.config.mjs`,
+alongside `/recurring`). Both are needed: noindex alone still advertises the URL
+in the sitemap, which is a contradictory signal and lets search traffic route
+around the capture. The gate page is what should rank.
+
+**The gate asks for three fields, one of them optional.** Name and email are
+required; company is not; phone is not asked for at all. This is top-of-funnel —
+someone comparing vendors has not asked us for anything yet, and every extra
+field costs downloads. `/quote-submit` therefore validates by `formType`: the
+quote branch still requires phone, service type, and city exactly as before.
+
+**The reader is redirected straight to the sheet on success.** The delivery
+email is a copy to keep, not the delivery mechanism. Making someone wait on an
+inbox to read a page they just opted into is a good way to lose them.
 
 ## Verified in production
 

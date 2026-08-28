@@ -22,6 +22,22 @@ const SERVICE_TYPES = [
 
 const CONTACT_METHODS = ["text", "email", "either"] as const;
 
+/**
+ * Which form posted. Both share this endpoint on purpose: the three production
+ * traps documented in docs/quote-capture-flow.md (no /api/ prefix, no n8n
+ * ignoreBots, GHL email-only matching) were expensive to find, and a second
+ * endpoint would have to rediscover all of them.
+ *
+ * They are NOT the same lead. A quote request is a buying signal and gets the
+ * full treatment downstream (Quotes opportunity + Todd alert). A hiring-sheet
+ * download is top-of-funnel interest — n8n branches on `formType` so it only
+ * tags the contact and emails the sheet. Keep that distinction: putting
+ * downloaders into the Quotes pipeline would muddy the funnel the same way
+ * BookingKoala's pipeline would.
+ */
+const FORM_TYPES = ["quote", "hiring-sheet"] as const;
+type FormType = (typeof FORM_TYPES)[number];
+
 interface RequestQuoteBody {
   name: string;
   phone: string;
@@ -31,6 +47,8 @@ interface RequestQuoteBody {
   sqft?: string;
   message?: string;
   preferredContact?: (typeof CONTACT_METHODS)[number];
+  formType?: FormType;
+  company?: string; // hiring-sheet only
   website?: string; // honeypot
 }
 
@@ -68,20 +86,42 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
+  // Defaults to "quote" so existing callers (and anything replaying an old
+  // payload) keep the behaviour they had before this field existed.
+  const formType: FormType = body.formType ?? "quote";
+  if (body.formType && !FORM_TYPES.includes(body.formType)) {
+    return new Response(JSON.stringify({ error: "invalid form type" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+  const isHiringSheet = formType === "hiring-sheet";
+
+  // Name and email are required by both forms. Everything else is
+  // quote-specific: asking a reader for their square footage before handing
+  // over a checklist would cost more downloads than the data is worth.
   const errors: string[] = [];
   if (!isNonEmptyString(body.name)) errors.push("name is required");
-  if (!isNonEmptyString(body.phone) || !isPlausiblePhone(body.phone!))
-    errors.push("a valid phone number is required");
   if (!isNonEmptyString(body.email) || !isPlausibleEmail(body.email!))
     errors.push("a valid email is required");
-  if (!body.serviceType || !SERVICE_TYPES.includes(body.serviceType))
-    errors.push("a valid service type is required");
-  if (!isNonEmptyString(body.city)) errors.push("city is required");
-  if (
-    body.preferredContact &&
-    !CONTACT_METHODS.includes(body.preferredContact)
-  )
-    errors.push("invalid preferred contact method");
+
+  if (isHiringSheet) {
+    // Optional here, but still validated when present — a bad phone should
+    // never reach GHL just because the form that sent it was the light one.
+    if (isNonEmptyString(body.phone) && !isPlausiblePhone(body.phone!))
+      errors.push("a valid phone number is required");
+  } else {
+    if (!isNonEmptyString(body.phone) || !isPlausiblePhone(body.phone!))
+      errors.push("a valid phone number is required");
+    if (!body.serviceType || !SERVICE_TYPES.includes(body.serviceType))
+      errors.push("a valid service type is required");
+    if (!isNonEmptyString(body.city)) errors.push("city is required");
+    if (
+      body.preferredContact &&
+      !CONTACT_METHODS.includes(body.preferredContact)
+    )
+      errors.push("invalid preferred contact method");
+  }
 
   if (errors.length > 0) {
     return new Response(JSON.stringify({ error: errors.join("; ") }), {
@@ -101,14 +141,19 @@ export const POST: APIRoute = async ({ request }) => {
   // whole reason this endpoint still answers 200 when delivery breaks.
   const payload = {
     name: body.name,
-    phone: body.phone,
+    phone: body.phone ?? "",
     email: body.email,
-    serviceType: body.serviceType,
-    city: body.city,
+    // A hiring-sheet download has no service or city. Sending "commercial"
+    // keeps the n8n serviceLabel lookup and the GHL tag meaningful without
+    // implying the reader asked us to quote commercial work.
+    serviceType: isHiringSheet ? "commercial" : body.serviceType,
+    city: isHiringSheet ? (body.company ?? "") : body.city,
     sqft: body.sqft ?? "",
     message: body.message ?? "",
     preferredContact: body.preferredContact ?? "either",
-    source: "request-a-quote",
+    // n8n branches on formType; source is what shows on the GHL contact.
+    formType,
+    source: isHiringSheet ? "commercial-hiring-sheet" : "request-a-quote",
     submittedAt: new Date().toISOString(),
   };
 

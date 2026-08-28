@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Icon from "../components/Icon.astro";
+import HiringSheetForm from "../components/HiringSheetForm.astro";
+import { PERFORMANCE, REVIEWS, TRUST } from "../data/claims.ts";
+---
+
+<BaseLayout
+  title="The Hiring Sheet: 12 Questions to Ask Any Commercial Cleaner"
+  description="A free buyer-side checklist for office, practice, and church managers hiring a commercial cleaning company in North Alabama — 12 questions and the answers to get in writing."
+  schemaType="none"
+  showNav={true}
+  showFooter={true}
+>
+  <main class="min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-6">
+    <div class="container mx-auto max-w-5xl">
+      <div class="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-start">
+
+        <!-- Pitch -->
+        <div>
+          <p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#333333] bg-[#FFA985]/20 rounded-full px-3 py-1.5 mb-5">
+            <Icon name="check-circle" class="w-3.5 h-3.5" />
+            Free checklist · No sales call
+          </p>
+
+          <h1 class="text-3xl md:text-4xl font-bold text-[#333333] mb-4 tracking-tight leading-tight">
+            12 questions to ask any commercial cleaning company
+          </h1>
+
+          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+            And the answers to get in writing — before anyone has keys to your building.
+          </p>
+
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Most cleaning proposals read the same: insured, professional, attention to
+            detail. None of that tells you who is in your building at 9 PM, or what
+            happens when a restroom gets skipped. These twelve questions do.
+          </p>
+
+          <div class="bg-white rounded-xl border border-gray-200 p-6 mb-6 shadow-sm">
+            <p class="text-sm font-semibold text-[#333333] mb-4">Inside the sheet:</p>
+            <ul class="space-y-3 text-sm text-gray-600">
+              <li class="flex gap-3">
+                <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+                <span>The three questions that eliminate most of the field before you compare prices</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+                <span>How to tell a real scope from an adjective</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+                <span>What to ask about keys, alarm codes, and after-hours access</span>
+              </li>
+              <li class="flex gap-3">
+                <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+                <span>The exact wording to request for a make-right policy</span>
+              </li>
+            </ul>
+          </div>
+
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Written for office managers, practice managers, and church administrators
+            in North Alabama. Ask them of every company you are considering —
+            <strong class="text-gray-700">including us</strong>.
+          </p>
+        </div>
+
+        <!-- Gate -->
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-lg p-6 md:p-8 lg:sticky lg:top-24">
+          <h2 class="text-xl font-bold text-[#333333] mb-1">Get the sheet</h2>
+          <p class="text-sm text-gray-500 mb-6">
+            Opens right away. We will email you a copy to keep.
+          </p>
+
+          <HiringSheetForm sheetUrl="/commercial-hiring-sheet/read" />
+
+          <div class="mt-6 pt-6 border-t border-gray-100 space-y-2.5">
+            <p class="flex items-center gap-2 text-xs text-gray-500">
+              <Icon name="star" class="w-3.5 h-3.5 text-[#FFA985]" />
+              {REVIEWS.rating} stars across {REVIEWS.countDisplay} Google reviews
+            </p>
+            <p class="flex items-center gap-2 text-xs text-gray-500">
+              <Icon name="shield-halved" class="w-3.5 h-3.5 text-[#FFA985]" />
+              {TRUST.liabilityCoverageDisplay} liability insurance · background-checked
+            </p>
+            <p class="flex items-center gap-2 text-xs text-gray-500">
+              <Icon name="clock" class="w-3.5 h-3.5 text-[#FFA985]" />
+              Written commercial quote within {PERFORMANCE.quoteResponseSla}
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</BaseLayout>

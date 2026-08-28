@@ -1,0 +1,271 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/Icon.astro";
+import { PERFORMANCE, REVIEWS, TRUST } from "../../data/claims.ts";
+
+/**
+ * The sheet itself. Content is the Todd-reviewed copy from
+ * campaigns/commercial-hiring-sheet/lead-magnet.md.
+ *
+ * noindex because /commercial-hiring-sheet is the indexable page — this is what
+ * sits behind its gate, and indexing both would let search traffic route around
+ * the capture and split the ranking signal between two near-identical pages.
+ *
+ * Every claim in the footer reads from claims.ts. That is the point of building
+ * this as a page instead of a PDF: when a number changes there, this changes
+ * with it, and there is no stale binary to hunt down.
+ */
+
+const GROUPS = [
+  {
+    title: "The people",
+    questions: [
+      {
+        n: 1,
+        q: "Who is actually doing the work, and how experienced are they?",
+        body: "The name on the proposal doesn't clean anything. The person in your building does — and in this industry, crews change. What matters is whether the company knows exactly who is assigned to you and can vouch for them.",
+        writing: "who is assigned to your building and how experienced they are.",
+      },
+      {
+        n: 2,
+        q: 'Is every person background-checked — or is that "available upon request"?',
+        body: 'Your building has keys, alarm codes, files, and after-hours access. "We can arrange checks" means they haven\'t been done.',
+        writing:
+          "confirmation that background checks are complete for everyone assigned to your building, before the first visit.",
+      },
+      {
+        n: 3,
+        q: "What insurance is behind them, and for how much?",
+        body: '"Fully insured" without a number is not information. If something is damaged, the limit on the certificate is what matters.',
+        writing: "the certificate of insurance itself, with the liability limit printed on it.",
+      },
+    ],
+  },
+  {
+    title: "The work",
+    questions: [
+      {
+        n: 4,
+        q: "Is the scope a task list, or an adjective?",
+        body: '"Thorough cleaning of all areas" is not a scope. A scope is a list of tasks — empty this, wipe that, vacuum here — with a frequency next to each one. If a company can\'t produce the list, they can\'t hold their own crew to it either.',
+        writing: "the task list for your building, item by item.",
+      },
+      {
+        n: 5,
+        q: "What happens on every visit, and what happens weekly or monthly?",
+        body: "Trash and restrooms are not the same job as floors and vents. Vague scopes hide the difference until you notice something hasn't been done in a month.",
+        writing: "the schedule showing which tasks happen on which visits.",
+      },
+      {
+        n: 6,
+        q: "Who checks the work, and how often will you hear about it?",
+        body: "If nobody inspects, you are the inspector. That's a job you're paying to not have.",
+        writing: "how quality is checked, by whom, and how issues reach you.",
+      },
+    ],
+  },
+  {
+    title: "The price",
+    questions: [
+      {
+        n: 7,
+        q: "How is the price calculated?",
+        body: "A defensible commercial price comes from three things: square footage, the task list, and visits per week. If the number can't be traced to those inputs, it was guessed — and guessed numbers change later.",
+        writing: "a quote that shows its inputs.",
+      },
+      {
+        n: 8,
+        q: "How long does a written quote take?",
+        body: "A company that can't put a number in writing within a business day will not be faster when something actually matters.",
+        writing: 'a commitment in hours, not "we\'ll get back to you."',
+      },
+    ],
+  },
+  {
+    title: "When something goes wrong",
+    questions: [
+      {
+        n: 9,
+        q: "What is the make-right policy?",
+        body: "Something will eventually get missed. The question is whether there's a defined window to report it and a defined response — or a negotiation.",
+        writing: "the reporting window and exactly what happens next.",
+      },
+      {
+        n: 10,
+        q: "What happens with your keys and alarm codes?",
+        body: "Who holds them, where they're recorded, and what happens the day a cleaner leaves the company.",
+        writing: "the access-control policy.",
+      },
+    ],
+  },
+  {
+    title: "The relationship",
+    questions: [
+      {
+        n: 11,
+        q: "Who do you actually call?",
+        body: "A named person who answers, or an inbox. You'll find out which on the worst possible day, so find out now.",
+        writing: "your point of contact and the response time you can expect.",
+      },
+      {
+        n: 12,
+        q: "What does the agreement lock you into?",
+        body: "Term length, cancellation notice, and how much warning you get before the price changes.",
+        writing: "all three, before you sign.",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="The Hiring Sheet — 12 Questions to Ask Any Commercial Cleaning Company"
+  description="12 questions to ask any commercial cleaning company, and the answers to get in writing."
+  schemaType="none"
+  noindex={true}
+  showNav={true}
+  showFooter={true}
+  showLastUpdated={false}
+>
+  <style slot="preload">
+    @media print {
+      /* Chrome prints the URL and page title in the margins by default; the
+         sheet is meant to be handed to someone, so keep it clean. */
+      nav, footer, .no-print { display: none !important; }
+      body { background: #fff !important; }
+      .sheet { max-width: 100% !important; padding: 0 !important; }
+      .sheet-question { break-inside: avoid; page-break-inside: avoid; }
+      .sheet-group { break-inside: avoid-page; }
+      a[href]:after { content: none !important; }
+    }
+  </style>
+
+  <main class="min-h-screen bg-white py-10 px-6">
+    <div class="container mx-auto max-w-3xl sheet">
+
+      <!-- Header -->
+      <div class="mb-8 pb-8 border-b border-gray-200">
+        <h1 class="text-3xl md:text-4xl font-bold text-[#333333] mb-3 tracking-tight leading-tight">
+          The Hiring Sheet
+        </h1>
+        <p class="text-lg text-gray-600 leading-relaxed mb-5">
+          12 questions to ask any commercial cleaning company — and the answers to
+          get in writing.
+        </p>
+        <button
+          type="button"
+          onclick="window.print()"
+          class="no-print inline-flex items-center gap-2 text-sm font-semibold text-[#333333] border border-gray-300 rounded-full px-4 py-2 hover:border-[#FFA985] hover:bg-[#FFA985]/10 transition"
+        >
+          Print this sheet
+        </button>
+      </div>
+
+      <p class="text-gray-600 leading-relaxed mb-8">
+        Most cleaning proposals read the same: insured, professional, attention to
+        detail. None of that tells you who will be in your building at 9 PM or what
+        happens when a restroom gets skipped. These twelve questions do. Ask them of
+        every company you're considering — including us — and don't accept an answer
+        that isn't written down.
+      </p>
+
+      <!-- Shortcut -->
+      <div class="bg-[#FFA985]/10 border border-[#FFA985]/30 rounded-xl p-6 mb-10 sheet-group">
+        <p class="font-bold text-[#333333] mb-3">If you only ask three</p>
+        <ol class="space-y-1.5 text-sm text-gray-700">
+          <li><strong>Question 3</strong> — the insurance certificate, with the limit on it</li>
+          <li><strong>Question 4</strong> — the task list, item by item</li>
+          <li><strong>Question 9</strong> — the make-right policy, in writing</li>
+        </ol>
+        <p class="text-sm text-gray-600 mt-3">
+          Those three eliminate most of the field before you ever compare prices.
+        </p>
+      </div>
+
+      <!-- Questions -->
+      {GROUPS.map((group) => (
+        <section class="mb-10 sheet-group">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-[#FFA985] mb-5">
+            {group.title}
+          </h2>
+          <div class="space-y-7">
+            {group.questions.map((item) => (
+              <div class="sheet-question">
+                <h3 class="font-bold text-[#333333] mb-2 leading-snug">
+                  {item.n}. {item.q}
+                </h3>
+                <p class="text-sm text-gray-600 leading-relaxed mb-2">{item.body}</p>
+                <p class="text-sm text-gray-700 border-l-2 border-[#FFA985] pl-3">
+                  <em class="text-gray-500">Get in writing:</em> {item.writing}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <!-- How TVCT answers -->
+      <section class="border-t border-gray-200 pt-8 sheet-group">
+        <h2 class="text-xl font-bold text-[#333333] mb-3">
+          How The Valley Clean Team answers
+        </h2>
+        <p class="text-gray-600 mb-5 leading-relaxed">
+          We built this sheet because we're comfortable answering it.
+        </p>
+
+        <ul class="space-y-3 text-sm text-gray-600 mb-6">
+          <li class="flex gap-3">
+            <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+            <span>
+              The people in your building are <strong>background-checked</strong>, average
+              <strong>{PERFORMANCE.avgCleanerExperienceYears} years of cleaning experience</strong>,
+              and are covered by <strong>{TRUST.liabilityCoverageDisplay} in liability
+              insurance</strong>. Certificate available on request.
+            </span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+            <span>
+              The scope is a <strong>written task list</strong>, priced from square footage,
+              the task list, and visits per week. Nothing is quoted from the air.
+            </span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+            <span>A <strong>written quote within {PERFORMANCE.quoteResponseSla}</strong>.</span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+            <span>
+              Tell us within {TRUST.recleanWindowHours} hours if something was missed and
+              we'll get a re-clean on the schedule right away, at no charge.
+            </span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
+            <span>
+              <strong>{PERFORMANCE.onTimeArrivalPct}% on-time arrival.
+              {PERFORMANCE.repeatCustomerPct}% of our customers stay with us.</strong>
+              {REVIEWS.rating} stars across {REVIEWS.countDisplay} Google reviews.
+            </span>
+          </li>
+        </ul>
+
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          We clean offices, practices (non-clinical facility cleaning), and churches
+          across North Alabama. Veteran- and woman-owned.
+        </p>
+
+        <div class="bg-gray-50 rounded-xl p-6 text-center">
+          <p class="font-bold text-[#333333] mb-3">The Valley Clean Team</p>
+          <a href="tel:2568261100"
+            class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold px-6 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
+            <Icon name="phone" class="w-4 h-4" />
+            (256) 826-1100
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</BaseLayout>

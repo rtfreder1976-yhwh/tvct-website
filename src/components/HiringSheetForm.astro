@@ -1,0 +1,106 @@
+---
+import Icon from "./Icon.astro";
+
+/**
+ * Gate for the commercial hiring sheet. Posts to the same /quote-submit
+ * endpoint as RequestQuoteForm with formType "hiring-sheet" — see the comment
+ * on FORM_TYPES in src/pages/quote-submit.ts for why they share a route.
+ *
+ * Deliberately three fields. This is top-of-funnel: every extra field costs
+ * downloads, and the reader has not asked us for anything yet.
+ */
+interface Props {
+  /** Where to send the reader once they're through the gate. */
+  sheetUrl: string;
+}
+
+const { sheetUrl } = Astro.props;
+---
+
+<form id="hiring-sheet-form" class="space-y-4" novalidate data-sheet-url={sheetUrl}>
+  <!-- Honeypot: hidden from real users via CSS, bots fill every field -->
+  <div class="absolute -left-[9999px]" aria-hidden="true">
+    <label for="hs-website">Leave this field blank</label>
+    <input type="text" id="hs-website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div>
+    <label for="hs-name" class="block text-sm font-semibold text-gray-700 mb-1">Name *</label>
+    <input type="text" id="hs-name" name="name" required autocomplete="name"
+      class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
+  </div>
+
+  <div>
+    <label for="hs-email" class="block text-sm font-semibold text-gray-700 mb-1">Work email *</label>
+    <input type="email" id="hs-email" name="email" required autocomplete="email"
+      class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
+  </div>
+
+  <div>
+    <label for="hs-company" class="block text-sm font-semibold text-gray-700 mb-1">
+      Company <span class="font-normal text-gray-400">(optional)</span>
+    </label>
+    <input type="text" id="hs-company" name="company" autocomplete="organization"
+      class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#FFA985] focus:border-transparent" />
+  </div>
+
+  <p id="hiring-sheet-error" class="hidden text-sm text-red-600" role="alert"></p>
+
+  <button type="submit" id="hiring-sheet-submit"
+    class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FFA985] to-[#FFC67D] text-[#333333] font-bold px-6 py-3.5 rounded-full text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed">
+    <Icon name="check-circle" class="w-4 h-4" />
+    <span data-submit-label>Show Me the 12 Questions</span>
+  </button>
+
+  <p class="text-xs text-center text-gray-400">
+    No sales call unless you ask for one. &nbsp;·&nbsp; No spam, ever
+  </p>
+</form>
+
+<script>
+  const form = document.getElementById("hiring-sheet-form") as HTMLFormElement | null;
+  const errorEl = document.getElementById("hiring-sheet-error");
+  const submitBtn = document.getElementById("hiring-sheet-submit") as HTMLButtonElement | null;
+  const submitLabel = submitBtn?.querySelector("[data-submit-label]");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!submitBtn || !errorEl) return;
+
+    errorEl.classList.add("hidden");
+    errorEl.textContent = "";
+    submitBtn.disabled = true;
+    if (submitLabel) submitLabel.textContent = "One moment...";
+
+    const formData = new FormData(form);
+    const payload = {
+      ...Object.fromEntries(formData.entries()),
+      formType: "hiring-sheet",
+    };
+
+    try {
+      const res = await fetch("/quote-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong. Please try again or call us.");
+      }
+
+      // Send them straight to the sheet. The email is a copy to keep, not the
+      // delivery mechanism — making someone wait on an inbox to read a page
+      // they already opted into is a good way to lose them.
+      const sheetUrl = form.dataset.sheetUrl;
+      if (sheetUrl) window.location.href = sheetUrl;
+    } catch (err) {
+      errorEl.textContent =
+        err instanceof Error ? err.message : "Something went wrong. Please try again or call us.";
+      errorEl.classList.remove("hidden");
+      submitBtn.disabled = false;
+      if (submitLabel) submitLabel.textContent = "Show Me the 12 Questions";
+    }
+  });
+</script>

@@ -94,7 +94,10 @@ export default defineConfig({
     sitemap({
       // /recurring is the noindex SMS conversion page — exact-path match so the
       // indexable /locations/*/recurring-maid-service pages are NOT excluded.
-      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && new URL(page).pathname.replace(/\/$/, '') !== '/careers' && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && !page.includes('/.well-known/') && new URL(page).pathname.replace(/\/$/, '') !== '/api-docs' && new URL(page).pathname.replace(/\/$/, '') !== '/openapi.json' && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && !retiredPaths.has(new URL(page).pathname.replace(/\/$/, '')) && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
+      // /commercial-hiring-sheet/read is the gated sheet: noindex so search
+      // traffic cannot route around the capture form. The gate page itself
+      // (/commercial-hiring-sheet) stays indexable and is what should rank.
+      filter: (page) => !page.includes('/404') && !page.includes('/Draft') && new URL(page).pathname.replace(/\/$/, '') !== '/careers' && !page.includes('/dashboard') && !page.includes('/thank-you') && !page.includes('/booking-complete') && !page.includes('/api/') && !page.includes('/ads/') && !page.includes('/.well-known/') && new URL(page).pathname.replace(/\/$/, '') !== '/api-docs' && new URL(page).pathname.replace(/\/$/, '') !== '/openapi.json' && new URL(page).pathname.replace(/\/$/, '') !== '/recurring' && new URL(page).pathname.replace(/\/$/, '') !== '/commercial-hiring-sheet/read' && !retiredPaths.has(new URL(page).pathname.replace(/\/$/, '')) && !excludedBlogSlugs.has(new URL(page).pathname.replace(/\/$/, '')),
       changefreq: 'weekly',
       priority: 0.7,
       customPages: [

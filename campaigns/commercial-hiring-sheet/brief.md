@@ -1,6 +1,8 @@
 # Campaign: Commercial Hiring Sheet
 
-_Created 2026-08-24 by /lead-magnet. Status: DRAFT — pending Todd review, then PDF layout and outreach attachment._
+_Created 2026-08-24 by /lead-magnet. Updated 2026-08-28: built and gated on the site._
+
+_Status: BUILT — live behind a capture gate on the branch `feat/commercial-hiring-sheet`, pending merge/deploy and one manual n8n publish (see Status below)._
 
 ## Goal
 
@@ -8,7 +10,16 @@ Warm commercial outreach (starting with medical batch #4 — 17 Apollo-enriched 
 
 ## Format
 
-One-page PDF checklist (source: `lead-magnet.md`). 12 questions in 5 groups, each with a "get in writing" line, plus a "how TVCT answers" footer.
+**Shipped as a web page, not a PDF** (decision 2026-08-28). 12 questions in 5
+groups, each with a "get in writing" line, plus a "how TVCT answers" footer.
+
+- Gate: `/commercial-hiring-sheet` — indexable landing page, 3-field form
+- Sheet: `/commercial-hiring-sheet/read` — noindex, print stylesheet for the
+  walkthrough leave-behind (Todd prints from the browser)
+
+Every claim in the footer reads from `claims.ts`, so the sheet cannot go stale.
+That is the reason it is not a PDF: a checked-in binary would be a second copy
+of the numbers, free to drift.
 
 ## Hook
 
@@ -28,13 +39,33 @@ National players (Jobber, Swept, Aspire) publish generic cleaning checklists and
 
 ## Distribution Plan
 
-1. **Now:** attachment on medical batch #4 outreach emails (Apollo/GHL, Todd sends — call-first recommended per prior prep); printed leave-behind for walkthroughs.
-2. **Later:** gated download on commercial pages once the replacement capture form exists (do not build a gate before then — no generic site forms yet).
-3. LinkedIn commercial posts can reference it (social batch already has 1 commercial LinkedIn slot).
+1. **Live on site (2026-08-28):** gated at `/commercial-hiring-sheet`, linked
+   from the final CTA on `/commercial-office-cleaning` as a soft secondary CTA
+   for buyers still comparing vendors. Deliberately understated so it does not
+   compete with the phone and booking CTAs.
+2. **Outreach:** send the gate URL in medical batch #4 emails rather than an
+   attachment — the link captures, an attachment does not. Todd sends;
+   call-first still recommended per prior prep.
+3. **Walkthroughs:** print `/commercial-hiring-sheet/read` from the browser.
+4. LinkedIn commercial posts can reference it (social batch already has 1
+   commercial LinkedIn slot).
+
+Worth adding to the other commercial pages (`/church-cleaning`,
+`/dental-office-cleaning`, `/medical-clinic-cleaning`, the `/locations/*/
+office-cleaning` set) once the first one proves out.
 
 ## Status
 
-draft
+**BUILT, not yet live.** Two things remain, both outside the repo:
+
+1. **Publish the n8n workflow.** `VCT — Website Quote Request Intake`
+   (`00Z4VELE4rKJmEry`) has the `Which Form?` branch saved as a **draft**; the
+   active version is still the old linear one. Both branches were verified with
+   pinned test data (executions 29 and 30) but the change is not live until
+   published in the n8n UI. **Until it is published, a hiring-sheet submission
+   would fall through the old path and create a Quotes opportunity + text
+   Todd** — so publish before the site deploys, or deploy after.
+2. **Merge and deploy** `feat/commercial-hiring-sheet`.
 
 ## Voice Notes
 
