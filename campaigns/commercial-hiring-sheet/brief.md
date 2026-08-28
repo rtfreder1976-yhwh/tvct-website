@@ -62,20 +62,35 @@ office-cleaning` set) once the first one proves out.
   `c7094a34`). Downloads no longer touch the Quotes pipeline or text Todd.
 - ✅ `feat/commercial-hiring-sheet` fast-forwarded into `main` (commit
   `1cd14cb9`). check / validate:claims / build all clean on main.
-- ⏳ **Not pushed.** Goes live on the next push to origin.
+- ✅ **DEPLOYED and verified in production 2026-08-28.** Vercel
+  `dpl_L9TR7cAAMRsNJQipEumiGSRRVbMt` READY from commit `b183eae5`.
 
 Ordering was the risk and it is now resolved in the safe direction: n8n was
 published first, so even if the site had deployed early the branch would have
 routed correctly.
 
-### After it deploys — verify in production
+### Production verification — DONE 2026-08-28
 
-1. Submit the gate at `/commercial-hiring-sheet` with a `ZZ`-prefixed test name.
-2. Confirm in n8n that the run took the **hiring-sheet** branch: no opportunity
-   in the Quotes pipeline, no SMS to Todd, delivery email sent.
-3. Clear the `ZZ` test contact from GHL and the test row from
-   `tvct_quote_requests` (there is already a cleanup item open for the
-   `ZZ`/`QQ` rows from the original quote-flow build).
+Real browser submission through the live gate (n8n execution **31**, mode
+`webhook`, not a manual test):
+
+- `Which Form?` output was `[[], [contact]]` — quote branch empty, hiring-sheet
+  branch taken.
+- `Email The Hiring Sheet` ran; GHL returned "Email queued successfully."
+- `Send Auto-Reply`, `Create Opportunity`, and `Text Todd The Lead` do **not
+  appear in runData at all** — they never executed. No Quotes opportunity, no
+  SMS to Todd. The branch holds against real traffic.
+- Payload shaped correctly: `formType: hiring-sheet`,
+  `source: commercial-hiring-sheet`, company → `city`, no phone.
+
+Endpoint also verified live: `invalid form type` → 400 (proves the new code is
+deployed, not a cached build), and the quote branch still rejects a missing
+city.
+
+**Cleanup owed (Todd):** GHL contact `WD0j0YLk3GJFXazcjFxX`
+("ZZ Deploy Test" / zz-deploytest-20260828@example.com) and its row in the n8n
+data table `tvct_quote_requests`. Folds into the existing `ZZ`/`QQ` cleanup
+item from the original quote-flow build.
 
 ## Voice Notes
 
