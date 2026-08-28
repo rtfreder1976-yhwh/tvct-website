@@ -137,10 +137,24 @@ const GROUPS = [
       .sheet-question { break-inside: avoid; page-break-inside: avoid; }
       .sheet-group { break-inside: avoid-page; }
       a[href]:after { content: none !important; }
+
+      /* The screen layout clears a fixed nav that does not exist on paper. */
+      main { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+      /* Tinted fills read as muddy grey on most office printers. Keep the
+         peach rules (they carry the structure) and drop the washes. */
+      .sheet-question span[aria-hidden="true"] {
+        background: transparent !important;
+        border: 1.5pt solid #333 !important;
+      }
+      .sheet-question p:last-child {
+        background: transparent !important;
+        padding-left: 10pt !important;
+      }
     }
   </style>
 
-  <main class="min-h-screen bg-white py-10 px-6">
+  <main class="min-h-screen bg-white pt-32 pb-20 px-6">
     <div class="container mx-auto max-w-3xl sheet">
 
       <!-- Header -->
@@ -161,7 +175,7 @@ const GROUPS = [
         </button>
       </div>
 
-      <p class="text-gray-600 leading-relaxed mb-8">
+      <p class="text-lg text-gray-600 leading-relaxed mb-10">
         Most cleaning proposals read the same: insured, professional, attention to
         detail. None of that tells you who will be in your building at 9 PM or what
         happens when a restroom gets skipped. These twelve questions do. Ask them of
@@ -170,34 +184,42 @@ const GROUPS = [
       </p>
 
       <!-- Shortcut -->
-      <div class="bg-[#FFA985]/10 border border-[#FFA985]/30 rounded-xl p-6 mb-10 sheet-group">
-        <p class="font-bold text-[#333333] mb-3">If you only ask three</p>
-        <ol class="space-y-1.5 text-sm text-gray-700">
-          <li><strong>Question 3</strong> — the insurance certificate, with the limit on it</li>
-          <li><strong>Question 4</strong> — the task list, item by item</li>
-          <li><strong>Question 9</strong> — the make-right policy, in writing</li>
+      <div class="bg-[#FFA985]/10 border border-[#FFA985]/30 rounded-xl p-6 sm:p-7 mb-14 sheet-group">
+        <p class="text-lg font-bold text-[#333333] mb-4">If you only ask three</p>
+        <ol class="space-y-2.5 text-gray-700">
+          <li><strong class="text-[#333333]">Question 3</strong> — the insurance certificate, with the limit on it</li>
+          <li><strong class="text-[#333333]">Question 4</strong> — the task list, item by item</li>
+          <li><strong class="text-[#333333]">Question 9</strong> — the make-right policy, in writing</li>
         </ol>
-        <p class="text-sm text-gray-600 mt-3">
+        <p class="text-gray-600 mt-4 leading-relaxed">
           Those three eliminate most of the field before you ever compare prices.
         </p>
       </div>
 
       <!-- Questions -->
       {GROUPS.map((group) => (
-        <section class="mb-10 sheet-group">
-          <h2 class="text-xs font-bold uppercase tracking-wider text-[#FFA985] mb-5">
+        <section class="mb-14 sheet-group">
+          <h2 class="text-sm font-bold uppercase tracking-widest text-[#FFA985] mb-6 pb-3 border-b border-[#FFA985]/25">
             {group.title}
           </h2>
-          <div class="space-y-7">
+          <div class="space-y-10">
             {group.questions.map((item) => (
-              <div class="sheet-question">
-                <h3 class="font-bold text-[#333333] mb-2 leading-snug">
-                  {item.n}. {item.q}
-                </h3>
-                <p class="text-sm text-gray-600 leading-relaxed mb-2">{item.body}</p>
-                <p class="text-sm text-gray-700 border-l-2 border-[#FFA985] pl-3">
-                  <em class="text-gray-500">Get in writing:</em> {item.writing}
-                </p>
+              <div class="sheet-question flex gap-4 sm:gap-5">
+                <span
+                  class="shrink-0 w-9 h-9 rounded-full bg-[#FFA985]/15 text-[#333333] font-bold flex items-center justify-center text-base"
+                  aria-hidden="true"
+                >
+                  {item.n}
+                </span>
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-lg font-bold text-[#333333] mb-2 leading-snug">
+                    <span class="sr-only">Question {item.n}. </span>{item.q}
+                  </h3>
+                  <p class="text-gray-600 leading-relaxed mb-3">{item.body}</p>
+                  <p class="text-gray-700 leading-relaxed bg-gray-50 border-l-[3px] border-[#FFA985] rounded-r px-4 py-3">
+                    <strong class="font-semibold text-[#333333]">Get in writing:</strong> {item.writing}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -206,14 +228,14 @@ const GROUPS = [
 
       <!-- How TVCT answers -->
       <section class="border-t border-gray-200 pt-8 sheet-group">
-        <h2 class="text-xl font-bold text-[#333333] mb-3">
+        <h2 class="text-2xl font-bold text-[#333333] mb-3">
           How The Valley Clean Team answers
         </h2>
-        <p class="text-gray-600 mb-5 leading-relaxed">
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
           We built this sheet because we're comfortable answering it.
         </p>
 
-        <ul class="space-y-3 text-sm text-gray-600 mb-6">
+        <ul class="space-y-4 text-gray-600 mb-8">
           <li class="flex gap-3">
             <Icon name="check-circle" class="w-4 h-4 text-[#FFA985] shrink-0 mt-0.5" />
             <span>
