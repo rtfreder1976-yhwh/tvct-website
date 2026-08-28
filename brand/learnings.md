@@ -14,6 +14,19 @@ _Initialized 2026-08-22 by /start-here (fresh start). Append-only. Log what work
 - 2026-08-23 — Any line implying we measure/inspect the house ("if the square footage turns out different"). Christen: cleaner calls office → Christen calls client before anything changes.
 - 2026-08-23 — Blunt rejection in wrong-fit copy ("it won't be us"); Christen wants scarcity/selectivity instead.
 
+- 2026-08-28 — Campaign-brief targeting language leaking into customer copy.
+  The hiring-sheet gate said "Written for office managers, practice managers,
+  and church administrators in North Alabama" — that is the brief's *Target
+  Audience* section, not something a reader needs told about themselves. It also
+  broke the next sentence: "Ask them of every company you are considering" had
+  no antecedent, so "them" read as the office managers. Todd caught it as
+  "inside information not client facing." Fix was to speak TO the reader:
+  "Ask these questions of every company you are considering — including us."
+  **Rule:** when lifting a line out of a brief, check that (a) it addresses the
+  reader rather than describing them, and (b) every pronoun still has its
+  referent in the new context. The same leak hit the meta description
+  ("buyer-side checklist"), which shows in search results.
+
 ## Audience insights
 
 - 2026-08-23 — Owner roles: Todd (veteran) runs the company; Christen runs marketing. Earlier "Christen runs the customer side/phone" was an orchestrator guess and was wrong.

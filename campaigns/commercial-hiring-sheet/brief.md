@@ -50,9 +50,28 @@ National players (Jobber, Swept, Aspire) publish generic cleaning checklists and
 4. LinkedIn commercial posts can reference it (social batch already has 1
    commercial LinkedIn slot).
 
-Worth adding to the other commercial pages (`/church-cleaning`,
-`/dental-office-cleaning`, `/medical-clinic-cleaning`, the `/locations/*/
-office-cleaning` set) once the first one proves out.
+**Rolled out to all commercial pages 2026-08-28** — 32 pages carry the link:
+
+- 23 location pages via one edit inside `ServiceLocationLayout`'s existing
+  `isCommercial` branch (covers the `commercial-cleaning`, `office-cleaning`,
+  `dental-office-cleaning`, `medical-office-cleaning` slugs). The same layout
+  serves 43 residential pages, which is why the link sits inside that flag
+  rather than in the shared CTA — a B2B vendor scorecard on a house-cleaning
+  page is the wrong audience.
+- 4 bespoke commercial location pages (madison, nashville, tuscumbia,
+  west-nashville) — light-on-peach styling for their gradient CTA.
+- 5 top-level: commercial-office-cleaning, church-cleaning,
+  medical-clinic-cleaning, dental-office-cleaning, dialysis-center-cleaning.
+
+**Deliberately skipped:**
+- The 5 `/ads/` landers — all `noindex` paid-traffic pages with a single
+  conversion goal. A "still comparing?" link there leaks paid clicks away from
+  the CTA being paid for.
+- `/booking-commercial` — the visitor is mid-booking, past comparing vendors.
+- `/commercial-quote` — a bare 301 to BookingKoala, no page to edit.
+
+Verified in the build: 32 pages carry it, 0 residential and 0 ads pages do, and
+the gate does not self-link.
 
 ## Status
 
