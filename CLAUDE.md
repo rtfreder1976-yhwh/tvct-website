@@ -130,7 +130,7 @@ Use focused branches/PRs and conventional commit prefixes (`fix:`, `feat:`, `ref
 
 ## Current intentional follow-ups
 
-- Design and ship the replacement lead/quote capture flow (BK customer-facing forms being retired — decision 2026-08-24; framework in project memory: quote-flow-redesign).
+- ~~Design and ship the replacement lead/quote capture flow~~ **First piece shipped 2026-08-27**: `/request-a-quote` → `/quote-submit` → n8n → GoHighLevel, live and verified end-to-end. See `docs/quote-capture-flow.md` — read it before touching this flow, it documents three traps that each broke it in production (the endpoint must not live under `/api/`; n8n's `ignoreBots` rejects Vercel; GHL matches contacts on phone and will overwrite leads). Still open: `/get-quote` remains a BK embed, and the n8n webhook is unauthenticated.
 - ~~Wire `/careers` to the dedicated BookingKoala 2 cleaner application when its URL is available.~~ **Done** — `/careers` 301s to the live hiring form (confirmed 2026-08-25). See §3.
 - Choose a newsletter destination before re-enabling signup.
 - Continue production smoke tests/security-header hardening from current `main`.
