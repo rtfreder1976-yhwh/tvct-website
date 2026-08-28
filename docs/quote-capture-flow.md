@@ -81,6 +81,41 @@ people genuinely share a number the second contact is created *without* one
 missing phone is recoverable — the raw lead has it. A destroyed lead is not.
 Change the GHL duplicate setting if you'd rather allow shared phones.
 
+## What happens once GHL has the lead
+
+1. **Contact** upserted (matched on email — see trap 3).
+2. **Opportunity** created in the **Quotes** pipeline (`ysIvzkYJy2hce7o12HDx`) at
+   its first stage. Deliberately not Residential Cleaning: that pipeline is
+   BookingKoala's, where opportunities appear already at "Booked" — mixing
+   web leads into it would muddy both funnels.
+3. **Todd is texted** the lead details.
+4. **The prospect gets an email** and, when possible, **an SMS receipt**.
+
+### Trap 4: GHL cannot text a third party
+
+`POST /conversations/messages` **always sends to the contact**. A `toNumber`
+that is not that contact's own number is rejected with
+`CONVERSATIONS_MSG_PHONE_MISMATCH`. There is no "text someone else" option.
+
+So Todd's alert cannot be addressed by number. It targets a dedicated contact
+that represents him — `dH7VKSZqZG7LZI2q8B3q`, "Todd Frederickson (Internal
+Alerts)", tagged `internal-alerts-recipient`. **Do not delete that contact**;
+the alert stops working if it goes. This avoids needing a Twilio or SMTP
+credential at all.
+
+The bug hid for a while because an early test used Todd's own number as the
+prospect phone, so contact-and-target happened to agree.
+
+### Trap 5: the prospect SMS depends on the phone actually landing
+
+`Add Phone To Contact` fails when that number already belongs to another GHL
+contact (trap 3's duplicate rule). The contact is then phone-less and any SMS
+to it returns `CONVERSATIONS_MSG_NO_PHONE`. An IF gate now checks for a phone
+before attempting the receipt, so the run ends cleanly instead of erroring.
+
+The prospect still gets the **email** either way, and Todd's alert always
+carries the phone from the raw form, so he can call regardless.
+
 ## Why a failed delivery still shows the visitor "success"
 
 Deliberate. A broken webhook is our problem, not theirs, and telling them to
