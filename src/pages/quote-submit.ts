@@ -145,7 +145,13 @@ export const POST: APIRoute = async ({ request }) => {
   // ship first. Turn on Header Auth in n8n only AFTER this is deployed with the
   // value set, or every lead 403s — the same silent failure as trap 2, where
   // the form looks healthy while dropping 100% of real traffic.
-  const webhookSecret = import.meta.env.N8N_QUOTE_WEBHOOK_SECRET;
+  // `import.meta.env` is inlined at BUILD time by Vite. A Vercel "Redeploy"
+  // that reuses the build cache can therefore ship without a newly-added
+  // variable baked in. Fall back to process.env, which is read at RUNTIME, so
+  // the value is picked up either way.
+  const webhookSecret =
+    import.meta.env.N8N_QUOTE_WEBHOOK_SECRET ??
+    process.env.N8N_QUOTE_WEBHOOK_SECRET;
 
   // Everything the lead said, in one object. Logged verbatim on any delivery
   // failure so a lost lead can be reconstructed and contacted by hand — the
@@ -167,6 +173,14 @@ export const POST: APIRoute = async ({ request }) => {
     source: isHiringSheet ? "commercial-hiring-sheet" : "request-a-quote",
     submittedAt: new Date().toISOString(),
   };
+
+  if (!webhookSecret) {
+    // Not fatal — n8n may not require the header yet — but it means the
+    // request is going out unauthenticated, which is worth seeing.
+    console.warn(
+      "[quote-submit] N8N_QUOTE_WEBHOOK_SECRET is not set; sending unauthenticated",
+    );
+  }
 
   if (!webhookUrl) {
     // Never fail the visitor because delivery is misconfigured. Log loudly so
