@@ -96,13 +96,29 @@ export const POST: APIRoute = async ({ request }) => {
   // retired /api/submit-form GHL wiring.
   const webhookUrl = import.meta.env.N8N_QUOTE_WEBHOOK_URL;
 
+  // Everything the lead said, in one object. Logged verbatim on any delivery
+  // failure so a lost lead can be reconstructed and contacted by hand — the
+  // whole reason this endpoint still answers 200 when delivery breaks.
+  const payload = {
+    name: body.name,
+    phone: body.phone,
+    email: body.email,
+    serviceType: body.serviceType,
+    city: body.city,
+    sqft: body.sqft ?? "",
+    message: body.message ?? "",
+    preferredContact: body.preferredContact ?? "either",
+    source: "request-a-quote",
+    submittedAt: new Date().toISOString(),
+  };
+
   if (!webhookUrl) {
     // Never fail the visitor because delivery is misconfigured. Log loudly so
     // the submission can be recovered from logs, and still confirm to them —
     // they have no way to act on our plumbing problem.
     console.error(
-      "[request-quote] N8N_QUOTE_WEBHOOK_URL is not set; submission not delivered",
-      { name: body.name, phone: body.phone, email: body.email, city: body.city },
+      "[quote-submit] LEAD NOT DELIVERED — N8N_QUOTE_WEBHOOK_URL is not set",
+      payload,
     );
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
@@ -110,40 +126,44 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  try {
-    const res = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: body.name,
-        phone: body.phone,
-        email: body.email,
-        serviceType: body.serviceType,
-        city: body.city,
-        sqft: body.sqft ?? "",
-        message: body.message ?? "",
-        preferredContact: body.preferredContact ?? "either",
-        source: "request-a-quote",
-        submittedAt: new Date().toISOString(),
-      }),
-      signal: AbortSignal.timeout(8000),
-    });
+  // One retry: a single transient blip (cold start, brief n8n restart) should
+  // not cost a lead. Anything past two failures is an outage, not a blip, and
+  // the payload lands in the log for manual recovery.
+  let delivered = false;
+  let lastFailure = "";
 
-    if (!res.ok) {
-      console.error("[request-quote] n8n webhook rejected the submission", {
-        status: res.status,
-        name: body.name,
-        phone: body.phone,
-        email: body.email,
+  for (let attempt = 1; attempt <= 2 && !delivered; attempt++) {
+    try {
+      const res = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(8000),
+      });
+
+      if (res.ok) {
+        delivered = true;
+      } else {
+        lastFailure = `n8n returned ${res.status}`;
+        console.error("[quote-submit] n8n rejected the submission", {
+          attempt,
+          status: res.status,
+        });
+      }
+    } catch (err) {
+      lastFailure = err instanceof Error ? err.message : String(err);
+      console.error("[quote-submit] n8n delivery failed", {
+        attempt,
+        error: lastFailure,
       });
     }
-  } catch (err) {
-    // Same reasoning as above: a delivery failure is ours, not the visitor's.
-    console.error("[request-quote] n8n webhook delivery failed", {
-      error: err instanceof Error ? err.message : String(err),
-      name: body.name,
-      phone: body.phone,
-      email: body.email,
+  }
+
+  if (!delivered) {
+    // Last line of defence: the complete lead, greppable by this exact prefix.
+    console.error("[quote-submit] LEAD NOT DELIVERED — recover by hand", {
+      reason: lastFailure,
+      ...payload,
     });
   }
 
