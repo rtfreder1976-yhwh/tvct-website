@@ -1,5 +1,14 @@
 import type { APIRoute } from "astro";
 
+/**
+ * Deliberately NOT under /api/. As `src/pages/api/request-quote.ts` this route
+ * 404'd in production while building correctly and working locally: Vercel's
+ * routing layer answered it directly (the 404 carried the X-Robots-Tag from
+ * vercel.json's `/api/(.*)` rule) and the function was never invoked — it never
+ * appeared in runtime logs. A cache-free redeploy did not fix it. Other SSR
+ * routes (/admin/login, /api-docs) were unaffected, so the collision was with
+ * the /api/ path convention, not with SSR. Do not move this back under /api/.
+ */
 export const prerender = false;
 
 const SERVICE_TYPES = [
