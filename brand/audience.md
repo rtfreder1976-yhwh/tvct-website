@@ -7,6 +7,16 @@
 
 **Verified vs inferred.** Anything tagged **[verified]** traces to claims.ts, Stripe, GSC, or the PostHog pull. Anything tagged **[inferred]** is a reasoned guess from the verified facts and the brief; treat it as a hypothesis until Todd or Christen confirms (see "Open questions"). No customer interviews, surveys, or CRM demographics were available for this pass.
 
+> ### ⚠️ 2026-08-25 — BookingKoala verification pass (READ THIS FIRST)
+>
+> Reports pulled directly from BookingKoala on 2026-08-25 (`campaigns/icp-verification/`). Three things below are now **verified** and correct earlier inferences in this file:
+>
+> 1. **The active book is monthly-dominant, not biweekly.** 22 active customers: 19 recurring, 3 one-time. Of the recurring — **11 monthly, 5 biweekly**, 2 weekly, 1 twice-weekly, 1 every-3-weeks, 1 quarterly. This file's "biweekly is the money segment" framing was an inference and is wrong about the current book. BUT biweekly has produced **more lifetime revenue ($106.8K) than monthly ($96.4K)** on fewer than half the customers, so per-customer it is still the better product. Open question for Todd: is monthly what this market buys, or an un-pushed upgrade opportunity?
+> 2. **Price is NOT why customers leave.** Of 50 cancellations in 2026, exactly **one** mentions price — and its note shows it was a card-pre-authorization misunderstanding, not the rate. Quality/conduct complaints: 3. **Our own capacity/availability: 12 (24%) — the single largest cause.** Verbatim notes in `campaigns/icp-verification/cancellation-notes-2026.md`. Do not write copy defending the price; the objection the data supports is "can you actually fit me in."
+> 3. **AOV caution.** BookingKoala's 2026 revenue-per-booking reads **$333.16**, but that is All Industries with commercial and post-construction inflating it. The residential AOV of **$249 (Stripe)** below remains the number for copy. Never publish $333 as residential.
+>
+> Also verified: a **6-customer win-back list** ("I will be back", named and contactable) and that ~14% of the raw cancellation count is duplicates/admin cleanup, not churn.
+
 **Verified facts this file leans on:**
 - Residential AOV ≈ $249 (Stripe). Recurring share of residential revenue rose 57% → 68% (2025 → 2026). Fewer jobs, AOV up ~50%: the premium repositioning is working. [verified]
 - ~43K Google impressions/month, mostly "how much does house cleaning cost [city]" intent. Positions 4-10 already. Local CTR 0.07%; brand-term CTR 21.6%. The problem is the click, not the rank. [verified, GSC 2026-08-21]
@@ -168,7 +178,10 @@ Device note: 74% of real AL/TN visitors are on mobile. The phone number must be 
 ---
 
 ## Open questions for Todd and Christen
-1. Actual customer age mix and household type from BookingKoala: is 35-60 / dual-income right, or is the real core older (empty-nest) or younger?
+
+**Answered 2026-08-25 by the BookingKoala pull** (`campaigns/icp-verification/`): Q4 (frequency split — monthly-dominant, 11 vs 5 biweekly) and Q7 (cancellation reasons — capacity 24%, price 1 of 50). Q5 (acquisition source) is **unanswerable in BookingKoala** — it isn't tracked, and the Referrals report is all zeros because the referral program is unused. Q2, Q3 (sq-ft distribution) and Q6 remain open; BK does not collect age or household type at all.
+
+1. Actual customer age mix and household type from BookingKoala: is 35-60 / dual-income right, or is the real core older (empty-nest) or younger? **[BK does not collect this — needs a survey or address inference]**
 2. Share of military / defense households among Huntsville-area customers, and whether PCS timing (summer) shows up in bookings.
 3. Real square-footage distribution of recurring customers, and how many sit below ~1,000 sq ft on weekly.
 4. Biweekly vs weekly vs monthly split among active recurring customers.

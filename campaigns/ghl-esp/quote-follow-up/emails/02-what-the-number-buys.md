@@ -51,3 +51,21 @@ Questions about anything in your quote? Reply here or call (256) 826-1100.
 
 — Todd
 The Valley Clean Team
+
+---
+
+## Optional: VSL variant
+
+Once "The Exact Price" video is produced (`campaigns/vsl-exact-price/script.md`), swap the opening two paragraphs for the version below. Do not send with `[VIDEO LINK]` unresolved.
+
+> Hi {{contact.first_name}},
+>
+> If you've been comparing quotes, ours probably isn't the lowest. That's intentional, and I recorded about three and a half minutes explaining exactly why — including who we're *not* the right company for.
+>
+> [VIDEO LINK]
+>
+> The short version, if you'd rather read it: it includes a 44-item checklist run the same way every visit — not whatever the cleaner remembers that day. It includes people who are background-checked and covered by $2 million in liability insurance. And it includes a company that answers when you call. (You'd be surprised how rare that last one is.)
+
+Then continue with the re-clean paragraph and CTA as written above.
+
+**Subject line for the VSL variant:** "Three minutes on why our price is what it is" (from the VSL sequence, email 1 — tested runtime-in-subject formula).
