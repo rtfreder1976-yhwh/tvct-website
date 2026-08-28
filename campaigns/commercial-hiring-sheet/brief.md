@@ -2,7 +2,7 @@
 
 _Created 2026-08-24 by /lead-magnet. Updated 2026-08-28: built and gated on the site._
 
-_Status: BUILT — live behind a capture gate on the branch `feat/commercial-hiring-sheet`, pending merge/deploy and one manual n8n publish (see Status below)._
+_Status: MERGED to main 2026-08-28 (commit 1cd14cb9). n8n branch published. Deploys on the next push to origin._
 
 ## Goal
 
@@ -56,16 +56,26 @@ office-cleaning` set) once the first one proves out.
 
 ## Status
 
-**BUILT, not yet live.** Two things remain, both outside the repo:
+**MERGED — awaiting deploy.**
 
-1. **Publish the n8n workflow.** `VCT — Website Quote Request Intake`
-   (`00Z4VELE4rKJmEry`) has the `Which Form?` branch saved as a **draft**; the
-   active version is still the old linear one. Both branches were verified with
-   pinned test data (executions 29 and 30) but the change is not live until
-   published in the n8n UI. **Until it is published, a hiring-sheet submission
-   would fall through the old path and create a Quotes opportunity + text
-   Todd** — so publish before the site deploys, or deploy after.
-2. **Merge and deploy** `feat/commercial-hiring-sheet`.
+- ✅ n8n `Which Form?` branch **published** 2026-08-28 (activeVersionId
+  `c7094a34`). Downloads no longer touch the Quotes pipeline or text Todd.
+- ✅ `feat/commercial-hiring-sheet` fast-forwarded into `main` (commit
+  `1cd14cb9`). check / validate:claims / build all clean on main.
+- ⏳ **Not pushed.** Goes live on the next push to origin.
+
+Ordering was the risk and it is now resolved in the safe direction: n8n was
+published first, so even if the site had deployed early the branch would have
+routed correctly.
+
+### After it deploys — verify in production
+
+1. Submit the gate at `/commercial-hiring-sheet` with a `ZZ`-prefixed test name.
+2. Confirm in n8n that the run took the **hiring-sheet** branch: no opportunity
+   in the Quotes pipeline, no SMS to Todd, delivery email sent.
+3. Clear the `ZZ` test contact from GHL and the test row from
+   `tvct_quote_requests` (there is already a cleanup item open for the
+   `ZZ`/`QQ` rows from the original quote-flow build).
 
 ## Voice Notes
 
