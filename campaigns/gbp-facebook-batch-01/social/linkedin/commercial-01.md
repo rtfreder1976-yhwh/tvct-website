@@ -19,6 +19,6 @@ If your current provider's quality slid after the first quarter, that's the spec
 
 The Valley Clean Team — office and facility cleaning across North Alabama and Middle Tennessee. Background-checked crews, $2 million in liability coverage.
 
-**CTA:** link to https://thevalleycleanteam.com/booknow/office_cleaning (commercial keeps its BookingKoala link; no residential CTA).
+**CTA:** link to https://thevalleycleanteam.com/request-a-quote?service=commercial (site-owned commercial quote flow; no residential CTA).
 
 **Image note:** none required; if used, a plain checklist-card graphic (thin-line, one peach tick) — no office stock photos.

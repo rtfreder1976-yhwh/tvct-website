@@ -29,7 +29,7 @@ Nine times out of ten, that kind of account is a problem inside 60 days anyway. 
 
 We'd rather scope a job honestly and both know what we agreed to.
 
-Commercial cleaning in North Alabama and Middle Tennessee — square footage, task list, visits per week, and a written quote within 2 business hours: thevalleycleanteam.com/booknow/office_cleaning
+Commercial cleaning in North Alabama and Middle Tennessee — square footage, task list, visits per week, and a written quote within 2 business hours: thevalleycleanteam.com/request-a-quote?service=commercial
 
 ---
 

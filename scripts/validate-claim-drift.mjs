@@ -381,6 +381,39 @@ function scanForRetiredCommercialUrl(dir) {
 
 for (const root of retiredCommercialRoots) scanForRetiredCommercialUrl(root);
 
+// brand/ is the authoritative memory the marketing skills read as input --
+// voice-profile, positioning, audience, stack and creative-kit are all declared
+// "Reads:" sources. A retired commercial route left in there regenerates itself
+// into new copy on the next skill run, which is exactly how the old rule
+// survived two passes that updated CLAUDE.md and the copywriting skill but not
+// brand memory. Matched on the bare path because these files reference the
+// route, not the full BookingKoala URL.
+//
+// campaigns/ is deliberately NOT scanned: it holds dated records (template
+// audits, campaign briefs) that legitimately describe what the architecture
+// used to be, and rewriting history there would be wrong.
+const RETIRED_COMMERCIAL_PATH_PATTERN = /\/booknow\/office_cleaning\b/;
+
+function scanBrandMemoryForRetiredPath(dir) {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      scanBrandMemoryForRetiredPath(full);
+      continue;
+    }
+    if (!retiredCommercialExtensions.has(path.extname(entry.name))) continue;
+    if (RETIRED_COMMERCIAL_PATH_PATTERN.test(fs.readFileSync(full, 'utf8'))) {
+      failures.push(
+        `${full}: found /booknow/office_cleaning — brand memory feeds generated copy; ` +
+          `commercial routes to ${COMMERCIAL_QUOTE_PATH} (CLAUDE.md §2)`,
+      );
+    }
+  }
+}
+
+scanBrandMemoryForRetiredPath('brand');
+
 for (const [market, hub] of [
   ['huntsville', '/locations/huntsville'],
   ['nashville', '/locations/nashville'],

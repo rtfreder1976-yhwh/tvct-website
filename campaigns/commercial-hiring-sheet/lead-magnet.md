@@ -3,7 +3,7 @@ title: "The Hiring Sheet"
 subtitle: "12 questions to ask any commercial cleaning company — and the answers to get in writing"
 format: checklist
 hook: "Before anyone touches your building: 12 questions, and the answers you should have in writing before the first visit."
-bridge_to: "TVCT commercial cleaning (custom-quoted; /booknow/office_cleaning or a walkthrough)"
+bridge_to: "TVCT commercial cleaning (custom-quoted; /request-a-quote?service=commercial or a walkthrough)"
 target_audience: "Office managers, dental/medical practice managers (non-clinical facility cleaning), and church administrators in North Alabama"
 estimated_consumption_time: "5 min to read; use it during vendor calls"
 status: draft

@@ -108,7 +108,7 @@
 | Story / Reel cover | 1080x1920, 9:16 | Photo top 60% (text-safe quiet side), light band bottom 40% with headline + phone | Keep the top 250 px and bottom 300 px free of text (UI overlays). |
 | GBP post image | 1200x900, 4:3 | Photo-led or checklist-card; single line of text max; no logo needed (profile shows it) | GBP crops to 4:3 in feed; keep text in the center 80%. Never a "5-star" badge; "4.9 from 148 reviews" only if pulled from claims.ts at write time. |
 | Blog hero | 1600x900, 16:9 (also 1200x630 OG) | Photo or teaching graphic; no text baked in (the template sets the title) | Match `BlogPostLayout`; keep explicit width/height; export AVIF/WebP. |
-| Ad creative (Meta/Google display) | 1080x1080 and 1200x628 | Headline from the 12-ad matrix in positioning.md; one proof number; phone as CTA | Residential ads: phone-first CTA (AL 256-826-1100 / TN 615-510-1427; TN targeting dials TN). Commercial ads may CTA to /booknow/office_cleaning. |
+| Ad creative (Meta/Google display) | 1080x1080 and 1200x628 | Headline from the 12-ad matrix in positioning.md; one proof number; phone as CTA | Residential ads: phone-first CTA (AL 256-826-1100 / TN 615-510-1427; TN targeting dials TN). Commercial ads CTA to /request-a-quote?service=commercial. |
 | Talking-head thumbnail | 1280x720, 16:9 | Presenter right third, natural light, charcoal 3-5 word title left in Playfair, one peach brushstroke | No pointing-at-text pose, no shocked face, no red arrows. |
 
 ---
