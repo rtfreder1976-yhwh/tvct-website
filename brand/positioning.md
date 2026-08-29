@@ -220,7 +220,7 @@ Live research 2026-08-22 (WebSearch + Firecrawl; MaidPro/Merry Maids via Firecra
 - Statement: Office, dental and church facility managers get a written cleaning quote within 2 business hours, priced from square footage, task list and visits per week, not a walkthrough three days out.
 - Psychology: Speed + specificity for a buyer comparing three vendors; non-clinical facility cleaning only.
 - Headline: "A written quote in 2 business hours. Square footage, task list, visits per week."
-- Proof: `PERFORMANCE.quoteResponseSla`, `POLICIES.commercialQuoteFactors`, `TRUST`, BookingKoala /booknow/office_cleaning.
+- Proof: `PERFORMANCE.quoteResponseSla`, `POLICIES.commercialQuoteFactors`, `TRUST`, /request-a-quote?service=commercial.
 - Tension, noted: the brief defines TVCT as a *residential* company. Commercial stays because CLAUDE.md keeps commercial CTAs and the revenue is real, but it is a secondary segment: never in the residential hero, never blended into the homepage position, its own pages and outreach only.
 - Caveat: no clinical, OSHA, bloodborne-pathogen or disinfectant claims (`CLINICAL` all false; `CERTIFICATIONS` empty).
 

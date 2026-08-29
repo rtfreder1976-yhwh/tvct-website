@@ -111,7 +111,7 @@ How they talk [inferred; the register the copy should meet]:
 ### Commercial facility managers (secondary by brief)
 - Who: office managers, dental and medical practice managers (non-clinical facility cleaning only), church administrators. Quoted from square footage, task list and visits per week (`POLICIES.commercialQuoteFactors`).
 - What they want: a written quote on a clock (2 business hours), insurance certificate, a crew that is employed and background-checked.
-- Note: the brand brief defines TVCT as a residential company. Commercial keeps its own pages, its BookingKoala link (`/booknow/office_cleaning`), and its own outreach; it never leads the homepage or blends into the residential position. No clinical, OSHA, bloodborne-pathogen or disinfectant claims (`CLINICAL` all false; `CERTIFICATIONS` empty).
+- Note: the brand brief defines TVCT as a residential company. Commercial keeps its own pages, its own quote route (`/request-a-quote?service=commercial`), and its own outreach; it never leads the homepage or blends into the residential position. No clinical, OSHA, bloodborne-pathogen or disinfectant claims (`CLINICAL` all false; `CERTIFICATIONS` empty).
 
 ---
 

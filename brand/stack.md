@@ -12,7 +12,7 @@ _Initialized 2026-08-22 by /start-here (fresh start, second pass). Updated 2026-
 
 | System | Role | Status |
 | ------ | ---- | ------ |
-| **BookingKoala** | Booking system of record. Residential CTAs are phone-first (tel: links); commercial CTAs link `/booknow/office_cleaning`. Native GA4/Pixel events. | ✓ authoritative |
+| **BookingKoala** | Booking system of record, internal only. Residential CTAs are phone-first (tel: links); commercial CTAs link `/request-a-quote?service=commercial` — no customer-facing link points at a BookingKoala booking form (decision Todd, 2026-08-29). Native GA4/Pixel events. | ✓ authoritative |
 | **Stripe** | Reliable financial source of truth (not QuickBooks). | ✓ connected (MCP) |
 | **GA4** | Site analytics; `phone_click` is the conversion event. Filter to AL/TN + production hostname only. | Not currently connected |
 | **Replicate** | Image/video generation for /creative. | ✓ connected (MCP) |
