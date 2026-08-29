@@ -1,7 +1,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const COMMERCIAL_QUOTE_URL = 'https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning';
+// Commercial capture is site-owned as of 2026-08-29 (decision: Todd). Customer-facing
+// commercial CTAs point at the quote flow; BookingKoala is internal-only for booking/ops.
+// On-site links use the path; email/doc references need the absolute URL.
+const COMMERCIAL_QUOTE_PATH = '/request-a-quote?service=commercial';
+const AIRBNB_QUOTE_PATH = '/request-a-quote?service=airbnbTurnover';
+const COMMERCIAL_QUOTE_ABSOLUTE = 'https://thevalleycleanteam.com/request-a-quote?service=commercial';
+const RETIRED_COMMERCIAL_BOOKING_URL = 'https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning';
+// Careers stays on BookingKoala on purpose: cleaner applicants must never enter
+// customer quote/CRM infrastructure (CLAUDE.md §3).
 const CAREERS_URL = 'https://thevalleycleanteam.bookingkoala.com/hiring/form/careers';
 
 /**
@@ -62,8 +70,8 @@ const required = [
   },
   {
     file: 'src/pages/commercial-quote.astro',
-    text: COMMERCIAL_QUOTE_URL,
-    why: 'the established commercial quote route must hand off to the verified BookingKoala form',
+    text: COMMERCIAL_QUOTE_PATH,
+    why: 'the commercial quote route must forward into the site-owned quote flow',
   },
   {
     file: 'src/pages/careers.astro',
@@ -245,10 +253,14 @@ for (const source of ['/terms', '/terms/', '/careers', '/careers/']) {
 
 const bookingKoalaHandoffs = [
   {
-    url: COMMERCIAL_QUOTE_URL,
+    url: COMMERCIAL_QUOTE_PATH,
+    files: ['src/components/Footer.astro', 'src/pages/pricing.astro'],
+    why: 'on-site commercial quote CTAs must use the site-owned quote flow',
+  },
+  {
+    // Email and docs are read outside the site, so they need the absolute URL.
+    url: COMMERCIAL_QUOTE_ABSOLUTE,
     files: [
-      'src/components/Footer.astro',
-      'src/pages/pricing.astro',
       'templates/ghl_email_church.html',
       'templates/ghl_email_dental.html',
       'templates/ghl_email_dialysis.html',
@@ -258,7 +270,7 @@ const bookingKoalaHandoffs = [
       'docs/OUTREACH_GROWTH_PLAYBOOK.md',
       'docs/GROWTH_ENGINE_SYSTEM_MAP.md',
     ],
-    why: 'commercial quote CTAs must use the verified BookingKoala destination',
+    why: 'outreach commercial quote CTAs must use the site-owned quote flow',
   },
   {
     url: CAREERS_URL,
@@ -271,12 +283,19 @@ const bookingKoalaAnchorHandoffs = [
   {
     file: 'src/components/Footer.astro',
     labels: ['Commercial Quote →'],
-    url: COMMERCIAL_QUOTE_URL,
+    url: COMMERCIAL_QUOTE_PATH,
   },
   {
     file: 'src/pages/pricing.astro',
-    labels: ['Get Your Commercial Quote', 'Partner With Us'],
-    url: COMMERCIAL_QUOTE_URL,
+    labels: ['Get Your Commercial Quote'],
+    url: COMMERCIAL_QUOTE_PATH,
+  },
+  {
+    // Airbnb turnover is not commercial office work; it had been pointed at the
+    // office booking form, which sent vacation-rental hosts into the wrong flow.
+    file: 'src/pages/pricing.astro',
+    labels: ['Partner With Us'],
+    url: AIRBNB_QUOTE_PATH,
   },
   {
     file: 'src/components/Navigation.astro',
@@ -325,6 +344,34 @@ for (const handoff of bookingKoalaAnchorHandoffs) {
     }
   }
 }
+
+// Inverted guard for the 2026-08-29 decision. The rule this replaces required
+// commercial CTAs to point AT BookingKoala, so the old checks cannot simply be
+// deleted — the protection has to survive pointing the other way. Any customer-
+// facing surface that reintroduces the BookingKoala commercial booking form is a
+// regression, whether it is a link, an iframe embed, or an email template.
+const retiredCommercialRoots = ['src', 'templates', 'public'];
+const retiredCommercialExtensions = new Set(['.astro', '.ts', '.js', '.json', '.md', '.mdx', '.html', '.txt']);
+
+function scanForRetiredCommercialUrl(dir) {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      scanForRetiredCommercialUrl(full);
+      continue;
+    }
+    if (!retiredCommercialExtensions.has(path.extname(entry.name))) continue;
+    if (fs.readFileSync(full, 'utf8').includes(RETIRED_COMMERCIAL_BOOKING_URL)) {
+      failures.push(
+        `${full}: found ${RETIRED_COMMERCIAL_BOOKING_URL} — customer-facing commercial ` +
+          `capture is site-owned; link ${COMMERCIAL_QUOTE_PATH} instead (CLAUDE.md §2)`,
+      );
+    }
+  }
+}
+
+for (const root of retiredCommercialRoots) scanForRetiredCommercialUrl(root);
 
 for (const [market, hub] of [
   ['huntsville', '/locations/huntsville'],

@@ -44,13 +44,18 @@ intentionally: explicit capture contract, abuse controls, no secrets in
 client bundles. The design framework and non-negotiables live in project
 memory (quote-flow-redesign).
 
-Until the replacement flow ships:
+Current CTA routing:
 - Residential CTAs stay phone-first (decision 2026-08-21): tel: links,
   AL 256-826-1100; TN pages dial 615-510-1427. Secondary CTAs next to a
   phone button may link to /pricing.
-- Commercial CTAs keep their BookingKoala link (/booknow/office_cleaning).
-- The vercel.json redirects (/get-quote, /booking, /booknow → BK) and
-  SchemaMarkup's ReserveAction stay pointed at BookingKoala.
+- **Commercial CTAs point at `/request-a-quote?service=commercial`**
+  (decision Todd, 2026-08-29). No customer-facing link — on any page, including
+  paid /ads/ landing pages — may point at a BookingKoala booking form. This
+  replaces the earlier rule that commercial CTAs keep `/booknow/office_cleaning`.
+  The `?service=` param preselects the matching option in `RequestQuoteForm`.
+- The residential vercel.json redirects (/get-quote, /booking, /booknow → BK)
+  and SchemaMarkup's ReserveAction still point at BookingKoala; only
+  /booking-commercial was moved to the quote flow.
 
 Still retired — do not resurrect the old implementations as-is:
 - the old `/api/submit-form` endpoint and its ad-hoc GHL webhook wiring

@@ -59,6 +59,26 @@ const CITY_OPTIONS = [
           <option value={opt.value}>{opt.label}</option>
         ))}
       </select>
+      {/* A commercial CTA links here as /request-a-quote?service=commercial, so
+          the visitor lands on the option they already chose upstream. Inline and
+          synchronous: the value is set while the parser is still inside the form,
+          so there is no flash of "Select a service" and no layout shift. */}
+      <script is:inline>
+        (function () {
+          var select = document.getElementById("serviceType");
+          if (!select) return;
+          var wanted = new URLSearchParams(window.location.search).get("service");
+          if (!wanted) return;
+          wanted = wanted.toLowerCase();
+          for (var i = 0; i < select.options.length; i++) {
+            var option = select.options[i];
+            if (option.value && option.value.toLowerCase() === wanted) {
+              select.value = option.value;
+              return;
+            }
+          }
+        })();
+      </script>
     </div>
     <div>
       <label for="city" class="block text-sm font-semibold text-gray-700 mb-1">City / Area *</label>
