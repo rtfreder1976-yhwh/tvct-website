@@ -7,7 +7,15 @@ import path from 'node:path';
 const COMMERCIAL_QUOTE_PATH = '/request-a-quote?service=commercial';
 const AIRBNB_QUOTE_PATH = '/request-a-quote?service=airbnbTurnover';
 const COMMERCIAL_QUOTE_ABSOLUTE = 'https://thevalleycleanteam.com/request-a-quote?service=commercial';
-const RETIRED_COMMERCIAL_BOOKING_URL = 'https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning';
+// Matched as a host+path pattern rather than a fixed https:// literal. A literal
+// substring check only catches the one spelling: http://, protocol-relative
+// (//host/...), and mixed-case reintroductions of the same endpoint would all slip
+// past a guard whose entire job is catching them. Anchored to the host so a
+// lookalike domain that merely contains this string cannot satisfy it either.
+const RETIRED_COMMERCIAL_BOOKING_PATTERN =
+  /(?:^|[^\w.-])thevalleycleanteam\.bookingkoala\.com\/booknow\/office_cleaning\b/i;
+const RETIRED_COMMERCIAL_BOOKING_LABEL =
+  'the BookingKoala commercial booking form (thevalleycleanteam.bookingkoala.com/booknow/office_cleaning)';
 // Careers stays on BookingKoala on purpose: cleaner applicants must never enter
 // customer quote/CRM infrastructure (CLAUDE.md §3).
 const CAREERS_URL = 'https://thevalleycleanteam.bookingkoala.com/hiring/form/careers';
@@ -362,10 +370,10 @@ function scanForRetiredCommercialUrl(dir) {
       continue;
     }
     if (!retiredCommercialExtensions.has(path.extname(entry.name))) continue;
-    if (fs.readFileSync(full, 'utf8').includes(RETIRED_COMMERCIAL_BOOKING_URL)) {
+    if (RETIRED_COMMERCIAL_BOOKING_PATTERN.test(fs.readFileSync(full, 'utf8'))) {
       failures.push(
-        `${full}: found ${RETIRED_COMMERCIAL_BOOKING_URL} — customer-facing commercial ` +
-          `capture is site-owned; link ${COMMERCIAL_QUOTE_PATH} instead (CLAUDE.md §2)`,
+        `${full}: found ${RETIRED_COMMERCIAL_BOOKING_LABEL} — customer-facing ` +
+          `commercial capture is site-owned; link ${COMMERCIAL_QUOTE_PATH} instead (CLAUDE.md §2)`,
       );
     }
   }
