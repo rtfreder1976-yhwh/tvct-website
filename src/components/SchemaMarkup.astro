@@ -150,17 +150,34 @@ const getOrganizationSchema = (includeDepartments = true) => ({
   ],
   ...(includeDepartments ? { department: departmentSchemas } : {}),
   potentialAction: [
+    /**
+     * CommunicateAction, not ReserveAction (changed 2026-08-29 with the move
+     * off BookingKoala's customer-facing forms).
+     *
+     * The TYPE had to change along with the URL. ReserveAction asserts the
+     * visitor can complete a *reservation* at the target — true of the old
+     * BookingKoala booking form, false of /request-a-quote, which captures a
+     * lead and promises a reply within the quote SLA. Retargeting a
+     * ReserveAction at it would claim a booking capability the page does not
+     * have — the kind of unsupportable structured-data claim CLAUDE.md bans.
+     *
+     * CommunicateAction ("conveying information to another person via a
+     * communication medium") is what the form actually does, and matches the
+     * tel: entry below. Note there is no schema.org type for requesting a
+     * quote: `RequestQuote`/`RequestQuoteAction` do not exist, and `Quotation`
+     * is a literary quote, not a price quote. Don't "fix" this to one of them.
+     */
     {
-      "@type": "ReserveAction",
+      "@type": "CommunicateAction",
+      name: "Request a cleaning quote",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: "https://thevalleycleanteam.bookingkoala.com/booknow/home_cleaning",
+        urlTemplate: "https://thevalleycleanteam.com/request-a-quote",
         actionPlatform: [
           "https://schema.org/DesktopWebPlatform",
           "https://schema.org/MobileWebPlatform",
         ],
       },
-      result: { "@type": "Reservation", name: "Cleaning Service Booking" },
     },
     {
       "@type": "CommunicateAction",
