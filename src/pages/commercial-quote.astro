@@ -1,8 +1,11 @@
 ---
-// Commercial quoting now lives in BookingKoala, the same system of record as
-// residential quoting. Keeping a local form here silently routed commercial
-// inquiries through the retired /api/submit-form -> GHL pipeline.
+// Commercial quoting is site-owned: /request-a-quote feeds /quote-submit -> n8n
+// -> GoHighLevel. This path predates that flow and used to hand commercial
+// inquiries to BookingKoala's office booking form; it now forwards into the
+// quote flow with the service preselected. BookingKoala remains the internal
+// system of record for booking/ops, but it is no longer a customer-facing
+// destination for commercial capture.
 export const prerender = false;
 
-return Astro.redirect("https://thevalleycleanteam.bookingkoala.com/booknow/office_cleaning", 301);
+return Astro.redirect("/request-a-quote?service=commercial", 301);
 ---

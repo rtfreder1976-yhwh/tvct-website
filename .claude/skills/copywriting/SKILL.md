@@ -34,7 +34,8 @@ Formula: **Action verb + what they get + →**
 - Examples: "Get the checklist →" / "Call for your free quote →" / "See pricing →"
 
 Residential CTAs are phone-first: AL (256) 826-1100, TN (615) 510-1427. Commercial
-CTAs keep their BookingKoala link. See CLAUDE.md for the full rule.
+CTAs point at the site-owned quote flow, /request-a-quote?service=commercial —
+never at a BookingKoala booking form. See CLAUDE.md for the full rule.
 
 ## Sourcing numbers
 
