@@ -89,6 +89,27 @@ const CITY_OPTIONS = [
           <option value={city}>{city}</option>
         ))}
       </select>
+      {/* Same pattern as the service prefill above: a location page links here
+          as ?city=Nashville%2C+TN so a visitor who already told us where they
+          are doesn't pick it twice. The value must match a CITY_OPTIONS entry
+          verbatim; anything else leaves the field on "Select your area", so a
+          city we don't list degrades instead of submitting a bad value. */}
+      <script is:inline>
+        (function () {
+          var select = document.getElementById("city");
+          if (!select) return;
+          var wanted = new URLSearchParams(window.location.search).get("city");
+          if (!wanted) return;
+          wanted = wanted.trim().toLowerCase();
+          for (var i = 0; i < select.options.length; i++) {
+            var option = select.options[i];
+            if (option.value && option.value.toLowerCase() === wanted) {
+              select.value = option.value;
+              return;
+            }
+          }
+        })();
+      </script>
     </div>
   </div>
 

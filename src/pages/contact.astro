@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
+import { MARKET_PHONES } from "../constants/schemaData";
+import { PERFORMANCE } from "../data/claims";
 
 // LocalBusiness schema for Contact page
 const localBusinessSchema = {
@@ -80,13 +82,23 @@ const localBusinessSchema = {
           >
             <Icon name="phone" class="w-6 h-6 text-[#333333]" />
           </div>
-          <h3 class="text-2xl font-bold mb-2 text-[#333333]">Call Us</h3>
+          <h3 class="text-2xl font-bold mb-2 text-[#333333]">Call or Text</h3>
           <p class="text-gray-600 mb-4">Available Mon-Fri, 9am-5pm</p>
           <a
             href="tel:2568261100"
             class="text-[#FFA985] font-bold text-xl hover:underline"
             >256-826-1100</a
           >
+          <p class="mt-3">
+            <a
+              href={MARKET_PHONES.AL.sms}
+              class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#333333] hover:text-[#FFA985] transition"
+            >
+              <Icon name="comments" class="w-4 h-4" />
+              Text us instead
+            </a>
+          </p>
+          <p class="text-xs text-gray-500 mt-1">{PERFORMANCE.textReplyDisplay}</p>
         </div>
 
         <!-- Email -->

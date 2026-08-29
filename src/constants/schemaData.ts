@@ -15,9 +15,24 @@ export interface CityConfig {
   searchVolume: string;
 }
 
+/**
+ * `sms` uses the `?&body=` separator, not `?body=`. iOS Messages drops the
+ * prefilled body with a bare `?`; the `?&` form is the one that works on both
+ * iOS and Android. Keep it — it looks like a typo and is not.
+ */
 export const MARKET_PHONES = {
-  AL: { display: "256-826-1100", href: "tel:2568261100", schema: "+1-256-826-1100" },
-  TN: { display: "615-510-1427", href: "tel:6155101427", schema: "+1-615-510-1427" },
+  AL: {
+    display: "256-826-1100",
+    href: "tel:2568261100",
+    sms: "sms:2568261100?&body=Hi%2C%20I%27d%20like%20a%20cleaning%20quote.",
+    schema: "+1-256-826-1100",
+  },
+  TN: {
+    display: "615-510-1427",
+    href: "tel:6155101427",
+    sms: "sms:6155101427?&body=Hi%2C%20I%27d%20like%20a%20cleaning%20quote.",
+    schema: "+1-615-510-1427",
+  },
 } as const;
 
 type MarketPhone = (typeof MARKET_PHONES)[keyof typeof MARKET_PHONES];

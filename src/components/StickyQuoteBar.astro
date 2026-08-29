@@ -16,6 +16,11 @@ const {
   quoteHref = "tel:2568261100",
   quoteLabel = "Get your price",
 } = Astro.props;
+
+// Derived from `phone` so a page that overrides the number (TN pages dial the
+// TN line) gets a matching text link without passing a second prop.
+// `?&body=` is deliberate — iOS Messages drops the body with a bare `?`.
+const smsHref = `sms:${phone}?&body=${encodeURIComponent("Hi, I'd like a cleaning quote.")}`;
 ---
 
 <div
@@ -33,6 +38,14 @@ const {
     >
       <Icon name="phone" class="w-5 h-5" />
       <span>{phoneDisplay}</span>
+    </a>
+    <a
+      href={smsHref}
+      class="flex items-center justify-center px-4 py-3 rounded-full border-2 border-[#333333] text-[#333333] font-semibold"
+      aria-label="Text The Valley Clean Team"
+    >
+      <Icon name="comments" class="w-5 h-5" />
+      <span class="sr-only">Text us</span>
     </a>
     <a
       href={quoteHref}
