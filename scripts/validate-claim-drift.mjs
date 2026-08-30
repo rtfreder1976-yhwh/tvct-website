@@ -381,6 +381,56 @@ function scanForRetiredCommercialUrl(dir) {
 
 for (const root of retiredCommercialRoots) scanForRetiredCommercialUrl(root);
 
+// CLINICAL in claims.ts records that we hold no bloodborne-pathogen training, no
+// named EPA-registered disinfectant and no written medical protocol, and
+// canClaimClinicalCompliance() returns false because of it. Nothing enforced that
+// against prose, so a dialysis page and a cold-outreach email both shipped
+// claiming a "medical-grade protocol" and freedom from "compliance lapses", plus
+// "high-decibel sanitization" -- decibels being loudness, not cleanliness.
+//
+// These are literal retired phrases, not a semantic scan: serviceIntent.ts uses
+// "medical-grade protocols" to describe the specialist vendor we tell people to
+// hire instead, the medical pages state what we are NOT certified for, and a
+// green-cleaning blog post gives general household advice. All of those are
+// correct and must keep working.
+const retiredClinicalPhrases = [
+  { text: 'high-decibel', why: 'decibels measure loudness, not sanitation' },
+  {
+    text: 'medical-grade protocol',
+    why: 'CLINICAL.writtenMedicalProtocol is false',
+    // serviceIntent.ts uses the phrase to describe the specialist clinical vendor
+    // we tell buyers to hire when they genuinely need one. Saying what we are not
+    // is the opposite of claiming it, and that comparison copy has to keep working.
+    allowIn: ['src/data/serviceIntent.ts'],
+  },
+  { text: 'medical-grade products', why: 'CLINICAL.epaRegisteredDisinfectant is null' },
+  { text: 'compliance lapses', why: 'we are not certified against any clinical compliance regime' },
+];
+
+function scanForRetiredClinicalClaims(dir) {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      scanForRetiredClinicalClaims(full);
+      continue;
+    }
+    if (!retiredCommercialExtensions.has(path.extname(entry.name))) continue;
+    const source = fs.readFileSync(full, 'utf8').toLowerCase();
+    for (const phrase of retiredClinicalPhrases) {
+      const exempt = (phrase.allowIn ?? []).includes(full.split(path.sep).join('/'));
+      if (!exempt && source.includes(phrase.text)) {
+        failures.push(
+          `${full}: found ${JSON.stringify(phrase.text)} — ${phrase.why}; medical and ` +
+            `dental copy describes non-clinical facility cleaning (CLAUDE.md claim guardrails)`,
+        );
+      }
+    }
+  }
+}
+
+for (const root of ['src', 'templates']) scanForRetiredClinicalClaims(root);
+
 // brand/ is the authoritative memory the marketing skills read as input --
 // voice-profile, positioning, audience, stack and creative-kit are all declared
 // "Reads:" sources. A retired commercial route left in there regenerates itself
