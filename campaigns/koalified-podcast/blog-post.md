@@ -31,7 +31,7 @@ It was, by any measure, the wrong time to start a business.
 
 > "There is no perfect time to start. We were literally forced to start."
 
-That is the part they keep coming back to. The couch Todd was stuck on turned out to be where the idea took shape. Immobile and restless, he started watching videos about buying and building small businesses â€” Cody Sanchez's, in particular â€” and the two of them brainstormed the company name in a doctor's office waiting room. Looking back, Christen sees the whole stretch differently now.
+That is the part they keep coming back to. The couch Todd was stuck on turned out to be where the idea took shape. Immobile and restless, he started watching videos about buying and building small businesses — Cody Sanchez's, in particular — and the two of them brainstormed the company name in a doctor's office waiting room. Looking back, Christen sees the whole stretch differently now.
 
 > "God put you on that couch, because we just would not have done it."
 
