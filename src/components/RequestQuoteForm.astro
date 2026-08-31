@@ -199,6 +199,31 @@ const CITY_OPTIONS = [
 
       form.classList.add("hidden");
       successEl?.classList.remove("hidden");
+
+      // Only fire after the POST succeeds. Firing on click would count
+      // submissions that never reached n8n, which is how a "conversion" ends
+      // up with no lead behind it.
+      //
+      // `generate_lead` is a GA4 recommended event name, so it is eligible to
+      // be marked a key event and reports without custom-dimension setup.
+      const serviceType = String(payload.serviceType || "");
+      if (typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", "generate_lead", {
+          form_type: "quote",
+          service_type: serviceType,
+          page_path: window.location.pathname,
+        });
+      }
+      if ((window as any).posthog?.capture) {
+        (window as any).posthog.capture("quote_submitted", {
+          form_type: "quote",
+          service_type: serviceType,
+          page_path: window.location.pathname,
+        });
+      }
+      if (typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "Lead", { content_category: serviceType });
+      }
     } catch (err) {
       errorEl.textContent =
         err instanceof Error ? err.message : "Something went wrong. Please try again or call us.";

@@ -14,7 +14,7 @@ _Initialized 2026-08-22 by /start-here (fresh start, second pass). Updated 2026-
 | ------ | ---- | ------ |
 | **BookingKoala** | Booking system of record, internal only. Residential CTAs are phone-first (tel: links); commercial CTAs link `/request-a-quote?service=commercial` — no customer-facing link points at a BookingKoala booking form (decision Todd, 2026-08-29). Native GA4/Pixel events. | ✓ authoritative |
 | **Stripe** | Reliable financial source of truth (not QuickBooks). | ✓ connected (MCP) |
-| **GA4** | Site analytics; `phone_click` is the conversion event. Filter to AL/TN + production hostname only. | Not currently connected |
+| **GA4** | Site analytics, `G-LXHE2DSZ7T`, live in `BaseLayout.astro` (deferred to first interaction, production-hostname-gated). ⚠️ `phone_click` is the conversion event **in PostHog only** — GA4 receives phone taps as a generic `click` with UA-style category/label. The `/request-a-quote` flow fires no analytics events at all. Filter to AL/TN + production hostname. | Tag ✓ live · read access ⏸ awaiting Todd (`npm run ga4`) |
 | **Replicate** | Image/video generation for /creative. | ✓ connected (MCP) |
 | **Google Business Profile** | Local pack presence (Tuscumbia pin). 4.9 / 148 reviews. | ✓ live |
 | **Github** | Patch and version control/checks, repos live here | ✓ live |
