@@ -45,20 +45,34 @@ function parseArgs(argv) {
     if (flag === '--days') { args.days = Number(value); i++; }
     else if (flag === '--start') { args.start = value; i++; }
     else if (flag === '--end') { args.end = value; i++; }
+    else if (flag === '--conversions') { args.conversions = true; }
   }
   return args;
 }
 
 const fmt = (d) => d.toISOString().split('T')[0];
 const args = parseArgs(process.argv);
-let startDate = args.start;
-let endDate = args.end;
-if (!startDate || !endDate) {
-  const today = new Date();
-  const start = new Date(today);
-  start.setDate(today.getDate() - args.days);
-  startDate = fmt(start);
-  endDate = fmt(today);
+// Each end of the range falls back independently. Filling both only when both
+// are missing meant `--start` alone was silently overwritten by the default
+// window — the range you asked for was not the range you got.
+const today = new Date();
+const defaultStart = new Date(today);
+defaultStart.setDate(today.getDate() - args.days);
+const startDate = args.start || fmt(defaultStart);
+const endDate = args.end || fmt(today);
+
+// Preview deployments reported into this property from 2026-08-03 to
+// 2026-08-22 — 1,251 sessions carrying datacenter geography, which put
+// Virginia and California above Alabama and made in-market share look like
+// 17% instead of the real 50%. The PR #167 hostname guard stopped it. Any
+// window reaching back past the cutoff mixes that in, so warn rather than
+// silently report numbers that are ~6x inflated.
+const CLEAN_DATA_START = '2026-08-23';
+if (startDate < CLEAN_DATA_START) {
+  console.log(
+    `⚠  ${startDate} predates the ${CLEAN_DATA_START} clean-data cutoff — ` +
+      `results include preview-deployment traffic (inflated, false geography).`,
+  );
 }
 
 const auth = new google.auth.GoogleAuth({
@@ -207,7 +221,142 @@ async function main() {
   })));
 }
 
-main().catch((error) => {
+/**
+ * The conversion questions, asked directly. These are the reports the business
+ * actually needs, as opposed to the traffic reports above:
+ *
+ *   1. Which pages produce calls and quote requests?
+ *   2. Which services do people ask for?
+ *   3. Do AL/TN visitors convert differently from out-of-market traffic?
+ *   4. Which channel produces leads, not just sessions?
+ *
+ * Each depends on the custom dimensions registered 2026-08-31 (form_type,
+ * service_type, page_path, phone_number). Before that, GA4 collected these
+ * parameters but could not report on them.
+ *
+ * Run with --conversions. Empty sections mean the events have not fired yet,
+ * not that the report is broken.
+ */
+async function conversionReport() {
+  console.log('\n════ CONVERSIONS ════');
+
+  const CONV = ['generate_lead', 'phone_click', 'email_click', 'sheet_download'];
+  const onlyConversions = {
+    filter: { fieldName: 'eventName', inListFilter: { values: CONV } },
+  };
+
+  // 1. Which pages produce conversions.
+  const byPage = await runReport({
+    dimensions: [{ name: 'customEvent:page_path' }, { name: 'eventName' }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: onlyConversions,
+    orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+    limit: 25,
+  }).catch(() => ({ rows: [] }));
+  table('Conversions by page', (byPage.rows ?? []).map((r) => ({
+    page: cell(r, 0) || '(not set)', event: cell(r, 1), count: metric(r, 0),
+  })));
+
+  // 2. Which services get requested. Answers what to sell and what to write.
+  const byService = await runReport({
+    dimensions: [{ name: 'customEvent:service_type' }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: {
+      filter: { fieldName: 'eventName', stringFilter: { value: 'generate_lead' } },
+    },
+    orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+    limit: 15,
+  }).catch(() => ({ rows: [] }));
+  table('Quote requests by service', (byService.rows ?? []).map((r) => ({
+    service: cell(r, 0) || '(not set)', requests: metric(r, 0),
+  })));
+
+  // 3. Real leads vs content downloads. The hiring sheet deliberately uses a
+  //    different event, but form_type keeps the split visible in one view.
+  const byForm = await runReport({
+    dimensions: [{ name: 'customEvent:form_type' }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: onlyConversions,
+    orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+    limit: 10,
+  }).catch(() => ({ rows: [] }));
+  table('Submissions by form type', (byForm.rows ?? []).map((r) => ({
+    form: cell(r, 0) || '(not set)', count: metric(r, 0),
+  })));
+
+  // 4. Which phone number gets tapped — AL vs TN demand, straight from the site.
+  const byPhone = await runReport({
+    dimensions: [{ name: 'customEvent:phone_number' }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: {
+      filter: { fieldName: 'eventName', stringFilter: { value: 'phone_click' } },
+    },
+    orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+    limit: 10,
+  }).catch(() => ({ rows: [] }));
+  table('Phone taps by number', (byPhone.rows ?? []).map((r) => ({
+    number: cell(r, 0) || '(not set)', taps: metric(r, 0),
+  })));
+
+  // 5. Conversion rate by region. ~half of sessions are out-of-market and
+  //    cannot buy, so a blended rate understates real performance.
+  const byRegion = await runReport({
+    dimensions: [{ name: 'region' }],
+    metrics: [{ name: 'sessions' }],
+    orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+    limit: 15,
+  });
+  const convByRegion = await runReport({
+    dimensions: [{ name: 'region' }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: onlyConversions,
+    limit: 30,
+  }).catch(() => ({ rows: [] }));
+  const convMap = new Map((convByRegion.rows ?? []).map((r) => [cell(r, 0), metric(r, 0)]));
+  table('Conversion rate by region', (byRegion.rows ?? []).slice(0, 10).map((r) => {
+    const region = cell(r, 0) || '(not set)';
+    const s = metric(r, 0);
+    const c = convMap.get(region) ?? 0;
+    return {
+      region, sessions: s, conversions: c,
+      rate: s ? `${((c / s) * 100).toFixed(2)}%` : '-',
+      inMarket: region === 'Alabama' || region === 'Tennessee' ? 'YES' : '',
+    };
+  }));
+
+  // 6. Which channel produces leads, not just traffic. Direct is ~74% of
+  //    sessions; this shows whether it is ~74% of leads too.
+  const chSessions = await runReport({
+    dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+    metrics: [{ name: 'sessions' }],
+    orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+    limit: 12,
+  });
+  const chConv = await runReport({
+    dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+    metrics: [{ name: 'eventCount' }],
+    dimensionFilter: onlyConversions,
+    limit: 20,
+  }).catch(() => ({ rows: [] }));
+  const chMap = new Map((chConv.rows ?? []).map((r) => [cell(r, 0), metric(r, 0)]));
+  table('Conversions by channel', (chSessions.rows ?? []).map((r) => {
+    const ch = cell(r, 0);
+    const s = metric(r, 0);
+    const c = chMap.get(ch) ?? 0;
+    return { channel: ch, sessions: s, conversions: c, rate: s ? `${((c / s) * 100).toFixed(2)}%` : '-' };
+  }));
+
+  const total = [...chMap.values()].reduce((a, b) => a + b, 0);
+  if (!total) {
+    console.log('\n   No conversion events in this window yet. The instrumentation');
+    console.log('   shipped 2026-08-31; these fill in as real visitors call or');
+    console.log('   submit the quote form.');
+  }
+}
+
+const run = args.conversions ? conversionReport : main;
+
+run().catch((error) => {
   console.error('\nGA4 request failed.');
   const status = error?.response?.status ?? error?.code;
   if (status === 403) {
