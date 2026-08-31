@@ -190,7 +190,11 @@ export const POST: APIRoute = async ({ request }) => {
       "[quote-submit] LEAD NOT DELIVERED — N8N_QUOTE_WEBHOOK_URL is not set",
       payload,
     );
-    return new Response(JSON.stringify({ ok: true }), {
+    // `delivered: true` even though nothing reached n8n. A real person really
+    // did submit, so it is a real conversion and belongs in analytics; the
+    // lead is recoverable from the log line above. Reporting it as a
+    // non-conversion would hide a human's intent behind our own outage.
+    return new Response(JSON.stringify({ ok: true, delivered: true }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
@@ -252,7 +256,11 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  return new Response(JSON.stringify({ ok: true }), {
+  // `delivered: true` is what separates a real submission from a honeypot
+  // rejection, which deliberately returns an identical 200 + {ok:true} so a bot
+  // learns nothing. The client fires its conversion events on this field, not
+  // on res.ok — otherwise every trapped bot would count as a lead.
+  return new Response(JSON.stringify({ ok: true, delivered: true }), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });

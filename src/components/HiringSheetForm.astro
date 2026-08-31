@@ -85,9 +85,13 @@ const { sheetUrl } = Astro.props;
         body: JSON.stringify(payload),
       });
 
+      const result = await res.json().catch(() => ({}) as Record<string, unknown>);
+
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Something went wrong. Please try again or call us.");
+        throw new Error(
+          (result as { error?: string }).error ||
+            "Something went wrong. Please try again or call us.",
+        );
       }
 
       // Track before navigating. This form redirects on success, and an
@@ -98,18 +102,24 @@ const { sheetUrl } = Astro.props;
       // Deliberately NOT `generate_lead`: a sheet download is not a quote
       // request, and n8n already keeps these out of the Quotes pipeline. Using
       // the same event name would inflate lead counts with content downloads.
-      if (typeof (window as any).gtag === "function") {
-        (window as any).gtag("event", "sheet_download", {
-          form_type: "hiring-sheet",
-          page_path: window.location.pathname,
-          transport_type: "beacon",
-        });
-      }
-      if ((window as any).posthog?.capture) {
-        (window as any).posthog.capture("hiring_sheet_downloaded", {
-          form_type: "hiring-sheet",
-          page_path: window.location.pathname,
-        });
+      // Gate on `delivered` for the same reason as the quote form: a honeypot
+      // rejection is a 200 + {ok:true} by design, so res.ok alone would count
+      // trapped bots as downloads. The redirect below still happens either
+      // way — a bot gets the page, it just does not get counted.
+      if ((result as { delivered?: boolean }).delivered === true) {
+        if (typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "sheet_download", {
+            form_type: "hiring-sheet",
+            page_path: window.location.pathname,
+            transport_type: "beacon",
+          });
+        }
+        if ((window as any).posthog?.capture) {
+          (window as any).posthog.capture("hiring_sheet_downloaded", {
+            form_type: "hiring-sheet",
+            page_path: window.location.pathname,
+          });
+        }
       }
 
       // Send them straight to the sheet. The email is a copy to keep, not the
