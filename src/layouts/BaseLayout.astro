@@ -982,10 +982,20 @@ const metaDescription =
             window.fbq("track", "Contact");
           }
           if (typeof gtag === "function") {
+            // Universal Analytics shape, kept so historical reporting stays
+            // comparable. In GA4 this name collides with enhanced-measurement
+            // outbound clicks, and event_category/event_label are not
+            // reportable dimensions unless registered by hand.
             gtag("event", "click", {
               event_category: "contact",
               event_label: "phone",
               value: href,
+            });
+            // The one GA4 can actually use: distinct name, so it can be marked
+            // as a key event without also converting every outbound click.
+            gtag("event", "phone_click", {
+              phone_number: href.replace("tel:", ""),
+              page_path: window.location.pathname,
             });
           }
           // GoHighLevel records that a call happened; it cannot know which page
@@ -1020,6 +1030,9 @@ const metaDescription =
               event_category: "contact",
               event_label: "email",
               value: href,
+            });
+            gtag("event", "email_click", {
+              page_path: window.location.pathname,
             });
           }
           if (window.posthog && typeof window.posthog.capture === "function") {

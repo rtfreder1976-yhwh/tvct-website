@@ -90,6 +90,28 @@ const { sheetUrl } = Astro.props;
         throw new Error(data.error || "Something went wrong. Please try again or call us.");
       }
 
+      // Track before navigating. This form redirects on success, and an
+      // in-flight analytics request is cancelled when the page unloads —
+      // `transport_type: "beacon"` hands the event to the browser to deliver
+      // independently of this page, which is what survives the redirect.
+      //
+      // Deliberately NOT `generate_lead`: a sheet download is not a quote
+      // request, and n8n already keeps these out of the Quotes pipeline. Using
+      // the same event name would inflate lead counts with content downloads.
+      if (typeof (window as any).gtag === "function") {
+        (window as any).gtag("event", "sheet_download", {
+          form_type: "hiring-sheet",
+          page_path: window.location.pathname,
+          transport_type: "beacon",
+        });
+      }
+      if ((window as any).posthog?.capture) {
+        (window as any).posthog.capture("hiring_sheet_downloaded", {
+          form_type: "hiring-sheet",
+          page_path: window.location.pathname,
+        });
+      }
+
       // Send them straight to the sheet. The email is a copy to keep, not the
       // delivery mechanism — making someone wait on an inbox to read a page
       // they already opted into is a good way to lose them.
