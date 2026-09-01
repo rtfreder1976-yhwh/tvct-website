@@ -38,6 +38,19 @@ export const allBlogPosts: BlogPost[] = [
     icon: "dollar-sign",
     image: "/images/services/Cleaningpic12-303.webp",
   },
+  {
+    slug: "questions-to-ask-cleaning-service",
+    title: "Questions to Ask a Cleaning Service Before You Hire",
+    excerpt:
+      "Ask for a flat quote, a written list of what is not included, proof of insurance, who actually shows up, and the re-clean rule. Here are the questions that matter.",
+    category: "Hiring Guide",
+    filterCategory: "industry",
+    categoryColor: "red",
+    date: "September 1, 2026",
+    readTime: "6 min read",
+    icon: "lightbulb",
+    image: "https://thevalleycleanteam.com/og-image.png",
+  },
   // 2026 Script Scaffolded Posts
   {
     slug: "top-5-hidden-areas-to-focus-on-during-spring-cleaning-in-athens-al",
