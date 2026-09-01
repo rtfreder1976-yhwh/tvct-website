@@ -1,0 +1,323 @@
+---
+import BlogPostLayout from "../../layouts/BlogPostLayout.astro";
+import BlogByline from "../../components/BlogByline.astro";
+import { PRICING, CHECKLIST } from "../../data/claims";
+
+const publishDate = '2026-09-01';
+const modifiedDate = '2026-09-01';
+const readTime = '7 min read';
+
+// FAQ: single source of truth — BlogPostLayout emits the FAQPage schema from
+// this array. The visible FAQ section below must stay in sync with it.
+const faqs = [
+  {
+    question: "How much does a house cleaner cost in Huntsville?",
+    answer: "Recurring cleaning with us starts at $200 per visit before frequency discounts. Deep cleans start at $276. Move-out starts at $351. Most 3-bedroom deep cleans fall in the $275–$375 range."
+  },
+  {
+    question: "Is it cheaper weekly or biweekly?",
+    answer: "The visit price is lower weekly (30% off) than biweekly (25% off). Monthly spend is higher on weekly because you have more visits. If the house stays in shape, biweekly is the usual sweet spot."
+  },
+  {
+    question: "Do I need to be home?",
+    answer: "No. A lot of Huntsville clients leave a code or lockbox. Teams are background-checked and insured for $2 million."
+  },
+  {
+    question: "How long does a regular clean take?",
+    answer: "A typical 2-bedroom is often 2–3 hours. A 3-bedroom is often 3–4. Deep cleans run longer — a 3-bedroom deep clean is commonly 4–6 hours with a two-person team."
+  },
+  {
+    question: "Are products safe for kids and pets?",
+    answer: "Yes. Pet-safe products are standard. Fragrance-free and green cleaning are available at no extra product charge. Tell us about asthma or chemical sensitivity when you book."
+  },
+  {
+    question: "Do you serve Madison too?",
+    answer: "Yes. Madison has its own page at thevalleycleanteam.com/locations/madison. Same pricing rules."
+  }
+];
+---
+
+<BlogPostLayout
+  title={`House Cleaning Cost in Huntsville, AL: From ${PRICING.regular.display} | Valley Clean Team`}
+  schemaTitle="How Much Does House Cleaning Cost in Huntsville?"
+  description="What house cleaning costs in Huntsville in 2026 — regular, deep, and move-out — plus what changes the price. Flat quote on the call. No hourly surprise after we arrive."
+  publishDate={publishDate}
+  modifiedDate={modifiedDate}
+  faqs={faqs}
+>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 px-6 bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460]">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center">
+        <span class="inline-block px-4 py-2 bg-[#FFA985]/20 text-[#FFA985] rounded-full text-sm font-semibold mb-6">
+          Pricing Guide
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+          How Much Does <span class="text-[#FFA985]">House Cleaning</span> Cost in Huntsville?
+        </h1>
+        <div class="mb-8">
+          <BlogByline variant="dark" date={publishDate} readTime={readTime} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <article class="py-16 px-6">
+    <div class="container mx-auto max-w-3xl">
+      <div class="prose prose-lg max-w-none">
+
+        <p class="text-xl text-gray-700 leading-relaxed mb-8">
+          A recurring house cleaning in Huntsville with The Valley Clean Team starts at <strong>$200</strong>. A deep clean starts at <strong>$276</strong>. Move-in or move-out starts at <strong>$351</strong>. You get a flat price on the call from square footage and condition. That is the number we bill.
+        </p>
+
+        <p>
+          Weekly service is 30% off the base visit. Biweekly is 25% off. Monthly is 15% off.
+        </p>
+
+        <p>
+          If you want the exact number for your house, call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> or <a href="/request-a-quote" class="text-[#FFA985] font-semibold hover:underline">request a quote</a>.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">What those starting prices actually mean</h2>
+
+        <p>
+          “Starts at” is not a bait price. A small, well-kept 2-bedroom on a recurring schedule can land near the bottom. A first visit in a 4-bedroom in Hampton Cove with two dogs and a month of buildup will not.
+        </p>
+
+        <p>
+          We quote flat. We do not start a clock in your kitchen and surprise you at the door.
+        </p>
+
+        <p>
+          National guides will tell you a standard U.S. visit often falls somewhere between $120 and $280. Huntsville sits in that band. What matters locally is bathrooms, pets, last-clean date, and whether this is maintenance or a reset.
+        </p>
+
+        <p>
+          See current add-ons and fees on <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline">pricing</a>.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">Typical ranges by job type</h2>
+
+        <div class="overflow-x-auto mb-8">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b-2 border-[#FFA985]">
+                <th class="py-3 pr-4">Service</th>
+                <th class="py-3 px-4">Starting price</th>
+                <th class="py-3 pl-4">What it is</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">Regular / recurring</td><td class="py-3 px-4">From $200</td><td class="py-3 pl-4">The {CHECKLIST.standard}-item maintenance clean. Dust, floors, kitchen surfaces, bathrooms, trash, beds.</td></tr>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">Deep clean</td><td class="py-3 px-4">From $276</td><td class="py-3 pl-4">The {CHECKLIST.deep}-item reset. Regular clean plus baseboards, fixtures, blinds, tighter appliance work.</td></tr>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">Move-in / move-out</td><td class="py-3 px-4">From $351</td><td class="py-3 pl-4">Deep clean plus inside cabinets, closets, oven, fridge, switch plates.</td></tr>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">Vacation rental turnover</td><td class="py-3 px-4">From $125+</td><td class="py-3 pl-4">Guest-ready clean, linens, restock, photos when you need them.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          Recurring discounts apply to the regular visit: <strong>30% weekly, 25% biweekly, 15% monthly</strong>.
+        </p>
+
+        <h3 class="text-2xl font-bold text-[#333333] mt-8 mb-4">Deep-clean size bands we already publish</h3>
+
+        <p>
+          These are typical ranges, not a promise for every street in Jones Valley.
+        </p>
+
+        <div class="overflow-x-auto mb-8">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="border-b-2 border-[#FFA985]">
+                <th class="py-3 pr-4">Home size</th>
+                <th class="py-3 pl-4">Typical deep-clean range</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">1 bedroom / studio (under 800 sq ft)</td><td class="py-3 pl-4">$150–$225</td></tr>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">2 bedroom (800–1,200 sq ft)</td><td class="py-3 pl-4">$200–$275</td></tr>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">3 bedroom (1,200–1,800 sq ft)</td><td class="py-3 pl-4">$275–$375</td></tr>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">4 bedroom (1,800–2,500 sq ft)</td><td class="py-3 pl-4">$350–$450</td></tr>
+              <tr class="border-b border-gray-200"><td class="py-3 pr-4 font-medium">5+ bedroom (2,500+ sq ft)</td><td class="py-3 pl-4">$450–$600+</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          A 3-bedroom deep clean in Huntsville usually lands in the $275–$375 band. That matches the “from $276” starting price on <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">deep cleaning</a>.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">Regular vs deep vs move-out</h2>
+
+        <p>
+          If the house is already on a schedule, you want <a href="/services/regular-cleaning" class="text-[#FFA985] font-semibold hover:underline">regular cleaning</a>. That is maintenance. It keeps the {CHECKLIST.standard}-item list true from visit one to visit forty.
+        </p>
+
+        <p>
+          If nobody has gone under the furniture or along the baseboards in months, you want a <a href="/services/deep-cleaning" class="text-[#FFA985] font-semibold hover:underline">deep clean</a> first, then recurring.
+        </p>
+
+        <p>
+          If you are handing keys to a landlord or a buyer, you want <a href="/services/move-in-out-cleaning" class="text-[#FFA985] font-semibold hover:underline">move-in / move-out</a>. Empty cabinets get wiped. The fridge and oven are not optional.
+        </p>
+
+        <p>
+          More detail on move-out jobs: <a href="/blog/move-out-cleaning-huntsville-guide" class="text-[#FFA985] font-semibold hover:underline">Move-out cleaning in Huntsville</a>.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">What changes the Huntsville price</h2>
+
+        <p>
+          <strong>Bathrooms.</strong> Three or more bathrooms add time. On deep cleans that often means $50–$100 more than a similar-size house with one bath.
+        </p>
+
+        <p>
+          <strong>Kitchen condition.</strong> Grease on the backsplash and a stove that has not been broken down will move a deep clean up the range.
+        </p>
+
+        <p>
+          <strong>Pets.</strong> Pet-safe products are included. The fee is $25 per pet. Heavy shedding is +$100. That is on <a href="/pricing" class="text-[#FFA985] font-semibold hover:underline">pricing</a> so nobody finds it on the invoice later.
+        </p>
+
+        <p>
+          <strong>How long since the last real clean.</strong> A house cleaned two weeks ago and a house last reset in March are not the same job.
+        </p>
+
+        <p>
+          <strong>Clutter.</strong> We clean around belongings. We do not pack your closets unless you booked organizing as an add-on.
+        </p>
+
+        <p>
+          <strong>Add-ons.</strong> Inside fridge, inside oven, inside dishwasher, wet-wipe blinds, laundry. Priced on the quote. <a href="/services/green-cleaning" class="text-[#FFA985] font-semibold hover:underline">Green / fragrance-free products</a> do not cost extra.
+        </p>
+
+        <p>
+          <strong>Access.</strong> If we drive out and cannot get in, the lockout fee is $100. Same as a late cancel inside 24 hours.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">Huntsville-specific notes</h2>
+
+        <p>
+          Pollen and humidity do more work here than a dry-climate checklist admits. Ceiling fans, vents, porch thresholds, and baseboards load up. Red clay tracks into Jones Valley and Hampton Cove the same way it does in the Shoals.
+        </p>
+
+        <p>
+          Historic houses in Twickenham need a lighter chemical hand on old hardwood and antique fixtures. Large houses in The Ledges take more time because there is more floor, more bath, more glass — not because the zip code has a luxury surcharge.
+        </p>
+
+        <p>
+          We already clean across Hampton Cove, Jones Valley, Monte Sano, Five Points, Blossomwood, Providence, Big Cove, the Medical District, and near UAH and Cummings Research Park. Details: <a href="/locations/huntsville" class="text-[#FFA985] font-semibold hover:underline">house cleaning in Huntsville</a>.
+        </p>
+
+        <p>
+          Military and PCS calendars around Redstone: we will work around them. Veterans and active military get 15% off.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">A simple way to think about recurring cost</h2>
+
+        <p>
+          Say the quoted regular visit is $200.
+        </p>
+
+        <ul class="space-y-3 mb-8">
+          <li>Weekly after 30% off: $140 per visit</li>
+          <li>Biweekly after 25% off: $150 per visit</li>
+          <li>Monthly after 15% off: $170 per visit</li>
+        </ul>
+
+        <p>
+          Those are examples on the published starting price, not your house. Your quote may be higher. The discount math stays the same.
+        </p>
+
+        <p>
+          If you are trying to decide whether any of this is worth the line item, read <a href="/blog/is-hiring-house-cleaner-worth-it" class="text-[#FFA985] font-semibold hover:underline">Is a house cleaner worth it?</a>
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">What’s included in a regular Huntsville clean</h2>
+
+        <p>
+          The {CHECKLIST.standard}-item list, not a vibe:
+        </p>
+
+        <ul class="space-y-3 mb-8">
+          <li>Kitchen surfaces, sink, appliance exteriors, microwave interior</li>
+          <li>Bathrooms: toilet, shower/tub, sink, mirror, floors</li>
+          <li>Dust reachable surfaces, blinds, fans we can reach safely</li>
+          <li>Vacuum and mop floors</li>
+          <li>Trash out</li>
+          <li>Beds made if the room is ready</li>
+        </ul>
+
+        <p>
+          It is not inside the oven, inside the fridge, or inside every cabinet. Those belong on deep or move-out, or as add-ons. Full list: <a href="/services/house-cleaning" class="text-[#FFA985] font-semibold hover:underline">house cleaning</a>.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">How to get a number that does not move</h2>
+
+        <ol class="space-y-3 mb-8 list-decimal pl-6">
+          <li>Tell us square footage, beds, baths, pets, and last time the house had a real clean.</li>
+          <li>Say weekly, biweekly, monthly, or one-time.</li>
+          <li>We quote a flat price.</li>
+          <li>That is the price.</li>
+        </ol>
+
+        <p>
+          Call <a href="tel:2568261100" class="text-[#FFA985] font-semibold hover:underline">256-826-1100</a> or use <a href="/request-a-quote" class="text-[#FFA985] font-semibold hover:underline">request a quote</a>.
+        </p>
+
+        <h2 class="text-3xl font-bold text-[#333333] mt-12 mb-6">Frequently asked questions</h2>
+
+        <h3 class="text-xl font-bold text-[#333333] mt-6 mb-3">How much does a house cleaner cost in Huntsville?</h3>
+        <p>
+          Recurring cleaning with us starts at $200 per visit before frequency discounts. Deep cleans start at $276. Move-out starts at $351. Most 3-bedroom deep cleans fall in the $275–$375 range.
+        </p>
+
+        <h3 class="text-xl font-bold text-[#333333] mt-6 mb-3">Is it cheaper weekly or biweekly?</h3>
+        <p>
+          The visit price is lower weekly (30% off) than biweekly (25% off). Monthly spend is higher on weekly because you have more visits. If the house stays in shape, biweekly is the usual sweet spot.
+        </p>
+
+        <h3 class="text-xl font-bold text-[#333333] mt-6 mb-3">Do I need to be home?</h3>
+        <p>
+          No. A lot of Huntsville clients leave a code or lockbox. Teams are background-checked and insured for $2 million.
+        </p>
+
+        <h3 class="text-xl font-bold text-[#333333] mt-6 mb-3">How long does a regular clean take?</h3>
+        <p>
+          A typical 2-bedroom is often 2–3 hours. A 3-bedroom is often 3–4. Deep cleans run longer — a 3-bedroom deep clean is commonly 4–6 hours with a two-person team.
+        </p>
+
+        <h3 class="text-xl font-bold text-[#333333] mt-6 mb-3">Are products safe for kids and pets?</h3>
+        <p>
+          Yes. Pet-safe products are standard. Fragrance-free and <a href="/services/green-cleaning" class="text-[#FFA985] font-semibold hover:underline">green cleaning</a> are available at no extra product charge. Tell us about asthma or chemical sensitivity when you book.
+        </p>
+
+        <h3 class="text-xl font-bold text-[#333333] mt-6 mb-3">Do you serve Madison too?</h3>
+        <p>
+          Yes. Madison is its own page: <a href="/locations/madison" class="text-[#FFA985] font-semibold hover:underline">house cleaning in Madison</a>. Same pricing rules.
+        </p>
+
+      </div>
+
+      <!-- CTA Section -->
+      <div class="mt-16 p-8 bg-gradient-to-br from-[#FFA985]/10 to-[#FFC67D]/10 rounded-2xl border border-[#FFA985]/20 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#333333] mb-4">Get your Huntsville price</h2>
+        <p class="text-gray-600 mb-6">Veteran-owned. $2 million insured. Same {CHECKLIST.standard}-item checklist every regular visit. Tell us within 24 hours if we missed something and we will re-clean at no charge.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:2568261100" class="btn-primary px-8 py-4 rounded-lg font-semibold inline-flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            Get your price — 256-826-1100
+          </a>
+          <a href="/request-a-quote" class="bg-white border-2 border-[#FFA985] text-[#333333] px-8 py-4 rounded-lg font-semibold hover:bg-[#FFA985]/10 transition inline-flex items-center justify-center">
+            Request a quote online
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+</BlogPostLayout>

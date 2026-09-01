@@ -13,6 +13,19 @@ export interface BlogPost {
 
 export const allBlogPosts: BlogPost[] = [
   {
+    slug: "huntsville-house-cleaning-cost",
+    title: "How Much Does House Cleaning Cost in Huntsville?",
+    excerpt:
+      "What house cleaning costs in Huntsville in 2026 — regular, deep, and move-out — plus what changes the price. Flat quote on the call. No hourly surprise after we arrive.",
+    category: "Pricing Guide",
+    filterCategory: "industry",
+    categoryColor: "gray",
+    date: "September 1, 2026",
+    readTime: "7 min read",
+    icon: "dollar-sign",
+    image: "/images/services/Cleaningpic12-303.webp",
+  },
+  {
     slug: "house-cleaning-cost-huntsville-al",
     title: "How Much Does House Cleaning Cost in Huntsville, AL? (2026)",
     excerpt:
