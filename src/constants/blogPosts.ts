@@ -13,6 +13,19 @@ export interface BlogPost {
 
 export const allBlogPosts: BlogPost[] = [
   {
+    slug: "weekly-vs-biweekly-house-cleaning",
+    title: "Weekly vs Biweekly House Cleaning",
+    excerpt:
+      "Weekly is 30% off a visit. Biweekly is 25% off. Here is what that costs per month on a $200 starting price — and which schedule actually keeps the house in shape.",
+    category: "Pricing Guide",
+    filterCategory: "industry",
+    categoryColor: "gray",
+    date: "September 1, 2026",
+    readTime: "5 min read",
+    icon: "dollar-sign",
+    image: "/images/services/Cleaningpic12-303.webp",
+  },
+  {
     slug: "house-cleaning-cost-huntsville-al",
     title: "How Much Does House Cleaning Cost in Huntsville, AL? (2026)",
     excerpt:
