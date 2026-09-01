@@ -26,6 +26,19 @@ export const allBlogPosts: BlogPost[] = [
     image: "/images/services/Cleaningpic12-303.webp",
   },
   {
+    slug: "pet-hair-cleaning",
+    title: "Pet Hair Cleaning",
+    excerpt:
+      "What we charge for pets, what the +$100 heavy-shed fee is for, and what a regular visit will and will not fix when the house has dogs or cats.",
+    category: "Pet Care",
+    filterCategory: "home-health",
+    categoryColor: "green",
+    date: "September 1, 2026",
+    readTime: "5 min read",
+    icon: "heart",
+    image: "https://thevalleycleanteam.com/og-image.png",
+  },
+  {
     slug: "why-19-dollar-cleaning-costs-more-shoals",
     title: "Why $19/hr Cleaning in the Shoals Costs You More",
     excerpt:
